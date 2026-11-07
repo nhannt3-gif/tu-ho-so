@@ -4,6 +4,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.495 — 07/11/2026 — Giao dịch xã: rà 03/GDX theo mẫu gốc
+- **Anh 07/11:** "em rà mẫu GDX làm mẫu 03". So với VB 4368 trang 34–35: ô Lái xe — Nơi đi / Nơi đến mỗi nơi + 2 dòng chấm; Phần II mặc định tờ 1 = 1 dòng, tờ 2 = 8 dòng + chỗ ký (như mẫu trắng; lựa chọn 1|8 · 3|8 · 1 tờ 4 dòng); dòng trống Phần II cao 15 mm, Phần I 8 mm.
+- **Sửa lỗi CSS** (js/26b): chiều cao dòng riêng từng bảng (03, 10, 11, 14/15/GDX) bị luật chung `table.g4-b tbody tr` đè → nay đúng chiều cao đặt; mọi mẫu vẫn trọn trang (t380).
+
 ## 3.494 — 07/11/2026 — Phân bổ KH: 07/KH · 08/KH · 09/KH theo QĐ 4686
 - **Anh 07/11:** QĐ 4686/QĐ-NHCS ngày 21/10/2026 (thay QĐ 86/2014) + mẫu trắng Biểu 05, 07, 08, 09/KH. Anh chốt: "Biểu 07 cũ vẫn giữ, không được bỏ, tạo thêm mẫu mới — để in lại cái cũ khi cần"; "mẫu 09 khi trình sẽ lấy số dư của chương trình, QĐ trước đó, là 1 quy trình ngược của phân bổ"; 01/02/03 làm sau; "em làm 1 lần tất cả".
 - **07/KH** (QĐ Ban Đại diện HĐQT xã …/QĐ-BĐD, căn cứ QĐ 56/QĐ-HĐQT · QĐ 4686 · QĐ tỉnh · Nghị quyết xã, Điều 1–3, TM. Ban Đại diện – Trưởng ban) và **08/KH** (QĐ Giám đốc PGD …/QĐ-NHCS khi được Nghị quyết xã giao): `js/mau/07kh.js`, dùng chung số liệu phân bổ + chặn khớp QĐ (QT-16) + hộp xem / In / PDF / Word của Biểu 07; chọn mẫu ở đầu hộp (nhớ lần chọn, mặc định Biểu 07 cũ). Bảng thôn → CT: Số tăng trưởng (tăng/giảm) · Số dư nợ năm; chip "đủ các thôn" (mặc định chỉ thôn có tăng / giảm như Biểu 07 cũ — `pbBieu07DL` thêm `apDu`). Cỡ chữ mặc định 13,5 (vừa 1 trang QĐ).

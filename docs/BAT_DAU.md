@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.494** — TK 2: 🎯 Phân bổ KH theo QĐ 4686 — mẫu 07/KH · 08/KH (cạnh Biểu 07 cũ, `js/mau/07kh.js`) + 📤 Tờ trình 09/KH (`js/48c-pb-to-trinh.js`); 01/02/03/KH để sau. Trước: 3.493 Giao dịch xã 8 mẫu GDX theo VB 4368 (`js/26b-gdx-4368.js`).
+- **`main` = 3.495** — TK 2: rà 03/GDX theo mẫu gốc VB 4368. Trước: 3.494 Phân bổ KH 07/KH · 08/KH · 09/KH (QĐ 4686), 3.493 8 mẫu GDX.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

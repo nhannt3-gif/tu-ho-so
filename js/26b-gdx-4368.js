@@ -9,7 +9,7 @@
    - Cắm vào js/26 qua GDX_THEM (gdxChup / gdxDung / gdxMucHTML / gdxTom / tên file / thanh xem). Bỏ dòng <script> là mất các mẫu này, mẫu cũ không đổi.
    - Chưa làm (để sau, anh 07/11): 01, 02, 04, 05, 13/GDX; 08/GDX lấy bản chuẩn bên Giao ban.
    ========================================================== */
-GDX_MD.g4Dong03 = '2|8'; GDX_MD.g4Sdt = ''; GDX_MD.g4NgayKho = 'cham';   /* mặc định khai báo riêng (gdxC tự điền khi thiếu) */
+GDX_MD.g4Dong03 = '1|8'; GDX_MD.g4Sdt = ''; GDX_MD.g4NgayKho = 'cham';   /* mặc định khai báo riêng (gdxC tự điền khi thiếu) */
 GDX_MAU.push(
   {k:'g03', ma:'03/GDX', bt:'🚐', ten:'Bảng kê theo dõi giao dịch xã', nhom:'Tổ giao dịch', cap:'diem'},
   {k:'g06', ma:'06/GDX', bt:'💼', ten:'Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm', nhom:'Tổ giao dịch', cap:'diem'},
@@ -82,14 +82,14 @@ var G4_CSS = '.sheet-a4.g4{padding:14mm 15mm 12mm 20mm;font-size:13pt;line-heigh
   '.g4-07{font-size:13pt !important;line-height:1.25 !important}.g4-07 .g4-p{margin:.9mm 0}.g4-07 .g4-h{margin:1.6mm 0 .6mm 10mm}.g4-mt8{margin-top:8mm !important}'+
   '.g4-cat{border-top:.9px solid #000;margin:5mm 10mm 2mm}.g4-fl{display:flex;align-items:baseline;white-space:nowrap}.g4-fl>b{white-space:nowrap}'+
   '.g4-f{flex:1 1 0;min-width:6mm;margin:0 .8mm;overflow:hidden;white-space:nowrap;font-size:10.5pt;font-weight:300;letter-spacing:1.5px;color:#333}.g4-f::after{content:"'+new Array(160).join('…')+'"}.g4-f.f2{flex-grow:2}'+
-  'table.g4-b{table-layout:fixed}table.g4-b tbody tr{height:7mm}.g4-03b tbody tr{height:12mm}.g4-11 tbody tr{height:8.5mm}.g4-kho tbody tr{height:9.5mm}.g4-10 tbody tr{height:5.4mm}.g4-10 td{padding:0 1.5mm;font-size:11pt}'+
+  'table.g4-b{table-layout:fixed}table.g4-b tbody tr{height:7mm}table.g4-b.g4-03b tbody tr{height:15mm}table.g4-b.g4-03a tbody tr{height:8mm}table.g4-b.g4-11 tbody tr{height:8.5mm}table.g4-b.g4-kho tbody tr{height:9.5mm}table.g4-b.g4-10 tbody tr{height:5.4mm}.g4-10 td{padding:0 1.5mm;font-size:11pt}'+
   'table.g4-b td .g4-fl{margin:.6mm 0}'+
   '@media print{.sheet-a4.g4{padding:14mm 15mm 12mm 20mm !important}.sheet-a4.g4n{padding:10mm 12mm 8mm 14mm !important;width:100% !important}}';
 var G4_CSS_NGANG = '@media print{@page{size:A4 landscape;margin:0}}';
 function g4Dung(than, ngang){ return {than:than, css:GDX_CSS+G4_CSS+(ngang ? G4_CSS_NGANG : '')}; }
 
 /* ---------- 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ) ---------- */
-function g4Dong03(c){ var a = String(c.g4Dong03 || '2|8').split('|'); return [Math.max(1, +a[0] || 2), Math.max(0, +a[1] || 0)]; }
+function g4Dong03(c){ var a = String(c.g4Dong03 || '1|8').split('|'); return [Math.max(1, +a[0] || 1), Math.max(0, +a[1] || 0)]; }
 function g4HTML03(X){
   var c = X.C, d = g4D(X), p = g4NgayP(c.m12NgayGD), n = g4Dong03(c), ngay = p ? p.day+'/'+p.month+'/'+p.year : g4Cham(14);
   var dau2 = '<thead><tr><th rowspan="3" style="width:9mm">Stt</th><th rowspan="3" style="width:42mm">Họ và tên</th><th colspan="2">Phân công</th><th colspan="5">Theo dõi giao - nhận công cụ dụng cụ, công cụ hỗ trợ</th></tr>'+
@@ -111,7 +111,7 @@ function g4HTML03(X){
     '<div class="g4-phan">PHẦN II. PHÂN CÔNG TỔ GIAO DỊCH VÀ GIAO - NHẬN CÔNG CỤ DỤNG CỤ, CÔNG CỤ HỖ TRỢ</div><table class="g4-b g4-03b">'+cg+dau2+dong2(n[0])+'</table>'+(n[1] ? '' : g4Ky03())+'</div>';
   return t1+(n[1] ? '<div class="sheet-a4 g4 g4n"><table class="g4-b g4-03b">'+cg+dau2+dong2(n[1])+'</table>'+g4Ky03()+'</div>' : '');
 }
-function g4NoiDiDen(){ return g4L('Nơi đi: '+g4F())+g4L(g4F())+g4L('Nơi đến: '+g4F())+g4L(g4F()); }
+function g4NoiDiDen(){ return g4L('Nơi đi: '+g4F())+g4L(g4F())+g4L(g4F())+g4L('Nơi đến: '+g4F())+g4L(g4F())+g4L(g4F()); }   /* như mẫu: mỗi nơi 1 dòng nhãn + 2 dòng chấm */
 function g4Ky03(){ return g4Ky([['TRƯỞNG/PHÓ TRƯỞNG PHÒNG KH-TD/<br>TỔ TRƯỞNG TỔ KH-TD'], ['GIÁM ĐỐC']], 20); }
 
 /* ---------- 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm (A4 dọc) ---------- */
@@ -208,7 +208,7 @@ function g4HTMLKho(X, nhap){
 /* ---------- khai báo riêng của mẫu (ngoài mục chung với 12/GDX) ---------- */
 function g4Muc(k){
   var C = gdxC();
-  if(k==='g4dong03') return gdxRadio('g4Dong03', [['2|8', 'Như mẫu: tờ 1 có 2 dòng, tờ 2 có 8 dòng'], ['6|0', '1 tờ: 6 dòng'], ['3|12', 'Tờ 1 có 3 dòng, tờ 2 có 12 dòng']]);
+  if(k==='g4dong03') return gdxRadio('g4Dong03', [['1|8', 'Như mẫu: tờ 1 có 1 dòng, tờ 2 có 8 dòng'], ['3|8', 'Tờ 1 có 3 dòng, tờ 2 có 8 dòng'], ['4|0', '1 tờ: 4 dòng']]);
   if(k==='g4sdt') return gdxIn1('g4Sdt', 'vd 0276 xxx xxx — trống = chấm ghi tay')+'<small class="gdx-ghi">In ở mục III.5: "… số điện thoại của Phòng giao dịch '+gdxE(String(C.tenPGDTrongVanBan || '').replace(/^Phòng giao dịch\s*/i, ''))+': …"</small>';
   if(k==='g4ngaykho') return gdxRadio('g4NgayKho', [['cham', 'Để chấm ghi tay'], ['hom', 'Hôm nay']])+(C.g4NgayKho==='hom' ? '<b class="gdx-hien">→ '+gdxDMY(gdxHom())+'</b>' : '');
   return '';

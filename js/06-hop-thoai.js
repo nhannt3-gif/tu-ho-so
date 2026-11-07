@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.494', ds:[
+var CO_GI_MOI = {ban:'3.495', ds:[
+  ["🏢 Giao dịch xã › 03/GDX rà lại theo mẫu gốc: ô Lái xe đủ 2 dòng chấm mỗi nơi, Phần II tờ 1 có 1 dòng · tờ 2 có 8 dòng như mẫu, dòng trống đủ cao để ký", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH: thêm mẫu 07/KH (QĐ Ban Đại diện HĐQT xã) · 08/KH (QĐ Giám đốc PGD) theo QĐ 4686 — chọn ở đầu hộp Biểu 07; Biểu 07 cũ giữ nguyên để in lại", "slDoiTab('pb')"],
   ["🎯 Phân bổ KH › 📤 Tờ trình 09/KH: xã đề nghị tỉnh điều chỉnh chỉ tiêu (lấy số theo QĐ trước, nhập đề nghị +/−)", "slDoiTab('pb')"],
   ["🏢 Giao dịch xã: thêm 8 mẫu theo VB 4368 (từ 01/10/2026) — 03, 06, 07, 09, 10, 11, 14, 15/GDX; dùng chung điểm GD, ngày GD, GDV · KSV · Tổ trưởng tổ GD với 12/GDX", "slDoiTab('gdx')"],
@@ -1071,8 +1072,7 @@ var CO_GI_MOI = {ban:'3.494', ds:[
   ["Sổ quy tắc tên: thêm BBLV, 06A — scan đã ký vào thư mục Hồ sơ vay", "slDoiTab('to')"],
   ["BBLV / 06A: in 1 lần cả danh sách nhiều tổ (theo Hội đoàn thể, xã…) từ tab Tổ", "slDoiTab('to')"],
   ["Tab Tổ: chip Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ → nút 📄 BBLV · 📄 06A mở Hồ sơ vay tích sẵn đúng món", "slDoiTab('to')"],
-  ["Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (thay chip gộp \"Có nợ cần xử lý\")", "slDoiTab('to')"],
-  ["Bản in: dòng tiêu đề bảng không tô nền (BBLV, Mẫu 12/04 GDX, sao kê cấp Hội, tóm tắt KTGS, nội dung họp, thông báo kết luận)", "slDoiTab('hsv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tab Tổ: chip lọc Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng (thay chip gộp \"Có nợ cần xử lý\")", "slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.494 · 🎯 Phân bổ KH › ⚙ Phân bổ · Biểu 07 › 👁 Biểu 07 · 07/KH · 08/KH: đầu hộp chọn Mẫu (Biểu 07 cũ · 07/KH · 08/KH), chip Thôn: có tăng / giảm · đủ các thôn",
     "3.494 · 🎯 Phân bổ KH › mục 📤 Tờ trình 09/KH (phím 5): chọn Năm · Xã · Nguồn → gõ Đề nghị điều chỉnh (+200 / -150) → 👁 Xem / In 09/KH",
