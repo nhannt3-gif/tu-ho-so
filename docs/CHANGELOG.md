@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.491 — 07/11/2026 — Word 07b, BBLV đúng số trang (TK 2)
+- **Anh 07/11:** "gộp và làm tiếp" — 2 mẫu còn lệch sau 3.490.
+- `hsoDocx` (js/25b), chỉ khối nền ô: bảng ghi cỡ chữ / giãn dòng trên thẻ bảng (07b lịch trả nợ 12 pt) → Word theo đúng (trước: chữ 14, dòng cao hơn → dư 1 trang); khối "không cắt giữa trang" (`break-inside:avoid` — BBLV tình huống) → Word giữ liền các đoạn (`keepNext` / `keepLines`).
+- Kết quả (LibreOffice, Bản mẫu): **17/17** mẫu nền ô Word cùng số trang bản in. Mẫu không nền ô vẫn xuất như cũ.
+- `t379` thêm 2 kiểm tra.
+
 ## 3.490 — 07/11/2026 — Word các mẫu nền ô giống bản in (TK 2)
 - **Anh 07/11:** "gộp và code tiếp" (kế hoạch Word giống bản in).
 - **Hiện trạng đo:** hàm xuất Word `hsoDocx` (js/25b) chỉ đọc lớp (`c`, `j`, `thut`, `s14`…), bỏ qua style viết thẳng mà mẫu nền ô dùng → Word canh trái hết, không thụt dòng, chữ 13, giãn dòng tự động; 3/17 mẫu lệch số trang.

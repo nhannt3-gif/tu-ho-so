@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.490', ds:[
+var CO_GI_MOI = {ban:'3.491', ds:[
+  ["📄 Word 07b, BBLV cũng đúng số trang bản in — 17/17 mẫu nền ô", ""],
   ["📄 Word các mẫu nền ô giống bản in: canh đều, thụt đầu dòng, cỡ chữ 13,5 / 14, giãn dòng đúng pt — 15/17 mẫu cùng số trang bản in", ""],
   ["⚡ Tab Tổ mở lần đầu nhanh hơn (~330 → ~220 ms, máy thử 25.000 khách) — số liệu không đổi", ""],
   ["Khung xem trước: dòng chữ HOA đầu trang (quốc hiệu) hiện đủ dấu như bản in", "slDoiTab('hsv')"],
@@ -1071,9 +1072,10 @@ var CO_GI_MOI = {ban:'3.490', ds:[
   ["Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa lỗi tắt \"In 2 mặt\" mà vẫn in 2 mặt", "slDoiTab('hsv')"],
   ["Sửa: tên xã viết hoa đầu từ như trước (không còn TOÀN CHỮ HOA)", ""],
   ["Phân bổ KH: báo ⚠ đứt chuỗi QĐ — QĐ nào, chương trình nào, xã nào, chênh bao nhiêu so với QĐ trước (KH vẫn theo QĐ mới nhất)", "slDoiTab('pb')"],
-  ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""],
-  ["Dọn: bỏ onclick viết thẳng ở hầu hết các tab (1.266 → 467) — nút bấm qua bảng lệnh chung; sửa nút ⚙ Khai báo riêng Hồ sơ Tổ có lúc bấm không ăn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.491 · Hồ sơ vay › 07b › 📝 Word: bảng lịch trả nợ chữ 12, đủ 6 trang như bản In",
+    "3.491 · Hồ sơ vay › BBLV › Bản mẫu › 📝 Word: mỗi tình huống không bị cắt giữa trang",
     "3.490 · Hồ sơ vay / Hồ sơ Tổ › mẫu bất kỳ (10A, 06A, 01/TD, 10B…) › 📝 Word → mở bằng Word: canh đều 2 bên, thụt đầu dòng, cỡ chữ và số trang như bản In",
     "3.488 · Hồ sơ vay › BBLV (và mẫu có quốc hiệu): khung xem dòng CỘNG HÒA XÃ HỘI… đủ dấu",
     "3.487 · Hồ sơ vay › BBLV › In / PDF / Word: dưới \"Độc lập – Tự do – Hạnh phúc\" là kẻ liền dài bằng dòng chữ",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.490', ds:[
     "3.469 · Phân bổ KH › ＋ QĐ mới không tích xã → Lưu (QĐ 0 xã)",
     "3.468 · Phân bổ KH › ✎ Sửa QĐ: ô Tổng điều chỉnh PGD",
     "3.467 · Phân bổ KH › 📋 Quyết định › 📅 Dòng thời gian QĐ / ＋ QĐ không giao cho PGD",
-    "3.466 · Phân bổ KH › 📋 Quyết định › bấm đầu QĐ › ✎ Sửa nhanh / ⧉ QĐ kế tiếp",
-    "3.465 · Số liệu › 🎯 Phân bổ KH › 📋 Quyết định › 📄 Đọc QĐ (PDF) — chọn file QĐ điện tử",
-    "3.464 · Mở các tab, in thử 10A–10D, 07b — như 3.463"],
+    "3.466 · Phân bổ KH › 📋 Quyết định › bấm đầu QĐ › ✎ Sửa nhanh / ⧉ QĐ kế tiếp"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

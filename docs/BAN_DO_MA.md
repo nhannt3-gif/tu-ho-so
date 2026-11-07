@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.490 · 07/11/2026 08:20 · 141 file · 45866 dòng · 3658 hàm cấp ngoài · 609 biến toàn cục.
+Bản 3.491 · 07/11/2026 08:55 · 141 file · 45869 dòng · 3658 hàm cấp ngoài · 609 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -63,7 +63,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/23-dieu-huong.js` | 202 | 27 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
 | `js/24-xuat.js` | 156 | 14 | /*   3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG Mọi mẫu / báo cáo: 👁 Xem → hàng nút  |
 | `js/25-ho-so.js` | 460 | 56 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
-| `js/25b-ho-so-vay.js` | 684 | 87 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HỒ SƠ VAY — mẫu 01/TD · 03/TD · 04/TD · 09A/TD · 01/UQ |
+| `js/25b-ho-so-vay.js` | 687 | 87 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HỒ SƠ VAY — mẫu 01/TD · 03/TD · 04/TD · 09A/TD · 01/UQ |
 | `js/25c-ho-so-giao-dien.js` | 912 | 137 | /*   3.411 (A2 — tách file lớn): HỒ SƠ — giao diện tab · 🏠 hộ vay mới · 📒 Sổ hộ vay · 03/TD nhiều hộ · GQVL ·  |
 | `js/26-giao-dich-xa.js` | 1154 | 138 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
 | `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
@@ -374,8 +374,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/25b-ho-so-vay.js:372` · 01/TGTV Giấy đăng ký mở tài khoản tổ viên (mẫu 03/2026) — đúng PDF, có logo + chân trang
 - `js/25b-ho-so-vay.js:480` · lập mẫu đang chọn
 - `js/25b-ho-so-vay.js:501` · WORD: HTML của mẫu → .docx (đoạn, bảng có gộp ô, đậm / nghiêng / gạch chân, ngắt trang)
-- `js/25b-ho-so-vay.js:653` · 3.473 (Đ3 kế hoạch dọn — KE_HOACH_DON_NEN mục 8): CÁCH LẬP TỪNG MẪU gắn qua cổng hsoMauGan — thân giữ nguyên các nhánh c
-- `js/25b-ho-so-vay.js:677` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f25b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/25b-ho-so-vay.js:656` · 3.473 (Đ3 kế hoạch dọn — KE_HOACH_DON_NEN mục 8): CÁCH LẬP TỪNG MẪU gắn qua cổng hsoMauGan — thân giữ nguyên các nhánh c
+- `js/25b-ho-so-vay.js:680` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f25b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/25c-ho-so-giao-dien.js:3` · giao diện tab
 - `js/25c-ho-so-giao-dien.js:80` · 3.207 (anh yêu cầu 14/10): 🏠 HỘ VAY MỚI — khai báo 1 lần (form nhập nhanh), lưu danh sách (D.cauHinh.hoMoi, đồng bộ Driv
 - `js/25c-ho-so-giao-dien.js:104` · 3.209 (anh 14/10): SỔ HỘ VAY — hộ mới / lấy từ Mẫu 31; khai tổ khi tạo; chỉ bắt buộc người đứng tên, thành viên / thừa k
