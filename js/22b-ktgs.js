@@ -265,6 +265,7 @@ function ktVeThe(){
   if(ktCheDo()==='gn') return ktGNVe(o);   /* 3.93.1: Mẫu 06 sau giải ngân */
   if(ktCheDo()==='bc') return ktBCVe(o);   /* 3.95: Mẫu 04/BC-TH */
   if(ktCheDo()==='kh') return ktKHVe(o);   /* 3.96: Kế hoạch 01/KH */
+  if(ktCheDo()==='hx' && typeof kt7HXVe==='function') return kt7HXVe(o);   /* 3.500: 🏛 Hội cấp xã — 03/BB-CX (js/56b) */
   if(ktCheDo()==='dk') return ktDKVe(o);   /* 3.97: kiểm tra định kỳ theo lịch */
   if(!t){ o.innerHTML = ktCheDoHTML()+(C.xa ? ktBangToHTML(C) : '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ (điểm chấm, xếp loại), hoặc chọn 1 tổ để chọn hộ kiểm tra.</div>'+ktToanPGDHTML()); return; }
   if(!KT_CHON || KT_CHON.to!==t.ma) KT_CHON = ktGoiY(t, C.kieu||'trung', 0);

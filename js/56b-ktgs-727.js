@@ -5,7 +5,8 @@
              mẫu gốc thiếu mục III → anh chốt sửa III, IV; đoàn kiểm tra NHCSXH + người của Hội (🏛 Khai báo Hội – xã) — các phần nhận xét chấm ghi tay.
    Gói KTGS (QUY_CHUAN 1b): tiền tố kt7…, KHÔNG sửa mẫu đã khóa (06 / 16 / 04 / Kế hoạch); số liệu theo khối: khối A = Mẫu 31 chốt cuối tháng liền trước (ktNguonVoi),
    khối B = kỳ đầu trang (KT_K). Word = khuôn từ file gốc tests/mau_goc/15td.docx · 03bbcx.docx (tools/khuon_727.py → js/khuon/kt-khuon-727.js, nạp khi cần) qua ktDocx.
-   Cắm rút: bỏ dòng <script> → mất nút 15/TD · 03/BB-CX, KTGS cũ không đổi (các chỗ gọi đều kiểm typeof kt727Nut). ===== */
+   3.500: 03/BB-CX ở khối riêng 🏛 Hội cấp xã (thanh khối KTGS — kt7HXVe); 15/TD ở cấp tổ (khối B, Định kỳ).
+   Cắm rút: bỏ dòng <script> → mất nút 15/TD và khối 🏛 Hội cấp xã, KTGS cũ không đổi (các chỗ gọi đều kiểm typeof kt727Nut). ===== */
 var KT7 = {mau:'', tu:'', gts:[], x:null};
 
 /* ---------- khuôn Word (nạp sau khuôn KTGS chung) ---------- */
@@ -126,23 +127,30 @@ var KT_DOCX_THEM = {
 };
 
 /* ---------- GIAO DIỆN: nút ở 3 chỗ KTGS + hộp xem / in ---------- */
-function kt727Nut(cho){   /* cho: 'dk' (khối A Định kỳ — tổ đã tích) · 'bc' (khối A Mẫu 04 — Hội) · 'dx' (khối B — tổ đang chọn) */
-  var n15 = GD.nut({chu:'📄 15/TD Đối chiếu', lenh:'kt7.m15', du:{c:cho}, tit:'Danh sách đối chiếu số dư tiền vay và tiền gửi (VB 727) — toàn bộ tổ viên còn dư nợ / tiền gửi'});
-  var n03 = GD.nut({chu:'🏛 03/BB-CX Hội cấp xã', lenh:'kt7.m03', du:{c:cho}, tit:'Biên bản kiểm tra hoạt động nhận ủy thác của Hội cấp xã (VB 727)'});
-  return cho==='bc' ? n03 : n15+n03; }
+function kt727Nut(cho){   /* nút 15/TD cấp TỔ — cho: 'dk' (khối A Định kỳ — tổ đã tích) · 'dx' (khối B — tổ đang chọn). 3.500 (anh 08/11): 03/BB-CX là cấp HỘI → khối riêng 🏛 Hội cấp xã */
+  return GD.nut({chu:'📄 15/TD Đối chiếu', lenh:'kt7.m15', du:{c:cho}, tit:'Danh sách đối chiếu số dư tiền vay và tiền gửi (VB 727) — toàn bộ tổ viên còn dư nợ / tiền gửi'}); }
 function kt7KB(){ var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {}; return S.kt03 = S.kt03 || {}; }   /* khai báo 03/BB-CX: cán bộ NH (cb1, cv1, cb2, cv2) — đồng bộ Drive cùng ktIn */
-function kt7Chay(cho, fn){ return cho==='dx' ? fn() : ktNguonVoi(cho==='dk' ? ktDKThang() : ktNguonThangKT(), fn); }   /* khối A: số liệu chốt tháng; khối B: kỳ đầu trang */
+function kt7Chay(cho, fn){ return cho==='dx' || cho==='hx' ? fn() : ktNguonVoi(cho==='dk' ? ktDKThang() : ktNguonThangKT(), fn); }   /* khối A: số liệu chốt tháng; khối B: kỳ đầu trang */
 function kt7To(cho){ if(cho==='dx'){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; return t ? [t] : []; }
   return (cho==='dk' ? ktDKDs() : ktBCDs()).filter(function(r){ return r.chon; }).map(function(r){ return r.t; }); }
 function kt7Mo15(cho){
   return kt7Chay(cho, function(){ var ds = kt7To(cho); if(!ds.length) return bao(cho==='dx' ? 'Chọn 1 tổ trước.' : 'Chưa tích tổ nào.', 3);
     KT7.mau = 'm15'; KT7.cho = cho; KT7.gts = ds.map(kt15DL); kt7Hop(); });
 }
-function kt7Mo03(cho){
-  return kt7Chay(cho, function(){ var ds = kt7To(cho), g = {};
-    (ds.length ? ds : []).forEach(function(t){ if(!toLaTT(t) && t.dv && String(t.dv)!=='99') g[ktHoiKhoa(t)] = 1; });
-    KT7.mau = 'm03'; KT7.cho = cho; KT7.ds = Object.keys(g).length ? Object.keys(g) : ktHoiDs().map(function(x){ return x.k; }); KT7.k = KT7.k && KT7.ds.indexOf(KT7.k)>=0 ? KT7.k : KT7.ds[0] || '';
-    if(!KT7.k) return bao('Chưa có Hội – xã trong số liệu.', 3); KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(); });
+function kt7Mo03(k){   /* 3.500: mở từ khối 🏛 Hội cấp xã — k = 'xa|dv' (trống → Hội đầu danh sách); số liệu kỳ đầu trang (KT_K) */
+  KT7.mau = 'm03'; KT7.cho = 'hx'; KT7.ds = ktHoiDs().map(function(x){ return x.k; }); KT7.k = k && KT7.ds.indexOf(k)>=0 ? k : KT7.ds[0] || '';
+  if(!KT7.k) return bao('Chưa có Hội – xã trong số liệu.', 3); KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop();
+}
+/* 3.500 (anh 08/11 "mẫu 03 kiểm tra Hội nên phải trên cấp tổ, để riêng cho dễ kiếm"): khối 🏛 Hội cấp xã — bảng Hội – xã theo lọc địa bàn, bấm 1 Hội → 03/BB-CX */
+function kt7HXVe(o){
+  var C = ktCH(), ds = ktHoiDs().filter(function(x){ return !C.hoi || String(x.t.dv)===String(C.hoi); }), h = ktCheDoHTML();   /* theo xã + Hội ở LỌC ĐỊA BÀN */
+  if(!KT_K){ o.innerHTML = h+'<div class="rong">Chưa có số liệu Mẫu 31 — chọn Kỳ đầu trang.</div>'; return; }
+  var r = ds.map(function(x){ var g = kt03DL(x.k, {}), f = g.f;
+    return '<tr><td>'+coChuHTML(ktHoiTenTD(x.t))+'</td><td class="so">'+f.STO+'</td><td class="so">'+f.STH1+'/'+f.STH2+'</td><td class="so">'+f.SKH+'</td><td class="so">'+f.DN+'</td><td class="so">'+f.NQH+' ('+f.TLQH+'%)</td>'+
+      '<td>'+(g.coXL ? 'Tốt '+f.X1+' · Khá '+f.X2+' · TB '+f.X3+' · Yếu '+f.X4 : '<span class="sl-phu">—</span>')+'</td><td>'+GD.nut({chu:'🏛 03/BB-CX', lenh:'kt7.m03', du:{k:x.k}, chinh:1, tit:'Xem / In / Word biên bản kiểm tra Hội này'})+'</td></tr>'; }).join('');
+  o.innerHTML = h+'<p class="sl-phu">🏛 <b>Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã</b> (Mẫu 03/BB-CX — VB 727/HD-NHCS) · số liệu đến '+coChuHTML(KT_K.ngay ? ngayVNsl(KT_K.ngay) : '…')+' (Kỳ đầu trang)'+(C.xa ? '' : ' · toàn PGD — chọn xã ở lọc địa bàn để thu gọn')+'</p>'+
+    (ds.length ? '<div class="to-bang-cuon"><table class="to-bang kt-hx"><thead><tr><th>Hội – xã</th><th>Số tổ</th><th>Thôn</th><th>Khách</th><th>Dư nợ (tr)</th><th>Nợ quá hạn (tr)</th><th>Xếp loại tổ (BC0437)</th><th></th></tr></thead><tbody>'+r+'</tbody></table></div>'
+      : '<div class="rong">Không có Hội – xã trong phạm vi lọc.</div>');
 }
 function kt7Hop(){
   var m15 = KT7.mau==='m15', g0 = KT7.gts[0];
@@ -166,7 +174,7 @@ function kt7Word(){ var x = KT7.x; if(!x) return; batChay(false, 'Đang tạo Wo
     .then(function(bl){ tatChay(); giaoFile(bl, x.ten+'.docx'); bao('Đã tạo '+x.ten+'.docx', 5); }, function(er){ tatChay(); baoLoi('Chưa tạo được Word: '+(er && er.message || er)); }); }
 GD.dangKy('kt7', gdLenh({
   m15:function(el){ kt7Mo15(el.getAttribute('data-c')); },
-  m03:function(el){ kt7Mo03(el.getAttribute('data-c')); },
+  m03:function(el){ kt7Mo03(el.getAttribute('data-k')); },
   hoi:function(el){ KT7.k = el.value; kt7Chay(KT7.cho, function(){ KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(); }); },
   kb:function(el){ var S = kt7KB(), k = el.getAttribute('data-k'), v = String(el.value || '').trim(); if(v) S[k] = v; else delete S[k]; luu();
     kt7Chay(KT7.cho, function(){ KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(); }); }

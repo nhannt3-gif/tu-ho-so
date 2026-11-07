@@ -285,6 +285,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
 
 
+
 | (3.492) | `t358` Word 10A khóa trang (2 ngắt cứng, hàng Word − 0,5 mm). |
 | (3.491) | `t379` + 07b bảng theo cỡ chữ trên bảng, BBLV khối giữ liền. |
 | t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |

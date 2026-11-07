@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.500)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 🏛 Hội cấp xã | Bảng Hội – xã đúng lọc; số tổ / khách / dư nợ khớp | |
+| 2 | Bấm 🏛 03/BB-CX 1 Hội | Hộp xem đúng Hội; In / Word được | |
+| 3 | Đột xuất / Định kỳ / Mẫu 04 | Không còn nút 03; 15/TD vẫn có (Đột xuất, Định kỳ) | |
+
 ### Danh sách thử trên máy thật (3.499)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

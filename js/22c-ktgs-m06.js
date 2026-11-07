@@ -135,7 +135,7 @@ function ktDocxLam(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1:
    - cột Dư nợ = TỔNG DƯ NỢ của món cuối tháng đó (anh chốt); Tổng số tiền giải ngân = tổng đã giải ngân của món (đúng tên cột mẫu)
    - tháng chưa nạp Mẫu 31 → báo thiếu, không in. 3.98: mỗi tổ 1 phiếu (gom các tháng); không ghi theo dõi đã lập phiếu */
 var KT_GN = null, KT_GN_BO = {};   /* KT_GN = {khoa, thang:[…], thieu:[…], ds:{tháng:{mã tổ:{t, mon:[…]}}}} · KT_GN_BO['tháng|KU'] = 1 → anh bỏ tích */
-function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' || c==='hdt' ? c : 'dx'; }   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
+function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' || c==='hdt' || c==='hx' ? c : 'dx'; }   /* 3.500: + 'hx' 🏛 Hội cấp xã (03/BB-CX, js/56b) */   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
 function ktDoiCheDo(c){ ktCH().che = c; luu(); ktVeThe(); }
 function ktCheDoHTML(){ return ktKhoiHTML(ktCheDo()); }   /* 3.329: thanh 3 khối Bắt buộc · Đột xuất · Khai báo (js/56-ktgs-bo.js) thay 6 chip */
 function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nhất trước · 3.136: + tháng chưa có bản cuối tháng nhưng đã có Mẫu 31 theo ngày */

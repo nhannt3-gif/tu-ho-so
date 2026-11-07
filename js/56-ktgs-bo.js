@@ -72,10 +72,11 @@ GD.dangKy('kta', {th:function(el){ KT_A_TH = el.value || ''; KT_DK_CACHE = {}; k
 /* ===== 3.329 — KTGS bước 3–4: THANH 3 KHỐI + MÀN 🧩 BỘ KHAI BÁO MẪU + Mẫu 04 đột xuất (docs/KE_HOACH_KTGS_GON.md mục 2.1, 2.4) =====
    khối A 📅 Bắt buộc (che dk · gn · bc · kh — thẻ con), B 🎯 Đột xuất (dx), C ⚙ Khai báo (hdt: Hội – xã · Chuẩn hóa · Bộ khai báo). Khóa che cũ giữ nguyên. */
 var KT_A_THE = [['dk', '🗓 Định kỳ · Mẫu 06 + 16'], ['gn', '📅 Sau giải ngân · Mẫu 06'], ['bc', '📋 Báo cáo tổng hợp · Mẫu 04'], ['kh', '🗓 Kế hoạch năm · 01/KH']];
-function ktKhoi(c){ return c==='dx' ? 'B' : c==='hdt' ? 'C' : 'A'; }
+function ktKhoi(c){ return c==='dx' ? 'B' : c==='hdt' ? 'C' : c==='hx' ? 'D' : 'A'; }   /* 3.500: D 🏛 Hội cấp xã */
 function ktKhoiHTML(c){
   var k = ktKhoi(c), h = '<div class="kt-khoi">'+GD.chip('📅 Bắt buộc <small>· theo tháng</small>', k==='A', 'ktk.khoi', {k:'A'}, 'Định kỳ theo kế hoạch, sau giải ngân, Mẫu 04, Lịch năm — số liệu cuối tháng liền trước tháng kiểm tra')+
-    GD.chip('🎯 Đột xuất <small>· theo ngày</small>', k==='B', 'ktk.khoi', {k:'B'}, 'Số liệu theo ngày chọn ở ô Kỳ đầu trang')+GD.chip('⚙ Khai báo', k==='C', 'ktk.khoi', {k:'C'}, 'Hội – xã, Chuẩn hóa, Bộ khai báo mẫu')+'</div>';   /* 3.395: chip BC0437 / BC0438 / nguồn số liệu lên dải LỌC ĐỊA BÀN (slChipThem, js/22b ktDauHTML) */
+    GD.chip('🎯 Đột xuất <small>· theo ngày</small>', k==='B', 'ktk.khoi', {k:'B'}, 'Số liệu theo ngày chọn ở ô Kỳ đầu trang')+(typeof kt7HXVe==='function' ? GD.chip('🏛 Hội cấp xã <small>· 03/BB-CX</small>', k==='D', 'ktk.khoi', {k:'D'}, 'Kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã (VB 727) — số liệu theo Kỳ đầu trang') : '')+
+    GD.chip('⚙ Khai báo', k==='C', 'ktk.khoi', {k:'C'}, 'Hội – xã, Chuẩn hóa, Bộ khai báo mẫu')+'</div>';   /* 3.395: chip BC0437 / BC0438 / nguồn số liệu lên dải LỌC ĐỊA BÀN (slChipThem, js/22b ktDauHTML) */
   if(k==='A') h += '<div class="kt-che kt-a-the">'+KT_A_THE.map(function(x){ return GD.chip(x[1], c===x[0], 'ktk.che', {c:x[0]}); }).join('')+'</div>';
   return h;
 }
@@ -96,7 +97,7 @@ function ktDX04(ok){   /* Mẫu 04 cho tổ đang chọn — kiểm tra đột x
   KT_BC_XEM = {tu:'dx', gts:gts, tenFile:ktFTen(t, {to:1, mau:'M04'})}; ktBCHop('kiểm tra đột xuất');
 }
 GD.dangKy('ktk', {
-  khoi:function(el){ var k = el.getAttribute('data-k'), C = ktCH(); ktDoiCheDo(k==='B' ? 'dx' : k==='C' ? 'hdt' : (C.aThe || 'dk')); },
+  khoi:function(el){ var k = el.getAttribute('data-k'), C = ktCH(); ktDoiCheDo(k==='B' ? 'dx' : k==='C' ? 'hdt' : k==='D' ? 'hx' : (C.aThe || 'dk')); },
   che:function(el){ var c = el.getAttribute('data-c'); ktCH().aThe = c; ktDoiCheDo(c); },
   hdt:function(el){ ktCH().hdtTab = el.getAttribute('data-t'); luu(); ktVeThe(); },
   chep:function(){ var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {}; ['m06', 'm16'].forEach(function(m){ S['dx_'+m] = JSON.parse(JSON.stringify(S[m] || {})); }); luu(); ktVeThe(); bao('Đã chép bộ ① sang bộ ② (Mẫu 06, 16).', 3); },

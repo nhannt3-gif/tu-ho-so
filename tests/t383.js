@@ -20,7 +20,7 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    kyChungDoi('2026-08'); doiNgan(7); delete D.cauHinh.ktIn;
    const K = ktCH(); K.ky = '2026-08'; K.xa = ''; K.diem = ''; K.hoi = ''; K.to = ''; K.che = 'dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t => !toLaTT(t) && t.dv && String(t.dv)!=='99').sort((a, c) => KHO.doiChieu(c).length - KHO.doiChieu(a).length), t = ds[0]; K.xa = t.xa; K.diem = t.khoaDiem; pvVeCay('kt'); await w(300); ktChonTo(t.ma); await w(600);
-   o.nut = !!document.querySelector('[data-lenh="kt7.m15"][data-c="dx"]') && !!document.querySelector('[data-lenh="kt7.m03"][data-c="dx"]');
+   o.nut = !!document.querySelector('[data-lenh="kt7.m15"][data-c="dx"]') && !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* 3.500: 03 không còn ở cấp tổ */
    /* ① 15/TD */
    document.querySelector('[data-lenh="kt7.m15"]').click(); for(let i=0;i<30 && !(KT7.x && document.getElementById('kt7-khung'));i++) await w(100); await w(300);
    const g = KT7.gts[0], dc = KHO.doiChieu(t), h15 = chu(KT7.x.trang);
@@ -37,7 +37,11 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    o.w15 = bl ? Array.from(new Uint8Array(await bl.arrayBuffer())) : null;
    dongHop(); await w(100);
    /* ② 03/BB-CX */
-   document.querySelector('[data-lenh="kt7.m03"]').click(); for(let i=0;i<30 && !(KT7.x && KT7.mau==='m03' && document.getElementById('kt7-khung'));i++) await w(100); await w(300);
+   /* 3.500: khối riêng 🏛 Hội cấp xã — bảng Hội – xã, bấm Hội của tổ */
+   [...document.querySelectorAll('#kt-the .kt-khoi > button')].find(b => /Hội cấp xã/.test(b.textContent)).click(); for(let i=0;i<30 && !document.querySelector('#kt-the .kt-hx');i++) await w(100); await w(200);
+   const hx = document.querySelector('#kt-the .kt-hx'), nutHoi = hx && hx.querySelector('[data-lenh="kt7.m03"][data-k="'+ktHoiKhoa(t)+'"]');
+   o.hx = ktCheDo()==='hx' && !!nutHoi && hx.querySelectorAll('tbody tr').length===ktHoiDs().filter(x => !ktCH().hoi || String(x.t.dv)===String(ktCH().hoi)).length && !document.querySelector('#kt-the [data-lenh="kt7.m15"]');
+   nutHoi.click(); for(let i=0;i<30 && !(KT7.x && KT7.mau==='m03' && document.getElementById('kt7-khung'));i++) await w(100); await w(300);
    const g3 = KT7.gts[0], hk = ktHoiKhoa(t), toHoi = Object.values(KT_K.to).filter(x => x.xa===t.xa && String(x.dv)===String(t.dv) && !toLaTT(x));
    let dn = 0, qh = 0, kn = 0; const kh = {}; toHoi.forEach(x => KHO.toVien(x).forEach(k => { if(!(k.dn>0)) return; kh[k.kh] = 1; dn += k.dn; qh += k.qh||0; kn += k.kn||0; }));
    o.k03 = KT7.k===hk; o.so03 = g3.f.STO===String(toHoi.length) && g3.f.SKH===String(Object.keys(kh).length) && g3.f.DN===(Math.round(dn/1e4)/100).toLocaleString('vi-VN') && g3.f.NQH===(qh ? (Math.round(qh/1e4)/100).toLocaleString('vi-VN') : '0');
@@ -54,13 +58,13 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    /* khối A: Định kỳ (tổ đã tích) → 15/TD đúng tổ; Mẫu 04 (Hội) → 03/BB-CX đúng Hội – xã */
    KT_DK_CHON = {}; KT_DK_CHON[t.ma] = 1; await kt7Mo15('dk'); await w(400);
    o.dk15 = KT7.mau==='m15' && KT7.gts.some(x => x.t.ma===t.ma) && !!document.getElementById('kt7-khung'); dongHop(); await w(100);
-   KT_BC_CHON = {}; KT_BC_CHON[t.ma] = 1; KT7.k = ''; await kt7Mo03('bc'); await w(400);
-   o.bc03 = KT7.mau==='m03' && KT7.k===ktHoiKhoa(t) && !!document.getElementById('kt7-khung'); dongHop(); await w(100);
+   ktDoiCheDo('bc'); await w(400); o.bc03 = !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* Mẫu 04 không còn nút 03 */
    /* mẫu KTGS cũ vẫn dựng như trước (Mẫu 16) */
    o.m16 = /BIÊN BẢN KIỂM TRA/.test(chu(ktHTML16(ktGiaTri16(t, ktDaChon(), ktInV('m16')))));
    o.g15 = {f:g.f, n:g.kh.length, ten0:g.kh[0].ten, tong:tdnTien(g.tong.dn)};
    return o; }, files);
- ok('khối B: nút 📄 15/TD và 🏛 03/BB-CX cạnh Mẫu 06 / 16 / 04', r.nut);
+ ok('khối B: nút 📄 15/TD cạnh Mẫu 06 / 16 / 04; không còn nút 03 ở cấp tổ', r.nut);
+ ok('khối 🏛 Hội cấp xã (3.500): bảng đủ Hội – xã theo lọc, mỗi Hội 1 nút 03/BB-CX, không có nút cấp tổ', r.hx);
  ok('15/TD: toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi (KHO.doiChieu)', r.ds15);
  ok('15/TD: dòng Tổng cộng = tổng nợ gốc, lãi tồn, tiền gửi', r.tong15);
  ok('15/TD: nợ lãi từng món = lãi tồn', r.lai);
@@ -78,7 +82,7 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
  const hopLe = await p.evaluate(ds => ds.map(x => !!x && !new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length), [w15, w03]);
  ok('Word 15/TD · 03/BB-CX: XML hợp lệ (mở được bằng Word)', hopLe[0] && hopLe[1], JSON.stringify(hopLe));
  ok('khối A Định kỳ: 15/TD theo tổ đã tích', r.dk15);
- ok('khối A Mẫu 04: 03/BB-CX đúng Hội – xã của tổ đã tích', r.bc03);
+ ok('Mẫu 04 (Bắt buộc): không còn nút 03/BB-CX (đã dời lên khối Hội cấp xã)', r.bc03);
  ok('mẫu KTGS cũ (Mẫu 16) vẫn dựng', r.m16);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  R.forEach(x => console.log(x)); console.log((R.length-R.filter(x => x[0]==='✗').length)+'/'+R.length+' đạt');

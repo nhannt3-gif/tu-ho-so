@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.500 — 08/11/2026 — KTGS: khối riêng 🏛 Hội cấp xã cho 03/BB-CX (TK 2)
+- **Anh 08/11** "mẫu 03 là kiểm tra Hội nên phải trên cấp tổ, em riêng ra cho dễ kiếm" — anh chọn: khối riêng thứ 4, bỏ nút 03 ở cấp tổ.
+- Thanh khối KTGS: 📅 Bắt buộc · 🎯 Đột xuất · **🏛 Hội cấp xã** · ⚙ Khai báo (`che = 'hx'`; `ktCheDo`, `ktKhoi`, `ktKhoiHTML`, `ktVeThe` thêm 1 nhánh, gói 56b cắm rút — kiểm `typeof kt7HXVe`).
+- Màn 🏛 Hội cấp xã (`kt7HXVe`, js/56b): bảng Hội – xã theo lọc xã + Hội — số tổ, thôn, khách, dư nợ, nợ quá hạn (triệu, %), xếp loại tổ BC0437; mỗi dòng nút 🏛 03/BB-CX mở hộp xem / In / Word (như 3.498). Số liệu theo Kỳ đầu trang.
+- Bỏ nút 03/BB-CX ở cấp tổ (khối Đột xuất, Định kỳ, Mẫu 04); 📄 15/TD giữ ở cấp tổ.
+- Phép thử: t383 19/19 (khối Hội cấp xã, không còn nút 03 cấp tổ); t238 thanh 4 khối.
+
 ## 3.499 — 07/11/2026 — Giao dịch xã: chip mẫu hiện đủ (TK 2)
 - **Anh 07/11** "các chip mẫu biểu tab GDX em cho hiện ra đủ hết như bên tab hồ sơ vay, hồ sơ tổ": GDX nay 14 mẫu, khung trái hẹp → dải cuộn 1 hàng (3.334) chỉ thấy 4 chip. Đổi riêng GDX: chip xuống dòng hiện đủ (`.gdx2-du`), khung hẹp thì nhóm nút Tra cứu / Xem / ⋯ xuống hàng dưới (`.gdx2-dau-du`). Hồ sơ vay / Hồ sơ tổ giữ khung cuộn ‹ › (`cnHang`).
 - Rà kỹ thuật 3.498 (anh 07/11 "rà coi có đúng hướng"): 03/BB-CX bỏ khoảng trắng thừa "Hội  Đoàn…" (HOIXA); t383 thêm 2 ý khối A (Định kỳ → 15/TD, Mẫu 04 → 03/BB-CX) — 18/18.
