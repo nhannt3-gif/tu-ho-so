@@ -152,7 +152,7 @@ function kt7HXVe(o){
     (ds.length ? '<div class="to-bang-cuon"><table class="to-bang kt-hx"><thead><tr><th>Hội – xã</th><th>Số tổ</th><th>Thôn</th><th>Khách</th><th>Dư nợ (tr)</th><th>Nợ quá hạn (tr)</th><th>Xếp loại tổ (BC0437)</th><th></th></tr></thead><tbody>'+r+'</tbody></table></div>'
       : '<div class="rong">Không có Hội – xã trong phạm vi lọc.</div>');
 }
-function kt7Hop(){
+function kt7Hop(chiXem){   /* chiXem: chỉ dựng lại bản xem (khai báo cán bộ / ngày — giữ con trỏ ở ô đang gõ, QUY_CHUAN §11) */
   var m15 = KT7.mau==='m15', g0 = KT7.gts[0];
   var dau = m15 ? '<div class="sl-phu">'+KT7.gts.map(function(g){ return coChuHTML((g.t.ten || g.t.ma)+' — '+g.kh.length+' khách'); }).join(' · ')+' · số liệu đến '+coChuHTML(g0.f.DEN || '…')+'</div>'
     : '<div class="pb07-kb">'+GD.hang([GD.kv('Hội – xã', '<select data-lenh="kt7.hoi" data-su="change">'+KT7.ds.map(function(k){ var t = ktHoiDs().filter(function(x){ return x.k===k; })[0];
@@ -163,9 +163,10 @@ function kt7Hop(){
       '<div class="sl-phu">'+coChuHTML(g0.soTo+' tổ · số liệu đến '+(g0.f.TDIEM || '…'))+(g0.coXL ? ' · xếp loại tổ theo BC0437' : ' · <span class="vang">chưa nạp BC0437 — xếp loại tổ để trống</span>')+'</div></div>';
   var ten = m15 ? (KT7.gts.length===1 ? ktFTen(g0.t, {to:1, mau:'M15'}) : xuatTen('M15TD Doi chieu', KT7.gts.length+' to', KT_K && KT_K.ngay)) : ktFTen(g0.t, {mau:'M03BBCX'});
   KT7.x = {ten:ten, trang:kt7Trang(KT7.mau, KT7.gts, ten)};
-  if(!document.getElementById('kt7-khung')) moHop('<div class="hop-tit">'+(m15 ? '📄 15/TD — Danh sách đối chiếu số dư tiền vay và tiền gửi' : '🏛 03/BB-CX — Biên bản kiểm tra Hội cấp xã')+'</div><div id="kt7-dau"></div>'+
+  var mo = document.getElementById('kt7-khung') && document.getElementById('hop').classList.contains('hien') && KT7.hopMau===KT7.mau;   /* hộp đã đóng (chỉ ẩn) / đổi mẫu → mở lại */
+  if(!mo){ KT7.hopMau = KT7.mau; chiXem = 0; } if(!mo) moHop('<div class="hop-tit">'+(m15 ? '📄 15/TD — Danh sách đối chiếu số dư tiền vay và tiền gửi' : '🏛 03/BB-CX — Biên bản kiểm tra Hội cấp xã')+'</div><div id="kt7-dau" class="phim-chung"></div>'+
     '<iframe id="kt7-khung" class="to-khung" title="Xem trước"></iframe><div id="kt7-nut"></div>', true);
-  document.getElementById('kt7-dau').innerHTML = dau;
+  if(!chiXem || !document.getElementById('kt7-dau').innerHTML) document.getElementById('kt7-dau').innerHTML = dau;
   document.getElementById('kt7-nut').innerHTML = xuatHang({ten:ten, html:function(){ return KT7.x.trang; }, word:'kt7Word()'});
   xemChuan(document.getElementById('kt7-khung'), KT7.x.trang);
 }
@@ -177,5 +178,5 @@ GD.dangKy('kt7', gdLenh({
   m03:function(el){ kt7Mo03(el.getAttribute('data-k')); },
   hoi:function(el){ KT7.k = el.value; kt7Chay(KT7.cho, function(){ KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(); }); },
   kb:function(el){ var S = kt7KB(), k = el.getAttribute('data-k'), v = String(el.value || '').trim(); if(v) S[k] = v; else delete S[k]; luu();
-    kt7Chay(KT7.cho, function(){ KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(); }); }
+    kt7Chay(KT7.cho, function(){ KT7.gts = [kt03DL(KT7.k, kt7KB())]; kt7Hop(1); }); }
 }));
