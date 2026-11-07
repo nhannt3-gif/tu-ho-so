@@ -510,7 +510,8 @@ function hsoDocx(x){   /* HTML các mẫu → .docx: đoạn, bảng (gộp ô, 
   var omPP = function(el, f){ var st = el.style || {}, r = {}, x;
     r.jc = /^(center|right|justify|left)$/.test(st.textAlign) ? {center:'center', right:'right', justify:'both', left:'left'}[st.textAlign] : '';
     x = pt(st.textIndent); r.ind = x==null ? null : Math.round(x*20); x = pt(st.marginLeft); r.trai = x ? Math.round(x*20) : 0;
-    x = pt(st.marginTop); r.tr = x==null ? (f.omMt || 0) : Math.max(0, Math.round(x*20)); x = pt(st.marginBottom); r.sau = x==null ? 0 : Math.max(0, Math.round(x*20));   /* Word không nhận cách âm */
+    var lopTr = /(^| )tr[23]?( |$)/.test(el.className||''), lopSau = /(^| )sau2?( |$)/.test(el.className||'');   /* lớp cách đoạn có sẵn (tr / tr2 / tr3 · sau / sau2) ưu tiên như hàm cũ */
+    x = pt(st.marginTop); r.tr = lopTr ? khTr(el) : x==null ? (f.omMt || 0) : Math.max(0, Math.round(x*20)); x = pt(st.marginBottom); r.sau = lopSau ? khSau(el) : x==null ? 0 : Math.max(0, Math.round(x*20));   /* Word không nhận cách âm */
     var lh = st.lineHeight, so = lh && !isNaN(+lh) ? +lh : f.omLh || 1.15, coPt = (f.szDoan || f.sz)/2; x = pt(lh); r.line = Math.round((x || so*coPt)*20)+'" w:lineRule="exact';   /* CSS line-height 1,15 = 1,15 × cỡ chữ (Word "1,15" = 1,15 × dòng đơn ≈ cao hơn 15 %) → cố định pt */
     return r; };
   var omChu = function(n, g){ var st = n.style || {}, x = pt(st.fontSize); if(x) g.sz = Math.round(x*2); x = pt(st.letterSpacing); if(x!=null) g.ls = Math.round(x*20); return g; };
