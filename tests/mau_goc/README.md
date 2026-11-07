@@ -24,3 +24,15 @@ Số đo: `python3 tools/domau.py` → `so_do.json`. So với app: `node tests/t
 | 01bg | 01/BG Biên bản bàn giao hồ sơ Tổ | |
 | 02bg | 02/BG Bàn giao kiêm đối chiếu số dư (A4 ngang) | |
 | 07pb | Biểu 07 Phân bổ KH — Thông báo giao / điều chỉnh KH dư nợ của UBND xã + Danh mục (2 trang; ô `{{…}}` của bản WPF, mẫu trắng, đã bỏ tên máy trong thông tin file) | 3.289 · đo bằng `t253` (chưa vào `t180` — mẫu không thuộc tab Hồ sơ) |
+
+**Bổ sung 07/11/2026** (anh: "em có thể lưu mẫu gốc lên repo để đối chiếu khi cần"). Các file dưới là mẫu trắng; đã bỏ tên người soạn, người sửa và tên đơn vị trong thông tin file. File `.xls` đã chuyển sang `.xlsx`.
+
+| File | Mẫu | Văn bản |
+|---|---|---|
+| kh05 | Biểu 05/KH — QĐ Tổng Giám đốc giao (điều chỉnh) chỉ tiêu KH tín dụng cho tỉnh (tham khảo) | QĐ 4686/QĐ-NHCS 21/10/2026 |
+| kh07 | Biểu 07/KH — QĐ Ban Đại diện HĐQT xã giao (điều chỉnh) chỉ tiêu cho thôn · app: `js/mau/07kh.js` (3.494) | QĐ 4686 |
+| kh08 | Biểu 08/KH — QĐ Giám đốc PGD điều chỉnh chỉ tiêu cho thôn · app: `js/mau/07kh.js` | QĐ 4686 |
+| kh09 | Biểu 09/KH — Tờ trình Ban Đại diện HĐQT xã đề nghị điều chỉnh · app: `js/mau/07kh.js` + `js/48c` | QĐ 4686 |
+| kh01_04 | Biểu 01, 02, 03, 04/KH — xây dựng KH tín dụng (thôn · xã · PGD · tỉnh; sheet 5 là mẫu cũ). App chưa làm (anh 07/11: để sau) | QĐ 4686 |
+| 15td | 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (A4 ngang; tên "Nguyễn Văn A, B, C" là ví dụ in sẵn của mẫu) — KTGS, đang làm | 727/HD-NHCS 11/02/2026 |
+| 03bbcx | 03/BB-CX Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã — KTGS, đang làm (mẫu gốc thiếu mục III; anh 07/11 chốt sửa thành III, IV) | 727/HD-NHCS 11/02/2026 |
