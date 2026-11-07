@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.495 · 07/11/2026 19:24 · 144 file · 46345 dòng · 3718 hàm cấp ngoài · 620 biến toàn cục.
+Bản 3.496 · 07/11/2026 21:53 · 144 file · 46525 dòng · 3732 hàm cấp ngoài · 627 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 328 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4096 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 4099 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
@@ -66,7 +66,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/25b-ho-so-vay.js` | 690 | 87 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HỒ SƠ VAY — mẫu 01/TD · 03/TD · 04/TD · 09A/TD · 01/UQ |
 | `js/25c-ho-so-giao-dien.js` | 912 | 137 | /*   3.411 (A2 — tách file lớn): HỒ SƠ — giao diện tab · 🏠 hộ vay mới · 📒 Sổ hộ vay · 03/TD nhiều hộ · GQVL ·  |
 | `js/26-giao-dich-xa.js` | 1158 | 138 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
-| `js/26b-gdx-4368.js` | 230 | 31 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
+| `js/26b-gdx-4368.js` | 407 | 45 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
 | `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
 | `js/28-tv-tk.js` | 398 | 43 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
 | `js/29-kho.js` | 176 | 2 | /*   3.216 (anh 15/10/2026): CỬA KHO — kho số liệu chung (KIEN_TRUC_3_LOP 3.5 · QUY_CHUAN_KIEN_TRUC mục 3 "cửa |
@@ -409,16 +409,18 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/26-giao-dich-xa.js:1097` · ⭐ Mẫu hay in (số hộ + số tiền) · mức tiền · danh sách cán bộ — giữ từ 3.172
 - `js/26-giao-dich-xa.js:1132` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f26.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/26b-gdx-4368.js:1` · 3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 đã làm ổn rồi"
-- `js/26b-gdx-4368.js:35` · phần dùng chung
-- `js/26b-gdx-4368.js:68` · CSS chung các mẫu (thêm sau GDX_CSS; đường kẻ theo QUY_TAC_SOAN_MAU: chính ≤ 0,9 px đen, phụ mảnh xám)
-- `js/26b-gdx-4368.js:91` · 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ)
-- `js/26b-gdx-4368.js:117` · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm (A4 dọc)
-- `js/26b-gdx-4368.js:130` · 07/GDX Nội dung phổ biến cho khách hàng vay vốn (A4 dọc, chữ cố định)
-- `js/26b-gdx-4368.js:158` · 09/GDX Báo cáo thẻ tiết kiệm tại điểm giao dịch (A4 ngang)
-- `js/26b-gdx-4368.js:172` · 10/GDX Bảng kê kiểm quỹ cuối phiên giao dịch (A4 dọc)
-- `js/26b-gdx-4368.js:186` · 11/GDX Biên bản xác định thẻ tiết kiệm hỏng, mất (A4 dọc)
-- `js/26b-gdx-4368.js:196` · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho (A4 dọc)
-- `js/26b-gdx-4368.js:208` · khai báo riêng của mẫu (ngoài mục chung với 12/GDX)
+- `js/26b-gdx-4368.js:41` · phần dùng chung
+- `js/26b-gdx-4368.js:74` · CSS chung các mẫu (thêm sau GDX_CSS; đường kẻ theo QUY_TAC_SOAN_MAU: chính ≤ 0,9 px đen, phụ mảnh xám)
+- `js/26b-gdx-4368.js:97` · 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ)
+- `js/26b-gdx-4368.js:128` · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm (A4 dọc)
+- `js/26b-gdx-4368.js:141` · 07/GDX Nội dung phổ biến cho khách hàng vay vốn (A4 dọc, chữ cố định)
+- `js/26b-gdx-4368.js:169` · 09/GDX Báo cáo thẻ tiết kiệm tại điểm giao dịch (A4 ngang)
+- `js/26b-gdx-4368.js:183` · 10/GDX Bảng kê kiểm quỹ cuối phiên giao dịch (A4 dọc)
+- `js/26b-gdx-4368.js:197` · 11/GDX Biên bản xác định thẻ tiết kiệm hỏng, mất (A4 dọc)
+- `js/26b-gdx-4368.js:207` · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho (A4 dọc)
+- `js/26b-gdx-4368.js:219` · khai báo riêng của mẫu (ngoài mục chung với 12/GDX)
+- `js/26b-gdx-4368.js:253` · 3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho kh
+- `js/26b-gdx-4368.js:337` · 📘 NHIỆM VỤ TỔ GIAO DỊCH — 1 mặt A4 dọc (anh 07/11 "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ") — tóm tắt VB 4368 mục I
 - `js/27-mini-gdx.js:24` · gói số liệu (chỉ chạy trên máy anh lúc xuất)
 - `js/27-mini-gdx.js:76` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
 - `js/28-tv-tk.js:1` · 3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ

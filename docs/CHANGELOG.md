@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.496 — 07/11/2026 — Giao dịch xã: Tổ giao dịch trực quan (03/GDX) + 📘 Nhiệm vụ Tổ giao dịch
+- **Anh 07/11:** "mẫu 03 cho chọn trực quan, 1 số quy tắc em đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho khai thủ công tất cả các thành viên"; "thêm 1 phần in nhiệm vụ … các thành viên tổ giao dịch tóm gọn để thực hiện"; "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ" → "Được code".
+- **👥 Tổ giao dịch** (js/26b, mục `g4to` của 03/GDX và Nhiệm vụ): mỗi người 1 dòng gõ tên (gợi ý từ danh sách cán bộ) + chip vai Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm; 1 Tổ trưởng, 1 GDV chính (bấm ở người khác tự chuyển); PA 1/2/3 theo 04/GDX gán lái xe, bảo vệ đường; ⭐ lưu / chọn lại tổ hay dùng (không chụp vào nhật ký in); tổ trống lấy sẵn Tổ trưởng · KSV · GDV của 12/GDX, khai xong đồng bộ ngược 12/GDX (ô chọn 12/GDX hiện cả tên khai tay — `gdxCB` js/26).
+- **Kiểm tra quy tắc VB 4368** (mục II.2, II.7 — cảnh báo, không chặn): < 3 người; thiếu Tổ trưởng / GDV chính (đỏ), KSV (vàng); Tổ trưởng bảo vệ tại điểm + kiêm KSV (đỏ); GDV chính lái xe / bảo vệ đường (đỏ, là người áp tải); thiếu lái xe / bảo vệ đường / bảo vệ tại điểm; lái xe = bảo vệ; trùng tên.
+- **03/GDX tự điền:** Phần I áp tải = GDV chính, lái xe, bảo vệ, phương tiện / biển số, công cụ hỗ trợ (khai 1 lần), nơi đi / đến (trụ sở PGD ↔ điểm GD, chọn để chấm); Phần II mỗi (người, vai) 1 dòng + CCDC theo vai (chọn để trống); quá số dòng thì tờ 2 dài thêm.
+- **📘 Nhiệm vụ Tổ giao dịch** (chip mới, A4 dọc 1 mặt, chữ 8,5 pt — 9 / 9,5 pt cảnh báo sang mặt 2): quy định chung 4 ý + bảng 6 vai × ① trước khi đi ② tại điểm ③ sau phiên, tên thành viên cạnh vai; tóm tắt VB 4368 mục II, III.
+- **Phép thử:** `tests/t382.js` (mới, 24).
+
 ## 3.495 — 07/11/2026 — Giao dịch xã: rà 03/GDX theo mẫu gốc
 - **Anh 07/11:** "em rà mẫu GDX làm mẫu 03". So với VB 4368 trang 34–35: ô Lái xe — Nơi đi / Nơi đến mỗi nơi + 2 dòng chấm; Phần II mặc định tờ 1 = 1 dòng, tờ 2 = 8 dòng + chỗ ký (như mẫu trắng; lựa chọn 1|8 · 3|8 · 1 tờ 4 dòng); dòng trống Phần II cao 15 mm, Phần I 8 mm.
 - **Sửa lỗi CSS** (js/26b): chiều cao dòng riêng từng bảng (03, 10, 11, 14/15/GDX) bị luật chung `table.g4-b tbody tr` đè → nay đúng chiều cao đặt; mọi mẫu vẫn trọn trang (t380).

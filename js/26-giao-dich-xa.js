@@ -426,7 +426,7 @@ function gdxIn1(k, ph, kieu){ var C = gdxC(); return '<input class="gdx-i"'+(kie
 function gdxCB(k, trong, bo){
   var C = gdxC(), v = C[k] || '';
   return '<select class="gdx-i" data-lenh="f26.gdxDat_svn" data-su="change" data-a1="'+k+'" data-a2="1"><option value="">— '+trong+' —</option>'+
-    C.danhSachCanBo.filter(function(n){ return n===v || (bo||[]).indexOf(n)<0; }).map(function(n){ return '<option value="'+gdxE(n)+'"'+(n===v ? ' selected' : '')+'>'+gdxE(n)+'</option>'; }).join('')+'</select>';
+    (v && C.danhSachCanBo.indexOf(v)<0 ? [v] : []).concat(C.danhSachCanBo).filter(function(n){ return n===v || (bo||[]).indexOf(n)<0; }).map(function(n){ return '<option value="'+gdxE(n)+'"'+(n===v ? ' selected' : '')+'>'+gdxE(n)+'</option>'; }).join('')+'</select>';
 }
 /* 3.175 (anh chốt): ô ngày gõ nhanh không cần / hay - : "1410" = 14/10 năm nay · "141026" / "14102026" = 14/10/2026 (gõ 14/10/26 cũng được); 📅 chọn trên lịch */
 function gdxDocNgay(s){   /* 3.187 (anh chốt): gõ liền số không cần dấu — 5 / 7 số (vd 2542021 = 25/04/2021, 252021 = 02/05/2021); năm 2 số quá năm nay + 10 → 19xx (ngày cấp cũ) */

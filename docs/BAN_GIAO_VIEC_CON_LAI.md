@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.496) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 03/GDX › 👥 Tổ giao dịch: thêm 5 người, bấm vai, PA 1 | Cảnh báo quy tắc đúng; bản in Phần I, II có tên, CCDC | |
+| 2 | Tổ trưởng bấm thêm KSV + BV tại điểm | ⛔ "Tổ trưởng làm bảo vệ tại điểm thì không kiêm KSV" | |
+| 3 | ⭐ Lưu tổ hay dùng → phiên sau bấm chọn lại | Đủ người, đủ vai | |
+| 4 | 📘 Nhiệm vụ → 🖨 In | 1 mặt A4, đọc được, tên cạnh vai | |
+
+**Ghi chú kỹ thuật 3.496:** Tổ giao dịch lưu `D.cauHinh.gdx.g4To` (đồng bộ Drive); tổ hay dùng `g4ToHay` (tối đa 20). Quy tắc "CBTD không làm GDV tại địa bàn mình" chưa kiểm (anh 07/11: tạm khai tay).
+
 ### Danh sách thử trên máy thật (3.495) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

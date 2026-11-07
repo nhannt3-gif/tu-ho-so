@@ -10,8 +10,11 @@
    - Chưa làm (để sau, anh 07/11): 01, 02, 04, 05, 13/GDX; 08/GDX lấy bản chuẩn bên Giao ban.
    ========================================================== */
 GDX_MD.g4Dong03 = '1|8'; GDX_MD.g4Sdt = ''; GDX_MD.g4NgayKho = 'cham';   /* mặc định khai báo riêng (gdxC tự điền khi thiếu) */
+GDX_MD.g4To = []; GDX_MD.g4ToHay = []; GDX_MD.g4Xe = ''; GDX_MD.g4CCHT = ''; GDX_MD.g4Noi = 'tu'; GDX_MD.g4CCDC = 'in'; GDX_MD.g4CoNV = 8.5;   /* 3.496: Tổ giao dịch khai tay (anh 07/11) */
+GDX_BO.push('g4ToHay');   /* tổ hay dùng không chụp vào nhật ký in */
 GDX_MAU.push(
   {k:'g03', ma:'03/GDX', bt:'🚐', ten:'Bảng kê theo dõi giao dịch xã', nhom:'Tổ giao dịch', cap:'diem'},
+  {k:'gnv', ma:'Nhiệm vụ', bt:'📘', ten:'Nhiệm vụ Tổ giao dịch (tóm tắt VB 4368 — 1 mặt A4)', nhom:'Tổ giao dịch', cap:'diem'},
   {k:'g06', ma:'06/GDX', bt:'💼', ten:'Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm', nhom:'Tổ giao dịch', cap:'diem'},
   {k:'g07', ma:'07/GDX', bt:'📣', ten:'Nội dung phổ biến cho khách hàng vay vốn', nhom:'Khách hàng', cap:'khong'},
   {k:'g09', ma:'09/GDX', bt:'📒', ten:'Báo cáo thẻ tiết kiệm tại điểm giao dịch', nhom:'Tổ giao dịch', cap:'diem'},
@@ -22,7 +25,10 @@ GDX_MAU.push(
 (function(){
   var dau = {k:'dau12', ten:'Tên cơ quan đầu mẫu (chung với 12/GDX)', nhanh:0}, ngay = {k:'ngaygd', ten:'Ngày giao dịch (chung với 12/GDX)', nhanh:1},
     ba = {k:'ba', ten:'GDV · KSV · Tổ trưởng tổ GD (chung với 12/GDX)', nhanh:1};
-  GDX_MUC.g03 = [dau, ngay, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
+  var to = {k:'g4to', ten:'👥 Tổ giao dịch — thành viên · vai (khai tay)', nhanh:1};
+  GDX_MUC.g03 = [dau, ngay, to, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
+    {k:'g4ccdc', ten:'Công cụ dụng cụ theo vai (Phần II)', nhanh:0}, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
+  GDX_MUC.gnv = [dau, ngay, to, {k:'g4conv', ten:'Cỡ chữ', nhanh:0}];
   GDX_MUC.g06 = [dau, ngay, {k:'ba', ten:'Thủ quỹ / GDV (= Giao dịch viên của 12/GDX)', nhanh:1}];
   GDX_MUC.g07 = [{k:'g4sdt', ten:'Số điện thoại Phòng giao dịch (mục III.5)', nhanh:1}];
   GDX_MUC.g09 = [dau, ngay, ba];
@@ -80,7 +86,7 @@ var G4_CSS = '.sheet-a4.g4{padding:14mm 15mm 12mm 20mm;font-size:13pt;line-heigh
   '.g4-p{text-align:justify;text-indent:10mm;margin:1.2mm 0}.g4-h{font-weight:bold;margin:2mm 0 1mm 10mm}.g4-l{margin:2.4mm 0 0 10mm}.g4-l2{margin:1.2mm 0 0 10mm}'+
   '.g4-ml0{margin-left:0 !important;margin-top:3mm !important}.g4-s10{font-size:12pt !important;padding-top:10mm !important;padding-bottom:6mm !important}.g4-s10 .g4-tit{margin:1mm 0 .5mm}.g4-s10 .g4-l2{margin:1.6mm 0 0 10mm}.g4-s10 .g4-ky{margin-top:2mm}'+
   '.g4-07{font-size:13pt !important;line-height:1.25 !important}.g4-07 .g4-p{margin:.9mm 0}.g4-07 .g4-h{margin:1.6mm 0 .6mm 10mm}.g4-mt8{margin-top:8mm !important}'+
-  '.g4-cat{border-top:.9px solid #000;margin:5mm 10mm 2mm}.g4-fl{display:flex;align-items:baseline;white-space:nowrap}.g4-fl>b{white-space:nowrap}'+
+  '.g4-cc{font-size:10pt;line-height:1.2}.g4-noi{white-space:normal;margin:.6mm 0;line-height:1.25}.g4-cat{border-top:.9px solid #000;margin:5mm 10mm 2mm}.g4-fl{display:flex;align-items:baseline;white-space:nowrap}.g4-fl>b{white-space:nowrap}'+
   '.g4-f{flex:1 1 0;min-width:6mm;margin:0 .8mm;overflow:hidden;white-space:nowrap;font-size:10.5pt;font-weight:300;letter-spacing:1.5px;color:#333}.g4-f::after{content:"'+new Array(160).join('…')+'"}.g4-f.f2{flex-grow:2}'+
   'table.g4-b{table-layout:fixed}table.g4-b tbody tr{height:7mm}table.g4-b.g4-03b tbody tr{height:15mm}table.g4-b.g4-03a tbody tr{height:8mm}table.g4-b.g4-11 tbody tr{height:8.5mm}table.g4-b.g4-kho tbody tr{height:9.5mm}table.g4-b.g4-10 tbody tr{height:5.4mm}.g4-10 td{padding:0 1.5mm;font-size:11pt}'+
   'table.g4-b td .g4-fl{margin:.6mm 0}'+
@@ -91,12 +97,17 @@ function g4Dung(than, ngang){ return {than:than, css:GDX_CSS+G4_CSS+(ngang ? G4_
 /* ---------- 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ) ---------- */
 function g4Dong03(c){ var a = String(c.g4Dong03 || '1|8').split('|'); return [Math.max(1, +a[0] || 1), Math.max(0, +a[1] || 0)]; }
 function g4HTML03(X){
-  var c = X.C, d = g4D(X), p = g4NgayP(c.m12NgayGD), n = g4Dong03(c), ngay = p ? p.day+'/'+p.month+'/'+p.year : g4Cham(14);
+  var c = X.C, d = g4D(X), p = g4NgayP(c.m12NgayGD), n = g4Dong03(c).slice(), ngay = p ? p.day+'/'+p.month+'/'+p.year : g4Cham(14);
   var dau2 = '<thead><tr><th rowspan="3" style="width:9mm">Stt</th><th rowspan="3" style="width:42mm">Họ và tên</th><th colspan="2">Phân công</th><th colspan="5">Theo dõi giao - nhận công cụ dụng cụ, công cụ hỗ trợ</th></tr>'+
     '<tr><th rowspan="2" style="width:30mm">Nhiệm vụ</th><th rowspan="2" style="width:24mm">Ký tên</th><th rowspan="2">Công cụ dụng cụ,<br>Công cụ hỗ trợ</th><th colspan="2">Lượt đi</th><th colspan="2">Lượt về</th></tr>'+
     '<tr><th style="width:24mm">Người giao<br><i>(ký tên)</i></th><th style="width:24mm">Người nhận<br><i>(ký tên)</i></th><th style="width:24mm">Người giao<br><i>(ký tên)</i></th><th style="width:24mm">Người nhận<br><i>(ký tên)</i></th></tr></thead>';
   var cg = '<colgroup><col style="width:9mm"><col style="width:40mm"><col style="width:28mm"><col style="width:20mm"><col><col style="width:25mm"><col style="width:25mm"><col style="width:25mm"><col style="width:25mm"></colgroup>';
-  var dong2 = function(k){ return '<tbody>'+g4Dong(k, g4Td(9))+'</tbody>'; };
+  var nm = function(v){ return g4AiTen(c, v).map(gdxE).join(', '); }, ds2 = g4Dong03II(c), ii = 0;
+  var hang2 = function(o){ return o ? '<tr class="g4-trong"><td class="c">'+o.stt+'</td><td>'+gdxE(o.ten)+'</td><td class="c">'+o.nv+'</td><td></td><td class="g g4-cc">'+o.cc+'</td>'+g4Td(4)+'</tr>' : '<tr class="g4-trong">'+g4Td(9)+'</tr>'; };
+  var dong2 = function(k){ var h = ''; for(var j=0;j<k;j++) h += hang2(ds2[ii++]); return '<tbody>'+h+'</tbody>'; };
+  if(ds2.length > n[0]+n[1]) n = n[1] ? [n[0], ds2.length-n[0]] : [ds2.length, 0];
+  var tu = c.g4Noi!=='cham', noiPGD = 'Trụ sở '+(c.tenPGDTrongVanBan || 'Phòng giao dịch NHCSXH'), noiDiem = d.tenDiem ? 'Điểm giao dịch '+d.tenDiem+(d.tenXa ? ' ('+d.tenXa+')' : '') : '';
+  var noi = function(a, b){ return tu && b ? '<div class="g4-noi">Nơi đi: <i>'+gdxE(a)+'</i></div><div class="g4-noi">Nơi đến: <i>'+gdxE(b)+'</i></div>' : g4NoiDiDen(); };
   var t1 = '<div class="sheet-a4 g4 g4n">'+g4DauChu(c, '03/GDX')+'<div class="g4-tit">Bảng kê theo dõi giao dịch xã</div>'+
     '<div class="g4-dong"><div>Tên điểm giao dịch: '+g4O(d.tenDiem, 30)+'</div><div>Mã điểm giao dịch: '+g4O(d.maDiem, 16)+'</div></div>'+
     '<div class="g4-dong"><div>Tên xã: '+g4O(d.tenXa, 34)+'</div><div>Ngày giao dịch: '+(p ? '<b>'+ngay+'</b>' : ngay)+'</div></div>'+
@@ -104,9 +115,9 @@ function g4HTML03(X){
     '<table class="g4-b g4-03a"><colgroup><col style="width:9mm"><col style="width:40mm"><col style="width:24mm"><col style="width:20mm"><col style="width:44mm"><col><col><col><col></colgroup>'+
     '<thead><tr><th rowspan="2">Stt</th><th rowspan="2">Họ và tên</th><th colspan="2">Phân công</th><th rowspan="2">Phương tiện sử dụng,<br>Công cụ hỗ trợ</th><th rowspan="2" colspan="2">Lượt đi</th><th rowspan="2" colspan="2">Lượt về</th></tr>'+
     '<tr><th style="width:30mm">Nhiệm vụ</th><th style="width:24mm">Ký tên</th></tr></thead><tbody>'+
-    '<tr><td class="c">1</td><td></td><td class="c">Áp tải</td><td></td><td></td><td colspan="2" class="c g">&lt;Số tiền tạm ứng đầu ngày&gt;</td><td colspan="2" class="c g">&lt;Số tiền đóng phiên điều về&gt;</td></tr>'+
-    '<tr><td class="c">2</td><td></td><td class="c">Lái xe</td><td></td><td class="c g">&lt;Phương tiện/ biển số…&gt;</td><td colspan="2">'+g4NoiDiDen()+'</td><td colspan="2">'+g4NoiDiDen()+'</td></tr>'+
-    '<tr><td class="c" rowspan="2">3</td><td rowspan="2"></td><td class="c" rowspan="2">Bảo vệ</td><td rowspan="2"></td><td class="c g" rowspan="2">&lt;Loại công cụ hỗ trợ/ số ký hiệu/ số giấy phép&gt;</td>'+
+    '<tr><td class="c">1</td><td>'+nm('gdvc')+'</td><td class="c">Áp tải</td><td></td><td></td><td colspan="2" class="c g">&lt;Số tiền tạm ứng đầu ngày&gt;</td><td colspan="2" class="c g">&lt;Số tiền đóng phiên điều về&gt;</td></tr>'+
+    '<tr><td class="c">2</td><td>'+nm('lx')+'</td><td class="c">Lái xe</td><td></td><td class="c g">'+(c.g4Xe ? gdxE(c.g4Xe) : '&lt;Phương tiện/ biển số…&gt;')+'</td><td colspan="2">'+noi(noiPGD, noiDiem)+'</td><td colspan="2">'+(tu && noiDiem ? noi(noiDiem, noiPGD) : g4NoiDiDen())+'</td></tr>'+
+    '<tr><td class="c" rowspan="2">3</td><td rowspan="2">'+nm('bvd')+'</td><td class="c" rowspan="2">Bảo vệ</td><td rowspan="2"></td><td class="c g" rowspan="2">'+(c.g4CCHT ? gdxE(c.g4CCHT) : '&lt;Loại công cụ hỗ trợ/ số ký hiệu/ số giấy phép&gt;')+'</td>'+
     '<th>Người giao<br><i>(ký tên)</i></th><th>Người nhận<br><i>(ký tên)</i></th><th>Người giao<br><i>(ký tên)</i></th><th>Người nhận<br><i>(ký tên)</i></th></tr><tr style="height:12mm"><td></td><td></td><td></td><td></td></tr></tbody></table>'+
     '<div class="g4-phan">PHẦN II. PHÂN CÔNG TỔ GIAO DỊCH VÀ GIAO - NHẬN CÔNG CỤ DỤNG CỤ, CÔNG CỤ HỖ TRỢ</div><table class="g4-b g4-03b">'+cg+dau2+dong2(n[0])+'</table>'+(n[1] ? '' : g4Ky03())+'</div>';
   return t1+(n[1] ? '<div class="sheet-a4 g4 g4n"><table class="g4-b g4-03b">'+cg+dau2+dong2(n[1])+'</table>'+g4Ky03()+'</div>' : '');
@@ -208,6 +219,13 @@ function g4HTMLKho(X, nhap){
 /* ---------- khai báo riêng của mẫu (ngoài mục chung với 12/GDX) ---------- */
 function g4Muc(k){
   var C = gdxC();
+  if(k==='g4to') return g4ToHTML();
+  if(k==='g4pa') return ['1', '2', '3'].map(function(v){ return '<button type="button" class="gdx-c" data-lenh="g4.pa" data-v="'+v+'" title="'+G4_PA[v]+'">PA '+v+'</button>'; }).join('')+
+    '<small class="gdx-ghi">PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ · PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ · PA 3: cán bộ lái xe riêng, Tổ trưởng bảo vệ. Áp tải luôn là GDV chính.</small>';
+  if(k==='g4xe') return '<div class="gdx-luoi"><label><span>Phương tiện / biển số</span>'+gdxIn1('g4Xe', 'vd Ô tô / 70A-xxx.xx — trống = mẫu gốc')+'</label><label><span>Công cụ hỗ trợ / số hiệu / số giấy phép</span>'+gdxIn1('g4CCHT', 'trống = mẫu gốc')+'</label></div>';
+  if(k==='g4noi') return gdxRadio('g4Noi', [['tu', 'Tự ghi: trụ sở PGD ↔ điểm giao dịch'], ['cham', 'Để chấm ghi tay']]);
+  if(k==='g4ccdc') return gdxRadio('g4CCDC', [['in', 'In sẵn CCDC theo vai (VB 4368)'], ['trong', 'Để trống ghi tay']]);
+  if(k==='g4conv') return gdxRadio('g4CoNV', [[8.5, '8,5 pt — vừa 1 mặt A4'], [9, '9 pt'], [9.5, '9,5 pt']])+'<small class="gdx-ghi">Trên 8,5 pt có thể sang mặt 2.</small>';
   if(k==='g4dong03') return gdxRadio('g4Dong03', [['1|8', 'Như mẫu: tờ 1 có 1 dòng, tờ 2 có 8 dòng'], ['3|8', 'Tờ 1 có 3 dòng, tờ 2 có 8 dòng'], ['4|0', '1 tờ: 4 dòng']]);
   if(k==='g4sdt') return gdxIn1('g4Sdt', 'vd 0276 xxx xxx — trống = chấm ghi tay')+'<small class="gdx-ghi">In ở mục III.5: "… số điện thoại của Phòng giao dịch '+gdxE(String(C.tenPGDTrongVanBan || '').replace(/^Phòng giao dịch\s*/i, ''))+': …"</small>';
   if(k==='g4ngaykho') return gdxRadio('g4NgayKho', [['cham', 'Để chấm ghi tay'], ['hom', 'Hôm nay']])+(C.g4NgayKho==='hom' ? '<b class="gdx-hien">→ '+gdxDMY(gdxHom())+'</b>' : '');
@@ -216,7 +234,7 @@ function g4Muc(k){
 (function(){
   var dk = function(k, ma, ham, nhan, ngang, tom){ GDX_THEM[k] = {ngang:!!ngang, muc:g4Muc, nhan:function(){ return nhan; }, dung:function(X){ return g4Dung(ham(X), ngang); }, file:function(X){ return g4File(ma, X); }, tom:tom}; };
   var tomDiem = function(ba){ return function(X, lk, cb){ g4TomDiem(X, lk, cb); if(ba) g4TomBa(X, lk); }; };
-  dk('g03', '03', g4HTML03, '03/GDX · A4 ngang · Phần I + Phần II', 1, function(X, lk, cb){ g4TomDiem(X, lk, cb); var n = g4Dong03(X.C); lk('g4dong03', 'Phần II: '+n[0]+(n[1] ? ' + '+n[1] : '')+' dòng'+(n[1] ? ' (2 tờ)' : ' (1 tờ)')); });
+  dk('g03', '03', g4HTML03, '03/GDX · A4 ngang · Phần I + Phần II', 1, function(X, lk, cb){ g4TomDiem(X, lk, cb); g4TomTo(X, lk, cb); var n = g4Dong03(X.C); lk('g4dong03', 'Phần II: '+n[0]+(n[1] ? ' + '+n[1] : '')+' dòng'+(n[1] ? ' (2 tờ)' : ' (1 tờ)')); });
   dk('g06', '06', g4HTML06, '06/GDX · A4 dọc · 1 trang', 0, function(X, lk){ g4TomDiem(X, lk, null, false); lk('ba', 'Thủ quỹ/GDV: '+(X.C.m12GDV || 'chấm'), X.C.m12GDV ? '' : 'vang'); });
   dk('g07', '07', g4HTML07, '07/GDX · A4 dọc · 1 trang', 0, function(X, lk, cb){ lk('g4sdt', X.C.g4Sdt ? 'SĐT PGD: '+X.C.g4Sdt : 'SĐT PGD: chấm', X.C.g4Sdt ? '' : 'vang'); if(!X.C.g4Sdt) cb('vang', 'Chưa khai số điện thoại Phòng giao dịch (mục III.5) — để chấm.', 'g4sdt'); });
   dk('g09', '09', g4HTML09, '09/GDX · A4 ngang · 1 trang', 1, tomDiem(1));
@@ -227,4 +245,163 @@ function g4Muc(k){
   dk('g15', '15', function(X){ return g4HTMLKho(X, true); }, '15/GDX · A4 dọc · 1 trang', 0, tomKho);
   GDX_THEM.g14.file = function(){ return 'Mau14GDX_PhieuXuatKho_'+gdxHom(); }; GDX_THEM.g15.file = function(){ return 'Mau15GDX_PhieuNhapKho_'+gdxHom(); };
   GDX_THEM.g07.file = function(){ return 'Mau07GDX_NoiDungPhoBien'; };
+  GDX_THEM.gnv = {ngang:false, muc:g4Muc, nhan:function(C){ return 'Nhiệm vụ Tổ giao dịch · A4 dọc · 1 mặt · chữ '+String(+C.g4CoNV || 8.5).replace('.', ',')+' pt'; },
+    dung:function(X){ return {than:g4HTMLNV(X), css:GDX_CSS+G4_CSS+g4NVCSS(+X.C.g4CoNV || 8.5)}; }, file:function(X){ return g4File('NhiemVuTo', X).replace('MauNhiemVuToGDX', 'NhiemVuToGD'); },
+    tom:function(X, lk, cb){ g4TomDiem(X, lk, cb, false); g4TomTo(X, lk, cb); var co = +X.C.g4CoNV || 8.5; lk('g4conv', 'chữ '+String(co).replace('.', ',')+' pt'); if(co > 8.5) cb('vang', 'Chữ '+String(co).replace('.', ',')+' pt có thể sang mặt 2 — 8,5 pt vừa 1 mặt A4.', 'g4conv'); }};
 })();
+
+/* ==========================================================
+   3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho khai thủ công tất cả các thành viên"):
+   👥 TỔ GIAO DỊCH — khai tay từng người (gõ tên / chọn từ danh sách cán bộ) + chip vai; ⭐ lưu tổ hay dùng; PA 1/2/3 (04/GDX) gán lái xe, bảo vệ đường.
+   Điền 03/GDX (Phần I áp tải = GDV chính · lái xe · bảo vệ; Phần II mỗi vai 1 dòng + CCDC theo vai) và 📘 Nhiệm vụ Tổ GD (tên cạnh vai).
+   Đồng bộ 12/GDX (Tổ trưởng · KSV · GDV = GDV chính). Kiểm tra quy tắc VB 4368 mục II.2, II.7 — chỉ cảnh báo, không chặn in.
+   ========================================================== */
+var G4_VAI = [['tt', 'Tổ trưởng', 'Tổ trưởng Tổ giao dịch'], ['ksv', 'KSV', 'Kiểm soát viên'], ['gdvc', 'GDV chính', 'Giao dịch viên chính — người áp tải'], ['gdv', 'GDV', 'Giao dịch viên'],
+  ['lx', 'Lái xe', 'Lái xe (đường đi, về)'], ['bvd', 'BV đường', 'Bảo vệ trên đường đi, về'], ['bvt', 'BV tại điểm', 'Bảo vệ tại điểm giao dịch']];
+var G4_PA = {'1':'Tổ trưởng lái xe · GDV chính áp tải · thành viên còn lại bảo vệ', '2':'Thành viên còn lại lái xe · GDV chính áp tải · Tổ trưởng bảo vệ', '3':'Cán bộ lái xe riêng · GDV chính áp tải · Tổ trưởng bảo vệ'};
+var G4_NV2 = {tt:'Tổ trưởng', ksv:'Kiểm soát viên', gdvc:'Giao dịch viên chính', gdv:'Giao dịch viên', bvt:'Bảo vệ'};   /* Phần II 03/GDX: mỗi vai 1 dòng (như mẫu ghi chép) */
+var G4_CC2 = {tt:'Thiết bị kết nối mạng, camera, …', ksv:'Máy tính xách tay, máy in, …', gdvc:'Thùng đựng tiền, máy in, máy đếm tiền, …', gdv:'Thùng đựng tiền, máy đếm tiền, …', bvt:'Công cụ hỗ trợ'};
+function g4To(c){ c = c || gdxC(); if(!Array.isArray(c.g4To)) c.g4To = []; return c.g4To; }
+function g4Ten(x){ return String(x && x.ten || '').trim(); }
+function g4Ai(c, v){ return g4To(c).filter(function(x){ return (x.vai || []).indexOf(v)>=0; }); }
+function g4AiTen(c, v){ return g4Ai(c, v).map(g4Ten).filter(Boolean); }
+function g4ToMoi(C){ if(g4To(C).length) return; var ds = [];   /* tổ trống → lấy sẵn Tổ trưởng · KSV · GDV đã chọn ở 12/GDX */
+  [['m12ToTruong', 'tt'], ['m12KSV', 'ksv'], ['m12GDV', 'gdvc']].forEach(function(p){ var t = String(C[p[0]] || '').trim(); if(!t) return; var x = ds.filter(function(o){ return o.ten===t; })[0]; if(x) x.vai.push(p[1]); else ds.push({ten:t, vai:[p[1]]}); });
+  C.g4To = ds; }
+function g4DongBo(C){ if(!g4To(C).some(g4Ten)) return; var f = function(v){ return g4AiTen(C, v)[0] || ''; }; C.m12ToTruong = f('tt'); C.m12KSV = f('ksv'); C.m12GDV = f('gdvc'); }
+/* Phần II: mỗi (người, vai) 1 dòng theo thứ tự Tổ trưởng · KSV · GDV chính · GDV · Bảo vệ tại điểm */
+function g4Dong03II(c){ var r = [], cc = c.g4CCDC!=='trong';
+  ['tt', 'ksv', 'gdvc', 'gdv', 'bvt'].forEach(function(v){ g4Ai(c, v).forEach(function(x){ if(!g4Ten(x)) return;
+    r.push({stt:r.length+1, ten:g4Ten(x), nv:G4_NV2[v], cc:cc ? gdxE(v==='bvt' && c.g4CCHT ? c.g4CCHT : G4_CC2[v]) : ''}); }); });
+  return r; }
+/* quy tắc VB 4368 → [{muc 'do'|'vang', chu}] */
+function g4KiemTo(c){
+  var ds = g4To(c), r = [], dem = function(v){ return g4Ai(c, v).length; }, co = function(x, v){ return (x.vai || []).indexOf(v)>=0; }, add = function(m, t){ r.push({muc:m, chu:t}); };
+  if(!ds.length) return [{muc:'vang', chu:'Chưa khai Tổ giao dịch — tên trên mẫu để trống ghi tay.'}];
+  var ten = ds.filter(g4Ten); if(ten.length < 3) add('vang', 'Tổ giao dịch tối thiểu 03 cán bộ (đang '+ten.length+').');
+  if(ds.some(function(x){ return !g4Ten(x) && (x.vai || []).length; })) add('vang', 'Có vai chưa ghi họ tên.');
+  if(!dem('tt')) add('do', 'Chưa có Tổ trưởng.'); else if(dem('tt')>1) add('do', 'Chỉ 01 Tổ trưởng (đang '+dem('tt')+').');
+  if(!dem('gdvc')) add('do', 'Chưa có Giao dịch viên chính (người áp tải).'); else if(dem('gdvc')>1) add('do', 'Chỉ 01 GDV chính (đang '+dem('gdvc')+').');
+  if(!dem('ksv')) add('vang', 'Chưa có Kiểm soát viên (Tổ trưởng kiêm KSV thì bấm cả 2 vai).');
+  if(ds.some(function(x){ return co(x, 'tt') && co(x, 'ksv') && co(x, 'bvt'); })) add('do', 'Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên.');
+  if(ds.some(function(x){ return co(x, 'gdvc') && (co(x, 'lx') || co(x, 'bvd')); })) add('do', 'GDV chính là người áp tải — không lái xe, không bảo vệ đường.');
+  if(!dem('lx')) add('vang', 'Đi đường: chưa có lái xe.');
+  if(!dem('bvd')) add('vang', 'Đi đường: chưa có bảo vệ.');
+  if(ds.some(function(x){ return co(x, 'lx') && co(x, 'bvd'); })) add('vang', 'Lái xe và bảo vệ là 2 người (đi đường tối thiểu 03 người: áp tải · lái xe · bảo vệ).');
+  if(!dem('bvt')) add('vang', 'Chưa có bảo vệ tại điểm (Tổ trưởng hoặc lực lượng khác).');
+  var g = {}; ten.forEach(function(x){ var k = g4Ten(x).toLowerCase(); g[k] = (g[k] || 0)+1; }); var trung = Object.keys(g).filter(function(k){ return g[k]>1; });
+  if(trung.length) add('vang', 'Trùng tên ở 2 dòng — gộp vai vào 1 dòng: '+trung.join(', ')+'.');
+  return r; }
+function g4TomTo(X, lk, cb){ var c = X.C, n = g4To(c).filter(g4Ten).length; lk('g4to', n ? 'Tổ GD '+n+' người' : 'Tổ GD: chưa khai', n ? '' : 'vang');
+  g4KiemTo(c).forEach(function(x){ cb(x.muc, x.chu, 'g4to'); }); }
+function g4ToHTML(){
+  var C = gdxC(); g4ToMoi(C); var ds = g4To(C), cb = C.danhSachCanBo || [], hay = C.g4ToHay || [];
+  var nut = function(chu, lenh, du, tit, lop){ return '<button type="button" class="'+(lop || 'nho')+'" data-lenh="g4.'+lenh+'"'+(du!=null ? ' data-i="'+du+'"' : '')+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; };
+  var h = ds.map(function(x, i){ return '<div class="g4-to-d"><span class="g4-to-so">'+(i+1)+'</span><input class="gdx-i g4-to-ten" list="g4-cb" value="'+gdxE(x.ten || '')+'" placeholder="Họ tên" data-lenh="g4.ten" data-su="change" data-i="'+i+'">'+
+    G4_VAI.map(function(v){ return '<button type="button" class="gdx-c'+((x.vai || []).indexOf(v[0])>=0 ? ' bat' : '')+'" data-lenh="g4.vai" data-i="'+i+'" data-v="'+v[0]+'" title="'+gdxE(v[2])+'">'+v[1]+'</button>'; }).join('')+
+    nut('×', 'bo', i, 'Bỏ người này', 'gdx-x')+'</div>'; }).join('');
+  h += '<datalist id="g4-cb">'+cb.map(function(n){ return '<option value="'+gdxE(n)+'">'; }).join('')+'</datalist>';
+  h += '<div class="gdx-chips">'+nut('＋ Thêm người', 'them', null, 'Gõ tên (hoặc chọn từ danh sách cán bộ) rồi bấm vai — người ngoài (bảo vệ thuê, lái xe, công an) cũng gõ tay')+
+    (ds.length ? nut('⭐ Lưu tổ hay dùng', 'hayLuu', null, 'Lưu tổ này để phiên sau chọn lại')+nut('🗑 Xóa hết', 'xoa') : '')+'</div>';
+  if(hay.length) h += '<div class="gdx-chips gdx-phu"><span class="gdx-nho2">Tổ hay dùng:</span>'+hay.map(function(t, i){ return '<span class="gdx-mh">'+nut('⭐ '+gdxE(t.ten)+' ('+t.ds.length+')', 'hay', i, t.ds.map(function(x){ return x.ten; }).join(', '), 'gdx-c')+nut('×', 'hayBo', i, 'Xóa tổ hay dùng này', 'gdx-x')+'</span>'; }).join('')+'</div>';
+  var k = ds.length ? g4KiemTo(C) : [];
+  return h+(k.length ? '<div class="g4-to-canh">'+k.map(function(x){ return '<div class="'+(x.muc==='do' ? 'do' : 'vang')+'">'+(x.muc==='do' ? '⛔ ' : '⚠ ')+gdxE(x.chu)+'</div>'; }).join('')+'</div>' : ds.length ? '<div class="g4-to-canh"><div class="ok">✓ Đúng quy định thành phần Tổ giao dịch (VB 4368).</div></div>' : '');
+}
+function g4Pa(v){
+  var C = gdxC(), ds = g4To(C), tt = g4Ai(C, 'tt')[0]; if(!tt) return bao('Chọn Tổ trưởng trước (bấm chip "Tổ trưởng" ở 1 dòng).', 4);
+  ds.forEach(function(x){ x.vai = (x.vai || []).filter(function(a){ return a!=='lx' && a!=='bvd'; }); });
+  var con = ds.filter(function(x){ var a = x.vai; return x!==tt && a.indexOf('gdvc')<0 && a.indexOf('tt')<0; })[0], moi = function(a){ var x = {ten:'', vai:[a]}; ds.push(x); return x; };
+  if(v==='1'){ tt.vai.push('lx'); if(con) con.vai.push('bvd'); else moi('bvd'); }
+  else if(v==='2'){ if(con) con.vai.push('lx'); else moi('lx'); tt.vai.push('bvd'); }
+  else { moi('lx'); tt.vai.push('bvd'); }
+}
+function g4Sau(){ var C = gdxC(); g4DongBo(C); gdxLuu(); gdxVe(); }
+gdDangKy('g4', gdLenh({
+  ten:function(el){ var ds = g4To(), i = +el.getAttribute('data-i'); if(ds[i]) ds[i].ten = String(el.value || '').replace(/\s+/g, ' ').trim(); g4Sau(); },
+  vai:function(el){ var ds = g4To(), x = ds[+el.getAttribute('data-i')], v = el.getAttribute('data-v'); if(!x) return; x.vai = x.vai || [];
+    if(x.vai.indexOf(v)>=0) x.vai = x.vai.filter(function(a){ return a!==v; });
+    else { if(v==='tt' || v==='gdvc') ds.forEach(function(o){ o.vai = (o.vai || []).filter(function(a){ return a!==v; }); });   /* chỉ 1 Tổ trưởng · 1 GDV chính */
+      if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv'; }); if(v==='gdv' && x.vai.indexOf('gdvc')>=0) return;
+      x.vai.push(v); }
+    g4Sau(); },
+  them:function(){ g4To().push({ten:'', vai:[]}); g4Sau(); setTimeout(function(){ var a = document.querySelectorAll('.g4-to-ten'); if(a.length) a[a.length-1].focus(); }, 60); },
+  bo:function(el){ g4To().splice(+el.getAttribute('data-i'), 1); g4Sau(); },
+  xoa:function(){ if(!confirm('Xóa hết thành viên Tổ giao dịch đang khai?')) return; gdxC().g4To = []; gdxLuu(); gdxVe(); },
+  hayLuu:function(){ var C = gdxC(), d = gdxDiem(C.m12SelectedDiem), t = prompt('Tên tổ hay dùng:', d ? 'Tổ '+d.tenDiem : 'Tổ '+((C.g4ToHay || []).length+1)); if(!t) return;
+    C.g4ToHay = (C.g4ToHay || []).filter(function(o){ return o.ten!==t.trim(); }); C.g4ToHay.unshift({ten:t.trim(), ds:JSON.parse(JSON.stringify(g4To(C)))}); C.g4ToHay = C.g4ToHay.slice(0, 20); gdxLuu(); gdxVe(); },
+  hay:function(el){ var C = gdxC(), t = (C.g4ToHay || [])[+el.getAttribute('data-i')]; if(!t) return; C.g4To = JSON.parse(JSON.stringify(t.ds)); g4Sau(); },
+  hayBo:function(el){ var C = gdxC(); (C.g4ToHay || []).splice(+el.getAttribute('data-i'), 1); gdxLuu(); gdxVe(); },
+  pa:function(el){ g4Pa(el.getAttribute('data-v')); g4Sau(); }
+}));
+
+/* ---------- 📘 NHIỆM VỤ TỔ GIAO DỊCH — 1 mặt A4 dọc (anh 07/11 "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ") — tóm tắt VB 4368 mục II, III ---------- */
+var G4NV_CHUNG = [
+ 'Tổ có <b>tối thiểu 03 cán bộ</b>: Tổ trưởng, Kiểm soát viên (KSV), Giao dịch viên (GDV — 01 người là <b>GDV chính</b>), Lái xe, Bảo vệ. Các thành viên <b>không có quan hệ gia đình</b>.',
+ '<b>Tổ trưởng</b> là CBTD theo dõi địa bàn điểm GD, được ủy quyền ký thẻ tiết kiệm (02/GDX), <b>có thể kiêm KSV</b> — trừ khi Tổ trưởng làm bảo vệ tại điểm. <b>Không</b> bố trí CBTD làm GDV tại địa bàn mình theo dõi.',
+ 'Đi đường <b>tối thiểu 03 người</b>: <b>áp tải = GDV chính</b> · lái xe · bảo vệ (trong tổ hoặc lái xe NHCSXH, bảo vệ thuê, công an). Theo phương án bảo vệ 04/GDX.',
+ 'Làm việc độc lập, đúng nhiệm vụ; <b>không làm hộ, làm thay, sai vị trí</b>; mặc đồng phục, đeo thẻ, có bảng chức danh; camera ghi hình suốt phiên; mọi người <b>ký nhận trên Bảng kê 03/GDX</b>.'];
+var G4NV_VAI = [
+ ['Tổ trưởng', [
+   'Nhận, kiểm tra: thiết bị kết nối mạng, camera, phao cứu sinh + túi ni lông (nếu có); chìa khóa hòm thư góp ý, 01 ổ khóa thùng tiền GDV chính.',
+   'Triển khai phương án bảo vệ; ký 03/GDX.'],
+  ['Bố trí vị trí làm việc; lắp camera, treo biển "Khu vực có camera giám sát"; triển khai bảo vệ tại điểm.',
+   'Đôn đốc Hội, Tổ trưởng TK&VV hướng dẫn KH lập bảng kê tiền nộp; phổ biến 07/GDX trước giải ngân; GD tiền gửi tiết kiệm (PL01); tiếp nhận hồ sơ cho vay, xử lý nợ.',
+   'Mở hòm thư góp ý trước giao ban; tổ chức họp giao ban; kiểm tra biển hiệu, bảng công khai.',
+   'Kiểm quỹ: <b>trực tiếp kiểm đếm</b> tiền mặt, thẻ TK. Nhận biên lai không sử dụng, <b>trực tiếp kiểm đếm, tiêu hủy</b>. Xử lý phát sinh.'],
+  ['Báo cáo GĐ kết quả phiên; trình TB kết luận 08/GDX (≤ 03 ngày làm việc).',
+   'Bàn giao 03/GDX, 12/GDX cho kế toán; dữ liệu camera cho TP KH-TD; bàn giao CCDC, ký 03/GDX.']],
+ ['Kiểm soát viên', [
+   'Nhận, kiểm tra: máy tính xách tay (nếu không giao riêng), máy in, thiết bị khác; giấy in, kẹp ghim.',
+   'Kiểm tra phần mềm Offline mới nhất, cập nhật dữ liệu đầu ngày, mở phiên GD; ký 03/GDX.'],
+  ['Kiểm soát, phê duyệt GD trên hệ thống; in, ký kiểm soát chứng từ (PL01); ghi rõ lý do từ chối / chỉnh sửa.',
+   'In, giao Tổ trưởng biểu mẫu công khai; in 13/GDX gửi Hội.',
+   'Kiểm quỹ: nhập số tồn thực tế, in <b>10/GDX</b>; đối chiếu thẻ TK với 09/GDX. Ghi <b>12/GDX</b> khi tiêu hủy biên lai.',
+   'Đóng phiên, xuất dữ liệu cuối ngày.'],
+  ['Bàn giao file dữ liệu GD cho người cập nhật hệ thống; file sao lưu (.bak) cho TP KH-TD.',
+   'Bàn giao CCDC, ký 03/GDX.']],
+ ['GDV chính<br><small>(người áp tải)</small>', [
+   'Nhận, kiểm tra: máy tính, thùng tiền / sổ sách, máy đếm tiền, máy phát hiện tiền giả, máy in; bảng kê nộp / lĩnh tiền, dây buộc tiền, dao, kéo, kẹp; photo thẻ lưu TK.',
+   'Kiểm tra phần mềm Offline. Lập <b>06/GDX</b>, nhận tiền, thẻ TK tạm ứng; nhận hồ sơ giải ngân, <b>05/GDX</b>; ký 03/GDX.',
+   '<b>Áp tải:</b> quản lý, giám sát thùng tiền, để đúng nơi quy định, giao nhận tiền an toàn.'],
+  ['Làm nhiệm vụ GDV + nhận và chi trả tiền gửi tiết kiệm (PL01); quản lý thẻ tiết kiệm.',
+   'Cuối phiên: đối chiếu tồn quỹ Nhật ký quỹ với tiền mặt thực tế, thẻ TK tồn với <b>09/GDX</b>; in Nhật ký quỹ, liệt kê GD, 09/GDX, 11/GDX (nếu có).',
+   'Kiểm quỹ: <b>chứng kiến, không trực tiếp kiểm đếm</b>. Tập hợp, bàn giao biên lai không sử dụng cho Tổ trưởng; chứng kiến tiêu hủy.'],
+  ['Điều chuyển tiền mặt, thẻ TK tồn về kho trung tâm trên hệ thống; nộp tiền, thẻ TK (cả thẻ hỏng) về quỹ.',
+   'Bàn giao Nhật ký quỹ, liệt kê GD, hồ sơ chứng từ cho kế toán; bàn giao CCDC, ký 03/GDX.']],
+ ['Giao dịch viên', [
+   'Nhận, kiểm tra: máy tính, thùng tiền / sổ sách, máy đếm tiền, máy phát hiện tiền giả, máy in (nếu có); bảng kê nộp / lĩnh tiền, dây buộc tiền, dao, kéo, kẹp.',
+   'Kiểm tra phần mềm Offline; ký 03/GDX.'],
+  ['Tiếp nhận yêu cầu KH, tạo GD; thu, chi tiền mặt theo PL01; chịu trách nhiệm GD mình lập; bảo quản tiền, hồ sơ; dùng Nhật ký quỹ thay sổ quỹ.',
+   'In, giao Tổ trưởng TK&VV bảng kê, biên lai; thu lại biên lai tháng trước (ghi 12/GDX).',
+   'Cuối phiên: đối chiếu tồn quỹ, điều chuyển tiền về quỹ GDV chính; giao biên lai không sử dụng cho Tổ trưởng; in Nhật ký quỹ, liệt kê GD, bàn giao chứng từ cho GDV chính. Kiểm quỹ khi được phân công.'],
+  ['Bàn giao CCDC, ký 03/GDX.']],
+ ['Lái xe', [
+   'Nhận phương tiện (ô tô có thiết bị chống cháy nổ, hòm tiền, camera hành trình); ký 03/GDX.'],
+  ['Chịu trách nhiệm kỹ thuật phương tiện; <b>đi đúng cung đường</b> được giao (đổi sang cung đường dự phòng phải báo GĐ); chấp hành luật giao thông, quy định vận chuyển hàng đặc biệt; quản lý phương tiện suốt phiên.'],
+  ['Bàn giao phương tiện; ký 03/GDX.']],
+ ['Bảo vệ', [
+   'Nhận, kiểm tra công cụ hỗ trợ (có giấy chứng nhận sử dụng); ký 03/GDX.',
+   'Lưu số điện thoại lãnh đạo NHCSXH, UBND xã, công an xã.'],
+  ['Đường đi, về: bảo vệ người, tiền, phương tiện — tài sản luôn trong tầm quan sát; phát hiện khả nghi báo ngay cho tổ.',
+   'Tại điểm: phối hợp lực lượng bảo vệ UBND xã bố trí. Người bảo vệ tại điểm khác người đi đường thì nhận công cụ hỗ trợ, cuối phiên giao lại, ký 03/GDX.'],
+  ['Bàn giao công cụ hỗ trợ cho bộ phận quản lý; ký 03/GDX.']]];;
+var G4NV_MA = [['tt'], ['ksv'], ['gdvc'], ['gdv'], ['lx'], ['bvd', 'bvt']];
+function g4NVCSS(co){ var t = function(d){ return (co+d)+'pt'; };
+  return '.sheet-a4.gnv{padding:8mm 9mm 8mm 11mm;font-size:'+t(0)+';line-height:1.18}.gnv .nv-dau{display:flex;justify-content:space-between;font-size:'+t(.5)+'}.gnv .nv-cq{text-align:center}.gnv .nv-cq b{text-decoration:underline;text-underline-offset:1.5px}'+
+    '.gnv h1{text-align:center;font-size:'+t(4)+';margin:1.5mm 0 .5mm}.gnv .nv-phu{text-align:center;font-style:italic;margin-bottom:1.5mm}.gnv .nv-chung{border:.8px solid #000;padding:1mm 2mm;margin-bottom:1.5mm}'+
+    '.gnv table{width:100%;border-collapse:collapse;table-layout:fixed}.gnv td,.gnv th{border:.8px solid #000;vertical-align:top;padding:.6mm 1.2mm}.gnv th{font-size:'+t(.5)+'}'+
+    '.gnv td.v{font-weight:bold;text-align:center;vertical-align:middle}.gnv td.v small{font-weight:normal;font-style:italic}.gnv .nv-ten{margin-top:1mm;font-weight:normal;font-size:'+t(-.5)+'}'+
+    '.gnv ul{margin:0;padding-left:3.2mm}.gnv li{margin:0 0 .3mm}.gnv .nv-chan{font-size:'+t(-1)+';font-style:italic;margin-top:1mm}'+
+    '@media print{.sheet-a4.g4.gnv{padding:8mm 9mm 8mm 11mm !important}}'; }
+function g4HTMLNV(X){
+  var c = X.C, d = g4D(X), p = g4NgayP(c.m12NgayGD), li = function(a){ return '<ul>'+a.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul>'; };
+  var ten = function(i){ var t = []; G4NV_MA[i].forEach(function(v){ g4AiTen(c, v).forEach(function(n){ if(t.indexOf(n)<0) t.push(n); }); });
+    return '<div class="nv-ten">'+(t.length ? t.map(gdxE).join('<br>') : g4Cham(9)+'<br>'+g4Cham(9))+'</div>'; };
+  return '<div class="sheet-a4 g4 gnv"><div class="nv-dau"><div class="nv-cq">'+gdxE(c.m12DonVi1 || '')+'<br><b>'+gdxE(c.m12DonVi2 || '')+'</b></div>'+
+    '<div>Điểm GD: '+g4O(d.tenDiem, 8)+' · Ngày GD: '+(p ? '<b>'+p.day+'/'+p.month+'/'+p.year+'</b>' : g4Cham(8))+'</div></div>'+
+    '<h1>NHIỆM VỤ TỔ GIAO DỊCH XÃ</h1><div class="nv-phu">(Tóm tắt theo văn bản số 4368/HD-NHCS ngày 29/9/2026, hiệu lực từ 01/10/2026)</div>'+
+    '<div class="nv-chung"><b>Quy định chung</b>'+li(G4NV_CHUNG)+'</div>'+
+    '<table><colgroup><col style="width:21mm"><col style="width:28%"><col><col style="width:22%"></colgroup><thead><tr><th>Vai trò<br><small>Họ tên</small></th><th>① Trước khi đi (tại trụ sở)</th><th>② Tại điểm giao dịch</th><th>③ Sau phiên (về trụ sở)</th></tr></thead><tbody>'+
+    G4NV_VAI.map(function(v, i){ return '<tr><td class="v">'+v[0]+ten(i)+'</td><td>'+li(v[1])+'</td><td>'+li(v[2])+'</td><td>'+li(v[3])+'</td></tr>'; }).join('')+'</tbody></table>'+
+    '<div class="nv-chan">PL01: Phụ lục 01 — quy trình giao dịch tại điểm giao dịch. Biểu mẫu: 03 Bảng kê theo dõi GDX · 05 DS khoản vay duyệt giải ngân · 06 Đề nghị tiếp quỹ · 07 Phổ biến KH vay · 08 TB kết luận giao ban · 09 Báo cáo thẻ TK · 10 Kiểm quỹ · 11 Thẻ TK hỏng, mất · 12 Biên lai · 13 Kết quả GD.</div></div>';
+}
