@@ -402,6 +402,7 @@ function pbGiuO(ve){
 var PB07 = {dl:[], bo:[], canh:[], K:null, kbMo:false, x:null, mau:'07pb', du:false};   /* 3.494: mau = '07pb' Biểu 07 cũ · '07kh' · '08kh' (js/mau/07kh.js) · '09kh' Tờ trình (js/48c); du = đủ các thôn / đủ CT */
 var PB07_MAU = [['07pb', 'Biểu 07 (TB UBND — mẫu cũ)', 'Thông báo của UBND xã gửi Trưởng các ấp — giữ để in lại QĐ trước QĐ 4686'], ['07kh', '07/KH QĐ Ban Đại diện xã', 'QĐ 4686: Ban Đại diện HĐQT xã giao (điều chỉnh) chỉ tiêu cho các thôn'],
   ['08kh', '08/KH QĐ Giám đốc PGD', 'QĐ 4686: Giám đốc PGD điều chỉnh giữa các thôn khi Ban Đại diện xã có Nghị quyết giao']];
+function pb07DsO(){ var m = PB07.mau; return m && m!=='07pb' ? pbKHDsO(m) : PB07_O; }   /* 3.494 · 3.497: danh sách ô khai báo của mẫu đang chọn (giao diện giữ, truyền cho mẫu qua K.ds) */
 function pb07KBKhoa(){ return PB07.mau && PB07.mau!=='07pb' ? 'bKH' : 'b07'; }   /* 3.494: khai báo riêng Biểu 07 cũ (ch.b07) tách khỏi 3 mẫu mới (ch.bKH) */
 function pb07TenMau(){ return PB07.mau==='07pb' ? 'Biểu 07' : PBKH_M[PB07.mau].ma; }
 function pb07NutHTML(q, chan){
@@ -443,7 +444,7 @@ function pb07Mo(tatCa){
   }, function(er){ tatChay(); baoLoi(er && er.message || String(er)); });
 }
 /* ---------- 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ trong lần làm (K.go) không lưu ---------- */
-function pb07KBLuu0(){ var b = pbDL().ch[pb07KBKhoa()] || {}; return {cach:Object.assign({}, b.cach || {}), gt:Object.assign({}, b.gt || {}), co:b.co || pb07KBKhoa()==='b07' ? pb07CoChu(b) : 13.5}; }   /* 3.494: mẫu QĐ 07/KH dài hơn Thông báo cũ → mặc định 13,5 cho vừa 1 trang */
+function pb07KBLuu0(){ var b = pbDL().ch[pb07KBKhoa()] || {}; return {ds:pb07DsO(), cach:Object.assign({}, b.cach || {}), gt:Object.assign({}, b.gt || {}), co:b.co || pb07KBKhoa()==='b07' ? pb07CoChu(b) : 13.5}; }   /* 3.494: mẫu QĐ 07/KH dài hơn Thông báo cũ → mặc định 13,5 cho vừa 1 trang */
 function pb07KBMoi(){ var K = pb07KBLuu0(); K.go = {}; return K; }
 function pb07KBChuan(K){ var t = function(o){ o = o || {}; return Object.keys(o).sort().filter(function(k){ return o[k]!=='' && o[k]!=null; }).map(function(k){ return k+'='+o[k]; }).join('|'); }; return t(K.cach)+'#'+t(K.gt)+'#'+pb07CoChu(K); }
 function pb07KBDoi(){ return !!PB07.K && pb07KBChuan(PB07.K)!==pb07KBChuan(pb07KBLuu0()); }
@@ -451,7 +452,7 @@ function pb07KBLuu(){ var d = pbDL(), K = PB07.K; if(!K) return; d.ch[pb07KBKhoa
 function pb07KBHuy(){ var go = (PB07.K || {}).go || {}; PB07.K = pb07KBLuu0(); PB07.K.go = go; pb07Ve(); }
 function pb07ORow(x){   /* 1 dòng ô: tên · các cách · ô gõ (⌨ / ✏) · đang in · ↺ */
   var K = PB07.K, d0 = PB07.dl[0], c = pb07Cach(K, x.k), v = pb07GT(K, x.k, d0), o = '';
-  if(c==='kb'){ var thay = pb07GT({cach:{}, gt:{}}, x.k, d0) || x.mau || '', gt = (K.gt || {})[x.k] || '';
+  if(c==='kb'){ var thay = pb07GT({cach:{}, gt:{}, ds:K.ds}, x.k, d0) || x.mau || '', gt = (K.gt || {})[x.k] || '';
     o = x.nhieu ? '<textarea class="gd-o gd-o-chu pb07-o" rows="2" data-lenh="pb.b07KG" data-su="change" data-k="'+x.k+'" placeholder="'+coChuHTML(thay)+'">'+coChuHTML(gt)+'</textarea>'
       : GD.o({loai:'chu', gt:gt, ph:thay || 'gõ chữ in', lenh:'pb.b07KG', du:{k:x.k}}); }
   else if(c==='go') o = GD.o({loai:x.ngay ? 'ngay' : 'chu', gt:x.ngay ? pbNgay((K.go || {})[x.k]) : (K.go || {})[x.k] || '', ph:x.ngay ? 'gõ liền số' : 'gõ trong lần làm', lenh:'pb.b07KG', du:{k:x.k}});
@@ -474,7 +475,7 @@ function pb07Ve(){
     (cu ? '' : GD.hang(['<span class="sl-phu">'+(m==='09kh' ? 'Chương trình:' : 'Thôn:')+'</span>', GD.chip(m==='09kh' ? 'có đề nghị điều chỉnh' : 'có tăng / giảm', !PB07.du, 'pb.b07Du', {v:''}),
       GD.chip(m==='09kh' ? 'đủ chương trình' : 'đủ các thôn', PB07.du, 'pb.b07Du', {v:'1'})]))+
     GD.hang([GD.nut({chu:'⚙ Khai báo riêng'+(pb07KBDoi() ? ' ●' : ''), lenh:'pb.b07KB', lop:PB07.kbMo ? 'bat' : '', tit:'Nơi lập, số / ngày, người ký, nơi nhận, cỡ chữ — riêng '+pb07TenMau()})])+
-    (PB07.kbMo ? pb07KBHTML() : '<div class="pb07-kb pb07-gon">'+pb07ORow(pb07OK(cu ? 'ngayTB' : m==='09kh' ? 'khNgayTT' : 'khNgay'))+'</div>')+
+    (PB07.kbMo ? pb07KBHTML() : '<div class="pb07-kb pb07-gon">'+pb07ORow(pb07OK(cu ? 'ngayTB' : m==='09kh' ? 'khNgayTT' : 'khNgay', K.ds))+'</div>')+
     '<div class="sl-phu">'+PB07.dl.map(function(d){ return coChuHTML(d.dv.thuong)+(m==='09kh' ? ' ('+d.ct.length+' CT)' : ' ('+(PB07.du && !cu ? d.apDu : d.ap).length+' '+d.dv.apKp+')'); }).join(' · ')+'</div>'+
     (PB07.bo.length ? '<div class="sl-bao do">✗ Bỏ qua (chưa khớp QĐ):<br>'+PB07.bo.map(coChuHTML).join('<br>')+'</div>' : '')+
     (PB07.canh.length ? '<div class="sl-bao vang">⚠ '+PB07.canh.map(coChuHTML).join('<br>⚠ ')+'</div>' : '');
@@ -862,7 +863,7 @@ GD.dangKy('pb', {
   b07Mau:function(el){ var v = el.getAttribute('data-v'), d = pbDL(); if(PB07.mau===v) return; PB07.mau = v; d.ch.b07Mau = v; pbGhi(d); var go = (PB07.K || {}).go; PB07.K = pb07KBMoi(); if(go && v!=='07pb') PB07.K.go = go; pb07Ve(); },   /* 3.494 */
   b07Du:function(el){ var v = el.getAttribute('data-v')==='1', d = pbDL(); PB07.du = v; if(PB07.mau!=='09kh'){ d.ch.b07Du = v; pbGhi(d); } pb07Ve(); },
   b07KC:function(el){ var K = PB07.K, k = el.getAttribute('data-k'); if(!K) return; K.cach[k] = el.getAttribute('data-v'); pb07Ve(); },
-  b07KG:function(el){ var K = PB07.K, k = el.getAttribute('data-k'), x = pb07OK(k); if(!K || !x) return;
+  b07KG:function(el){ var K = PB07.K, k = el.getAttribute('data-k'), x = K && pb07OK(k, K.ds); if(!K || !x) return;
     if(pb07Cach(K, k)==='go'){ var v = el.value;
       if(x.ngay){ v = typeof gdxDocNgay==='function' ? gdxDocNgay(el.value) : el.value; if(String(el.value).trim() && !v) return baoLoi('"'+el.value+'" không phải ngày — gõ liền số, vd 2192026 = 21/09/2026.'); }
       K.go[k] = v ? String(v).trim() : ''; }

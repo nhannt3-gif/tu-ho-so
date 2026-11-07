@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.496', ds:[
+var CO_GI_MOI = {ban:'3.497', ds:[
+  ["Dọn cấu trúc mẫu Phân bổ KH và Giao dịch xã theo luật kiến trúc — chức năng, bản in không đổi; thêm phím Enter / Tab ở khung Tổ giao dịch và ô đề nghị Tờ trình 09/KH", ""],
   ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"],
   ["🏢 Giao dịch xã › 📘 Nhiệm vụ Tổ giao dịch: 1 mặt A4, nhiệm vụ 6 vai × trước / tại điểm / sau phiên, ghi tên thành viên", "slDoiTab('gdx')"],
   ["🏢 Giao dịch xã › 03/GDX rà lại theo mẫu gốc: ô Lái xe đủ 2 dòng chấm mỗi nơi, Phần II tờ 1 có 1 dòng · tờ 2 có 8 dòng như mẫu, dòng trống đủ cao để ký", "slDoiTab('gdx')"],
@@ -1071,9 +1072,10 @@ var CO_GI_MOI = {ban:'3.496', ds:[
   ["Khung xem trước: dòng chữ HOA đầu trang (quốc hiệu) hiện đủ dấu như bản in", "slDoiTab('hsv')"],
   ["BBLV: gạch dưới tiêu ngữ chuẩn (kẻ liền mảnh, dài đúng dòng tiêu ngữ)", "slDoiTab('hsv')"],
   ["Hồ sơ vay › BBLV / 06A: lọc tới Hội (chọn \"Tất cả tổ\") → chọn món cả Hội, in 1 lần; bảng chọn món hiện đủ cột", "slDoiTab('hsv')"],
-  ["Sổ quy tắc tên: thêm BBLV, 06A — scan đã ký vào thư mục Hồ sơ vay", "slDoiTab('to')"],
-  ["BBLV / 06A: in 1 lần cả danh sách nhiều tổ (theo Hội đoàn thể, xã…) từ tab Tổ", "slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sổ quy tắc tên: thêm BBLV, 06A — scan đã ký vào thư mục Hồ sơ vay", "slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.497 · 🏢 Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: gõ tên rồi Enter → sang ô tên kế; ở ô cuối Enter → thêm người",
+    "3.497 · 🎯 Phân bổ KH › 📤 Tờ trình 09/KH: gõ đề nghị rồi Enter → sang ô dòng kế",
     "3.496 · 🏢 Giao dịch xã › 🚐 03/GDX › khung 👥 Tổ giao dịch: ＋ Thêm người → gõ tên → bấm chip vai (Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm) → PA 1/2/3 → ⭐ Lưu tổ hay dùng",
     "3.496 · 🏢 Giao dịch xã › chip 📘 Nhiệm vụ → 🖨 In (1 mặt A4, tên theo tổ đã khai)",
     "3.494 · 🎯 Phân bổ KH › ⚙ Phân bổ · Biểu 07 › 👁 Biểu 07 · 07/KH · 08/KH: đầu hộp chọn Mẫu (Biểu 07 cũ · 07/KH · 08/KH), chip Thôn: có tăng / giảm · đủ các thôn",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.496', ds:[
     "3.484 · Số liệu › Tổ › chọn Hội, chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV → 🖨 In 1 lần cả danh sách",
     "3.483 · Số liệu › Tổ › bấm chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV hoặc 📄 06A ở đầu danh sách",
     "3.482 · Số liệu › Tổ › nhóm Cần xử lý: 3 chip riêng, chọn xã / Hội / tổ rồi bấm chip → In / Excel danh sách",
-    "3.481 · In BBLV nhiều món / Mẫu 12 GDX / sao kê cấp Hội: tiêu đề bảng nền trắng, chữ đậm",
-    "3.480 · Hồ sơ vay › BBLV › ô ☐ In 2 mặt (cột trái, dưới Tích hết): mặc định bỏ tích",
-    "3.478 · Phân bổ KH › 📋 Quyết định / 📈 Diễn biến: bảng ⚠ Đứt chuỗi QĐ (bấm dòng = ✎ sửa QĐ)"],
+    "3.481 · In BBLV nhiều món / Mẫu 12 GDX / sao kê cấp Hội: tiêu đề bảng nền trắng, chữ đậm"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

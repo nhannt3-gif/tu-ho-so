@@ -31,7 +31,7 @@ const fs = require('fs'), path = require('path');
    const nut = document.querySelector('[data-lenh="pb.b07"]'); o.nutChu = nut ? nut.textContent : '';
    nut.click(); for(let i=0;i<40 && !(PB07.x && document.getElementById('pb07-khung'));i++) await w(100); await w(300);
    /* ① mặc định Biểu 07 cũ */
-   const cu0 = PB07.x.trang; o.cuMacDinh = PB07.mau==='07pb' && /THÔNG BÁO ĐIỀU CHỈNH KẾ HOẠCH DƯ NỢ/.test(T()) && document.querySelectorAll('[data-lenh="pb.b07Mau"]').length===3;
+   const cu0 = PB07.x.trang; o.cu0 = cu0; o.cuMacDinh = PB07.mau==='07pb' && /THÔNG BÁO ĐIỀU CHỈNH KẾ HOẠCH DƯ NỢ/.test(T()) && document.querySelectorAll('[data-lenh="pb.b07Mau"]').length===3;
    const mau = v => { document.querySelector('[data-lenh="pb.b07Mau"][data-v="'+v+'"]').click(); return w(300); };
    /* ② 07/KH */
    o.anh = {}; await mau('07kh'); const t7 = T(); o.anh.kh07 = PB07.x.trang;
@@ -81,6 +81,12 @@ const fs = require('fs'), path = require('path');
    o.ttLuu = s3.dn===200 && s3.nam===1600 && s6.dg===-100 && s6.suaDg && luu && luu.dn['03']===200 && luu.dg['06']===-100;
    const bo = document.querySelector('[data-lenh="pb.ttDgBo"][data-ct="06"]'); if(bo) bo.click(); await w(200);
    o.ttBoSua = pbTTTinh(PB.tt).dong.find(d => d.ma==='06').dg===-150;
+   /* 3.497 — bàn phím: Enter ở ô Đề nghị dòng 1 → ô Đề nghị dòng 2 */
+   { const a = document.querySelectorAll('.pb-tt [data-lenh="pb.ttDn"]'); a[0].focus(); a[0].dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true})); await w(150);
+     o.phim = document.activeElement===document.querySelectorAll('.pb-tt [data-lenh="pb.ttDn"]')[1]; document.activeElement.blur(); await w(200); }
+   /* QT-20 thuần: pbToTrinh không cần màn hình */
+   { const R = pbToTrinh(pbDL().qd, '2026', xaGD, 1, {dn:{'03':50}, dg:{}}, null), d3 = R.dong.find(d => d.ma==='03');
+     o.thuan = d3.tg===400 && d3.kh===1400 && d3.dn===50 && d3.nam===1450 && d3.ht==null && R.q.so==='G101'; }
    document.querySelector('[data-lenh="pb.ttXem"]').click(); for(let i=0;i<30 && !(PB07.x && PB07.mau==='09kh');i++) await w(100); await w(300);
    const t9 = T(); o.anh.kh09 = PB07.x.trang;
    const fk = document.getElementById('pb07-khung'); for(let i=0;i<30 && !(fk.contentDocument && fk.contentDocument.querySelectorAll('.tr-tg').length);i++) await w(200); o.trang09 = fk.contentDocument.querySelectorAll('.tr-tg').length;
@@ -109,12 +115,15 @@ const fs = require('fs'), path = require('path');
  ok('thanh mục có 📤 Tờ trình 09/KH', r.thanh);
  ok('09/KH: đã giao = cộng dồn QĐ trong năm (03 +400, 06 −150), KH = Đến 31/12 QĐ gần nhất (1.400 · 650), căn cứ QĐ G101', r.ttSo);
  ok('09/KH: đề nghị +200 → số dư nợ năm 1.600; sửa tay "đã giao" — lưu KHO1', r.ttLuu);
+ ok('09/KH: Enter ở ô Đề nghị → ô dòng kế (QUY_CHUAN 11)', r.phim);
+ ok('QT-20 thuần: pbToTrinh (cộng dồn 400, KH 1.400, đề nghị +50 → 1.450, căn cứ G101)', r.thuan);
  ok('09/KH: ↺ bỏ sửa tay → về cộng dồn', r.ttBoSua);
  ok('09/KH: tờ trình đủ chữ mẫu, số đề nghị, Trưởng ban dùng chung khai báo 07/KH', !r.tt09.length, r.tt09.join(' | '));
  ok('09/KH: danh mục chỉ CT có đề nghị (1 dòng), "đủ chương trình" → 2 dòng; không chip chọn mẫu Biểu 07', r.tt09dong===1 && r.tt09du===2 && r.tt09chip, r.tt09dong+'/'+r.tt09du);
  ok('09/KH: khung xem chia đúng 2 trang (Tờ trình · Danh mục)', r.trang09===2, r.trang09);
  ok('09/KH: in → lưu bản chụp b09 (không ghi vào nhật ký Biểu 07)', r.b09);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
+ if(process.env.T381_SNAP){ fs.writeFileSync(path.join(process.env.T381_SNAP, 'pb07.html'), r.cu0); for(const k of Object.keys(r.anh)) fs.writeFileSync(path.join(process.env.T381_SNAP, k+'.html'), r.anh[k]); }
  if(process.env.T381_ANH) for(const k of Object.keys(r.anh)){ const q = await b.newPage(); await q.setContent(r.anh[k]); await q.waitForTimeout(800); fs.writeFileSync(path.join(process.env.T381_ANH, k+'.pdf'), await q.pdf({preferCSSPageSize:true})); await q.close(); }
  R.forEach(x => console.log(x)); const sai = R.filter(x => x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt');   /* không mở đầu bằng ✗ (hoiquy đếm dòng bắt đầu bằng ✗ là trượt) */
  await b.close(); })();

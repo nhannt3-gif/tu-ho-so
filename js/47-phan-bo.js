@@ -390,6 +390,22 @@ function pbBieu07DL(q, kq, tenCT){
   return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),
     nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; }), apDu:thuDu.map(function(kk){ return theoDu[kk]; })}; }
 
+/* ---------- 3.494 · 3.497 — QT-20 TỜ TRÌNH ĐIỀU CHỈNH 09/KH (quy trình ngược của phân bổ — anh 07/11 "khi trình lấy số dư của chương trình, QĐ trước đó") — THUẦN ----------
+   QĐ gần nhất của tỉnh cho (năm, xã, nguồn) → căn cứ trên tờ trình. */
+function pbQDCuoi(dsQD, nam, xa, nguon){ var ds = (dsQD || []).filter(function(q){ return String(q.ngay).slice(0, 4)===String(nam) && q.xa===xa && +q.nguon===+nguon; })
+  .sort(function(a, b){ return a.ngay < b.ngay ? -1 : a.ngay > b.ngay ? 1 : String(a.luc || '') < String(b.luc || '') ? -1 : 1; }); return ds[ds.length-1] || null; }
+/* mỗi CT có QĐ trong năm của (xã, nguồn): tg = cộng dồn tăng / giảm các QĐ (pbDienBien.tongTG) · dg = số in (ban.dg sửa tay thì theo đó) · kh = Đến 31/12 QĐ gần nhất (khCuoi)
+   ht = dư nợ thực tế (fHt(xa, ma, nguon), triệu — null khi chưa có Mẫu 31) · con = kh − ht · dn = đề nghị (ban.dn) · nam = kh + dn
+   ban = {dn:{CT: số}, dg:{CT: số}} (KHO1 'pb'.tt) → {dong:[{ma, tg, dg, suaDg, kh, ht, con, dn, nam}] theo mã CT, q: QĐ gần nhất} */
+function pbToTrinh(dsQD, nam, xa, nguon, ban, fHt){
+  ban = ban || {}; var dn0 = ban.dn || {}, dg0 = ban.dg || {};
+  var r = pbDienBien(dsQD, nam, {xa:xa, nguon:+nguon}, {ds:[], thang:fHt ? [{ky:'ht', f:fHt}] : []});
+  var dong = r.nhom.filter(function(n){ return !n.khongGiao && n.xa===xa && n.nguon===+nguon; }).sort(function(a, b){ return a.ma < b.ma ? -1 : a.ma > b.ma ? 1 : 0; }).map(function(n){
+    var sua = dg0[n.ma]!=null && dg0[n.ma]!=='', dg = sua ? +dg0[n.ma] : pbR(n.tongTG), kh = pbR(n.khCuoi), dn = pbSo(dn0[n.ma]) || 0;
+    return {ma:n.ma, tg:pbR(n.tongTG), dg:dg, suaDg:sua, kh:kh, ht:n.hienTai, con:n.hienTai==null ? null : pbR(kh - n.hienTai), dn:dn, nam:pbR(kh + dn)}; });
+  return {dong:dong, q:pbQDCuoi(dsQD, nam, xa, nguon)};
+}
+
 /* ---------- 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất,
    và báo bị đứt chênh ở QĐ nào, chương trình nào"): ĐỨT CHUỖI QĐ — theo (xã, CT, nguồn) trong năm, các QĐ theo ngày (rồi lúc ghi) như pbDoiChieu:
    Đã giao của QĐ sau ≠ Đến 31/12 (QĐ trước; QĐ trước không ghi Đến 31/12 → Đã giao + Tăng/giảm) quá ngưỡng (mặc định 1 triệu) → 1 dòng báo.

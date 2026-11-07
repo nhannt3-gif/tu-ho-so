@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.496 · 07/11/2026 21:53 · 144 file · 46525 dòng · 3732 hàm cấp ngoài · 627 biến toàn cục.
+Bản 3.497 · 07/11/2026 23:41 · 146 file · 46567 dòng · 3734 hàm cấp ngoài · 627 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 328 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 330 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4099 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -66,7 +66,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/25b-ho-so-vay.js` | 690 | 87 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HỒ SƠ VAY — mẫu 01/TD · 03/TD · 04/TD · 09A/TD · 01/UQ |
 | `js/25c-ho-so-giao-dien.js` | 912 | 137 | /*   3.411 (A2 — tách file lớn): HỒ SƠ — giao diện tab · 🏠 hộ vay mới · 📒 Sổ hộ vay · 03/TD nhiều hộ · GQVL ·  |
 | `js/26-giao-dich-xa.js` | 1158 | 138 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
-| `js/26b-gdx-4368.js` | 407 | 45 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
+| `js/26b-gdx-4368.js` | 322 | 33 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
+| `js/26c-gdx-to.js` | 102 | 13 | /*   js/26c-gdx-to.js — 3.497 (tách từ js/26b, QUY_CHUAN 1.3 "tách dữ liệu – nghiệp vụ – giao diện"; không đổi |
 | `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
 | `js/28-tv-tk.js` | 398 | 43 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
 | `js/29-kho.js` | 176 | 2 | /*   3.216 (anh 15/10/2026): CỬA KHO — kho số liệu chung (KIEN_TRUC_3_LOP 3.5 · QUY_CHUAN_KIEN_TRUC mục 3 "cửa |
@@ -87,10 +88,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/44-quet-cccd-form.js` | 144 | 19 | /*   3.273 (anh duyệt 20/10/2026: "cạnh ô nhập họ tên sẽ là 1 nút quét, khi bấm sẽ mở cam hoặc quét từ ảnh CCC |
 | `js/45-tra-mau31.js` | 223 | 20 | /*   3.275 (anh 20/10/2026: "khi mở 1 file lên chỉnh sửa hay lưu mới anh sẽ đánh số CCCD hoặc họ tên hoặc mã K |
 | `js/46-quan-ly-scan.js` | 140 | 9 | /*   3.278 (rà soát tab Scan 20/10 — anh: "em cứ code theo ý em và gộp lên"): BỐ CỤC GỌN - Thanh tab Scan: 1 n |
-| `js/47-phan-bo.js` | 515 | 54 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
-| `js/48-phan-bo-gd.js` | 897 | 93 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
+| `js/47-phan-bo.js` | 531 | 56 | /*   P1 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md): 🎯 PHÂN BỔ KẾ HOẠCH — LÕI NGHIỆP VỤ (tiền tố pb)   |
+| `js/48-phan-bo-gd.js` | 898 | 94 | /*   P2 (anh Nhân 20/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 5): 🎯 PHÂN BỔ KH — GIAO DIỆN tab con trong 📈 Số |
 | `js/48b-phan-bo-db.js` | 282 | 29 | /*   js/48b-phan-bo-db.js — 📈 DIỄN BIẾN PHÂN VỐN THEO KH (tách khỏi js/48 ở 3.471 cho file < 150 KB; lệnh pb.d |
-| `js/48c-pb-to-trinh.js` | 86 | 13 | /*   js/48c-pb-to-trinh.js — 3.494 (anh 07/11/2026, QĐ 4686): 📤 TỜ TRÌNH ĐIỀU CHỈNH KH — Biểu 09/KH (QUY TRÌNH |
+| `js/48c-pb-to-trinh.js` | 88 | 12 | /*   js/48c-pb-to-trinh.js — 3.494 (anh 07/11/2026, QĐ 4686): 📤 TỜ TRÌNH ĐIỀU CHỈNH KH — Biểu 09/KH (QUY TRÌNH |
 | `js/49-ten-chuan.js` | 34 | 5 | /*   3.295 — SỔ QUY TẮC TÊN + NƠI LƯU HỒ SƠ THEO KHÁCH (lớp Nghiệp vụ, dùng chung) — bước 1 `docs/KE_HOACH_TEN |
 | `js/50-xuat-khach.js` | 117 | 13 | /*   3.304 — CHỮ KÝ GẮN CÙNG CCCD + XUẤT FILE THEO KHÁCH (lớp Nghiệp vụ + Giao diện tab Scan) Anh 21/10/2026:  |
 | `js/51-chu-ky.js` | 194 | 8 | /*   3.306 — CHỮ KÝ / LĂN TAY: NHẬN DẠNG, DỌN BẢN QUÉT NHẦM, BỎ ẢNH KHÁCH LƯU SẴN, NÚT BẢN PHOTO 2 MẶT (lớp Ng |
@@ -107,7 +108,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/01tgtv.js` | 123 | 0 | /*   3.223 M5 — MẪU 01/TGTV Giấy đăng ký mở tài khoản tổ viên trên nền ô   BỐ CỤC GIỮ NGUYÊN 3.218–3.219 (anh  |
 | `js/mau/01gqvl.js` | 160 | 0 | /*   3.223 M5 — MẪU 01/GQVL Phương án sử dụng vốn vay (người lao động) trên nền ô — dựng theo file gốc tests/m |
 | `js/mau/07b.js` | 183 | 0 | /*   3.223 M5 — MẪU 07b/GQVL Hợp đồng tín dụng (người lao động) trên nền ô — dựng theo file gốc tests/mau_goc/ |
-| `js/mau/07pb.js` | 88 | 14 | /*   3.289 P3 (anh Nhân 21/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 6): BIỂU 07 PHÂN BỔ KH — mẫu in dựng theo |
+| `js/mau/0pb.js` | 35 | 10 | /*   js/mau/0pb.js — 3.497 (QUY_CHUAN 9.4 "mẫu không gọi mẫu khác"): PHẦN CHUNG CÁC MẪU PHÂN BỔ KH   Tách nguy |
+| `js/mau/07pb.js` | 57 | 3 | /*   3.289 P3 (anh Nhân 21/10/2026 — docs/KE_HOACH_PHAN_BO_KH.md mục 6): BIỂU 07 PHÂN BỔ KH — mẫu in dựng theo |
 | `js/mau/07kh.js` | 133 | 12 | /*   3.494 (anh 07/11/2026 — QĐ 4686/QĐ-NHCS ngày 21/10/2026 "Quy định về xây dựng và tổ chức thực hiện kế hoạ |
 | `js/54-tgtv-khai.js` | 163 | 15 | /*   3.315 (anh 22/10 "làm hoàn chỉnh 01TGTV in bằng 2 cách: lấy từ Mẫu 31 hoặc in nhanh tự khai, khai nhanh t |
 | `js/56-ktgs-bo.js` | 109 | 20 | /*   3.327 — KTGS bước 1 (docs/KE_HOACH_KTGS_GON.md mục 2.4, 3): 2 BỘ KHAI BÁO CỐ ĐỊNH (anh chốt 23/10)   ① Hộ |
@@ -409,18 +411,18 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/26-giao-dich-xa.js:1097` · ⭐ Mẫu hay in (số hộ + số tiền) · mức tiền · danh sách cán bộ — giữ từ 3.172
 - `js/26-giao-dich-xa.js:1132` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f26.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/26b-gdx-4368.js:1` · 3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 đã làm ổn rồi"
-- `js/26b-gdx-4368.js:41` · phần dùng chung
-- `js/26b-gdx-4368.js:74` · CSS chung các mẫu (thêm sau GDX_CSS; đường kẻ theo QUY_TAC_SOAN_MAU: chính ≤ 0,9 px đen, phụ mảnh xám)
-- `js/26b-gdx-4368.js:97` · 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ)
-- `js/26b-gdx-4368.js:128` · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm (A4 dọc)
-- `js/26b-gdx-4368.js:141` · 07/GDX Nội dung phổ biến cho khách hàng vay vốn (A4 dọc, chữ cố định)
-- `js/26b-gdx-4368.js:169` · 09/GDX Báo cáo thẻ tiết kiệm tại điểm giao dịch (A4 ngang)
-- `js/26b-gdx-4368.js:183` · 10/GDX Bảng kê kiểm quỹ cuối phiên giao dịch (A4 dọc)
-- `js/26b-gdx-4368.js:197` · 11/GDX Biên bản xác định thẻ tiết kiệm hỏng, mất (A4 dọc)
-- `js/26b-gdx-4368.js:207` · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho (A4 dọc)
-- `js/26b-gdx-4368.js:219` · khai báo riêng của mẫu (ngoài mục chung với 12/GDX)
-- `js/26b-gdx-4368.js:253` · 3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho kh
-- `js/26b-gdx-4368.js:337` · 📘 NHIỆM VỤ TỔ GIAO DỊCH — 1 mặt A4 dọc (anh 07/11 "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ") — tóm tắt VB 4368 mục I
+- `js/26b-gdx-4368.js:40` · phần dùng chung
+- `js/26b-gdx-4368.js:73` · CSS chung các mẫu (thêm sau GDX_CSS; đường kẻ theo QUY_TAC_SOAN_MAU: chính ≤ 0,9 px đen, phụ mảnh xám)
+- `js/26b-gdx-4368.js:96` · 03/GDX Bảng kê theo dõi giao dịch xã (A4 ngang, 2 tờ)
+- `js/26b-gdx-4368.js:127` · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ tiết kiệm (A4 dọc)
+- `js/26b-gdx-4368.js:140` · 07/GDX Nội dung phổ biến cho khách hàng vay vốn (A4 dọc, chữ cố định)
+- `js/26b-gdx-4368.js:168` · 09/GDX Báo cáo thẻ tiết kiệm tại điểm giao dịch (A4 ngang)
+- `js/26b-gdx-4368.js:182` · 10/GDX Bảng kê kiểm quỹ cuối phiên giao dịch (A4 dọc)
+- `js/26b-gdx-4368.js:196` · 11/GDX Biên bản xác định thẻ tiết kiệm hỏng, mất (A4 dọc)
+- `js/26b-gdx-4368.js:206` · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho (A4 dọc)
+- `js/26b-gdx-4368.js:218` · khai báo riêng của mẫu (ngoài mục chung với 12/GDX)
+- `js/26b-gdx-4368.js:252` · 📘 NHIỆM VỤ TỔ GIAO DỊCH — 1 mặt A4 dọc (anh 07/11 "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ") — tóm tắt VB 4368 mục I
+- `js/26c-gdx-to.js:8` · 3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho kh
 - `js/27-mini-gdx.js:24` · gói số liệu (chỉ chạy trên máy anh lúc xuất)
 - `js/27-mini-gdx.js:76` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
 - `js/28-tv-tk.js:1` · 3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ
@@ -484,9 +486,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/47-phan-bo.js:268` · 3.465 (anh 04/11 "QĐ của tỉnh có cấu trúc theo từng chương trình vay, khi nhập liệu cũng cho nhập như vậy"; gửi QĐ mẫu 1
 - `js/47-phan-bo.js:339` · 3.467 (anh 04/11 "thêm 1 nút thống kê QĐ theo ngày, dòng thời gian, có số thứ tự để kiểm tra xem có đợt nào bỏ sót; tỉnh
 - `js/47-phan-bo.js:364` · 3.289 P3: dữ liệu Biểu 07 Phân bổ KH (QT-16) — thuần, mẫu in ở js/mau/07pb.js
-- `js/47-phan-bo.js:393` · 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắ
-- `js/47-phan-bo.js:409` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
-- `js/47-phan-bo.js:451` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
+- `js/47-phan-bo.js:393` · 3.494 · 3.497 — QT-20 TỜ TRÌNH ĐIỀU CHỈNH 09/KH (quy trình ngược của phân bổ — anh 07/11 "khi trình lấy số dư của chương
+- `js/47-phan-bo.js:409` · 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắ
+- `js/47-phan-bo.js:425` · 3.301: ĐỐI CHIẾU CHÉO (anh 21/10: "tại mỗi QĐ tổng giao của Biểu 07 phải khớp số giao của QĐ và dư nợ đến cuối năm cũng 
+- `js/47-phan-bo.js:467` · DIỄN BIẾN PHÂN VỐN THEO KH (anh 21/10: "làm thêm diễn biến phân vốn … theo KH", giao diện web hiện đại)
 - `js/48-phan-bo-gd.js:22` · dựng: kỳ chung → cây địa bàn (xã → ấp)
 - `js/48-phan-bo-gd.js:53` · 3.308 (anh 21/10 "tab phân bổ còn hiện chung các chức năng hơi rối … thanh tab ngang"): THANH TAB NGANG 4 MỤC — 📋 Quyết 
 - `js/48-phan-bo-gd.js:68` · 📋 Quyết định: danh sách QĐ (thẻ)
@@ -494,12 +497,12 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/48-phan-bo-gd.js:163` · hộp nhập / sửa QĐ (QT-17)
 - `js/48-phan-bo-gd.js:328` · 3.439 (anh 01/11 "bỏ app cũ, nạp QĐ mới" + mẫu Excel chuẩn cho Gemini điền): 📥 Nạp QĐ (Excel mẫu) · ⬇ Tải mẫu
 - `js/48-phan-bo-gd.js:401` · 3.289 P3: BIỂU 07 (QT-16 — chỉ xuất khi khớp QĐ) · xem trước / In / PDF / Word · 1 xã hoặc mọi xã của QĐ
-- `js/48-phan-bo-gd.js:445` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
-- `js/48-phan-bo-gd.js:495` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
-- `js/48-phan-bo-gd.js:577` · lệnh
-- `js/48-phan-bo-gd.js:578` · 3.465 (anh 04/11, QĐ mẫu 13821 đợt 7): 📄 ĐỌC QĐ (PDF có chữ) · Excel sheet DANH_MUC — cùng 1 đường: đầu QĐ + danh mục (p
-- `js/48-phan-bo-gd.js:658` · 3.465 (anh 04/11 "khi hiện thì cho chọn qua lại cả 2 kiểu: theo xã (các chương trình của xã) hoặc theo chương trình (các
-- `js/48-phan-bo-gd.js:748` · 3.467 (anh 04/11): 📅 DÒNG THỜI GIAN QĐ (STT từ QĐ đầu tiên, soát đợt sót) · QĐ KHÔNG GIAO CHO PGD (chỉ số QĐ)
+- `js/48-phan-bo-gd.js:446` · 3.301: ⚙ KHAI BÁO RIÊNG Biểu 07 (ô kiểu nền ô — js/mau/07pb.js PB07_O) · lưu KHO1 'pb' → ch.b07 = {cach, gt, co}; ✏ gõ t
+- `js/48-phan-bo-gd.js:496` · 3.301: 🔎 ĐỐI CHIẾU CHÉO (pbDoiChieu ở js/47) — cột phải; cấp xã (cấp ấp chờ cách chia 3)
+- `js/48-phan-bo-gd.js:578` · lệnh
+- `js/48-phan-bo-gd.js:579` · 3.465 (anh 04/11, QĐ mẫu 13821 đợt 7): 📄 ĐỌC QĐ (PDF có chữ) · Excel sheet DANH_MUC — cùng 1 đường: đầu QĐ + danh mục (p
+- `js/48-phan-bo-gd.js:659` · 3.465 (anh 04/11 "khi hiện thì cho chọn qua lại cả 2 kiểu: theo xã (các chương trình của xã) hoặc theo chương trình (các
+- `js/48-phan-bo-gd.js:749` · 3.467 (anh 04/11): 📅 DÒNG THỜI GIAN QĐ (STT từ QĐ đầu tiên, soát đợt sót) · QĐ KHÔNG GIAO CHO PGD (chỉ số QĐ)
 - `js/48b-phan-bo-db.js:3` · 3.301: 📈 DIỄN BIẾN PHÂN VỐN THEO KH (pbDienBien ở js/47) — thẻ số · biểu đồ SVG (KH hiệu lực bậc thang ↔ dư nợ Mẫu 31) ·
 - `js/48b-phan-bo-db.js:174` · 3.471 (anh 04/11 "anh cần bảng biểu cơ bản trước, theo đúng phong cách giao vốn đầu năm, giao tăng giảm, KH cuối năm, dư
 - `js/48b-phan-bo-db.js:267` · 3.478 (anh 05/11 "báo bị đứt chênh ở QĐ nào, chương trình nào"): ⚠ ĐỨT CHUỖI QĐ — bảng dùng chung (Diễn biến · Quyết địn

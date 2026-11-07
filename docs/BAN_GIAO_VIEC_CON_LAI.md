@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.497) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 03/GDX › 👥 Tổ giao dịch: gõ tên → Enter | Sang ô tên kế; ô cuối Enter thêm người | |
+| 2 | Tờ trình 09/KH: gõ +100 → Enter | Lưu, sang ô dòng kế | |
+| 3 | In Biểu 07 cũ, 07/KH, 03/GDX, Nhiệm vụ | Y như 3.496 | |
+
+**Ghi chú kỹ thuật 3.497:** chỉ dọn cấu trúc (QUY_CHUAN 1, 1.2, 1.3, 4, 9.4, 11). File mới `js/mau/0pb.js`, `js/26c-gdx-to.js`.
+
 ### Danh sách thử trên máy thật (3.496) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
