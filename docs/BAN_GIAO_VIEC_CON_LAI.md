@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.499)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🏢 Giao dịch xã (máy tính) | Đủ 14 chip mẫu, xuống dòng, không nút ‹ › | |
+| 2 | 🏢 Giao dịch xã (điện thoại) | Chip trải nhiều hàng, nút Tra cứu / Xem / ⋯ ở hàng dưới | |
+
 ### Danh sách thử trên máy thật (3.498)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

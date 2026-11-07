@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.498', ds:[
+var CO_GI_MOI = {ban:'3.499', ds:[
+  ["🏢 Giao dịch xã: chip mẫu hiện đủ hết (xuống dòng như tab Hồ sơ), không còn phải bấm ‹ › tìm mẫu bị khuất; điện thoại: nút Tra cứu / Xem xuống hàng dưới", "slDoiTab('gdx')"],
   ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"],
   ["Dọn cấu trúc mẫu Phân bổ KH và Giao dịch xã theo luật kiến trúc — chức năng, bản in không đổi; thêm phím Enter / Tab ở khung Tổ giao dịch và ô đề nghị Tờ trình 09/KH", ""],
   ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.498', ds:[
   ["📄 Word các mẫu nền ô giống bản in: canh đều, thụt đầu dòng, cỡ chữ 13,5 / 14, giãn dòng đúng pt — 15/17 mẫu cùng số trang bản in", ""],
   ["⚡ Tab Tổ mở lần đầu nhanh hơn (~330 → ~220 ms, máy thử 25.000 khách) — số liệu không đổi", ""],
   ["Khung xem trước: dòng chữ HOA đầu trang (quốc hiệu) hiện đủ dấu như bản in", "slDoiTab('hsv')"],
-  ["BBLV: gạch dưới tiêu ngữ chuẩn (kẻ liền mảnh, dài đúng dòng tiêu ngữ)", "slDoiTab('hsv')"],
-  ["Hồ sơ vay › BBLV / 06A: lọc tới Hội (chọn \"Tất cả tổ\") → chọn món cả Hội, in 1 lần; bảng chọn món hiện đủ cột", "slDoiTab('hsv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["BBLV: gạch dưới tiêu ngữ chuẩn (kẻ liền mảnh, dài đúng dòng tiêu ngữ)", "slDoiTab('hsv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.499 · 🏢 Giao dịch xã: thấy đủ 14 chip mẫu (04/TD … 15/GDX) không cần cuộn; bấm chip đổi mẫu như cũ; trên điện thoại chip không bị bóp thành 1 cột",
     "3.498 · 🛡 KTGS › 🎯 Đột xuất › chọn 1 tổ › 📄 15/TD Đối chiếu: đủ tổ viên còn nợ / tiền gửi, nợ lãi = lãi tồn, Tổng cộng đúng; 📄 Word mở được bằng MS Word, A4 ngang",
     "3.498 · 🛡 KTGS › 🏛 03/BB-CX Hội cấp xã: chọn Hội, khai tên cán bộ NH (nhớ cho lần sau); mục I số tổ / khách / dư nợ đúng; mục III, IV; 📄 Word mở được",
     "3.498 · 📅 Bắt buộc › Định kỳ (tích tổ) và Mẫu 04 (Hội): có nút 15/TD · 03/BB-CX",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.498', ds:[
     "3.488 · Hồ sơ vay › BBLV (và mẫu có quốc hiệu): khung xem dòng CỘNG HÒA XÃ HỘI… đủ dấu",
     "3.487 · Hồ sơ vay › BBLV › In / PDF / Word: dưới \"Độc lập – Tự do – Hạnh phúc\" là kẻ liền dài bằng dòng chữ",
     "3.486 · Hồ sơ vay › BBLV: bộ lọc chọn Hội, ô tổ để — Tất cả tổ — → bảng hộ cả Hội (nhóm theo tổ)",
-    "3.485 · Scan BBLV / 06A đã ký, gắn khách → lưu vào Hồ sơ vay, tên … - BBLV / … - 06A",
-    "3.484 · Số liệu › Tổ › chọn Hội, chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV → 🖨 In 1 lần cả danh sách"],
+    "3.485 · Scan BBLV / 06A đã ký, gắn khách → lưu vào Hồ sơ vay, tên … - BBLV / … - 06A"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
