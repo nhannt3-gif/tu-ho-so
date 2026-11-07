@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.497** — TK 2: dọn cấu trúc theo QUY_CHUAN (0pb.js, 26c-gdx-to.js, pbToTrinh ở js/47, QT-19…21, bàn phím) — bản in không đổi. Trước: 3.496 Tổ giao dịch trực quan + Nhiệm vụ, 3.494 Phân bổ KH 07/08/09KH.
+- **`main` = 3.498** — TK 2: KTGS thêm 15/TD + 03/BB-CX (VB 727). Trước: 3.497 dọn cấu trúc Phân bổ / GDX theo QUY_CHUAN.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

@@ -17,6 +17,7 @@ var CT_VT_TEN = {HN:'Hộ nghèo', HSSV:'Học sinh, sinh viên', HSSVSTEM:'HSSV
 var CT_DUNG = null;   /* gom tên viết tắt đã dùng trong 1 báo cáo → dòng chú thích cuối báo cáo */
 function ctHT(ma, o){   /* 3.128 (anh chốt): mẫu biểu chuẩn hệ thống ghi đúng tên viết tắt của hệ thống (TENVT, Danh mục chương trình vay); HSSV theo QĐ 43 hệ thống không có mã riêng → HSSV_STEM */
   ma = String(ma||''); if(!ma) return ''; if(o && String(o.c_ma_quyet_dinh||'')==='43') return 'HSSV_STEM'; var c = TDN_CT[ma]; return c ? c[0] : ma; }
+function ctTenMon(m){ var v = ctNgan(m.ct, m); return CT_VT_TEN[v] || v; }   /* 3.498: tên chương trình của 1 món (chung: 02/BG Hồ sơ, 15/TD KTGS) */
 function ctNgan(ma, o){
   ma = String(ma||''); if(!ma) return '';
   var v = (o && String(o.c_ma_quyet_dinh||'')==='43') ? 'HSSVSTEM' : CT_VT[ma];

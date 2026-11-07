@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.497', ds:[
+var CO_GI_MOI = {ban:'3.498', ds:[
+  ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"],
   ["Dọn cấu trúc mẫu Phân bổ KH và Giao dịch xã theo luật kiến trúc — chức năng, bản in không đổi; thêm phím Enter / Tab ở khung Tổ giao dịch và ô đề nghị Tờ trình 09/KH", ""],
   ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"],
   ["🏢 Giao dịch xã › 📘 Nhiệm vụ Tổ giao dịch: 1 mặt A4, nhiệm vụ 6 vai × trước / tại điểm / sau phiên, ghi tên thành viên", "slDoiTab('gdx')"],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.497', ds:[
   ["⚡ Tab Tổ mở lần đầu nhanh hơn (~330 → ~220 ms, máy thử 25.000 khách) — số liệu không đổi", ""],
   ["Khung xem trước: dòng chữ HOA đầu trang (quốc hiệu) hiện đủ dấu như bản in", "slDoiTab('hsv')"],
   ["BBLV: gạch dưới tiêu ngữ chuẩn (kẻ liền mảnh, dài đúng dòng tiêu ngữ)", "slDoiTab('hsv')"],
-  ["Hồ sơ vay › BBLV / 06A: lọc tới Hội (chọn \"Tất cả tổ\") → chọn món cả Hội, in 1 lần; bảng chọn món hiện đủ cột", "slDoiTab('hsv')"],
-  ["Sổ quy tắc tên: thêm BBLV, 06A — scan đã ký vào thư mục Hồ sơ vay", "slDoiTab('to')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Hồ sơ vay › BBLV / 06A: lọc tới Hội (chọn \"Tất cả tổ\") → chọn món cả Hội, in 1 lần; bảng chọn món hiện đủ cột", "slDoiTab('hsv')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.498 · 🛡 KTGS › 🎯 Đột xuất › chọn 1 tổ › 📄 15/TD Đối chiếu: đủ tổ viên còn nợ / tiền gửi, nợ lãi = lãi tồn, Tổng cộng đúng; 📄 Word mở được bằng MS Word, A4 ngang",
+    "3.498 · 🛡 KTGS › 🏛 03/BB-CX Hội cấp xã: chọn Hội, khai tên cán bộ NH (nhớ cho lần sau); mục I số tổ / khách / dư nợ đúng; mục III, IV; 📄 Word mở được",
+    "3.498 · 📅 Bắt buộc › Định kỳ (tích tổ) và Mẫu 04 (Hội): có nút 15/TD · 03/BB-CX",
     "3.497 · 🏢 Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: gõ tên rồi Enter → sang ô tên kế; ở ô cuối Enter → thêm người",
     "3.497 · 🎯 Phân bổ KH › 📤 Tờ trình 09/KH: gõ đề nghị rồi Enter → sang ô dòng kế",
     "3.496 · 🏢 Giao dịch xã › 🚐 03/GDX › khung 👥 Tổ giao dịch: ＋ Thêm người → gõ tên → bấm chip vai (Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm) → PA 1/2/3 → ⭐ Lưu tổ hay dùng",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.497', ds:[
     "3.487 · Hồ sơ vay › BBLV › In / PDF / Word: dưới \"Độc lập – Tự do – Hạnh phúc\" là kẻ liền dài bằng dòng chữ",
     "3.486 · Hồ sơ vay › BBLV: bộ lọc chọn Hội, ô tổ để — Tất cả tổ — → bảng hộ cả Hội (nhóm theo tổ)",
     "3.485 · Scan BBLV / 06A đã ký, gắn khách → lưu vào Hồ sơ vay, tên … - BBLV / … - 06A",
-    "3.484 · Số liệu › Tổ › chọn Hội, chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV → 🖨 In 1 lần cả danh sách",
-    "3.483 · Số liệu › Tổ › bấm chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV hoặc 📄 06A ở đầu danh sách",
-    "3.482 · Số liệu › Tổ › nhóm Cần xử lý: 3 chip riêng, chọn xã / Hội / tổ rồi bấm chip → In / Excel danh sách",
-    "3.481 · In BBLV nhiều món / Mẫu 12 GDX / sao kê cấp Hội: tiêu đề bảng nền trắng, chữ đậm"],
+    "3.484 · Số liệu › Tổ › chọn Hội, chip Nợ khoanh / 3 tháng KHĐ → 📄 BBLV → 🖨 In 1 lần cả danh sách"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

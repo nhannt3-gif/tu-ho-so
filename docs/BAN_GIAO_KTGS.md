@@ -109,3 +109,10 @@ Chạy `bash tools/hoiquy.sh 330` trên bản 3.330 (153 phép, xong 24/10): **h
 | Còn đọc thẳng (để lại, chỉ đọc): `ktKiemTra` (`slBo` — so bảng thô BC0437 ↔ 0438 ↔ Mẫu 31), `ktDsBC` / `ktChonBC` (hiện chip BC), `toKhach` / `KT_K.to` (đọc kỳ đã dựng) | | |
 Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổi.
 
+## 10. Bản 3.498 (07/11/2026) — 2 mẫu VB 727/HD-NHCS (gói `js/56b-ktgs-727.js`, cắm rút)
+- **📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi** (A4 ngang): toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi (`KHO.doiChieu` — QT-22, cùng 02/BG), nợ lãi = lãi tồn, dòng khách + dòng từng món, Tổng cộng.
+- **🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã**: mục I tự điền theo Hội – xã của tổ (số tổ, thôn, khách, dư nợ / NQH / khoanh triệu đồng + tỷ lệ, xếp loại tổ theo BC0437); mục III / IV (mẫu gốc ghi IV / V — anh chốt sửa); cán bộ NH khai báo lưu `D.cauHinh.ktIn.kt03`.
+- Nút ở 3 chỗ: khối B (tổ đang chọn), khối A Định kỳ (tổ đã tích), khối A Mẫu 04 (chỉ 03/BB-CX). Khối A chạy qua `ktNguonVoi` (số liệu chốt tháng).
+- Word: khuôn dựng từ mẫu gốc `tests/mau_goc/15td.docx`, `03bbcx.docx` bằng `tools/khuon_727.py` → `js/khuon/kt-khuon-727.js` (nạp khi cần — `kt727Khuon`); `ktDocxLam` gọi `KT_DOCX_THEM[mau]` nếu có (mẫu cũ không đổi). Điền bằng `kt7Dien` (thêm cách khi mẫu gốc để nhãn dính chấm).
+- Phép thử: `tests/t383.js` (16 phép, có kiểm XML hợp lệ); t179 (khóa mẫu) không đổi.
+

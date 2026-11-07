@@ -283,6 +283,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t380.js` (3.495) | 03/GDX: mặc định Phần II 1 + 8 dòng, vẫn 2 tờ. |
 | `node tests/t382.js` | 3.496 Giao dịch xã: 👥 Tổ giao dịch khai tay + chip vai, 1 Tổ trưởng / GDV chính, đồng bộ 12/GDX, quy tắc VB 4368, PA 1/2/3, tổ hay dùng; 03/GDX Phần I, II tự điền, 2 tờ; 📘 Nhiệm vụ 6 vai, tên, 1 mặt A4 ở 8,5 pt. |
 | `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
+
 | (3.492) | `t358` Word 10A khóa trang (2 ngắt cứng, hàng Word − 0,5 mm). |
 | (3.491) | `t379` + 07b bảng theo cỡ chữ trên bảng, BBLV khối giữ liền. |
 | t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |

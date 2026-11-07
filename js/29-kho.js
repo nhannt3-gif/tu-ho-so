@@ -33,6 +33,8 @@ var KHO = (function(){
     /* KHO.dongTo(maTo) → [dòng Mẫu 31 kỳ đang dựng của tổ] (kh, ten, cccd, tenThon, tenXa, món…) */
     dongTo: function(ma){ return co() && ma ? kcTo(TO_K, ma).dong : []; },   /* 3.384: qua kho chuẩn (theoTo = K.kh) */
     /* KHO.toVien(maTo | tổ) → [tổ viên + trạng thái: còn nợ / tất nợ còn TK 105 / vào / ra…] (bọc toTV) · QT-01…07 */
+    /* KHO.doiChieu(maTo | tổ) → tổ viên cần đối chiếu số dư tiền vay, tiền gửi: còn nợ / còn lãi tồn / còn tiền gửi 105 (QT-22 · 02/BG Hồ sơ Tổ · 15/TD KTGS) */
+    doiChieu: function(x){ return KHO.toVien(x).filter(function(k){ return k.conNo || k.lt>0 || k.t105>0; }); },
     toVien: function(x){ var t = typeof x==='string' ? toThat(x) : x; if(!t || !co()) return []; try { return toTV(t); } catch(e){ return []; } },
     /* KHO.bangTo(maTo) → dòng BẢNG TỔ DỰNG SẴN {kh tổ trưởng (Mã CIF TT), cccd, ncap, ccTu, ccLy, han, tk (104), tkTu, tkLy, tkDs, tkTrung, diem…, thieu} | null · QT-12, 13 */
     bangTo: function(ma){ if(!co() || typeof tkBangTo!=='function') return null; var T = tkBangTo(); return T && ma ? T[ma] || null : null; },

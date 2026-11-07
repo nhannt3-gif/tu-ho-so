@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.498)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Đột xuất › 1 tổ › 📄 15/TD | Đủ tổ viên còn nợ / tiền gửi; nợ lãi = lãi tồn; Tổng cộng đúng; Word mở bằng MS Word, A4 ngang, tiêu đề bảng lặp mỗi trang | |
+| 2 | KTGS › 🏛 03/BB-CX | Đúng Hội – xã; mục I khớp số; mục III, IV; cán bộ NH khai 1 lần nhớ lại; Word mở được | |
+| 3 | Bắt buộc › Định kỳ / Mẫu 04 | Có nút 15/TD · 03/BB-CX, số liệu chốt tháng | |
+
+Ghi chú kỹ thuật 3.498: khuôn Word dựng lại bằng `python3 tools/khuon_727.py > js/khuon/kt-khuon-727.js` (1 dòng dữ liệu). Điền Word qua `kt7Dien` (thêm cách khi mẫu gốc để nhãn dính chấm), không đổi `ktDien` chung.
+
 ### Danh sách thử trên máy thật (3.497) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
