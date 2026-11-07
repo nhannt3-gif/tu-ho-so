@@ -41,7 +41,7 @@ function kt03DL(k, kb){
   var f = {DVKT:typeof hsoPGD==='function' && hsoPGD('ngan') ? 'PGD NHCSXH '+String(hsoPGD('ngan')).toUpperCase() : '', NG:m ? m[3] : '', TH:m ? m[2] : '', NAM:m ? m[1] : '',
     DOAN:typeof hsoPGD==='function' ? hsoPGD('ten') : '', CB1:kb.cb1 || '', CV1:kb.cb1 ? kb.cv1 || '' : '', CB2:kb.cb2 || '', CV2:kb.cb2 ? kb.cv2 || '' : '',
     HOI:String(c.ten||'').replace(/^Hội\s+/i, ''), XA:String(t0.tenXa||'').replace(/^(xã|phường|thị trấn|đặc khu)\s+/i, ''), HB1:ct.cb, HV1:ct.cb ? ct.cv : '', HB2:pct.cb, HV2:pct.cb ? pct.cv : '',
-    HOIXA:' '+String(c.ten||'').replace(/^Hội\s+/i, '')+' '+ktXaChu(t0.tenXa), TDIEM:KT_K && KT_K.ngay ? ngayVNsl(KT_K.ngay) : '',
+    HOIXA:String(c.ten||'').replace(/^Hội\s+/i, '')+' '+ktXaChu(t0.tenXa), TDIEM:KT_K && KT_K.ngay ? ngayVNsl(KT_K.ngay) : '',
     STO:String(ds.length), STH1:String(Object.keys(thonHoi).length), STH2:String(Object.keys(thonXa).length), SKH:String(s.kh), DN:tr(s.dn), NQH:tr(s.qh), TLQH:pt(s.qh), NK:tr(s.kn), TLNK:pt(s.kn)};
   if(xl.co){ f.X0 = String(ds.length); f.X1 = String(xl.tot); f.X2 = String(xl.kha); f.X3 = String(xl.tb); f.X4 = String(xl.yeu); }
   return {k:k, t:t0, f:f, soTo:ds.length, coXL:!!xl.co};
@@ -81,7 +81,7 @@ function kt03HTML(g){
     P('Hôm nay, ngày '+kt7O(f.NG, 4)+' tháng '+kt7O(f.TH, 5)+' năm '+(f.NAM ? kt7O(f.NAM) : '20....')+', chúng tôi gồm:', 'tr')+
     P('<b>ĐOÀN KIỂM TRA:</b> '+kt7O(f.DOAN, 88))+P('- Ông (bà): '+kt7O(f.CB1, 49)+' Chức vụ: '+kt7O(f.CV1, 39))+P('- Ông (bà): '+kt7O(f.CB2, 49)+' Chức vụ: '+kt7O(f.CV2, 39))+
     P('<b>ĐƠN VỊ ĐƯỢC KIỂM TRA:</b> Hội '+kt7O(f.HOI, 29)+' xã '+kt7O(f.XA, 31))+P('- Ông (bà): '+kt7O(f.HB1, 49)+' Chức vụ: '+kt7O(f.HV1, 39))+P('- Ông (bà): '+kt7O(f.HB2, 49)+' Chức vụ: '+kt7O(f.HV2, 39))+
-    P('Cùng tiến hành kiểm tra việc thực hiện các nội dung công việc được ủy thác của Hội'+(f.HOIXA ? kt7O(f.HOIXA) : '.............................. xã/phường/đặc khu')+', thống nhất kết quả kiểm tra như sau:', 'j thut')+
+    P('Cùng tiến hành kiểm tra việc thực hiện các nội dung công việc được ủy thác của Hội '+(f.HOIXA ? kt7O(f.HOIXA) : '.............................. xã/phường/đặc khu')+', thống nhất kết quả kiểm tra như sau:', 'j thut')+
     P('<b>I. KẾT QUẢ HOẠT ĐỘNG ỦY THÁC</b> (đến thời điểm '+(f.TDIEM ? kt7O(f.TDIEM) : '....../....../20.....')+')', 'tr')+P('<b>1. Dư nợ nhận ủy thác</b>')+
     P('- Tổng số Tổ TK&amp;VV do Hội quản lý: '+kt7O(f.STO, 26)+' tại '+kt7O(f.STH1, 6)+'/'+kt7O(f.STH2, 6)+' thôn.')+P('- Tổng số khách hàng vay vốn thuộc các Tổ TK&amp;VV do Hội quản lý: '+kt7O(f.SKH, 13))+
     P('- Tổng dư nợ nhận ủy thác do Hội quản lý: '+kt7O(f.DN, 25)+' triệu đồng')+P('&nbsp;&nbsp;Trong đó: Nợ quá hạn '+kt7O(f.NQH, 8)+' (tỷ lệ '+kt7O(f.TLQH, 4)+'%), Nợ khoanh '+kt7O(f.NK, 7)+' (tỷ lệ '+kt7O(f.TLNK, 5)+'%).')+

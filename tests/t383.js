@@ -51,6 +51,11 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    let b3 = null; try { b3 = await ktDocx('cx03', KT7.gts[0]); } catch(e){ o.loiW3 = e.message; }
    o.w03 = b3 ? Array.from(new Uint8Array(await b3.arrayBuffer())) : null; o.f3 = KT7.gts[0].f;
    dongHop();
+   /* khối A: Định kỳ (tổ đã tích) → 15/TD đúng tổ; Mẫu 04 (Hội) → 03/BB-CX đúng Hội – xã */
+   KT_DK_CHON = {}; KT_DK_CHON[t.ma] = 1; await kt7Mo15('dk'); await w(400);
+   o.dk15 = KT7.mau==='m15' && KT7.gts.some(x => x.t.ma===t.ma) && !!document.getElementById('kt7-khung'); dongHop(); await w(100);
+   KT_BC_CHON = {}; KT_BC_CHON[t.ma] = 1; KT7.k = ''; await kt7Mo03('bc'); await w(400);
+   o.bc03 = KT7.mau==='m03' && KT7.k===ktHoiKhoa(t) && !!document.getElementById('kt7-khung'); dongHop(); await w(100);
    /* mẫu KTGS cũ vẫn dựng như trước (Mẫu 16) */
    o.m16 = /BIÊN BẢN KIỂM TRA/.test(chu(ktHTML16(ktGiaTri16(t, ktDaChon(), ktInV('m16')))));
    o.g15 = {f:g.f, n:g.kh.length, ten0:g.kh[0].ten, tong:tdnTien(g.tong.dn)};
@@ -72,6 +77,8 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
  ok('03/BB-CX Word (khuôn gốc): tạo được, III / IV, số liệu vào ô, cán bộ khai báo, không còn {{…}}', !!w03 && /III\. ĐÁNH GIÁ/.test(t03) && /IV\. Ý KIẾN/.test(t03) && !/(^|[^I])V\. Ý KIẾN/.test(t03) && t03.indexOf('Cán Bộ NH Giả')>=0 && t03.indexOf(r.f3.DN)>=0 && !/\{\{/.test(w03), r.loiW3 || '');
  const hopLe = await p.evaluate(ds => ds.map(x => !!x && !new DOMParser().parseFromString(x, 'application/xml').getElementsByTagName('parsererror').length), [w15, w03]);
  ok('Word 15/TD · 03/BB-CX: XML hợp lệ (mở được bằng Word)', hopLe[0] && hopLe[1], JSON.stringify(hopLe));
+ ok('khối A Định kỳ: 15/TD theo tổ đã tích', r.dk15);
+ ok('khối A Mẫu 04: 03/BB-CX đúng Hội – xã của tổ đã tích', r.bc03);
  ok('mẫu KTGS cũ (Mẫu 16) vẫn dựng', r.m16);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  R.forEach(x => console.log(x)); console.log((R.length-R.filter(x => x[0]==='✗').length)+'/'+R.length+' đạt');

@@ -6,6 +6,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ## 3.499 — 07/11/2026 — Giao dịch xã: chip mẫu hiện đủ (TK 2)
 - **Anh 07/11** "các chip mẫu biểu tab GDX em cho hiện ra đủ hết như bên tab hồ sơ vay, hồ sơ tổ": GDX nay 14 mẫu, khung trái hẹp → dải cuộn 1 hàng (3.334) chỉ thấy 4 chip. Đổi riêng GDX: chip xuống dòng hiện đủ (`.gdx2-du`), khung hẹp thì nhóm nút Tra cứu / Xem / ⋯ xuống hàng dưới (`.gdx2-dau-du`). Hồ sơ vay / Hồ sơ tổ giữ khung cuộn ‹ › (`cnHang`).
+- Rà kỹ thuật 3.498 (anh 07/11 "rà coi có đúng hướng"): 03/BB-CX bỏ khoảng trắng thừa "Hội  Đoàn…" (HOIXA); t383 thêm 2 ý khối A (Định kỳ → 15/TD, Mẫu 04 → 03/BB-CX) — 18/18.
 - Phép thử t245: ý GDX đổi từ "khung cuộn có ‹ ›" sang "đủ chip, hiện hết không khuất, không nút ‹ ›".
 
 ## 3.498 — 07/11/2026 — KTGS: 15/TD + 03/BB-CX (VB 727) (TK 2)
