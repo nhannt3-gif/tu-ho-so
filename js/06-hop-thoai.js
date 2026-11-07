@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.491', ds:[
+var CO_GI_MOI = {ban:'3.492', ds:[
+  ["📄 Word 10A khóa trang như bản in: trang 3 \"b) Tổ phó\", trang 4 \"III.\" — vẫn 4 trang", ""],
   ["📄 Word 07b, BBLV cũng đúng số trang bản in — 17/17 mẫu nền ô", ""],
   ["📄 Word các mẫu nền ô giống bản in: canh đều, thụt đầu dòng, cỡ chữ 13,5 / 14, giãn dòng đúng pt — 15/17 mẫu cùng số trang bản in", ""],
   ["⚡ Tab Tổ mở lần đầu nhanh hơn (~330 → ~220 ms, máy thử 25.000 khách) — số liệu không đổi", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.491', ds:[
   ["Bản in: dòng tiêu đề bảng không tô nền (BBLV, Mẫu 12/04 GDX, sao kê cấp Hội, tóm tắt KTGS, nội dung họp, thông báo kết luận)", "slDoiTab('hsv')"],
   ["Hồ sơ vay › BBLV: mặc định in 1 mặt; sửa lỗi tắt \"In 2 mặt\" mà vẫn in 2 mặt", "slDoiTab('hsv')"],
   ["Sửa: tên xã viết hoa đầu từ như trước (không còn TOÀN CHỮ HOA)", ""],
-  ["Phân bổ KH: báo ⚠ đứt chuỗi QĐ — QĐ nào, chương trình nào, xã nào, chênh bao nhiêu so với QĐ trước (KH vẫn theo QĐ mới nhất)", "slDoiTab('pb')"],
-  ["Tab Tổ mở nhanh hơn (bộ 25.000 khách: lần đầu 470 → ~350 ms)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Phân bổ KH: báo ⚠ đứt chuỗi QĐ — QĐ nào, chương trình nào, xã nào, chênh bao nhiêu so với QĐ trước (KH vẫn theo QĐ mới nhất)", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.492 · Hồ sơ Tổ › 10A › 📝 Word: 4 trang, trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ\"",
     "3.491 · Hồ sơ vay › 07b › 📝 Word: bảng lịch trả nợ chữ 12, đủ 6 trang như bản In",
     "3.491 · Hồ sơ vay › BBLV › Bản mẫu › 📝 Word: mỗi tình huống không bị cắt giữa trang",
     "3.490 · Hồ sơ vay / Hồ sơ Tổ › mẫu bất kỳ (10A, 06A, 01/TD, 10B…) › 📝 Word → mở bằng Word: canh đều 2 bên, thụt đầu dòng, cỡ chữ và số trang như bản In",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.491', ds:[
     "3.470 · Phân bổ KH › 📈 Diễn biến: ô chọn xã",
     "3.469 · Phân bổ KH › ＋ QĐ mới không tích xã → Lưu (QĐ 0 xã)",
     "3.468 · Phân bổ KH › ✎ Sửa QĐ: ô Tổng điều chỉnh PGD",
-    "3.467 · Phân bổ KH › 📋 Quyết định › 📅 Dòng thời gian QĐ / ＋ QĐ không giao cho PGD",
-    "3.466 · Phân bổ KH › 📋 Quyết định › bấm đầu QĐ › ✎ Sửa nhanh / ⧉ QĐ kế tiếp"],
+    "3.467 · Phân bổ KH › 📋 Quyết định › 📅 Dòng thời gian QĐ / ＋ QĐ không giao cho PGD"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
     "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",

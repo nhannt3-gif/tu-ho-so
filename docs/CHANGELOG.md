@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.492 — 07/11/2026 — Word 10A khóa trang như bản in (TK 2)
+- **Anh 07/11:** "làm tiếp đi" (phương án 1 — khóa trang 10A cho cả Word; 3.454 khóa chỉ áp bản in vì Word khi đó chưa theo bản in).
+- `hsoDocx` (js/25b, khối nền ô): lớp `tr-sang-in` → ngắt trang cứng cả Word; bảng có `data-cao-w` → chiều cao hàng riêng cho Word. `js/mau/10a.js`: khung tổ viên Word thấp hơn bản in **0,5 mm / hàng** (`HSO_10A_CAO_W`, js/25) — bù phông Word / LibreOffice rộng hơn trình duyệt (~2 dòng ở trang 2); chữ trong ô không bị cắt.
+- Kết quả (LibreOffice): Word 10A **4 trang**, trang 3 "b) Tổ phó", trang 4 "III." — cả khi tên Trưởng ấp / Thư ký dài (khung bớt hàng).
+- `t358` (Word: 2 chỗ ngắt cứng, hàng Word thấp hơn bản in).
+
 ## 3.491 — 07/11/2026 — Word 07b, BBLV đúng số trang (TK 2)
 - **Anh 07/11:** "gộp và làm tiếp" — 2 mẫu còn lệch sau 3.490.
 - `hsoDocx` (js/25b), chỉ khối nền ô: bảng ghi cỡ chữ / giãn dòng trên thẻ bảng (07b lịch trả nợ 12 pt) → Word theo đúng (trước: chữ 14, dòng cao hơn → dư 1 trang); khối "không cắt giữa trang" (`break-inside:avoid` — BBLV tình huống) → Word giữ liền các đoạn (`keepNext` / `keepLines`).
