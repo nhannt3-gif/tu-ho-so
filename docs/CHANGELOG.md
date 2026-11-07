@@ -4,6 +4,40 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.496 — 07/11/2026 — Giao dịch xã: Tổ giao dịch trực quan (03/GDX) + 📘 Nhiệm vụ Tổ giao dịch
+- **Anh 07/11:** "mẫu 03 cho chọn trực quan, 1 số quy tắc em đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho khai thủ công tất cả các thành viên"; "thêm 1 phần in nhiệm vụ … các thành viên tổ giao dịch tóm gọn để thực hiện"; "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ" → "Được code".
+- **👥 Tổ giao dịch** (js/26b, mục `g4to` của 03/GDX và Nhiệm vụ): mỗi người 1 dòng gõ tên (gợi ý từ danh sách cán bộ) + chip vai Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm; 1 Tổ trưởng, 1 GDV chính (bấm ở người khác tự chuyển); PA 1/2/3 theo 04/GDX gán lái xe, bảo vệ đường; ⭐ lưu / chọn lại tổ hay dùng (không chụp vào nhật ký in); tổ trống lấy sẵn Tổ trưởng · KSV · GDV của 12/GDX, khai xong đồng bộ ngược 12/GDX (ô chọn 12/GDX hiện cả tên khai tay — `gdxCB` js/26).
+- **Kiểm tra quy tắc VB 4368** (mục II.2, II.7 — cảnh báo, không chặn): < 3 người; thiếu Tổ trưởng / GDV chính (đỏ), KSV (vàng); Tổ trưởng bảo vệ tại điểm + kiêm KSV (đỏ); GDV chính lái xe / bảo vệ đường (đỏ, là người áp tải); thiếu lái xe / bảo vệ đường / bảo vệ tại điểm; lái xe = bảo vệ; trùng tên.
+- **03/GDX tự điền:** Phần I áp tải = GDV chính, lái xe, bảo vệ, phương tiện / biển số, công cụ hỗ trợ (khai 1 lần), nơi đi / đến (trụ sở PGD ↔ điểm GD, chọn để chấm); Phần II mỗi (người, vai) 1 dòng + CCDC theo vai (chọn để trống); quá số dòng thì tờ 2 dài thêm.
+- **📘 Nhiệm vụ Tổ giao dịch** (chip mới, A4 dọc 1 mặt, chữ 8,5 pt — 9 / 9,5 pt cảnh báo sang mặt 2): quy định chung 4 ý + bảng 6 vai × ① trước khi đi ② tại điểm ③ sau phiên, tên thành viên cạnh vai; tóm tắt VB 4368 mục II, III.
+- **Phép thử:** `tests/t382.js` (mới, 24).
+
+## 3.495 — 07/11/2026 — Giao dịch xã: rà 03/GDX theo mẫu gốc
+- **Anh 07/11:** "em rà mẫu GDX làm mẫu 03". So với VB 4368 trang 34–35: ô Lái xe — Nơi đi / Nơi đến mỗi nơi + 2 dòng chấm; Phần II mặc định tờ 1 = 1 dòng, tờ 2 = 8 dòng + chỗ ký (như mẫu trắng; lựa chọn 1|8 · 3|8 · 1 tờ 4 dòng); dòng trống Phần II cao 15 mm, Phần I 8 mm.
+- **Sửa lỗi CSS** (js/26b): chiều cao dòng riêng từng bảng (03, 10, 11, 14/15/GDX) bị luật chung `table.g4-b tbody tr` đè → nay đúng chiều cao đặt; mọi mẫu vẫn trọn trang (t380).
+
+## 3.494 — 07/11/2026 — Phân bổ KH: 07/KH · 08/KH · 09/KH theo QĐ 4686
+- **Anh 07/11:** QĐ 4686/QĐ-NHCS ngày 21/10/2026 (thay QĐ 86/2014) + mẫu trắng Biểu 05, 07, 08, 09/KH. Anh chốt: "Biểu 07 cũ vẫn giữ, không được bỏ, tạo thêm mẫu mới — để in lại cái cũ khi cần"; "mẫu 09 khi trình sẽ lấy số dư của chương trình, QĐ trước đó, là 1 quy trình ngược của phân bổ"; 01/02/03 làm sau; "em làm 1 lần tất cả".
+- **07/KH** (QĐ Ban Đại diện HĐQT xã …/QĐ-BĐD, căn cứ QĐ 56/QĐ-HĐQT · QĐ 4686 · QĐ tỉnh · Nghị quyết xã, Điều 1–3, TM. Ban Đại diện – Trưởng ban) và **08/KH** (QĐ Giám đốc PGD …/QĐ-NHCS khi được Nghị quyết xã giao): `js/mau/07kh.js`, dùng chung số liệu phân bổ + chặn khớp QĐ (QT-16) + hộp xem / In / PDF / Word của Biểu 07; chọn mẫu ở đầu hộp (nhớ lần chọn, mặc định Biểu 07 cũ). Bảng thôn → CT: Số tăng trưởng (tăng/giảm) · Số dư nợ năm; chip "đủ các thôn" (mặc định chỉ thôn có tăng / giảm như Biểu 07 cũ — `pbBieu07DL` thêm `apDu`). Cỡ chữ mặc định 13,5 (vừa 1 trang QĐ).
+- **Khai báo riêng** 3 mẫu mới lưu `ch.bKH` (tách `ch.b07` của Biểu 07 cũ); số / ngày QĐ 56 và QĐ 4686 điền sẵn (⌨ sửa được); Nghị quyết xã, số văn bản, Trưởng ban, Giám đốc: để chấm hoặc khai.
+- **📤 Tờ trình 09/KH** (`js/48c-pb-to-trinh.js`, mục thứ 5 tab Phân bổ): chọn năm · xã · nguồn; mỗi CT có QĐ: Số tăng trưởng đã giao = cộng dồn tăng / giảm các QĐ trong năm (sửa tay được, ↺ bỏ), KH hiện tại = Đến 31/12 QĐ gần nhất, dư nợ thực tế Mẫu 31 kỳ mới nhất + KH còn trống (tham khảo), Đề nghị điều chỉnh anh gõ, Số dư nợ năm = KH + đề nghị; lưu `KHO1 'pb'.tt`; in tờ trình căn cứ QĐ gần nhất của tỉnh, danh mục chỉ CT có đề nghị (hoặc đủ CT); bản chụp đã in `pb.b09`.
+- **Không đổi:** Biểu 07 cũ (bản in y hệt — t253 · t256 đạt); `pb07Lap` chỉ tách hàm bọc cỡ chữ `pb07Boc` (dùng chung), `pb07OK` đọc danh sách ô theo mẫu đang chọn.
+- **Phép thử:** `tests/t381.js` (mới, 22).
+
+## 3.493 — 07/11/2026 — Giao dịch xã: 8 mẫu GDX theo VB 4368
+- **Anh 07/11:** "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm, mẫu 12 đã làm ổn rồi". VB 4368/HD-NHCS hiệu lực 01/10/2026 (Phụ lục II, 15 mẫu 01–15/GDX).
+- **Mẫu mới** (`js/26b-gdx-4368.js`, cắm vào js/26 qua `GDX_THEM`): 03/GDX Bảng kê theo dõi GDX (A4 ngang, 2 tờ — Phần II tờ 1 · tờ 2 chọn số dòng) · 06/GDX Giấy đề nghị tiếp quỹ kiêm tạm ứng tiền và thẻ TK · 07/GDX Nội dung phổ biến cho KH vay vốn (chữ cố định, SĐT PGD khai 1 lần) · 09/GDX Báo cáo thẻ TK tại điểm (A4 ngang) · 10/GDX Bảng kê kiểm quỹ cuối phiên · 11/GDX Biên bản thẻ TK hỏng, mất · 14/GDX Phiếu xuất kho · 15/GDX Phiếu nhập kho. Bố cục / chữ / cột theo mẫu trong VB; ô không có thông tin để chấm (dòng chấm tự lấp đủ chỗ, không tràn), không tự tạo số.
+- **Dùng chung với 12/GDX** (cùng phiên): 2 dòng tên cơ quan đầu mẫu, điểm GD (khối LỌC ĐỊA BÀN), ngày GD, GDV · KSV · Tổ trưởng tổ GD — đổi ở mẫu nào cũng áp cho các mẫu kia.
+- **js/26 (móc chung):** `GDX_THEM` + 7 chỗ gọi (gdxChup / gdxDung / gdxMucHTML / gdxTom / gdxThanhHTML / gdxXem / gdxTenFile); `gdxRuotHTML` lấy điểm theo `m04 ? ma04 : m12SelectedDiem`; `gdxDoiMau` tự chọn điểm theo `cap==='diem'` (như cũ với 04/TD, 12/GDX, Bảng kê). Mẫu cũ không đổi.
+- **Chưa làm (để sau, anh 07/11):** 01, 02, 04, 05, 13/GDX; 08/GDX lấy bản chuẩn bên Giao ban.
+- **Phép thử:** `tests/t380.js` (mới, 19 — gồm đếm trang khi in: 03 = 2 tờ, còn lại 1 trang).
+
+## 3.492 — 07/11/2026 — Word 10A khóa trang như bản in (TK 2)
+- **Anh 07/11:** "làm tiếp đi" (phương án 1 — khóa trang 10A cho cả Word; 3.454 khóa chỉ áp bản in vì Word khi đó chưa theo bản in).
+- `hsoDocx` (js/25b, khối nền ô): lớp `tr-sang-in` → ngắt trang cứng cả Word; bảng có `data-cao-w` → chiều cao hàng riêng cho Word. `js/mau/10a.js`: khung tổ viên Word thấp hơn bản in **0,5 mm / hàng** (`HSO_10A_CAO_W`, js/25) — bù phông Word / LibreOffice rộng hơn trình duyệt (~2 dòng ở trang 2); chữ trong ô không bị cắt.
+- Kết quả (LibreOffice): Word 10A **4 trang**, trang 3 "b) Tổ phó", trang 4 "III." — cả khi tên Trưởng ấp / Thư ký dài (khung bớt hàng).
+- `t358` (Word: 2 chỗ ngắt cứng, hàng Word thấp hơn bản in).
+
 ## 3.491 — 07/11/2026 — Word 07b, BBLV đúng số trang (TK 2)
 - **Anh 07/11:** "gộp và làm tiếp" — 2 mẫu còn lệch sau 3.490.
 - `hsoDocx` (js/25b), chỉ khối nền ô: bảng ghi cỡ chữ / giãn dòng trên thẻ bảng (07b lịch trả nợ 12 pt) → Word theo đúng (trước: chữ 14, dòng cao hơn → dư 1 trang); khối "không cắt giữa trang" (`break-inside:avoid` — BBLV tình huống) → Word giữ liền các đoạn (`keepNext` / `keepLines`).

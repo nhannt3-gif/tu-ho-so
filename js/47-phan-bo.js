@@ -383,9 +383,12 @@ function pbBieu07DL(q, kq, tenCT){
   var theo = {}, thu = [];
   kq.forEach(function(k){ var ten = k.ten || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
     pbApCoThayDoi(k).forEach(function(a){ var kk = a.k+'|'+a.ten; if(!theo[kk]){ theo[kk] = {ten:a.ten, ds:[]}; thu.push(kk); } theo[kk].ds.push({ma:k.ma, ten:ten, dc:a.dc, nam:a.nam}); }); });
+  var theoDu = {}, thuDu = [];   /* 3.494: đủ các thôn (cả CT không tăng / giảm) — 07/KH · 08/KH tùy chọn "đủ các thôn"; Biểu 07 cũ không dùng */
+  kq.forEach(function(k){ var ten = k.ten || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
+    k.ap.forEach(function(a){ var kk = a.k+'|'+a.ten; if(!theoDu[kk]){ theoDu[kk] = {ten:a.ten, ds:[]}; thuDu.push(kk); } theoDu[kk].ds.push({ma:k.ma, ten:ten, dc:a.dc, nam:a.nam}); }); });
   var dv = pbDonVi(q.tenXa || q.xa);
   return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),
-    nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; })}; }
+    nguon:+q.nguon===2 ? 2 : 1, ap:thu.map(function(kk){ return theo[kk]; }), apDu:thuDu.map(function(kk){ return theoDu[kk]; })}; }
 
 /* ---------- 3.478 (anh 05/11 "khi nhập KH cơ bản sẽ liền mạch nhưng đôi khi có vài chương trình bị đứt quãng, không khớp — nguyên tắc luôn theo QĐ mới nhất,
    và báo bị đứt chênh ở QĐ nào, chương trình nào"): ĐỨT CHUỖI QĐ — theo (xã, CT, nguồn) trong năm, các QĐ theo ngày (rồi lúc ghi) như pbDoiChieu:

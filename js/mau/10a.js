@@ -163,7 +163,7 @@
         P('<b>BIÊN BẢN HỌP</b>', 'text-align:center;font-size:15pt').replace('<p ', '<p class="s15" ')+P(vvHTML(), 'text-align:center'+(vvCo===13 ? ';font-size:13pt' : '')).replace('<p ', vvCo===13 ? '<p class="s13" ' : '<p ')+'<p class="ke" data-ke="'+keW+'" style="width:'+keW+'mm;margin:4pt auto 0"></p>'+P('&nbsp;', 'line-height:10pt')+
         dau.join('')+
         P('<b>I. DANH SÁCH TỔ VIÊN</b>', J+F+'margin-top:4pt')+
-        '<table class="khung0 tv100" data-w="1,1,1" data-cao="'+CAO+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
+        '<table class="khung0 tv100" data-w="1,1,1" data-cao="'+CAO+'" data-cao-w="'+(CAO-HSO_10A_CAO_W).toFixed(2)+'" style="width:161.5mm;table-layout:fixed"><colgroup><col style="width:33.33%"><col style="width:33.33%"><col style="width:33.34%"></colgroup>'+ds+'</table>'+
         P('<b>II. QUY ƯỚC HOẠT ĐỘNG CỦA TỔ TK&amp;VV</b>', J+F+H17).replace('<p ', '<p class="kt-b" ')+
         qu.map(function(x){ var c = Array.isArray(x) ? x[1] : 0, s = Array.isArray(x) ? x[0] : x, r = P(s, J+F+H17); return c==='sang' ? r.replace('<p ', '<p class="tr-sang-in" ') : r; }).join('')+
         P('<b>III. BẦU BAN QUẢN LÝ CỦA TỔ TK&amp;VV</b>', J+F+H17).replace('<p ', '<p class="kt-b tr-sang-in" ')+

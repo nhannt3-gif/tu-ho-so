@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.491** — TK 2: Word 17/17 mẫu nền ô cùng số trang bản in. Trước: 3.490 Word giống bản in.
+- **`main` = 3.496** — TK 2: Giao dịch xã — 👥 Tổ giao dịch trực quan (03/GDX) + 📘 Nhiệm vụ Tổ giao dịch (1 mặt A4). Trước: 3.495 rà 03/GDX, 3.494 Phân bổ KH 07/08/09KH.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

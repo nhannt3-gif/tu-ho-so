@@ -160,3 +160,11 @@ Ngày thông báo trên Biểu 07 mặc định = ngày QĐ + 1, né thứ 7 / C
 - 04/11 · TK 3: **bản 3.467 — dòng thời gian QĐ** (STT theo ngày từ QĐ đầu tiên, mỗi năm × nguồn; soát đợt sót trên QĐ có ghi đợt) + **QĐ không giao cho PGD** (`qdKhong` — chỉ số QĐ, lưu riêng, không đụng phân bổ / Biểu 07 / đối chiếu). Anh: số đợt lưu theo QĐ ghi, không bắt buộc. Phép thử t372. Ý trạng thái Nháp / Đã chốt — anh 04/11: không đúng ý, bỏ.
 - 04/11 · TK 3: **bản 3.468** — đối chiếu dòng PGD trên QĐ chỉ cột điều chỉnh. **Bản 3.469** — QĐ không giao cho PGD nhập ở ＋ QĐ mới (không tích xã = QĐ 0 xã), hiện chung danh sách QĐ; sửa thêm xã → QĐ có số liệu.
 - 05/11 · TK 3: **bản 3.478 — báo đứt chuỗi QĐ** (anh: "nguyên tắc luôn theo QĐ mới nhất, và báo bị đứt chênh ở QĐ nào, chương trình nào"): lõi `pbDutChuoi` (js/47), bảng ⚠ ở Quyết định + Diễn biến, ⚠ đứt ở bảng cơ bản, sheet Excel, câu hỏi lưu nêu cụ thể. Phép thử t376.
+
+### 3.494 (07/11/2026, TK 2) — QĐ 4686/QĐ-NHCS ngày 21/10/2026 (thay QĐ 86/2014)
+- Anh chốt:
+  - Biểu 07 cũ (Thông báo UBND) **giữ nguyên** để in lại khi cần. Mẫu mới **07/KH** (QĐ Ban Đại diện xã) và **08/KH** (QĐ Giám đốc PGD) chọn ở đầu hộp Biểu 07.
+  - **09/KH** là quy trình ngược: lấy số theo QĐ trước, xã đề nghị tỉnh điều chỉnh. Mục mới **📤 Tờ trình 09/KH**.
+  - Nước sạch tính là 1 chương trình. Gò Dầu không có SXKD vùng khó khăn.
+- Để sau: **01, 02, 03/KH** (lập KH năm). Chưa có mẫu 10/KH, 15/KH.
+- File mẫu trắng anh gửi không đưa vào repo. Phép thử: `tests/t381.js`.

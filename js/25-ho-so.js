@@ -312,7 +312,7 @@ function hsoLap10c(t, X){
 function hsoLap10cCu(t){ return hsoLap10c(t, {cu:1}); }
 function hsoLap10d(t){ return {ma:'10D/TD', h:'<p class="c">Mẫu 10D/TD dựng trên nền ô (js/mau/10d.js) — chưa nạp được mô-đun.</p>'}; }   /* 3.223: chip 10D (mô-đun riêng) */
 /* ---------- 10A/TD ---------- */
-var HSO_10A_TV = 100, HSO_10A_DONG = 34, HSO_10A_CAO = 5.8, HSO_10A_DAU = 15;   /* 3.443 / 3.454 (mốc số dòng phần đầu trang 1 vừa khung đủ 34 hàng): số ô tổ viên · số dòng / cột · chiều cao dòng (mm, Word cố định) */
+var HSO_10A_TV = 100, HSO_10A_DONG = 34, HSO_10A_CAO = 5.8, HSO_10A_DAU = 15, HSO_10A_CAO_W = 0.5;   /* 3.443 / 3.454 (mốc số dòng phần đầu trang 1 vừa khung đủ 34 hàng): số ô tổ viên · số dòng / cột · chiều cao dòng (mm, Word cố định) */
 var hso10aDs = null, hso10aBang = null, hso10cTrai = null, hso10cNguon = null, hso10cNguonVe = null;
 var hso10aThamDu = null, hso10aBq = null, hso10aTlHTML = null, hso10aTen = null, hso10aUbNut = null;   /* 3.456: 10A số tham dự / biểu quyết theo tỷ lệ, chọn người được bầu, phê duyệt cả phần (khai trong js/mau/10a.js) */   /* 3.449: danh sách tổ viên 10A theo Mã KH + tổ trưởng / tổ phó (js/mau/10a.js gán; không có mô-đun → cột trái dùng danh sách tích cũ) */
 function hsoLap10a(t){

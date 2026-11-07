@@ -93,3 +93,15 @@ Khai mẫu cần chọn tới cấp nào trong khối **LỌC ĐỊA BÀN** (câ
 
 - Không dùng đường ≥ 1,2 px cho bất kỳ mẫu nào.
 - Mẫu chép nguyên từ file Word anh gửi (khung Word gốc của Mẫu 06/16/04/KH khi **xuất Word**) giữ nguyên đường kẻ của file gốc; quy tắc trên áp cho **bản In** và các bảng app tự dựng.
+
+## Mẫu cắm thêm qua `GDX_THEM` (từ 3.493)
+
+Mẫu GDX theo VB 4368 nằm ở file riêng `js/26b-gdx-4368.js`. Cách gắn thêm một mẫu tương tự:
+
+1. Thêm mẫu vào `GDX_MAU` và danh sách mục vào `GDX_MUC`.
+2. Khai `GDX_THEM[k] = {dung, muc, tom, nhan, file, ngang}`.
+3. Ba mục `dau12`, `ngaygd`, `ba` dùng lại ô điều khiển của 12/GDX, và dữ liệu của chúng dùng chung với 12/GDX: đầu mẫu, ngày GD, GDV · KSV · Tổ trưởng tổ GD. Điểm GD lấy theo `m12SelectedDiem`.
+4. Ô trống có hai cách giữ chấm:
+   - `g4F()`: dòng chấm tự lấp hết phần còn lại của dòng, không tràn;
+   - `g4Cham(n)`: đoạn chấm ngắn nằm giữa câu.
+5. Không cần sửa `js/26`.

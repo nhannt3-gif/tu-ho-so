@@ -142,7 +142,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
  const b64 = await p.evaluate(()=>window.__W||''); let xml = '';
  if(b64){ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 't358-')), f = path.join(tmp, '10a.docx'); fs.writeFileSync(f, Buffer.from(b64, 'base64')); xml = cp.execSync('unzip -p '+f+' word/document.xml').toString(); }
  const okN = (ten, dk, chi) => R.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
- okN('Word: không ngắt trang cứng (3.454: Word mẫu nền ô chưa theo canh / cỡ chữ bản in → giữ như cũ)', !/<w:pageBreakBefore\/>/.test(xml));
+ okN('3.492 Word: khóa trang như bản in — 2 chỗ ngắt cứng ("b) Tổ phó", "III."), hàng khung Word thấp hơn bản in 0,5 mm (bù phông Word)', (xml.match(/<w:pageBreakBefore\/>/g)||[]).length===2 && /w:trHeight w:val="\d+" w:hRule="exact"/.test(xml) && +(xml.match(/w:trHeight w:val="(\d+)"/)||[])[1] < 329);
  okN('Word: 34 dòng khung cao cố định (trHeight exact)', (xml.match(/w:hRule="exact"/g)||[]).length===34, (xml.match(/w:hRule="exact"/g)||[]).length);
  okN('3.449 Word: dòng họ tên có tab thật + điểm dừng tab', /<w:tabs><w:tab w:val="left" w:pos="\d+"\/><\/w:tabs>/.test(xml) && /<w:r><w:tab\/><\/w:r>/.test(xml));
  okN('Word: khung 3 cột chia đều', /<w:tblGrid>(<w:gridCol w:w="(\d+)"\/>){3}<\/w:tblGrid>/.test(xml));
