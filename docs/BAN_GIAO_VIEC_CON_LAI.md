@@ -266,6 +266,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.502)
+Không có thay đổi giao diện / chức năng — chỉ tài liệu và công cụ kiểm.
+
+Ghi chú kỹ thuật 3.502: mỗi bản chạy thêm `python3 tools/so_cau_hinh.py`; khóa cấu hình mới → `--them` rồi ghi mô tả trong `tests/cau_hinh.json`. File JS mới: gói 1 đối tượng (không thêm vào `tests/js_cu.json`).
+
 ### Danh sách thử trên máy thật (3.501)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

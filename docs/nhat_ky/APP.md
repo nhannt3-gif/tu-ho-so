@@ -12,6 +12,20 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 08/11/2026 — TK 2 · PHIÊN (3.489 → 3.502)
+- Đã làm (PR #514–#522 đã gộp; chi tiết `docs/CHANGELOG.md`):
+  - 3.489–3.496 Giao dịch xã VB 4368 (03, 06, 07, 09, 10, 11, 14, 15/GDX; Tổ GD trực quan; 📘 Nhiệm vụ Tổ GD) · Phân bổ QĐ 4686 (07/KH, 08/KH, Tờ trình 09/KH; Biểu 07 cũ giữ).
+  - 3.497 dọn cấu trúc theo QUY_CHUAN (`js/mau/0pb.js`, `js/26c-gdx-to.js`, `pbToTrinh`, QT-19…21).
+  - 3.498 KTGS VB 727: 15/TD (cấp tổ) + 03/BB-CX, Word theo khuôn gốc (`tools/khuon_727.py`), `KHO.doiChieu` (QT-22). 3.499 GDX chip mẫu hiện đủ. 3.500 KTGS khối riêng 🏛 Hội cấp xã (03/BB-CX). 3.501 rà tổng thể: sửa hộp 727 không mở lại sau khi đóng, bàn phím.
+  - 3.502 Đợt 1 "gọn nền" (anh duyệt 08/11 sau bản đánh giá kiến trúc): CLAUDE.md ngắn + `docs/README.md` (bản đồ tài liệu A/B/C/D) + CHANGELOG tách (cũ → `luu_tru/CHANGELOG_DEN_3110.md`); luật gói mới = 1 không gian tên (`tests/js_cu.json`, thước đo "hàm rời ở gói mới" mốc 0); sổ cấu hình `D.cauHinh` (`tools/so_cau_hinh.py` → `docs/SO_CAU_HINH.md`, `tests/cau_hinh.json`, thước đo "khóa cấu hình chưa ghi sổ" mốc 0).
+- Đang dở: không có code dở.
+- Bước tiếp (đề xuất trong bản đánh giá 08/11, chờ anh duyệt từng đợt): **Đợt 2** — khung đăng ký mẫu in chung (gộp nền ô / HST / khuôn Word Python) trước khi làm GDX 01/02/04/05/13 và 01–03/KH; thử nhanh mỗi QT (`tests/nhanh`); bộ giả thứ 2 "giống file thật". **Đợt 3** — nạp khi cần gói lớn, đọc Excel bằng Web Worker, tab Tổ nạp tháng trước khi bấm, tách file > 100 KB khi sửa tới.
+- Chờ anh: thử Word 15/TD · 03/BB-CX bằng MS Word; số mục I 03/BB-CX với số thật; mẫu 10/KH, 15/KH.
+- Lưu ý / bẫy:
+  - `dongHop` chỉ ẩn hộp (`#hop` bỏ lớp `hien`) — khung cũ còn trong trang: đừng dùng "có phần tử X" để biết hộp đang mở (lỗi 3.498 → sửa 3.501).
+  - hoiquy chạy trên worktree của HEAD: sửa phép thử phải commit trước khi chạy lại; dòng tóm tắt phép thử không được bắt đầu bằng "✗".
+  - Khuôn Word: kiểm XML hợp lệ (DOMParser) — LibreOffice / Word không mở file hỏng (3.498 bắt được nhờ đó).
+
 ### 06/11/2026 — TK 2 · NHẬN VAI App chính (từ TK 3, anh 06/11 đồng ý)
 - Đã đọc: mục BÀN GIAO 06/11 14:00 dưới đây; hộp thư `PHOI_HOP_CHUNG.md` mục 14 (dòng 06/11 TK 3 → TK 2 — đã đánh ✓).
 - Trạng thái nhận: `main` = **3.488**, hồi quy đủ 257/257 (theo TK 3). Nhánh làm việc TK 2 `claude/html-app-review-ck346k` đưa về đúng cây `main` (merge giữ cây main, không ép đè).
