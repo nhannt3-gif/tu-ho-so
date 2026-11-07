@@ -54,7 +54,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
  ok('3.201: không thấy TK 104 → báo rõ lý do (chưa nạp Sao kê TK 104 / tổ trưởng không có trong Sao kê)', X.m180.viChua && X.m180.viMa);
  ok('3.201: TK 104 tổ trưởng lấy theo mã KH tổ trưởng trong Sao kê TK 104', X.m180.so0 && X.m180.ten);
  ok('3.180: 📋 Tóm tắt thu gọn 1 dòng (chip + cảnh báo đầu + nút in)', X.m180.tom <= 60 && X.m180.tomCanh, X.m180.tom+' px');
- ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; đầu khung 1 hàng, nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in, Mini app)', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && /Mini app/.test(X.m180.menu) && X.m180.dau1 <= 58, X.m180.dau1+' px');
+ ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in, Mini app) — 3.499 (anh 07/11): chip mẫu xuống dòng hiện đủ, đầu khung ≤ 4 hàng', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && /Mini app/.test(X.m180.menu) && X.m180.dau1 <= 200, X.m180.dau1+' px');
  ok('3.180/3.181: đã chọn điểm (hoặc chọn Xã › Hội › Tổ, không chọn điểm) → khối lọc gọn (ẩn Xã · Điểm · Hội · Tổ), nút ▾ Đổi sổ ra; chọn xong tự gọn lại', X.m180.gon && X.m180.mo && X.m180.gonLai && X.m180.gonTo);
  ok('3.178 app: đã chọn điểm GD → ô tìm Giấy lĩnh chỉ tìm trong điểm đó (tổ trưởng điểm khác không ra), có "Tìm cả PGD" để mở rộng', X.pham.khac && X.pham.ngoai===false && X.pham.trong && /Đang tìm trong/.test(X.pham.chu) && X.pham.tatCa===true, JSON.stringify(X.pham));
  ok('3.178: hộp xuất ghi số CCCD tổ trưởng được gói', /CCCD tổ trưởng/.test(X.hop));
