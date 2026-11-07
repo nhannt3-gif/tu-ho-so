@@ -218,7 +218,7 @@ function hsoChuSo(n){   /* 80000000 → "Tám mươi triệu đồng" */
 }
 function hsoSo(v){ return +String(v||'').replace(/[^\d]/g, '') || 0; }
 function hsoCTTen(ma){ return ma ? (CT_VT_TEN[ma] || ma) : ''; }
-function hsoCTMon(m){ var v = ctNgan(m.ct, m); return CT_VT_TEN[v] || v; }
+function hsoCTMon(m){ return ctTenMon(m); }   /* 3.498: chuyển xuống chung (js/22g ctTenMon) */
 
 /* ---------- khối dựng chung ---------- */
 function hsoQH(gach, co){   /* quốc hiệu + tiêu ngữ + kẻ mảnh dài bằng dòng tiêu ngữ (gach: "-" hoặc "–" theo PDF từng mẫu) */
@@ -421,7 +421,7 @@ function hsoLap01bg(t){
 }
 function hsoLap02bg(t){
   var T = hsoTo(t), G = hsoGiaoNhan(t), N = hsoNguoiHoi(t), ng = HSO.o.ngay || '', ngSL = KHO.coKy() && t ? KHO.ky().ngay : '', ca = !!hsoLuu().bgCa;
-  var tv = hsoTVTo(t).filter(function(k){ return ca || k.conNo || k.lt>0 || k.t105>0; });
+  var tv = ca ? hsoTVTo(t) : t ? KHO.doiChieu(t) : [];   /* 3.498: QT-22 cửa chung (cùng 15/TD KTGS) */
   var th = function(x, cs, rs){ return '<td class="c b"'+(cs ? ' colspan="'+cs+'"' : '')+(rs ? ' rowspan="'+rs+'"' : '')+'>'+x+'</td>'; };
   var r = '<thead><tr>'+th('Stt', 0, 2)+th('Họ tên khách hàng/ Chương trình', 0, 2)+th('Mã khoản vay', 0, 2)+th('Số liệu tại NHCSXH', 3)+th('Số liệu đối chiếu với khách hàng', 3)+th('Chênh lệch (+,-)', 3)+th('Nguyên nhân chênh lệch', 0, 2)+th('Chữ ký của khách hàng', 0, 2)+'</tr>'+
     '<tr>'+[1, 2, 3].map(function(){ return th('Nợ gốc')+th('Nợ lãi')+th('Số dư tiền gửi'); }).join('')+'</tr>'+

@@ -34,5 +34,5 @@ Số đo: `python3 tools/domau.py` → `so_do.json`. So với app: `node tests/t
 | kh08 | Biểu 08/KH — QĐ Giám đốc PGD điều chỉnh chỉ tiêu cho thôn · app: `js/mau/07kh.js` | QĐ 4686 |
 | kh09 | Biểu 09/KH — Tờ trình Ban Đại diện HĐQT xã đề nghị điều chỉnh · app: `js/mau/07kh.js` + `js/48c` | QĐ 4686 |
 | kh01_04 | Biểu 01, 02, 03, 04/KH — xây dựng KH tín dụng (thôn · xã · PGD · tỉnh; sheet 5 là mẫu cũ). App chưa làm (anh 07/11: để sau) | QĐ 4686 |
-| 15td | 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (A4 ngang; tên "Nguyễn Văn A, B, C" là ví dụ in sẵn của mẫu) — KTGS, đang làm | 727/HD-NHCS 11/02/2026 |
-| 03bbcx | 03/BB-CX Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã — KTGS, đang làm (mẫu gốc thiếu mục III; anh 07/11 chốt sửa thành III, IV) | 727/HD-NHCS 11/02/2026 |
+| 15td | 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (A4 ngang; tên "Nguyễn Văn A, B, C" là ví dụ in sẵn của mẫu) — KTGS 3.498 (`tools/khuon_727.py` → `js/khuon/kt-khuon-727.js`) | 727/HD-NHCS 11/02/2026 |
+| 03bbcx | 03/BB-CX Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã — KTGS 3.498 (`tools/khuon_727.py`; mẫu gốc thiếu mục III; anh 07/11 chốt sửa thành III, IV) | 727/HD-NHCS 11/02/2026 |

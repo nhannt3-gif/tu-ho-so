@@ -3756,6 +3756,7 @@ table.tc-bt tr.tc-bt-dong.chon td{background:var(--xanh-nhat);box-shadow:inset 0
 .cn-khung.cn-cuoi>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
 .cn-khung.cn-dau>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px);mask-image:linear-gradient(90deg,transparent,#000 28px)}
 .cn-khung.cn-dau.cn-cuoi>.gdx2-mau{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.gdx2-dau.gdx2-dau-du{flex-wrap:wrap}.gdx2-dau>.gdx2-mau.gdx2-du{flex:1 1 300px;min-width:0;flex-wrap:wrap;overflow:visible}.gdx2-dau-du>.gdx2-nut{margin-left:auto}   /* 3.499: chip mẫu GDX hiện đủ, xuống dòng */
 .cn-nut{display:none;flex:none;width:24px;height:26px;padding:0;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--xanh);font:inherit;font-size:calc(16px*var(--co));font-weight:700;line-height:1;cursor:pointer}
 .cn-nut:hover{background:var(--xanh);color:#fff}
 .cn-khung.cn-dau>.cn-trai,.cn-khung.cn-cuoi>.cn-phai{display:inline-block}

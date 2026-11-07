@@ -36,8 +36,9 @@ const fs=require('fs'), path=require('path');
    const gui = document.querySelector('#hso-xem-nut .xuat-gui'), inn = document.querySelector('#hso-xem-nut .xuat-in');
    ok('Hồ sơ Tổ: 📤 Gửi không rớt dòng riêng', !!gui && !!inn && Math.abs(gui.getBoundingClientRect().top - inn.getBoundingClientRect().top) < 6);
    /* ④ Giao dịch xã: dải chip cùng khung cuộn */
-   await mo('gdx', '#gdx-trai .cn-khung');
-   ok('Giao dịch xã: dải chip mẫu trong khung cuộn có nút ‹ ›', !!document.querySelector('#gdx-trai .cn-khung .cn-phai') && document.querySelectorAll('#gdx-trai .cn-khung .gdx-c').length===GDX_MAU.length);
+   await mo('gdx', '#gdx-trai .gdx2-du');   /* 3.499 (anh 07/11): GDX nhiều mẫu → chip trải đủ, xuống dòng (Hồ sơ vẫn khung cuộn ‹ ›) */
+   const gk = document.querySelector('#gdx-trai .gdx2-du'), gr = gk && gk.getBoundingClientRect(), gc = [...document.querySelectorAll('#gdx-trai .gdx2-du .gdx-c')];
+   ok('Giao dịch xã (3.499): đủ chip mẫu, hiện hết không khuất, không nút ‹ ›', gc.length===GDX_MAU.length && !document.querySelector('#gdx-trai .gdx2-dau .cn-nut') && gc.every(c=>{ const r = c.getBoundingClientRect(); return r.width>0 && r.left>=gr.left-1 && r.right<=gr.right+1; }), gc.length+'/'+GDX_MAU.length);
    /* ⑤ KTGS: chip BC0437 / BC0438 ở thanh 3 khối, không còn ở hàng lọc */
    await mo('kt', '#tr7 .kt-khoi'); await w(800);
    ok('KTGS: chip BC0437 / BC0438 trên dải LỌC ĐỊA BÀN như mọi tab (3.395 — trước: cuối thanh khối)', [...document.querySelectorAll('#kt-cay .pv-dau .pv-chip-o .sl-chip')].filter(x=>/BC043[78]/.test(x.textContent)).length===2 && !document.querySelector('#tr7 .kt-khoi .sl-chip'));

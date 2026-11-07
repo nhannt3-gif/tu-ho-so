@@ -4,6 +4,26 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.500 — 08/11/2026 — KTGS: khối riêng 🏛 Hội cấp xã cho 03/BB-CX (TK 2)
+- **Anh 08/11** "mẫu 03 là kiểm tra Hội nên phải trên cấp tổ, em riêng ra cho dễ kiếm" — anh chọn: khối riêng thứ 4, bỏ nút 03 ở cấp tổ.
+- Thanh khối KTGS: 📅 Bắt buộc · 🎯 Đột xuất · **🏛 Hội cấp xã** · ⚙ Khai báo (`che = 'hx'`; `ktCheDo`, `ktKhoi`, `ktKhoiHTML`, `ktVeThe` thêm 1 nhánh, gói 56b cắm rút — kiểm `typeof kt7HXVe`).
+- Màn 🏛 Hội cấp xã (`kt7HXVe`, js/56b): bảng Hội – xã theo lọc xã + Hội — số tổ, thôn, khách, dư nợ, nợ quá hạn (triệu, %), xếp loại tổ BC0437; mỗi dòng nút 🏛 03/BB-CX mở hộp xem / In / Word (như 3.498). Số liệu theo Kỳ đầu trang.
+- Bỏ nút 03/BB-CX ở cấp tổ (khối Đột xuất, Định kỳ, Mẫu 04); 📄 15/TD giữ ở cấp tổ.
+- Phép thử: t383 19/19 (khối Hội cấp xã, không còn nút 03 cấp tổ); t238 thanh 4 khối.
+
+## 3.499 — 07/11/2026 — Giao dịch xã: chip mẫu hiện đủ (TK 2)
+- **Anh 07/11** "các chip mẫu biểu tab GDX em cho hiện ra đủ hết như bên tab hồ sơ vay, hồ sơ tổ": GDX nay 14 mẫu, khung trái hẹp → dải cuộn 1 hàng (3.334) chỉ thấy 4 chip. Đổi riêng GDX: chip xuống dòng hiện đủ (`.gdx2-du`), khung hẹp thì nhóm nút Tra cứu / Xem / ⋯ xuống hàng dưới (`.gdx2-dau-du`). Hồ sơ vay / Hồ sơ tổ giữ khung cuộn ‹ › (`cnHang`).
+- Rà kỹ thuật 3.498 (anh 07/11 "rà coi có đúng hướng"): 03/BB-CX bỏ khoảng trắng thừa "Hội  Đoàn…" (HOIXA); t383 thêm 2 ý khối A (Định kỳ → 15/TD, Mẫu 04 → 03/BB-CX) — 18/18.
+- Phép thử t245: ý GDX đổi từ "khung cuộn có ‹ ›" sang "đủ chip, hiện hết không khuất, không nút ‹ ›".
+
+## 3.498 — 07/11/2026 — KTGS: 15/TD + 03/BB-CX (VB 727) (TK 2)
+- **Anh 07/11** (gửi 2 mẫu 727: "đưa vào phần kiểm tra giám sát"; chốt: 15/TD in toàn bộ, nợ lãi = lãi tồn, 03/BB-CX sửa IV → III, V → IV, Word dùng khuôn từ file gốc).
+- Gói mới `js/56b-ktgs-727.js` (cắm rút): 📄 **15/TD** — toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi (`KHO.doiChieu`, QT-22 — dùng chung 02/BG), dòng khách + dòng món, Tổng cộng, A4 ngang; 🏛 **03/BB-CX** — Hội – xã của tổ, mục I tự điền (số tổ, thôn, khách, dư nợ / NQH / khoanh triệu đồng + tỷ lệ, xếp loại tổ theo BC0437), khai báo cán bộ NH lưu `ktIn.kt03`.
+- Nút ở khối B (tổ đang chọn), khối A Định kỳ (tổ đã tích), khối A Mẫu 04 (chỉ 03/BB-CX).
+- Word theo khuôn gốc: `tools/khuon_727.py` → `js/khuon/kt-khuon-727.js` (nạp khi cần), `ktDocxLam` gọi `KT_DOCX_THEM[mau]` nếu có; hàng tiêu đề 15/TD lặp mỗi trang; cột số 9–10 pt cho không ngắt dòng.
+- Chung: `KHO.doiChieu(t)` (js/29), `ctTenMon(m)` (js/22g) — 02/BG đổi sang dùng, kết quả không đổi (t163, t164, t180 đạt). Mẫu KTGS khóa (t179) không đổi.
+- Phép thử: t383 (16 phép, có kiểm XML hợp lệ).
+
 ## 3.497 — 07/11/2026 — Dọn cấu trúc theo QUY_CHUAN (soát 07/11), không đổi chức năng
 - **Anh 07/11:** "em soát lại các mẫu mới … ý anh là cấu trúc code" → em soát 6 chỗ lệch; "em làm tuần tự và gộp lên rồi tiếp không cần hỏi lại".
 - **① Mục 9.4 — mẫu không gọi mẫu khác:** phần dùng chung các mẫu Phân bổ (khai báo nền ô `pb07Cach / pb07GT / pb07OK`, chữ `pb07O / pb07SoQD / pb07NgayDai / pb07Ten0`, bọc cỡ chữ `pb07Boc`, `pbNgayVN`) tách sang **`js/mau/0pb.js`**; Biểu 07 cũ (07pb) và 07/KH · 08/KH · 09/KH (07kh) cùng gọi phần chung.

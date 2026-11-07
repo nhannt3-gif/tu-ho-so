@@ -520,7 +520,8 @@ function ktDKVeG(o, th){
     if(KT_DK_MO===m) h += '<tr><td colspan="8">'+ktDKHoHTML(t, x)+'</td></tr>'; });
   h += '</tbody></table></div>';
   var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });
-  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+(typeof ktttIn==='function' ? '<button type="button" class="nho" data-lenh="kttt.dk"'+(chon.length ? '' : ' disabled')+'>📋 Tóm tắt '+chon.length+' tổ</button>' : '')+'</div>'+
+  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+(typeof ktttIn==='function' ? '<button type="button" class="nho" data-lenh="kttt.dk"'+(chon.length ? '' : ' disabled')+'>📋 Tóm tắt '+chon.length+' tổ</button>' : '')+
+    (typeof kt727Nut==='function' && chon.length ? kt727Nut('dk') : '')+'</div>'+   /* 3.498: 15/TD · 03/BB-CX (js/56b) */
     '<p class="ghi">Mẫu 06: hộ còn dư nợ có món giải ngân từ các năm trước (trước 01/01/'+th.slice(0, 4)+'), chỉ in các món đó; tích sẵn 100%, bỏ tích hộ không kiểm — 727: tối thiểu 90% (tính theo hộ, kèm tỷ lệ món). '+
       'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(K.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
   o.innerHTML = h;

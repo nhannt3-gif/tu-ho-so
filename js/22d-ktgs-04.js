@@ -110,7 +110,7 @@ function ktBCVeG(o, th){   /* 3.98 ①: chọn xã / hội ở cây → tổ chi
       '<td><input type="date" value="'+coChuHTML(r.ngay)+'" data-lenh="f22d.ktBCNgay" data-su="change" data-a1="'+m+'" aria-label="Ngày kiểm tra"></td></tr>'; });
   h += '</tbody></table></div>';
   h += ktHdtNhac(ktHoiDs(), ['pct'])+   /* 3.113: khai ở 🏛 Khai báo Hội đoàn thể */   /* 3.106: Đoàn kiểm tra Mẫu 04 = cán bộ kiểm tra 06 / 16 */
-    '<div class="hang-nut kt-in"><button class="nho chinh" data-lenh="f22d.ktBCXem"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button></div>'+ktBCGhi();
+    '<div class="hang-nut kt-in"><button class="nho chinh" data-lenh="f22d.ktBCXem"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button>'+'</div>'+ktBCGhi();
   o.innerHTML = h;
 }
 function ktBCKH(){   /* 3.123: kế hoạch đã lưu của xã đang chọn (năm kế hoạch) → [{k, dv, to:{mã: tháng}}]; chọn hội ở cây → chỉ hội đó */

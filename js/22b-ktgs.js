@@ -265,6 +265,7 @@ function ktVeThe(){
   if(ktCheDo()==='gn') return ktGNVe(o);   /* 3.93.1: Mẫu 06 sau giải ngân */
   if(ktCheDo()==='bc') return ktBCVe(o);   /* 3.95: Mẫu 04/BC-TH */
   if(ktCheDo()==='kh') return ktKHVe(o);   /* 3.96: Kế hoạch 01/KH */
+  if(ktCheDo()==='hx' && typeof kt7HXVe==='function') return kt7HXVe(o);   /* 3.500: 🏛 Hội cấp xã — 03/BB-CX (js/56b) */
   if(ktCheDo()==='dk') return ktDKVe(o);   /* 3.97: kiểm tra định kỳ theo lịch */
   if(!t){ o.innerHTML = ktCheDoHTML()+(C.xa ? ktBangToHTML(C) : '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ (điểm chấm, xếp loại), hoặc chọn 1 tổ để chọn hộ kiểm tra.</div>'+ktToanPGDHTML()); return; }
   if(!KT_CHON || KT_CHON.to!==t.ma) KT_CHON = ktGoiY(t, C.kieu||'trung', 0);
@@ -412,7 +413,7 @@ function ktChonHTML(t){
     '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+(h || '<tr><td colspan="8" class="rong">Chưa chọn hộ nào — bấm “Tất cả hộ còn dư nợ” để tích.</td></tr>')+'</tbody></table></div>'+
     ktKBKhung('dx', ktHoiDsXa((function(){ var x = {}; x[t.xa] = 1; return x; })()))+ktDXTom(t)+
     '<div class="hang-nut kt-in"><label class="kt-ngay-in"><span>Ngày kiểm tra</span><input id="kb-ngay" type="date" value="'+coChuHTML(KT_KB.ngay||'')+'" data-lenh="f22b.ktDocKB" data-su="change" aria-label="Ngày kiểm tra"></label>'+   /* 3.114: ngày kiểm tra cạnh nút In (trống = ghi tay) */
-    '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+GD.nut({chu:'📋 Mẫu 04', lenh:'ktk.dx04', tit:'Báo cáo tổng hợp Mẫu 04 cho tổ này (kiểm tra đột xuất)'})+(typeof ktttIn==='function' ? GD.nut({chu:'📋 Tóm tắt tổ', lenh:'kttt.in', tit:'Tóm tắt tình hình tổ 1 mặt A4 mang đi kiểm tra (js/71)'}) : '')+
+    '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+GD.nut({chu:'📋 Mẫu 04', lenh:'ktk.dx04', tit:'Báo cáo tổng hợp Mẫu 04 cho tổ này (kiểm tra đột xuất)'})+(typeof ktttIn==='function' ? GD.nut({chu:'📋 Tóm tắt tổ', lenh:'kttt.in', tit:'Tóm tắt tình hình tổ 1 mặt A4 mang đi kiểm tra (js/71)'}) : '')+(typeof kt727Nut==='function' ? kt727Nut('dx') : '')+
       '</div>'+   /* 3.329 (anh chốt ý 4): đột xuất có Mẫu 04 */
     '<p class="ghi">Hộ tốt = có món giải ngân trong 12 tháng, số dư 105 tăng so với tháng trước (chưa nạp tháng trước thì xét có 105), không lãi tồn, không món KHĐ. Cần quan tâm = món không giao dịch ≥ 3 tháng (file mẫu 14; chưa nạp thì xét ngày GD gần nhất), lãi tồn, không gửi TK đều. '+
       'Hộ có quá hạn / khoanh không gợi ý (kiểm tra riêng) — vẫn tích tay được. 105 tăng / giảm là suy ra từ số dư 2 tháng, không phải lịch sử nộp từng kỳ.</p></div>';
