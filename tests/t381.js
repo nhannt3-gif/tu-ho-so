@@ -116,5 +116,5 @@ const fs = require('fs'), path = require('path');
  ok('09/KH: in → lưu bản chụp b09 (không ghi vào nhật ký Biểu 07)', r.b09);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  if(process.env.T381_ANH) for(const k of Object.keys(r.anh)){ const q = await b.newPage(); await q.setContent(r.anh[k]); await q.waitForTimeout(800); fs.writeFileSync(path.join(process.env.T381_ANH, k+'.pdf'), await q.pdf({preferCSSPageSize:true})); await q.close(); }
- R.forEach(x => console.log(x)); const sai = R.filter(x => x[0]==='✗').length; console.log(sai ? '✗='+sai+' '+(R.length-sai)+'/'+R.length+' đạt' : '✗=0 '+R.length+'/'+R.length+' đạt');
+ R.forEach(x => console.log(x)); const sai = R.filter(x => x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt');   /* không mở đầu bằng ✗ (hoiquy đếm dòng bắt đầu bằng ✗ là trượt) */
  await b.close(); })();
