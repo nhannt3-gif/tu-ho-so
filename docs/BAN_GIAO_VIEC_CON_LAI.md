@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.504)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp File Tổ trưởng thật (TENTHON chữ hoa) → tab Tổ, KTGS 15/TD (Địa chỉ) | Tên ấp / thôn hoa đầu từ | |
+
+Ghi chú kỹ thuật 3.504: phép thử nhanh QT ở `tests/nhanh/thu.js` (kiem.py tự chạy); bộ giả giống thật `tests/gia_that.js` (`docBo` + `bienDoi(p, files)`) — phép thử mới đụng nạp / tên / địa danh nên chạy cả bộ này.
+
 ### Danh sách thử trên máy thật (3.503)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

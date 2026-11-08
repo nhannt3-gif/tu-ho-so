@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.504 — 08/11/2026 — Thử nhanh QT + bộ giả "giống file thật" (Đợt 2 mục 5, 6) (TK 2)
+- **Thử nhanh QT** (`tests/nhanh/thu.js`, node, không trình duyệt): +10 phép — QT-19 Tổ GD (đủ vai, TT làm bảo vệ điểm không kiêm KSV, GDV chính không lái xe / bảo vệ đường, thiếu TT, dưới 3 người, bấm vai, phương án đi đường), QT-20 chọn QĐ gần nhất (đúng xã + nguồn, cùng ngày → lập sau), QT-22 danh sách đối chiếu, khung mẫu in (điền ô, mẫu chưa đăng ký). 48/48 · ~180 ms.
+- **Bộ giả "giống file thật"** (`tests/gia_that.js` — biến thể gianho31, QUY_CHUAN §18.3): Thông tin tổ trưởng TÊN XÃ / THÔN TOÀN HOA + khoảng trắng thừa, "Ông  …" tổ trưởng; Mẫu 31 tên khách thừa khoảng trắng, ô SĐT / ngày sinh trống, mã tổ mất số 0. Phép thử t385 chạy app với bộ gốc và bộ giống thật, so số tổ / khách / dư nợ, tên, địa danh, các màn chính.
+- **Lỗi thật bộ giả bắt được (sửa):** tên thôn TOÀN CHỮ HOA từ File Tổ trưởng / Thông tin tổ trưởng hiện nguyên chữ hoa (cây tổ, mẫu in) — cùng kiểu lỗi tên xã 3.479 nhưng thôn chưa sửa. `toNap` (js/22g): tên thôn toàn hoa → cách viết Mẫu 31 cùng mã thôn, không có thì `tenHoaDau`; tên thường giữ nguyên (bỏ khoảng trắng thừa).
+- §18 chỗ dùng: `tenThon` của cây tổ — 41 file (tab Tổ, Tra cứu, KTGS, Hồ sơ, GDX, mẫu in). So đầu ra bộ gốc: t179 (bản in chuẩn khóa) 45/45, t276 (64 báo cáo) 4/4, t373 đạt — không đổi.
+
 ## 3.503 — 08/11/2026 — Khung mẫu in chung MAU_IN (Đợt 2 mục 4) (TK 2)
 - **Anh 08/11** "làm đợt tiếp theo, có thể gom 1 lần tất cả".
 - Gói mới `js/31b-mau-in.js` (1 không gian tên `MAU_IN`): sổ mẫu (`dangKy` / `lay`), bản in (`trang` — qua `hsoTrang`), hộp xem + bộ nút chuẩn (`hop` — mở lại an toàn sau khi đóng, `chiXem` giữ ô đang gõ), khuôn Word tải khi cần (`khuon` → `js/khuon/<tệp>.js` ghi `MAU_KHUON`), điền ô (`dien` — thêm cách khi nhãn dính chấm), ghép .docx từ khuôn file gốc (`docx` — nhiều bản ngắt trang, chân trang số trang), `word` / `wordTai`.
