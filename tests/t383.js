@@ -22,18 +22,18 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    const ds = Object.values(KT_K.to).filter(t => !toLaTT(t) && t.dv && String(t.dv)!=='99').sort((a, c) => KHO.doiChieu(c).length - KHO.doiChieu(a).length), t = ds[0]; K.xa = t.xa; K.diem = t.khoaDiem; pvVeCay('kt'); await w(300); ktChonTo(t.ma); await w(600);
    o.nut = !!document.querySelector('[data-lenh="kt7.m15"][data-c="dx"]') && !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* 3.500: 03 không còn ở cấp tổ */
    /* ① 15/TD */
-   document.querySelector('[data-lenh="kt7.m15"]').click(); for(let i=0;i<30 && !(KT7.x && document.getElementById('kt7-khung'));i++) await w(100); await w(300);
+   document.querySelector('[data-lenh="kt7.m15"]').click(); for(let i=0;i<30 && !(KT7.x && document.getElementById('mi-khung'));i++) await w(100); await w(300);
    const g = KT7.gts[0], dc = KHO.doiChieu(t), h15 = chu(KT7.x.trang);
    o.ds15 = g.kh.length===dc.length && g.kh.length>0 && dc.every(k => h15.indexOf(k.ten)>=0);
    const tg = dc.reduce((a, k) => a+(k.dn||0), 0), tl = dc.reduce((a, k) => a+(k.lt||0), 0), t5 = dc.reduce((a, k) => a+(k.t105||0), 0);
    o.tong15 = g.tong.dn===tg && g.tong.lt===tl && g.tong.t105===t5 && h15.indexOf('Tổng cộng '+tdnTien(tg))>=0;
    o.lai = dc.every((k, i) => g.kh[i].mon.every((m, j) => m.lt===(laiTon(k.mon[j])||0)));
    o.chu15 = ['DANH SÁCH ĐỐI CHIẾU SỐ DƯ TIỀN VAY VÀ TIỀN GỬI', 'Mẫu số: 15/TD', 'Số liệu tại NHCSXH', 'Chênh lệch (+,-)', 'Nguyên nhân chênh lệch', 'CÁN BỘ ĐỐI CHIẾU', 'Đến ngày '+ngayVNsl(KT_K.ngay), 'Mã Tổ: '+t.ma].filter(x => h15.indexOf(x)<0);
-   o.ngang = /size:A4 landscape/.test(KT7.x.trang);
+   o.ngang = /size:A4 landscape/.test(KT7.x.trang); o.h15 = KT7.x.trang;
    /* 02/BG dùng cùng cửa (QT-22) */
    o.bg = typeof hsoLap02bg==='function';
    /* Word 15/TD */
-   let bl = null; try { await kt727Khuon(); bl = await ktDocx('m15', g); } catch(e){ o.loiW = e.message; }
+   let bl = null; try { bl = await MAU_IN.word('kt15', g); } catch(e){ o.loiW = e.message; }
    o.w15 = bl ? Array.from(new Uint8Array(await bl.arrayBuffer())) : null;
    dongHop(); await w(100);
    /* ② 03/BB-CX */
@@ -41,23 +41,23 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    [...document.querySelectorAll('#kt-the .kt-khoi > button')].find(b => /Hội cấp xã/.test(b.textContent)).click(); for(let i=0;i<30 && !document.querySelector('#kt-the .kt-hx');i++) await w(100); await w(200);
    const hx = document.querySelector('#kt-the .kt-hx'), nutHoi = hx && hx.querySelector('[data-lenh="kt7.m03"][data-k="'+ktHoiKhoa(t)+'"]');
    o.hx = ktCheDo()==='hx' && !!nutHoi && hx.querySelectorAll('tbody tr').length===ktHoiDs().filter(x => !ktCH().hoi || String(x.t.dv)===String(ktCH().hoi)).length && !document.querySelector('#kt-the [data-lenh="kt7.m15"]');
-   nutHoi.click(); for(let i=0;i<30 && !(KT7.x && KT7.mau==='m03' && document.getElementById('kt7-khung'));i++) await w(100); await w(300);
+   nutHoi.click(); for(let i=0;i<30 && !(KT7.x && KT7.mau==='m03' && document.getElementById('mi-khung'));i++) await w(100); await w(300);
    const g3 = KT7.gts[0], hk = ktHoiKhoa(t), toHoi = Object.values(KT_K.to).filter(x => x.xa===t.xa && String(x.dv)===String(t.dv) && !toLaTT(x));
    let dn = 0, qh = 0, kn = 0; const kh = {}; toHoi.forEach(x => KHO.toVien(x).forEach(k => { if(!(k.dn>0)) return; kh[k.kh] = 1; dn += k.dn; qh += k.qh||0; kn += k.kn||0; }));
    o.k03 = KT7.k===hk; o.so03 = g3.f.STO===String(toHoi.length) && g3.f.SKH===String(Object.keys(kh).length) && g3.f.DN===(Math.round(dn/1e4)/100).toLocaleString('vi-VN') && g3.f.NQH===(qh ? (Math.round(qh/1e4)/100).toLocaleString('vi-VN') : '0');
-   const h3 = chu(KT7.x.trang);
+   const h3 = chu(KT7.x.trang); o.h03 = KT7.x.trang;
    o.chu03 = ['BIÊN BẢN KIỂM TRA', 'Hoạt động nhận ủy thác với NHCSXH của tổ chức CT-XH cấp xã', 'I. KẾT QUẢ HOẠT ĐỘNG ỦY THÁC', 'II. KẾT QUẢ THỰC HIỆN', 'III. ĐÁNH GIÁ, NHẬN XÉT CỦA ĐOÀN KIỂM TRA', 'IV. Ý KIẾN CỦA ĐƠN VỊ ĐƯỢC KIỂM TRA',
      '727/HD-NHCS ngày 11/02/2026', 'TRƯỞNG ĐOÀN KIỂM TRA', 'Tổng số Tổ TK&VV do Hội quản lý: '+toHoi.length].filter(x => h3.indexOf(x)<0);
    o.khongV = !/V\. Ý KIẾN/.test(h3.replace('IV. Ý KIẾN', ''));
    /* khai báo cán bộ NH */
    const e = document.querySelector('[data-lenh="kt7.kb"][data-k="cb1"]'); e.value = 'Cán Bộ NH Giả'; e.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
    o.kb = D.cauHinh.ktIn.kt03.cb1==='Cán Bộ NH Giả' && chu(KT7.x.trang).indexOf('Cán Bộ NH Giả')>=0;
-   let b3 = null; try { b3 = await ktDocx('cx03', KT7.gts[0]); } catch(e){ o.loiW3 = e.message; }
+   let b3 = null; try { b3 = await MAU_IN.word('kt03', KT7.gts[0]); } catch(e){ o.loiW3 = e.message; }
    o.w03 = b3 ? Array.from(new Uint8Array(await b3.arrayBuffer())) : null; o.f3 = KT7.gts[0].f;
    dongHop();
    /* khối A: Định kỳ (tổ đã tích) → 15/TD đúng tổ; Mẫu 04 (Hội) → 03/BB-CX đúng Hội – xã */
    KT_DK_CHON = {}; KT_DK_CHON[t.ma] = 1; await kt7Mo15('dk'); await w(400);
-   o.dk15 = KT7.mau==='m15' && KT7.gts.some(x => x.t.ma===t.ma) && !!document.getElementById('kt7-khung'); dongHop(); await w(100);
+   o.dk15 = KT7.mau==='m15' && KT7.gts.some(x => x.t.ma===t.ma) && !!document.getElementById('mi-khung'); dongHop(); await w(100);
    ktDoiCheDo('bc'); await w(400); o.bc03 = !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* Mẫu 04 không còn nút 03 */
    /* mẫu KTGS cũ vẫn dựng như trước (Mẫu 16) */
    o.m16 = /BIÊN BẢN KIỂM TRA/.test(chu(ktHTML16(ktGiaTri16(t, ktDaChon(), ktInV('m16')))));
@@ -87,9 +87,10 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
  /* §11 bàn phím: hộp 03 — gõ tên cán bộ, Enter → sang ô Chức vụ 1, giá trị lưu, khung khai báo không vẽ lại */
  await p.evaluate(async() => { ktDoiCheDo('hx'); await new Promise(r => setTimeout(r, 300)); kt7Mo03(''); await new Promise(r => setTimeout(r, 400)); });
- await p.focus('#kt7-dau [data-lenh="kt7.kb"][data-k="cb2"]'); await p.keyboard.press('Control+A'); await p.keyboard.type('Người Thử Hai'); await p.keyboard.press('Enter'); await p.waitForTimeout(500);
+ await p.focus('#mi-dau [data-lenh="kt7.kb"][data-k="cb2"]'); await p.keyboard.press('Control+A'); await p.keyboard.type('Người Thử Hai'); await p.keyboard.press('Enter'); await p.waitForTimeout(500);
  const ph = await p.evaluate(() => ({k:document.activeElement && document.activeElement.getAttribute('data-k'), v:(D.cauHinh.ktIn.kt03||{}).cb2, xem:/Người Thử Hai/.test(KT7.x.trang)}));
  ok('03/BB-CX bàn phím (§11): Enter sang ô kế (Chức vụ 2), giữ con trỏ, lưu + hiện trên bản xem', ph.k==='cv2' && ph.v==='Người Thử Hai' && ph.xem, JSON.stringify(ph));
  R.forEach(x => console.log(x)); console.log((R.length-R.filter(x => x[0]==='✗').length)+'/'+R.length+' đạt');
+ if(process.env.T383_ANH){ fs.writeFileSync(path.join(process.env.T383_ANH, 'h15.html'), r.h15 || ''); fs.writeFileSync(path.join(process.env.T383_ANH, 'h03.html'), r.h03 || ''); }
  if(process.env.T383_ANH){ fs.writeFileSync(path.join(process.env.T383_ANH, 'm15.docx'), Buffer.from(r.w15 || [])); fs.writeFileSync(path.join(process.env.T383_ANH, 'm03.docx'), Buffer.from(r.w03 || [])); }
  await b.close(); })();

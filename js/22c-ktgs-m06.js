@@ -78,7 +78,6 @@ function ktDocx(mau, gt){   /* 3.236: tải khuôn trước (giữ cờ in 1 / 2
 function ktDocxLam(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1: mỗi phiếu sang trang mới, cùng 1 file) */
   var K = mau==='pc' ? KT_KHUON.m01b : KT_KHUON[mau], G = KT_KHUON.chung, enc = function(t){ return new Blob([t], {type:'application/xml'}); };
   var mot = function(g){
-    if(typeof KT_DOCX_THEM!=='undefined' && KT_DOCX_THEM[mau]) return KT_DOCX_THEM[mau](K, g);   /* 3.498: 15/TD · 03/BB-CX (js/56b) — khuôn gốc VB 727 */
     if(mau==='pc') return ktBungPC(g);   /* 3.117: Thông báo phân công Ban Thường vụ */
     if(mau==='m04') return ktGach04(ktBung04(K, g));   /* 3.95 · 3.138: gạch dưới tên đơn vị, canh Trưởng đoàn */
     if(mau==='m01' || mau==='m01b') return ktBung01(K, g);   /* 3.96 · 3.97 khuôn ② */

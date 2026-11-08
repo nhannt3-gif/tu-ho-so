@@ -65,6 +65,26 @@ thu('GD.nut: thoát dấu nháy trong title, gắn data-lenh', () => /title="a&q
 thu('xuatHang: thứ tự Đóng · In · Lưu vào app · PDF · Word · Excel · Gửi', () => { const h = A.xuatHang({ten:'x', html:()=>'<p>x</p>', vaoApp:'void 0'}); return (h.match(/>([^<>]+)<\/button>/g) || []).map(x => x.slice(1, -9).trim()).join('|')==='Đóng (Esc)|🖨 In|💾 Lưu vào app|📄 PDF|📝 Word|📊 Excel|📤 Gửi'; },
   () => (A.xuatHang({ten:'x', html:()=>'<p>x</p>', vaoApp:'void 0'}).match(/>([^<>]+)<\/button>/g) || []));
 
+/* 3.504 (rà soát 08/11 — Đợt 2 mục 5): THỬ NHANH CÁC QT MỚI (hàm thuần, không trình duyệt) */
+const toGD = ds => ({g4To:ds}), loiTo = ds => A.g4KiemTo(toGD(ds)).map(x => x.muc+':'+x.chu);
+thu('QT-19 Tổ GD đủ (TT kiêm KSV, GDV chính, lái xe, bảo vệ đường, bảo vệ điểm) → không lỗi đỏ', () => !loiTo([{ten:'An', vai:['tt', 'ksv']}, {ten:'Bình', vai:['gdvc']}, {ten:'Chi', vai:['lx']}, {ten:'Dũng', vai:['bvd']}, {ten:'Em', vai:['bvt']}]).some(x => /^do:/.test(x)),
+  () => loiTo([{ten:'An', vai:['tt', 'ksv']}, {ten:'Bình', vai:['gdvc']}, {ten:'Chi', vai:['lx']}, {ten:'Dũng', vai:['bvd']}, {ten:'Em', vai:['bvt']}]));
+thu('QT-19 Tổ trưởng làm bảo vệ tại điểm thì không kiêm KSV → đỏ', () => loiTo([{ten:'An', vai:['tt', 'ksv', 'bvt']}, {ten:'Bình', vai:['gdvc']}, {ten:'Chi', vai:['lx']}]).some(x => /không kiêm Kiểm soát viên/.test(x)));
+thu('QT-19 GDV chính không lái xe / bảo vệ đường → đỏ', () => loiTo([{ten:'An', vai:['tt']}, {ten:'Bình', vai:['gdvc', 'lx']}, {ten:'Chi', vai:['ksv']}]).some(x => /GDV chính là người áp tải/.test(x)));
+thu('QT-19 thiếu Tổ trưởng / 2 GDV chính → đỏ; dưới 3 người → vàng', () => { const l = loiTo([{ten:'An', vai:['gdvc']}, {ten:'Bình', vai:['gdvc']}]); return l.some(x => /Chưa có Tổ trưởng/.test(x)) && l.some(x => /tối thiểu 03/.test(x)); }, () => loiTo([{ten:'An', vai:['gdvc']}, {ten:'Bình', vai:['gdvc']}]));
+thu('QT-19 bấm vai: 1 Tổ trưởng duy nhất, GDV chính thay GDV', () => { const ds = [{ten:'A', vai:['tt']}, {ten:'B', vai:['gdv']}]; A.g4VaiDoi(ds, 1, 'tt'); A.g4VaiDoi(ds, 1, 'gdvc');
+  return J(ds[0].vai)==='[]' && J(ds[1].vai)==='["tt","gdvc"]'; });
+thu('QT-19 phương án đi đường 1: Tổ trưởng lái xe, người còn lại bảo vệ đường', () => { const ds = [{ten:'A', vai:['tt']}, {ten:'B', vai:['gdvc']}, {ten:'C', vai:['ksv']}]; const e = A.g4PaGan(ds, '1');
+  return !e && ds[0].vai.indexOf('lx')>=0 && ds[2].vai.indexOf('bvd')>=0 && ds[1].vai.indexOf('bvd')<0; });
+const QD = [{ngay:'2026-03-01', xa:'X1', nguon:1, luc:'a'}, {ngay:'2026-09-15', xa:'X1', nguon:1, luc:'b'}, {ngay:'2026-09-15', xa:'X1', nguon:1, luc:'c'}, {ngay:'2026-10-01', xa:'X1', nguon:2}, {ngay:'2025-12-01', xa:'X1', nguon:1}];
+thu('QT-20 Tờ trình 09/KH lấy QĐ gần nhất trong năm của đúng xã + nguồn (cùng ngày → lập sau)', () => A.pbQDCuoi(QD, '2026', 'X1', 1).luc==='c' && A.pbQDCuoi(QD, '2026', 'X1', 2).ngay==='2026-10-01' && A.pbQDCuoi(QD, '2026', 'X2', 1)===null,
+  () => A.pbQDCuoi(QD, '2026', 'X1', 1));
+thu('QT-22 danh sách đối chiếu: còn nợ / còn lãi tồn / còn tiền gửi 105; hết cả 3 thì bỏ', () => { const g = A.KHO.toVien; A.KHO.toVien = () => [{ten:'Nợ', conNo:1}, {ten:'Lãi', lt:5}, {ten:'Gửi', t105:9}, {ten:'Hết', lt:0, t105:0}];
+  try { return J(A.KHO.doiChieu('T').map(k => k.ten))===J(['Nợ', 'Lãi', 'Gửi']); } finally { A.KHO.toVien = g; } });
+thu('Khung mẫu in: điền ô thêm cách khi nhãn dính chấm, trống giữ chấm, thoát XML', () => A.MAU_IN.dien('<w:t>Hội{{H|....}}, {{T|..}}</w:t>', {H:'Nông dân', T:''})==='<w:t>Hội Nông dân, ..</w:t>' && A.MAU_IN.dien('<w:t>{{A|.}}</w:t>', {A:'x&y'})==='<w:t>x&amp;y</w:t>',
+  () => A.MAU_IN.dien('<w:t>Hội{{H|....}}, {{T|..}}</w:t>', {H:'Nông dân', T:''}));
+thu('Khung mẫu in: chưa đăng ký mẫu → lỗi rõ', () => { try { A.MAU_IN.lay('khong-co'); return false; } catch(e){ return /Chưa đăng ký mẫu/.test(e.message); } });
+
 const sai = o.filter(x => x[0]==='✗');
 console.log(o.join('\n')); console.log((o.length-sai.length)+'/'+o.length+' đạt · '+(Date.now()-t0)+' ms');
 process.exitCode = sai.length ? 1 : 0;

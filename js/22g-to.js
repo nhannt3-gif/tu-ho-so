@@ -196,6 +196,11 @@ function toNap0(ky){
       if(o.thon && !(K.dsLech && t.thon)){ if(t.thon && String(t.thon)!==String(o.thon)) t.thonM31 = t.thon; t.thon = String(o.thon); if(o.tenThon) t.tenThon = o.tenThon; t.thonTT = true; }   /* 3.401 QT-C-10 (anh chốt 28/10): ấp của tổ = mã thôn (MADP) trên File Tổ trưởng */
       if(!co && t.diem && !coTT[o.to]) t.diemTu = 'Danh sách tổ '+slKyChu(Bm.nguon.dsto || K.thang); });
     (Bm.co.tt||[]).forEach(function(o){ var t = lay(o.to); t.tt = o; toDien(t, o, chung.concat([['diem','diem'],['tenDiem','tenDiem'],['ngayGD','ngayGD'],['sdt','sdt'],['pho','phoTen']])); });   /* Thông tin tổ trưởng: file phụ — chỉ bù chỗ DSTO trống */
+    /* 3.504 (bộ giả "giống file thật" t385 — cùng kiểu lỗi tên xã 3.479): File Tổ trưởng / Thông tin tổ trưởng ghi TÊN THÔN TOÀN CHỮ HOA → cách viết của Mẫu 31 cùng mã thôn,
+       không có thì viết hoa đầu từ; tên thường giữ nguyên (chỉ bỏ khoảng trắng thừa) */
+    var thon31 = {}, hoaHet = function(x){ x = String(x||''); return x===x.toLocaleUpperCase('vi') && x!==x.toLocaleLowerCase('vi'); };
+    K.hs.forEach(function(o){ var n = String(o.tenThon||'').replace(/\s+/g, ' ').trim(); if(o.thon && n && !hoaHet(n) && !thon31[o.thon]) thon31[o.thon] = n; });
+    Object.keys(T).forEach(function(m){ var t = T[m], n = String(t.tenThon||'').replace(/\s+/g, ' ').trim(); if(!n) return; t.tenThon = hoaHet(n) ? (thon31[t.thon] || tenHoaDau(n)) : n; });
     if(K.thieuBang && SL_DB){
       Object.keys(SL_DB.kh||{}).forEach(function(m){ var c = SL_DB.kh[m]; if(c.to) toDien(lay(c.to), c, chung); });
       Object.keys(SL_DB.to||{}).forEach(function(ma){ var c = SL_DB.to[ma], t = T[ma]; if(t) toDien(t, c, [['ten','ten'],['sdt','sdt'],['pho','pho'],['tenDiem','diem'],['ngayGD','ngayGD']]); });
