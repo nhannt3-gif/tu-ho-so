@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.501** — TK 2: rà tổng thể 3.480–3.500 theo QUY_CHUAN (sửa hộp KTGS 727 mở lại, bàn phím) + hồi quy định kỳ. Trước: 3.500 KTGS khối 🏛 Hội cấp xã.
+- **`main` = 3.502** — TK 2: Đợt 1 gọn nền (CLAUDE.md ngắn, bản đồ tài liệu, CHANGELOG tách, luật không gian tên gói mới, sổ cấu hình). Trước: 3.501 rà tổng thể 3.480–3.500.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
