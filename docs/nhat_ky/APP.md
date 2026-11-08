@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 08/11/2026 22:40 — TK 2 · PHIÊN (3.503 → 3.504, Đợt 2 — anh "làm đợt tiếp theo, gom 1 lần tất cả")
+- Đã làm: 3.503 khung mẫu in chung `MAU_IN` (js/31b; 15/TD · 03/BB-CX chuyển sang, bản in + thân Word giống hệt; bỏ móc `KT_DOCX_THEM` ở lõi Word KTGS; t384). 3.504 thử nhanh QT-19/20/22 + khung (`tests/nhanh`, 48/48) · bộ giả "giống file thật" `tests/gia_that.js` + t385 → bắt và sửa lỗi tên thôn TOÀN HOA (js/22g `toNap`).
+- **Đính chính bản đánh giá 08/11:** "tab Tổ nạp tháng trước khi cần" đã làm từ 3.413 (2.214 → 684 ms); "đọc Excel bằng Web Worker" đã có sẵn ở `slDocSheet` (js/22, lỗi → đọc trực tiếp) — không làm lại.
+- Còn lại của bản đánh giá (chưa làm, chờ anh): nạp khi cần các gói lớn (mở app ~1,0–1,2 s trên máy đo — lợi nhỏ, rủi ro thứ tự đăng ký lệnh); tách file > 100 KB làm dần khi sửa tới.
+- Bước tiếp: mẫu GDX 01/02/04/05/13, 01–03/KH làm bằng `MAU_IN` (cần khuôn từ mẫu gốc: `tools/khuon_<tên>.py`).
+- Lưu ý: khung `MAU_IN.hop` dùng id `mi-dau` / `mi-khung` / `mi-nut`; gói khai `sau:` để giữ xử lý riêng (KTGS: `ktChamMin`).
+
 ### 08/11/2026 — TK 2 · PHIÊN (3.489 → 3.502)
 - Đã làm (PR #514–#522 đã gộp; chi tiết `docs/CHANGELOG.md`):
   - 3.489–3.496 Giao dịch xã VB 4368 (03, 06, 07, 09, 10, 11, 14, 15/GDX; Tổ GD trực quan; 📘 Nhiệm vụ Tổ GD) · Phân bổ QĐ 4686 (07/KH, 08/KH, Tờ trình 09/KH; Biểu 07 cũ giữ).
