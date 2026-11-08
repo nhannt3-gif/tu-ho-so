@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.503 — 08/11/2026 — Khung mẫu in chung MAU_IN (Đợt 2 mục 4) (TK 2)
+- **Anh 08/11** "làm đợt tiếp theo, có thể gom 1 lần tất cả".
+- Gói mới `js/31b-mau-in.js` (1 không gian tên `MAU_IN`): sổ mẫu (`dangKy` / `lay`), bản in (`trang` — qua `hsoTrang`), hộp xem + bộ nút chuẩn (`hop` — mở lại an toàn sau khi đóng, `chiXem` giữ ô đang gõ), khuôn Word tải khi cần (`khuon` → `js/khuon/<tệp>.js` ghi `MAU_KHUON`), điền ô (`dien` — thêm cách khi nhãn dính chấm), ghép .docx từ khuôn file gốc (`docx` — nhiều bản ngắt trang, chân trang số trang), `word` / `wordTai`.
+- **Chuyển 15/TD, 03/BB-CX (js/56b) sang khung:** khuôn `js/khuon/kt727.js` (`tools/khuon_727.py`), bỏ `kt727Khuon`, `kt7Dien`, `kt7Trang`, `kt7Word`, `KT_DOCX_THEM`; bỏ móc ở `ktDocxLam` (js/22c — lõi Word KTGS về như trước 3.498). So trước / sau: bản in HTML 15/TD, 03/BB-CX giống hệt từng ký tự; thân Word (document.xml trừ phần cài đặt trang) giống hệt — gói khai `sau: ktChamMin` giữ dòng chấm mịn KTGS.
+- §18 chỗ dùng: `ktDocxLam` (mọi Word KTGS — chỉ bỏ 1 dòng móc, t179 45/45), `MAU_IN` mới chỉ 56b dùng.
+- Luật QUY_CHUAN mục 9.9: mẫu mới dùng khung; mẫu cũ chuyển dần khi sửa tới.
+- Phép thử: t384 (khung, 11 ý: sổ, bản in, hộp mở lại / chiXem, điền, khuôn lỗi rõ, docx 1 / nhiều bản hợp lệ) · t383 20/20 (đổi sang `MAU_IN.word`).
+
 ## 3.502 — 08/11/2026 — Đợt 1 "gọn nền" sau đánh giá kiến trúc (TK 2)
 - **Anh 08/11** ("rà soát cấu trúc code, đánh giá tốc độ phát triển và sự bền vững… ok làm đi"): Đợt 1 — không đổi chức năng, không đổi code chạy.
 - **Tài liệu:** `CLAUDE.md` còn luật + thứ tự đọc (lịch sử bàn giao → `docs/luu_tru/CLAUDE_LICH_SU.md`); `docs/README.md` bản đồ 68 file (A đọc khi bắt đầu · B tra khi đụng · C kế hoạch còn dở · D lịch sử); `docs/CHANGELOG.md` chỉ giữ từ 01/11 (881 → 118 KB; cũ → `docs/luu_tru/CHANGELOG_DEN_3110.md`); nhật ký vai `docs/nhat_ky/APP.md` ghi phiên 3.489–3.502.

@@ -2,7 +2,7 @@
 """3.498 — khuôn Word KTGS cho 2 mẫu VB 727/HD-NHCS (anh 07/11/2026: "Word dùng khuôn từ file gốc"):
   15/TD  Danh sách đối chiếu số dư tiền vay và tiền gửi   (tests/mau_goc/15td.docx)
   03/BB-CX Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã (tests/mau_goc/03bbcx.docx — anh chốt sửa IV → III, V → IV)
-Chạy:  python3 tools/khuon_727.py > js/khuon/kt-khuon-727.js
+Chạy:  python3 tools/khuon_727.py > js/khuon/kt727.js   (3.503: khung MAU_IN — js/31b)
 Dùng lại hàm của tools/khuon_docx.py: clean, top, dien ({{KHOA|chấm gốc}}), o_trong, phan_phu, goi. Mẫu trắng — không có dữ liệu thật
 (15/TD: bỏ 7 dòng ví dụ "Nguyễn Văn A…" của mẫu, giữ dòng khuôn để app sinh dòng theo số liệu)."""
 import re, sys, json
@@ -94,6 +94,6 @@ def cx03(path):
 
 if __name__ == '__main__':
     a = m15('tests/mau_goc/15td.docx'); b = cx03('tests/mau_goc/03bbcx.docx')
-    print('/* 3.498 — khuôn Word KTGS VB 727: 15/TD · 03/BB-CX — dựng bằng tools/khuon_727.py từ tests/mau_goc (mẫu trắng, không dữ liệu thật). Nạp khi cần (kt727Khuon, js/56b). */')
-    print('window.KT_KHUON = window.KT_KHUON || {};')
-    print('KT_KHUON.m15 = ' + json.dumps(a, ensure_ascii=False) + '; KT_KHUON.cx03 = ' + json.dumps(b, ensure_ascii=False) + ';')   # 1 dòng dữ liệu (thước đo dòng >400)
+    print('/* 3.498 · 3.503 — khuôn Word VB 727: 15/TD · 03/BB-CX — dựng bằng tools/khuon_727.py từ tests/mau_goc (mẫu trắng, không dữ liệu thật). Nạp khi cần qua khung MAU_IN.khuon(\'kt727\') (js/31b). */')
+    print('window.MAU_KHUON = window.MAU_KHUON || {};')
+    print('MAU_KHUON.kt727 = {m15: ' + json.dumps(a, ensure_ascii=False) + ', cx03: ' + json.dumps(b, ensure_ascii=False) + '};')   # 1 dòng dữ liệu (thước đo dòng >400)

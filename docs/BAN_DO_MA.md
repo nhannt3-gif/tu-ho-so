@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.502 · 08/11/2026 06:42 · 147 file · 46758 dòng · 3753 hàm cấp ngoài · 632 biến toàn cục.
+Bản 3.503 · 08/11/2026 22:30 · 148 file · 46813 dòng · 3749 hàm cấp ngoài · 631 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 331 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 332 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4100 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -49,7 +49,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/21-ngay-gy.js` | 38 | 3 | /* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nh |
 | `js/22-so-lieu.js` | 1212 | 125 | /* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i (nạp ngay sau theo thứ tự tên) + khuô |
 | `js/22b-ktgs.js` | 767 | 109 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1102–1816 của bản 3.234), không  |
-| `js/22c-ktgs-m06.js` | 447 | 60 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
+| `js/22c-ktgs-m06.js` | 446 | 60 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
 | `js/22d-ktgs-04.js` | 717 | 102 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2252–2945 của bản 3.234), không  |
 | `js/22e-ktgs-kh.js` | 604 | 87 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2946–3477 của bản 3.234), không  |
 | `js/22f-tra-cuu.js` | 353 | 40 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 3486–4545 của bản 3.234), không  |
@@ -73,6 +73,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/29-kho.js` | 178 | 2 | /*   3.216 (anh 15/10/2026): CỬA KHO — kho số liệu chung (KIEN_TRUC_3_LOP 3.5 · QUY_CHUAN_KIEN_TRUC mục 3 "cửa |
 | `js/30-khai-bao.js` | 28 | 2 | /*   3.222 (anh 16/10/2026, phương án B): ⚙ KHAI BÁO ĐƠN VỊ — 1 cửa sổ dùng chung mọi tab   - Mở từ nút "⚙ Kha |
 | `js/31-o-mau.js` | 297 | 67 | /*   3.223 M3 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9): NỀN Ô MẪU — "OM"   Mỗi chỗ chấm trên  |
+| `js/31b-mau-in.js` | 87 | 0 | /*   js/31b-mau-in.js — 3.503 (anh duyệt 08/11/2026 "làm đợt tiếp theo, gom 1 lần" — rà soát kiến trúc Đợt 2 m |
 | `js/32-kho-luu.js` | 107 | 8 | /*   3.223 M1 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9.5): CỬA LƯU KHO1 + LƯU AN TOÀN B1   - B |
 | `js/33-so-ho-them.js` | 48 | 7 | /*   3.223 M2 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON mục 0.8): SỔ HỘ VAY ĐỦ CỘT   - Rà ngược các ô của mẫu gố |
 | `js/34-luu-ngan.js` | 181 | 3 | /*   3.223 M8 (anh chốt 16/10/2026 — KE_HOACH_BAN_LON, QUY_CHUAN mục 9.5): LƯU THEO NGĂN TRONG IndexedDB (bước |
@@ -113,7 +114,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/mau/07kh.js` | 133 | 12 | /*   3.494 (anh 07/11/2026 — QĐ 4686/QĐ-NHCS ngày 21/10/2026 "Quy định về xây dựng và tổ chức thực hiện kế hoạ |
 | `js/54-tgtv-khai.js` | 163 | 15 | /*   3.315 (anh 22/10 "làm hoàn chỉnh 01TGTV in bằng 2 cách: lấy từ Mẫu 31 hoặc in nhanh tự khai, khai nhanh t |
 | `js/56-ktgs-bo.js` | 110 | 20 | /*   3.327 — KTGS bước 1 (docs/KE_HOACH_KTGS_GON.md mục 2.4, 3): 2 BỘ KHAI BÁO CỐ ĐỊNH (anh chốt 23/10)   ① Hộ |
-| `js/56b-ktgs-727.js` | 182 | 18 | /*   js/56b-ktgs-727.js — 3.498 (anh 07/11/2026 "VB 727 còn 2 mẫu này em đưa vào phần kiểm tra giám sát"): 🛡 K |
+| `js/56b-ktgs-727.js` | 150 | 14 | /*   js/56b-ktgs-727.js — 3.498 (anh 07/11/2026 "VB 727 còn 2 mẫu này em đưa vào phần kiểm tra giám sát"): 🛡 K |
 | `js/57-cay.js` | 34 | 0 | /*   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
 | `js/58-tc-to.js` | 209 | 22 | /*   3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp) - Khi duyệt hồ sơ: tra kh |
 | `js/59-suc-khoe.js` | 34 | 7 | /*   3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2 — anh 24/10 "cứ theo KH làm"): 🩺 SỨC KHỎE SAO LƯU Thẻ ở ⚙ Khai bá |
@@ -297,10 +298,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22b-ktgs.js:436` · 3.114 (anh chốt): HỘP CHỌN KHI IN — mỗi mẫu 1 phần, nhớ lựa chọn lần trước (D.cauHinh.ktIn[mẫu], đồng bộ Drive);
 - `js/22b-ktgs.js:755` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22c-ktgs-m06.js:2` · 3.138 (anh chốt): Mẫu 06 gọn & nhạt
-- `js/22c-ktgs-m06.js:131` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
-- `js/22c-ktgs-m06.js:255` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
-- `js/22c-ktgs-m06.js:296` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
-- `js/22c-ktgs-m06.js:440` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/22c-ktgs-m06.js:130` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
+- `js/22c-ktgs-m06.js:254` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
+- `js/22c-ktgs-m06.js:295` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
+- `js/22c-ktgs-m06.js:439` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22d-ktgs-04.js:21` · 3.98: 📖 BẢNG CHUẨN HÓA HỘI – ĐOÀN (anh chốt: chữ đặc thù dùng chung mọi mẫu, sửa 1 chỗ)
 - `js/22d-ktgs-04.js:331` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
 - `js/22d-ktgs-04.js:372` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó
@@ -526,11 +527,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/54-tgtv-khai.js:64` · 3.316 (anh 23/10 "form cứng, chuẩn: họ tên, ngày sinh, CCCD, ngày cấp, SĐT, chọn xã, ấp — còn lại tự tính: giới tính, ng
 - `js/54-tgtv-khai.js:90` · bấm trên bản xem
 - `js/54-tgtv-khai.js:156` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f54.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
-- `js/56b-ktgs-727.js:12` · khuôn Word (nạp sau khuôn KTGS chung)
-- `js/56b-ktgs-727.js:21` · NGHIỆP VỤ (thuần theo số liệu đang dựng — gọi trong ktNguonVoi / kỳ khối B)
-- `js/56b-ktgs-727.js:51` · MẪU IN (HTML — xem trước / In / PDF; Word theo khuôn gốc)
-- `js/56b-ktgs-727.js:108` · Word theo khuôn gốc (gọi trong ktDocxLam qua KT_DOCX_THEM)
-- `js/56b-ktgs-727.js:129` · GIAO DIỆN: nút ở 3 chỗ KTGS + hộp xem / in
+- `js/56b-ktgs-727.js:13` · NGHIỆP VỤ (thuần theo số liệu đang dựng — gọi trong ktNguonVoi / kỳ khối B)
+- `js/56b-ktgs-727.js:43` · MẪU IN (HTML — xem trước / In / PDF; Word theo khuôn gốc)
+- `js/56b-ktgs-727.js:94` · 3.503: đăng ký vào khung mẫu in chung MAU_IN (js/31b) — bản in, hộp xem, Word theo khuôn gốc (js/khuon/kt727.js)
+- `js/56b-ktgs-727.js:105` · GIAO DIỆN: nút ở 3 chỗ KTGS + hộp xem / in
 - `js/57-cay.js:1` · 3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn kiểu ☰ Gọn
 - `js/58-tc-to.js:1` · 3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp)
 - `js/58-tc-to.js:42` · bảng tổ của 1 điểm GD, gom theo Hội

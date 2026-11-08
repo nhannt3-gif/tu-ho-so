@@ -4,19 +4,11 @@
    🏛 03/BB-CX Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH CẤP XÃ (Hội × xã) — mục I tự điền (số tổ, thôn, khách, dư nợ, NQH, khoanh, xếp loại tổ BC0437);
              mẫu gốc thiếu mục III → anh chốt sửa III, IV; đoàn kiểm tra NHCSXH + người của Hội (🏛 Khai báo Hội – xã) — các phần nhận xét chấm ghi tay.
    Gói KTGS (QUY_CHUAN 1b): tiền tố kt7…, KHÔNG sửa mẫu đã khóa (06 / 16 / 04 / Kế hoạch); số liệu theo khối: khối A = Mẫu 31 chốt cuối tháng liền trước (ktNguonVoi),
-   khối B = kỳ đầu trang (KT_K). Word = khuôn từ file gốc tests/mau_goc/15td.docx · 03bbcx.docx (tools/khuon_727.py → js/khuon/kt-khuon-727.js, nạp khi cần) qua ktDocx.
+   khối B = kỳ đầu trang (KT_K). Word = khuôn từ file gốc tests/mau_goc/15td.docx · 03bbcx.docx (tools/khuon_727.py → js/khuon/kt727.js) — 3.503 qua khung chung MAU_IN (js/31b).
    3.500: 03/BB-CX ở khối riêng 🏛 Hội cấp xã (thanh khối KTGS — kt7HXVe); 15/TD ở cấp tổ (khối B, Định kỳ).
    Cắm rút: bỏ dòng <script> → mất nút 15/TD và khối 🏛 Hội cấp xã, KTGS cũ không đổi (các chỗ gọi đều kiểm typeof kt727Nut). ===== */
 var KT7 = {mau:'', tu:'', gts:[], x:null};
 
-/* ---------- khuôn Word (nạp sau khuôn KTGS chung) ---------- */
-function kt727Khuon(){
-  return ktKhuon().then(function(){ if(KT_KHUON.m15 && KT_KHUON.cx03) return KT_KHUON;
-    if(!kt727Khuon.p) kt727Khuon.p = new Promise(function(ok, loi){ var s = document.createElement('script'); s.src = 'js/khuon/kt-khuon-727.js?v='+APP_BAN;
-      s.onload = function(){ KT_KHUON.m15 ? ok(KT_KHUON) : loi(new Error('khuôn 727 rỗng')); }; s.onerror = function(){ kt727Khuon.p = null; s.remove(); loi(new Error('Không tải được khuôn Word 15/TD · 03/BB-CX (mất mạng?).')); };
-      document.head.appendChild(s); });
-    return kt727Khuon.p; });
-}
 
 /* ---------- NGHIỆP VỤ (thuần theo số liệu đang dựng — gọi trong ktNguonVoi / kỳ khối B) ---------- */
 function kt7Tien(v){ return v ? tdnTien(v) : ''; }
@@ -49,8 +41,6 @@ function kt03DL(k, kb){
 }
 
 /* ---------- MẪU IN (HTML — xem trước / In / PDF; Word theo khuôn gốc) ---------- */
-var KT7_M15 = {k:'kt15', ma:'15/TD', ten:'15/TD Danh sách đối chiếu', mg:[12, 10, 12, 12], ngang:true, so:'so'};
-var KT7_M03 = {k:'kt03', ma:'03/BB-CX', ten:'03/BB-CX Biên bản kiểm tra Hội cấp xã', mg:[20, 15, 20, 30], ngang:false, so:'so'};
 function kt7O(v, n){ v = v==null ? '' : String(v); return v ? '<span class="o-sl">'+coChuHTML(v)+'</span>' : new Array((n||20)+1).join('.'); }
 function kt15HTML(g){
   var f = g.f, th = function(x, cs, rs){ return '<td class="c b"'+(cs ? ' colspan="'+cs+'"' : '')+(rs ? ' rowspan="'+rs+'"' : '')+'>'+x+'</td>'; }, rong = '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
@@ -101,30 +91,16 @@ function kt03HTML(g){
     P('Biên bản được lập thành 02 bản (01 bản lưu Đoàn kiểm tra, 01 bản lưu Đơn vị được kiểm tra).', 'j thut')+
     hsoBang('khung0 hso-ky', [1, 1], '<tr><td class="c"><p class="c b tr">TRƯỞNG ĐOÀN KIỂM TRA</p><p class="c i s12">(Ký, ghi rõ họ tên)</p></td><td class="c"><p class="c b tr">ĐƠN VỊ ĐƯỢC KIỂM TRA</p><p class="c i s12">(Ký tên, đóng dấu)</p></td></tr>');
 }
+/* ---------- 3.503: đăng ký vào khung mẫu in chung MAU_IN (js/31b) — bản in, hộp xem, Word theo khuôn gốc (js/khuon/kt727.js) ---------- */
 var KT7_CSS = '<style>.cham{letter-spacing:.5px;color:#333;overflow:hidden;white-space:nowrap;margin:1pt 0}.kt-ho{break-inside:avoid}</style>';
-function kt7Trang(mau, gts, ten){ var M = mau==='m15' ? KT7_M15 : KT7_M03;
-  return hsoTrang(gts.map(function(g){ return {M:M, h:mau==='m15' ? kt15HTML(g) : kt03HTML(g)}; }), null, ten).replace('</head>', KT7_CSS+'</head>'); }
-
-/* ---------- Word theo khuôn gốc (gọi trong ktDocxLam qua KT_DOCX_THEM) ---------- */
-function kt7Dien(x, v){   /* như ktDien, thêm cách khi khuôn gốc để nhãn dính liền chấm ("Xã……" → "Xã Truông Mít", "hạn……(tỷ lệ" → "hạn 0 (tỷ lệ") */
-  var o = {}, re = /\{\{([A-Z0-9]+)\|[^}]*\}\}/g, m;
-  for(var k in v) o[k] = v[k];
-  while((m = re.exec(x))){ var s = o[m[1]]; if(s===undefined || s===null || s==='') continue;
-    var tr = x.slice(Math.max(0, m.index-600), m.index), sa = x.slice(m.index+m[0].length, m.index+m[0].length+600);   /* chữ liền trước / sau trong cùng đoạn (bỏ thẻ) */
-    tr = tr.slice(Math.max(tr.lastIndexOf('<w:p>'), tr.lastIndexOf('<w:p '), 0)).replace(/<[^>]*>/g, ''); tr = tr.charAt(tr.length-1);
-    sa = sa.split('</w:p>')[0].replace(/<[^>]*>/g, '').charAt(0);
-    if(/[^\s>(\/]/.test(tr)) s = ' '+s; if(/[A-Za-z0-9\u00C0-\u1EF9(]/.test(sa)) s = s+' '; o[m[1]] = s; }
-  return ktDien(x, o); }
-var KT_DOCX_THEM = {
-  m15:function(K, g){
-    var tien = function(v){ return v ? tdnTien(v) : ''; }, r = '', cot = function(p, a){ var o = {}; for(var i=0;i<14;i++) o[p+i] = a[i]==null ? '' : String(a[i]); return o; };
-    g.kh.forEach(function(k, i){ r += ktDien(K.dongK, cot('K', [i+1, k.ten, 'x', tien(k.dn), tien(k.lt), tien(k.t105)]));
-      k.mon.forEach(function(m){ r += ktDien(K.dongC, cot('C', ['', m.ct, m.ku, tien(m.dn), tien(m.lt)])); }); });
-    if(!g.kh.length) for(var i=0;i<6;i++) r += ktDien(K.dongK, cot('K', [i ? '' : 1]));
-    return kt7Dien(K.truoc, g.f)+r+ktDien(K.tong, cot('T', ['', 'Tổng cộng', '', tien(g.tong.dn), tien(g.tong.lt), tien(g.tong.t105)]))+kt7Dien(K.sau, g.f);
-  },
-  cx03:function(K, g){ return kt7Dien(K.than, g.f); }
-};
+MAU_IN.dangKy('kt15', {ma:'15/TD', ten:'15/TD Danh sách đối chiếu', mg:[12, 10, 12, 12], ngang:true, so:'so', css:KT7_CSS, khuon:['kt727', 'm15'], html:kt15HTML, sau:ktChamMin,   /* dòng chấm mịn như mọi Word KTGS (3.124) */
+  word:function(K, g){ var cot = function(p, a){ var o = {}; for(var i=0;i<14;i++) o[p+i] = a[i]==null ? '' : String(a[i]); return o; }, r = '';
+    g.kh.forEach(function(k, i){ r += MAU_IN.dien(K.dongK, cot('K', [i+1, k.ten, 'x', kt7Tien(k.dn), kt7Tien(k.lt), kt7Tien(k.t105)]));
+      k.mon.forEach(function(m){ r += MAU_IN.dien(K.dongC, cot('C', ['', m.ct, m.ku, kt7Tien(m.dn), kt7Tien(m.lt)])); }); });
+    if(!g.kh.length) for(var i=0;i<6;i++) r += MAU_IN.dien(K.dongK, cot('K', [i ? '' : 1]));
+    return MAU_IN.dien(K.truoc, g.f)+r+MAU_IN.dien(K.tong, cot('T', ['', 'Tổng cộng', '', kt7Tien(g.tong.dn), kt7Tien(g.tong.lt), kt7Tien(g.tong.t105)]))+MAU_IN.dien(K.sau, g.f); }});
+MAU_IN.dangKy('kt03', {ma:'03/BB-CX', ten:'03/BB-CX Biên bản kiểm tra Hội cấp xã', mg:[20, 15, 20, 30], ngang:false, so:'so', css:KT7_CSS, khuon:['kt727', 'cx03'], html:kt03HTML, sau:ktChamMin,
+  word:function(K, g){ return MAU_IN.dien(K.than, g.f); }});
 
 /* ---------- GIAO DIỆN: nút ở 3 chỗ KTGS + hộp xem / in ---------- */
 function kt727Nut(cho){   /* nút 15/TD cấp TỔ — cho: 'dk' (khối A Định kỳ — tổ đã tích) · 'dx' (khối B — tổ đang chọn). 3.500 (anh 08/11): 03/BB-CX là cấp HỘI → khối riêng 🏛 Hội cấp xã */
@@ -162,17 +138,9 @@ function kt7Hop(chiXem){   /* chiXem: chỉ dựng lại bản xem (khai báo c�
         return GD.kv(x[1], GD.o({loai:'chu', gt:kt7KB()[x[0]] || '', ph:'trống = chấm', lenh:'kt7.kb', du:{k:x[0]}})); })))+
       '<div class="sl-phu">'+coChuHTML(g0.soTo+' tổ · số liệu đến '+(g0.f.TDIEM || '…'))+(g0.coXL ? ' · xếp loại tổ theo BC0437' : ' · <span class="vang">chưa nạp BC0437 — xếp loại tổ để trống</span>')+'</div></div>';
   var ten = m15 ? (KT7.gts.length===1 ? ktFTen(g0.t, {to:1, mau:'M15'}) : xuatTen('M15TD Doi chieu', KT7.gts.length+' to', KT_K && KT_K.ngay)) : ktFTen(g0.t, {mau:'M03BBCX'});
-  KT7.x = {ten:ten, trang:kt7Trang(KT7.mau, KT7.gts, ten)};
-  var mo = document.getElementById('kt7-khung') && document.getElementById('hop').classList.contains('hien') && KT7.hopMau===KT7.mau;   /* hộp đã đóng (chỉ ẩn) / đổi mẫu → mở lại */
-  if(!mo){ KT7.hopMau = KT7.mau; chiXem = 0; } if(!mo) moHop('<div class="hop-tit">'+(m15 ? '📄 15/TD — Danh sách đối chiếu số dư tiền vay và tiền gửi' : '🏛 03/BB-CX — Biên bản kiểm tra Hội cấp xã')+'</div><div id="kt7-dau" class="phim-chung"></div>'+
-    '<iframe id="kt7-khung" class="to-khung" title="Xem trước"></iframe><div id="kt7-nut"></div>', true);
-  if(!chiXem || !document.getElementById('kt7-dau').innerHTML) document.getElementById('kt7-dau').innerHTML = dau;
-  document.getElementById('kt7-nut').innerHTML = xuatHang({ten:ten, html:function(){ return KT7.x.trang; }, word:'kt7Word()'});
-  xemChuan(document.getElementById('kt7-khung'), KT7.x.trang);
+  MAU_IN.hop({ma:m15 ? 'kt15' : 'kt03', gts:KT7.gts, ten:ten, dau:dau, chiXem:chiXem, tit:m15 ? '📄 15/TD — Danh sách đối chiếu số dư tiền vay và tiền gửi' : '🏛 03/BB-CX — Biên bản kiểm tra Hội cấp xã'});
+  KT7.x = MAU_IN.X;   /* {ma, gts, ten, trang} — phép thử đọc KT7.x.trang */
 }
-function kt7Word(){ var x = KT7.x; if(!x) return; batChay(false, 'Đang tạo Word…');
-  kt727Khuon().then(function(){ return ktDocx(KT7.mau==='m15' ? 'm15' : 'cx03', KT7.gts.length===1 ? KT7.gts[0] : KT7.gts); })
-    .then(function(bl){ tatChay(); giaoFile(bl, x.ten+'.docx'); bao('Đã tạo '+x.ten+'.docx', 5); }, function(er){ tatChay(); baoLoi('Chưa tạo được Word: '+(er && er.message || er)); }); }
 GD.dangKy('kt7', gdLenh({
   m15:function(el){ kt7Mo15(el.getAttribute('data-c')); },
   m03:function(el){ kt7Mo03(el.getAttribute('data-k')); },

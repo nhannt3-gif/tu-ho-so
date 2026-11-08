@@ -116,4 +116,4 @@ Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổ
 - **3.500 (anh 08/11): 03/BB-CX là cấp Hội → khối riêng thứ 4 🏛 Hội cấp xã** trên thanh khối (`che = 'hx'`, `ktKhoi` → 'D', vẽ `kt7HXVe`): bảng Hội – xã theo lọc xã + Hội (số tổ, thôn, khách, dư nợ, NQH, xếp loại BC0437), mỗi Hội 1 nút 03/BB-CX; số liệu Kỳ đầu trang. Bỏ nút 03 ở cấp tổ (khối B, Định kỳ, Mẫu 04).
 - Word: khuôn dựng từ mẫu gốc `tests/mau_goc/15td.docx`, `03bbcx.docx` bằng `tools/khuon_727.py` → `js/khuon/kt-khuon-727.js` (nạp khi cần — `kt727Khuon`); `ktDocxLam` gọi `KT_DOCX_THEM[mau]` nếu có (mẫu cũ không đổi). Điền bằng `kt7Dien` (thêm cách khi mẫu gốc để nhãn dính chấm).
 - Phép thử: `tests/t383.js` (16 phép, có kiểm XML hợp lệ); t179 (khóa mẫu) không đổi.
-
+- **3.503:** 15/TD, 03/BB-CX chuyển sang khung mẫu in chung `MAU_IN` (js/31b): khuôn `js/khuon/kt727.js` (`MAU_KHUON.kt727`), hộp xem `MAU_IN.hop`, Word `MAU_IN.word` (+ `sau: ktChamMin` — dòng chấm mịn như mọi Word KTGS; thân XML giống hệt 3.502). Bỏ móc `KT_DOCX_THEM` ở `ktDocxLam` (lõi Word KTGS về như trước 3.498).

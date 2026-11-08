@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.503)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › 03/BB-CX, 15/TD → Xem / In / Word | Như 3.502; Word mở bằng MS Word, số trang ở chân trang từ trang 2 | |
+
+Ghi chú kỹ thuật 3.503: mẫu mới → `MAU_IN.dangKy` (js/31b, QUY_CHUAN 9.9); khuôn Word: viết `tools/khuon_<tên>.py` theo mẫu `khuon_727.py`, xuất `js/khuon/<tệp>.js` ghi `MAU_KHUON[tệp]`.
+
 ### Danh sách thử trên máy thật (3.502)
 Không có thay đổi giao diện / chức năng — chỉ tài liệu và công cụ kiểm.
 

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.502', ds:[
+var CO_GI_MOI = {ban:'3.503', ds:[
+  ["Khung mẫu in chung (bản in · xem trước · Word theo file gốc) — mẫu mới làm nhanh hơn; 15/TD, 03/BB-CX đã chuyển sang, bản in và Word như cũ", "slDoiTab('kt')"],
   ["Nền kỹ thuật gọn hơn (không đổi chức năng): tài liệu cho người làm tiếp gọn lại, luật gói mới và sổ cấu hình để app lớn dần vẫn bền", ""],
   ["🛡 KTGS: sửa lỗi đóng hộp 15/TD · 03/BB-CX rồi bấm mở lại không hiện; hộp 03 gõ tên cán bộ bấm Enter sang ô kế, không mất con trỏ", "slDoiTab('kt')"],
   ["🛡 KTGS: khối mới 🏛 Hội cấp xã (cạnh Bắt buộc · Đột xuất · Khai báo) — bảng các Hội – xã theo lọc địa bàn (số tổ, khách, dư nợ, nợ quá hạn, xếp loại tổ), bấm 🏛 03/BB-CX in biên bản kiểm tra Hội đó", "slDoiTab('kt')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.502', ds:[
   ["🎯 Phân bổ KH › 📤 Tờ trình 09/KH: xã đề nghị tỉnh điều chỉnh chỉ tiêu (lấy số theo QĐ trước, nhập đề nghị +/−)", "slDoiTab('pb')"],
   ["🏢 Giao dịch xã: thêm 8 mẫu theo VB 4368 (từ 01/10/2026) — 03, 06, 07, 09, 10, 11, 14, 15/GDX; dùng chung điểm GD, ngày GD, GDV · KSV · Tổ trưởng tổ GD với 12/GDX", "slDoiTab('gdx')"],
   ["📄 Word 10A khóa trang như bản in: trang 3 \"b) Tổ phó\", trang 4 \"III.\" — vẫn 4 trang", ""],
-  ["📄 Word 07b, BBLV cũng đúng số trang bản in — 17/17 mẫu nền ô", ""],
-  ["📄 Word các mẫu nền ô giống bản in: canh đều, thụt đầu dòng, cỡ chữ 13,5 / 14, giãn dòng đúng pt — 15/17 mẫu cùng số trang bản in", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📄 Word 07b, BBLV cũng đúng số trang bản in — 17/17 mẫu nền ô", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.503 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX và Đột xuất › 15/TD: xem / In / Word như trước (Word: chân trang số trang từ trang 2)",
     "3.501 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX: đóng hộp rồi bấm lại → hộp hiện; gõ tên cán bộ → Enter sang ô Chức vụ, bản xem cập nhật",
     "3.500 · 🛡 KTGS › 🏛 Hội cấp xã: thấy bảng Hội – xã (chọn xã / Hội ở LỌC ĐỊA BÀN để thu gọn) → bấm 🏛 03/BB-CX ở dòng Hội → xem / In / Word; khai cán bộ đoàn kiểm tra 1 lần",
     "3.499 · 🏢 Giao dịch xã: thấy đủ 14 chip mẫu (04/TD … 15/GDX) không cần cuộn; bấm chip đổi mẫu như cũ; trên điện thoại chip không bị bóp thành 1 cột",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.502', ds:[
     "3.491 · Hồ sơ vay › 07b › 📝 Word: bảng lịch trả nợ chữ 12, đủ 6 trang như bản In",
     "3.491 · Hồ sơ vay › BBLV › Bản mẫu › 📝 Word: mỗi tình huống không bị cắt giữa trang",
     "3.490 · Hồ sơ vay / Hồ sơ Tổ › mẫu bất kỳ (10A, 06A, 01/TD, 10B…) › 📝 Word → mở bằng Word: canh đều 2 bên, thụt đầu dòng, cỡ chữ và số trang như bản In",
-    "3.488 · Hồ sơ vay › BBLV (và mẫu có quốc hiệu): khung xem dòng CỘNG HÒA XÃ HỘI… đủ dấu",
-    "3.487 · Hồ sơ vay › BBLV › In / PDF / Word: dưới \"Độc lập – Tự do – Hạnh phúc\" là kẻ liền dài bằng dòng chữ"],
+    "3.488 · Hồ sơ vay › BBLV (và mẫu có quốc hiệu): khung xem dòng CỘNG HÒA XÃ HỘI… đủ dấu"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.500 · 🛡 KTGS: nút 🏛 03/BB-CX ở cấp tổ (Đột xuất, Định kỳ, Mẫu 04) — dời lên khối riêng 🏛 Hội cấp xã; 📄 15/TD vẫn ở cấp tổ",
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
