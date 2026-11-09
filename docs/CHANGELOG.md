@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.508 — 09/11/2026 — Tên mới chương trình GQVL chung cả app (TK 2)
+- **Anh 09/11** "cho tên mới, lúc trước làm chưa đúng, em gộp lên và sửa hết nếu ổn" (sau 3.507 Phân bổ; Biểu 07 cũ cũng ghi tên mới).
+- Bảng tên chung: `TDN_CT['03']` (js/04e — danh mục hệ thống, tên đầy đủ) và `MAC_DINH.ctTen.GQVL` (js/02 — khai báo) = "Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm"; `CT_VT_TEN.GQVL` (js/22g — 02/BG, 15/TD, sao kê) = "Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" (bảng này không có chữ "Cho vay" như các CT khác); `CT_NGAN['03']` (cột bảng tổng hợp) = "Hỗ trợ tạo việc làm" (tên dài làm vỡ cột).
+- Dữ liệu đã lưu: `D.cauHinh.ctTen.GQVL` còn đúng tên mặc định cũ → tự đổi tên mới mỗi lần mở (js/10); tên anh tự sửa giữ nguyên. Giữ `js/03-doc-pdf.js` (bảng đọc chữ viết tắt GQVL khi tìm văn bản PDF cũ).
+- §18 so đầu ra: t179 (bản in chuẩn khóa) 45/45 không đổi · t276: 66/70 báo cáo giống hệt, 4 bản (sao kê nhà đầu tư · theo chương trình, toàn PGD + 1 xã) chỉ khác đúng chữ tên CT — đã kiểm bằng thay tên mới về cũ thì băm khớp bản chụp cũ → ghi lại bản chụp. 02/BG (t163, t164, t180), 15/TD (t383), sao kê (t279, t387), Phân bổ (t381), Tổng hợp (t102) đạt. t276 thêm `T276_RA` (ghi nội dung để so khi đổi có chủ đích).
+
 ## 3.507 — 09/11/2026 — Phân bổ KH: tên mới chương trình 03 (TK 2)
 - **Anh 09/11** "Chương trình Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" · "trong QĐ mẫu 07 em ghi Cho vay giải quyết việc làm" · "em sửa trước ở chỗ Phân bổ kế hoạch".
 - `pbTenDung(ma, ten)` (js/47, `PB_CT_TEN`): mã 03 — dòng QĐ đã lưu tên cũ ("… giải quyết việc làm") hoặc trống → hiện / in tên mới; **dữ liệu QĐ đã lưu không ghi đè**. Áp ở `pbBieu07DL` (Biểu 07 cũ, 07/KH, 08/KH), `pbTenCT` (danh mục, Tờ trình 09/KH, xuất Excel), màn đối chiếu, bảng toàn tỉnh.
