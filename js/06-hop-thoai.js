@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.505', ds:[
+var CO_GI_MOI = {ban:'3.507', ds:[
+  ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"],
+  ["📒 Sao kê: thêm \"Sao kê theo chương trình vay\" — chọn 1 chương trình hoặc tất cả, chia chương trình › tổ › món, cộng tổ · chương trình · tổng, A4 ngang", "dhSL('sk')"],
   ["🔎 Tra cứu KH › danh sách tổ: nút 🖨 In DS tổ — in / PDF A4 dọc đúng danh sách đang lọc, nhóm theo Xã → Điểm GD, cộng từng điểm", "dhSL('tra')"],
   ["Tên thôn / ấp không còn TOÀN CHỮ HOA khi File Tổ trưởng ghi chữ hoa (lấy cách viết của Mẫu 31, như tên xã)", "slDoiTab('to')"],
   ["Khung mẫu in chung (bản in · xem trước · Word theo file gốc) — mẫu mới làm nhanh hơn; 15/TD, 03/BB-CX đã chuyển sang, bản in và Word như cũ", "slDoiTab('kt')"],
@@ -1070,10 +1072,10 @@ var CO_GI_MOI = {ban:'3.505', ds:[
   ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"],
   ["🏢 Giao dịch xã › 📘 Nhiệm vụ Tổ giao dịch: 1 mặt A4, nhiệm vụ 6 vai × trước / tại điểm / sau phiên, ghi tên thành viên", "slDoiTab('gdx')"],
   ["🏢 Giao dịch xã › 03/GDX rà lại theo mẫu gốc: ô Lái xe đủ 2 dòng chấm mỗi nơi, Phần II tờ 1 có 1 dòng · tờ 2 có 8 dòng như mẫu, dòng trống đủ cao để ký", "slDoiTab('gdx')"],
-  ["🎯 Phân bổ KH: thêm mẫu 07/KH (QĐ Ban Đại diện HĐQT xã) · 08/KH (QĐ Giám đốc PGD) theo QĐ 4686 — chọn ở đầu hộp Biểu 07; Biểu 07 cũ giữ nguyên để in lại", "slDoiTab('pb')"],
-  ["🎯 Phân bổ KH › 📤 Tờ trình 09/KH: xã đề nghị tỉnh điều chỉnh chỉ tiêu (lấy số theo QĐ trước, nhập đề nghị +/−)", "slDoiTab('pb')"],
-  ["🏢 Giao dịch xã: thêm 8 mẫu theo VB 4368 (từ 01/10/2026) — 03, 06, 07, 09, 10, 11, 14, 15/GDX; dùng chung điểm GD, ngày GD, GDV · KSV · Tổ trưởng tổ GD với 12/GDX", "slDoiTab('gdx')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎯 Phân bổ KH: thêm mẫu 07/KH (QĐ Ban Đại diện HĐQT xã) · 08/KH (QĐ Giám đốc PGD) theo QĐ 4686 — chọn ở đầu hộp Biểu 07; Biểu 07 cũ giữ nguyên để in lại", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.507 · 🎯 Phân bổ KH › chọn QĐ có chương trình 03 → 📄 Biểu 07 / 07/KH / 08/KH / Tờ trình 09/KH: dòng chương trình ghi \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"",
+    "3.506 · 📒 Sao kê › Thông tin tổ › Sao kê theo chương trình vay → ô Chương trình (Tất cả / 1 CT) → 👁 Xem → In / PDF / Excel; chọn địa bàn ở cây lọc để thu gọn",
     "3.505 · 🔎 Tra cứu KH › Tìm theo Tổ trưởng → chọn xã / điểm (hoặc lọc cột) → bấm 🖨 In DS tổ (đầu bảng, bên phải) → xem trước A4 dọc → In / PDF",
     "3.504 · Tab Tổ TK&VV / KTGS 15/TD: tên ấp / thôn viết hoa đầu từ (vd \"Thôn 02\"), kể cả khi File Tổ trưởng ghi \"THÔN 02\"",
     "3.503 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX và Đột xuất › 15/TD: xem / In / Word như trước (Word: chân trang số trang từ trang 2)",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.505', ds:[
     "3.494 · 🎯 Phân bổ KH › mục 📤 Tờ trình 09/KH (phím 5): chọn Năm · Xã · Nguồn → gõ Đề nghị điều chỉnh (+200 / -150) → 👁 Xem / In 09/KH",
     "3.493 · 🏢 Giao dịch xã › dải chip mẫu (cuộn sang phải) › 🚐 03/GDX · 💼 06/GDX · 📣 07/GDX · 📒 09/GDX · 💰 10/GDX · 📕 11/GDX · 📤 14/GDX · 📥 15/GDX: bấm → xem trước, 🖨 In / 📄 PDF như 12/GDX",
     "3.493 · 📣 07/GDX › ⚙ Khai báo riêng mẫu › Số điện thoại Phòng giao dịch: khai 1 lần → in ở mục III.5",
-    "3.492 · Hồ sơ Tổ › 10A › 📝 Word: 4 trang, trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ\"",
-    "3.491 · Hồ sơ vay › 07b › 📝 Word: bảng lịch trả nợ chữ 12, đủ 6 trang như bản In",
-    "3.491 · Hồ sơ vay › BBLV › Bản mẫu › 📝 Word: mỗi tình huống không bị cắt giữa trang"],
+    "3.492 · Hồ sơ Tổ › 10A › 📝 Word: 4 trang, trang 3 bắt đầu \"b) Tổ phó\", trang 4 bắt đầu \"III. BẦU BAN QUẢN LÝ\""],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.500 · 🛡 KTGS: nút 🏛 03/BB-CX ở cấp tổ (Đột xuất, Định kỳ, Mẫu 04) — dời lên khối riêng 🏛 Hội cấp xã; 📄 15/TD vẫn ở cấp tổ",
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",

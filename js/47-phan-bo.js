@@ -271,7 +271,7 @@ function pbTuXls(sh, dsMa){
    pbDanhMuc(dòng) → {ct:[{stt, ten, ma, so:[3 cột], pgd:[{stt, ten, so, xa:[{stt, ten, so}]}]}], canh:[{ct, pgd, xa, ly}], boMuc}
    Kiểm: từng dòng 5 = 3 + 4 · tổng các xã = dòng PGD · tổng các PGD = dòng chương trình (bắt dòng đọc sót). ---------- */
 /* tên chương trình trên QĐ → mã hệ thống (TDN_CT). Thứ tự quan trọng: "cận nghèo", "mới thoát nghèo", "nhà ở" xét trước "hộ nghèo". Dân tộc thiểu số có nhiều mã → hỏi anh. nho = {tên bỏ dấu: mã} anh đã chọn */
-var PB_CT_TU = [[/can ngheo/, '19'], [/moi thoat ngheo/, '09'], [/nha o xa hoi/, '12'], [/hoc sinh|sinh vien|hssv/, '02'], [/giai quyet viec lam|gqvl/, '03'], [/nuoc sach/, '06'],
+var PB_CT_TU = [[/can ngheo/, '19'], [/moi thoat ngheo/, '09'], [/nha o xa hoi/, '12'], [/hoc sinh|sinh vien|hssv/, '02'], [/giai quyet viec lam|gqvl|ho tro tao viec lam|tao viec lam, duy tri/, '03'], [/nuoc sach/, '06'],
   [/xuat khau lao dong|lao dong co thoi han o nuoc ngoai|xkld/, '04'], [/vung\s(dac biet\s)?kho khan/, '10'], [/chap hanh xong an phat tu/, '26'], [/thuong nhan/, '15'], [/mam non|tieu hoc ngoai cong lap/, '24'],
   [/nha o/, '07'], [/ho ngheo/, '01']];
 function pbCTTen(ten){ return pbBoDau(ten).replace(/^chuong trinh\s+/, '').replace(/^cho vay\s+/, '').trim(); }
@@ -375,16 +375,20 @@ function pbDonVi(tenXa){
   return {cap:cap, thuong:th, hoa:th.toUpperCase(), laPhuong:cap==='phường', apKp:cap==='phường' ? 'khu phố' : 'ấp'}; }
 /* QĐ 1 xã + kết quả phân bổ → dữ liệu Biểu 07 | {loi:[…]} khi chưa khớp QĐ (QT-16 — CHẶN xuất).
    Ấp theo thứ tự gặp đầu tiên (CT theo thứ tự QĐ), mỗi ấp chỉ các CT có tăng / giảm ≠ 0 (như bản WPF). */
+/* 3.507 (anh 09/11 "Chương trình Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" · "trong QĐ mẫu 07 em ghi Cho vay giải quyết việc làm" · "sửa trước ở chỗ Phân bổ kế hoạch"):
+   TÊN CHƯƠNG TRÌNH TRÊN MẪU PHÂN BỔ — mã 03 ghi tên mới; dòng QĐ đã lưu tên cũ ("… giải quyết việc làm") hoặc trống → hiện / in tên mới (dữ liệu QĐ đã lưu giữ nguyên). Bảng tên chung của app chưa đổi (chờ anh). */
+var PB_CT_TEN = {'03':'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm'};
+function pbTenDung(ma, ten){ var m = PB_CT_TEN[String(ma||'')]; return m && (!ten || /gi[ảa]i quy[ếe]t vi[ệe]c l[àa]m/i.test(String(ten))) ? m : ten; }
 function pbBieu07DL(q, kq, tenCT){
   var loi = [], am = [];
   if(!kq || !kq.length) loi.push('QĐ không có chương trình nào cần phân bổ');
   (kq || []).forEach(function(k){ var r = pbKiem(k); r.lyDo.forEach(function(l){ loi.push(k.ma+': '+l); }); if(r.coAm) am.push(k.ma); });
   if(loi.length) return {loi:loi};
   var theo = {}, thu = [];
-  kq.forEach(function(k){ var ten = k.ten || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
+  kq.forEach(function(k){ var ten = pbTenDung(k.ma, k.ten) || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
     pbApCoThayDoi(k).forEach(function(a){ var kk = a.k+'|'+a.ten; if(!theo[kk]){ theo[kk] = {ten:a.ten, ds:[]}; thu.push(kk); } theo[kk].ds.push({ma:k.ma, ten:ten, dc:a.dc, nam:a.nam}); }); });
   var theoDu = {}, thuDu = [];   /* 3.494: đủ các thôn (cả CT không tăng / giảm) — 07/KH · 08/KH tùy chọn "đủ các thôn"; Biểu 07 cũ không dùng */
-  kq.forEach(function(k){ var ten = k.ten || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
+  kq.forEach(function(k){ var ten = pbTenDung(k.ma, k.ten) || (tenCT ? tenCT(k.ma) : '') || 'Chương trình '+k.ma;
     k.ap.forEach(function(a){ var kk = a.k+'|'+a.ten; if(!theoDu[kk]){ theoDu[kk] = {ten:a.ten, ds:[]}; thuDu.push(kk); } theoDu[kk].ds.push({ma:k.ma, ten:ten, dc:a.dc, nam:a.nam}); }); });
   var dv = pbDonVi(q.tenXa || q.xa);
   return {loi:[], coAm:am, dv:dv, laDC:/điều chỉnh/i.test(String(q.loai || '')), nam:String(q.ngay || '').slice(0, 4), so:String(q.so || '').trim(), kyHieu:String(q.kyHieu || '').trim(), ngayQD:String(q.ngay || '').slice(0, 10),

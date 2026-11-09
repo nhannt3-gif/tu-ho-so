@@ -266,6 +266,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.507)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Phân bổ › QĐ có CT 03 → 07/KH, 08/KH, Tờ trình 09/KH | Ghi "Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" | |
+| 2 | Đọc QĐ mới (tên mới) | Nhận đúng mã 03 | |
+
+### Danh sách thử trên máy thật (3.506)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Sao kê theo chương trình vay → Tất cả → Xem | Chia CT › tổ, tổng = dư nợ PGD | |
+| 2 | Chọn 1 CT (vd HSSV) + xã → Xem → In / Excel | Chỉ món CT đó trong xã, A4 ngang | |
+
 ### Danh sách thử trên máy thật (3.505)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

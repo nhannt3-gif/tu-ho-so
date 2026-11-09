@@ -4,6 +4,18 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.507 — 09/11/2026 — Phân bổ KH: tên mới chương trình 03 (TK 2)
+- **Anh 09/11** "Chương trình Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" · "trong QĐ mẫu 07 em ghi Cho vay giải quyết việc làm" · "em sửa trước ở chỗ Phân bổ kế hoạch".
+- `pbTenDung(ma, ten)` (js/47, `PB_CT_TEN`): mã 03 — dòng QĐ đã lưu tên cũ ("… giải quyết việc làm") hoặc trống → hiện / in tên mới; **dữ liệu QĐ đã lưu không ghi đè**. Áp ở `pbBieu07DL` (Biểu 07 cũ, 07/KH, 08/KH), `pbTenCT` (danh mục, Tờ trình 09/KH, xuất Excel), màn đối chiếu, bảng toàn tỉnh.
+- Đọc QĐ (PDF / Excel): tên mới "hỗ trợ tạo việc làm…" cũng nhận là mã 03 (`PB_CT_TU`).
+- **Chưa đổi** bảng tên chung của app (`TDN_CT`, `CT_VT_TEN`, `CT_NGAN`, khai báo `ctTen` — 02/BG, 15/TD, sao kê, Tổng hợp): anh dặn sửa Phân bổ trước, phần chung chờ anh chốt.
+- Phép thử: `tests/nhanh` +2 (tên mới / giữ tên khác · đọc QĐ nhận mã 03), t381 +1 (07/KH ghi tên mới). Phép thử Phân bổ t252–t256, t355, t370–t372, t376, t380 đạt.
+
+## 3.506 — 09/11/2026 — Sao kê theo chương trình vay (TK 2)
+- **Anh 09/11** "thêm chức năng sao kê danh sách theo chương trình vay"; anh chốt: ô chọn 1 CT / Tất cả · chia Chương trình › Tổ › món · cột cơ bản, món còn dư nợ, A4 ngang.
+- Gói mới `js/74b-sk-ct.js` (không gian tên `SKCT`, cắm rút — tự đăng ký `SK_BC` 'ct', nhóm Thông tin tổ): ô chọn sổ sẵn CT còn dư nợ trong phạm vi (số món · dư nợ, lớn trước) — lưu `skCH().ctLoc`; bảng STT · Mã KH · Họ tên · Số KU · Ngày vay · Hạn trả · Dư nợ · Quá hạn · Khoanh · Lãi tồn; vay trực tiếp nhóm riêng; cộng tổ · chương trình · TỔNG CỘNG; theo cây lọc địa bàn Sao kê. Nguồn Mẫu 31 qua kho chuẩn (`kcGoc`), tên CT `ctNgan` + `CT_VT_TEN` như sao kê nhà đầu tư.
+- Phép thử t387 (8 ý: danh mục + khổ ngang, ô chọn đủ CT, chia nhóm, tổng = Mẫu 31, chọn 1 CT, lọc đến tổ, 👁 Xem + Excel, không lỗi).
+
 ## 3.505 — 09/11/2026 — Tra cứu KH: in danh sách tổ theo lọc (TK 2)
 - **Anh 09/11** (ảnh Tra cứu › danh sách tổ: "cần xuất nhanh ds tổ có xã, điểm theo ds lọc khi cần, A4 dọc, các cột cơ bản"); anh chọn: nhóm theo Xã → Điểm GD, xuất In / PDF.
 - Gói mới `js/58b-tc-to-in.js` (không gian tên `TCIN`, khung `MAU_IN` — mẫu thứ 3 dùng khung): nút 🖨 In DS tổ ở đầu bảng tổ (js/58, kiểm `typeof TCIN`). In đúng danh sách đang hiện (cây lọc + ô tìm + lọc / sắp từng cột — dòng bị lọc cột không in, giữ thứ tự sắp), cột STT · Tổ trưởng · Mã tổ · Ấp / Khu phố · Hội · TV · Có DN; dòng nhóm "Xã · Điểm GD · ngày GD — n tổ", cộng từng điểm, Tổng cộng cuối; tiêu đề cột lặp mỗi trang. TV / Có DN = `KHO.tvChuan` (QT-18) như bảng trên màn.
