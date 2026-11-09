@@ -18,6 +18,7 @@ const fs = require('fs'), path = require('path');
     ChiTiet:[{MaChuongTrinh:3, TenChuongTrinh:'', ChiTieuDaGiao:500, GiaoTangGiam:200, ChiTieuDen3112:700}]},
    {Id:'w3', SoQD:'G101', KyHieuVanBan:'/QĐ-GIẢ', NgayQD:'2026-09-21T00:00:00', NguonVon:1, Loai:'Điều chỉnh', Dot:'2', TenXa:'Phường Gò Dầu', NgayGhiNhan:'2026-09-22T08:00:00',
     ChiTiet:[{MaChuongTrinh:3, TenChuongTrinh:'', ChiTieuDaGiao:1300, GiaoTangGiam:100, ChiTieuDen3112:1400}]}]};
+ if(process.env.T381_SNAP) await p.evaluate(() => { window.T381_KHUNG = 1; });
  const r = await p.evaluate(async([files, wpf]) => { await xongTV; try { dongHop(); } catch(e){} const o = {}, w = t => new Promise(r => setTimeout(r, t));
    for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); await slGhi(await slDocFile(new File([u], f.n))); }
    doiNgan(7); slDoiTab('pb'); for(let i=0;i<80 && !(PB.K && document.getElementById('pb-trai'));i++) await w(250);
@@ -31,10 +32,10 @@ const fs = require('fs'), path = require('path');
    const nut = document.querySelector('[data-lenh="pb.b07"]'); o.nutChu = nut ? nut.textContent : '';
    nut.click(); for(let i=0;i<40 && !(PB07.x && document.getElementById('pb07-khung'));i++) await w(100); await w(300);
    /* ① mặc định Biểu 07 cũ */
-   const cu0 = PB07.x.trang; o.cu0 = cu0; o.cuMacDinh = PB07.mau==='07pb' && /THÔNG BÁO ĐIỀU CHỈNH KẾ HOẠCH DƯ NỢ/.test(T()) && document.querySelectorAll('[data-lenh="pb.b07Mau"]').length===3;
+   const cu0 = PB07.x.trang; o.cu0 = cu0; if(window.T381_KHUNG){ const f0 = document.getElementById('pb07-khung'); await w(1500); o.khungCu = f0 && f0.contentDocument ? f0.contentDocument.documentElement.outerHTML : ''; o.trangCu = f0 && f0.contentDocument ? f0.contentDocument.querySelectorAll('.tr-tg, .tr-trang').length : 0; } o.cuMacDinh = PB07.mau==='07pb' && /THÔNG BÁO ĐIỀU CHỈNH KẾ HOẠCH DƯ NỢ/.test(T()) && document.querySelectorAll('[data-lenh="pb.b07Mau"]').length===3;
    const mau = v => { document.querySelector('[data-lenh="pb.b07Mau"][data-v="'+v+'"]').click(); return w(300); };
    /* ② 07/KH */
-   o.anh = {}; await mau('07kh'); const t7 = T(); o.anh.kh07 = PB07.x.trang;
+   o.anh = {}; await mau('07kh'); const t7 = T(); o.anh.kh07 = PB07.x.trang; if(window.T381_KHUNG){ const f = document.getElementById('pb07-khung'); await w(1500); o.khung07 = f && f.contentDocument ? f.contentDocument.documentElement.outerHTML : ''; }
    o.kh07 = [/QUYẾT ĐỊNH Về việc điều chỉnh chỉ tiêu kế hoạch tín dụng năm 2026/, /BAN ĐẠI DIỆN HỘI ĐỒNG QUẢN TRỊ NGÂN HÀNG CHÍNH SÁCH XÃ HỘI PHƯỜNG GÒ DẦU/, /\/QĐ-BĐD/,
      /Căn cứ Quyết định số 56\/QĐ-HĐQT ngày 27\/8\/2026 của Hội đồng quản trị/, /Căn cứ Quyết định số 4686\/QĐ-NHCS ngày 21\/10\/2026 của Tổng Giám đốc/,
      /Căn cứ Quyết định số G100\/QĐ-GIẢ ngày 14\/08\/2026 của Ban Đại diện Hội đồng quản trị NHCSXH tỉnh/, /Căn cứ Nghị quyết số …\/NQ-BĐD/,
@@ -125,7 +126,7 @@ const fs = require('fs'), path = require('path');
  ok('09/KH: khung xem chia đúng 2 trang (Tờ trình · Danh mục)', r.trang09===2, r.trang09);
  ok('09/KH: in → lưu bản chụp b09 (không ghi vào nhật ký Biểu 07)', r.b09);
  ok('không lỗi trang', !loi.length, loi.slice(0, 3).join(' | '));
- if(process.env.T381_SNAP){ fs.writeFileSync(path.join(process.env.T381_SNAP, 'pb07.html'), r.cu0); for(const k of Object.keys(r.anh)) fs.writeFileSync(path.join(process.env.T381_SNAP, k+'.html'), r.anh[k]); }
+ if(process.env.T381_SNAP){ fs.writeFileSync(path.join(process.env.T381_SNAP, 'pb07.html'), r.cu0); if(r.khung07) fs.writeFileSync(path.join(process.env.T381_SNAP, 'khung07.html'), r.khung07); if(r.khungCu) fs.writeFileSync(path.join(process.env.T381_SNAP, 'khungCu.html'), r.khungCu); for(const k of Object.keys(r.anh)) fs.writeFileSync(path.join(process.env.T381_SNAP, k+'.html'), r.anh[k]); }
  if(process.env.T381_ANH) for(const k of Object.keys(r.anh)){ const q = await b.newPage(); await q.setContent(r.anh[k]); await q.waitForTimeout(800); fs.writeFileSync(path.join(process.env.T381_ANH, k+'.pdf'), await q.pdf({preferCSSPageSize:true})); await q.close(); }
  R.forEach(x => console.log(x)); const sai = R.filter(x => x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt');   /* không mở đầu bằng ✗ (hoiquy đếm dòng bắt đầu bằng ✗ là trượt) */
  await b.close(); })();

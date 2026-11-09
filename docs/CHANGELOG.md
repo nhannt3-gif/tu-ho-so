@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.509 — 09/11/2026 — Biểu 07 cũ: giãn dòng theo mẫu gốc (TK 2)
+- **Anh 09/11** "em xem lại biểu 07 hiện tại chưa giãn dòng và canh lề chuẩn 2,2,3,2" → "biểu 07 cũ".
+- Đối chiếu mẫu gốc `tests/mau_goc/07pb.docx`: lề trên 2 · phải 2 · dưới 2 · trái 3 cm (app đã đúng — `omMg([20, 20, 20, 30])`, khung xem chia trang theo `data-tr-mg`); đoạn thân giãn 1,15 + cách sau 10 pt. App trước: 1,15 + cách trước 6 pt → dày hơn mẫu.
+- Sửa (js/mau/07pb.js `P`): đoạn thân (canh đều) giãn dòng 1,3 + cách trước 6 / sau 4 pt (≈ 10 pt giữa đoạn); dòng căn giữa (Kính gửi, Kèm theo…) giữ 1,15. Word dựng từ bản in (`hsoDocx`) nên cùng thông số. Trang Thông báo vẫn 1 trang.
+- 07/KH · 08/KH · 09/KH không đổi (đã thử giãn 1,2–1,3 thì chữ ký 07/KH bị đẩy sang trang 2 → trả lại).
+- t381 (25/25) thêm `T381_SNAP` ghi khung xem đã chia trang (khung07, khungCu) để so bố cục.
+
 ## 3.508 — 09/11/2026 — Tên mới chương trình GQVL chung cả app (TK 2)
 - **Anh 09/11** "cho tên mới, lúc trước làm chưa đúng, em gộp lên và sửa hết nếu ổn" (sau 3.507 Phân bổ; Biểu 07 cũ cũng ghi tên mới).
 - Bảng tên chung: `TDN_CT['03']` (js/04e — danh mục hệ thống, tên đầy đủ) và `MAC_DINH.ctTen.GQVL` (js/02 — khai báo) = "Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm"; `CT_VT_TEN.GQVL` (js/22g — 02/BG, 15/TD, sao kê) = "Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" (bảng này không có chữ "Cho vay" như các CT khác); `CT_NGAN['03']` (cột bảng tổng hợp) = "Hỗ trợ tạo việc làm" (tên dài làm vỡ cột).
