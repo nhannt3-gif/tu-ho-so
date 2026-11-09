@@ -42,6 +42,7 @@ const fs = require('fs'), path = require('path');
      /Điều 3\. Giám đốc Phòng giao dịch NHCSXH/, /TM\. BAN ĐẠI DIỆN HĐQT NHCSXH PHƯỜNG GÒ DẦU TRƯỞNG BAN/, /DANH MỤC ĐIỀU CHỈNH CHỈ TIÊU KẾ HOẠCH TÍN DỤNG NĂM 2026 ĐỐI VỚI CÁC THÔN/,
      /Số tăng trưởng \(tăng\/giảm\)/, /Số dư nợ năm 2026/, /từ nguồn vốn trung ương/].filter(re => !re.test(t7)).map(String);
    { const fk = document.getElementById('pb07-khung'); await w(600); for(let i=0;i<30 && !(fk.contentDocument && fk.contentDocument.querySelectorAll('.tr-tg').length);i++) await w(200); o.trang07 = fk.contentDocument.querySelectorAll('.tr-tg').length; }
+   o.ten03 = /Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm/.test(t7) && !/giải quyết việc làm/i.test(t7);   /* 3.507 (anh 09/11): tên mới CT 03 trên QĐ 07/KH */
    o.kh07ds = PB07.x.ds.length===2 && PB07.x.ds[0].M.ma==='07/KH' && !/THÔNG BÁO ĐIỀU CHỈNH KẾ HOẠCH DƯ NỢ/.test(t7) && pbDL().ch.b07Mau==='07kh';
    const d0 = PB07.dl[0], tong = {}; d0.ap.forEach(a => a.ds.forEach(c => { tong[c.ma] = (tong[c.ma] || 0) + c.dc; })); o.tong = JSON.stringify(tong);
    /* đủ các thôn */
@@ -104,6 +105,7 @@ const fs = require('fs'), path = require('path');
  ok('hộp mặc định Biểu 07 cũ (Thông báo UBND) + 3 chip chọn mẫu', r.cuMacDinh);
  ok('07/KH: đủ chữ mẫu (căn cứ QĐ 56 · 4686 · QĐ tỉnh · Nghị quyết, Điều 1–3, TM. Ban Đại diện – Trưởng ban, Danh mục 2 cột)', !r.kh07.length, r.kh07.join(' | '));
  ok('07/KH: 2 trang (khung xem chia trang), không lẫn chữ Biểu 07 cũ, nhớ mẫu đã chọn', r.kh07ds && r.trang07===2, r.trang07);
+ ok('3.507: QĐ 07/KH ghi tên mới "Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" (không còn "giải quyết việc làm")', r.ten03);
  ok('07/KH: Σ tăng/giảm các thôn = số giao QĐ (03 +300 · 06 −150)', r.tong==='{"03":300,"06":-150}', r.tong);
  ok('07/KH "đủ các thôn": in mọi thôn, mỗi thôn đủ CT', r.du);
  ok('khai báo riêng 07/KH lưu riêng (ch.bKH), không đụng khai báo Biểu 07 cũ', r.kb);

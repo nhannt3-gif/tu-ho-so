@@ -16,7 +16,7 @@ function pbChip(chu, loai){ return '<span class="pb-c '+(loai || 'mo')+'">'+chu+
 function pbChipTG(v){ v = +v || 0; return pbChip(v ? pbSoDau(v) : '0', v>0 ? 'tang' : v<0 ? 'giam' : 'mo'); }   /* 3.308 (anh 21/10 "có dấu cộng trừ và màu rồi nên bỏ mũi tên"): +300 xanh · −150 đỏ */
 function pbNgay(iso){ return iso ? String(iso).slice(8, 10)+'/'+String(iso).slice(5, 7)+'/'+String(iso).slice(0, 4) : ''; }
 function pbVT(ma){ return typeof ctNgan==='function' ? ctNgan(ma) : ma; }
-function pbTenCT(ma){ var c = typeof TDN_CT!=='undefined' ? TDN_CT[ma] : null; return c ? c[1] : 'Chương trình '+ma; }
+function pbTenCT(ma){ var c = typeof TDN_CT!=='undefined' ? TDN_CT[ma] : null; return pbTenDung(ma, c ? c[1] : '') || 'Chương trình '+ma; }   /* 3.507: tên mới CT 03 (pbTenDung, js/47) */
 function pbNguonChu(n){ return +n===2 ? 'ĐP' : 'TW'; }
 
 /* ---------- dựng: kỳ chung → cây địa bàn (xã → ấp) ---------- */
@@ -148,7 +148,7 @@ function pbKQHTML(q, cd){
     '<div class="sl-phu">'+coChuHTML(PB.kqMoTa || '')+'</div>'+
     '<div class="to-bang-cuon"><table class="to-bang luoi pb-dc"><thead><tr><th>Chương trình</th><th>QĐ: Đã giao ± → Đến 31/12</th><th>Tổng các ấp: Trước ± → Năm</th><th>Đối chiếu</th></tr></thead><tbody>'+dongDC+'</tbody></table></div>'+
     kq.map(function(k, ik){ var coDn = k.ap.some(function(a){ return a.dnThat!=null; }), r = pbKiem(k);
-      return '<div class="pb-ct"><div class="th-nhom-ten"><b>► '+coChuHTML(pbVT(k.ma))+'</b> <small>'+coChuHTML(k.ten || pbTenCT(k.ma))+'</small></div>'+
+      return '<div class="pb-ct"><div class="th-nhom-ten"><b>► '+coChuHTML(pbVT(k.ma))+'</b> <small>'+coChuHTML(pbTenDung(k.ma, k.ten) || pbTenCT(k.ma))+'</small></div>'+
         '<div class="to-bang-cuon"><table class="to-bang luoi pb-ap"><thead><tr><th>Ấp / khu phố</th>'+(coDn ? '<th>Dư nợ thật</th>' : '')+'<th>Chỉ tiêu trước</th><th>Tăng/giảm ✎</th><th>Chỉ tiêu năm</th><th>Ghi chú</th></tr></thead><tbody>'+
         k.ap.map(function(a, i){ var chenh = a.dnThat!=null ? pbR(a.truoc - a.dnThat) : 0;
           var ghi = (a.nam<0 ? '⚠ Âm — giảm quá chỉ tiêu' : a.suaTay ? '✎ sửa tay' : '')+(chenh ? (a.nam<0 || a.suaTay ? ' · ' : '')+'trước = dư nợ thật '+pbSoDau(chenh) : '');
@@ -731,7 +731,7 @@ function pbXuatTat(){
     qdM.push([q0.so, q0.kyHieu || '', pbNgay(q0.ngay), pbNguonChu(q0.nguon), q0.loai || '', q0.dot || '', '', '', g.ds.length, '']);
     g.ds.forEach(function(q){ (q.ct || []).forEach(function(c){ if(ma.indexOf(c.ma)<0) ma.push(c.ma); }); });
     ma.forEach(function(m, i){ var xs = g.ds.map(function(q){ return {q:q, c:(q.ct || []).filter(function(c){ return c.ma===m; })[0]}; }).filter(function(x){ return x.c; }), t = (q0.tong || {})[m];
-      var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), ten = ((xs[0] || {}).c || {}).ten || pbTenCT(m);
+      var sum = [0, 1, 2].map(function(j){ return pbSum(xs, function(x){ return ba(x.c)[j] || 0; }); }), ten = pbTenDung(m, ((xs[0] || {}).c || {}).ten) || pbTenCT(m);
       a.push([PB_LA[i] || String(i+1), ten, '', '', '', 'mã '+m+' — dòng toàn tỉnh: app không lưu (chỉ lưu PGD mình)']);
       var tP = [0, 1, 2].map(function(j){ return t && t[j]!=null ? t[j] : sum[j]; });   /* dòng PGD: số trên QĐ (đọc PDF / Excel đủ 3 cột; nhập tay chỉ điều chỉnh) — thiếu thì Σ các xã */
       a.push(['1', q0.pgd || 'Phòng giao dịch (PGD đang dùng app)'].concat(tP.map(so)).concat([t && t[0]!=null ? 'dòng PGD trên QĐ' : t && t[1]!=null ? 'điều chỉnh: dòng PGD trên QĐ · đã giao, đến 31/12: Σ các xã' : 'Σ các xã']));

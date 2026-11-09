@@ -85,6 +85,11 @@ thu('Khung mẫu in: điền ô thêm cách khi nhãn dính chấm, trống gi�
   () => A.MAU_IN.dien('<w:t>Hội{{H|....}}, {{T|..}}</w:t>', {H:'Nông dân', T:''}));
 thu('Khung mẫu in: chưa đăng ký mẫu → lỗi rõ', () => { try { A.MAU_IN.lay('khong-co'); return false; } catch(e){ return /Chưa đăng ký mẫu/.test(e.message); } });
 
+/* 3.507 (anh 09/11): tên chương trình GQVL mới trên mẫu Phân bổ */
+const MOI = 'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm';
+thu('Phân bổ: CT 03 tên cũ / trống → tên mới; CT khác, tên khác giữ nguyên', () => A.pbTenDung('03', 'Cho vay giải quyết việc làm')===MOI && A.pbTenDung('03', '')===MOI && A.pbTenDung('03', 'CHO VAY GIẢI QUYẾT VIỆC LÀM')===MOI && A.pbTenDung('01', 'Cho vay hộ nghèo')==='Cho vay hộ nghèo' && A.pbTenCT('03')===MOI);
+thu('Phân bổ đọc QĐ: tên mới / tên cũ đều nhận là mã 03', () => A.pbCTMa('Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm')==='03' && A.pbCTMa('Cho vay giải quyết việc làm')==='03' && A.pbCTMa('Hỗ trợ tạo việc làm')==='03', () => [A.pbCTMa(MOI), A.pbCTMa('Hỗ trợ tạo việc làm')]);
+
 const sai = o.filter(x => x[0]==='✗');
 console.log(o.join('\n')); console.log((o.length-sai.length)+'/'+o.length+' đạt · '+(Date.now()-t0)+' ms');
 process.exitCode = sai.length ? 1 : 0;

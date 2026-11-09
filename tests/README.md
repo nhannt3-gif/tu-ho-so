@@ -292,6 +292,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
 | (3.492) | `t358` Word 10A khóa trang (2 ngắt cứng, hàng Word − 0,5 mm). |
 | (3.491) | `t379` + 07b bảng theo cỡ chữ trên bảng, BBLV khối giữ liền. |
 | t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |
