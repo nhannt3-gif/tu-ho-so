@@ -117,7 +117,8 @@ function tcToTim(q, e){   /* q: chữ → tên tổ trưởng (đầu từ); s�
   var ccTo = function(t){ if(!coCC) return null; var d = t.ds || {}, t0 = t.tt || {}, cif = String(d.ttKH || t0.ttKH || t.cif || ''),
       so = String(d.cccd || t0.cccd || (dsK[cif] || {}).cccd || '').replace(/\D/g, '');
     var k = (cif && coCC.ma[cif]) || (so && coCC.so[so]) || null; return {da:!!k, ngay:k ? k.ngay || '' : '', so:so}; };
-  e.innerHTML = '<div class="tc-kq-dau"><div class="ghi tc-to-dau">'+coChuHTML(tcToDauChu(S))+(q ? ' · tìm thấy '+tong+' tổ' : '')+'</div></div>'+   /* 3.416.1 (anh 31/10): bỏ cột Xã — đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc */
+  e.innerHTML = '<div class="tc-kq-dau"><div class="ghi tc-to-dau">'+coChuHTML(tcToDauChu(S))+(q ? ' · tìm thấy '+tong+' tổ' : '')+'</div>'+
+    (typeof TCIN!=='undefined' ? GD.nut({chu:'🖨 In DS tổ', lenh:'tcin.mo', tit:'In / PDF danh sách tổ đang hiện (theo lọc) — A4 dọc, nhóm Xã → Điểm GD (js/58b)'}) : '')+'</div>'+   /* 3.416.1 (anh 31/10): bỏ cột Xã — đầu khung "Xã Truông Mít (48 tổ) - Ấp 1 (3 tổ)" theo cây lọc */
     '<div class="tc-kq-cuon"><table class="tc-kq-bang tc-to-ds"><thead><tr><th>Tổ trưởng</th><th>Mã tổ</th><th title="Thành viên">TV</th><th title="Có dư nợ">Có DN</th><th>Ấp</th><th>Hội</th>'+
       (coCC ? '<th title="CCCD tổ trưởng đã lưu ở Tủ hồ sơ (scan) — lọc Đã lưu / Thiếu">CCCD</th>' : '')+'</tr></thead><tbody>'+   /* 3.368 (anh 25/10 "ds tổ có cột bị khuất"): tiêu đề + Hội viết tắt (đủ ở title) → vừa khung không cuộn ngang */
     ds.map(function(t){ var r = KHO.tvChuan(t, TC_K) || {tong:0, coNo:0}; cg.tv += r.tong||0; cg.no += r.coNo||0;
