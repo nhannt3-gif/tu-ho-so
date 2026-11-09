@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.505 — 09/11/2026 — Tra cứu KH: in danh sách tổ theo lọc (TK 2)
+- **Anh 09/11** (ảnh Tra cứu › danh sách tổ: "cần xuất nhanh ds tổ có xã, điểm theo ds lọc khi cần, A4 dọc, các cột cơ bản"); anh chọn: nhóm theo Xã → Điểm GD, xuất In / PDF.
+- Gói mới `js/58b-tc-to-in.js` (không gian tên `TCIN`, khung `MAU_IN` — mẫu thứ 3 dùng khung): nút 🖨 In DS tổ ở đầu bảng tổ (js/58, kiểm `typeof TCIN`). In đúng danh sách đang hiện (cây lọc + ô tìm + lọc / sắp từng cột — dòng bị lọc cột không in, giữ thứ tự sắp), cột STT · Tổ trưởng · Mã tổ · Ấp / Khu phố · Hội · TV · Có DN; dòng nhóm "Xã · Điểm GD · ngày GD — n tổ", cộng từng điểm, Tổng cộng cuối; tiêu đề cột lặp mỗi trang. TV / Có DN = `KHO.tvChuan` (QT-18) như bảng trên màn.
+- Phép thử t386 (7 ý: nút, A4 dọc + 7 cột, đúng danh sách lọc cột, thứ tự, nhóm + tổng, mở lại sau khi đóng, không lỗi).
+
 ## 3.504 — 08/11/2026 — Thử nhanh QT + bộ giả "giống file thật" (Đợt 2 mục 5, 6) (TK 2)
 - **Thử nhanh QT** (`tests/nhanh/thu.js`, node, không trình duyệt): +10 phép — QT-19 Tổ GD (đủ vai, TT làm bảo vệ điểm không kiêm KSV, GDV chính không lái xe / bảo vệ đường, thiếu TT, dưới 3 người, bấm vai, phương án đi đường), QT-20 chọn QĐ gần nhất (đúng xã + nguồn, cùng ngày → lập sau), QT-22 danh sách đối chiếu, khung mẫu in (điền ô, mẫu chưa đăng ký). 48/48 · ~180 ms.
 - **Bộ giả "giống file thật"** (`tests/gia_that.js` — biến thể gianho31, QUY_CHUAN §18.3): Thông tin tổ trưởng TÊN XÃ / THÔN TOÀN HOA + khoảng trắng thừa, "Ông  …" tổ trưởng; Mẫu 31 tên khách thừa khoảng trắng, ô SĐT / ngày sinh trống, mã tổ mất số 0. Phép thử t385 chạy app với bộ gốc và bộ giống thật, so số tổ / khách / dư nợ, tên, địa danh, các màn chính.
