@@ -23,7 +23,7 @@ function pb07Lap(d, K){
   var soTB = gt('soTB'), soT1 = soTB ? pb07O(soTB, '') : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',   /* 3.451 (anh 02/11): thu gọn khoảng trống số TB */ soT2 = pb07O(soTB, '.......');
   var dong = function(v, lop){ return String(v || '').split(/\n/).map(function(s){ return s.trim(); }).filter(Boolean).map(function(s){ return '<p class="'+lop+'">'+pb07O(s, '')+'</p>'; }).join(''); };
   /* 3.303 (anh 21/10 "chuẩn hành chính"): đoạn canh đều, thụt đầu dòng 1 cm, cách đoạn trước 6 pt, giãn dòng 1,15 (lớp j thut tr → Word cùng thông số); Kính gửi canh giữa */
-  var P = function(noi, lop){ return '<p class="'+(lop || 'j thut tr')+'" style="line-height:1.15">'+noi+'</p>'; };
+  var P = function(noi, lop){ lop = lop || 'j thut tr'; return '<p class="'+lop+'" style="line-height:'+(/\bj\b/.test(lop) ? '1.3;margin-bottom:4pt' : '1.15')+'">'+noi+'</p>'; };   /* 3.509 (anh 09/11 "Biểu 07 cũ chưa giãn dòng"): đoạn thân giãn dòng 1,3 + cách trước 6 / sau 4 pt (≈ 10 pt giữa đoạn như mẫu gốc 07pb.docx); dòng căn giữa giữ 1,15 */
   var ky = dong(gt('chucDanh'), 'c b'), nguoi = gt('nguoiKy');
   var donViKhoi = '<p class="c b s13">ỦY BAN NHÂN DÂN</p><p class="c b s13">'+donVi+'</p>'+hsoKe(22);   /* tên cơ quan: góc trên bên trái, chữ canh giữa khối, gạch dưới 1/3 */
   var t1 = hsoBang('khung0', [62, 98],

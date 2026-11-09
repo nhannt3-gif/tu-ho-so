@@ -969,6 +969,7 @@ function nangCapDanhMuc(){
     if(!D.cauHinh.ctTen.NCHXAPT) D.cauHinh.ctTen.NCHXAPT = 'Cho vay người chấp hành xong án phạt tù';
     luu();
   }
+  if(D.cauHinh.ctTen && D.cauHinh.ctTen.GQVL==='Cho vay giải quyết việc làm, duy trì và mở rộng việc làm'){ D.cauHinh.ctTen.GQVL = MAC_DINH.ctTen.GQVL; luu(); }   /* 3.508 (anh 09/11): tên mặc định cũ → tên mới (chỉ khi còn đúng tên cũ); tên anh tự sửa giữ nguyên */
   /* 3.34: số liệu họp giao ban chia theo điểm giao dịch (anh Nhân chốt) — chuyển MỘT lần, sau đó anh tự chỉnh bằng nút ⚙ */
   if(!D.cauHinh.slgbDaDoi){
     D.cauHinh.slgbDaDoi = true;

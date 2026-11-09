@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.507', APP_LUC = '09/11/2026 15:39';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.509', APP_LUC = '09/11/2026 15:56';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var GD_CHO = [];   /* 3.474 (Đ4): lệnh data-lenh của file nạp TRƯỚC js/39-gd.js — gdDangKy xếp hàng, GD tự nhận khi nạp */
 function gdDangKy(khoi, ds){ if(typeof GD!=='undefined') GD.dangKy(khoi, ds); else GD_CHO.push([khoi, ds]); }
@@ -37,7 +37,7 @@ var MAC_DINH = {
   chuongTrinh: ['HN','HCN','HMTN','NS&VSMT','GQVL','HSSV','NO-HN','NOXH','SXKD-VKK','XKLĐ','NCHXAPT'],
   ctTen: {'HN':'Cho vay hộ nghèo','HCN':'Cho vay hộ cận nghèo','HMTN':'Cho vay hộ mới thoát nghèo',
     'NS&VSMT':'Cho vay nước sạch và vệ sinh môi trường nông thôn',
-    'GQVL':'Cho vay giải quyết việc làm, duy trì và mở rộng việc làm',
+    'GQVL':'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm',   /* 3.508 (anh 09/11) */
     'HSSV':'Cho vay học sinh, sinh viên có hoàn cảnh khó khăn','NO-HN':'Cho vay hộ nghèo về nhà ở',
     'NOXH':'Cho vay nhà ở xã hội','SXKD-VKK':'Cho vay hộ gia đình sản xuất, kinh doanh tại vùng khó khăn',
     'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng',

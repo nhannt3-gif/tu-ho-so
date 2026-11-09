@@ -5,14 +5,14 @@
    - Báo cáo chỉ là thông tin để xem / in (anh chốt): Danh sách hộ vay · Nợ cần xử lý (QH + khoanh + KHĐ, 1 mặt A4) · TK 105 của tổ
    ========================================================== */
 /* tên chương trình ngắn, dễ đọc trên báo cáo in (mã → tên); mã chưa có thì dùng tên viết tắt hệ thống */
-var CT_NGAN = {'01':'Hộ nghèo','02':'HSSV','03':'Giải quyết việc làm','04':'Xuất khẩu LĐ','05':'Nhà ở trả chậm','06':'Nước sạch VSMT','07':'Nhà ở hộ nghèo',
+var CT_NGAN = {'01':'Hộ nghèo','02':'HSSV','03':'Hỗ trợ tạo việc làm','04':'Xuất khẩu LĐ','05':'Nhà ở trả chậm','06':'Nước sạch VSMT','07':'Nhà ở hộ nghèo',
   '08':'DN vừa và nhỏ (KfW)','09':'Hộ mới thoát nghèo','10':'SXKD vùng khó khăn','11':'DTTS đặc biệt KK','12':'Nhà ở xã hội','13':'LĐ sau cai nghiện',
   '14':'DTTS nghèo ĐBSCL','15':'Thương nhân vùng KK','16':'XKLĐ huyện nghèo','17':'DTTS nghèo QĐ 755','18':'Chòi tránh lũ','19':'Hộ cận nghèo',
   '20':'Trồng rừng, chăn nuôi','21':'DTTS QĐ 2085','22':'Thanh niên xung phong','23':'Trả lương ngừng việc','24':'Trường MN, TH ngoài CL',
   '25':'Vùng DTTS, miền núi','26':'Chấp hành xong án','91':'Lâm nghiệp (WB)','92':'Dự án IFAD','93':'Dự án RIDP','94':'Dự án CWDP','96':'Dự án NIPPON','99':'Cho vay khác'};
 /* 3.91: tên viết tắt chương trình theo mã chuẩn (anh chốt) — mọi món mã 03 là GQVL; riêng HSSV STEM (Mã Quyết định 43) ghi HSSVSTEM */
 var CT_VT = {'01':'HN','02':'HSSV','03':'GQVL','04':'XKLD','06':'NSVSMT','07':'NOHN','09':'MTN','12':'NOXH','13':'SCN','19':'HCN','26':'APT','99':'KHAC'};
-var CT_VT_TEN = {HN:'Hộ nghèo', HSSV:'Học sinh, sinh viên', HSSVSTEM:'HSSV ngành STEM', GQVL:'Giải quyết việc làm', XKLD:'Xuất khẩu lao động', NSVSMT:'Nước sạch & VSMT nông thôn',
+var CT_VT_TEN = {HN:'Hộ nghèo', HSSV:'Học sinh, sinh viên', HSSVSTEM:'HSSV ngành STEM', GQVL:'Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm', XKLD:'Xuất khẩu lao động', NSVSMT:'Nước sạch & VSMT nông thôn',
   NOHN:'Nhà ở hộ nghèo', MTN:'Hộ mới thoát nghèo', NOXH:'Nhà ở xã hội', SCN:'Người sau cai nghiện', HCN:'Hộ cận nghèo', APT:'Người chấp hành xong án phạt tù', KHAC:'Cho vay khác'};
 var CT_DUNG = null;   /* gom tên viết tắt đã dùng trong 1 báo cáo → dòng chú thích cuối báo cáo */
 function ctHT(ma, o){   /* 3.128 (anh chốt): mẫu biểu chuẩn hệ thống ghi đúng tên viết tắt của hệ thống (TENVT, Danh mục chương trình vay); HSSV theo QĐ 43 hệ thống không có mã riêng → HSSV_STEM */

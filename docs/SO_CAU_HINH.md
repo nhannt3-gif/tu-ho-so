@@ -36,7 +36,7 @@
 | `clientId` | 06c-drive.js | 1 | 06c-drive.js |  |
 | `coChu` | 06-hop-thoai.js | 2 | 06-hop-thoai.js · 20-khoi-dong.js |  |
 | `ctNCHXAPT` | 10-danh-sach.js | 2 | 10-danh-sach.js |  |
-| `ctTen` | 06-hop-thoai.js | 7 | 06-hop-thoai.js · 10-danh-sach.js · 19-danh-muc.js |  |
+| `ctTen` | 06-hop-thoai.js | 10 | 06-hop-thoai.js · 10-danh-sach.js · 19-danh-muc.js |  |
 | `daXemMoi` | 06-hop-thoai.js | 3 | 06-hop-thoai.js · 20-khoi-dong.js |  |
 | `db5p` | 12c-scan-camera-drive.js | 1 | 12c-scan-camera-drive.js |  |
 | `dbGhi` | 82-dia-ban-so-lieu.js | 3 | 82-dia-ban-so-lieu.js |  |

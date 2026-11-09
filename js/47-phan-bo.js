@@ -376,7 +376,7 @@ function pbDonVi(tenXa){
 /* QĐ 1 xã + kết quả phân bổ → dữ liệu Biểu 07 | {loi:[…]} khi chưa khớp QĐ (QT-16 — CHẶN xuất).
    Ấp theo thứ tự gặp đầu tiên (CT theo thứ tự QĐ), mỗi ấp chỉ các CT có tăng / giảm ≠ 0 (như bản WPF). */
 /* 3.507 (anh 09/11 "Chương trình Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm" · "trong QĐ mẫu 07 em ghi Cho vay giải quyết việc làm" · "sửa trước ở chỗ Phân bổ kế hoạch"):
-   TÊN CHƯƠNG TRÌNH TRÊN MẪU PHÂN BỔ — mã 03 ghi tên mới; dòng QĐ đã lưu tên cũ ("… giải quyết việc làm") hoặc trống → hiện / in tên mới (dữ liệu QĐ đã lưu giữ nguyên). Bảng tên chung của app chưa đổi (chờ anh). */
+   TÊN CHƯƠNG TRÌNH TRÊN MẪU PHÂN BỔ — mã 03 ghi tên mới; dòng QĐ đã lưu tên cũ ("… giải quyết việc làm") hoặc trống → hiện / in tên mới (dữ liệu QĐ đã lưu giữ nguyên). 3.508: bảng tên chung của app (TDN_CT, CT_VT_TEN, CT_NGAN, MAC_DINH.ctTen) cũng đã đổi — hàm này còn giữ cho QĐ đã lưu tên cũ. */
 var PB_CT_TEN = {'03':'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm'};
 function pbTenDung(ma, ten){ var m = PB_CT_TEN[String(ma||'')]; return m && (!ten || /gi[ảa]i quy[ếe]t vi[ệe]c l[àa]m/i.test(String(ten))) ? m : ten; }
 function pbBieu07DL(q, kq, tenCT){
