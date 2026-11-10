@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 10/11/2026 — TK 3 · PHIÊN (3.510 gộp #530)
+- Đã làm: 03/GDX 👥 Tổ GD khung cố định (Tổ trưởng · KSV ＋ · GDV chính · GDV ×3 ＋/×; kiêm 🚗 Lái xe · 🛡 Bảo vệ; loại trừ, chỉ Tổ trưởng kiêm KSV) · 💾 phiên theo điểm + ngày (`gdx.g4Phien`, v = 1, giờ cố định ⚙, km theo điểm), xem theo tháng, Mở / 🖨 12/GDX, ⚠ thiếu phiên từ 11/2026 + khai bổ sung, `g4PhanCong` + 📊 Excel tháng. Hồi quy theo đổi đạt.
+- Chờ anh: thử máy thật 3.510; giờ phiên thật (mặc định tạm 07:30–11:00); mẫu chấm công / xăng / lệnh điều xe nếu có — dữ liệu đọc qua `g4PhanCong`.
+- Bẫy: bộ lọc địa bàn GDX (`gdxCH().diem`) ghi đè điểm 12/GDX (`gdxTheoLoc`) — mở phiên phải đặt cả bộ lọc (`g4PhienDiem`). Container mới thiếu `tests/lib`, `tests/gia*` → dựng theo `tests/README.md` mục Chuẩn bị trước khi chạy hồi quy.
+
 ### 10/11/2026 — TK 3 · NHẬN VAI App chính (từ TK 2, anh 10/11 "em nhận vai, và làm trước mẫu 03 theo dạng khung cố định…")
 - Đã đọc: mục TK 2 08/11 (3.489–3.504) + CHANGELOG 3.505–3.509. Trạng thái nhận: `main` = **3.509**, không code dở.
 - Việc đầu: 03/GDX › 👥 Tổ giao dịch — khung cố định theo thứ tự Tổ trưởng · KSV · GDV chính · GDV (thay khai từng người + chip vai).
