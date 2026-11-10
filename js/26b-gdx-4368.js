@@ -25,7 +25,7 @@ GDX_MAU.push(
   var dau = {k:'dau12', ten:'Tên cơ quan đầu mẫu (chung với 12/GDX)', nhanh:0}, ngay = {k:'ngaygd', ten:'Ngày giao dịch (chung với 12/GDX)', nhanh:1},
     ba = {k:'ba', ten:'GDV · KSV · Tổ trưởng tổ GD (chung với 12/GDX)', nhanh:1};
   var to = {k:'g4to', ten:'👥 Tổ giao dịch — thành viên · vai (khai tay)', nhanh:1};
-  GDX_MUC.g03 = [dau, ngay, to, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
+  GDX_MUC.g03 = [dau, ngay, to, {k:'g4phien', ten:'💾 Phiên giao dịch — lưu theo điểm · xem lại theo tháng (liên kết 12/GDX)', nhanh:1}, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
     {k:'g4ccdc', ten:'Công cụ dụng cụ theo vai (Phần II)', nhanh:0}, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
   GDX_MUC.gnv = [dau, ngay, to, {k:'g4conv', ten:'Cỡ chữ', nhanh:0}];
   GDX_MUC.g06 = [dau, ngay, {k:'ba', ten:'Thủ quỹ / GDV (= Giao dịch viên của 12/GDX)', nhanh:1}];
@@ -219,6 +219,7 @@ function g4HTMLKho(X, nhap){
 function g4Muc(k){
   var C = gdxC();
   if(k==='g4to') return typeof g4ToHTML==='function' ? g4ToHTML() : '';   /* js/26c */
+  if(k==='g4phien') return typeof g4PhienHTML==='function' ? g4PhienHTML() : '';   /* 3.510 js/26c */
   if(k==='g4pa') return ['1', '2', '3'].map(function(v){ return '<button type="button" class="gdx-c" data-lenh="g4.pa" data-v="'+v+'" title="'+G4_PA[v]+'">PA '+v+'</button>'; }).join('')+
     '<small class="gdx-ghi">PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ · PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ · PA 3: cán bộ lái xe riêng, Tổ trưởng bảo vệ. Áp tải luôn là GDV chính.</small>';
   if(k==='g4xe') return '<div class="gdx-luoi"><label><span>Phương tiện / biển số</span>'+gdxIn1('g4Xe', 'vd Ô tô / 70A-xxx.xx — trống = mẫu gốc')+'</label><label><span>Công cụ hỗ trợ / số hiệu / số giấy phép</span>'+gdxIn1('g4CCHT', 'trống = mẫu gốc')+'</label></div>';

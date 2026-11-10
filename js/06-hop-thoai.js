@@ -1058,7 +1058,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.510', ds:[
-  ["03/GDX › Tổ giao dịch: khung cố định theo thứ tự Tổ trưởng · KSV · GDV chính · GDV · Lái xe · Bảo vệ", "slDoiTab('gdx')"],
+  ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
   ["Tên chương trình GQVL đổi chung cả app: \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" (02/BG, 15/TD, sao kê, danh mục, khai báo); cột bảng tổng hợp ghi \"Hỗ trợ tạo việc làm\"", "dhSL('sk')"],
   ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"],
