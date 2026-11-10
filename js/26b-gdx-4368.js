@@ -25,9 +25,9 @@ GDX_MAU.push(
 (function(){
   var dau = {k:'dau12', ten:'Tên cơ quan đầu mẫu (chung với 12/GDX)', nhanh:0}, ngay = {k:'ngaygd', ten:'Ngày giao dịch (chung với 12/GDX)', nhanh:1},
     ba = {k:'ba', ten:'GDV · KSV · Tổ trưởng tổ GD (chung với 12/GDX)', nhanh:1};
-  var to = {k:'g4to', ten:'👥 Tổ giao dịch — thành viên · vai (khai tay)', nhanh:1};
+  var to = {k:'g4to', ten:'👥 Tổ giao dịch — chọn từ danh sách cán bộ', nhanh:1};
   GDX_MUC.g03 = [dau, ngay, to, {k:'g4phien', ten:'💾 Phiên giao dịch — lưu theo điểm · xem lại theo tháng (liên kết 12/GDX)', nhanh:1},
-    {k:'g4km', ten:'Km đi – về của điểm (thanh toán xăng)', nhanh:1}, {k:'g4gio', ten:'Giờ phiên giao dịch cố định (chấm công)', nhanh:0}, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
+    {k:'g4km', ten:'Km đi – về của điểm (thanh toán xăng)', nhanh:1}, {k:'g4gio', ten:'Giờ phiên giao dịch cố định (chấm công)', nhanh:0}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
     {k:'g4ccdc', ten:'Công cụ dụng cụ theo vai (Phần II)', nhanh:0}, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
   GDX_MUC.gnv = [dau, ngay, to, {k:'g4conv', ten:'Cỡ chữ', nhanh:0}];
   GDX_MUC.g06 = [dau, ngay, {k:'ba', ten:'Thủ quỹ / GDV (= Giao dịch viên của 12/GDX)', nhanh:1}];
@@ -227,8 +227,7 @@ function g4Muc(k){
   if(k==='g4km'){ var dk = gdxDiem(C.m12SelectedDiem); return dk ?
     '<label class="gdx-hang">'+gdxE(dk.tenDiem)+': <input class="gdx-i gdx-so" inputmode="decimal" value="'+gdxE((C.g4Km || {})[dk.k] || '')+'" placeholder="km" data-lenh="g4.km" data-su="change" data-diem="'+gdxE(dk.k)+'"> km đi – về</label>'+
       '<small class="gdx-ghi">Nhớ theo điểm — khai 1 lần (thanh toán xăng, lệnh điều xe).</small>' : '<small class="gdx-ghi">Chọn điểm giao dịch trước.</small>'; }
-  if(k==='g4pa') return ['1', '2', '3'].map(function(v){ return '<button type="button" class="gdx-c" data-lenh="g4.pa" data-v="'+v+'" title="'+G4_PA[v]+'">PA '+v+'</button>'; }).join('')+
-    '<small class="gdx-ghi">PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ · PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ · PA 3: cán bộ lái xe riêng, Tổ trưởng bảo vệ. Áp tải luôn là GDV chính.</small>';
+  /* 3.511 (anh 10/11 "phần phương án bỏ, chưa cần"): bỏ mục Phương án đi đường PA 1/2/3 — kiêm Lái xe / Bảo vệ khai ở Tổ giao dịch */
   if(k==='g4xe') return '<div class="gdx-luoi"><label><span>Phương tiện / biển số</span>'+gdxIn1('g4Xe', 'vd Ô tô / 70A-xxx.xx — trống = mẫu gốc')+'</label><label><span>Công cụ hỗ trợ / số hiệu / số giấy phép</span>'+gdxIn1('g4CCHT', 'trống = mẫu gốc')+'</label></div>';
   if(k==='g4noi') return gdxRadio('g4Noi', [['tu', 'Tự ghi: trụ sở PGD ↔ điểm giao dịch'], ['cham', 'Để chấm ghi tay']]);
   if(k==='g4ccdc') return gdxRadio('g4CCDC', [['in', 'In sẵn CCDC theo vai (VB 4368)'], ['trong', 'Để trống ghi tay']]);
