@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 10/11/2026 — TK 3 · PHIÊN (3.511 gộp #531)
+- Đã làm: Tổ GD ô chọn từ danh sách khai báo cán bộ (loại trừ, trừ Tổ trưởng ↔ KSV); kiêm theo vai (Tổ trưởng: Bảo vệ · KSV / GDV: Lái xe · GDV chính: không); bỏ mục Phương án đi đường PA 1/2/3 (anh "chưa cần"). Hồi quy theo đổi đạt.
+- Chờ anh: thử máy thật 3.510–3.511.
+
 ### 10/11/2026 — TK 3 · PHIÊN (3.510 gộp #530)
 - Đã làm: 03/GDX 👥 Tổ GD khung cố định (Tổ trưởng · KSV ＋ · GDV chính · GDV ×3 ＋/×; kiêm 🚗 Lái xe · 🛡 Bảo vệ; loại trừ, chỉ Tổ trưởng kiêm KSV) · 💾 phiên theo điểm + ngày (`gdx.g4Phien`, v = 1, giờ cố định ⚙, km theo điểm), xem theo tháng, Mở / 🖨 12/GDX, ⚠ thiếu phiên từ 11/2026 + khai bổ sung, `g4PhanCong` + 📊 Excel tháng. Hồi quy theo đổi đạt.
 - Chờ anh: thử máy thật 3.510; giờ phiên thật (mặc định tạm 07:30–11:00); mẫu chấm công / xăng / lệnh điều xe nếu có — dữ liệu đọc qua `g4PhanCong`.
