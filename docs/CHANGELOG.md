@@ -6,9 +6,10 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ## 3.510 — 10/11/2026 — 03/GDX: Tổ giao dịch khung cố định (TK 3)
 - **Anh 10/11** (ảnh 03/GDX khai từng người + chip vai): "làm trước mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv". TK 3 nhận lại vai App chính.
-- **👥 Tổ giao dịch** (js/26c `g4ToHTML`): bỏ khai từng người + bấm chip vai → **mỗi vai 1 ô đúng thứ tự**: nhóm *Tổ giao dịch* — Tổ trưởng · Kiểm soát viên · GDV chính (áp tải) · Giao dịch viên (nhiều người: luôn có ô "＋ thêm"); nhóm *Đi đường · bảo vệ* — Lái xe · Bảo vệ đường · Bảo vệ tại điểm (nhiều người). Gõ hoặc chọn tên (gợi ý = danh sách cán bộ + người đã khai); **cùng tên ở 2 ô = 1 người kiêm** (cạnh ô ghi "kiêm …"); × bỏ người khỏi vai nhiều người. Enter / Tab chuyển ô kế (ô cuối không thêm dòng).
-- Dữ liệu giữ nguyên `g4To = [{ten, vai}]` (hàm thuần mới `g4OGan`): 03/GDX Phần I–II, 📘 Nhiệm vụ, đồng bộ 12/GDX, kiểm QT-19, PA 1/2/3, ⭐ tổ hay dùng không đổi. Người không còn vai nào tự bỏ.
-- t382 viết lại phần khai theo ô (28/28).
+- **Anh 10/11** (sau demo): "chỉ cần khai đơn giản vậy thôi, Lái xe và BV là kiêm nhiệm — Tổ trưởng kiêm bảo vệ, Kiểm soát hoặc GDV kiêm lái xe, cho chọn thêm kiêm nhiệm; BV chỉ chung 1 dạng bảo vệ; sang Mẫu 03 đúng như cũ" · "có thể có 2 KSV nên có nút thêm nếu cần, GDV mặc định để 3, có thể thêm xóa".
+- **👥 Tổ giao dịch** (js/26c `g4ToHTML`): bỏ khai từng người + bấm chip vai → **khung cố định 4 vai đúng thứ tự**: Tổ trưởng · Kiểm soát viên (＋ thêm KSV khi cần) · GDV chính (áp tải) · Giao dịch viên (mặc định 3 dòng, ＋ thêm / × bớt). Gõ hoặc chọn tên (gợi ý = danh sách cán bộ + người đã khai); cùng tên ở 2 ô = 1 người kiêm (vd Tổ trưởng kiêm KSV). Mỗi dòng có nút **kiêm nhiệm 🚗 Lái xe · 🛡 Bảo vệ** (Bảo vệ 1 dạng chung = bảo vệ đường đi + tại điểm; chỉ 1 lái xe; GDV chính áp tải không có nút kiêm). Enter / Tab chuyển ô kế.
+- **03/GDX như cũ:** dữ liệu giữ `g4To = [{ten, vai}]` (hàm thuần mới `g4OGan`, `g4KiemDoi`; bỏ `g4VaiDoi` + lệnh chip cũ) → Phần I áp tải · lái xe · bảo vệ, Phần II mỗi vai 1 dòng + CCDC, 📘 Nhiệm vụ, đồng bộ 12/GDX, kiểm QT-19, PA 1/2/3, ⭐ tổ hay dùng không đổi. Người không còn vai Tổ GD nào tự bỏ. Không còn khai người ngoài (bảo vệ thuê) — theo anh "khai đơn giản".
+- t382 viết lại phần khai (30/30): thứ tự ô, ＋ / × GDV, kiêm Lái xe / Bảo vệ, 1 lái xe, ＋ KSV, GDV chính không kiêm, 03/GDX Phần I–II. `tests/nhanh` thay ý chip vai bằng `g4OGan` / `g4KiemDoi` (50/50).
 
 ## 3.509 — 09/11/2026 — Biểu 07 cũ: giãn dòng theo mẫu gốc (TK 2)
 - **Anh 09/11** "em xem lại biểu 07 hiện tại chưa giãn dòng và canh lề chuẩn 2,2,3,2" → "biểu 07 cũ".

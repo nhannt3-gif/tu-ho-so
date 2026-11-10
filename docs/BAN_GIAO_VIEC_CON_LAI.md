@@ -269,8 +269,8 @@ _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` 
 ### Danh sách thử trên máy thật (3.510)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | 03/GDX › Tổ giao dịch | 7 ô vai đúng thứ tự, gõ / chọn tên | |
-| 2 | Gõ tên Tổ trưởng vào ô Lái xe | Ghi "kiêm Lái xe"; 03/GDX Phần I đúng | |
+| 1 | 03/GDX › Tổ giao dịch | Tổ trưởng · KSV · GDV chính · GDV ×3 đúng thứ tự; ＋ thêm KSV / GDV, × bớt | |
+| 2 | Tổ trưởng 🛡 Bảo vệ, KSV 🚗 Lái xe | 03/GDX Phần I: áp tải · lái xe · bảo vệ đúng; Phần II có dòng Bảo vệ | |
 | 3 | ⭐ chọn tổ hay dùng cũ | Hiện đúng vào các ô | |
 
 ### Danh sách thử trên máy thật (3.509)

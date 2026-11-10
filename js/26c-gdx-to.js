@@ -1,6 +1,6 @@
 /* ===== js/26c-gdx-to.js — 3.497 (tách từ js/26b, QUY_CHUAN 1.3 "tách dữ liệu – nghiệp vụ – giao diện"; không đổi chức năng): 👥 TỔ GIAO DỊCH =====
    ① DỮ LIỆU: D.cauHinh.gdx.g4To = [{ten, vai:['tt'|'ksv'|'gdvc'|'gdv'|'lx'|'bvd'|'bvt']}] · g4ToHay = [{ten, ds}] (khóa tiền tố g4 của khối Giao dịch xã, đồng bộ Drive)
-   ② NGHIỆP VỤ (thuần, không vẽ, không đọc ô nhập): QT-19 thành phần Tổ giao dịch VB 4368 — g4KiemTo · g4Dong03II · g4PaGan · g4VaiDoi
+   ② NGHIỆP VỤ (thuần, không vẽ, không đọc ô nhập): QT-19 thành phần Tổ giao dịch VB 4368 — g4KiemTo · g4Dong03II · g4PaGan · g4OGan · g4KiemDoi
    ③ GIAO DIỆN: khung khai (g4ToHTML), tóm tắt (g4TomTo), lệnh data-lenh="g4.*", phím Enter / Tab (QUY_CHUAN 11)
    Mẫu dùng: 03/GDX, 📘 Nhiệm vụ (js/26b). Cắm rút: bỏ dòng <script> → mẫu vẫn in, tên để trống ghi tay. ===== */
 GDX_MD.g4To = []; GDX_MD.g4ToHay = [];   /* gdxC tự điền khi thiếu */
@@ -49,33 +49,44 @@ function g4KiemTo(c){
   return r; }
 function g4TomTo(X, lk, cb){ var c = X.C, n = g4To(c).filter(g4Ten).length; lk('g4to', n ? 'Tổ GD '+n+' người' : 'Tổ GD: chưa khai', n ? '' : 'vang');
   g4KiemTo(c).forEach(function(x){ cb(x.muc, x.chu, 'g4to'); }); }
-/* 3.510 (anh 10/11 "làm mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv"): KHUNG CỐ ĐỊNH — mỗi vai 1 dòng đúng thứ tự,
-   gõ / chọn tên vào ô của vai (thay khai từng người + bấm chip). Cùng tên ở 2 ô = 1 người kiêm 2 vai (vd Tổ trưởng kiêm KSV / lái xe / bảo vệ).
-   Dữ liệu giữ nguyên dạng g4To = [{ten, vai}] → 03/GDX, 📘 Nhiệm vụ, 12/GDX, kiểm QT-19, tổ hay dùng, PA 1/2/3 không đổi.
-   [mã vai, nhãn, nhiều người?, gợi ý] — nhóm 1: Tổ giao dịch · nhóm 2: đi đường · bảo vệ */
-var G4_O = [[['tt', 'Tổ trưởng'], ['ksv', 'Kiểm soát viên', 0, 'Tổ trưởng kiêm KSV: gõ cùng tên Tổ trưởng'], ['gdvc', 'GDV chính', 0, 'Giao dịch viên chính — người áp tải'], ['gdv', 'Giao dịch viên', 1]],
-  [['lx', 'Lái xe'], ['bvd', 'Bảo vệ đường', 1], ['bvt', 'Bảo vệ tại điểm', 1]]];
+/* 3.510 (anh 10/11 "làm mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv"; "chỉ cần khai đơn giản vậy thôi, Lái xe và BV là kiêm nhiệm —
+   Tổ trưởng kiêm bảo vệ, Kiểm soát hoặc GDV kiêm lái xe, cho chọn thêm kiêm nhiệm; BV chỉ chung 1 dạng bảo vệ; sang Mẫu 03 đúng như cũ"):
+   KHUNG CỐ ĐỊNH 4 vai đúng thứ tự (GDV nhiều người — luôn có ô "＋ thêm"); mỗi dòng có nút KIÊM: 🚗 Lái xe · 🛡 Bảo vệ (bảo vệ = cả đường đi lẫn tại điểm: bvd + bvt).
+   GDV chính (áp tải) không kiêm. Dữ liệu giữ nguyên g4To = [{ten, vai}] → 03/GDX Phần I–II, 📘 Nhiệm vụ, 12/GDX, QT-19, PA 1/2/3, ⭐ tổ hay dùng không đổi.
+   [mã vai, nhãn, nhiều người?, gợi ý, được kiêm?] */
+var G4_O = [['tt', 'Tổ trưởng', 0, '', 1], ['ksv', 'Kiểm soát viên', 1, 'Tổ trưởng kiêm KSV: gõ cùng tên Tổ trưởng', 1], ['gdvc', 'GDV chính', 0, 'Giao dịch viên chính — người áp tải (không kiêm lái xe, bảo vệ)', 0], ['gdv', 'Giao dịch viên', 1, '', 1]];
+var G4_SO = {ksv:1, gdv:3};   /* số dòng hiện của vai nhiều người (anh 10/11 "có thể có 2 KSV, nên có nút thêm; GDV mặc định để 3, có thể thêm xóa") — trong phiên, không lưu */
+var G4_KIEM = [['lx', '🚗 Lái xe', ['lx']], ['bv', '🛡 Bảo vệ', ['bvd', 'bvt']]];
+function g4K(t){ return String(t || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
 /* gán tên vào ô vai v — THUẦN (sửa ds tại chỗ). cu = tên đang ở ô (vai nhiều người); ô 1 người: bỏ vai v của mọi người rồi gán */
-function g4OGan(ds, v, ten, cu, nhieu){ var k = function(t){ return String(t || '').replace(/\s+/g, ' ').trim().toLowerCase(); }, bo = function(x){ x.vai = (x.vai || []).filter(function(a){ return a!==v; }); };
+function g4OGan(ds, v, ten, cu, nhieu){ var bo = function(x){ x.vai = (x.vai || []).filter(function(a){ return a!==v; }); };
   ten = String(ten || '').replace(/\s+/g, ' ').trim();
-  if(nhieu){ if(cu) ds.forEach(function(x){ if(k(x.ten)===k(cu)) bo(x); }); } else ds.forEach(bo);
-  if(ten){ var x = ds.filter(function(o){ return k(o.ten)===k(ten); })[0]; if(!x){ x = {ten:ten, vai:[]}; ds.push(x); } x.vai = x.vai || [];
-    if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv'; });
+  if(nhieu){ if(cu) ds.forEach(function(x){ if(g4K(x.ten)===g4K(cu)) bo(x); }); } else ds.forEach(bo);
+  if(ten){ var x = ds.filter(function(o){ return g4K(o.ten)===g4K(ten); })[0]; if(!x){ x = {ten:ten, vai:[]}; ds.push(x); } x.vai = x.vai || [];
+    if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv' && a!=='lx' && a!=='bvd' && a!=='bvt'; });   /* áp tải không kiêm */
     if(!(v==='gdv' && x.vai.indexOf('gdvc')>=0) && x.vai.indexOf(v)<0) x.vai.push(v); }
-  for(var i=ds.length-1;i>=0;i--) if(!(ds[i].vai || []).length) ds.splice(i, 1);   /* người không còn vai nào → bỏ */
+  g4Gon(ds);
 }
+/* người không còn vai Tổ giao dịch (tt · ksv · gdvc · gdv) → bỏ hẳn (kể cả kiêm lái xe / bảo vệ còn sót) */
+function g4Gon(ds){ for(var i=ds.length-1;i>=0;i--){ var a = ds[i].vai || []; if(!a.some(function(v){ return v==='tt' || v==='ksv' || v==='gdvc' || v==='gdv'; })) ds.splice(i, 1); } }
+/* bật / tắt kiêm nhiệm — THUẦN: k = 'lx' (1 lái xe: chọn người này thì bỏ ở người khác) | 'bv' (bảo vệ đường + tại điểm, nhiều người) */
+function g4KiemDoi(ds, ten, k){ var x = ds.filter(function(o){ return g4K(o.ten)===g4K(ten); })[0]; if(!x || (x.vai || []).indexOf('gdvc')>=0) return;
+  var m = k==='lx' ? ['lx'] : ['bvd', 'bvt'], co = x.vai.some(function(a){ return m.indexOf(a)>=0; });
+  if(co){ x.vai = x.vai.filter(function(a){ return m.indexOf(a)<0; }); return; }
+  if(k==='lx') ds.forEach(function(o){ o.vai = (o.vai || []).filter(function(a){ return a!=='lx'; }); });
+  m.forEach(function(a){ if(x.vai.indexOf(a)<0) x.vai.push(a); }); }
 function g4ToHTML(){
   var C = gdxC(); g4ToMoi(C); var ds = g4To(C), cb = C.danhSachCanBo || [], hay = C.g4ToHay || [];
   var nut = function(chu, lenh, du, tit, lop){ return '<button type="button" class="'+(lop || 'nho')+'" data-lenh="g4.'+lenh+'"'+(du!=null ? ' data-i="'+du+'"' : '')+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; };
-  var nhan = {}; G4_VAI.forEach(function(v){ nhan[v[0]] = v[1]; });
-  var kiem = function(x, v){ var a = (x && x.vai || []).filter(function(b){ return b!==v; }).map(function(b){ return nhan[b]; }); return a.length ? '<span class="g4-o-kiem">kiêm '+gdxE(a.join(', '))+'</span>' : ''; };
+  var kiem = function(r, x){ if(!r[4] || !x || !g4Ten(x)) return ''; return '<span class="g4-o-kiem">'+G4_KIEM.map(function(k){ var co = (x.vai || []).some(function(a){ return k[2].indexOf(a)>=0; });
+    return '<button type="button" class="gdx-c'+(co ? ' bat' : '')+'" data-lenh="g4.kiem" data-k="'+k[0]+'" data-cu="'+gdxE(g4Ten(x))+'" title="Kiêm nhiệm '+gdxE(k[1].slice(3))+'">'+k[1]+'</button>'; }).join('')+'</span>'; };
   var o = function(r, x, cu){ return '<div class="g4-o"><span class="g4-o-vai"'+(r[3] ? ' title="'+gdxE(r[3])+'"' : '')+'>'+gdxE(r[1])+'</span>'+
-    '<input class="gdx-i g4-to-ten" list="g4-cb" value="'+gdxE(x ? g4Ten(x) : '')+'" placeholder="'+(r[2] && cu===undefined ? '＋ thêm ' : '')+'Họ tên" data-lenh="g4.o" data-su="change" data-v="'+r[0]+'"'+(cu ? ' data-cu="'+gdxE(cu)+'"' : '')+'>'+
-    kiem(x, r[0])+(r[2] && cu ? nut('×', 'oBo', null, 'Bỏ người này khỏi vai '+r[1], 'gdx-x').replace('data-lenh="g4.oBo"', 'data-lenh="g4.oBo" data-v="'+r[0]+'" data-cu="'+gdxE(cu)+'"') : '')+'</div>'; };
-  var nhom = function(L, tieu){ return '<div class="g4-o-nhom"><div class="g4-o-tieu">'+tieu+'</div>'+L.map(function(r){ var co = g4Ai(C, r[0]);
-    if(!r[2]) return o(r, co[0]);
-    return co.map(function(x){ return o(r, x, g4Ten(x) || ' '); }).join('')+o(r, null); }).join('')+'</div>'; };
-  var h = nhom(G4_O[0], 'Tổ giao dịch')+nhom(G4_O[1], 'Đi đường · bảo vệ <small>(cùng tên ở ô trên = kiêm)</small>');
+    '<input class="gdx-i g4-to-ten" list="g4-cb" value="'+gdxE(x ? g4Ten(x) : '')+'" placeholder="Họ tên" data-lenh="g4.o" data-su="change" data-v="'+r[0]+'"'+(cu ? ' data-cu="'+gdxE(cu)+'"' : '')+'>'+
+    kiem(r, x)+(r[2] ? '<button type="button" class="gdx-x" data-lenh="g4.oBo" data-v="'+r[0]+'"'+(cu ? ' data-cu="'+gdxE(cu)+'"' : '')+' title="'+(cu ? 'Bỏ người này' : 'Bớt dòng trống')+'">×</button>' : '')+'</div>'; };
+  var h = '<div class="g4-o-nhom">'+G4_O.map(function(r){ var co = g4Ai(C, r[0]);
+    if(!r[2]) return o(r, co[0]); var trong = Math.max(0, (G4_SO[r[0]] || 1)-co.length), h2 = co.map(function(x){ return o(r, x, g4Ten(x) || ' '); }).join('');
+    for(var t=0;t<trong;t++) h2 += o(r, null);
+    return h2+'<div class="g4-o"><span class="g4-o-vai"></span><button type="button" class="nho" data-lenh="g4.oThem" data-v="'+r[0]+'">＋ thêm '+(r[0]==='ksv' ? 'KSV' : 'GDV')+'</button></div>'; }).join('')+'</div>';
   var ten = {}; cb.concat(ds.map(g4Ten)).forEach(function(n){ if(n) ten[n] = 1; });
   h += '<datalist id="g4-cb">'+Object.keys(ten).map(function(n){ return '<option value="'+gdxE(n)+'">'; }).join('')+'</datalist>';
   h += '<div class="gdx-chips">'+(ds.length ? nut('⭐ Lưu tổ hay dùng', 'hayLuu', null, 'Lưu tổ này để phiên sau chọn lại')+nut('🗑 Xóa hết', 'xoa') : '')+'</div>';
@@ -93,12 +104,6 @@ function g4PaGan(ds, v){
   else { moi('lx'); tt.vai.push('bvd'); }
   return '';
 }
-/* bấm vai (1 Tổ trưởng · 1 GDV chính; GDV chính thay GDV) — THUẦN */
-function g4VaiDoi(ds, i, v){ var x = ds[i]; if(!x) return; x.vai = x.vai || [];
-  if(x.vai.indexOf(v)>=0){ x.vai = x.vai.filter(function(a){ return a!==v; }); return; }
-  if(v==='tt' || v==='gdvc') ds.forEach(function(o){ o.vai = (o.vai || []).filter(function(a){ return a!==v; }); });
-  if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv'; }); if(v==='gdv' && x.vai.indexOf('gdvc')>=0) return;
-  x.vai.push(v); }
 function g4Sau(){ var C = gdxC(), a = document.activeElement, giu = a && a.classList && a.classList.contains('g4-to-ten') ? Array.prototype.indexOf.call(document.querySelectorAll('.g4-to-ten'), a) : -1;   /* 3.510: vị trí ô (khung cố định không có data-i) */
   g4DongBo(C); gdxLuu(); gdxVe();
   if(giu>=0) setTimeout(function(){ var e = document.querySelectorAll('.g4-to-ten')[giu]; if(e){ e.focus(); try { e.select(); } catch(er){} } }, 0); }   /* vẽ lại xong vẫn đứng ở ô đang gõ (QUY_CHUAN 11) */
@@ -109,12 +114,10 @@ document.addEventListener('keydown', function(ev){ var e = ev.target; if(!e || !
   if(j>=ds.length) return;   /* 3.510: khung cố định — ô cuối không thêm dòng */
   ds[j].focus(); });
 gdDangKy('g4', gdLenh({
-  ten:function(el){ var ds = g4To(), i = +el.getAttribute('data-i'); if(ds[i]) ds[i].ten = String(el.value || '').replace(/\s+/g, ' ').trim(); g4Sau(); },
-  vai:function(el){ g4VaiDoi(g4To(), +el.getAttribute('data-i'), el.getAttribute('data-v')); g4Sau(); },
-  o:function(el){ var v = el.getAttribute('data-v'), r = [].concat(G4_O[0], G4_O[1]).filter(function(x){ return x[0]===v; })[0]; g4OGan(g4To(), v, el.value, el.getAttribute('data-cu'), !!(r && r[2])); g4Sau(); },   /* 3.510 khung cố định */
-  oBo:function(el){ g4OGan(g4To(), el.getAttribute('data-v'), '', el.getAttribute('data-cu'), true); g4Sau(); },
-  them:function(){ g4To().push({ten:'', vai:[]}); g4Sau(); setTimeout(function(){ var a = document.querySelectorAll('.g4-to-ten'); if(a.length) a[a.length-1].focus(); }, 60); },
-  bo:function(el){ g4To().splice(+el.getAttribute('data-i'), 1); g4Sau(); },
+  o:function(el){ var v = el.getAttribute('data-v'), r = G4_O.filter(function(x){ return x[0]===v; })[0]; g4OGan(g4To(), v, el.value, el.getAttribute('data-cu'), !!(r && r[2])); g4Sau(); },   /* 3.510 khung cố định */
+  kiem:function(el){ g4KiemDoi(g4To(), el.getAttribute('data-cu'), el.getAttribute('data-k')); g4Sau(); },   /* 3.510 kiêm lái xe / bảo vệ */
+  oBo:function(el){ var v = el.getAttribute('data-v'), cu = el.getAttribute('data-cu'); if(cu) g4OGan(g4To(), v, '', cu, true); else G4_SO[v] = Math.max(0, Math.max(G4_SO[v] || 0, g4Ai(gdxC(), v).length+1)-1); g4Sau(); },
+  oThem:function(el){ var v = el.getAttribute('data-v'); G4_SO[v] = Math.max(G4_SO[v] || 0, g4Ai(gdxC(), v).length)+1; g4Sau(); setTimeout(function(){ var a = document.querySelectorAll('[data-lenh="g4.o"][data-v="'+v+'"]:not([data-cu])'); if(a.length) a[a.length-1].focus(); }, 60); },
   xoa:function(){ if(!confirm('Xóa hết thành viên Tổ giao dịch đang khai?')) return; gdxC().g4To = []; gdxLuu(); gdxVe(); },
   hayLuu:function(){ var C = gdxC(), d = gdxDiem(C.m12SelectedDiem), t = prompt('Tên tổ hay dùng:', d ? 'Tổ '+d.tenDiem : 'Tổ '+((C.g4ToHay || []).length+1)); if(!t) return;
     C.g4ToHay = (C.g4ToHay || []).filter(function(o){ return o.ten!==t.trim(); }); C.g4ToHay.unshift({ten:t.trim(), ds:JSON.parse(JSON.stringify(g4To(C)))}); C.g4ToHay = C.g4ToHay.slice(0, 20); gdxLuu(); gdxVe(); },

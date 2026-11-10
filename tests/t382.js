@@ -29,35 +29,42 @@ const fs = require('fs'), path = require('path');
    gdxDoiMau('g03'); await w(400);
    const to = () => gdxC().g4To;
    o.moi = to().length===2 && to()[0].ten==='Cán Bộ Giả A' && to()[0].vai.join()==='tt' && to()[1].vai.join()==='gdvc' && !!document.getElementById('gdx-m-g4to');
-   const thuTu = [...document.querySelectorAll('#gdx-m-g4to .g4-o-vai')].map(e => e.textContent).join('|');
-   o.khung = /^Tổ trưởng\|Kiểm soát viên\|GDV chính\|Giao dịch viên\|Lái xe\|Bảo vệ đường\|Bảo vệ tại điểm/.test(thuTu) && !document.querySelector('#gdx-m-g4to [data-lenh="g4.vai"]'); o.thuTu = thuTu;
-   /* điền KSV, GDV, người ngoài bảo vệ tại điểm vào đúng ô */
-   await oGo('ksv', 'Kiểm Soát Giả C'); await oGo('gdv', 'Giao Dịch Giả D'); await oGo('bvt', 'Bảo Vệ Thuê Giả E');
-   o.tuThem = to().length===5 && co('Kiểm Soát Giả C', 'ksv') && co('Giao Dịch Giả D', 'gdv') && co('Bảo Vệ Thuê Giả E', 'bvt');
-   /* 1 GDV chính: gõ D vào ô GDV chính → D thôi GDV, B thôi GDV chính */
-   await oGo('gdvc', 'Giao Dịch Giả D'); o.mot = ai('Giao Dịch Giả D').vai.join()==='gdvc' && !co('Cán Bộ Giả B', 'gdvc');
+   const thuTu = [...document.querySelectorAll('#gdx-m-g4to .g4-o-vai')].map(e => e.textContent).filter(Boolean).join('|');
+   o.khung = thuTu==='Tổ trưởng|Kiểm soát viên|GDV chính|Giao dịch viên|Giao dịch viên|Giao dịch viên' && !document.querySelector('#gdx-m-g4to [data-lenh="g4.vai"]') && !!document.querySelector('[data-lenh="g4.oThem"][data-v="ksv"]') && !!document.querySelector('[data-lenh="g4.oThem"][data-v="gdv"]'); o.thuTu = thuTu;
+   /* điền KSV, GDV vào đúng ô */
+   await oGo('ksv', 'Kiểm Soát Giả C'); await oGo('gdv', 'Giao Dịch Giả D');
+   o.tuThem = to().length===4 && co('Kiểm Soát Giả C', 'ksv') && co('Giao Dịch Giả D', 'gdv') && document.querySelectorAll('[data-lenh="g4.o"][data-v="gdv"]').length===3;
+   /* GDV: ＋ thêm → 4 dòng · × dòng trống → bớt */
+   await bam('[data-lenh="g4.oThem"][data-v="gdv"]'); const g4n = document.querySelectorAll('[data-lenh="g4.o"][data-v="gdv"]').length;
+   await bam('[data-lenh="g4.oBo"][data-v="gdv"]:not([data-cu])'); await bam('[data-lenh="g4.oBo"][data-v="gdv"]:not([data-cu])');
+   o.themXoa = g4n===4 && document.querySelectorAll('[data-lenh="g4.o"][data-v="gdv"]').length===2;
+   /* 1 GDV chính: gõ D vào ô GDV chính → D thôi GDV, B thôi GDV chính (không còn vai → bỏ) */
+   await oGo('gdvc', 'Giao Dịch Giả D'); o.mot = ai('Giao Dịch Giả D').vai.join()==='gdvc' && !to().some(x => x.ten==='Cán Bộ Giả B');
    o.dongBo = gdxC().m12GDV==='Giao Dịch Giả D' && gdxC().m12KSV==='Kiểm Soát Giả C' && gdxC().m12ToTruong==='Cán Bộ Giả A';
    await oGo('gdvc', 'Cán Bộ Giả B'); await oGo('gdv', 'Giao Dịch Giả D');   /* trả lại: B GDV chính, D GDV */
    /* quy tắc: chưa có lái xe / bảo vệ đường */
    const canh = () => gdxTom().canh.map(x => x.muc+':'+x.chu).join(' | ');
    o.thieuDuong = /vang:Đi đường: chưa có lái xe/.test(canh()) && /vang:Đi đường: chưa có bảo vệ/.test(canh());
-   /* PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ (PA gán trên cùng dữ liệu) */
-   await bam('[data-lenh="g4.pa"][data-v="2"]');
-   o.pa2 = co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'lx') && !/Đi đường/.test(canh());
-   await bam('[data-lenh="g4.pa"][data-v="1"]');
-   o.pa1 = co('Cán Bộ Giả A', 'lx') && !co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'bvd') && !co('Kiểm Soát Giả C', 'lx');
+   /* PA 2 / PA 1 vẫn gán trên cùng dữ liệu */
+   await bam('[data-lenh="g4.pa"][data-v="2"]'); o.pa2 = co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'lx');
+   await bam('[data-lenh="g4.pa"][data-v="1"]'); o.pa1 = co('Cán Bộ Giả A', 'lx') && !co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'bvd') && !co('Kiểm Soát Giả C', 'lx');
+   /* 3.510 kiêm nhiệm (anh "Tổ trưởng kiêm bảo vệ, KSV hoặc GDV kiêm lái xe"): nút 🚗 Lái xe · 🛡 Bảo vệ ở dòng; Bảo vệ = đường + tại điểm */
+   const kiem = (t, k) => bam('[data-lenh="g4.kiem"][data-cu="'+t+'"][data-k="'+k+'"]');
+   await kiem('Cán Bộ Giả A', 'lx'); await kiem('Cán Bộ Giả A', 'bv'); await kiem('Kiểm Soát Giả C', 'bv'); await kiem('Kiểm Soát Giả C', 'lx');
+   o.kiem = co('Cán Bộ Giả A', 'bvd') && co('Cán Bộ Giả A', 'bvt') && !co('Cán Bộ Giả A', 'lx') && co('Kiểm Soát Giả C', 'lx') && !co('Kiểm Soát Giả C', 'bvd') && document.querySelector('[data-lenh="g4.kiem"][data-cu="Cán Bộ Giả A"][data-k="bv"]').classList.contains('bat');
+   await kiem('Giao Dịch Giả D', 'lx'); o.motLai = co('Giao Dịch Giả D', 'lx') && !co('Kiểm Soát Giả C', 'lx'); await kiem('Kiểm Soát Giả C', 'lx');
    o.dungQD = !canh() && /Đúng quy định thành phần/.test(document.querySelector('.g4-to-canh').textContent);
-   /* Tổ trưởng kiêm KSV + bảo vệ tại điểm → đỏ (gõ cùng tên Tổ trưởng vào ô KSV và thêm ô Bảo vệ tại điểm) */
-   await oGo('ksv', 'Cán Bộ Giả A'); await oGo('bvt', 'Cán Bộ Giả A'); o.ttKiem = /do:Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên/.test(canh()) && /kiêm/.test(document.querySelector('#gdx-m-g4to').textContent);
-   await bam('[data-lenh="g4.oBo"][data-v="bvt"][data-cu="Cán Bộ Giả A"]'); await oGo('ksv', 'Kiểm Soát Giả C');
-   /* GDV chính lái xe → đỏ */
-   await oGo('lx', 'Cán Bộ Giả B'); o.gdvcLai = /do:GDV chính là người áp tải/.test(canh()); await oGo('lx', 'Cán Bộ Giả A');
+   /* Tổ trưởng kiêm KSV (＋ thêm KSV, gõ cùng tên) + bảo vệ → đỏ */
+   await bam('[data-lenh="g4.oThem"][data-v="ksv"]'); await oGo('ksv', 'Cán Bộ Giả A'); o.ttKiem = /do:Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên/.test(canh()) && document.querySelectorAll('[data-lenh="g4.o"][data-v="ksv"][data-cu]').length===2;
+   await bam('[data-lenh="g4.oBo"][data-v="ksv"][data-cu="Cán Bộ Giả A"]'); await bam('[data-lenh="g4.oBo"][data-v="ksv"]:not([data-cu])');
+   /* GDV chính (áp tải) không có nút kiêm */
+   o.gdvcLai = !document.querySelector('[data-lenh="g4.kiem"][data-cu="Cán Bộ Giả B"]') && !!document.querySelector('[data-lenh="g4.kiem"][data-cu="Giao Dịch Giả D"]');
    /* 03/GDX */
    gdxDat('g4Xe', 'Ô tô / 70A-000.00', 1); gdxDat('g4CCHT', 'Dùi cui điện / 000 / 000', 1); await w(300);
    const t3 = fd(), d = gdxDiem(gdxC().m12SelectedDiem);
-   o.p1 = /1 Cán Bộ Giả B Áp tải/.test(t3) && /2 Cán Bộ Giả A Lái xe/.test(t3) && /3 Kiểm Soát Giả C Bảo vệ/.test(t3) && t3.indexOf('Ô tô / 70A-000.00')>=0 && t3.indexOf('Dùi cui điện / 000 / 000')>=0;
+   o.p1 = /1 Cán Bộ Giả B Áp tải/.test(t3) && /2 Kiểm Soát Giả C Lái xe/.test(t3) && /3 Cán Bộ Giả A Bảo vệ/.test(t3) && t3.indexOf('Ô tô / 70A-000.00')>=0 && t3.indexOf('Dùi cui điện / 000 / 000')>=0;
    o.noi = t3.indexOf('Nơi đi: Trụ sở Phòng giao dịch NHCSXH Gò Dầu')>=0 && t3.indexOf('Nơi đến: Điểm giao dịch '+d.tenDiem)>=0;
-   o.p2 = /1 Cán Bộ Giả A Tổ trưởng Thiết bị kết nối mạng/.test(t3) && /2 Kiểm Soát Giả C Kiểm soát viên/.test(t3) && /3 Cán Bộ Giả B Giao dịch viên chính Thùng đựng tiền/.test(t3) && /4 Giao Dịch Giả D Giao dịch viên/.test(t3) && /5 Bảo Vệ Thuê Giả E Bảo vệ Dùi cui điện/.test(t3);
+   o.p2 = /1 Cán Bộ Giả A Tổ trưởng Thiết bị kết nối mạng/.test(t3) && /2 Kiểm Soát Giả C Kiểm soát viên/.test(t3) && /3 Cán Bộ Giả B Giao dịch viên chính Thùng đựng tiền/.test(t3) && /4 Giao Dịch Giả D Giao dịch viên/.test(t3) && /5 Cán Bộ Giả A Bảo vệ Dùi cui điện/.test(t3);
    o.to2 = document.getElementById('gdx-khung').contentDocument.querySelectorAll('.sheet-a4').length;
    /* 3.497 — bàn phím (QUY_CHUAN 11): Enter ở ô tên → ô kế; ở ô cuối → thêm người; Shift+Enter → ô trước */
    { const phim = (e, k, sh) => e.dispatchEvent(new KeyboardEvent('keydown', {key:k, shiftKey:!!sh, bubbles:true}));
@@ -76,7 +83,7 @@ const fs = require('fs'), path = require('path');
    /* ⭐ tổ hay dùng */
    const pr = window.prompt; window.prompt = () => 'Tổ Giả'; await bam('[data-lenh="g4.hayLuu"]'); window.prompt = pr;
    gdxC().g4To = []; gdxVe(); await w(200); gdxC().g4To = [{ten:'X', vai:[]}]; gdxVe(); await w(200);
-   await bam('[data-lenh="g4.hay"][data-i="0"]'); o.hay = to().length===5 && co('Bảo Vệ Thuê Giả E', 'bvt') && gdxC().g4ToHay[0].ten==='Tổ Giả';
+   await bam('[data-lenh="g4.hay"][data-i="0"]'); o.hay = to().length===4 && co('Cán Bộ Giả A', 'bvt') && co('Kiểm Soát Giả C', 'lx') && gdxC().g4ToHay[0].ten==='Tổ Giả';
    o.nk = !('g4ToHay' in gdxChup().C) && Array.isArray(gdxChup().C.g4To);
    /* 12/GDX: tên khai tay hiện ở ô chọn */
    gdxDoiMau('m12'); await w(300); const sel = [...document.querySelectorAll('select[data-a1="m12KSV"] option')].map(e => e.value);
@@ -84,7 +91,7 @@ const fs = require('fs'), path = require('path');
    /* 📘 Nhiệm vụ */
    gdxDoiMau('gnv'); await w(400); const tn = fd();
    o.nv = ['NHIỆM VỤ TỔ GIAO DỊCH XÃ', 'Quy định chung', 'Trước khi đi', 'Tại điểm giao dịch', 'Sau phiên', 'Kiểm soát viên', 'Lái xe', 'Bảo vệ', '4368/HD-NHCS'].filter(x => tn.indexOf(x)<0);
-   o.nvTen = /Tổ trưởng Cán Bộ Giả A/.test(tn) && /Kiểm Soát Giả C/.test(tn) && /Bảo Vệ Thuê Giả E/.test(tn) && tn.indexOf('Điểm GD: '+d.tenDiem)>=0;
+   o.nvTen = /Tổ trưởng Cán Bộ Giả A/.test(tn) && /Kiểm Soát Giả C/.test(tn) && /Giao Dịch Giả D/.test(tn) && tn.indexOf('Điểm GD: '+d.tenDiem)>=0;
    const X = gdxChup(), B = gdxDung(X); o.ban = gdxTrang(B.than, B.css); o.file = gdxTenFile(X);
    gdxDat('g4CoNV', 9.5, 1); await w(200); o.coCanh = /vang:Chữ 9,5 pt có thể sang mặt 2/.test(canh()); const B2 = gdxDung(gdxChup()); o.ban95 = gdxTrang(B2.than, B2.css); gdxDat('g4CoNV', 8.5, 1);
    gdxDoiMau('g03'); await w(200); const B3 = gdxDung(gdxChup()); o.ban03 = gdxTrang(B3.than, B3.css);
@@ -93,16 +100,18 @@ const fs = require('fs'), path = require('path');
  const n85 = await trang(r.ban), n95 = await trang(r.ban95), n03 = await trang(r.ban03);
  ok('chip 📘 Nhiệm vụ ở dải mẫu', r.chip);
  ok('03/GDX: tổ trống → lấy sẵn Tổ trưởng · GDV (chính) của 12/GDX', r.moi);
- ok('3.510 khung cố định: mỗi vai 1 ô theo thứ tự Tổ trưởng · KSV · GDV chính · GDV · Lái xe · Bảo vệ đường · Bảo vệ tại điểm, không còn chip vai', r.khung, r.thuTu);
- ok('gõ tên vào ô vai KSV / GDV / Bảo vệ tại điểm → đúng người, đúng vai', r.tuThem);
+ ok('3.510 khung cố định: Tổ trưởng · KSV · GDV chính · GDV ×3 đúng thứ tự, nút ＋ thêm KSV / GDV, không còn chip vai', r.khung, r.thuTu);
+ ok('gõ tên vào ô KSV / GDV → đúng người, đúng vai; GDV mặc định 3 dòng', r.tuThem);
+ ok('＋ thêm GDV → thêm dòng; × dòng trống → bớt', r.themXoa);
  ok('chỉ 1 GDV chính: gõ người khác vào ô → người cũ mất vai', r.mot);
  ok('đồng bộ 12/GDX: Tổ trưởng · KSV · GDV = GDV chính', r.dongBo);
  ok('quy tắc: chưa có lái xe / bảo vệ đường → cảnh báo vàng', r.thieuDuong);
  ok('PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ', r.pa2);
  ok('PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ (bỏ gán cũ)', r.pa1);
+ ok('kiêm nhiệm: Tổ trưởng 🛡 Bảo vệ (đường + tại điểm), KSV 🚗 Lái xe; chỉ 1 lái xe', r.kiem && r.motLai);
  ok('đủ thành phần → không cảnh báo, báo ✓ đúng quy định', r.dungQD);
- ok('Tổ trưởng kiêm KSV (cùng tên 2 ô, hiện "kiêm") + bảo vệ tại điểm → ⛔', r.ttKiem);
- ok('GDV chính lái xe → ⛔ (áp tải)', r.gdvcLai);
+ ok('＋ thêm KSV, Tổ trưởng kiêm KSV + bảo vệ → ⛔', r.ttKiem);
+ ok('GDV chính (áp tải) không có nút kiêm lái xe / bảo vệ', r.gdvcLai);
  ok('03/GDX Phần I: áp tải = GDV chính, lái xe, bảo vệ, phương tiện, công cụ hỗ trợ', r.p1);
  ok('03/GDX Phần I: nơi đi / nơi đến tự ghi (trụ sở PGD ↔ điểm GD)', r.noi);
  ok('03/GDX Phần II: mỗi vai 1 dòng + CCDC theo vai', r.p2);
