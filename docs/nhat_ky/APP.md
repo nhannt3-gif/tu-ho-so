@@ -1,6 +1,6 @@
 # Nhật ký vai: App chính
 
-> Hiện do: **TK 3** (nhận lại 10/11 từ TK 2, anh 10/11 "em nhận vai") · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
+> Hiện do: **TK 2** (nhận lại 10/11 từ TK 3, anh 10/11 "đọc trạng thái làm tiếp của TK bàn giao") · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
 > **Mẫu mục** (thêm ở ĐẦU danh sách, mới nhất trên cùng; không dữ liệu khách / tên tổ trưởng / mã tổ):
 >
 > ```
@@ -11,6 +11,16 @@
 > - Chờ ai: anh / TK … (việc gì)
 > - Lưu ý / bẫy: …
 > ```
+
+### 10/11/2026 — TK 2 · NHẬN VAI App chính (từ TK 3, anh 10/11 "đọc trạng thái làm tiếp của TK bàn giao")
+- Đã đọc: mục TK 3 10/11 (NHẬN VAI, 3.510, 3.511 — mục 3.511 chép từ nhánh `claude/busy-curie-2qescm` chưa gộp) + CHANGELOG 3.510–3.511. Nhánh TK 3: nháp 3.512 (nút kiêm chỉ biểu tượng) TK 3 đã tự hoàn lại theo anh "giữ như cũ" — không có code dở.
+- Trạng thái nhận: `main` = **3.511** (PR #531), `kiem.py` trong mốc. Số bản tiếp theo = **3.512**.
+- Chờ anh (từ TK 3): thử máy thật 3.510–3.511 (03/GDX Tổ GD khung cố định, 💾 phiên theo điểm, ô chọn cán bộ, kiêm theo vai); giờ phiên thật (tạm 07:30–11:00); mẫu chấm công / xăng / lệnh điều xe nếu có (đọc qua `g4PhanCong`).
+- Việc còn treo (từ TK 2 trước): GDX 01/02/04/05/13 · 01–03/KH (làm bằng `MAU_IN`, cần mẫu gốc) · đợt chuẩn hóa đề xuất 09/11 (onclick, mô tả sổ cấu hình, tách js/26) chờ anh duyệt.
+
+### 10/11/2026 — TK 3 · PHIÊN (3.511 gộp #531)
+- Đã làm: Tổ GD ô chọn từ danh sách khai báo cán bộ (loại trừ, trừ Tổ trưởng ↔ KSV); kiêm theo vai (Tổ trưởng: Bảo vệ · KSV / GDV: Lái xe · GDV chính: không); bỏ mục Phương án đi đường PA 1/2/3 (anh "chưa cần"). Hồi quy theo đổi đạt.
+- Chờ anh: thử máy thật 3.510–3.511.
 
 ### 10/11/2026 — TK 3 · PHIÊN (3.510 gộp #530)
 - Đã làm: 03/GDX 👥 Tổ GD khung cố định (Tổ trưởng · KSV ＋ · GDV chính · GDV ×3 ＋/×; kiêm 🚗 Lái xe · 🛡 Bảo vệ; loại trừ, chỉ Tổ trưởng kiêm KSV) · 💾 phiên theo điểm + ngày (`gdx.g4Phien`, v = 1, giờ cố định ⚙, km theo điểm), xem theo tháng, Mở / 🖨 12/GDX, ⚠ thiếu phiên từ 11/2026 + khai bổ sung, `g4PhanCong` + 📊 Excel tháng. Hồi quy theo đổi đạt.

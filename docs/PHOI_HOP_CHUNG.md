@@ -24,7 +24,7 @@
 
 | Vai | Hiện do | Làm gì | Cửa / quyền ghi | Nhật ký vai |
 |---|---|---|---|---|
-| **App chính** | TK 3 (nhận lại 10/11 từ TK 2) | `index.html`, kho số liệu, nạp file, luật app, bộ số / nháp văn bản đối chiếu, giữ sổ chung gọn | Claude Code trên repo — PR, gộp khi anh nhắn "gộp" | `docs/nhat_ky/APP.md` |
+| **App chính** | TK 2 (nhận lại 10/11 từ TK 3) | `index.html`, kho số liệu, nạp file, luật app, bộ số / nháp văn bản đối chiếu, giữ sổ chung gọn | Claude Code trên repo — PR, gộp khi anh nhắn "gộp" | `docs/nhat_ky/APP.md` |
 | **App phụ** | TK 3 (kiêm) | `dt.html`, Văn bản + Scan (`css/dt-may-vbsc.css`), việc nhỏ không đụng kế hoạch lớn | Claude Code trên repo — như App chính, số bản theo `PHOI_HOP_TK2_TK3.md` mục 2 | `docs/nhat_ky/APP_PHU.md` |
 | **Giao ban** | TK 1 | Đọc số liệu thật trên Drive, đưa thuật toán / đáp án; văn bản chính thức; sổ luật, phép thử chung | Project chat — ghi repo qua PR nhánh riêng, không ghi thẳng `main` | `docs/nhat_ky/GIAO_BAN.md` |
 | **Kiểm toán và đề xuất** (khi anh gọi — anh chốt 01/11 23:07) | Gemini | Soát code, số liệu, văn bản của App và Giao ban; nêu phát hiện **kèm căn cứ** theo mẫu mục 1c. **Không** tự sửa code / dữ liệu / văn bản chính thức, **không** tự ghi "anh đã duyệt", **không** nhận vai App hay Giao ban. Việc phụ khi anh gọi: tóm văn bản chỉ đạo mới, đọc PDF KQGD | Báo cáo đặt ở Drive `0 Hop giao ban\00_GEMINI\` (tên `KIEM_TOAN_<việc>_<dd-mm-yyyy>.md`). Bên nhận (App / Giao ban) kiểm lại trên code + số thật → **đúng:** báo anh duyệt rồi mới làm · **sai:** báo anh lý do rồi bỏ; kết quả ghi hộp thư mục 14. Không có quyền repo — anh dán nhật ký | `docs/nhat_ky/GEMINI.md` |
