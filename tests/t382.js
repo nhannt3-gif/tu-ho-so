@@ -22,34 +22,36 @@ const fs = require('fs'), path = require('path');
    slDoiTab('gdx'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#gdx-cay .loc-khoi');i++) await w(200); await w(400);
    const fd = () => chu(document.getElementById('gdx-khung').contentDocument.body.innerHTML);
    const bam = async (sel) => { const e = document.querySelector(sel); if(!e) return false; e.click(); await w(250); return true; };
-   const go = async (i, v) => { const e = document.querySelectorAll('.g4-to-ten')[i]; e.value = v; e.dispatchEvent(new Event('change', {bubbles:true})); await w(250); };
-   const vai = (i, v) => bam('[data-lenh="g4.vai"][data-i="'+i+'"][data-v="'+v+'"]');
+   /* 3.510 (anh 10/11 "khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv"): mỗi vai 1 ô; cùng tên ở 2 ô = kiêm */
+   const oGo = async (v, ten, cu) => { const e = [...document.querySelectorAll('[data-lenh="g4.o"][data-v="'+v+'"]')].find(x => cu ? x.getAttribute('data-cu')===cu : !x.getAttribute('data-cu')); if(!e) return false; e.value = ten; e.dispatchEvent(new Event('change', {bubbles:true})); await w(250); return true; };
+   const ai = t => gdxC().g4To.find(x => x.ten===t) || {vai:[]}, co = (t, v) => ai(t).vai.indexOf(v)>=0;
    o.chip = [...document.querySelectorAll('.gdx2-mau .gdx-c')].some(e => /📘 Nhiệm vụ/.test(e.textContent));
    gdxDoiMau('g03'); await w(400);
    const to = () => gdxC().g4To;
    o.moi = to().length===2 && to()[0].ten==='Cán Bộ Giả A' && to()[0].vai.join()==='tt' && to()[1].vai.join()==='gdvc' && !!document.getElementById('gdx-m-g4to');
-   /* thêm 3 người: KSV, GDV, người ngoài bảo vệ */
-   await bam('[data-lenh="g4.them"]'); await go(2, 'Kiểm Soát Giả C'); await vai(2, 'ksv');
-   await bam('[data-lenh="g4.them"]'); await go(3, 'Giao Dịch Giả D'); await vai(3, 'gdv');
-   await bam('[data-lenh="g4.them"]'); await go(4, 'Bảo Vệ Thuê Giả E'); await vai(4, 'bvt');
-   o.tuThem = to().length===5 && to()[2].ten==='Kiểm Soát Giả C' && to()[2].vai.join()==='ksv';
-   /* 1 GDV chính: bấm GDV chính ở D → B mất vai */
-   await vai(3, 'gdvc'); o.mot = to()[3].vai.join()==='gdvc' && to()[1].vai.indexOf('gdvc')<0;
+   const thuTu = [...document.querySelectorAll('#gdx-m-g4to .g4-o-vai')].map(e => e.textContent).join('|');
+   o.khung = /^Tổ trưởng\|Kiểm soát viên\|GDV chính\|Giao dịch viên\|Lái xe\|Bảo vệ đường\|Bảo vệ tại điểm/.test(thuTu) && !document.querySelector('#gdx-m-g4to [data-lenh="g4.vai"]'); o.thuTu = thuTu;
+   /* điền KSV, GDV, người ngoài bảo vệ tại điểm vào đúng ô */
+   await oGo('ksv', 'Kiểm Soát Giả C'); await oGo('gdv', 'Giao Dịch Giả D'); await oGo('bvt', 'Bảo Vệ Thuê Giả E');
+   o.tuThem = to().length===5 && co('Kiểm Soát Giả C', 'ksv') && co('Giao Dịch Giả D', 'gdv') && co('Bảo Vệ Thuê Giả E', 'bvt');
+   /* 1 GDV chính: gõ D vào ô GDV chính → D thôi GDV, B thôi GDV chính */
+   await oGo('gdvc', 'Giao Dịch Giả D'); o.mot = ai('Giao Dịch Giả D').vai.join()==='gdvc' && !co('Cán Bộ Giả B', 'gdvc');
    o.dongBo = gdxC().m12GDV==='Giao Dịch Giả D' && gdxC().m12KSV==='Kiểm Soát Giả C' && gdxC().m12ToTruong==='Cán Bộ Giả A';
-   await vai(1, 'gdvc'); await vai(3, 'gdv');   /* trả lại: B GDV chính, D GDV */
+   await oGo('gdvc', 'Cán Bộ Giả B'); await oGo('gdv', 'Giao Dịch Giả D');   /* trả lại: B GDV chính, D GDV */
    /* quy tắc: chưa có lái xe / bảo vệ đường */
    const canh = () => gdxTom().canh.map(x => x.muc+':'+x.chu).join(' | ');
    o.thieuDuong = /vang:Đi đường: chưa có lái xe/.test(canh()) && /vang:Đi đường: chưa có bảo vệ/.test(canh());
-   /* PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ */
+   /* PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ (PA gán trên cùng dữ liệu) */
    await bam('[data-lenh="g4.pa"][data-v="2"]');
-   o.pa2 = to()[0].vai.indexOf('bvd')>=0 && to()[2].vai.indexOf('lx')>=0 && !/Đi đường/.test(canh());
+   o.pa2 = co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'lx') && !/Đi đường/.test(canh());
    await bam('[data-lenh="g4.pa"][data-v="1"]');
-   o.pa1 = to()[0].vai.indexOf('lx')>=0 && to()[0].vai.indexOf('bvd')<0 && to()[2].vai.indexOf('bvd')>=0 && to()[2].vai.indexOf('lx')<0;
+   o.pa1 = co('Cán Bộ Giả A', 'lx') && !co('Cán Bộ Giả A', 'bvd') && co('Kiểm Soát Giả C', 'bvd') && !co('Kiểm Soát Giả C', 'lx');
    o.dungQD = !canh() && /Đúng quy định thành phần/.test(document.querySelector('.g4-to-canh').textContent);
-   /* Tổ trưởng kiêm KSV + bảo vệ tại điểm → đỏ */
-   await vai(0, 'ksv'); await vai(0, 'bvt'); o.ttKiem = /do:Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên/.test(canh()); await vai(0, 'bvt'); await vai(0, 'ksv');
+   /* Tổ trưởng kiêm KSV + bảo vệ tại điểm → đỏ (gõ cùng tên Tổ trưởng vào ô KSV và thêm ô Bảo vệ tại điểm) */
+   await oGo('ksv', 'Cán Bộ Giả A'); await oGo('bvt', 'Cán Bộ Giả A'); o.ttKiem = /do:Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên/.test(canh()) && /kiêm/.test(document.querySelector('#gdx-m-g4to').textContent);
+   await bam('[data-lenh="g4.oBo"][data-v="bvt"][data-cu="Cán Bộ Giả A"]'); await oGo('ksv', 'Kiểm Soát Giả C');
    /* GDV chính lái xe → đỏ */
-   await vai(1, 'lx'); o.gdvcLai = /do:GDV chính là người áp tải/.test(canh()); await vai(1, 'lx');
+   await oGo('lx', 'Cán Bộ Giả B'); o.gdvcLai = /do:GDV chính là người áp tải/.test(canh()); await oGo('lx', 'Cán Bộ Giả A');
    /* 03/GDX */
    gdxDat('g4Xe', 'Ô tô / 70A-000.00', 1); gdxDat('g4CCHT', 'Dùi cui điện / 000 / 000', 1); await w(300);
    const t3 = fd(), d = gdxDiem(gdxC().m12SelectedDiem);
@@ -63,10 +65,10 @@ const fs = require('fs'), path = require('path');
      o.phimKe = document.activeElement===document.querySelectorAll('.g4-to-ten')[1];
      phim(document.activeElement, 'Enter', 1); await w(150); o.phimLui = document.activeElement===document.querySelectorAll('.g4-to-ten')[0];
      const n0 = to().length, ds = document.querySelectorAll('.g4-to-ten'), cuoi = ds[ds.length-1]; cuoi.focus(); phim(cuoi, 'Enter'); await w(300);
-     o.phimThem = to().length===n0+1 && document.activeElement===document.querySelectorAll('.g4-to-ten')[n0];
-     const e2 = document.querySelectorAll('.g4-to-ten')[n0]; e2.value = 'Gõ Phím Giả'; e2.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
-     o.phimGiu = to()[n0].ten==='Gõ Phím Giả' && document.activeElement && document.activeElement.classList.contains('g4-to-ten');
-     to().splice(n0, 1); gdxVe(); await w(200); }
+     o.phimThem = to().length===n0 && document.activeElement===cuoi;   /* 3.510 khung cố định: ô cuối không thêm dòng */
+     const e2 = document.querySelectorAll('[data-lenh="g4.o"][data-v="gdv"]:not([data-cu])')[0]; e2.focus(); e2.value = 'Gõ Phím Giả'; e2.dispatchEvent(new Event('change', {bubbles:true})); await w(300);
+     o.phimGiu = co('Gõ Phím Giả', 'gdv') && document.activeElement && document.activeElement.classList.contains('g4-to-ten');
+     await bam('[data-lenh="g4.oBo"][data-v="gdv"][data-cu="Gõ Phím Giả"]'); o.oBo = !to().some(x => x.ten==='Gõ Phím Giả'); }
    /* thuần (QT-19): g4KiemTo · g4PaGan không cần màn hình */
    { const ds = [{ten:'A', vai:['tt', 'ksv', 'bvt']}, {ten:'B', vai:['gdvc', 'lx']}];
      const k = g4KiemTo({g4To:ds}).map(x => x.muc+':'+x.chu).join('|'); const loi = g4PaGan([{ten:'X', vai:['gdv']}], '1');
@@ -74,7 +76,7 @@ const fs = require('fs'), path = require('path');
    /* ⭐ tổ hay dùng */
    const pr = window.prompt; window.prompt = () => 'Tổ Giả'; await bam('[data-lenh="g4.hayLuu"]'); window.prompt = pr;
    gdxC().g4To = []; gdxVe(); await w(200); gdxC().g4To = [{ten:'X', vai:[]}]; gdxVe(); await w(200);
-   await bam('[data-lenh="g4.hay"][data-i="0"]'); o.hay = to().length===5 && to()[4].ten==='Bảo Vệ Thuê Giả E' && gdxC().g4ToHay[0].ten==='Tổ Giả';
+   await bam('[data-lenh="g4.hay"][data-i="0"]'); o.hay = to().length===5 && co('Bảo Vệ Thuê Giả E', 'bvt') && gdxC().g4ToHay[0].ten==='Tổ Giả';
    o.nk = !('g4ToHay' in gdxChup().C) && Array.isArray(gdxChup().C.g4To);
    /* 12/GDX: tên khai tay hiện ở ô chọn */
    gdxDoiMau('m12'); await w(300); const sel = [...document.querySelectorAll('select[data-a1="m12KSV"] option')].map(e => e.value);
@@ -91,21 +93,22 @@ const fs = require('fs'), path = require('path');
  const n85 = await trang(r.ban), n95 = await trang(r.ban95), n03 = await trang(r.ban03);
  ok('chip 📘 Nhiệm vụ ở dải mẫu', r.chip);
  ok('03/GDX: tổ trống → lấy sẵn Tổ trưởng · GDV (chính) của 12/GDX', r.moi);
- ok('thêm người, gõ tên, bấm vai', r.tuThem);
- ok('chỉ 1 GDV chính: bấm ở người khác → người cũ mất vai', r.mot);
+ ok('3.510 khung cố định: mỗi vai 1 ô theo thứ tự Tổ trưởng · KSV · GDV chính · GDV · Lái xe · Bảo vệ đường · Bảo vệ tại điểm, không còn chip vai', r.khung, r.thuTu);
+ ok('gõ tên vào ô vai KSV / GDV / Bảo vệ tại điểm → đúng người, đúng vai', r.tuThem);
+ ok('chỉ 1 GDV chính: gõ người khác vào ô → người cũ mất vai', r.mot);
  ok('đồng bộ 12/GDX: Tổ trưởng · KSV · GDV = GDV chính', r.dongBo);
  ok('quy tắc: chưa có lái xe / bảo vệ đường → cảnh báo vàng', r.thieuDuong);
  ok('PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ', r.pa2);
  ok('PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ (bỏ gán cũ)', r.pa1);
  ok('đủ thành phần → không cảnh báo, báo ✓ đúng quy định', r.dungQD);
- ok('Tổ trưởng bảo vệ tại điểm + kiêm KSV → ⛔', r.ttKiem);
+ ok('Tổ trưởng kiêm KSV (cùng tên 2 ô, hiện "kiêm") + bảo vệ tại điểm → ⛔', r.ttKiem);
  ok('GDV chính lái xe → ⛔ (áp tải)', r.gdvcLai);
  ok('03/GDX Phần I: áp tải = GDV chính, lái xe, bảo vệ, phương tiện, công cụ hỗ trợ', r.p1);
  ok('03/GDX Phần I: nơi đi / nơi đến tự ghi (trụ sở PGD ↔ điểm GD)', r.noi);
  ok('03/GDX Phần II: mỗi vai 1 dòng + CCDC theo vai', r.p2);
  ok('03/GDX vẫn 2 tờ (xem trước) · in 2 trang', r.to2===2 && n03===2, r.to2+'/'+n03);
  ok('bàn phím: Enter ô tên → ô kế, Shift+Enter → ô trước', r.phimKe && r.phimLui);
- ok('bàn phím: Enter ở ô cuối → thêm người, con trỏ vào ô mới; gõ xong vẫn đứng ở ô tên', r.phimThem && r.phimGiu);
+ ok('bàn phím: Enter ở ô cuối không thêm dòng (khung cố định); gõ xong vẫn đứng ở ô tên; × bỏ người khỏi vai', r.phimThem && r.phimGiu && r.oBo);
  ok('QT-19 thuần: g4KiemTo · g4PaGan chạy không cần màn hình', r.thuan);
  ok('⭐ lưu tổ hay dùng → chọn lại đủ người', r.hay);
  ok('nhật ký in: chụp tổ đang khai, không chụp tổ hay dùng', r.nk);

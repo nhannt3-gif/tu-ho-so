@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.510 — 10/11/2026 — 03/GDX: Tổ giao dịch khung cố định (TK 3)
+- **Anh 10/11** (ảnh 03/GDX khai từng người + chip vai): "làm trước mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv". TK 3 nhận lại vai App chính.
+- **👥 Tổ giao dịch** (js/26c `g4ToHTML`): bỏ khai từng người + bấm chip vai → **mỗi vai 1 ô đúng thứ tự**: nhóm *Tổ giao dịch* — Tổ trưởng · Kiểm soát viên · GDV chính (áp tải) · Giao dịch viên (nhiều người: luôn có ô "＋ thêm"); nhóm *Đi đường · bảo vệ* — Lái xe · Bảo vệ đường · Bảo vệ tại điểm (nhiều người). Gõ hoặc chọn tên (gợi ý = danh sách cán bộ + người đã khai); **cùng tên ở 2 ô = 1 người kiêm** (cạnh ô ghi "kiêm …"); × bỏ người khỏi vai nhiều người. Enter / Tab chuyển ô kế (ô cuối không thêm dòng).
+- Dữ liệu giữ nguyên `g4To = [{ten, vai}]` (hàm thuần mới `g4OGan`): 03/GDX Phần I–II, 📘 Nhiệm vụ, đồng bộ 12/GDX, kiểm QT-19, PA 1/2/3, ⭐ tổ hay dùng không đổi. Người không còn vai nào tự bỏ.
+- t382 viết lại phần khai theo ô (28/28).
+
 ## 3.509 — 09/11/2026 — Biểu 07 cũ: giãn dòng theo mẫu gốc (TK 2)
 - **Anh 09/11** "em xem lại biểu 07 hiện tại chưa giãn dòng và canh lề chuẩn 2,2,3,2" → "biểu 07 cũ".
 - Đối chiếu mẫu gốc `tests/mau_goc/07pb.docx`: lề trên 2 · phải 2 · dưới 2 · trái 3 cm (app đã đúng — `omMg([20, 20, 20, 30])`, khung xem chia trang theo `data-tr-mg`); đoạn thân giãn 1,15 + cách sau 10 pt. App trước: 1,15 + cách trước 6 pt → dày hơn mẫu.

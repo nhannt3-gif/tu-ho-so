@@ -49,15 +49,36 @@ function g4KiemTo(c){
   return r; }
 function g4TomTo(X, lk, cb){ var c = X.C, n = g4To(c).filter(g4Ten).length; lk('g4to', n ? 'Tổ GD '+n+' người' : 'Tổ GD: chưa khai', n ? '' : 'vang');
   g4KiemTo(c).forEach(function(x){ cb(x.muc, x.chu, 'g4to'); }); }
+/* 3.510 (anh 10/11 "làm mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv"): KHUNG CỐ ĐỊNH — mỗi vai 1 dòng đúng thứ tự,
+   gõ / chọn tên vào ô của vai (thay khai từng người + bấm chip). Cùng tên ở 2 ô = 1 người kiêm 2 vai (vd Tổ trưởng kiêm KSV / lái xe / bảo vệ).
+   Dữ liệu giữ nguyên dạng g4To = [{ten, vai}] → 03/GDX, 📘 Nhiệm vụ, 12/GDX, kiểm QT-19, tổ hay dùng, PA 1/2/3 không đổi.
+   [mã vai, nhãn, nhiều người?, gợi ý] — nhóm 1: Tổ giao dịch · nhóm 2: đi đường · bảo vệ */
+var G4_O = [[['tt', 'Tổ trưởng'], ['ksv', 'Kiểm soát viên', 0, 'Tổ trưởng kiêm KSV: gõ cùng tên Tổ trưởng'], ['gdvc', 'GDV chính', 0, 'Giao dịch viên chính — người áp tải'], ['gdv', 'Giao dịch viên', 1]],
+  [['lx', 'Lái xe'], ['bvd', 'Bảo vệ đường', 1], ['bvt', 'Bảo vệ tại điểm', 1]]];
+/* gán tên vào ô vai v — THUẦN (sửa ds tại chỗ). cu = tên đang ở ô (vai nhiều người); ô 1 người: bỏ vai v của mọi người rồi gán */
+function g4OGan(ds, v, ten, cu, nhieu){ var k = function(t){ return String(t || '').replace(/\s+/g, ' ').trim().toLowerCase(); }, bo = function(x){ x.vai = (x.vai || []).filter(function(a){ return a!==v; }); };
+  ten = String(ten || '').replace(/\s+/g, ' ').trim();
+  if(nhieu){ if(cu) ds.forEach(function(x){ if(k(x.ten)===k(cu)) bo(x); }); } else ds.forEach(bo);
+  if(ten){ var x = ds.filter(function(o){ return k(o.ten)===k(ten); })[0]; if(!x){ x = {ten:ten, vai:[]}; ds.push(x); } x.vai = x.vai || [];
+    if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv'; });
+    if(!(v==='gdv' && x.vai.indexOf('gdvc')>=0) && x.vai.indexOf(v)<0) x.vai.push(v); }
+  for(var i=ds.length-1;i>=0;i--) if(!(ds[i].vai || []).length) ds.splice(i, 1);   /* người không còn vai nào → bỏ */
+}
 function g4ToHTML(){
   var C = gdxC(); g4ToMoi(C); var ds = g4To(C), cb = C.danhSachCanBo || [], hay = C.g4ToHay || [];
   var nut = function(chu, lenh, du, tit, lop){ return '<button type="button" class="'+(lop || 'nho')+'" data-lenh="g4.'+lenh+'"'+(du!=null ? ' data-i="'+du+'"' : '')+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; };
-  var h = ds.map(function(x, i){ return '<div class="g4-to-d"><span class="g4-to-so">'+(i+1)+'</span><input class="gdx-i g4-to-ten" list="g4-cb" value="'+gdxE(x.ten || '')+'" placeholder="Họ tên" data-lenh="g4.ten" data-su="change" data-i="'+i+'">'+
-    G4_VAI.map(function(v){ return '<button type="button" class="gdx-c'+((x.vai || []).indexOf(v[0])>=0 ? ' bat' : '')+'" data-lenh="g4.vai" data-i="'+i+'" data-v="'+v[0]+'" title="'+gdxE(v[2])+'">'+v[1]+'</button>'; }).join('')+
-    nut('×', 'bo', i, 'Bỏ người này', 'gdx-x')+'</div>'; }).join('');
-  h += '<datalist id="g4-cb">'+cb.map(function(n){ return '<option value="'+gdxE(n)+'">'; }).join('')+'</datalist>';
-  h += '<div class="gdx-chips">'+nut('＋ Thêm người', 'them', null, 'Gõ tên (hoặc chọn từ danh sách cán bộ) rồi bấm vai — người ngoài (bảo vệ thuê, lái xe, công an) cũng gõ tay')+
-    (ds.length ? nut('⭐ Lưu tổ hay dùng', 'hayLuu', null, 'Lưu tổ này để phiên sau chọn lại')+nut('🗑 Xóa hết', 'xoa') : '')+'</div>';
+  var nhan = {}; G4_VAI.forEach(function(v){ nhan[v[0]] = v[1]; });
+  var kiem = function(x, v){ var a = (x && x.vai || []).filter(function(b){ return b!==v; }).map(function(b){ return nhan[b]; }); return a.length ? '<span class="g4-o-kiem">kiêm '+gdxE(a.join(', '))+'</span>' : ''; };
+  var o = function(r, x, cu){ return '<div class="g4-o"><span class="g4-o-vai"'+(r[3] ? ' title="'+gdxE(r[3])+'"' : '')+'>'+gdxE(r[1])+'</span>'+
+    '<input class="gdx-i g4-to-ten" list="g4-cb" value="'+gdxE(x ? g4Ten(x) : '')+'" placeholder="'+(r[2] && cu===undefined ? '＋ thêm ' : '')+'Họ tên" data-lenh="g4.o" data-su="change" data-v="'+r[0]+'"'+(cu ? ' data-cu="'+gdxE(cu)+'"' : '')+'>'+
+    kiem(x, r[0])+(r[2] && cu ? nut('×', 'oBo', null, 'Bỏ người này khỏi vai '+r[1], 'gdx-x').replace('data-lenh="g4.oBo"', 'data-lenh="g4.oBo" data-v="'+r[0]+'" data-cu="'+gdxE(cu)+'"') : '')+'</div>'; };
+  var nhom = function(L, tieu){ return '<div class="g4-o-nhom"><div class="g4-o-tieu">'+tieu+'</div>'+L.map(function(r){ var co = g4Ai(C, r[0]);
+    if(!r[2]) return o(r, co[0]);
+    return co.map(function(x){ return o(r, x, g4Ten(x) || ' '); }).join('')+o(r, null); }).join('')+'</div>'; };
+  var h = nhom(G4_O[0], 'Tổ giao dịch')+nhom(G4_O[1], 'Đi đường · bảo vệ <small>(cùng tên ở ô trên = kiêm)</small>');
+  var ten = {}; cb.concat(ds.map(g4Ten)).forEach(function(n){ if(n) ten[n] = 1; });
+  h += '<datalist id="g4-cb">'+Object.keys(ten).map(function(n){ return '<option value="'+gdxE(n)+'">'; }).join('')+'</datalist>';
+  h += '<div class="gdx-chips">'+(ds.length ? nut('⭐ Lưu tổ hay dùng', 'hayLuu', null, 'Lưu tổ này để phiên sau chọn lại')+nut('🗑 Xóa hết', 'xoa') : '')+'</div>';
   if(hay.length) h += '<div class="gdx-chips gdx-phu"><span class="gdx-nho2">Tổ hay dùng:</span>'+hay.map(function(t, i){ return '<span class="gdx-mh">'+nut('⭐ '+gdxE(t.ten)+' ('+t.ds.length+')', 'hay', i, t.ds.map(function(x){ return x.ten; }).join(', '), 'gdx-c')+nut('×', 'hayBo', i, 'Xóa tổ hay dùng này', 'gdx-x')+'</span>'; }).join('')+'</div>';
   var k = ds.length ? g4KiemTo(C) : [];
   return h+(k.length ? '<div class="g4-to-canh">'+k.map(function(x){ return '<div class="'+(x.muc==='do' ? 'do' : 'vang')+'">'+(x.muc==='do' ? '⛔ ' : '⚠ ')+gdxE(x.chu)+'</div>'; }).join('')+'</div>' : ds.length ? '<div class="g4-to-canh"><div class="ok">✓ Đúng quy định thành phần Tổ giao dịch (VB 4368).</div></div>' : '');
@@ -78,18 +99,20 @@ function g4VaiDoi(ds, i, v){ var x = ds[i]; if(!x) return; x.vai = x.vai || [];
   if(v==='tt' || v==='gdvc') ds.forEach(function(o){ o.vai = (o.vai || []).filter(function(a){ return a!==v; }); });
   if(v==='gdvc') x.vai = x.vai.filter(function(a){ return a!=='gdv'; }); if(v==='gdv' && x.vai.indexOf('gdvc')>=0) return;
   x.vai.push(v); }
-function g4Sau(){ var C = gdxC(), a = document.activeElement, giu = a && a.classList && a.classList.contains('g4-to-ten') ? +a.getAttribute('data-i') : -1;
+function g4Sau(){ var C = gdxC(), a = document.activeElement, giu = a && a.classList && a.classList.contains('g4-to-ten') ? Array.prototype.indexOf.call(document.querySelectorAll('.g4-to-ten'), a) : -1;   /* 3.510: vị trí ô (khung cố định không có data-i) */
   g4DongBo(C); gdxLuu(); gdxVe();
   if(giu>=0) setTimeout(function(){ var e = document.querySelectorAll('.g4-to-ten')[giu]; if(e){ e.focus(); try { e.select(); } catch(er){} } }, 0); }   /* vẽ lại xong vẫn đứng ở ô đang gõ (QUY_CHUAN 11) */
-/* QUY_CHUAN 11: Enter / Tab → ô tên kế (cuối danh sách: Enter thêm người); Shift+Enter / Shift+Tab → ô trước */
+/* QUY_CHUAN 11: Enter / Tab → ô tên kế; Shift+Enter / Shift+Tab → ô trước */
 document.addEventListener('keydown', function(ev){ var e = ev.target; if(!e || !e.classList || !e.classList.contains('g4-to-ten') || (ev.key!=='Enter' && ev.key!=='Tab')) return;
-  var ds = document.querySelectorAll('.g4-to-ten'), i = +e.getAttribute('data-i'), j = ev.shiftKey ? i-1 : i+1;
+  var ds = document.querySelectorAll('.g4-to-ten'), i = Array.prototype.indexOf.call(ds, e), j = ev.shiftKey ? i-1 : i+1;
   if(j<0) return; ev.preventDefault();
-  if(j>=ds.length){ if(ev.key==='Enter'){ e.blur(); g4To().push({ten:'', vai:[]}); g4Sau(); setTimeout(function(){ var a = document.querySelectorAll('.g4-to-ten'); if(a.length) a[a.length-1].focus(); }, 30); } return; }
+  if(j>=ds.length) return;   /* 3.510: khung cố định — ô cuối không thêm dòng */
   ds[j].focus(); });
 gdDangKy('g4', gdLenh({
   ten:function(el){ var ds = g4To(), i = +el.getAttribute('data-i'); if(ds[i]) ds[i].ten = String(el.value || '').replace(/\s+/g, ' ').trim(); g4Sau(); },
   vai:function(el){ g4VaiDoi(g4To(), +el.getAttribute('data-i'), el.getAttribute('data-v')); g4Sau(); },
+  o:function(el){ var v = el.getAttribute('data-v'), r = [].concat(G4_O[0], G4_O[1]).filter(function(x){ return x[0]===v; })[0]; g4OGan(g4To(), v, el.value, el.getAttribute('data-cu'), !!(r && r[2])); g4Sau(); },   /* 3.510 khung cố định */
+  oBo:function(el){ g4OGan(g4To(), el.getAttribute('data-v'), '', el.getAttribute('data-cu'), true); g4Sau(); },
   them:function(){ g4To().push({ten:'', vai:[]}); g4Sau(); setTimeout(function(){ var a = document.querySelectorAll('.g4-to-ten'); if(a.length) a[a.length-1].focus(); }, 60); },
   bo:function(el){ g4To().splice(+el.getAttribute('data-i'), 1); g4Sau(); },
   xoa:function(){ if(!confirm('Xóa hết thành viên Tổ giao dịch đang khai?')) return; gdxC().g4To = []; gdxLuu(); gdxVe(); },

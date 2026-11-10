@@ -1,6 +1,6 @@
 # Nhật ký vai: App chính
 
-> Hiện do: **TK 2** (nhận lại 06/11 từ TK 3) · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
+> Hiện do: **TK 3** (nhận lại 10/11 từ TK 2, anh 10/11 "em nhận vai") · Làm ở: repo · `index.html`, `js/`, kho số liệu, bộ số / nháp văn bản đối chiếu. Bảng vai: `docs/PHOI_HOP_CHUNG.md` mục 1; cách ghi / đổi vai: mục 1a.
 > **Mẫu mục** (thêm ở ĐẦU danh sách, mới nhất trên cùng; không dữ liệu khách / tên tổ trưởng / mã tổ):
 >
 > ```
@@ -11,6 +11,11 @@
 > - Chờ ai: anh / TK … (việc gì)
 > - Lưu ý / bẫy: …
 > ```
+
+### 10/11/2026 — TK 3 · NHẬN VAI App chính (từ TK 2, anh 10/11 "em nhận vai, và làm trước mẫu 03 theo dạng khung cố định…")
+- Đã đọc: mục TK 2 08/11 (3.489–3.504) + CHANGELOG 3.505–3.509. Trạng thái nhận: `main` = **3.509**, không code dở.
+- Việc đầu: 03/GDX › 👥 Tổ giao dịch — khung cố định theo thứ tự Tổ trưởng · KSV · GDV chính · GDV (thay khai từng người + chip vai).
+- Số bản tiếp theo = 3.510.
 
 ### 08/11/2026 22:40 — TK 2 · PHIÊN (3.503 → 3.504, Đợt 2 — anh "làm đợt tiếp theo, gom 1 lần tất cả")
 - Đã làm: 3.503 khung mẫu in chung `MAU_IN` (js/31b; 15/TD · 03/BB-CX chuyển sang, bản in + thân Word giống hệt; bỏ móc `KT_DOCX_THEM` ở lõi Word KTGS; t384). 3.504 thử nhanh QT-19/20/22 + khung (`tests/nhanh`, 48/48) · bộ giả "giống file thật" `tests/gia_that.js` + t385 → bắt và sửa lỗi tên thôn TOÀN HOA (js/22g `toNap`).

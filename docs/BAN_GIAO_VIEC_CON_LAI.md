@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.510)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 03/GDX › Tổ giao dịch | 7 ô vai đúng thứ tự, gõ / chọn tên | |
+| 2 | Gõ tên Tổ trưởng vào ô Lái xe | Ghi "kiêm Lái xe"; 03/GDX Phần I đúng | |
+| 3 | ⭐ chọn tổ hay dùng cũ | Hiện đúng vào các ô | |
+
 ### Danh sách thử trên máy thật (3.509)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
