@@ -52,7 +52,7 @@
 | `donvi` | 04c-van-ban-thang.js | 6 | 04c-van-ban-thang.js · 18-cai-dat.js · 20-khoi-dong.js · 22b-ktgs.js · 22d-ktgs-04.js · 22e-ktgs-kh.js | 3.39: đếm đủ 5 tab |
 | `gbSoNgay` | 04c-van-ban-thang.js | 1 | 04c-van-ban-thang.js |  |
 | `gbTuKhoa` | 04c-van-ban-thang.js | 1 | 04c-van-ban-thang.js |  |
-| `gdx` | 26-giao-dich-xa.js | 4 | 26-giao-dich-xa.js · 26c-gdx-to.js |  |
+| `gdx` | 26-giao-dich-xa.js | 5 | 26-giao-dich-xa.js · 26c-gdx-to.js |  |
 | `gdxTK` | 26-giao-dich-xa.js | 2 | 26-giao-dich-xa.js |  |
 | `giaoDien` | 06-hop-thoai.js | 6 | 06-hop-thoai.js · 23-dieu-huong.js |  |
 | `gocMay` | 10-danh-sach.js | 1 | 10-danh-sach.js |  |

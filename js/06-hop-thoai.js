@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.509', ds:[
+var CO_GI_MOI = {ban:'3.510', ds:[
+  ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
   ["Tên chương trình GQVL đổi chung cả app: \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" (02/BG, 15/TD, sao kê, danh mục, khai báo); cột bảng tổng hợp ghi \"Hỗ trợ tạo việc làm\"", "dhSL('sk')"],
   ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.509', ds:[
   ["🏢 Giao dịch xã: chip mẫu hiện đủ hết (xuống dòng như tab Hồ sơ), không còn phải bấm ‹ › tìm mẫu bị khuất; điện thoại: nút Tra cứu / Xem xuống hàng dưới", "slDoiTab('gdx')"],
   ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"],
   ["Dọn cấu trúc mẫu Phân bổ KH và Giao dịch xã theo luật kiến trúc — chức năng, bản in không đổi; thêm phím Enter / Tab ở khung Tổ giao dịch và ô đề nghị Tờ trình 09/KH", ""],
-  ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"],
-  ["🏢 Giao dịch xã › 📘 Nhiệm vụ Tổ giao dịch: 1 mặt A4, nhiệm vụ 6 vai × trước / tại điểm / sau phiên, ghi tên thành viên", "slDoiTab('gdx')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🏢 Giao dịch xã › 03/GDX: khai Tổ giao dịch trực quan — gõ tên từng người, bấm chip vai, PA 1/2/3 đi đường, kiểm tra quy tắc VB 4368; mẫu tự điền Phần I, II", "slDoiTab('gdx')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm",
     "3.509 · 🎯 Phân bổ KH › 📄 Biểu 07 → chọn Biểu 07 cũ: các đoạn Căn cứ…, Ủy ban nhân dân…, Đề nghị… giãn dòng thoáng; In / Word vẫn 2 trang (Thông báo + Danh mục)",
     "3.508 · 📒 Sao kê theo chương trình vay / nhà đầu tư · Hồ sơ Tổ 02/BG · KTGS 15/TD: chương trình 03 ghi \"Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"; ⚙ Cài đặt › tên chương trình GQVL = tên mới (tên anh tự sửa giữ nguyên)",
     "3.507 · 🎯 Phân bổ KH › chọn QĐ có chương trình 03 → 📄 Biểu 07 / 07/KH / 08/KH / Tờ trình 09/KH: dòng chương trình ghi \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.509', ds:[
     "3.496 · 🏢 Giao dịch xã › 🚐 03/GDX › khung 👥 Tổ giao dịch: ＋ Thêm người → gõ tên → bấm chip vai (Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm) → PA 1/2/3 → ⭐ Lưu tổ hay dùng",
     "3.496 · 🏢 Giao dịch xã › chip 📘 Nhiệm vụ → 🖨 In (1 mặt A4, tên theo tổ đã khai)",
     "3.494 · 🎯 Phân bổ KH › ⚙ Phân bổ · Biểu 07 › 👁 Biểu 07 · 07/KH · 08/KH: đầu hộp chọn Mẫu (Biểu 07 cũ · 07/KH · 08/KH), chip Thôn: có tăng / giảm · đủ các thôn",
-    "3.494 · 🎯 Phân bổ KH › mục 📤 Tờ trình 09/KH (phím 5): chọn Năm · Xã · Nguồn → gõ Đề nghị điều chỉnh (+200 / -150) → 👁 Xem / In 09/KH",
-    "3.493 · 🏢 Giao dịch xã › dải chip mẫu (cuộn sang phải) › 🚐 03/GDX · 💼 06/GDX · 📣 07/GDX · 📒 09/GDX · 💰 10/GDX · 📕 11/GDX · 📤 14/GDX · 📥 15/GDX: bấm → xem trước, 🖨 In / 📄 PDF như 12/GDX"],
+    "3.494 · 🎯 Phân bổ KH › mục 📤 Tờ trình 09/KH (phím 5): chọn Năm · Xã · Nguồn → gõ Đề nghị điều chỉnh (+200 / -150) → 👁 Xem / In 09/KH"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.500 · 🛡 KTGS: nút 🏛 03/BB-CX ở cấp tổ (Đột xuất, Định kỳ, Mẫu 04) — dời lên khối riêng 🏛 Hội cấp xã; 📄 15/TD vẫn ở cấp tổ",
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",

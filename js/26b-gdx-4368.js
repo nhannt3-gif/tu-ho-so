@@ -9,6 +9,7 @@
    - Cắm vào js/26 qua GDX_THEM (gdxChup / gdxDung / gdxMucHTML / gdxTom / tên file / thanh xem). Bỏ dòng <script> là mất các mẫu này, mẫu cũ không đổi.
    - Chưa làm (để sau, anh 07/11): 01, 02, 04, 05, 13/GDX; 08/GDX lấy bản chuẩn bên Giao ban.
    ========================================================== */
+GDX_MD.g4GioDi = ''; GDX_MD.g4GioBD = '07:30'; GDX_MD.g4GioKT = '11:00'; GDX_MD.g4GioVe = ''; GDX_MD.g4Km = {};   /* 3.510 giờ phiên cố định (⚙ khai báo riêng) · km đi – về theo điểm */
 GDX_MD.g4Dong03 = '1|8'; GDX_MD.g4Sdt = ''; GDX_MD.g4NgayKho = 'cham';   /* mặc định khai báo riêng (gdxC tự điền khi thiếu) */
 GDX_MD.g4Xe = ''; GDX_MD.g4CCHT = ''; GDX_MD.g4Noi = 'tu'; GDX_MD.g4CCDC = 'in'; GDX_MD.g4CoNV = 8.5;   /* 3.496: khai báo riêng 03/GDX · Nhiệm vụ (Tổ giao dịch: js/26c) */
 GDX_MAU.push(
@@ -25,7 +26,8 @@ GDX_MAU.push(
   var dau = {k:'dau12', ten:'Tên cơ quan đầu mẫu (chung với 12/GDX)', nhanh:0}, ngay = {k:'ngaygd', ten:'Ngày giao dịch (chung với 12/GDX)', nhanh:1},
     ba = {k:'ba', ten:'GDV · KSV · Tổ trưởng tổ GD (chung với 12/GDX)', nhanh:1};
   var to = {k:'g4to', ten:'👥 Tổ giao dịch — thành viên · vai (khai tay)', nhanh:1};
-  GDX_MUC.g03 = [dau, ngay, to, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
+  GDX_MUC.g03 = [dau, ngay, to, {k:'g4phien', ten:'💾 Phiên giao dịch — lưu theo điểm · xem lại theo tháng (liên kết 12/GDX)', nhanh:1},
+    {k:'g4km', ten:'Km đi – về của điểm (thanh toán xăng)', nhanh:1}, {k:'g4gio', ten:'Giờ phiên giao dịch cố định (chấm công)', nhanh:0}, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
     {k:'g4ccdc', ten:'Công cụ dụng cụ theo vai (Phần II)', nhanh:0}, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
   GDX_MUC.gnv = [dau, ngay, to, {k:'g4conv', ten:'Cỡ chữ', nhanh:0}];
   GDX_MUC.g06 = [dau, ngay, {k:'ba', ten:'Thủ quỹ / GDV (= Giao dịch viên của 12/GDX)', nhanh:1}];
@@ -219,6 +221,12 @@ function g4HTMLKho(X, nhap){
 function g4Muc(k){
   var C = gdxC();
   if(k==='g4to') return typeof g4ToHTML==='function' ? g4ToHTML() : '';   /* js/26c */
+  if(k==='g4phien') return typeof g4PhienHTML==='function' ? g4PhienHTML() : '';   /* 3.510 js/26c */
+  if(k==='g4gio') return '<div class="gdx-luoi">'+[['g4GioDi', 'Giờ đi (rời PGD)'], ['g4GioBD', 'Bắt đầu giao dịch'], ['g4GioKT', 'Kết thúc giao dịch'], ['g4GioVe', 'Giờ về (tới PGD)']].map(function(x){ return '<label><span>'+x[1]+'</span>'+gdxIn1(x[0], 'hh:mm', 'time')+'</label>'; }).join('')+'</div>'+
+    '<small class="gdx-ghi">Giờ cố định của mọi phiên — lưu kèm mỗi phiên (chấm công giao dịch xã). Phiên đã lưu giữ giờ lúc lưu.</small>';   /* 3.510 anh 10/11 "khai báo riêng cho mẫu này để tùy biến, ví dụ giờ giao dịch của phiên là cố định" */
+  if(k==='g4km'){ var dk = gdxDiem(C.m12SelectedDiem); return dk ?
+    '<label class="gdx-hang">'+gdxE(dk.tenDiem)+': <input class="gdx-i gdx-so" inputmode="decimal" value="'+gdxE((C.g4Km || {})[dk.k] || '')+'" placeholder="km" data-lenh="g4.km" data-su="change" data-diem="'+gdxE(dk.k)+'"> km đi – về</label>'+
+      '<small class="gdx-ghi">Nhớ theo điểm — khai 1 lần (thanh toán xăng, lệnh điều xe).</small>' : '<small class="gdx-ghi">Chọn điểm giao dịch trước.</small>'; }
   if(k==='g4pa') return ['1', '2', '3'].map(function(v){ return '<button type="button" class="gdx-c" data-lenh="g4.pa" data-v="'+v+'" title="'+G4_PA[v]+'">PA '+v+'</button>'; }).join('')+
     '<small class="gdx-ghi">PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ · PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ · PA 3: cán bộ lái xe riêng, Tổ trưởng bảo vệ. Áp tải luôn là GDV chính.</small>';
   if(k==='g4xe') return '<div class="gdx-luoi"><label><span>Phương tiện / biển số</span>'+gdxIn1('g4Xe', 'vd Ô tô / 70A-xxx.xx — trống = mẫu gốc')+'</label><label><span>Công cụ hỗ trợ / số hiệu / số giấy phép</span>'+gdxIn1('g4CCHT', 'trống = mẫu gốc')+'</label></div>';

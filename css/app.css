@@ -3495,7 +3495,10 @@ table.hm-so{min-width:1476px}
 .pb07-kb{border:1px solid var(--vien,#ddd);border-radius:8px;padding:6px 8px;margin:6px 0}
 .pb07-kb.pb07-gon{border-style:dashed}
 /* 3.496: 👥 Tổ giao dịch (03/GDX · Nhiệm vụ) */
-.g4-to-d{display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin:3px 0}.g4-to-so{min-width:1.3em;text-align:right;color:#888;font-size:12px}.g4-to-ten{width:12em}
+.g4-to-ten{width:12em}
+.g4-o-nhom{margin:2px 0 6px}.g4-o{display:flex;align-items:center;gap:6px;margin:3px 0}   /* 3.510 khung cố định Tổ GD */
+.g4-o-vai{flex:0 0 8.5em;font-size:13px}.g4-o .g4-to-ten{width:14em}.g4-o-kiem{display:inline-flex;gap:3px;white-space:nowrap}.g4-o-kiem .gdx-c{padding:2px 8px;font-size:12px}
+.g4-ph-khung{max-height:60vh;overflow:auto;margin:6px 0}.g4-ph-bang{border-collapse:collapse;width:100%;font-size:12.5px}.g4-ph-bang th,.g4-ph-bang td{border-bottom:1px solid var(--vien);padding:3px 6px;text-align:left;white-space:nowrap;min-width:0;position:static}.g4-ph-nut .nho{padding:2px 7px;margin-right:3px}.g4-ph-thieu{text-align:left;margin:6px 0;padding:6px 8px;border:1px solid #f0d89a;background:var(--vang-nen);border-radius:8px;font-size:12.5px}.g4-ph-thieu>div{margin-top:3px}   /* 3.510 phiên GD */
 .g4-to-canh{font-size:12px;margin-top:4px;line-height:1.35}.g4-to-canh .do{color:#c62828}.g4-to-canh .vang{color:#9a6400}.g4-to-canh .ok{color:#2e7d32}
 /* 3.494: 📤 Tờ trình 09/KH */
 .pb-tt td.so,.pb-tt th{text-align:right;white-space:nowrap}.pb-tt th:first-child,.pb-tt td:first-child{text-align:left;white-space:normal}.pb-tt .gd-o{width:7.5em;text-align:right}.pb-tt td.do{color:var(--do,#c62828)}
