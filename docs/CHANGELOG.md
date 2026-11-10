@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.511 — 10/11/2026 — 03/GDX: Tổ giao dịch chọn từ danh sách khai báo cán bộ (TK 3)
+- **Anh 10/11:** "ds lấy từ khai báo cán bộ".
+- Ô tên mỗi vai (Tổ trưởng · KSV · GDV chính · GDV) đổi từ ô gõ + gợi ý sang **ô chọn từ danh sách cán bộ** (⚙ khai báo đơn vị › cán bộ — dùng chung 12/GDX, `gdx.danhSachCanBo`), như 12/GDX: "— chọn —" + cán bộ, **đã loại người giữ vai khác** (trừ Tổ trưởng ↔ KSV) và người đã ở vai đó. Chưa có danh sách → cảnh báo + liên kết ⚙ khai báo cán bộ. Tên cũ không còn trong danh sách vẫn hiện ở ô (không mất dữ liệu).
+- t382 (33/33) cập nhật theo ô chọn.
+
 ## 3.510 — 10/11/2026 — 03/GDX: Tổ giao dịch khung cố định + lưu phiên theo điểm (TK 3)
 - **Anh 10/11** (ảnh 03/GDX khai từng người + chip vai): "làm trước mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv". TK 3 nhận lại vai App chính.
 - **Anh 10/11** (sau demo): "chỉ cần khai đơn giản vậy thôi, Lái xe và BV là kiêm nhiệm — Tổ trưởng kiêm bảo vệ, Kiểm soát hoặc GDV kiêm lái xe, cho chọn thêm kiêm nhiệm; BV chỉ chung 1 dạng bảo vệ; sang Mẫu 03 đúng như cũ" · "có thể có 2 KSV nên có nút thêm nếu cần, GDV mặc định để 3, có thể thêm xóa".

@@ -17,7 +17,7 @@ const fs = require('fs'), path = require('path');
    window.SL_KHONG_TU_KIEM = 1;
    for(const f of files){ const bin = atob(f.b), u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i] = bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try { await slGhi(kq); } catch(e){} } }
    kyChungDoi('2026-08'); delete D.cauHinh.gdx; localStorage.removeItem(GDX_NK);
-   gdxC().danhSachCanBo = ['Cán Bộ Giả A', 'Cán Bộ Giả B']; gdxC().m12ToTruong = 'Cán Bộ Giả A'; gdxC().m12GDV = 'Cán Bộ Giả B';
+   gdxC().danhSachCanBo = ['Cán Bộ Giả A', 'Cán Bộ Giả B', 'Kiểm Soát Giả C', 'Giao Dịch Giả D', 'Gõ Phím Giả'];   /* 3.510: ô chọn lấy từ khai báo cán bộ */ gdxC().m12ToTruong = 'Cán Bộ Giả A'; gdxC().m12GDV = 'Cán Bộ Giả B';
    const S = gdxCH(); S.xa = ''; S.diem = ''; S.hoi = ''; S.to = '';
    slDoiTab('gdx'); doiNgan(7); for(let i=0;i<50 && !document.querySelector('#gdx-cay .loc-khoi');i++) await w(200); await w(400);
    const fd = () => chu(document.getElementById('gdx-khung').contentDocument.body.innerHTML);
@@ -40,9 +40,10 @@ const fs = require('fs'), path = require('path');
    o.themXoa = g4n===4 && document.querySelectorAll('[data-lenh="g4.o"][data-v="gdv"]').length===2;
    /* 1 GDV chính: gõ D vào ô GDV chính → D thôi GDV, B thôi GDV chính (không còn vai → bỏ) */
    /* 3.510 loại trừ (anh "tổ trưởng có thể kiêm KSV, còn các nơi khác loại trừ cán bộ như cũ"): gợi ý từng ô bỏ người giữ vai khác; gõ người đang là GDV vào ô GDV chính → không nhận */
-   const goiY = v => [...document.querySelectorAll('#g4-cb-'+v+' option')].map(x => x.value);
+   const goiY = v => [...document.querySelector('select[data-lenh="g4.o"][data-v="'+v+'"]').options].map(x => x.value).filter(Boolean);
    o.loaiTru = goiY('gdvc').indexOf('Kiểm Soát Giả C')<0 && goiY('gdvc').indexOf('Giao Dịch Giả D')<0 && goiY('ksv').indexOf('Cán Bộ Giả A')>=0 && goiY('tt').indexOf('Kiểm Soát Giả C')>=0 && goiY('gdv').indexOf('Cán Bộ Giả A')<0; o.goiY = goiY('gdvc').join(',')+' / '+goiY('ksv').join(',');
-   await oGo('gdvc', 'Giao Dịch Giả D'); o.mot = ai('Giao Dịch Giả D').vai.join()==='gdv' && co('Cán Bộ Giả B', 'gdvc');
+   o.motChi = [document.querySelectorAll('select[data-lenh="g4.o"]').length, !!document.querySelector('#gdx-m-g4to input.g4-to-ten'), goiY('gdvc').join(';'), ai('Giao Dịch Giả D').vai.join(), co('Cán Bộ Giả B', 'gdvc')].join(' · ');
+   o.mot = document.querySelectorAll('select[data-lenh="g4.o"]').length>=4 && !document.querySelector('#gdx-m-g4to input.g4-to-ten') && goiY('gdvc').indexOf('Giao Dịch Giả D')<0 && ai('Giao Dịch Giả D').vai.join()==='gdv' && co('Cán Bộ Giả B', 'gdvc');
    o.dongBo = gdxC().m12GDV==='Cán Bộ Giả B' && gdxC().m12KSV==='Kiểm Soát Giả C' && gdxC().m12ToTruong==='Cán Bộ Giả A';
    await oGo('gdvc', 'Cán Bộ Giả B'); await oGo('gdv', 'Giao Dịch Giả D');   /* trả lại: B GDV chính, D GDV */
    /* quy tắc: chưa có lái xe / bảo vệ đường */
@@ -138,7 +139,7 @@ const fs = require('fs'), path = require('path');
  ok('gõ tên vào ô KSV / GDV → đúng người, đúng vai; GDV mặc định 3 dòng', r.tuThem);
  ok('＋ thêm GDV → thêm dòng; × dòng trống → bớt', r.themXoa);
  ok('loại trừ: gợi ý ô GDV chính không có KSV / GDV; ô KSV có Tổ trưởng (được kiêm); ô GDV không có Tổ trưởng', r.loaiTru, r.goiY);
- ok('gõ người đang là GDV vào ô GDV chính → không nhận (giữ nguyên)', r.mot);
+ ok('ô chọn từ danh sách khai báo cán bộ (không ô gõ tự do); người đang là GDV không có trong ô GDV chính', r.mot, r.motChi);
  ok('đồng bộ 12/GDX: Tổ trưởng · KSV · GDV = GDV chính', r.dongBo);
  ok('3.510 ⚠ thiếu phiên từ 11/2026: cảnh báo, hộp tháng 11 liệt kê điểm thiếu, ＋ Khai bổ sung chọn đúng điểm + ngày, lưu xong hết thiếu', r.thieu, r.thieuChi);
  ok('3.510 💾 phiên: lưu theo điểm + ngày; 📂 xem theo tháng (‹ tháng trước trống); Mở điền lại 03/GDX; 🖨 12/GDX điền GDV · KSV · Tổ trưởng; lưu lại cùng ngày = ghi đè; xóa', r.phien, r.phienChi);
