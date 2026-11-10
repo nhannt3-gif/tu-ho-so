@@ -25,7 +25,7 @@ GDX_MAU.push(
 (function(){
   var dau = {k:'dau12', ten:'Tên cơ quan đầu mẫu (chung với 12/GDX)', nhanh:0}, ngay = {k:'ngaygd', ten:'Ngày giao dịch (chung với 12/GDX)', nhanh:1},
     ba = {k:'ba', ten:'GDV · KSV · Tổ trưởng tổ GD (chung với 12/GDX)', nhanh:1};
-  var to = {k:'g4to', ten:'👥 Tổ giao dịch — thành viên · vai (khai tay)', nhanh:1};
+  var to = {k:'g4to', ten:'👥 Tổ giao dịch — chọn từ danh sách cán bộ', nhanh:1};
   GDX_MUC.g03 = [dau, ngay, to, {k:'g4phien', ten:'💾 Phiên giao dịch — lưu theo điểm · xem lại theo tháng (liên kết 12/GDX)', nhanh:1},
     {k:'g4km', ten:'Km đi – về của điểm (thanh toán xăng)', nhanh:1}, {k:'g4gio', ten:'Giờ phiên giao dịch cố định (chấm công)', nhanh:0}, {k:'g4pa', ten:'Phương án đi đường (04/GDX)', nhanh:1}, {k:'g4xe', ten:'Phương tiện · công cụ hỗ trợ (Phần I)', nhanh:0}, {k:'g4noi', ten:'Nơi đi / nơi đến (Phần I)', nhanh:0},
     {k:'g4ccdc', ten:'Công cụ dụng cụ theo vai (Phần II)', nhanh:0}, {k:'g4dong03', ten:'Số dòng Phần II (tờ 1 · tờ 2)', nhanh:0}];
