@@ -8527,7 +8527,7 @@
 "t382": {
 "ban": "3.511",
 "ngay": "2026-11-10",
-"kq": "34/34 đạt",
+"kq": "33/33 đạt",
 "dau": {
 "index.html": "4626e4728404",
 "js/01-thu-vien.js": "abded1d0bd36",
@@ -8546,14 +8546,14 @@
 "js/22ga-pham-vi.js": "f4b3a20f7b45",
 "js/23-dieu-huong.js": "cd3896629e17",
 "js/26-giao-dich-xa.js": "68bf3f9b1ef5",
-"js/26c-gdx-to.js": "169c9f80d48b",
+"js/26c-gdx-to.js": "e3e4071614df",
 "js/29-kho.js": "c6776ead4ef0",
 "js/34-luu-ngan.js": "f89bc1a098e1",
 "js/36-dong-bo-khoi.js": "8d85249fa8aa",
 "js/39-gd.js": "89398f5cf42b",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t382.js": "2f451bebc297",
+"tests/t382.js": "b6401a793346",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
