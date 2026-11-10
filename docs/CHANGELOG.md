@@ -8,7 +8,8 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Anh 10/11:** "ds lấy từ khai báo cán bộ".
 - Ô tên mỗi vai (Tổ trưởng · KSV · GDV chính · GDV) đổi từ ô gõ + gợi ý sang **ô chọn từ danh sách cán bộ** (⚙ khai báo đơn vị › cán bộ — dùng chung 12/GDX, `gdx.danhSachCanBo`), như 12/GDX: "— chọn —" + cán bộ, **đã loại người giữ vai khác** (trừ Tổ trưởng ↔ KSV) và người đã ở vai đó. Chưa có danh sách → cảnh báo + liên kết ⚙ khai báo cán bộ. Tên cũ không còn trong danh sách vẫn hiện ở ô (không mất dữ liệu).
 - **Kiêm nhiệm theo vai** (anh 10/11 "chỉ có tổ trưởng kiêm bảo vệ, KS hay GDV có thể kiêm lái xe"): dòng Tổ trưởng chỉ có nút 🛡 Bảo vệ; KSV, GDV chỉ có 🚗 Lái xe; GDV chính không kiêm (`G4_O` cột 5, `g4KiemDuoc` — hàm `g4KiemDoi` không bật kiêm ngoài quy tắc). Kiêm cũ ngoài quy tắc (dữ liệu trước, hoặc nút PA 1 / PA 3 cho Tổ trưởng lái xe) vẫn hiện nút đang bật để tắt.
-- t382 (34/34) cập nhật theo ô chọn + kiêm theo vai.
+- **Bỏ mục Phương án đi đường (PA 1/2/3, 04/GDX)** ở 03/GDX (anh 10/11 "phần phương án bỏ, chưa cần") — kiêm Lái xe / Bảo vệ khai thẳng ở Tổ giao dịch; bỏ `G4_PA`, `g4PaGan`, lệnh `g4.pa` và phép thử PA. Cảnh báo "Đi đường: chưa có lái xe / bảo vệ" giữ.
+- t382 (33/33) cập nhật theo ô chọn + kiêm theo vai + bỏ PA; tests/nhanh 52/52.
 
 ## 3.510 — 10/11/2026 — 03/GDX: Tổ giao dịch khung cố định + lưu phiên theo điểm (TK 3)
 - **Anh 10/11** (ảnh 03/GDX khai từng người + chip vai): "làm trước mẫu 03 theo dạng khung cố định theo thứ tự tổ trưởng, ksv, gdv chính, gdv". TK 3 nhận lại vai App chính.
