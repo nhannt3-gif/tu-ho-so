@@ -104,17 +104,20 @@ function g4ToHTML(){
 /* ==========================================================
    3.510 (anh 10/11 "thêm chức năng lưu phiên theo điểm, có thể mở ra xem lại theo tháng, khi lưu có thể liên kết dữ liệu in mẫu 12"):
    💾 PHIÊN GIAO DỊCH — 1 phiên = 1 điểm GD · 1 ngày GD: Tổ GD (vai + kiêm) · phương tiện · công cụ hỗ trợ · GDV / KSV / Tổ trưởng của 12/GDX.
-   D.cauHinh.gdx.g4Phien = [{id, diem, tenDiem, ngay, luc, d:{khóa: giá trị}}] (đồng bộ Drive cùng khối Giao dịch xã; lưu lại cùng điểm + ngày = ghi đè).
+   D.cauHinh.gdx.g4Phien = [{v, id, diem, tenDiem, ngay, luc, gio:{di, bd, kt, ve}, km, d:{khóa: giá trị}}]
+   — DỮ LIỆU GỐC phân công (anh 10/11: "sau này dùng làm dữ liệu cho việc khác: chấm công GD xã, thanh toán xăng, lệnh điều xe"; v = phiên bản dạng dữ liệu, thêm trường thì tăng v, phiên cũ vẫn đọc) (đồng bộ Drive cùng khối Giao dịch xã; lưu lại cùng điểm + ngày = ghi đè).
    📂 Phiên đã lưu: chọn tháng ‹ › · lọc điểm đang chọn / tất cả · Mở (điền lại 03/GDX) · 🖨 12/GDX (điền lại + chuyển sang 12/GDX) · xóa.
    ========================================================== */
 var G4_PHIEN_KHOA = ['g4To', 'g4Xe', 'g4CCHT', 'g4Noi', 'g4CCDC', 'm12SelectedDiem', 'm12NgayGD', 'm12ToTruong', 'm12KSV', 'm12GDV'];
-var G4_PH = {thang:'', moi:true};   /* trạng thái hộp xem phiên (trong phiên làm việc) */
+var G4_PH = {thang:'', moi:true};
+var G4_PHIEN_V = 1;   /* trạng thái hộp xem phiên (trong phiên làm việc) */
 GDX_BO.push('g4Phien');   /* nhật ký in không chụp danh sách phiên */
 function g4Phien(c){ c = c || gdxC(); if(!Array.isArray(c.g4Phien)) c.g4Phien = []; return c.g4Phien; }
 /* THUẦN: tạo bản ghi phiên từ khối c (điểm + ngày bắt buộc) → {phien} | {loi} */
 function g4PhienTao(c, tenDiem, luc){ if(!c.m12SelectedDiem) return {loi:'Chọn điểm giao dịch trước.'}; if(!c.m12NgayGD) return {loi:'Chọn ngày giao dịch trước.'};
   var d = {}; G4_PHIEN_KHOA.forEach(function(k){ if(c[k]!==undefined) d[k] = JSON.parse(JSON.stringify(c[k])); });
-  return {phien:{id:c.m12SelectedDiem+'|'+c.m12NgayGD, diem:c.m12SelectedDiem, tenDiem:tenDiem || '', ngay:c.m12NgayGD, luc:luc || '', d:d}}; }
+  return {phien:{v:G4_PHIEN_V, id:c.m12SelectedDiem+'|'+c.m12NgayGD, diem:c.m12SelectedDiem, tenDiem:tenDiem || '', ngay:c.m12NgayGD, luc:luc || '',
+    gio:{di:c.g4GioDi || '', bd:c.g4GioBD || '', kt:c.g4GioKT || '', ve:c.g4GioVe || ''}, km:+String((c.g4Km || {})[c.m12SelectedDiem] || '').replace(',', '.') || 0, d:d}}; }
 /* THUẦN: ghi vào danh sách (cùng id → thay) — xếp mới nhất trước */
 function g4PhienGhi(ds, p){ var i = ds.map(function(x){ return x.id; }).indexOf(p.id); if(i>=0) ds[i] = p; else ds.push(p);
   ds.sort(function(a, b){ return a.ngay===b.ngay ? String(a.tenDiem).localeCompare(String(b.tenDiem), 'vi') : (a.ngay<b.ngay ? 1 : -1); }); return i>=0; }
@@ -132,12 +135,13 @@ function g4PhienHop(){ var C = gdxC(), ds = g4Phien(C), th = G4_PH.thang || Stri
   G4_PH.thang = th; G4_VAI.forEach(function(v){ nh[v[0]] = v[1]; });
   var L = ds.filter(function(p){ return p.ngay.slice(0, 7)===th && (G4_PH.moi ? true : p.diem===C.m12SelectedDiem); });
   var ai = function(p, v){ return (p.d.g4To || []).filter(function(x){ return (x.vai || []).indexOf(v)>=0; }).map(function(x){ return e(x.ten); }).join(', '); };
-  var dong = L.map(function(p){ return '<tr><td>'+e(gdxDMY(p.ngay))+'</td><td>'+e(p.tenDiem || p.diem)+'</td><td>'+ai(p, 'tt')+'</td><td>'+ai(p, 'ksv')+'</td><td>'+ai(p, 'gdvc')+'</td><td>'+ai(p, 'gdv')+'</td><td>'+ai(p, 'lx')+'</td><td>'+ai(p, 'bvt')+'</td>'+
+  var dong = L.map(function(p){ return '<tr><td>'+e(gdxDMY(p.ngay))+'</td><td>'+e(p.tenDiem || p.diem)+'</td><td>'+ai(p, 'tt')+'</td><td>'+ai(p, 'ksv')+'</td><td>'+ai(p, 'gdvc')+'</td><td>'+ai(p, 'gdv')+'</td><td>'+ai(p, 'lx')+'</td><td>'+ai(p, 'bvt')+'</td><td>'+e(p.gio ? [p.gio.bd, p.gio.kt].filter(Boolean).join('–') : '')+'</td><td>'+(p.km || '')+'</td>'+
     '<td class="g4-ph-nut"><button type="button" class="nho" data-lenh="g4.phDung" data-id="'+e(p.id)+'" title="Điền lại vào 03/GDX">📂 Mở</button>'+
       '<button type="button" class="nho" data-lenh="g4.phM12" data-id="'+e(p.id)+'" title="Điền lại và in 12/GDX">🖨 12/GDX</button><button type="button" class="gdx-x" data-lenh="g4.phXoa" data-id="'+e(p.id)+'" title="Xóa phiên này">×</button></td></tr>'; }).join('');
   moHop('<div class="hop-tit" id="g4-ph">📂 Phiên giao dịch đã lưu</div><div class="gdx-chips"><button type="button" class="nho" data-lenh="g4.phThang" data-v="-1">‹</button><b>Tháng '+th.slice(5)+'/'+th.slice(0, 4)+'</b><button type="button" class="nho" data-lenh="g4.phThang" data-v="1">›</button>'+
-    '<span class="gdx-gian"></span><button type="button" class="gdx-c'+(G4_PH.moi ? ' bat' : '')+'" data-lenh="g4.phLoc" data-v="1">Tất cả điểm</button><button type="button" class="gdx-c'+(G4_PH.moi ? '' : ' bat')+'" data-lenh="g4.phLoc" data-v="0">Điểm đang chọn</button></div>'+
-    (dong ? '<div class="g4-ph-khung"><table class="g4-ph-bang"><thead><tr><th>Ngày</th><th>Điểm GD</th><th>Tổ trưởng</th><th>KSV</th><th>GDV chính</th><th>GDV</th><th>Lái xe</th><th>Bảo vệ</th><th></th></tr></thead><tbody>'+dong+'</tbody></table></div>'
+    '<span class="gdx-gian"></span><button type="button" class="gdx-c'+(G4_PH.moi ? ' bat' : '')+'" data-lenh="g4.phLoc" data-v="1">Tất cả điểm</button><button type="button" class="gdx-c'+(G4_PH.moi ? '' : ' bat')+'" data-lenh="g4.phLoc" data-v="0">Điểm đang chọn</button>'+
+    '<button type="button" class="nho" data-lenh="g4.phExcel" title="Bảng phân công cả tháng: mỗi người × mỗi phiên 1 dòng (vai, lái xe, bảo vệ, xe, giờ, km)">📊 Excel tháng</button></div>'+
+    (dong ? '<div class="g4-ph-khung"><table class="g4-ph-bang"><thead><tr><th>Ngày</th><th>Điểm GD</th><th>Tổ trưởng</th><th>KSV</th><th>GDV chính</th><th>GDV</th><th>Lái xe</th><th>Bảo vệ</th><th>Giờ GD</th><th>Km</th><th></th></tr></thead><tbody>'+dong+'</tbody></table></div>'
       : '<div class="sl-phu">Chưa có phiên nào lưu trong tháng này'+(G4_PH.moi ? '' : ' ở điểm đang chọn')+'.</div>')+
     g4ThieuHop(th, C)+'<div class="hop-nut"><button data-lenh="hop.dong">Đóng</button></div>', true); }
 function g4ThieuHop(th, C){ var t = g4PhienThieu(gdxDsDiem(), g4Phien(C), ngayISO(nay())).filter(function(x){ return x.ngay.slice(0, 7)===th && (G4_PH.moi || x.diem===C.m12SelectedDiem); }); if(!t.length) return '';
@@ -155,6 +159,19 @@ function g4PhienThieu(dsDiem, ds, hom, tu){ tu = tu || G4_PH_TU; var r = [], co 
   return r.sort(function(a, b){ return a.ngay===b.ngay ? String(a.tenDiem).localeCompare(String(b.tenDiem), 'vi') : (a.ngay<b.ngay ? -1 : 1); }); }
 /* đặt bộ lọc địa bàn của tab về đúng điểm (gdxTheoLoc lấy điểm theo bộ lọc) rồi điền điểm + ngày GD — không tự đổi sang ngày GD kế */
 function g4PhienDiem(ma, ngay){ var S = gdxCH(), d = gdxDiem(ma), C = gdxC(); if(d && S.diem!==d.k){ S.xa = d.maXa || ''; S.diem = d.k; S.hoi = ''; S.to = ''; } C.m12SelectedDiem = ma; if(ngay) C.m12NgayGD = ngay; }
+/* CHỖ ĐỌC CHUNG (THUẦN) — bảng phân công: mỗi người × mỗi phiên 1 dòng, lọc tháng 'yyyy-mm' (trống = tất cả) / điểm. Chấm công, xăng, lệnh điều xe sau này đọc ở đây. */
+function g4PhanCong(ds, thang, diem){ var r = [], nh = {}; G4_VAI.forEach(function(v){ nh[v[0]] = v[2]; });
+  ds.filter(function(p){ return (!thang || p.ngay.slice(0, 7)===thang) && (!diem || p.diem===diem); }).slice().sort(function(a, b){ return a.ngay===b.ngay ? String(a.tenDiem).localeCompare(String(b.tenDiem), 'vi') : (a.ngay<b.ngay ? -1 : 1); })
+    .forEach(function(p){ var g = p.gio || {}, xe = (p.d || {}).g4Xe || ''; ((p.d || {}).g4To || []).forEach(function(x){ var a = x.vai || [];
+      r.push({ngay:p.ngay, diem:p.diem, tenDiem:p.tenDiem, ten:x.ten, vai:G4_LOI.filter(function(v){ return a.indexOf(v)>=0; }).map(function(v){ return nh[v]; }).join(', '),
+        laiXe:a.indexOf('lx')>=0, baoVe:a.indexOf('bvd')>=0 || a.indexOf('bvt')>=0, xe:a.indexOf('lx')>=0 ? xe : '', gioDi:g.di || '', gioBD:g.bd || '', gioKT:g.kt || '', gioVe:g.ve || '', km:a.indexOf('lx')>=0 ? (p.km || 0) : 0}); }); });
+  return r; }
+function g4PhienExcel(th){ var L = g4PhanCong(g4Phien(), th); if(!L.length) return bao('Tháng này chưa có phiên nào.', 3);
+  xongTV.then(function(){ if(!window.XLSX) return baoLoi('Chưa tải được bộ ghi Excel — có mạng một lần rồi thử lại.');
+    var aoa = [['BẢNG PHÂN CÔNG TỔ GIAO DỊCH — THÁNG '+th.slice(5)+'/'+th.slice(0, 4)], [], ['STT', 'Ngày', 'Điểm giao dịch', 'Họ tên', 'Vai', 'Lái xe', 'Bảo vệ', 'Phương tiện', 'Giờ đi', 'Bắt đầu GD', 'Kết thúc GD', 'Giờ về', 'Km đi – về']];
+    L.forEach(function(x, i){ aoa.push([i+1, gdxDMY(x.ngay), x.tenDiem, x.ten, x.vai, x.laiXe ? 'x' : '', x.baoVe ? 'x' : '', x.xe, x.gioDi, x.gioBD, x.gioKT, x.gioVe, x.km || '']); });
+    var wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(aoa), 'Phan cong');
+    taiXuongBlob(new Blob([XLSX.write(wb, {type:'array', bookType:'xlsx'})], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'Phan cong To GD '+th+'.xlsx'); }); }
 function g4PhienTim(id){ return g4Phien().filter(function(p){ return p.id===id; })[0]; }
 /* PA 1/2/3 (04/GDX) — THUẦN: gán lại lái xe, bảo vệ đường trên danh sách ds (sửa tại chỗ) → '' hoặc lời báo */
 function g4PaGan(ds, v){
@@ -180,6 +197,8 @@ gdDangKy('g4', gdLenh({
     if(chan){ var nh = {}; G4_VAI.forEach(function(a){ nh[a[0]] = a[2]; }); bao('⚠ '+ten+' đang là '+nh[chan]+' — mỗi người 1 vai (chỉ Tổ trưởng được kiêm KSV). Bỏ ở ô đó trước.', 5); } g4Sau(); },   /* 3.510 khung cố định */
   phLuu:function(){ var C = gdxC(), d = gdxDiem(C.m12SelectedDiem), r = g4PhienTao(C, d ? d.tenDiem : '', ngayVN(ngayISO(nay()))+' '+new Date().toTimeString().slice(0, 5)); if(r.loi) return bao(r.loi, 4);
     var thay = g4PhienGhi(g4Phien(C), r.phien); gdxLuu(); gdxVe(); bao('💾 '+(thay ? 'Đã lưu lại' : 'Đã lưu')+' phiên '+r.phien.tenDiem+' · '+gdxDMY(r.phien.ngay)+'.', 3); },   /* 3.510 phiên theo điểm */
+  phExcel:function(){ g4PhienExcel(G4_PH.thang); },
+  km:function(el){ var C = gdxC(); C.g4Km = C.g4Km || {}; C.g4Km[el.getAttribute('data-diem')] = String(el.value || '').replace(/[^\d.,]/g, ''); gdxLuu(); },   /* 3.510 km theo điểm */
   phMo:function(el){ var t = el && el.getAttribute('data-v')==='thieu' ? g4PhienThieu(gdxDsDiem(), g4Phien(), ngayISO(nay())) : []; G4_PH.thang = t.length ? t[0].ngay.slice(0, 7) : ''; if(t.length) G4_PH.moi = true; g4PhienHop(); },
   phBoSung:function(el){ var C = gdxC(); dongHop(); g4PhienDiem(el.getAttribute('data-diem'), el.getAttribute('data-ngay')); gdxLuu(); gdxDoiMau('g03');
     bao('＋ Khai bổ sung phiên '+(gdxDiem(C.m12SelectedDiem) || {}).tenDiem+' · '+gdxDMY(C.m12NgayGD)+': sửa Tổ GD rồi bấm 💾 Lưu phiên.', 5); },

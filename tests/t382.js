@@ -73,7 +73,13 @@ const fs = require('fs'), path = require('path');
      ch.push(JSON.stringify(to())===cu && gdxC().form==='g03');
      gdxC().m12GDV = ''; await bam('[data-lenh="g4.phMo"]'); await bam('#hop-in [data-lenh="g4.phM12"]'); await w(400);
      ch.push(gdxC().form==='m12' && gdxC().m12GDV==='Cán Bộ Giả B' && gdxC().m12KSV==='Kiểm Soát Giả C' && gdxC().m12ToTruong==='Cán Bộ Giả A' && /Cán Bộ Giả B/.test(fd()));
-     gdxDoiMau('g03'); await w(300); await bam('[data-lenh="g4.phLuu"]'); ch.push(ph().length===1);
+     gdxDoiMau('g03'); await w(300);
+     /* 3.510 khai báo riêng giờ cố định + km theo điểm → lưu kèm phiên; 📊 Excel tháng = bảng phân công */
+     gdxDat('g4GioBD', '07:00', 1); gdxDat('g4GioKT', '10:30', 1); await w(200); const km = document.querySelector('[data-lenh="g4.km"]'); if(km){ km.value = '32'; km.dispatchEvent(new Event('change', {bubbles:true})); await w(200); }
+     await bam('[data-lenh="g4.phLuu"]'); ch.push(ph().length===1 && ph()[0].v===1 && ph()[0].gio.bd==='07:00' && ph()[0].gio.kt==='10:30' && ph()[0].km===32);
+     { let bl = null, ten = ''; const tx = window.taiXuongBlob; window.taiXuongBlob = (b, t) => { bl = b; ten = t; }; await bam('[data-lenh="g4.phMo"]'); await bam('#hop-in [data-lenh="g4.phExcel"]'); for(let i=0;i<40 && !bl;i++) await w(100); window.taiXuongBlob = tx;
+       let okx = false; if(bl){ const wb = XLSX.read(new Uint8Array(await bl.arrayBuffer()), {type:'array'}), a = XLSX.utils.sheet_to_json(wb.Sheets['Phan cong'], {header:1}); const lx = a.find(r => r[3]==='Kiểm Soát Giả C'); okx = /Phan cong To GD 2026-08/.test(ten) && a.length===3+4 && !!lx && lx[5]==='x' && lx[12]===32 && lx[9]==='07:00'; }
+       ch.push(okx); try { dongHop(); } catch(e){} }
      const cf = window.confirm; window.confirm = () => true; gdxC().g4Phien.push({id:'x|2026-08-11', diem:'x', tenDiem:'Giả', ngay:'2026-08-11', luc:'', d:{g4To:[]}}); await bam('[data-lenh="g4.phMo"]');
      await bam('#hop-in [data-lenh="g4.phXoa"][data-id="x|2026-08-11"]'); window.confirm = cf; ch.push(ph().length===1); try { dongHop(); } catch(e){}
      o.phien = ch.every(Boolean); o.phienChi = ch.map(x => x ? 1 : 0).join(''); o.nkPh = !('g4Phien' in gdxChup().C);
