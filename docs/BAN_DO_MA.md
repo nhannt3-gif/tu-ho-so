@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.511 · 10/11/2026 11:03 · 150 file · 47058 dòng · 3768 hàm cấp ngoài · 642 biến toàn cục.
+Bản 3.511 · 10/11/2026 11:03 · 150 file · 47062 dòng · 3769 hàm cấp ngoài · 642 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -67,7 +67,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/25c-ho-so-giao-dien.js` | 912 | 137 | /*   3.411 (A2 — tách file lớn): HỒ SƠ — giao diện tab · 🏠 hộ vay mới · 📒 Sổ hộ vay · 03/TD nhiều hộ · GQVL ·  |
 | `js/26-giao-dich-xa.js` | 1158 | 138 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
 | `js/26b-gdx-4368.js` | 330 | 33 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
-| `js/26c-gdx-to.js` | 223 | 31 | /*   js/26c-gdx-to.js — 3.497 (tách từ js/26b, QUY_CHUAN 1.3 "tách dữ liệu – nghiệp vụ – giao diện"; không đổi |
+| `js/26c-gdx-to.js` | 227 | 32 | /*   js/26c-gdx-to.js — 3.497 (tách từ js/26b, QUY_CHUAN 1.3 "tách dữ liệu – nghiệp vụ – giao diện"; không đổi |
 | `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
 | `js/28-tv-tk.js` | 398 | 43 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
 | `js/29-kho.js` | 178 | 2 | /*   3.216 (anh 15/10/2026): CỬA KHO — kho số liệu chung (KIEN_TRUC_3_LOP 3.5 · QUY_CHUAN_KIEN_TRUC mục 3 "cửa |
@@ -427,7 +427,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/26b-gdx-4368.js:220` · khai báo riêng của mẫu (ngoài mục chung với 12/GDX)
 - `js/26b-gdx-4368.js:260` · 📘 NHIỆM VỤ TỔ GIAO DỊCH — 1 mặt A4 dọc (anh 07/11 "1 tờ chung bố trí gọn, đủ nhiệm vụ, chữ nhỏ") — tóm tắt VB 4368 mục I
 - `js/26c-gdx-to.js:8` · 3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho kh
-- `js/26c-gdx-to.js:106` · 3.510 (anh 10/11 "thêm chức năng lưu phiên theo điểm, có thể mở ra xem lại theo tháng, khi lưu có thể liên kết dữ liệu i
+- `js/26c-gdx-to.js:110` · 3.510 (anh 10/11 "thêm chức năng lưu phiên theo điểm, có thể mở ra xem lại theo tháng, khi lưu có thể liên kết dữ liệu i
 - `js/27-mini-gdx.js:24` · gói số liệu (chỉ chạy trên máy anh lúc xuất)
 - `js/27-mini-gdx.js:76` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
 - `js/28-tv-tk.js:1` · 3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ

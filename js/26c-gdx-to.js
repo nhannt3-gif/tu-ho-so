@@ -54,7 +54,8 @@ function g4TomTo(X, lk, cb){ var c = X.C, n = g4To(c).filter(g4Ten).length; lk('
    KHUNG CỐ ĐỊNH 4 vai đúng thứ tự (GDV nhiều người — luôn có ô "＋ thêm"); mỗi dòng có nút KIÊM: 🚗 Lái xe · 🛡 Bảo vệ (bảo vệ = cả đường đi lẫn tại điểm: bvd + bvt).
    GDV chính (áp tải) không kiêm. Dữ liệu giữ nguyên g4To = [{ten, vai}] → 03/GDX Phần I–II, 📘 Nhiệm vụ, 12/GDX, QT-19, PA 1/2/3, ⭐ tổ hay dùng không đổi.
    [mã vai, nhãn, nhiều người?, gợi ý, được kiêm?] */
-var G4_O = [['tt', 'Tổ trưởng', 0, '', 1], ['ksv', 'Kiểm soát viên', 1, 'Tổ trưởng kiêm KSV: gõ cùng tên Tổ trưởng', 1], ['gdvc', 'GDV chính', 0, 'Giao dịch viên chính — người áp tải (không kiêm lái xe, bảo vệ)', 0], ['gdv', 'Giao dịch viên', 1, '', 1]];
+/* 3.511 (anh 10/11 "chỉ có tổ trưởng kiêm bảo vệ, KS hay GDV có thể kiêm lái xe"): cột 5 = kiêm được — Tổ trưởng: Bảo vệ · KSV, GDV: Lái xe · GDV chính: không */
+var G4_O = [['tt', 'Tổ trưởng', 0, '', ['bv']], ['ksv', 'Kiểm soát viên', 1, 'Tổ trưởng kiêm KSV: chọn cùng tên Tổ trưởng', ['lx']], ['gdvc', 'GDV chính', 0, 'Giao dịch viên chính — người áp tải (không kiêm lái xe, bảo vệ)', []], ['gdv', 'Giao dịch viên', 1, '', ['lx']]];
 var G4_SO = {ksv:1, gdv:3};   /* số dòng hiện của vai nhiều người (anh 10/11 "có thể có 2 KSV, nên có nút thêm; GDV mặc định để 3, có thể thêm xóa") — trong phiên, không lưu */
 var G4_KIEM = [['lx', '🚗 Lái xe', ['lx']], ['bv', '🛡 Bảo vệ', ['bvd', 'bvt']]];
 function g4K(t){ return String(t || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
@@ -77,15 +78,18 @@ function g4OGan(ds, v, ten, cu, nhieu){ var bo = function(x){ x.vai = (x.vai || 
 /* người không còn vai Tổ giao dịch (tt · ksv · gdvc · gdv) → bỏ hẳn (kể cả kiêm lái xe / bảo vệ còn sót) */
 function g4Gon(ds){ for(var i=ds.length-1;i>=0;i--){ var a = ds[i].vai || []; if(!a.some(function(v){ return v==='tt' || v==='ksv' || v==='gdvc' || v==='gdv'; })) ds.splice(i, 1); } }
 /* bật / tắt kiêm nhiệm — THUẦN: k = 'lx' (1 lái xe: chọn người này thì bỏ ở người khác) | 'bv' (bảo vệ đường + tại điểm, nhiều người) */
+function g4KiemDuoc(x, k){ return G4_O.some(function(r){ return (x.vai || []).indexOf(r[0])>=0 && r[4].indexOf(k)>=0; }); }   /* người x được kiêm k theo vai đang giữ */
 function g4KiemDoi(ds, ten, k){ var x = ds.filter(function(o){ return g4K(o.ten)===g4K(ten); })[0]; if(!x || (x.vai || []).indexOf('gdvc')>=0) return;
   var m = k==='lx' ? ['lx'] : ['bvd', 'bvt'], co = x.vai.some(function(a){ return m.indexOf(a)>=0; });
   if(co){ x.vai = x.vai.filter(function(a){ return m.indexOf(a)<0; }); return; }
+  if(!g4KiemDuoc(x, k)) return;   /* tắt luôn được; bật chỉ khi vai cho phép */
   if(k==='lx') ds.forEach(function(o){ o.vai = (o.vai || []).filter(function(a){ return a!=='lx'; }); });
   m.forEach(function(a){ if(x.vai.indexOf(a)<0) x.vai.push(a); }); }
 function g4ToHTML(){
   var C = gdxC(); g4ToMoi(C); var ds = g4To(C), cb = C.danhSachCanBo || [], hay = C.g4ToHay || [];
   var nut = function(chu, lenh, du, tit, lop){ return '<button type="button" class="'+(lop || 'nho')+'" data-lenh="g4.'+lenh+'"'+(du!=null ? ' data-i="'+du+'"' : '')+(tit ? ' title="'+gdxE(tit)+'"' : '')+'>'+chu+'</button>'; };
-  var kiem = function(r, x){ if(!r[4] || !x || !g4Ten(x)) return ''; return '<span class="g4-o-kiem">'+G4_KIEM.map(function(k){ var co = (x.vai || []).some(function(a){ return k[2].indexOf(a)>=0; });
+  var kiem = function(r, x){ if(!x || !g4Ten(x)) return ''; return '<span class="g4-o-kiem">'+G4_KIEM.map(function(k){ var co = (x.vai || []).some(function(a){ return k[2].indexOf(a)>=0; });
+    if(r[4].indexOf(k[0])<0 && !co) return '';   /* chỉ nút kiêm vai cho phép; kiêm cũ ngoài quy tắc (PA 1/3, dữ liệu trước 3.511) vẫn hiện để tắt */
     return '<button type="button" class="gdx-c'+(co ? ' bat' : '')+'" data-lenh="g4.kiem" data-k="'+k[0]+'" data-cu="'+gdxE(g4Ten(x))+'" title="Kiêm nhiệm '+gdxE(k[1].slice(3))+'">'+k[1]+'</button>'; }).join('')+'</span>'; };
   /* 3.510 (anh 10/11 "ds lấy từ khai báo cán bộ"): ô chọn từ danh sách cán bộ (⚙ khai báo đơn vị — chung 12/GDX), loại trừ người giữ vai khác (trừ Tổ trưởng ↔ KSV) và người đã ở vai này */
   var chon = function(r, x){ var v = x ? g4Ten(x) : '', L = (v && !cb.some(function(n){ return g4K(n)===g4K(v); }) ? [v] : []).concat(cb).filter(function(n){ return g4K(n)===g4K(v) || (!g4VaiChan(ds, r[0], n) && !g4Ai(C, r[0]).some(function(o){ return g4K(o.ten)===g4K(n); })); });

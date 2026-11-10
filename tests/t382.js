@@ -57,6 +57,9 @@ const fs = require('fs'), path = require('path');
    await kiem('Cán Bộ Giả A', 'lx'); await kiem('Cán Bộ Giả A', 'bv'); await kiem('Kiểm Soát Giả C', 'bv'); await kiem('Kiểm Soát Giả C', 'lx');
    o.kiem = co('Cán Bộ Giả A', 'bvd') && co('Cán Bộ Giả A', 'bvt') && !co('Cán Bộ Giả A', 'lx') && co('Kiểm Soát Giả C', 'lx') && !co('Kiểm Soát Giả C', 'bvd') && document.querySelector('[data-lenh="g4.kiem"][data-cu="Cán Bộ Giả A"][data-k="bv"]').classList.contains('bat');
    await kiem('Giao Dịch Giả D', 'lx'); o.motLai = co('Giao Dịch Giả D', 'lx') && !co('Kiểm Soát Giả C', 'lx'); await kiem('Kiểm Soát Giả C', 'lx');
+   const nutK = t => [...document.querySelectorAll('[data-lenh="g4.kiem"][data-cu="'+t+'"]')].map(e => e.getAttribute('data-k')).join(',');
+   o.chiKiem = nutK('Cán Bộ Giả A')==='bv' && nutK('Kiểm Soát Giả C')==='lx' && nutK('Giao Dịch Giả D')==='lx' && nutK('Cán Bộ Giả B')===''; o.chiKiemChi = [nutK('Cán Bộ Giả A'), nutK('Kiểm Soát Giả C'), nutK('Giao Dịch Giả D')].join(' | ');
+   { const t = [{ten:'T', vai:['tt']}, {ten:'K', vai:['ksv']}]; g4KiemDoi(t, 'T', 'lx'); g4KiemDoi(t, 'K', 'bv'); o.chiKiem = o.chiKiem && t[0].vai.join()==='tt' && t[1].vai.join()==='ksv'; }
    o.dungQD = !canh() && /Đúng quy định thành phần/.test(document.querySelector('.g4-to-canh').textContent);
    /* Tổ trưởng kiêm KSV (＋ thêm KSV, gõ cùng tên) + bảo vệ → đỏ */
    await bam('[data-lenh="g4.oThem"][data-v="ksv"]'); await oGo('ksv', 'Cán Bộ Giả A'); o.ttKiem = /do:Tổ trưởng làm bảo vệ tại điểm thì không kiêm Kiểm soát viên/.test(canh()) && document.querySelectorAll('[data-lenh="g4.o"][data-v="ksv"][data-cu]').length===2;
@@ -147,6 +150,7 @@ const fs = require('fs'), path = require('path');
  ok('PA 2: thành viên còn lại lái xe, Tổ trưởng bảo vệ', r.pa2);
  ok('PA 1: Tổ trưởng lái xe, thành viên còn lại bảo vệ (bỏ gán cũ)', r.pa1);
  ok('kiêm nhiệm: Tổ trưởng 🛡 Bảo vệ (đường + tại điểm), KSV 🚗 Lái xe; chỉ 1 lái xe', r.kiem && r.motLai);
+ ok('3.511 chỉ Tổ trưởng kiêm 🛡 Bảo vệ; KSV / GDV kiêm 🚗 Lái xe; GDV chính không kiêm (nút + hàm thuần)', r.chiKiem, r.chiKiemChi);
  ok('đủ thành phần → không cảnh báo, báo ✓ đúng quy định', r.dungQD);
  ok('＋ thêm KSV, Tổ trưởng kiêm KSV + bảo vệ → ⛔', r.ttKiem);
  ok('GDV chính (áp tải) không có nút kiêm lái xe / bảo vệ', r.gdvcLai);
