@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (bàn KTGS — CHƯA CODE, anh "phần này sẽ bàn kỹ rồi làm")
+- Anh 11/11: "chỗ KTGS anh đang rối… kiểm tra định kỳ năm theo kế hoạch thì ổn không nên thay đổi, các chỗ kiểm tra khác muốn gom lại cho tiện" → "tạm thời không phân chia bắt buộc hay định kỳ mà thống nhất cách lấy số liệu của các mẫu cho gọn; kiểm tra KH năm lấy dữ liệu như cũ, phiếu kiểm tra 3 tháng cũng vậy, các mẫu khác theo dữ liệu chọn" · "khi chọn tổ cho in các mẫu Tóm tắt, 06TD, 15TD, 16TD" · "nút Hội cấp xã Mẫu 03CX vẫn giữ… gom lại không bỏ chức năng".
+- **Phương án đang bàn (chưa duyệt):** ① KH năm 01/KH + Định kỳ 06 + 16 → như cũ (cuối tháng liền trước tháng KT) · ② 06 Sau giải ngân → như cũ (TK 2 hiểu "phiếu 3 tháng" = phiếu này — **chưa xác nhận**) · ③ mọi mẫu khác theo kỳ đang chọn (ô kỳ đầu trang, đúng ngày): hàng nút khi chọn 1 tổ = Tóm tắt · 06/TD · 15/TD · 16/TD; Mẫu 04 (thẻ Báo cáo tổng hợp); 03/BB-CX (giữ khối Hội cấp xã). Bỏ nút lặp (15/TD, Tóm tắt ở Định kỳ; Mẫu 04 ở hàng 1 tổ) — chức năng vẫn còn chỗ khác; mỗi màn 1 dòng "📌 Số liệu: …". Không đổi bản in / khai báo / dữ liệu lưu.
+- Cần chốt khi bàn: "phiếu kiểm tra 3 tháng" là mẫu nào; Mẫu 04 theo kỳ chọn hay giữ cuối tháng; kỳ chọn ngày giữa tháng thì lấy đúng ngày.
+- Chỗ code liên quan: `ktNguonVoi` / `ktNguonThangKT` / `ktDKThang` (js/56, js/22e), `ktBCVe` (js/22d), `kt7Chay` (js/56b), `ktttInDs` (js/71), hàng nút khối B (js/22b dòng ~415).
+
 ### 10/11/2026 — TK 2 · NHẬN VAI App chính (từ TK 3, anh 10/11 "đọc trạng thái làm tiếp của TK bàn giao")
 - Đã đọc: mục TK 3 10/11 (NHẬN VAI, 3.510, 3.511 — mục 3.511 chép từ nhánh `claude/busy-curie-2qescm` chưa gộp) + CHANGELOG 3.510–3.511. Nhánh TK 3: nháp 3.512 (nút kiêm chỉ biểu tượng) TK 3 đã tự hoàn lại theo anh "giữ như cũ" — không có code dở.
 - Trạng thái nhận: `main` = **3.511** (PR #531), `kiem.py` trong mốc. Số bản tiếp theo = **3.512**.
