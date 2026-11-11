@@ -94,7 +94,7 @@
 | `ktKBKhoa` | 79-ktgs-khoa.js | 3 | 79-ktgs-khoa.js |  |
 | `ktKBLuu` | 22b-ktgs.js | 8 | 22b-ktgs.js | ô "Đơn vị kiểm tra" gõ ở Tùy chọn khác trước 3.323 |
 | `ktKBNK` | 79-ktgs-khoa.js | 3 | 79-ktgs-khoa.js |  |
-| `ktKH` | 06a-dong-bo-cai-dat.js | 14 | 06a-dong-bo-cai-dat.js · 22d-ktgs-04.js · 22e-ktgs-kh.js | 3.398: bản chốt mới nhất |
+| `ktKH` | 06a-dong-bo-cai-dat.js | 16 | 06a-dong-bo-cai-dat.js · 22d-ktgs-04.js · 22e-ktgs-kh.js · 80b-ktgs-kh-sl.js | 3.398: bản chốt mới nhất |
 | `ktKHChuan` | 22d-ktgs-04.js | 2 | 22d-ktgs-04.js |  |
 | `ktKN04` | 22d-ktgs-04.js | 6 | 22d-ktgs-04.js | 3.329: + màn Bộ khai báo |
 | `ktMucDich` | 22b-ktgs.js | 2 | 22b-ktgs.js | lựa chọn cột mục đích trước 3.114 |
