@@ -266,6 +266,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.512)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Mẫu 31 + Sao kê TK 105 cùng ngày → Sao kê › TK 105 chưa gán mã tổ (toàn PGD, rồi 1 xã) | Đúng khách có sổ 105 chưa thuộc tổ, tình trạng đúng | |
+
 ### Danh sách thử trên máy thật (3.511)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

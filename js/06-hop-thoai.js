@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.511', ds:[
+var CO_GI_MOI = {ban:'3.512', ds:[
+  ["📒 Sao kê › Khách hàng: thêm \"Sao kê khách có TK 105 chưa gán mã tổ\" — khách có sổ 105 mà không thuộc tổ nào (vay không qua tổ, chỉ gửi tiền, có trong Sao kê 105 mà không có trong Mẫu 31) → cần gán tổ", "dhSL('sk')"],
   ["03/GDX › Tổ giao dịch: chọn tên từ danh sách khai báo cán bộ; Tổ trưởng kiêm Bảo vệ, KSV / GDV kiêm Lái xe", "slDoiTab('gdx')"],
   ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.511', ds:[
   ["🛡 KTGS: sửa lỗi đóng hộp 15/TD · 03/BB-CX rồi bấm mở lại không hiện; hộp 03 gõ tên cán bộ bấm Enter sang ô kế, không mất con trỏ", "slDoiTab('kt')"],
   ["🛡 KTGS: khối mới 🏛 Hội cấp xã (cạnh Bắt buộc · Đột xuất · Khai báo) — bảng các Hội – xã theo lọc địa bàn (số tổ, khách, dư nợ, nợ quá hạn, xếp loại tổ), bấm 🏛 03/BB-CX in biên bản kiểm tra Hội đó", "slDoiTab('kt')"],
   ["🏢 Giao dịch xã: chip mẫu hiện đủ hết (xuống dòng như tab Hồ sơ), không còn phải bấm ‹ › tìm mẫu bị khuất; điện thoại: nút Tra cứu / Xem xuống hàng dưới", "slDoiTab('gdx')"],
-  ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"],
-  ["Dọn cấu trúc mẫu Phân bổ KH và Giao dịch xã theo luật kiến trúc — chức năng, bản in không đổi; thêm phím Enter / Tab ở khung Tổ giao dịch và ô đề nghị Tờ trình 09/KH", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.512 · 📒 Sao kê › nhóm Khách hàng › Sao kê khách có TK 105 chưa gán mã tổ → chọn xã (cây lọc) → 👁 Xem → In / Excel; nên nạp Sao kê TK 105 cùng kỳ để đủ khách",
     "3.511 · 03/GDX › Tổ giao dịch: mỗi ô là ô chọn từ danh sách cán bộ, đã loại người giữ vai khác",
     "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm",
     "3.509 · 🎯 Phân bổ KH › 📄 Biểu 07 → chọn Biểu 07 cũ: các đoạn Căn cứ…, Ủy ban nhân dân…, Đề nghị… giãn dòng thoáng; In / Word vẫn 2 trang (Thông báo + Danh mục)",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.511', ds:[
     "3.497 · 🏢 Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: gõ tên rồi Enter → sang ô tên kế; ở ô cuối Enter → thêm người",
     "3.497 · 🎯 Phân bổ KH › 📤 Tờ trình 09/KH: gõ đề nghị rồi Enter → sang ô dòng kế",
     "3.496 · 🏢 Giao dịch xã › 🚐 03/GDX › khung 👥 Tổ giao dịch: ＋ Thêm người → gõ tên → bấm chip vai (Tổ trưởng · KSV · GDV chính · GDV · Lái xe · BV đường · BV tại điểm) → PA 1/2/3 → ⭐ Lưu tổ hay dùng",
-    "3.496 · 🏢 Giao dịch xã › chip 📘 Nhiệm vụ → 🖨 In (1 mặt A4, tên theo tổ đã khai)",
-    "3.494 · 🎯 Phân bổ KH › ⚙ Phân bổ · Biểu 07 › 👁 Biểu 07 · 07/KH · 08/KH: đầu hộp chọn Mẫu (Biểu 07 cũ · 07/KH · 08/KH), chip Thôn: có tăng / giảm · đủ các thôn"],
+    "3.496 · 🏢 Giao dịch xã › chip 📘 Nhiệm vụ → 🖨 In (1 mặt A4, tên theo tổ đã khai)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.500 · 🛡 KTGS: nút 🏛 03/BB-CX ở cấp tổ (Đột xuất, Định kỳ, Mẫu 04) — dời lên khối riêng 🏛 Hội cấp xã; 📄 15/TD vẫn ở cấp tổ",
     "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
