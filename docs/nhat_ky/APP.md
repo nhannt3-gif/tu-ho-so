@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.514 KTGS 5 nút + Kiểm tra tổ nhiều tổ — anh "code và gộp")
+- Anh chốt qua nhiều lượt: 5 nút (Kiểm tra tổ · sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo); Định kỳ + Mẫu 04 gộp Kiểm tra tổ (chọn nhiều tổ); Kế hoạch năm để riêng, không nối; kiểu chọn hộ tốt / cần quan tâm / Trung hòa 30% / hết tổ; món xét đúng luật + nút kiểu 2; 1 ô ngày chung; số hộ + Trung hòa vào Khai báo; Esc lùi 1 cấp; BC0437 thiếu tháng → để trống.
+- Đã làm: **3.514** — gói mới `js/80-ktgs-to.js` (`KTTO`), `docs/BAN_GIAO_KTGS.md` mục 12. t390 mới (28 ý, có so bản in Định kỳ cũ giống hệt); sửa 16 phép thử cũ theo màn mới (phần số liệu / bản in giữ).
+- Quyết định TK 2 (báo anh): bộ khai báo mặc định ① Hội kiểm tra mọi chỗ (trước đột xuất mặc định ②); Kiểm tra tổ chưa khai ngày → phiếu ghi tháng kiểm tra như Định kỳ cũ (trước đột xuất để chấm cả tháng).
+- Việc sau: dọn hàm màn cũ không còn gọi (`ktDKVe`, `ktBCVe`, `ktChonHTML`…) — cần anh duyệt.
+
 ### 11/11/2026 — TK 2 · PHIÊN (3.513 KTGS tinh gọn — anh "code và gộp")
 - Đã làm: **3.513** theo phương án dưới — Mẫu 04 + Sau giải ngân chuyển sang Kỳ đầu trang; BC0437/0438 kỳ ngày giữa tháng → cuối tháng trước (`ktBCKyChon`); hàng nút 1 tổ = Tóm tắt · 06 · 15/TD · 16; bỏ nút lặp (Mẫu 04 ở 1 tổ, Tóm tắt + 15/TD ở Định kỳ — hàm giữ); dòng 📌 Số liệu mỗi màn (`ktSLDong`). `KHO.monGN(th, ky)` thêm tham số tùy chọn (chỉ KTGS gọi). t389 mới; sửa t106, t237, t238, t273, t318. `docs/BAN_GIAO_KTGS.md` mục 11.
 - Chờ anh: thử máy thật 3.513 (bảng thử trong BAN_GIAO_VIEC_CON_LAI). Bẫy: khoảng Sau GN lưu cũ (`gnTu/gnDen`) chỉ dùng khi anh tự đổi ô trong kỳ đang chọn (`KT_GN_KY`, phiên) — đổi kỳ đầu trang là về tháng kỳ mới.

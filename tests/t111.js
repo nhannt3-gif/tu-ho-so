@@ -111,7 +111,7 @@ const fs=require('fs'), path=require('path');
    KT_K.to[best.ma] = goc;
    /* 7a. khung khai báo trong tab (không hộp bật lên) + Văn bản: CT vay không bắt buộc, sắp xếp Vừa thêm */
    C.che = 'dx'; C.xa = best.xa; C.to = best.ma; ktVeThe(); await w(200);
-   ok('đột xuất: dòng nhắc khai báo Hội (3.113) + ngày kiểm tra cạnh nút In (3.114) + nút In / Word 06, 16', !!document.querySelector('#kt-the .kt-hdt-nhac') && !!document.querySelector('#kt-the .kt-in #kb-ngay') && /Word Mẫu 06/.test(document.getElementById('kt-the').textContent) && /Word Mẫu 16/.test(document.getElementById('kt-the').textContent));
+   ok('đột xuất: dòng nhắc khai báo Hội (3.113) + ngày kiểm tra cạnh nút In (3.114) + nút In / Word 06, 16', !!document.querySelector('#kt-the .kt-hdt-nhac') && !!document.querySelector('#kt-the .kt-in #kb-ngay') && /06\/TD/.test(document.getElementById('kt-the').textContent) && /16\/TD/.test(document.getElementById('kt-the').textContent));   /* 3.514: nút 📄 06/TD · 16/TD */
    ok('văn bản không gắn CT vay không còn bị chờ khai', thieuThongTin({nhom:'vanBan', ngay:'2026-01-15', tenVB:'Quy chế thử', mang:'Tín dụng', ctrinh:[]}).length===0);
    ok('sắp xếp văn bản có kiểu "Vừa thêm" (mới đưa vào tủ lên đầu)', COT_SAP.some(c=>c.ma==='them') && (()=>{ const o = SAP.cot; SAP.cot = 'them'; SAP.xuoi = false; const r = sapXep([{themLuc:'2026-01-01'}, {themLuc:'2026-10-04'}], 'vanBan'); SAP.cot = o; return r[0].themLuc==='2026-10-04'; })());
    /* 7b. ⚙ Khai báo Hội dạng bảng + chép kế hoạch Hội tỉnh cho các xã cùng Hội */

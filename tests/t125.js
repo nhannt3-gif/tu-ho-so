@@ -109,7 +109,7 @@ const fs=require('fs'), path=require('path');
    ktKHDoiThang(L.ds[0].ma, L.thang[0]); ok('sửa kế hoạch sau đó vẫn giữ tổ đã mất trong lịch đã lưu', +D.cauHinh.ktKH['2026|'+xa+'|'+dv].to[tMat.ma]===thMat);
    /* 11. Báo cáo tổ (Mẫu 04) theo kế hoạch */
    C.che = 'bc'; C.hoi = ''; ktVeThe(); await w(200);
-   ok('màn Báo cáo tổ: có hàng "📅 Theo kế hoạch 2026"', /Theo kế hoạch 2026/.test(document.getElementById('kt-the').textContent));
+   ok('3.514 (anh "kế hoạch năm để riêng, không link qua kiểm tra tổ"): 🎯 Kiểm tra tổ không còn hàng "Theo kế hoạch"', ktCheDo()==='dx' && !/Theo kế hoạch 2026/.test(document.getElementById('kt-the').textContent));
    const S = D.cauHinh.ktKH['2026|'+xa+'|'+dv], dTh = {}; Object.keys(S.to).forEach(m=>{ if(m!==tMat.ma) dTh[S.to[m]] = (dTh[S.to[m]]||0)+1; }); const mBC = +Object.keys(dTh).sort((a, b2)=>dTh[b2]-dTh[a])[0], soMBC = Object.keys(S.to).filter(m=>+S.to[m]===mBC && m!==tMat.ma).length;
    ktBCTheoKH('2026|'+xa+'|'+dv, mBC); await w(150);
    ok('bấm tháng → tích sẵn đúng các tổ của tháng đó; tổ không còn trong số liệu không tích', soMBC>0 && Object.keys(KT_BC_CHON).length===soMBC && !KT_BC_CHON[tMat.ma] && ktBCDs().filter(r=>r.chon).length===soMBC, soMBC+' tổ');

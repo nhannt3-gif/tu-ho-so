@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**176 khóa** trong code · 176 khóa trong sổ.
+**177 khóa** trong code · 177 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -83,6 +83,7 @@
 | `kieuTenThang` | 03-doc-pdf.js | 1 | 03-doc-pdf.js |  |
 | `ktApThu` | 22e-ktgs-kh.js | 5 | 22e-ktgs-kh.js |  |
 | `ktBang16` | 22b-ktgs.js | 3 | 22b-ktgs.js | 3.111: nhớ lựa chọn Bảng II Mẫu 16 |
+| `ktChonHo` | 80-ktgs-to.js | 5 | 80-ktgs-to.js | KTGS: khai báo chọn hộ kiểm tra — số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định (3.514, js/80) |
 | `ktChuan` | 22d-ktgs-04.js | 10 | 22d-ktgs-04.js · 79-ktgs-khoa.js |  |
 | `ktgs` | 22b-ktgs.js | 2 | 22b-ktgs.js |  |
 | `ktHaiMat` | 22b-ktgs.js | 3 | 22b-ktgs.js · 22c-ktgs-m06.js · mau/0hsn.js | 3.124 |
@@ -152,7 +153,7 @@
 | `slMt` | 22-so-lieu.js | 6 | 22-so-lieu.js | gon · tq (tổng quan) · thu (thu gọn 1 dòng) |
 | `slMtTruoc` | 22-so-lieu.js | 2 | 22-so-lieu.js |  |
 | `slNdtTen` | 74-sk-ndt.js | 5 | 74-sk-ndt.js |  |
-| `slTab` | 04-giao-dien.js | 53 | 04-giao-dien.js · 17-dong-bo-cai-dat.js · 22b-ktgs.js · 22e-ktgs-kh.js · 22f-tra-cuu.js · 22g-to.js …+12 | 3.163: mở tab Nạp & KT → ⦿ Gần nhất |
+| `slTab` | 04-giao-dien.js | 54 | 04-giao-dien.js · 17-dong-bo-cai-dat.js · 22b-ktgs.js · 22e-ktgs-kh.js · 22f-tra-cuu.js · 22g-to.js …+13 | 3.163: mở tab Nạp & KT → ⦿ Gần nhất |
 | `slTabBC` | 04-giao-dien.js | 2 | 04-giao-dien.js · 22f-tra-cuu.js |  |
 | `slTQ` | 22f-tra-cuu.js | 1 | 22f-tra-cuu.js |  |
 | `soKyBang` | 04c-van-ban-thang.js | 1 | 04c-van-ban-thang.js |  |

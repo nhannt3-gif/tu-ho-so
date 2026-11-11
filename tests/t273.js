@@ -15,9 +15,10 @@ const fs=require('fs'), path=require('path');
    doiNgan(7); const K = ktCH(); K.ky='2026-08'; K.xa=''; K.diem=''; K.hoi=''; K.to=''; K.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99');
    const t = ds.map(t=>[t, ktttSo(t)]).sort((a, b)=>b[1].ho.length-a[1].ho.length)[0][0]; ktChonTo(t.ma); K.xa = t.xa; K.to = t.ma; ktVeThe(); await w(400);
-   for(let i=0;i<40 && !document.querySelector('[data-lenh="kttt.in"]');i++){ if(i===10 && document.getElementById('kt-the')) ktVeThe(); await w(250); }
-   const nut = document.querySelector('[data-lenh="kttt.in"]');
-   ok('🎯 Đột xuất: có nút 📋 Tóm tắt tổ cạnh 📋 Mẫu 04', !!nut && /Tóm tắt tổ/.test(nut.textContent));
+   const SEL = '[data-lenh="ktto.xem"][data-m="tt"]';   /* 3.514: 🎯 Kiểm tra tổ — nút 📋 Tóm tắt (tổ đã tích) */
+   for(let i=0;i<40 && !document.querySelector(SEL);i++){ if(i===10 && document.getElementById('kt-the')) ktVeThe(); await w(250); }
+   const nut = document.querySelector(SEL);
+   ok('🎯 Kiểm tra tổ: có nút 📋 Tóm tắt (đầu hàng 5 mẫu)', !!nut && /Tóm tắt/.test(nut.textContent) && !nut.disabled);
    const x = ktttSo(t), s = ktSoTo(t), h = ktttHTML(x), c = chu(h);
    ok('ghi "số liệu đến ngày" theo ngày số liệu đang chọn', c.indexOf('số liệu đến ngày '+ngayVNsl(s.ngay || KT_K.ngay))>=0, (c.match(/số liệu đến ngày [^,)]*/)||[''])[0]);
    ok('đầu trang: tên tổ, mã tổ, Hội', c.indexOf('mã '+t.ma)>=0 && c.indexOf(ktHoiTen(t))>=0);

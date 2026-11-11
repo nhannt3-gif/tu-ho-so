@@ -141,6 +141,7 @@ function phimChung(e){
   if(typeof DK!=='undefined' && DK.mo){ e.preventDefault(); dongDonKho(); return; }
   if(CHO_KHAI){ e.preventDefault(); dongChoKhai(); return; }
   if(CC.mo && nganHienTai===0){ e.preventDefault(); ccDong(); return; }   /* 3.62: ô 🧰 Công cụ */
+  if(typeof KTTO!=='undefined' && KTTO.esc(e)) return;   /* 3.514: 🛡 KTGS — Esc lùi 1 cấp (js/80) */
 }
 
 document.addEventListener('click', function(e){
