@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.514 · 11/11/2026 18:41 · 152 file · 47303 dòng · 3774 hàm cấp ngoài · 644 biến toàn cục.
+Bản 3.515 · 11/11/2026 20:42 · 152 file · 47316 dòng · 3774 hàm cấp ngoài · 644 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 336 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4109 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 4119 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
@@ -49,7 +49,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/21-ngay-gy.js` | 38 | 3 | /* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nh |
 | `js/22-so-lieu.js` | 1212 | 125 | /* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i (nạp ngay sau theo thứ tự tên) + khuô |
 | `js/22b-ktgs.js` | 770 | 109 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1102–1816 của bản 3.234), không  |
-| `js/22c-ktgs-m06.js` | 454 | 62 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
+| `js/22c-ktgs-m06.js` | 455 | 62 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
 | `js/22d-ktgs-04.js` | 720 | 102 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2252–2945 của bản 3.234), không  |
 | `js/22e-ktgs-kh.js` | 604 | 87 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2946–3477 của bản 3.234), không  |
 | `js/22f-tra-cuu.js` | 353 | 40 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 3486–4545 của bản 3.234), không  |
@@ -141,7 +141,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/77-bang-loc.js` | 51 | 4 | /*   3.396 (anh 28/10, ảnh Tra cứu KH › Tìm theo Tổ trưởng: "làm bộ lọc và sắp xếp của các cột này") — LỌC + S |
 | `js/78-ktgs-gon.js` | 35 | 3 | /*   3.397 (anh 28/10 duyệt demo D1–D4 "em làm luôn"): KTGS gọn — CHỈ SẮP XẾP LẠI phần đã vẽ trong #kt-the (CẮ |
 | `js/79-ktgs-khoa.js` | 64 | 9 | /*   3.398 (anh 28/10: "các khai báo tên hội nên có nút khóa lại để khỏi đổi nhầm và em nên lưu lại nhật ký để |
-| `js/80-ktgs-to.js` | 162 | 0 | /*   js/80-ktgs-to.js — 3.514 (anh 11/11/2026): 🎯 KIỂM TRA TỔ — 1 hay nhiều tổ (gộp Kiểm tra định kỳ 06 + 16 v |
+| `js/80-ktgs-to.js` | 164 | 0 | /*   js/80-ktgs-to.js — 3.514 (anh 11/11/2026): 🎯 KIỂM TRA TỔ — 1 hay nhiều tổ (gộp Kiểm tra định kỳ 06 + 16 v |
 | `js/81-scan-pdf-the.js` | 120 | 7 | /*   3.403 (anh 29/10/2026, ảnh CCCD lưu dạng PDF — thẻ nhỏ giữa trang trắng: "khi cccd đã lưu dưới dạng pdf a |
 | `js/82-dia-ban-so-lieu.js` | 160 | 23 | /*   3.406 (anh 29/10/2026): 🗺 ĐỊA BÀN (Hôm nay › 🧰) THEO SỐ LIỆU MỚI NHẤT — cắm rút (bỏ dòng nạp file này là  |
 | `js/83-ap-cu.js` | 35 | 3 | /*   3.407 (anh 30/10 qua TK 1 — docs/AP_KP_CU.md 1.0): GHI CHÚ ẤP / KHU PHỐ CŨ — chỉ để tham khảo, nhớ dần; K |
@@ -303,9 +303,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22b-ktgs.js:758` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22c-ktgs-m06.js:2` · 3.138 (anh chốt): Mẫu 06 gọn & nhạt
 - `js/22c-ktgs-m06.js:130` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
-- `js/22c-ktgs-m06.js:262` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
-- `js/22c-ktgs-m06.js:303` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
-- `js/22c-ktgs-m06.js:447` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/22c-ktgs-m06.js:263` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
+- `js/22c-ktgs-m06.js:304` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
+- `js/22c-ktgs-m06.js:448` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22d-ktgs-04.js:21` · 3.98: 📖 BẢNG CHUẨN HÓA HỘI – ĐOÀN (anh chốt: chữ đặc thù dùng chung mọi mẫu, sửa 1 chỗ)
 - `js/22d-ktgs-04.js:333` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
 - `js/22d-ktgs-04.js:374` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó

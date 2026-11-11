@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.515 KTGS gọn chỗ chip — anh "code và gộp")
+- Anh: "rà soát giao diện tối ưu tránh chiếm quá nhiều chỗ của các chip" → em đo 5 màn KTGS (1366×768), đề xuất 6 ý chỉ trong KTGS → anh "code và gộp".
+- Đã làm: **3.515** — CSS chỉ trong `#kt-the`; khung chọn hộ 1 hàng, chip nhãn ngắn (tên đủ ở title), ▾ Hộ chữ nhỏ; Sau 30 ngày chip Lần 1 lên hàng tháng (`ktGNVeLai` dời phần tử), nhắc 30 ngày vào dòng đếm. t391 đo chiều cao.
+- Chưa làm (anh chưa chốt): rà chip các tab khác (Tổ TK&VV, Sao kê, GDX…).
+
 ### 11/11/2026 — TK 2 · PHIÊN (3.514 KTGS 5 nút + Kiểm tra tổ nhiều tổ — anh "code và gộp")
 - Anh chốt qua nhiều lượt: 5 nút (Kiểm tra tổ · sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo); Định kỳ + Mẫu 04 gộp Kiểm tra tổ (chọn nhiều tổ); Kế hoạch năm để riêng, không nối; kiểu chọn hộ tốt / cần quan tâm / Trung hòa 30% / hết tổ; món xét đúng luật + nút kiểu 2; 1 ô ngày chung; số hộ + Trung hòa vào Khai báo; Esc lùi 1 cấp; BC0437 thiếu tháng → để trống.
 - Đã làm: **3.514** — gói mới `js/80-ktgs-to.js` (`KTTO`), `docs/BAN_GIAO_KTGS.md` mục 12. t390 mới (28 ý, có so bản in Định kỳ cũ giống hệt); sửa 16 phép thử cũ theo màn mới (phần số liệu / bản in giữ).

@@ -200,9 +200,9 @@ function ktGNLanHTML(){
   if(!ktGNLanHTML.dk && typeof GD!=='undefined'){ ktGNLanHTML.dk = 1; GD.dangKy('ktgn', {lan:function(el){ ktCH().gnLan = el.getAttribute('data-k')==='1' ? '1' : ''; luu(); ktGNVeLai(); },
     m06a:function(el){ hso06aMo(el.getAttribute('data-to'), el.getAttribute('data-kh'), el.getAttribute('data-ku'), el.getAttribute('data-ky')); }}); }   /* 3.430: hộ phát hiện sai → Mẫu 06A từng món */
   var d = ktGNDem(), l1 = ktCH().gnLan==='1';
-  return '<div class="kt-che"><span class="sl-phu">Món kiểm tra:</span>'+GD.chip('Tất cả ('+d.tat+')', !l1, 'ktgn.lan', {k:'tat'}, 'Mọi món có giải ngân trong tháng, kể cả HSSV nhận tiền lần 2 trở đi — khi mình cần kiểm tra hết')+
+  return '<div class="kt-che kt-gn-lan"><span class="sl-phu">Món:</span>'+GD.chip('Tất cả ('+d.tat+')', !l1, 'ktgn.lan', {k:'tat'}, 'Mọi món có giải ngân trong tháng, kể cả HSSV nhận tiền lần 2 trở đi — khi mình cần kiểm tra hết')+
     GD.chip('Lần 1 ('+d.lan1+')', l1, 'ktgn.lan', {k:'1'}, '727: giải ngân lần 1 (Ngày GN đầu tiên trong tháng) — mức tối thiểu theo văn bản')+
-    (d.khong ? '<span class="sl-phu"> · '+d.khong+' món thiếu Ngày GN đầu tiên (không tính Lần 1)</span>' : '')+'</div>';
+    (d.khong ? '<span class="sl-phu" title="'+d.khong+' món thiếu Ngày GN đầu tiên — không tính vào Lần 1">⚠ '+d.khong+' thiếu ngày GN đầu</span>' : '')+'</div>';
 }
 function ktGN06aNut(ma, o){ var ky = KT_GN && KT_GN.ngay && KT_GN.ngay[o._th] || o._th || ''; return '<button class="nho" data-lenh="ktgn.m06a" data-ky="'+coChuHTML(ky)+'" data-to="'+coChuHTML(ma)+'" data-kh="'+coChuHTML(o.kh)+'" data-ku="'+coChuHTML(o.ku)+'" title="Phát hiện sai (sai mục đích…) → lập Mẫu 06A/TD kiểm tra riêng món này (tab Hồ sơ vay)">📄 06A</button>'; }
 function ktGNChon(){   /* [{x, thang, th, mon:[đã tích]}] — 1 tổ × 1 tháng = 1 phiếu */
@@ -223,8 +223,8 @@ function ktGNDsHTML(){
   h += ktGNLanHTML(); var ds = ktGNTo();
   if(!ds.length) return h+'<div class="rong">Không có món giải ngân trong '+(R.thang.length>1 ? 'các tháng đã chọn' : 'tháng '+kyVN(R.thang[0]))+' ở phạm vi này.</div>';
   var chon = ktGNChon(), soMon = chon.reduce(function(a, p){ return a+p.mon.length; }, 0);
-  h += '<div class="kt-nhac30">⏱ Kiểm tra trong 30 ngày kể từ ngày giải ngân (727) — ngày kiểm tra ghi tay trên phiếu.</div>';   /* 3.328 (anh chốt): chỉ nhắc, không chặn */
-  h += '<div class="to-the-so"><b>'+chon.length+'</b> phiếu Mẫu 06 (1 tổ × 1 tháng = 1 phiếu'+(R.thang.length>1 ? ', '+R.thang.length+' tháng' : '')+') · <b>'+soMon+'</b> món · tổng giải ngân trong kỳ '+ktTr(chon.reduce(function(a, p){ return a+p.mon.reduce(function(s, o){ return s+(o.gnT||0); }, 0); }, 0))+' tr</div>';
+  var nhac = '<span class="kt-nhac30">⏱ Kiểm tra trong 30 ngày kể từ ngày giải ngân (727) — ngày kiểm tra ghi tay trên phiếu.</span>';   /* 3.328 (anh chốt): chỉ nhắc, không chặn · 3.515: gộp vào dòng đếm phiếu (bớt 1 hàng) */
+  h += '<div class="to-the-so kt-gn-dem"><b>'+chon.length+'</b> phiếu Mẫu 06 (1 tổ × 1 tháng = 1 phiếu'+(R.thang.length>1 ? ', '+R.thang.length+' tháng' : '')+') · <b>'+soMon+'</b> món · tổng giải ngân trong kỳ '+ktTr(chon.reduce(function(a, p){ return a+p.mon.reduce(function(s, o){ return s+(o.gnT||0); }, 0); }, 0))+' tr'+nhac+'</div>';
   if(!C.to){
     h += '<div class="to-bang-cuon"><table class="to-bang kt-gn-bang"><thead><tr><th>Tổ (mã)</th><th>Ấp · xã</th><th>Tháng GN</th><th>Số hộ</th><th>Số món</th><th>GN trong kỳ (tr)</th></tr></thead><tbody>'+
       ds.map(function(p){ var x = p.x, nh = {}; p.mon.forEach(function(o){ nh[o.kh] = 1; });
@@ -247,7 +247,8 @@ function ktGNDsHTML(){
   return h;
 }
 function ktGNDat(){ if(KT_GN_KY!==ktKyChon()){ var k = slThang(ktKyChon()); ktCH().gnTu = k; ktCH().gnDen = k; } KT_GN_KY = ktKyChon(); }   /* anh tự đổi ô từ–đến: bắt đầu từ khoảng đang hiện */
-function ktGNVeLai(){ var e = document.getElementById('kt-gn'); if(e) e.innerHTML = ktGNDsHTML(); }
+function ktGNVeLai(){ var e = document.getElementById('kt-gn'); if(!e) return; e.innerHTML = ktGNDsHTML();
+  var l = e.querySelector('.kt-gn-lan'), d = document.querySelector('#kt-the .kt-gn-dau'); if(l && d){ var cu = d.querySelector('.kt-gn-lan'); if(cu) cu.remove(); d.appendChild(l); } }   /* 3.515: chip Tất cả / Lần 1 lên cùng hàng tháng giải ngân */
 function ktGNTich(k, v){ if(v) delete KT_GN_BO[k]; else KT_GN_BO[k] = 1; ktGNVeLai(); }
 function ktGNTichHo(ma, kh, v, th){ ktGNTo().forEach(function(p){ if(p.x.t.ma!==ma || (th && p.th!==th)) return; p.mon.forEach(function(o){ if(o.kh!==kh) return; var k = o._th+'|'+o.ku; if(v) delete KT_GN_BO[k]; else KT_GN_BO[k] = 1; }); }); ktGNVeLai(); }
 function ktGNGiaTri(v){   /* mỗi phiếu = 1 tổ: hộ = gom món theo khách */
