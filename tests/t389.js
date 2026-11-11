@@ -37,7 +37,7 @@ const fs = require('fs'), path = require('path');
    const s = ktSoTo(KT_K.to[t.ma]);
    ok('chọn 1 tổ: điểm chấm = BC0437 T7 (77), số liệu tổ = Mẫu 31 ngày', s.diem===77 && s.ngay===KT_K.ngay, JSON.stringify({diem:s.diem, ngay:s.ngay}));
    const hn = [...the().querySelectorAll('.hang-nut.kt-in button')].map(x => x.textContent.trim()).join('|');
-   ok('hàng nút 1 tổ: Tóm tắt · 06 · 15/TD · 16 — không còn Mẫu 04', /^📋 Tóm tắt tổ\|🖨 In Mẫu 06\|📄 Word Mẫu 06\|📄 15\/TD Đối chiếu\|🖨 In Mẫu 16\|📄 Word Mẫu 16$/.test(hn), hn);
+   ok('hàng nút (3.514): Tóm tắt · 06 · 15/TD · 16 · 04', hn==='📋 Tóm tắt|📄 06/TD|📄 15/TD|📄 16/TD|📄 04', hn);
    ok('chip BC0437 trên dải lọc không báo lệch (T7 đúng luật)', [...document.querySelectorAll('.sl-chip')].some(x => /^BC0437 ✓/.test(x.textContent.trim())), [...document.querySelectorAll('.sl-chip')].map(x => x.textContent).join('|'));
    /* Mẫu 04 theo kỳ chọn */
    C.to = ''; C.xa = t.xa; ktDoiCheDo('bc'); await w(500);
@@ -55,10 +55,11 @@ const fs = require('fs'), path = require('path');
    /* Hội cấp xã */
    ktDoiCheDo('hx'); await w(400);
    ok('🏛 Hội cấp xã: dòng 📌 Số liệu theo kỳ chọn', /📌 Số liệu: Mẫu 31 ngày 15\/08\/2026/.test(chu()));
-   /* Định kỳ + Kế hoạch giữ như cũ */
-   ktDoiCheDo('dk'); for(let i=0;i<80 && !ktNguonSan(ktDKThang());i++) await w(200); await w(400);
-   ok('Định kỳ giữ như cũ: tháng kiểm tra 08 (kỳ ngày → chính tháng), số liệu cuối T7, BC0437 T7', ktDKThang()==='2026-08' && KT_KH_SL.ky==='2026-07' && /Số liệu in T8/.test(chu()), KT_KH_SL && KT_KH_SL.ky);
-   ok('Định kỳ: không còn 📋 Tóm tắt / 15/TD (gom về 1 tổ)', !the().querySelector('[data-lenh="kttt.dk"],[data-lenh="kttt.in"],[data-lenh="kt7.m15"]'));
+   /* 3.514: Định kỳ gộp 🎯 Kiểm tra tổ (theo kỳ chọn); Kế hoạch năm in theo tháng giữ như cũ (cuối tháng liền trước) */
+   ktDoiCheDo('dk'); await w(400);
+   ok('che cũ dk → 🎯 Kiểm tra tổ: số liệu Mẫu 31 ngày chọn, phiếu ghi tháng kiểm tra 08 (kỳ ngày → chính tháng)', ktCheDo()==='dx' && KT_K.ky==='2026-08-15' && KTTO.thKT()==='2026-08');
+   await ktNguonNap('2026-08'); for(let i=0;i<80 && !ktNguonSan('2026-08');i++) await w(200);
+   ok('Kế hoạch năm in theo tháng giữ như cũ: tháng kiểm tra 08 → số liệu cuối T7', KT_KH_SL && KT_KH_SL.ky==='2026-07', KT_KH_SL && KT_KH_SL.ky);
    ktDoiCheDo('kh'); await w(400);
    ok('Kế hoạch năm: dòng 📌 ghi giữ như cũ (cuối tháng liền trước)', /📌 Số liệu: Kế hoạch năm giữ như cũ/.test(chu()));
    C.che = 'dx';

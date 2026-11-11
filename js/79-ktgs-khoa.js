@@ -22,6 +22,7 @@ function ktKBChan(){ bao('🔒 Khai báo Hội đang khóa — bấm 🔓 Mở k
 function ktKBDoiKhoa(){ D.cauHinh.ktKBKhoa = ktKBKhoaCo() ? 0 : 1; luu(); ktVeThe(); bao(ktKBKhoaCo() ? '🔒 Đã khóa khai báo Hội — không sửa nhầm được nữa.' : '🔓 Đã mở khóa — sửa xong nhớ bấm 🔒 Khóa lại.', 4); }
 function ktKBTenK(t, k){   /* tên dễ đọc của khóa nhật ký */
   if(t==='chuan') return 'Chuẩn hóa · '+(tdnHoi(k) || k);
+  if(t==='chonho') return '🎯 Chọn hộ kiểm tra';   /* 3.514 (js/80) */
   var p = String(k).split('|'), kb = (ktHoiKBGoc(k)||{}), to = KT_K && KT_K.to ? Object.keys(KT_K.to).map(function(m){ return KT_K.to[m]; }).find(function(x){ return String(x.xa)===p[0] && String(x.dv)===p[1]; }) : null;
   return kb.ten || (to ? ktHoiTenTD(to) : (tdnHoi(p[1]) || p[1])+' · xã '+p[0]);
 }
@@ -41,7 +42,7 @@ function ktKBNKHop(loc){
 }
 var KT_KB_NK_LOC = '';
 function ktKBKhoiPhuc(i){ var x = ktKBNK()[i]; if(!x) return; if(ktKBKhoaCo()) return ktKBChan();
-  if(x.t==='chuan') ktChuanSua(x.k, x.o, x.cu); else ktHoiKBSua(x.k, x.o, x.cu);
+  if(x.t==='chonho'){ if(typeof KTTO!=='undefined') KTTO.kbSua(x.o, x.cu); } else if(x.t==='chuan') ktChuanSua(x.k, x.o, x.cu); else ktHoiKBSua(x.k, x.o, x.cu);
   bao('↶ Đã khôi phục '+ktKBTenO(x.t, x.o)+' của '+ktKBTenK(x.t, x.k)+' về: '+(x.cu || '(trống)'), 5); ktKBNKHop(KT_KB_NK_LOC); if(document.getElementById('kt-the')) ktVeThe(); }
 (function(){   /* thanh 🔒 / 📜 trên 🏛 Hội – xã và 📖 Chuẩn hóa; đang khóa → ô chỉ xem */
   if(typeof ktHDTVe!=='function') return; var cu = ktHDTVe;

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.513', ds:[
+var CO_GI_MOI = {ban:'3.514', ds:[
+  ["🛡 KTGS còn 5 nút: Kiểm tra tổ · Kiểm tra sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo. Kiểm tra tổ chọn được nhiều tổ, kiểu chọn hộ (tốt · cần quan tâm · Trung hòa · hết tổ), in Tóm tắt · 06 · 15 · 16 · 04; Esc lùi 1 cấp", "dhSL('kt')"],
   ["🛡 KTGS gọn lại, thống nhất cách lấy số liệu: Kế hoạch năm + Định kỳ 06/16 giữ như cũ; Sau giải ngân, Mẫu 04, 1 tổ, Hội cấp xã theo Kỳ đầu trang (chấm điểm ngày giữa tháng lấy cuối tháng trước); mỗi màn có dòng 📌 Số liệu", "dhSL('kt')"],
   ["📒 Sao kê › Khách hàng: thêm \"Sao kê TK 105 của khách vay trong tổ\" — ① chưa có TK 105 (mở mới) · ② có TK 105 chưa gán vào tổ (gắn lại) · ③ TK 105 ở tổ khác (chuyển về), mỗi dòng ghi căn cứ", "dhSL('sk')"],
   ["03/GDX › Tổ giao dịch: chọn tên từ danh sách khai báo cán bộ; Tổ trưởng kiêm Bảo vệ, KSV / GDV kiêm Lái xe", "slDoiTab('gdx')"],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.513', ds:[
   ["Khung mẫu in chung (bản in · xem trước · Word theo file gốc) — mẫu mới làm nhanh hơn; 15/TD, 03/BB-CX đã chuyển sang, bản in và Word như cũ", "slDoiTab('kt')"],
   ["Nền kỹ thuật gọn hơn (không đổi chức năng): tài liệu cho người làm tiếp gọn lại, luật gói mới và sổ cấu hình để app lớn dần vẫn bền", ""],
   ["🛡 KTGS: sửa lỗi đóng hộp 15/TD · 03/BB-CX rồi bấm mở lại không hiện; hộp 03 gõ tên cán bộ bấm Enter sang ô kế, không mất con trỏ", "slDoiTab('kt')"],
-  ["🛡 KTGS: khối mới 🏛 Hội cấp xã (cạnh Bắt buộc · Đột xuất · Khai báo) — bảng các Hội – xã theo lọc địa bàn (số tổ, khách, dư nợ, nợ quá hạn, xếp loại tổ), bấm 🏛 03/BB-CX in biên bản kiểm tra Hội đó", "slDoiTab('kt')"],
-  ["🏢 Giao dịch xã: chip mẫu hiện đủ hết (xuống dòng như tab Hồ sơ), không còn phải bấm ‹ › tìm mẫu bị khuất; điện thoại: nút Tra cứu / Xem xuống hàng dưới", "slDoiTab('gdx')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS: khối mới 🏛 Hội cấp xã (cạnh Bắt buộc · Đột xuất · Khai báo) — bảng các Hội – xã theo lọc địa bàn (số tổ, khách, dư nợ, nợ quá hạn, xếp loại tổ), bấm 🏛 03/BB-CX in biên bản kiểm tra Hội đó", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt",
+    "3.514 · 🛡 KTGS › ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định",
+    "3.514 · 🛡 KTGS: phím Esc (hoặc ‹ Lùi) lùi 1 cấp — thu gọn ▾ tổ, rồi lên cấp cây lọc",
     "3.513 · 🛡 KTGS › chọn Kỳ đầu trang ngày giữa tháng → 🎯 chọn 1 tổ: hàng nút Tóm tắt · 06 · 15/TD · 16, dòng 📌 ghi Mẫu 31 ngày đó + BC0437 tháng trước",
     "3.513 · 🛡 KTGS › Sau giải ngân: mặc định tháng của Kỳ đầu trang (chọn 31/5 → món GN tháng 5; 15/6 → 01–15/6), ô từ–đến vẫn đổi được",
     "3.513 · 🛡 KTGS › Báo cáo tổng hợp (Mẫu 04): theo Kỳ đầu trang, không còn ô Tháng kiểm tra",
@@ -1090,11 +1093,11 @@ var CO_GI_MOI = {ban:'3.513', ds:[
     "3.501 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX: đóng hộp rồi bấm lại → hộp hiện; gõ tên cán bộ → Enter sang ô Chức vụ, bản xem cập nhật",
     "3.500 · 🛡 KTGS › 🏛 Hội cấp xã: thấy bảng Hội – xã (chọn xã / Hội ở LỌC ĐỊA BÀN để thu gọn) → bấm 🏛 03/BB-CX ở dòng Hội → xem / In / Word; khai cán bộ đoàn kiểm tra 1 lần",
     "3.499 · 🏢 Giao dịch xã: thấy đủ 14 chip mẫu (04/TD … 15/GDX) không cần cuộn; bấm chip đổi mẫu như cũ; trên điện thoại chip không bị bóp thành 1 cột",
-    "3.498 · 🛡 KTGS › 🎯 Đột xuất › chọn 1 tổ › 📄 15/TD Đối chiếu: đủ tổ viên còn nợ / tiền gửi, nợ lãi = lãi tồn, Tổng cộng đúng; 📄 Word mở được bằng MS Word, A4 ngang",
-    "3.498 · 🛡 KTGS › 🏛 03/BB-CX Hội cấp xã: chọn Hội, khai tên cán bộ NH (nhớ cho lần sau); mục I số tổ / khách / dư nợ đúng; mục III, IV; 📄 Word mở được",
-    "3.498 · 📅 Bắt buộc › Định kỳ (tích tổ) và Mẫu 04 (Hội): có nút 15/TD · 03/BB-CX",
-    "3.497 · 🏢 Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: gõ tên rồi Enter → sang ô tên kế; ở ô cuối Enter → thêm người"],
+    "3.498 · 🛡 KTGS › 🎯 Đột xuất › chọn 1 tổ › 📄 15/TD Đối chiếu: đủ tổ viên còn nợ / tiền gửi, nợ lãi = lãi tồn, Tổng cộng đúng; 📄 Word mở được bằng MS Word, A4 ngang"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
+    "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
+    "3.514 · 🛡 KTGS: bỏ nút \"Tích tổ có lịch\" và hàng \"Theo kế hoạch\" ở chỗ chọn tổ — Kế hoạch năm để riêng (in theo tháng vẫn ở Kế hoạch năm)",
     "3.513 · 🛡 KTGS: bỏ nút 📋 Mẫu 04 ở hàng 1 tổ (lập ở thẻ Báo cáo tổng hợp)",
     "3.513 · 🛡 KTGS Định kỳ: bỏ 📋 Tóm tắt (từng dòng + n tổ) và 📄 15/TD — dùng ở hàng nút 1 tổ",
     "3.513 · 🛡 KTGS Mẫu 04: bỏ ô 📅 Tháng kiểm tra (theo Kỳ đầu trang)",
@@ -1111,10 +1114,7 @@ var CO_GI_MOI = {ban:'3.513', ds:[
     "3.453 · 10C: 2 danh sách tích Kết nạp / Cho ra cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.452 · 10B: danh sách tích Kết nạp cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.449 · 10A: danh sách tích tổ viên cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun 10A)",
-    "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)",
-    "3.448 · 10A: khối thu gọn ⚙ Khai báo riêng cuối cột trái (3.446) → nút riêng; cột trái chỉ còn Chọn nhanh",
-    "3.448 · 10A: dòng \"Tổng số\" dưới khung → dòng cuối cột 3 như gốc",
-    "3.446 · 10A: 2 ô cũ ở cột trái \"Ngày họp định kỳ\", \"Tiết kiệm tối thiểu\" — thay bằng dòng trong ⚙ Khai báo riêng (để sẵn ở Chọn nhanh, số đã gõ vẫn dùng)"]};
+    "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)"]};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+

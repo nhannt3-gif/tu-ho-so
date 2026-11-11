@@ -20,7 +20,7 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    kyChungDoi('2026-08'); doiNgan(7); delete D.cauHinh.ktIn;
    const K = ktCH(); K.ky = '2026-08'; K.xa = ''; K.diem = ''; K.hoi = ''; K.to = ''; K.che = 'dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t => !toLaTT(t) && t.dv && String(t.dv)!=='99').sort((a, c) => KHO.doiChieu(c).length - KHO.doiChieu(a).length), t = ds[0]; K.xa = t.xa; K.diem = t.khoaDiem; pvVeCay('kt'); await w(300); ktChonTo(t.ma); await w(600);
-   o.nut = !!document.querySelector('[data-lenh="kt7.m15"][data-c="dx"]') && !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* 3.500: 03 không còn ở cấp tổ */
+   o.nut = !!document.querySelector('[data-lenh="kt7.m15"][data-c="to"]') && !document.querySelector('#kt-the [data-lenh="kt7.m03"]');   /* 3.500: 03 không còn ở cấp tổ */
    /* ① 15/TD */
    document.querySelector('[data-lenh="kt7.m15"]').click(); for(let i=0;i<30 && !(KT7.x && document.getElementById('mi-khung'));i++) await w(100); await w(300);
    const g = KT7.gts[0], dc = KHO.doiChieu(t), h15 = chu(KT7.x.trang);
@@ -38,7 +38,7 @@ const chuW = x => (x.match(/<w:t[^>]*>([^<]*)<\/w:t>/g) || []).map(t => t.replac
    dongHop(); await w(100);
    /* ② 03/BB-CX */
    /* 3.500: khối riêng 🏛 Hội cấp xã — bảng Hội – xã, bấm Hội của tổ */
-   [...document.querySelectorAll('#kt-the .kt-khoi > button')].find(b => /Hội cấp xã/.test(b.textContent)).click(); for(let i=0;i<30 && !document.querySelector('#kt-the .kt-hx');i++) await w(100); await w(200);
+   [...document.querySelectorAll('#kt-the .kt-khoi > button')].find(b => /Kiểm tra Hội/.test(b.textContent)).click();   /* 3.514: nút 🏛 Kiểm tra Hội */ for(let i=0;i<30 && !document.querySelector('#kt-the .kt-hx');i++) await w(100); await w(200);
    const hx = document.querySelector('#kt-the .kt-hx'), nutHoi = hx && hx.querySelector('[data-lenh="kt7.m03"][data-k="'+ktHoiKhoa(t)+'"]');
    o.hx = ktCheDo()==='hx' && !!nutHoi && hx.querySelectorAll('tbody tr').length===ktHoiDs().filter(x => !ktCH().hoi || String(x.t.dv)===String(ktCH().hoi)).length && !document.querySelector('#kt-the [data-lenh="kt7.m15"]');
    nutHoi.click(); for(let i=0;i<30 && !(KT7.x && KT7.mau==='m03' && document.getElementById('mi-khung'));i++) await w(100); await w(300);

@@ -134,7 +134,7 @@ function ktDocxLam(mau, gt){   /* gt = 1 phiếu, hoặc mảng phiếu (3.93.1:
    - cột Dư nợ = TỔNG DƯ NỢ của món cuối tháng đó (anh chốt); Tổng số tiền giải ngân = tổng đã giải ngân của món (đúng tên cột mẫu)
    - tháng chưa nạp Mẫu 31 → báo thiếu, không in. 3.98: mỗi tổ 1 phiếu (gom các tháng); không ghi theo dõi đã lập phiếu */
 var KT_GN = null, KT_GN_BO = {};   /* KT_GN = {khoa, thang:[…], thieu:[…], ds:{tháng:{mã tổ:{t, mon:[…]}}}} · KT_GN_BO['tháng|KU'] = 1 → anh bỏ tích */
-function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='bc' || c==='kh' || c==='dk' || c==='hdt' || c==='hx' ? c : 'dx'; }   /* 3.500: + 'hx' 🏛 Hội cấp xã (03/BB-CX, js/56b) */   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
+function ktCheDo(){ var c = ktCH().che; return c==='gn' || c==='kh' || c==='hdt' || c==='hx' ? c : 'dx'; }   /* 3.514 (anh 11/11): Định kỳ 'dk' + Mẫu 04 'bc' gộp vào 🎯 Kiểm tra tổ ('dx', js/80) — khóa cũ đọc thành dx */   /* 3.500: + 'hx' 🏛 Hội cấp xã (03/BB-CX, js/56b) */   /* 3.113: + 'hdt' Khai báo Hội đoàn thể */   /* 3.95: + 'bc' Mẫu 04 · 3.96: + 'kh' Kế hoạch 01/KH */
 function ktDoiCheDo(c){ ktCH().che = c; luu(); ktVeThe(); }
 function ktCheDoHTML(){ return ktKhoiHTML(ktCheDo()); }   /* 3.329: thanh 3 khối Bắt buộc · Đột xuất · Khai báo (js/56-ktgs-bo.js) thay 6 chip */
 function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nhất trước · 3.136: + tháng chưa có bản cuối tháng nhưng đã có Mẫu 31 theo ngày */
@@ -170,10 +170,11 @@ function ktGNVe(o){
   var C = ktCH(), ds = ktThangHS();
   if(!ds.length){ o.innerHTML = ktCheDoHTML()+'<div class="rong">Chưa có Mẫu 31 chốt tháng — nạp ở tab con 📥 Nạp &amp; Kiểm tra.</div>'; return; }
   var ks = ktGNKhoang(), opt = function(v){ return ds.slice().reverse().map(function(k){ return '<option value="'+k+'"'+(k===v ? ' selected' : '')+'>'+coChuHTML(ktGNThangChu(k))+'</option>'; }).join(''); };
-  o.innerHTML = ktCheDoHTML()+'<div class="kt-gn-dau"><label>Tháng giải ngân: từ <select onchange="ktGNDat();ktCH().gnTu=this.value;if((ktCH().gnDen||\'\')<this.value)ktCH().gnDen=this.value;luu();ktVeThe()">'+opt(ks[0])+'</select></label>'+
+  o.innerHTML = ktCheDoHTML()+'<div class="to-the-so kt-sl">📌 Số liệu: món giải ngân '+coChuHTML(ks.length>1 ? kyVN(ks[0])+' – '+ktGNThangChu(ks[ks.length-1]) : ktGNThangChu(ks[0]))+(KT_GN_KY===ktKyChon() ? ' — khoảng anh chọn' : ' — theo ô Kỳ đầu trang')+'</div>'+
+    '<div class="kt-gn-dau"><label>Tháng giải ngân: từ <select onchange="ktGNDat();ktCH().gnTu=this.value;if((ktCH().gnDen||\'\')<this.value)ktCH().gnDen=this.value;luu();ktVeThe()">'+opt(ks[0])+'</select></label>'+
     '<label>đến <select onchange="ktGNDat();ktCH().gnDen=this.value;if((ktCH().gnTu||\'\')>this.value)ktCH().gnTu=this.value;luu();ktVeThe()">'+opt(ks[ks.length-1])+'</select></label>'+
     '<span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn ở cây phía trên (đến xã: cả xã · đến tổ: tích từng món)</span>'+
-    '<span class="kt-sl kt-gn-sl">📌 Số liệu: món giải ngân '+coChuHTML(ks.length>1 ? kyVN(ks[0])+' – '+ktGNThangChu(ks[ks.length-1]) : ktGNThangChu(ks[0]))+(KT_GN_KY===ktKyChon() ? '' : ' — theo ô Kỳ đầu trang')+'</span></div><div id="kt-gn"><div class="rong">Đang mở Mẫu 31…</div></div>';
+'</div><div id="kt-gn"><div class="rong">Đang mở Mẫu 31…</div></div>';
   ktGNNap().then(ktGNVeLai)
     .catch(function(er){ var e = document.getElementById('kt-gn'); if(e) e.innerHTML = '<div class="sl-bao do">Chưa mở được Mẫu 31: '+coChuHTML(er && er.message || er)+'</div>'; });
 }

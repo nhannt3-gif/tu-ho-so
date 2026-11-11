@@ -285,6 +285,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
 
 
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 

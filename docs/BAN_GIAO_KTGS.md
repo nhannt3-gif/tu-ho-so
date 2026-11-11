@@ -126,3 +126,14 @@ Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổ
 | 📅 Sau giải ngân | tháng của kỳ chọn (kỳ ngày giữa tháng → Mẫu 31 ngày đó, món GN đến ngày đó); ô từ–đến anh đổi được (`KT_GN_KY`) |
 | Chấm điểm BC0437 / BC0438 | theo tháng: kỳ là ngày giữa tháng → cuối tháng liền trước (`ktBCKyChon`) |
 Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD ở Định kỳ (hàm giữ). Mỗi màn dòng 📌 Số liệu (`ktSLDong`). Phép thử t389.
+
+## 12. Bản 3.514 (11/11/2026) — 5 nút + 🎯 Kiểm tra tổ nhiều tổ (gói `js/80-ktgs-to.js`, `KTTO`)
+```
+🛡 KTGS Hội   [🎯 Kiểm tra tổ][📅 Kiểm tra sau 30 ngày][🏛 Kiểm tra Hội][🗓 Kế hoạch năm][⚙ Khai báo]   ‹ Lùi (Esc)
+📌 Số liệu: Mẫu 31 kỳ chọn · chấm điểm BC0437 đúng tháng (thiếu → để trống)
+```
+- `che`: `dx` Kiểm tra tổ (khóa cũ `dk` / `bc` đọc thành `dx`) · `gn` · `hx` · `kh` · `hdt`.
+- Kiểm tra tổ: tổ đã tích = `KT_DK_CHON`; hộ từng tổ `KTTO.ho` (= `ktGoiY(t, kiểu, số, null, loc)`); món xét `luat` (GN trước 01/01 năm KT) / `tat`; kiểu `tot` · `xau` · `trung` (% khai báo) · `het`; 1 ô ngày chung (`KT_KB.ngay`); in 06 / 16 qua `KTTO.giaTri` (như `ktDKGiaTri`), 04 `ktBC04` (`KT_BC_XEM.tu = 'to'`), 15/TD `kt7Mo15('to')`, Tóm tắt `ktttInDs`.
+- Tương thích: tổ chọn ở cây (`C.to`) → `KT_CHON` = hộ của tổ đó (hàm 1 tổ cũ `ktXuat`, `ktDaChon`, `ktDoiKieu`, `ktGoiYLai` vẫn chạy).
+- Khai báo chọn hộ: `D.cauHinh.ktChonHo` (⚙ Khai báo › 🎯 Chọn hộ kiểm tra), theo khóa / nhật ký khai báo Hội (`t:'chonho'`).
+- Còn hàm cũ không gọi từ giao diện (giữ cho Kế hoạch in theo tháng / phép thử): `ktDKVe`, `ktBCVe`, `ktChonHTML`, `ktTheHTML`, `ktBangToHTML`, `ktDX04` — dọn ở đợt rà mã sau (cần anh duyệt khi xóa).

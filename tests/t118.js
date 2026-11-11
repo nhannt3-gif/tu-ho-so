@@ -47,7 +47,7 @@ const fs=require('fs'), path=require('path');
    ok('tab Kế hoạch: dòng nhắc thiếu số HĐUT / KH tỉnh + nút sang khai báo (không còn khung ✎ cũ)', /Chưa khai: .*số HĐUT/.test(the.textContent) && !!the.querySelector('.kt-hdt-nhac button') && !the.querySelector('.kt-hkb-bang'));
    ['hd','hdNgay','kh','khNgay'].forEach((k, i)=>ktHoiKBSua(kA, k, ['01/HĐUT','02/01/2025','06-KH/HNDT','10/01/2026'][i])); ktVeThe(); await w(100);
    ok('khai đủ → dòng nhắc xanh "Đã khai báo đủ"', /Đã khai báo đủ cho 1 Hội – xã/.test(the.textContent), (the.querySelector('.kt-hdt-nhac')||{}).textContent);
-   C.che = 'bc'; ktVeThe(); await w(150); ok('tab Mẫu 04: dòng nhắc khai báo Hội thay khung ✎ cũ', !!the.querySelector('.kt-hdt-nhac') && !the.querySelector('.kt-hkb-bang'));
+   C.che = 'dx'; C.xa = tA.xa; KT_DK_CHON = {}; KT_DK_CHON[tA.ma] = true; ktVeThe(); await w(150); ok('3.514 🎯 Kiểm tra tổ (gộp Mẫu 04): dòng nhắc khai báo Hội thay khung ✎ cũ', !!the.querySelector('.kt-hdt-nhac') && !the.querySelector('.kt-hkb-bang'));
    /* 5. chép KH Hội tỉnh cùng Hội */
    if(kC){ C.xa = ''; C.che = 'hdt'; ktVeThe(); await w(100); ['kh','khNgay'].forEach(k=>ktHoiKBSua(kA, k, '')); ktChuanSua(String(tA.dv), 'kh', '06-KH/HNDT'); ktChuanSua(String(tA.dv), 'khNgay', '10/01/2026'); ok('3.158 số / ngày KH Hội tỉnh khai 1 lần ở Chuẩn hóa → xã khác cùng Hội dùng, Hội khác không', ktHoiKB(kC).kh==='06-KH/HNDT' && ktHoiKB(kC).khNgay==='10/01/2026' && ktHoiKB(kA).kh==='06-KH/HNDT' && !ktHoiKB(kB).kh); delete D.cauHinh.ktChuan; }
    /* 6. tab nhỏ Chuẩn hóa */

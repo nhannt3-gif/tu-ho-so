@@ -192,7 +192,7 @@ function ktKN04(g){   /* 3.109: IV.2 kiến nghị a) b) c) — ghi nhẹ nhàng
     c:['- Sử dụng vốn vay đúng mục đích, trả lãi hằng tháng đúng kỳ, trả nợ gốc đúng hạn; tham gia gửi tiết kiệm thường xuyên.']};
 }
 function ktThangKT(){ var m = KT_K && KT_K.thang; if(!m) return '';
-  if(String(KT_K.ky || '').length>7 && typeof ktCheDo==='function' && /^(bc|gn)$/.test(ktCheDo())) return m;   /* 3.513: Mẫu 04 / Sau GN theo kỳ chọn là ngày → kiểm tra trong chính tháng đó (Định kỳ, Kế hoạch giữ như cũ) */
+  if(String(KT_K.ky || '').length>7 && typeof ktCheDo==='function' && /^(bc|gn|dx)$/.test(ktCheDo())) return m;   /* 3.513: Mẫu 04 / Sau GN theo kỳ chọn là ngày → kiểm tra trong chính tháng đó (Định kỳ, Kế hoạch giữ như cũ) */
   var y = +m.slice(0, 4), t = +m.slice(5, 7)+1; if(t>12){ t = 1; y++; } return y+'-'+hai(t); }   /* số liệu tháng 9 → kiểm tra tháng 10 */
 function ktDiaDiem04(t){   /* 3.106: ấp → xã → tỉnh; dài quá 40 ký tự thì bỏ tỉnh */
   var a = [ktApChu(t.tenThon, t.tenXa, 1), ktXaChu(t.tenXa)].filter(Boolean), d = a.concat(['tỉnh '+KT_TINH]).join(', ');
@@ -229,7 +229,7 @@ function ktBCHop(tit){   /* hộp xem trước Mẫu 04 dùng chung ① (cây) v
   moHop('<div class="hop-tit">👁 Mẫu 04/BC-TH · Báo cáo tổng hợp'+(tit ? ' '+coChuHTML(tit) : '')+' — '+gts.length+' báo cáo</div>'+
     '<div class="hop-phu">'+gts.map(function(g){ return coChuHTML(g.ten)+(g.nhan ? ' ('+coChuHTML(g.nhan)+')' : '')+': '+g.rows.length+' tổ'; }).join(' · ')+' — Đoàn kiểm tra theo người kiểm tra đã chọn + 2 dòng ghi tay; tháng kiểm tra = tháng sau tháng số liệu (kỳ là ngày → chính tháng đó).</div>'+
     '<iframe id="kt-bc-khung" class="to-khung" title="Xem trước"></iframe>'+
-    xuatHang({truoc:'<button class="nho" onclick="dongHop();'+(KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : KT_BC_XEM.tu==='dx' ? 'ktDX04()' : 'ktBCXem()')+'">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML04(KT_BC_XEM.gts); }, in:'ktBCIn(\'in\')', pdf:'ktBCIn(\'pdf\')', word:'ktBCIn(\'word\')'}), true);   /* 3.152 */
+    xuatHang({truoc:'<button class="nho" onclick="dongHop();'+(KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : KT_BC_XEM.tu==='dx' ? 'ktDX04()' : KT_BC_XEM.tu==='to' ? 'KTTO.xem(\'m04\')' : 'ktBCXem()')+'">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML04(KT_BC_XEM.gts); }, in:'ktBCIn(\'in\')', pdf:'ktBCIn(\'pdf\')', word:'ktBCIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   var f = document.getElementById('kt-bc-khung'); xemChuan(f, ktHTML04(gts));
 }
@@ -615,9 +615,10 @@ function ktHdtNhac(ds, can){   /* dòng nhắc trong tab mẫu: Hội – xã c�
     : '<div class="sl-phu kt-hdt-nhac">✓ Đã khai báo đủ cho '+ds.length+' Hội – xã.'+nut+'</div>';
 }
 function ktHDTVe(o){
-  var C = ktCH(), tab = C.hdtTab==='chuan' || C.hdtTab==='bo' ? C.hdtTab : 'hoi', ds = ktHoiDs();
-  var h = ktCheDoHTML()+'<div class="kt-che">'+[['hoi', '🏛 Hội – xã'], ['chuan', '📖 Chuẩn hóa quy tắc'], ['bo', '🧩 Bộ khai báo mẫu']].map(function(x){ return GD.chip(x[1], tab===x[0], 'ktk.hdt', {t:x[0]}); }).join('')+'</div>';   /* 3.329: + 🧩 Bộ khai báo mẫu */
+  var C = ktCH(), tab = C.hdtTab==='chuan' || C.hdtTab==='bo' || (C.hdtTab==='chon' && typeof KTTO!=='undefined') ? C.hdtTab : 'hoi', ds = ktHoiDs();
+  var h = ktCheDoHTML()+'<div class="kt-che">'+[['hoi', '🏛 Hội – xã'], ['chuan', '📖 Chuẩn hóa quy tắc'], ['bo', '🧩 Bộ khai báo mẫu']].concat(typeof KTTO!=='undefined' ? [['chon', '🎯 Chọn hộ kiểm tra']] : []).map(function(x){ return GD.chip(x[1], tab===x[0], 'ktk.hdt', {t:x[0]}); }).join('')+'</div>';   /* 3.329: + 🧩 Bộ khai báo mẫu */
   if(tab==='bo') return ktBoVe(o, h);
+  if(tab==='chon'){ o.innerHTML = h+KTTO.kbHTML(); return; }   /* 3.514: số hộ + Trung hòa + mặc định (js/80) */
   if(tab==='chuan') h += ktChuanHTML();
   else h += '<div class="hang-nut kt-in hkb-dau"><span class="sl-phu" title="Gõ thẳng như Excel: Enter / Tab sang ô kế, ↑ ↓ đổi dòng; dán được cả khối chép từ Excel / Zalo. Ô trống in dòng chấm.">'+ds.length+' Hội – xã'+(C.xa ? '' : ' · chọn 1 xã ở cây để gọn')+
       ' · tên Hội cấp xã, số / ngày KH Hội tỉnh: <a href="#" onclick="event.preventDefault();ktChuanHop()">📖 Chuẩn hóa</a></span></div>'+

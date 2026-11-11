@@ -25,7 +25,7 @@ function kt15DL(t){
 function kt03DL(k, kb){
   kb = kb || {}; var p = k.split('|'), xa = p[0], dv = p[1], ds = [], thonXa = {}, thonHoi = {};
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(t.xa!==xa) return; if(t.thon) thonXa[t.thon] = 1; if(toLaTT(t) || String(t.dv)!==dv) return; ds.push(t); if(t.thon) thonHoi[t.thon] = 1; });
-  var t0 = ds[0] || {xa:xa, dv:dv, tenXa:''}, c = ktChuan(t0), daKH = {}, s = {kh:0, dn:0, qh:0, kn:0}, xl = {tot:0, kha:0, tb:0, yeu:0, co:0}, b37 = KT_BC && KT_BC.k37 && KT_BC.k37.theoTo;
+  var t0 = ds[0] || {xa:xa, dv:dv, tenXa:''}, c = ktChuan(t0), daKH = {}, s = {kh:0, dn:0, qh:0, kn:0}, xl = {tot:0, kha:0, tb:0, yeu:0, co:0}, b37 = (typeof ktBC37Dung==='function' ? ktBC37Dung() : KT_BC && KT_BC.k37) || null; b37 = b37 && b37.theoTo;   /* 3.514: BC0437 đúng tháng, thiếu → không xếp loại */
   ds.forEach(function(t){ KHO.toVien(t).forEach(function(x){ if(!(x.dn>0)) return; if(!daKH[x.kh]){ daKH[x.kh] = 1; s.kh++; } s.dn += x.dn; s.qh += x.qh||0; s.kn += x.kn||0; });
     var b = b37 && b37[t.ma], v = b ? slChuan(b.xepLoai || '') : ''; if(!v) return; xl.co++;
     if(/^tot/.test(v)) xl.tot++; else if(/^kha/.test(v)) xl.kha++; else if(/trung/.test(v)) xl.tb++; else if(/yeu|kem/.test(v)) xl.yeu++; });
@@ -106,8 +106,8 @@ MAU_IN.dangKy('kt03', {ma:'03/BB-CX', ten:'03/BB-CX Biên bản kiểm tra Hội
 function kt727Nut(cho){   /* nút 15/TD cấp TỔ — cho: 'dk' (khối A Định kỳ — tổ đã tích) · 'dx' (khối B — tổ đang chọn). 3.500 (anh 08/11): 03/BB-CX là cấp HỘI → khối riêng 🏛 Hội cấp xã */
   return GD.nut({chu:'📄 15/TD Đối chiếu', lenh:'kt7.m15', du:{c:cho}, tit:'Danh sách đối chiếu số dư tiền vay và tiền gửi (VB 727) — toàn bộ tổ viên còn dư nợ / tiền gửi'}); }
 function kt7KB(){ var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {}; return S.kt03 = S.kt03 || {}; }   /* khai báo 03/BB-CX: cán bộ NH (cb1, cv1, cb2, cv2) — đồng bộ Drive cùng ktIn */
-function kt7Chay(cho, fn){ return cho==='dx' || cho==='hx' ? fn() : ktNguonVoi(cho==='dk' ? ktDKThang() : ktNguonThangKT(), fn); }   /* khối A: số liệu chốt tháng; khối B: kỳ đầu trang */
-function kt7To(cho){ if(cho==='dx'){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; return t ? [t] : []; }
+function kt7Chay(cho, fn){ return cho==='dx' || cho==='hx' || cho==='to' ? fn() : ktNguonVoi(cho==='dk' ? ktDKThang() : ktNguonThangKT(), fn); }   /* khối A: số liệu chốt tháng; khối B: kỳ đầu trang */
+function kt7To(cho){ if(cho==='to') return KTTO.dsTo(); if(cho==='dx'){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; return t ? [t] : []; }
   return (cho==='dk' ? ktDKDs() : ktBCDs()).filter(function(r){ return r.chon; }).map(function(r){ return r.t; }); }
 function kt7Mo15(cho){
   return kt7Chay(cho, function(){ var ds = kt7To(cho); if(!ds.length) return bao(cho==='dx' ? 'Chọn 1 tổ trước.' : 'Chưa tích tổ nào.', 3);

@@ -17,15 +17,14 @@ const fs=require('fs'), path=require('path');
    ok('mặc định: tháng kiểm tra = tháng sau kỳ đầu trang (như cũ)', ktNguonThangKT()===kyLui(m1, 1), ktNguonThangKT());
    /* chọn tháng kiểm tra = tháng sau m2 → số liệu m2 dù ô đầu trang là m1 */
    const th = kyLui(m2, 1), sel = ()=>document.querySelector('#kt-the .kt-a-thang select');
-   for(let i=0;i<40 && !sel();i++) await w(150);
-   ok('thẻ Định kỳ có ô 📅 Tháng kiểm tra', !!sel(), String((document.getElementById('tr7')||{}).textContent).slice(0, 300)+' | '+nganHienTai+' '+D.cauHinh.slTab); if(!sel()) return o;
-   sel().value = th; if(sel().value!==th){ const op = document.createElement('option'); op.value = th; sel().appendChild(op); sel().value = th; }
-   sel().dispatchEvent(new Event('change', {bubbles:true}));
+   /* 3.514: màn Định kỳ gộp 🎯 Kiểm tra tổ (theo kỳ chọn) — luật tháng kiểm tra (ktNguon*) còn cho Kế hoạch năm in theo tháng: kiểm qua hàm */
+   ok('3.514: 🎯 Kiểm tra tổ không có ô Tháng kiểm tra', ktCheDo()==='dx' && !sel());
+   KT_A_TH = th; KT_DK_CACHE = {}; await ktNguonNap(th);
    for(let i=0;i<80 && !ktNguonSan(th);i++) await w(200); await w(300);
    ok('đổi tháng kiểm tra → nạp số liệu cuối tháng liền trước', ktNguonSan(th) && KT_KH_SL.ky===m2, KT_KH_SL && KT_KH_SL.ky);
    ok('ô Kỳ đầu trang giữ nguyên (KT_K vẫn kỳ '+m1+')', KT_K.ky===m1 && ktCH().ky===m1, KT_K.ky);
    ok('trong khối Bắt buộc số liệu = '+m2+' (ktNguonVoi)', ktNguonVoi(th, ()=>KT_K.ky)===m2 && KT_K.ky===m1);
-   ok('dòng số liệu ghi rõ kỳ dùng', /Số liệu in T/.test(document.getElementById('kt-the').textContent));
+   ok('dòng số liệu ghi rõ kỳ dùng (ktKHSLChu)', /Số liệu in T/.test(ktKHSLChu(KT_KH_SL, +th.slice(5))));
    ok('tháng kiểm tra định kỳ = ô đã chọn', ktDKThang()===th);
    const t = ktNguonVoi(th, ()=>Object.values(KT_K.to).filter(x=>!toLaTT(x) && x.dv && String(x.dv)!=='99')[0]);
    K.xa = t.xa; ktVeThe(); await w(300); KT_DK_CHON = {}; KT_DK_CHON[t.ma] = true;

@@ -4101,4 +4101,9 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .pb-gon-dong:hover{background:var(--xanh-nhat)}
 .pb-gon-dong.bat{outline:2px solid var(--xanh);background:var(--xanh-nhat)}
 .pb-gon-dong .pb-nho{margin-left:auto;padding:1px 8px}
-.kt-gn-sl{font-size:calc(12px*var(--co));color:var(--chu-phu)}   /* 3.513 dòng 📌 Số liệu Sau giải ngân */
+/* 3.514 KTGS 🎯 Kiểm tra tổ (js/80) */
+.kt-khoi .kt-lui{margin-left:auto}
+.kt-to-cong{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:6px 0;padding:5px 10px;background:var(--xanh-nhat);border:1px solid var(--xanh);border-radius:10px}
+.kt-to-nhom{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap}.kt-to-nhom .gd-chip small{opacity:.75}
+.kt-to-bang tr.kt-to-mo > td{background:var(--xanh-nhat);padding:6px 8px}
+.kt-to-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}.kt-to-in .kt-to-dem{margin-right:8px}.kt-to-kb-bang td{padding:6px 8px;vertical-align:middle}.kt-to-kb-bang input.gd-o-so{width:5em}

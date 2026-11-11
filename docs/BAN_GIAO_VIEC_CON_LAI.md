@@ -266,6 +266,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.514)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS → 🎯 Kiểm tra tổ, chọn xã, tích 3 tổ, kiểu ⚖ Trung hòa | mỗi tổ 6–8 hộ, ~30% cần quan tâm; ▾ Hộ sửa được | |
+| 2 | ✅ Hết tổ + 📜 Đúng luật, kỳ cuối tháng → 📄 06 / 16 Word | giống bản Định kỳ cũ | |
+| 3 | Ô ngày chung → 📄 04 | 1 báo cáo / Hội – xã, ngày đúng | |
+| 4 | Esc: đang mở ▾ → thu gọn; lần nữa → lên cấp cây | đúng 1 cấp mỗi lần, không mất tổ đã tích | |
+| 5 | ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: đổi 30% → 40%, 🔒 khóa | gợi ý đổi theo; khóa thì không sửa được | |
+
+**Ghi chú kỹ thuật 3.514:** gói `KTTO` (js/80); `ktGoiY(t, kieu, so, tranh, loc)`; `ktSoGoiY` đọc khai báo; `ktBC37Dung` (js/56); `ktCheDo` gộp dk/bc → dx; `KT_CHON` = hộ của tổ chọn ở cây (tương thích hàm 1 tổ cũ `ktXuat`, `ktDaChon`…); `ktBoMacDinh` = ① mọi chỗ.
+
 ### Danh sách thử trên máy thật (3.513)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

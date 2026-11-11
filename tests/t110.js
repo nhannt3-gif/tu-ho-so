@@ -47,14 +47,14 @@ const fs=require('fs'), path=require('path');
    const t0 = best; C.xa = t0.xa; C.diem = ''; C.hoi = String(t0.dv); C.to = '';
    const kKH = '2026|'+t0.xa+'|'+t0.dv; D.cauHinh.ktKH = D.cauHinh.ktKH || {}; const lich = {}; lich[t0.ma] = 9; D.cauHinh.ktKH[kKH] = {tu:2, den:10, to:lich};
    KT_DK_CHON = {}; KT_DK_BO = {}; KT_DK_THEM = {}; ktDoiCheDo('dk'); await w(300); const the = () => document.getElementById('kt-the').textContent;
-   ok('số liệu 31/08/2026 → kiểm tra tháng 09/2026 (3.328: ô Tháng kiểm tra + dòng số liệu)', ktDKThang()==='2026-09' && /Tháng kiểm tra/.test(the()) && /Số liệu in T9: T?8\/2026/.test(the()), (the().match(/Số liệu in.{0,40}/)||[''])[0]);
+   ok('số liệu 31/08/2026 → kiểm tra tháng 09/2026 (3.328: ô Tháng kiểm tra + dòng số liệu)', ktDKThang()==='2026-09' && KTTO.thKT()==='2026-09' && /📌 Số liệu: Mẫu 31 T8\/2026/.test(the()), (the().match(/📌 Số liệu.{0,40}/)||[''])[0]);   /* 3.514: Định kỳ gộp 🎯 Kiểm tra tổ (dòng 📌) */
    const r0 = ktDKDs(); ok('3.140: Định kỳ chọn tự do — không tích sẵn tổ theo Kế hoạch; tích tay thì chọn', !r0.some(r=>r.chon) && r0.some(r=>r.t.ma===t0.ma));
    ktDKTich(t0.ma, true); await w(150);
    const x0 = ktDKTyLe(t0), ho = ktDKHo(t0);
    ok('Mẫu 06 định kỳ: chỉ món giải ngân trước 01/01/2026, tích sẵn 100% hộ không QH / khoanh', ho.length>0 && ho.every(y=>y.mon.every(m=>(m.ngn||m.nv)<'2026-01-01')) && x0.nChon===x0.nDung && x0.pt===100, x0.nChon+'/'+x0.nDung+' hộ · '+x0.monC+'/'+x0.monD+' món');
    ok('hộ QH / khoanh không tích', ho.filter(y=>y.h.loai).every(y=>!ktDKCo(t0.ma, y)));
    const dung = ho.filter(y=>!y.h.loai); dung.slice(0, Math.ceil(dung.length*0.2)).forEach(y=>{ KT_DK_BO[t0.ma+'|'+y.h.kh] = 1; }); ktVeThe(); await w(150);
-   ok('bỏ tích → tỷ lệ < 90% báo đỏ', ktDKTyLe(t0).pt<90 && !!document.querySelector('.kt-dk-bang b.do'));
+   ok('bỏ tích → tỷ lệ < 90% (ktDKTyLe — Kế hoạch in theo tháng dùng)', ktDKTyLe(t0).pt<90);
    KT_DK_BO = {}; const qh = ho.find(y=>y.h.loai); if(qh){ ktDKHoTich(t0.ma, qh.h.kh, 1, true); await w(100); ok('tích tay hộ QH / khoanh → thêm vào, không tính vào tỷ lệ', ktDKCo(t0.ma, qh) && ktDKTyLe(t0).pt===100 && ktDKTyLe(t0).nTong===ktDKTyLe(t0).nChon+1); }
    KT_KB = {}; ktDKXem(); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: định kỳ → hộp chọn có cả Mẫu 06 và Mẫu 16, không hỏi ngày', idDK==='m06-md,m06-dvc,m06-ng1,m16-nxud,m16-nxtt,m16-nxkn,m16-b2,m16-dvc,m16-ng1,m16-ng2,cb2,cv2' && !document.querySelector('#hop-in #kb-ngay'), idDK); dongHop();
@@ -69,8 +69,8 @@ const fs=require('fs'), path=require('path');
    ok('Word 16: "tháng 09 năm 2026", đến thời điểm 31/08/2026', /tháng 09 năm 2026/.test(c16) && /thời điểm 31\/08\/2026/.test(c16));
    ok('3.98: không ghi nhật ký định kỳ (chỉ phục vụ in)', !((D.cauHinh.ktgsNK||{})[t0.ma]||[]).length);
    C.che = 'bc'; C.xa = t0.xa; C.diem = ''; C.hoi = ''; C.to = ''; KT_BC_CHON = {}; KT_BC_NGAY = {}; ktVeThe(); await w(200);
-   ok('Mẫu 04 ① (3.98): chọn xã → chưa tích tổ nào, tổ chia nhóm theo ấp', ktBCGiaTri().length===0 && document.querySelectorAll('.kt-bc-bang tr.kt-kh-ap').length>0);
-   ktBCTichAp(KT_BC_AP.indexOf(ktKHAp(t0)), true); await w(100);
+   ok('Mẫu 04 ① (3.98): chọn xã → chưa tích tổ nào', ktBCGiaTri().length===0);   /* 3.514: màn Mẫu 04 gộp Kiểm tra tổ — hàm chọn tổ giữ */
+   ktBCDs().filter(r=>ktKHAp(r.t)===ktKHAp(t0)).forEach(r=>{ KT_BC_CHON[r.t.ma] = true; }); await w(100);
    const g4 = ktBCGiaTri().find(g=>g.rows.some(r=>r.C3.indexOf(t0.ten)>=0));
    ok('Mẫu 04 ①: tích cả ấp → mọi tổ của ấp; thời gian = tháng sau tháng số liệu (3.106)', !!g4 && ktBCDs().filter(r=>ktKHAp(r.t)===ktKHAp(t0)).every(r=>r.chon) && g4.rows.find(r=>r.C3.indexOf(t0.ten)>=0).C2==='Tháng '+ktThangKT().slice(5)+'/'+ktThangKT().slice(0,4) && g4.f.SP==='');
    /* 6. Kế hoạch khuôn ② + không viền */
