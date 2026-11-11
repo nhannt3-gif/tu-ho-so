@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.515', ds:[
+var CO_GI_MOI = {ban:'3.516', ds:[
+  ["🗓 Kế hoạch năm hiện theo Mẫu 31 mới nhất (tổ hiện tại, đã gộp) — không theo Kỳ đầu trang; kế hoạch đã chốt giữ nguyên, tổ đã gộp chỉ cảnh báo; nút 🔎 Kế hoạch đã lưu để tìm bản chốt", "dhSL('kt')"],
   ["🛡 KTGS gọn chỗ: chip nhỏ lại, khung chọn hộ 1 hàng, nút ▾ Hộ gọn — màn Kiểm tra tổ thấy thêm khoảng 4–5 tổ; Sau 30 ngày chip Tất cả / Lần 1 lên cùng hàng tháng", "dhSL('kt')"],
   ["🛡 KTGS còn 5 nút: Kiểm tra tổ · Kiểm tra sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo. Kiểm tra tổ chọn được nhiều tổ, kiểu chọn hộ (tốt · cần quan tâm · Trung hòa · hết tổ), in Tóm tắt · 06 · 15 · 16 · 04; Esc lùi 1 cấp", "dhSL('kt')"],
   ["🛡 KTGS gọn lại, thống nhất cách lấy số liệu: Kế hoạch năm + Định kỳ 06/16 giữ như cũ; Sau giải ngân, Mẫu 04, 1 tổ, Hội cấp xã theo Kỳ đầu trang (chấm điểm ngày giữa tháng lấy cuối tháng trước); mỗi màn có dòng 📌 Số liệu", "dhSL('kt')"],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.515', ds:[
   ["🔎 Tra cứu KH › danh sách tổ: nút 🖨 In DS tổ — in / PDF A4 dọc đúng danh sách đang lọc, nhóm theo Xã → Điểm GD, cộng từng điểm", "dhSL('tra')"],
   ["Tên thôn / ấp không còn TOÀN CHỮ HOA khi File Tổ trưởng ghi chữ hoa (lấy cách viết của Mẫu 31, như tên xã)", "slDoiTab('to')"],
   ["Khung mẫu in chung (bản in · xem trước · Word theo file gốc) — mẫu mới làm nhanh hơn; 15/TD, 03/BB-CX đã chuyển sang, bản in và Word như cũ", "slDoiTab('kt')"],
-  ["Nền kỹ thuật gọn hơn (không đổi chức năng): tài liệu cho người làm tiếp gọn lại, luật gói mới và sổ cấu hình để app lớn dần vẫn bền", ""],
-  ["🛡 KTGS: sửa lỗi đóng hộp 15/TD · 03/BB-CX rồi bấm mở lại không hiện; hộp 03 gõ tên cán bộ bấm Enter sang ô kế, không mất con trỏ", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Nền kỹ thuật gọn hơn (không đổi chức năng): tài liệu cho người làm tiếp gọn lại, luật gói mới và sổ cấu hình để app lớn dần vẫn bền", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.516 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi Mẫu 31 đang dùng (mới nhất); bấm 🔎 Kế hoạch đã lưu → xem mọi kế hoạch trong máy (cả bản đã xóa ở Thùng rác), bấm Mở",
     "3.515 · 🛡 KTGS › 🎯 Kiểm tra tổ: Món · Kiểu · Số hộ · ↺ trên 1 hàng (rê chuột xem tên đủ); 📅 Kiểm tra sau 30 ngày: chip Tất cả / Lần 1 cạnh ô tháng",
     "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt",
     "3.514 · 🛡 KTGS › ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.515', ds:[
     "3.504 · Tab Tổ TK&VV / KTGS 15/TD: tên ấp / thôn viết hoa đầu từ (vd \"Thôn 02\"), kể cả khi File Tổ trưởng ghi \"THÔN 02\"",
     "3.503 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX và Đột xuất › 15/TD: xem / In / Word như trước (Word: chân trang số trang từ trang 2)",
     "3.501 · 🛡 KTGS › 🏛 Hội cấp xã › 03/BB-CX: đóng hộp rồi bấm lại → hộp hiện; gõ tên cán bộ → Enter sang ô Chức vụ, bản xem cập nhật",
-    "3.500 · 🛡 KTGS › 🏛 Hội cấp xã: thấy bảng Hội – xã (chọn xã / Hội ở LỌC ĐỊA BÀN để thu gọn) → bấm 🏛 03/BB-CX ở dòng Hội → xem / In / Word; khai cán bộ đoàn kiểm tra 1 lần",
-    "3.499 · 🏢 Giao dịch xã: thấy đủ 14 chip mẫu (04/TD … 15/GDX) không cần cuộn; bấm chip đổi mẫu như cũ; trên điện thoại chip không bị bóp thành 1 cột"],
+    "3.500 · 🛡 KTGS › 🏛 Hội cấp xã: thấy bảng Hội – xã (chọn xã / Hội ở LỌC ĐỊA BÀN để thu gọn) → bấm 🏛 03/BB-CX ở dòng Hội → xem / In / Word; khai cán bộ đoàn kiểm tra 1 lần"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.516 — 11/11/2026 — Kế hoạch năm theo Mẫu 31 mới nhất + 🔎 Kế hoạch đã lưu (TK 2)
+- **Anh 11/11:** "kế hoạch anh đã ghi chốt lưu sao giờ lại không lưu" · "hiện tại theo Mẫu 31 mới đã sắp xếp lại các tổ, nhưng kế hoạch phải lưu và chạy theo Mẫu 31 hàng tháng" · "KH vẫn hiện đúng dữ liệu hiện tại, tổ đã gộp" · "nếu hiện tại tổ đã gộp thì chỉ cảnh báo" → duyệt A + B + C.
+- Kiểm tra code: 3.513–3.515 không sửa chỗ lưu / chốt / đọc Kế hoạch năm (đối chiếu diff). Ảnh anh gửi: bản đang mở là nháp có từ trước, chưa có lần chốt nào → bản chốt (nếu có) nằm ở năm / mã xã / mã Hội khác hoặc máy khác — 🔎 để tìm.
+- Gói mới `js/80b-ktgs-kh-sl.js` (`KTKH`, cắm rút): **B** màn Kế hoạch năm lấy Mẫu 31 **mới nhất đã nạp** (chốt tháng hoặc theo ngày — tổ hiện tại), không theo Kỳ đầu trang (`ktKHDsTo` đọc `KTKH.Kdung()`); In theo tháng giữ như cũ — Mẫu 31 cuối tháng liền trước tháng kiểm tra (bọc `ktKHVoiSL` đặt cờ `KTKH.muon`). **A** kế hoạch đã chốt giữ nguyên khi Mẫu 31 sắp lại tổ: tổ đã gộp / đi khỏi → chỉ cảnh báo ⚠ (dòng sẵn có), không sửa kế hoạch / bản chốt; tổ mới của ấp có tháng → 🆕 tự theo tháng ấp, không cần chốt lại; tổ mới ở ấp chưa có tháng → ⚠ cần xếp, bản chốt vẫn dùng để in. **C** 🔎 Kế hoạch đã lưu (chỉ xem): mọi kế hoạch trong máy + bản đã xóa trong 🗑 Thùng rác — năm · xã · Hội · số tổ · nháp · số lần chốt + ngày · trạng thái; ghi rõ bản có mã xã / Hội không còn trong số liệu; bấm Mở → đúng năm / xã / Hội.
+- Không đổi chỗ lưu (`D.cauHinh.ktKH[năm|xã|hội]`), bản in 01/KH / 06 / 16 / 04.
+- Phép thử mới t392 (13 ý). t389 sửa dòng 📌 Kế hoạch.
+
 ## 3.515 — 11/11/2026 — KTGS gọn chỗ chip (TK 2)
 - **Anh 11/11** "rà soát giao diện tối ưu tránh chiếm quá nhiều chỗ của các chip" → "code và gộp" (chỉ trong KTGS).
 - Đo ở 1366×768 (t391): 🎯 Kiểm tra tổ — khung chọn hộ 3 hàng (116px) → 1 hàng (34px), chip nhãn ngắn (👍 Tốt · ⚠ Cần QT · ⚖ Trung hòa · ✅ Hết tổ; 📜 Đúng luật · Mọi món — tên đủ + chú thích số hộ ở title), ↺ thay "↺ Gợi ý lại"; nút ▾ Hộ thành chữ nhỏ (dòng tổ đã tích 39 → 27px); bảng tổ bắt đầu y 358 → 262. 📅 Sau 30 ngày — chip Tất cả / Lần 1 lên hàng tháng giải ngân, nhắc 30 ngày vào dòng đếm phiếu: bảng y 335 → 262. Thanh 5 nút 32 → 28px, ‹ Lùi nhỏ.

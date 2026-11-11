@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.516 Kế hoạch năm theo Mẫu 31 mới nhất — anh "code")
+- Anh báo kế hoạch đã chốt nay "chưa lưu" (ảnh: Gia Lộc · Đoàn TN, nháp 11/11, chưa chốt, 2 tổ không còn trong số liệu). Đối chiếu diff: 3.513–3.515 không đụng chỗ lưu KH → bản chốt (nếu có) ở khóa năm / mã xã / mã Hội khác hoặc máy khác.
+- Anh chốt: kế hoạch phải lưu + chạy theo Mẫu 31 hàng tháng; hiện đúng tổ hiện tại (đã gộp); tổ đã gộp chỉ cảnh báo. Đã làm **3.516** (gói `js/80b`, t392 13 ý). Chờ anh: bấm 🔎 Kế hoạch đã lưu trên máy thật để tìm bản chốt cũ; nếu bản chốt nằm ở mã xã / Hội cũ → đề xuất "nhận về mã mới" (chưa làm).
+
 ### 11/11/2026 — TK 2 · PHIÊN (3.515 KTGS gọn chỗ chip — anh "code và gộp")
 - Anh: "rà soát giao diện tối ưu tránh chiếm quá nhiều chỗ của các chip" → em đo 5 màn KTGS (1366×768), đề xuất 6 ý chỉ trong KTGS → anh "code và gộp".
 - Đã làm: **3.515** — CSS chỉ trong `#kt-the`; khung chọn hộ 1 hàng, chip nhãn ngắn (tên đủ ở title), ▾ Hộ chữ nhỏ; Sau 30 ngày chip Lần 1 lên hàng tháng (`ktGNVeLai` dời phần tử), nhắc 30 ngày vào dòng đếm. t391 đo chiều cao.

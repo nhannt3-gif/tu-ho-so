@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.515** — TK 2: KTGS gọn chỗ chip (khung chọn hộ 1 hàng, ▾ Hộ gọn, Sau 30 ngày 1 hàng). Trước: 3.514 KTGS 5 nút, Kiểm tra tổ nhiều tổ.
+- **`main` = 3.516** — TK 2: Kế hoạch năm theo Mẫu 31 mới nhất (tổ đã gộp chỉ cảnh báo) + 🔎 Kế hoạch đã lưu. Trước: 3.515 KTGS gọn chỗ chip.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

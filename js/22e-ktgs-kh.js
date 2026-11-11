@@ -157,8 +157,8 @@ function ktKHIn04TG(cach, ok){
 }
 function ktKHHoi(){ var C = ktCH(); return C.hoi || C.khHoi || ''; }   /* hội: theo cây, hoặc chip hội của xã (cây cần chọn điểm GD mới chọn được hội) */
 function ktKHDsTo(){   /* 100% tổ của Hội tại xã đang chọn (mọi điểm GD) — theo thứ tự ấp (3.140) rồi tên tổ trưởng */
-  var C = ktCH(), hoi = ktKHHoi(); if(!KT_K || !C.xa || !hoi) return [];
-  var ds = Object.keys(KT_K.to).map(function(m){ return KT_K.to[m]; }).filter(function(t){ return !toLaTT(t) && t.xa===C.xa && String(t.dv||'')===hoi; }), thu = ktKHApThu(ds);
+  var C = ktCH(), hoi = ktKHHoi(), K = typeof KTKH!=='undefined' ? KTKH.Kdung() : KT_K; if(!K || !C.xa || !hoi) return [];   /* 3.516: Mẫu 31 mới nhất (js/80b) — in theo tháng: số liệu tháng đang mượn */
+  var ds = Object.keys(K.to).map(function(m){ return K.to[m]; }).filter(function(t){ return !toLaTT(t) && t.xa===C.xa && String(t.dv||'')===hoi; }), thu = ktKHApThu(ds);
   return ds.sort(function(a, b){ return (thu.indexOf(ktKHAp(a))-thu.indexOf(ktKHAp(b))) || String(a.ten||'').localeCompare(String(b.ten||''), 'vi'); });
 }
 /* 3.140 (anh chốt): thứ tự ấp — mặc định theo điểm GD (mã điểm) → mã thôn → tên ấp; anh sắp lại được (▲ ▼, nhớ theo xã), ↺ về mặc định */

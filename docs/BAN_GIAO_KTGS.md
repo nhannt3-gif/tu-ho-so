@@ -137,3 +137,8 @@ Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD �
 - Tương thích: tổ chọn ở cây (`C.to`) → `KT_CHON` = hộ của tổ đó (hàm 1 tổ cũ `ktXuat`, `ktDaChon`, `ktDoiKieu`, `ktGoiYLai` vẫn chạy).
 - Khai báo chọn hộ: `D.cauHinh.ktChonHo` (⚙ Khai báo › 🎯 Chọn hộ kiểm tra), theo khóa / nhật ký khai báo Hội (`t:'chonho'`).
 - Còn hàm cũ không gọi từ giao diện (giữ cho Kế hoạch in theo tháng / phép thử): `ktDKVe`, `ktBCVe`, `ktChonHTML`, `ktTheHTML`, `ktBangToHTML`, `ktDX04` — dọn ở đợt rà mã sau (cần anh duyệt khi xóa).
+
+## 13. Bản 3.516 (11/11/2026) — Kế hoạch năm theo Mẫu 31 mới nhất + 🔎 Kế hoạch đã lưu (gói `js/80b-ktgs-kh-sl.js`, `KTKH`)
+- Màn 🗓 Kế hoạch năm: `ktKHDsTo` đọc `KTKH.Kdung()` = Mẫu 31 mới nhất đã nạp (chốt tháng hoặc ngày); trong `ktKHVoiSL` (In theo tháng / `ktNguonVoi`) cờ `KTKH.muon` → số liệu tháng kiểm tra như cũ.
+- Bản chốt không tự sửa khi tổ đổi: tổ đã gộp / đi khỏi chỉ ⚠ (L.mat); tổ mới của ấp có tháng theo ấp (3.140); ấp mới chưa có tháng → ⚠ cần xếp.
+- 🔎 `KTKH.hop()` liệt kê `D.cauHinh.ktKH` + `D.rac` (loaiNho 'ktKH'); `KTKH.mo(khóa)` đặt năm / xã / Hội.
