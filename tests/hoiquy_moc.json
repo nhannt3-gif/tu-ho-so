@@ -8726,7 +8726,7 @@
 "t388": {
 "ban": "3.512",
 "ngay": "2026-11-11",
-"kq": "9/9 đạt",
+"kq": "10/10 đạt",
 "dau": {
 "index.html": "0a97615b657d",
 "js/01-thu-vien.js": "abded1d0bd36",
@@ -8749,7 +8749,8 @@
 "js/39-gd.js": "89398f5cf42b",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t388.js": "c74d5760849e",
+"js/87-bo-chuan.js": "5296a66e5769",
+"tests/t388.js": "1c24d8963c50",
 "tests/taogia.py": "fa24b10b1352",
 "tests/tv.js": "f4af9b5eed49"
 }
