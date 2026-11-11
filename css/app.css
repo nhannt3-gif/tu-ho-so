@@ -4107,3 +4107,13 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .kt-to-nhom{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap}.kt-to-nhom .gd-chip small{opacity:.75}
 .kt-to-bang tr.kt-to-mo > td{background:var(--xanh-nhat);padding:6px 8px}
 .kt-to-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}.kt-to-in .kt-to-dem{margin-right:8px}.kt-to-kb-bang td{padding:6px 8px;vertical-align:middle}.kt-to-kb-bang input.gd-o-so{width:5em}
+/* 3.515 (anh "tránh chiếm quá nhiều chỗ của các chip") — chỉ trong khung KTGS (#kt-the) */
+#kt-the .gd-chip{font-size:calc(13px*var(--co));padding:2px 10px;min-height:26px;line-height:1.35}
+#kt-the .kt-khoi .gd-chip{font-size:calc(13.5px*var(--co));padding:3px 11px;min-height:28px}
+#kt-the .kt-khoi .kt-lui{font-size:calc(12px*var(--co));padding:2px 9px;min-height:24px}
+#kt-the .kt-to-cong{gap:4px 14px;margin:4px 0;padding:3px 8px}#kt-the .kt-to-cong .gd-nut{min-height:24px;padding:1px 8px;font-size:calc(13px*var(--co))}
+#kt-the .kt-to-in{margin:4px 0;gap:5px}#kt-the .kt-to-in .gd-nut{font-size:calc(13px*var(--co));padding:2px 10px;min-height:26px}#kt-the .kt-to-in .kt-ngay-in input{padding:1px 4px;min-height:26px}
+#kt-the .kt-to-mo-nut{border:0;background:none;color:var(--xanh);cursor:pointer;font:inherit;font-size:calc(12px*var(--co));padding:0 2px;white-space:nowrap}#kt-the .kt-to-mo-nut:hover{text-decoration:underline}
+#kt-the .kt-gn-dem .kt-nhac30{display:inline;margin:0 0 0 8px;padding:0 0 0 6px;border-left:2px solid #d97706;background:none;font-size:calc(12px*var(--co))}
+#kt-the .kt-che{margin:4px 0;gap:4px}
+#kt-the .kt-gn-dau .kt-gn-lan{display:inline-flex;align-items:center;margin:0;gap:4px}#kt-the .kt-gn-lan .sl-phu,#kt-the .kt-to-in .kt-ngay-in span{font-size:calc(12.5px*var(--co))}

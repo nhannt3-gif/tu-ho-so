@@ -13,6 +13,7 @@
 var KTTO = {
   MD: {ng1:20, ng2:40, s1:6, s2:7, s3:8, pt:30, kieu:'trung', mon:'luat'},
   KIEU: [['tot', '👍 Toàn hộ tốt'], ['xau', '⚠ Toàn hộ cần quan tâm'], ['trung', '⚖ Trung hòa'], ['het', '✅ Chọn hết tổ']],
+  NGAN: {tot:'👍 Tốt', xau:'⚠ Cần QT', trung:'⚖ Trung hòa', het:'✅ Hết tổ'},   /* 3.515: chip nhãn ngắn (tên đủ ở title) */
   MON: [['luat', '📜 Đúng luật', 'Món giải ngân trước 01/01 năm kiểm tra — món mới đã có kiểm tra sau 30 ngày'], ['tat', 'Mọi món còn dư nợ', 'Mọi món còn dư nợ, kể cả món giải ngân trong năm (hộ GN dưới 30 ngày tự tích)']],
   ho: {}, khoaHo: '', mo: '', d: 0, kieu: '', mon: '', toCu: '', chonGan: null,
   /* ---------- khai báo ---------- */
@@ -57,12 +58,13 @@ var KTTO = {
       if(KT_CHON && KT_CHON.to===t1.ma && KT_CHON!==KTTO.chonGan) KTTO.ho[t1.ma] = KT_CHON;   /* hàm cũ vừa gợi ý lại → nhận */
       KT_CHON = KTTO.chonGan = KTTO.goi(t1); }
     var ds = KTTO.dsBang(), chon = ds.filter(function(r){ return r.chon; }), kieu = KTTO.kieuDung(), mon = KTTO.monDung(), kb = KTTO.kb(), soHo = 0;
+    var ngan = {luat:'📜 Đúng luật', tat:'Mọi món'};   /* 3.515 (anh "tránh chiếm nhiều chỗ của các chip"): 1 hàng chip nhỏ, chú thích ở title */
     var h = ktCheDoHTML()+ktSLDong()+'<div class="kt-to-cong">'+
-      '<span class="kt-to-nhom"><span class="sl-phu">Món xét:</span>'+KTTO.MON.map(function(x){ return GD.chip(x[1], mon===x[0], 'ktto.mon', {k:x[0]}, x[2]); }).join('')+'</span>'+
-      '<span class="kt-to-nhom"><span class="sl-phu">Kiểu chọn hộ:</span>'+KTTO.KIEU.map(function(x){ return GD.chip(x[1]+(x[0]==='trung' ? ' <small>'+kb.pt+'% cần QT</small>' : ''), kieu===x[0], 'ktto.kieu', {k:x[0]}); }).join('')+'</span>'+
-      (kieu==='het' ? '' : '<span class="kt-to-nhom kt-so"><span class="sl-phu">Số hộ mỗi tổ:</span>'+GD.nut({chu:'−', lenh:'ktto.so', du:{d:-1}, tit:'Bớt 1 hộ mỗi tổ'})+'<b>'+(KTTO.d ? (KTTO.d>0 ? '+' : '')+KTTO.d : 'theo khai báo')+'</b>'+GD.nut({chu:'+', lenh:'ktto.so', du:{d:1}, tit:'Thêm 1 hộ mỗi tổ'})+
-        ' <small>('+kb.s1+' / '+kb.s2+' / '+kb.s3+' hộ theo số tổ viên ≤ '+kb.ng1+' / ≤ '+kb.ng2+' / lớn hơn)</small></span>')+
-      GD.nut({chu:'↺ Gợi ý lại', lenh:'ktto.lai', tit:'Gợi ý lại hộ mọi tổ đã tích (bỏ phần đã sửa tay)'})+'</div>';
+      '<span class="kt-to-nhom"><span class="sl-phu">Món:</span>'+KTTO.MON.map(function(x){ return GD.chip(ngan[x[0]], mon===x[0], 'ktto.mon', {k:x[0]}, x[1]+' — '+x[2]); }).join('')+'</span>'+
+      '<span class="kt-to-nhom"><span class="sl-phu">Kiểu:</span>'+KTTO.KIEU.map(function(x){ return GD.chip(KTTO.NGAN[x[0]]+(x[0]==='trung' ? ' <small>'+kb.pt+'% cần QT</small>' : ''), kieu===x[0], 'ktto.kieu', {k:x[0]}, x[1]+(x[0]==='trung' ? ' — '+kb.pt+'% hộ cần quan tâm, còn lại hộ tốt' : '')); }).join('')+'</span>'+
+      (kieu==='het' ? '' : '<span class="kt-to-nhom kt-so" title="Số hộ mỗi tổ theo khai báo: '+kb.s1+' / '+kb.s2+' / '+kb.s3+' hộ cho tổ ≤ '+kb.ng1+' / ≤ '+kb.ng2+' / lớn hơn tổ viên — − / + chỉnh cho đợt này"><span class="sl-phu">Số hộ:</span>'+
+        GD.nut({chu:'−', lenh:'ktto.so', du:{d:-1}, tit:'Bớt 1 hộ mỗi tổ'})+'<b>'+(KTTO.d ? (KTTO.d>0 ? '+' : '')+KTTO.d : kb.s1+'–'+kb.s3)+'</b>'+GD.nut({chu:'+', lenh:'ktto.so', du:{d:1}, tit:'Thêm 1 hộ mỗi tổ'})+'</span>')+
+      GD.nut({chu:'↺', lenh:'ktto.lai', tit:'Gợi ý lại hộ mọi tổ đã tích (bỏ phần đã sửa tay)'})+'</div>';
     if(!ds.length){ o.innerHTML = h+'<div class="rong">'+(C.xa ? 'Không có tổ trong phạm vi.' : 'Chọn <b>xã</b> (điểm GD / hội / tổ) ở cây phía trên để chọn tổ kiểm tra.')+'</div>'+KTTO.ghi(); return; }
     var rows = ds.map(function(r, i){ var t = r.t, s = ktSoTo(t), X = r.chon ? KTTO.goi(t) : null, n = X ? Object.keys(X.chon).length : 0; soHo += n;
       var mo = r.chon && KTTO.mo===t.ma;
@@ -71,7 +73,7 @@ var KTTO = {
         '<td class="s">'+(s.stv || '')+'</td><td class="s">'+ktTr(s.dn)+'</td><td class="s">'+(s.qh ? ktTr(s.qh) : '')+'</td>'+
         '<td class="'+(KT_XL_LOP[s.xl] || '')+'">'+(s.diem!=='' && s.diem!==undefined ? String(s.diem).replace('.', ',')+' · ' : '')+coChuHTML(s.xl || '')+'</td>'+
         '<td class="c">'+(X ? '<b>'+n+'</b>/'+X.ds.filter(function(x){ return !x.loai; }).length : '')+'</td>'+
-        '<td>'+(r.chon ? '<button type="button" class="nho" data-lenh="ktto.mo" data-m="'+t.ma+'">'+(mo ? '▴ Thu gọn' : '▾ Hộ')+'</button>' : '')+'</td></tr>'+
+        '<td>'+(r.chon ? '<button type="button" class="kt-to-mo-nut" data-lenh="ktto.mo" data-m="'+t.ma+'" title="'+(mo ? 'Thu gọn' : 'Xem / sửa hộ của tổ')+'">'+(mo ? '▴ Thu' : '▾ Hộ')+'</button>' : '')+'</td></tr>'+
         (mo ? '<tr class="kt-to-mo"><td colspan="11">'+KTTO.hoHTML(t, X)+'</td></tr>' : ''); }).join('');
     var tatCa = chon.length===ds.length, co = chon.length>0, n = function(chu, m, tit){ return GD.nut({chu:chu, lenh:'ktto.xem', du:{m:m}, tit:tit, tat:!co}); };
     h += '<div class="hang-nut kt-in kt-to-in"><span class="to-the-so kt-to-dem">Đã chọn <b>'+chon.length+'</b>/'+ds.length+' tổ · <b>'+soHo+'</b> hộ</span>'+   /* hàng in ngay trên bảng — nhiều tổ không phải cuộn xuống */

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.515 — 11/11/2026 — KTGS gọn chỗ chip (TK 2)
+- **Anh 11/11** "rà soát giao diện tối ưu tránh chiếm quá nhiều chỗ của các chip" → "code và gộp" (chỉ trong KTGS).
+- Đo ở 1366×768 (t391): 🎯 Kiểm tra tổ — khung chọn hộ 3 hàng (116px) → 1 hàng (34px), chip nhãn ngắn (👍 Tốt · ⚠ Cần QT · ⚖ Trung hòa · ✅ Hết tổ; 📜 Đúng luật · Mọi món — tên đủ + chú thích số hộ ở title), ↺ thay "↺ Gợi ý lại"; nút ▾ Hộ thành chữ nhỏ (dòng tổ đã tích 39 → 27px); bảng tổ bắt đầu y 358 → 262. 📅 Sau 30 ngày — chip Tất cả / Lần 1 lên hàng tháng giải ngân, nhắc 30 ngày vào dòng đếm phiếu: bảng y 335 → 262. Thanh 5 nút 32 → 28px, ‹ Lùi nhỏ.
+- CSS chỉ trong `#kt-the` (chip tab khác giữ cỡ — t391 kiểm). Không đổi chức năng, bản in, dữ liệu.
+- Phép thử mới t391 (10 ý đo chiều cao).
+
 ## 3.514 — 11/11/2026 — KTGS: 5 nút, Kiểm tra tổ nhiều tổ + kiểu chọn hộ, khai báo chọn hộ, Esc lùi (TK 2)
 - **Anh 11/11:** "nút giờ em làm Kiểm tra sau 30 ngày, Kiểm tra tổ, Kiểm tra Hội, Kế hoạch năm, Khai báo" · "định kỳ coi như nằm trong kiểm tra tổ, kiểm tra tổ cho chọn nhiều tổ" · "kế hoạch năm để riêng, không link qua kiểm tra tổ… cho các kiểu chọn hộ: toàn hộ tốt, toàn hộ cần quan tâm, chia đều hoặc chọn hết tổ" · "theo đúng luật, nên có nút chọn 2 kiểu; chia 30% cần quan tâm gọi là trung hòa; 1 ô ngày chung cho 1 đợt" · "mẫu 04 in kèm bộ 06, 16, 15TD" · "cấu trúc trung hòa và số hộ cho khai báo" · "nút Esc để lùi về 1 cấp" · BC0437 thiếu tháng → "để trống".
 - **Thanh 5 nút** (`ktKhoiHTML`, js/56): 🎯 Kiểm tra tổ (`dx`) · 📅 Kiểm tra sau 30 ngày (`gn`) · 🏛 Kiểm tra Hội (`hx`) · 🗓 Kế hoạch năm (`kh`, như cũ) · ⚙ Khai báo (`hdt`) + ‹ Lùi (Esc). Khóa cũ `dk` / `bc` đọc thành `dx` (`ktCheDo`) — dữ liệu cũ đọc được.
