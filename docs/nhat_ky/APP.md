@@ -12,7 +12,7 @@
 > - Lưu ý / bẫy: …
 > ```
 
-### 12/11/2026 — TK 2 · PHIÊN (KTGS tinh gọn — PHƯƠNG ÁN ĐÃ ĐỦ, chờ anh "code")
+### 11/11/2026 — TK 2 · PHIÊN (KTGS tinh gọn — PHƯƠNG ÁN ĐÃ ĐỦ, chờ anh "code")
 - Anh chốt thêm: "lấy ngày chọn, ví dụ chấm điểm ngày không có thì lấy cuối tháng trước" · "kiểm tra sau giải ngân 30 ngày ví dụ chọn kỳ 31/5 thì hiện tất cả các món giải ngân trong tháng 5" · "không có phiếu kiểm tra 3 tháng".
 - **Luật số liệu:** ① GIỮ NHƯ CŨ: Kế hoạch năm 01/KH + Định kỳ 06 + 16 (tích tổ theo lịch) — cuối tháng liền trước tháng kiểm tra. ② THEO KỲ CHỌN (ô kỳ đầu trang): 06 Sau giải ngân = món giải ngân trong tháng của kỳ chọn, đến ngày chọn (31/5 → 01–31/5; 15/6 → 01–15/6), ô từ–đến tháng giữ (mặc định = tháng kỳ chọn); hàng nút 1 tổ (Tóm tắt · 06/TD · 15/TD · 16/TD), Mẫu 04, 03/BB-CX = Mẫu 31 đúng ngày chọn; số liệu chỉ có theo tháng (chấm điểm / xếp loại BC0437, BC0438…) → cuối tháng liền trước ngày chọn.
 - **Gọn giao diện (không bỏ chức năng):** hàng nút 1 tổ đúng 4 mẫu; bỏ nút lặp (15/TD + Tóm tắt ở Định kỳ, Mẫu 04 ở hàng 1 tổ); giữ Hội cấp xã, Kế hoạch năm, Sau giải ngân, Khai báo; mỗi màn 1 dòng "📌 Số liệu: Mẫu 31 ngày … · chấm điểm BC0437 …".
