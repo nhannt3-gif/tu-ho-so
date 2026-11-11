@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.512 — 11/11/2026 — Sao kê TK 105 của khách vay trong tổ — 3 trường hợp (TK 2)
+- **Anh 11/11:** "sao kê hộ vay có TK105 nhưng chưa gán mã tổ" → "KH có dư nợ trong tổ nhưng TK 105 chưa có gán mã tổ" → "kiểm 2 loại: có dư nợ chưa có TK 105 → tạo mới; TK 105 còn hoạt động nhưng đã gỡ mã tổ → gắn lại; dư nợ 1 tổ nhưng TK 105 ở tổ khác — phân rõ" · "có dư nợ chưa có TK 105 em có làm rồi nên kiểm lại thôi" · "cho sao kê" · "lấy Mẫu 31 làm chuẩn, kiểm cấu trúc rút ra logic" · "em tự nội suy, anh không chắc".
+- **Cấu trúc Mẫu 31** (`docs/COT_FILE_MAU.md`, file thật 19/10): mỗi dòng = 1 khế ước mang mã tổ của món vay; cột 173 "Sổ tiết kiệm 105" + 174 "Số dư tiền gửi 105" nằm trên dòng món vay (nhiều sổ → khế ước lặp dòng); không có dòng TK 105 riêng cho khách đang vay; ~1/4 món trống sổ.
+- **Logic suy ra (chưa xác nhận — mỗi dòng ghi cột Căn cứ để anh đối chiếu hệ thống):** khách còn dư nợ ở tổ A, mọi dòng tổ A (cả dòng lặp) không có sổ 105 → ③ cùng khách có dòng tổ khác mang sổ → TK 105 ở tổ khác, chuyển về tổ A · ② không, nhưng có TK 105 (Sao kê TK 105 cùng kỳ / số TK hệ thống 13–14 số / số dư 105 Mẫu 31 / danh bạ) → chưa gán vào tổ, gắn lại · ① không thấy TK 105 ở đâu → mở mới. Tổ A có sổ → không báo.
+- **Kiểm lại chức năng đã có** (chip "Chưa có TK 105" tab Tổ, 3.161): luật chip gộp số sổ Mẫu 31 + danh bạ + Sao kê 105 — khách có TK 105 mà dòng vay trống sổ bị coi là "đã có", không báo → nay hiện ở ②. Phép thử: ① ⊆ chip (cùng luật).
+- Gói `js/76b-sk-105-to.js` (không gian tên `SK105T`, cắm rút — `SK_BC` 'tk0', nhóm Khách hàng, A4 ngang): 3 phần ① ② ③, chia theo tổ đang vay (lọc tới tổ): STT · Mã KH · Họ tên · Dư nợ trong tổ · Số TK 105 · Số dư 105 · Căn cứ · Việc cần làm (… tổ tên (mã)).
+- Phép thử t388 (10 ý — Mẫu 31 T7 + T8 giả: P ①, Q ② có Sao kê 105, R ③ thêm món tổ khác mang sổ, S có sổ không ra; ① ⊆ chip tab Tổ; lọc đến tổ; Xem + Excel). t314 + t276 cập nhật theo báo cáo mới (70 báo cáo cũ giống hệt bản chụp).
 ## 3.511 — 10/11/2026 — 03/GDX: Tổ giao dịch chọn từ danh sách khai báo cán bộ (TK 3)
 - **Anh 10/11:** "ds lấy từ khai báo cán bộ".
 - Ô tên mỗi vai (Tổ trưởng · KSV · GDV chính · GDV) đổi từ ô gõ + gợi ý sang **ô chọn từ danh sách cán bộ** (⚙ khai báo đơn vị › cán bộ — dùng chung 12/GDX, `gdx.danhSachCanBo`), như 12/GDX: "— chọn —" + cán bộ, **đã loại người giữ vai khác** (trừ Tổ trưởng ↔ KSV) và người đã ở vai đó. Chưa có danh sách → cảnh báo + liên kết ⚙ khai báo cán bộ. Tên cũ không còn trong danh sách vẫn hiện ở ô (không mất dữ liệu).

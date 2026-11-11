@@ -266,6 +266,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.512)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › TK 105 của khách vay trong tổ (nạp Sao kê TK 105 cùng kỳ) | Đối chiếu vài khách mỗi phần ① ② ③ trên hệ thống — đúng thì em giữ logic, sai anh báo để chỉnh | |
+
 ### Danh sách thử trên máy thật (3.511)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

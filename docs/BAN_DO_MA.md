@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.511 · 10/11/2026 11:03 · 150 file · 47049 dòng · 3768 hàm cấp ngoài · 641 biến toàn cục.
+Bản 3.512 · 11/11/2026 08:24 · 151 file · 47104 dòng · 3768 hàm cấp ngoài · 642 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 334 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 335 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4103 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -137,6 +137,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/74b-sk-ct.js` | 60 | 0 | /*   js/74b-sk-ct.js — 3.506 (anh 09/11/2026 "thêm chức năng sao kê danh sách theo chương trình vay"): SAO KÊ  |
 | `js/75-khuon-in.js` | 8 | 2 | /* 3.387 (anh 27/10 "mẫu biểu tập trung"): KHUÔN IN CHUNG cho báo cáo tab Số liệu (Tổ · Sao kê · Tổng hợp) — 1 |
 | `js/76-sk-danh-sach.js` | 213 | 7 | /*   3.392 (TK 2 — BAN_GIAO_TK3_2710 mục 6 "chuyển dần báo cáo còn trong skBaoCao sang lap()"): báo cáo Sao kê |
+| `js/76b-sk-105-to.js` | 54 | 0 | /*   js/76b-sk-105-to.js — 3.512 (anh 11/11/2026): SAO KÊ TK 105 CỦA KHÁCH VAY TRONG TỔ — 3 TRƯỜNG HỢP   Anh:  |
 | `js/77-bang-loc.js` | 51 | 4 | /*   3.396 (anh 28/10, ảnh Tra cứu KH › Tìm theo Tổ trưởng: "làm bộ lọc và sắp xếp của các cột này") — LỌC + S |
 | `js/78-ktgs-gon.js` | 35 | 3 | /*   3.397 (anh 28/10 duyệt demo D1–D4 "em làm luôn"): KTGS gọn — CHỈ SẮP XẾP LẠI phần đã vẽ trong #kt-the (CẮ |
 | `js/79-ktgs-khoa.js` | 63 | 9 | /*   3.398 (anh 28/10: "các khai báo tên hội nên có nút khóa lại để khỏi đổi nhầm và em nên lưu lại nhật ký để |
