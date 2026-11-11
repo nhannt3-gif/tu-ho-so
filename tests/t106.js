@@ -127,7 +127,7 @@ const fs=require('fs'), path=require('path');
    KT_NG_HET = false; KT_NG_Q = ''; KT_NG_LOC = ''; ktNganhHop(); await w(150); const nGon = document.querySelectorAll('#kt-ng tbody tr').length, coNut = /Hiện thêm/.test(document.getElementById('kt-ng').textContent);
    KT_NG_HET = true; ktNganhVe(); const nHet = document.querySelectorAll('#kt-ng tbody tr').length; dongHop();
    ok('bảng ngành: ẩn ngành dưới 10 món, nút Hiện thêm / Thu gọn', coNut && nHet>nGon && nHet>=176, nGon+' → '+nHet);
-   const C2 = ktCH(); C2.che = 'gn'; C2.gnTu = '2026-07'; C2.gnDen = '2026-08'; C2.xa = t0.xa; C2.diem = ''; C2.hoi = ''; C2.to = ''; KT_GN = null; ktVeThe(); for(let i=0;i<80 && !KT_GN;i++) await w(200); await w(300);
+   const C2 = ktCH(); C2.che = 'gn'; C2.gnTu = '2026-07'; C2.gnDen = '2026-08'; KT_GN_KY = ktKyChon();   /* 3.513: anh tự chọn khoảng từ–đến (mặc định = tháng kỳ chọn) */ C2.xa = t0.xa; C2.diem = ''; C2.hoi = ''; C2.to = ''; KT_GN = null; ktVeThe(); for(let i=0;i<80 && !KT_GN;i++) await w(200); await w(300);
    const B7 = await slBo('2026-07'), B8 = await slBo('2026-08');
    const toGN = {}, dem = (B, xa, th) => { const g = {}; (B.co.hstd||[]).forEach(o=>{ if(!o.ku || g[o.ku] || !o.to || o.to==='0000000' || !((o.gnT||0)>0)) return; g[o.ku] = 1; const t = KT_K.to[o.to] || {xa:o.xa}; if(t.xa===xa) toGN[th+'|'+o.to] = 1; }); };
    dem(B7, t0.xa, '07'); dem(B8, t0.xa, '08'); const kv = Object.keys(toGN).length;

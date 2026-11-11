@@ -12,6 +12,16 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.513 KTGS tinh gọn — anh "code và gộp")
+- Đã làm: **3.513** theo phương án dưới — Mẫu 04 + Sau giải ngân chuyển sang Kỳ đầu trang; BC0437/0438 kỳ ngày giữa tháng → cuối tháng trước (`ktBCKyChon`); hàng nút 1 tổ = Tóm tắt · 06 · 15/TD · 16; bỏ nút lặp (Mẫu 04 ở 1 tổ, Tóm tắt + 15/TD ở Định kỳ — hàm giữ); dòng 📌 Số liệu mỗi màn (`ktSLDong`). `KHO.monGN(th, ky)` thêm tham số tùy chọn (chỉ KTGS gọi). t389 mới; sửa t106, t237, t238, t273, t318. `docs/BAN_GIAO_KTGS.md` mục 11.
+- Chờ anh: thử máy thật 3.513 (bảng thử trong BAN_GIAO_VIEC_CON_LAI). Bẫy: khoảng Sau GN lưu cũ (`gnTu/gnDen`) chỉ dùng khi anh tự đổi ô trong kỳ đang chọn (`KT_GN_KY`, phiên) — đổi kỳ đầu trang là về tháng kỳ mới.
+
+### 11/11/2026 — TK 2 · PHIÊN (KTGS tinh gọn — PHƯƠNG ÁN ĐÃ ĐỦ, chờ anh "code")
+- Anh chốt thêm: "lấy ngày chọn, ví dụ chấm điểm ngày không có thì lấy cuối tháng trước" · "kiểm tra sau giải ngân 30 ngày ví dụ chọn kỳ 31/5 thì hiện tất cả các món giải ngân trong tháng 5" · "không có phiếu kiểm tra 3 tháng".
+- **Luật số liệu:** ① GIỮ NHƯ CŨ: Kế hoạch năm 01/KH + Định kỳ 06 + 16 (tích tổ theo lịch) — cuối tháng liền trước tháng kiểm tra. ② THEO KỲ CHỌN (ô kỳ đầu trang): 06 Sau giải ngân = món giải ngân trong tháng của kỳ chọn, đến ngày chọn (31/5 → 01–31/5; 15/6 → 01–15/6), ô từ–đến tháng giữ (mặc định = tháng kỳ chọn); hàng nút 1 tổ (Tóm tắt · 06/TD · 15/TD · 16/TD), Mẫu 04, 03/BB-CX = Mẫu 31 đúng ngày chọn; số liệu chỉ có theo tháng (chấm điểm / xếp loại BC0437, BC0438…) → cuối tháng liền trước ngày chọn.
+- **Gọn giao diện (không bỏ chức năng):** hàng nút 1 tổ đúng 4 mẫu; bỏ nút lặp (15/TD + Tóm tắt ở Định kỳ, Mẫu 04 ở hàng 1 tổ); giữ Hội cấp xã, Kế hoạch năm, Sau giải ngân, Khai báo; mỗi màn 1 dòng "📌 Số liệu: Mẫu 31 ngày … · chấm điểm BC0437 …".
+- Không đổi bản in (06 / 16 / 04 / 01/KH chuẩn khóa), khai báo, dữ liệu lưu. Phép thử: so bản in nhóm giữ như cũ giống hệt; ngày giữa tháng → Mẫu 31 đúng ngày + chấm điểm cuối tháng trước; Sau giải ngân theo tháng kỳ chọn; sửa phép thử KTGS; hồi quy đủ.
+
 ### 11/11/2026 — TK 2 · PHIÊN (bàn KTGS — CHƯA CODE, anh "phần này sẽ bàn kỹ rồi làm")
 - Anh 11/11: "chỗ KTGS anh đang rối… kiểm tra định kỳ năm theo kế hoạch thì ổn không nên thay đổi, các chỗ kiểm tra khác muốn gom lại cho tiện" → "tạm thời không phân chia bắt buộc hay định kỳ mà thống nhất cách lấy số liệu của các mẫu cho gọn; kiểm tra KH năm lấy dữ liệu như cũ, phiếu kiểm tra 3 tháng cũng vậy, các mẫu khác theo dữ liệu chọn" · "khi chọn tổ cho in các mẫu Tóm tắt, 06TD, 15TD, 16TD" · "nút Hội cấp xã Mẫu 03CX vẫn giữ… gom lại không bỏ chức năng".
 - **Phương án đang bàn (chưa duyệt):** ① KH năm 01/KH + Định kỳ 06 + 16 → như cũ (cuối tháng liền trước tháng KT) · ② 06 Sau giải ngân → như cũ (TK 2 hiểu "phiếu 3 tháng" = phiếu này — **chưa xác nhận**) · ③ mọi mẫu khác theo kỳ đang chọn (ô kỳ đầu trang, đúng ngày): hàng nút khi chọn 1 tổ = Tóm tắt · 06/TD · 15/TD · 16/TD; Mẫu 04 (thẻ Báo cáo tổng hợp); 03/BB-CX (giữ khối Hội cấp xã). Bỏ nút lặp (15/TD, Tóm tắt ở Định kỳ; Mẫu 04 ở hàng 1 tổ) — chức năng vẫn còn chỗ khác; mỗi màn 1 dòng "📌 Số liệu: …". Không đổi bản in / khai báo / dữ liệu lưu.

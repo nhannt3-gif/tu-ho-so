@@ -117,3 +117,12 @@ Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổ
 - Word: khuôn dựng từ mẫu gốc `tests/mau_goc/15td.docx`, `03bbcx.docx` bằng `tools/khuon_727.py` → `js/khuon/kt-khuon-727.js` (nạp khi cần — `kt727Khuon`); `ktDocxLam` gọi `KT_DOCX_THEM[mau]` nếu có (mẫu cũ không đổi). Điền bằng `kt7Dien` (thêm cách khi mẫu gốc để nhãn dính chấm).
 - Phép thử: `tests/t383.js` (16 phép, có kiểm XML hợp lệ); t179 (khóa mẫu) không đổi.
 - **3.503:** 15/TD, 03/BB-CX chuyển sang khung mẫu in chung `MAU_IN` (js/31b): khuôn `js/khuon/kt727.js` (`MAU_KHUON.kt727`), hộp xem `MAU_IN.hop`, Word `MAU_IN.word` (+ `sau: ktChamMin` — dòng chấm mịn như mọi Word KTGS; thân XML giống hệt 3.502). Bỏ móc `KT_DOCX_THEM` ở `ktDocxLam` (lõi Word KTGS về như trước 3.498).
+
+## 11. Bản 3.513 (11/11/2026) — thống nhất cách lấy số liệu (anh "gom lại không bỏ chức năng")
+| Màn / mẫu | Số liệu |
+|---|---|
+| 🗓 Kế hoạch năm 01/KH · 🗓 Định kỳ 06 + 16 | **như cũ** — ô Tháng kiểm tra, Mẫu 31 chốt cuối tháng liền trước (`ktNguonVoi`) |
+| 🎯 1 tổ (Tóm tắt · 06 · 15/TD · 16) · 🏛 Hội cấp xã 03/BB-CX · 📋 Mẫu 04 | Kỳ đầu trang (`KT_K`), Mẫu 31 đúng ngày |
+| 📅 Sau giải ngân | tháng của kỳ chọn (kỳ ngày giữa tháng → Mẫu 31 ngày đó, món GN đến ngày đó); ô từ–đến anh đổi được (`KT_GN_KY`) |
+| Chấm điểm BC0437 / BC0438 | theo tháng: kỳ là ngày giữa tháng → cuối tháng liền trước (`ktBCKyChon`) |
+Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD ở Định kỳ (hàm giữ). Mỗi màn dòng 📌 Số liệu (`ktSLDong`). Phép thử t389.

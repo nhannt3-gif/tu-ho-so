@@ -91,10 +91,10 @@ function ktBCNhom(ds){   /* tổ đã chọn → báo cáo theo Hội – xã */
   ds.filter(function(r){ return r.chon; }).forEach(function(r){ var k = ktHoiKhoa(r.t); if(!g[k]){ g[k] = {k:k, t:r.t, ds:[]}; thu.push(g[k]); } g[k].ds.push(r); });
   return thu.sort(function(a, b){ return ((a.t.tenXa||'')+'|'+a.t.dv).localeCompare((b.t.tenXa||'')+'|'+b.t.dv, 'vi'); });
 }
-function ktBCVe(o){ var th = ktNguonThangKT(); return ktNguonVe(o, th, function(){ ktBCVeG(o, th); }); }   /* 3.328: Mẫu 04 theo tháng kiểm tra (số liệu cuối tháng liền trước) */
-function ktBCVeG(o, th){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nhóm theo ấp; tích cả ấp hoặc từng tổ; ngày nhập tùy chọn (chỉ cho lần in này) */
+function ktBCVe(o){ return ktBCVeG(o); }   /* 3.513 (anh 11/11): Mẫu 04 theo KỲ ĐANG CHỌN (ô Kỳ đầu trang) — trước 3.328–3.512: cuối tháng liền trước tháng kiểm tra */
+function ktBCVeG(o){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nhóm theo ấp; tích cả ấp hoặc từng tổ; ngày nhập tùy chọn (chỉ cho lần in này) */
   var C = ktCH(), ds = ktBCDs(), nh = ktBCNhom(ds);
-  var h = ktCheDoHTML()+ktAThangHTML(th)+'<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã (hoặc hội) ở cây, tích cả ấp hoặc từng tổ. Lập theo tháng của kế hoạch: thẻ 🗓 Lịch năm.</span></div>';
+  var h = ktCheDoHTML()+ktSLDong()+'<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã (hoặc hội) ở cây, tích cả ấp hoặc từng tổ. Lập theo tháng của kế hoạch: thẻ 🗓 Lịch năm.</span></div>';
   if(!C.xa){ o.innerHTML = h+'<div class="rong">Chọn <b>xã</b> (hoặc hội) ở cây phía trên để chọn ấp / tổ lập Mẫu 04.</div>'+ktBCGhi(); return; }
   if(!ds.length){ o.innerHTML = h+'<div class="rong">Không có tổ trong phạm vi đã chọn.</div>'; return; }
   var soChon = ds.filter(function(r){ return r.chon; }).length;
@@ -191,7 +191,9 @@ function ktKN04(g){   /* 3.109: IV.2 kiến nghị a) b) c) — ghi nhẹ nhàng
     b:co ? b : ['- Duy trì sinh hoạt Tổ định kỳ, đôn đốc tổ viên trả nợ, trả lãi đúng kỳ.'],
     c:['- Sử dụng vốn vay đúng mục đích, trả lãi hằng tháng đúng kỳ, trả nợ gốc đúng hạn; tham gia gửi tiết kiệm thường xuyên.']};
 }
-function ktThangKT(){ var m = KT_K && KT_K.thang; if(!m) return ''; var y = +m.slice(0, 4), t = +m.slice(5, 7)+1; if(t>12){ t = 1; y++; } return y+'-'+hai(t); }   /* số liệu tháng 9 → kiểm tra tháng 10 */
+function ktThangKT(){ var m = KT_K && KT_K.thang; if(!m) return '';
+  if(String(KT_K.ky || '').length>7 && typeof ktCheDo==='function' && /^(bc|gn)$/.test(ktCheDo())) return m;   /* 3.513: Mẫu 04 / Sau GN theo kỳ chọn là ngày → kiểm tra trong chính tháng đó (Định kỳ, Kế hoạch giữ như cũ) */
+  var y = +m.slice(0, 4), t = +m.slice(5, 7)+1; if(t>12){ t = 1; y++; } return y+'-'+hai(t); }   /* số liệu tháng 9 → kiểm tra tháng 10 */
 function ktDiaDiem04(t){   /* 3.106: ấp → xã → tỉnh; dài quá 40 ký tự thì bỏ tỉnh */
   var a = [ktApChu(t.tenThon, t.tenXa, 1), ktXaChu(t.tenXa)].filter(Boolean), d = a.concat(['tỉnh '+KT_TINH]).join(', ');
   return d.length>40 && a.length ? a.join(', ') : d;
@@ -214,8 +216,8 @@ function ktNxTo04(t, t0){   /* 3.106: nhận xét chung từng tổ theo số li
   if(!tt.length) return '- '+ten+': dư nợ '+tr(s.dn)+', không phát sinh nợ quá hạn, nợ khoanh, lãi tồn.';
   return '- '+ten+': dư nợ '+tr(s.dn)+'; '+tt.join('; ')+'. Đề nghị Ban quản lý Tổ phối hợp '+ktHoiTen(t0||t)+' đôn đốc, có kế hoạch xử lý.';
 }
-function ktBCGiaTri(){ var th = ktNguonThangKT(); return ktNguonVoi(th, function(){ return ktBC04(ktBCDs().filter(function(r){ return r.chon; })); }); }   /* 3.328 */
-function ktBCXem(ok){ return ktNguonVoi(ktNguonThangKT(), function(){ return ktBCXemG(ok); }); }   /* 3.328 */
+function ktBCGiaTri(){ return ktBC04(ktBCDs().filter(function(r){ return r.chon; })); }   /* 3.513: số liệu kỳ đang chọn (bỏ ktNguonVoi 3.328) */
+function ktBCXem(ok){ return ktBCXemG(ok); }
 function ktBCXemG(ok){
   if(!ok){ if(!ktBCDs().some(function(r){ return r.chon; })) return bao('Chưa chọn tổ nào.', 3); return ktInHop(['m04'], ktInNutXem('ktBCXem(1)'), ktHoiCuaTo(ktBCDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; }))); }   /* 3.114 */
   var gts = ktBCGiaTri(); if(!gts.length) return bao('Chưa chọn tổ nào.', 3);
@@ -225,7 +227,7 @@ function ktBCXemG(ok){
 function ktBCHop(tit){   /* hộp xem trước Mẫu 04 dùng chung ① (cây) và ② (theo tháng kế hoạch) */
   var gts = KT_BC_XEM.gts;
   moHop('<div class="hop-tit">👁 Mẫu 04/BC-TH · Báo cáo tổng hợp'+(tit ? ' '+coChuHTML(tit) : '')+' — '+gts.length+' báo cáo</div>'+
-    '<div class="hop-phu">'+gts.map(function(g){ return coChuHTML(g.ten)+(g.nhan ? ' ('+coChuHTML(g.nhan)+')' : '')+': '+g.rows.length+' tổ'; }).join(' · ')+' — Đoàn kiểm tra theo người kiểm tra đã chọn + 2 dòng ghi tay; tháng kiểm tra = tháng sau tháng số liệu.</div>'+
+    '<div class="hop-phu">'+gts.map(function(g){ return coChuHTML(g.ten)+(g.nhan ? ' ('+coChuHTML(g.nhan)+')' : '')+': '+g.rows.length+' tổ'; }).join(' · ')+' — Đoàn kiểm tra theo người kiểm tra đã chọn + 2 dòng ghi tay; tháng kiểm tra = tháng sau tháng số liệu (kỳ là ngày → chính tháng đó).</div>'+
     '<iframe id="kt-bc-khung" class="to-khung" title="Xem trước"></iframe>'+
     xuatHang({truoc:'<button class="nho" onclick="dongHop();'+(KT_BC_XEM.tu==='kh' ? 'ktKH04Xem()' : KT_BC_XEM.tu==='dx' ? 'ktDX04()' : 'ktBCXem()')+'">‹ Đổi lựa chọn in</button>', html:function(){ return ktHTML04(KT_BC_XEM.gts); }, in:'ktBCIn(\'in\')', pdf:'ktBCIn(\'pdf\')', word:'ktBCIn(\'word\')'}), true);   /* 3.152 */
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');

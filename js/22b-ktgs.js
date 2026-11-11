@@ -112,13 +112,13 @@ function veKTGS(){
   if(!dsKy.length){ e.innerHTML = slTabConHTML()+ktDauHTML(null, [])+'<div class="rong">Chưa có số liệu món vay. Nạp Mẫu 31 (và BC0437 / BC0438) ở tab <b>📥 Nạp &amp; KT</b> trước.</div>'; return; }
   toKyMacDinh(C, dsKy, 'kt');
   e.innerHTML = slTabConHTML()+'<div class="rong">Đang mở số liệu '+slKyChu(C.ky)+'…</div>';
-  KHO.nap(C.ky).then(function(K){ KT_K = K; KHO.datKy(K); ktKhuon().catch(function(){}); return Promise.all([ktNapBC(C.ky), ktTruocNap(K)]); })
+  KHO.nap(C.ky).then(function(K){ KT_K = K; KHO.datKy(K); ktKhuon().catch(function(){}); return Promise.all([ktNapBC(ktBCKyChon(C.ky)), ktTruocNap(K)]); })   /* 3.513: kỳ là ngày giữa tháng → chấm điểm cuối tháng trước */
     .then(function(r){ KT_BC = r[0]; if(nganHienTai===7 && D.cauHinh.slTab==='kt') ktVe(dsKy); })
     .catch(function(er){ var o = document.getElementById('tr7'); if(o && D.cauHinh.slTab==='kt') o.innerHTML = slTabConHTML()+'<div class="sl-bao do">Chưa mở được số liệu: '+coChuHTML(er && er.message || er)+'</div><div class="hang-nut"><button class="nho chinh" data-lenh="f22b.toThuLai">⟳ Thử lại</button></div>'; });
 }
 function ktDauHTML(C, dsKy){
   kyGhiHTML(KT_K);   /* 3.163 (anh chốt): BC0437 ✓ / BC0438 ✓ thành chip cuối hàng Xã; thiếu / lệch kỳ → ⚠ cam, bấm → Nạp & KT */
-  var bc = function(k, ten){ var x = KT_BC && KT_BC[k], lech = x && KT_K && slThang(x.e.ky)!==slThang(KT_K.ky);
+  var bc = function(k, ten){ var x = KT_BC && KT_BC[k], lech = x && KT_K && slThang(x.e.ky)!==slThang(ktBCKyChon(KT_K.ky));
     return '<button class="sl-chip'+(x && !lech ? ' xanh' : ' cam')+'" data-lenh="f22b.moNapSL" title="'+coChuHTML(ten+(x ? ' kỳ '+slKyChu(x.e.ky)+(lech ? ' — khác kỳ đang xem '+slKyChu(KT_K.ky) : '') : ' chưa nạp')+' · bấm để mở 📥 Nạp & KT')+'">'+(x && !lech ? '' : '⚠ ')+ten+(x ? (lech ? ' '+kyVN(slThang(x.e.ky)) : ' ✓') : '')+'</button>'; };
   if(!C) return '<div class="sl-chip-hang kt-dau">'+bc('k37', 'BC0437')+bc('k38', 'BC0438')+'</div>';   /* chưa có số liệu (không có cây địa bàn) → chip ngay đầu tab */
   slChipThem(bc('k37', 'BC0437')+bc('k38', 'BC0438')+(KT_K && KT_K.ky===C.ky ? slNguonHTML(KT_K.B, true) : ''));   /* 3.395 (anh 28/10 "KTGS bước 1 áp cây địa bàn chuẩn"): chip BC0437 / BC0438 / nguồn lên dải LỌC ĐỊA BÀN như mọi tab (3.334: cuối thanh 3 khối) */
@@ -267,9 +267,9 @@ function ktVeThe(){
   if(ktCheDo()==='kh') return ktKHVe(o);   /* 3.96: Kế hoạch 01/KH */
   if(ktCheDo()==='hx' && typeof kt7HXVe==='function') return kt7HXVe(o);   /* 3.500: 🏛 Hội cấp xã — 03/BB-CX (js/56b) */
   if(ktCheDo()==='dk') return ktDKVe(o);   /* 3.97: kiểm tra định kỳ theo lịch */
-  if(!t){ o.innerHTML = ktCheDoHTML()+(C.xa ? ktBangToHTML(C) : '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ (điểm chấm, xếp loại), hoặc chọn 1 tổ để chọn hộ kiểm tra.</div>'+ktToanPGDHTML()); return; }
+  if(!t){ o.innerHTML = ktCheDoHTML()+ktSLDong()+(C.xa ? ktBangToHTML(C) : '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ (điểm chấm, xếp loại), hoặc chọn 1 tổ để chọn hộ kiểm tra.</div>'+ktToanPGDHTML()); return; }
   if(!KT_CHON || KT_CHON.to!==t.ma) KT_CHON = ktGoiY(t, C.kieu||'trung', 0);
-  o.innerHTML = ktCheDoHTML()+ktTheHTML(t)+ktChonHTML(t);
+  o.innerHTML = ktCheDoHTML()+ktSLDong()+ktTheHTML(t)+ktChonHTML(t);
 }
 function ktToanPGDHTML(){
   var x = KT_BC && KT_BC.k37; if(!x) return '<p class="ghi">Chưa nạp BC0437 — bảng tổ vẫn xem được (số liệu Mẫu 31) nhưng không có điểm chấm, xếp loại.</p>';
@@ -413,7 +413,8 @@ function ktChonHTML(t){
     '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+(h || '<tr><td colspan="8" class="rong">Chưa chọn hộ nào — bấm “Tất cả hộ còn dư nợ” để tích.</td></tr>')+'</tbody></table></div>'+
     ktKBKhung('dx', ktHoiDsXa((function(){ var x = {}; x[t.xa] = 1; return x; })()))+ktDXTom(t)+
     '<div class="hang-nut kt-in"><label class="kt-ngay-in"><span>Ngày kiểm tra</span><input id="kb-ngay" type="date" value="'+coChuHTML(KT_KB.ngay||'')+'" data-lenh="f22b.ktDocKB" data-su="change" aria-label="Ngày kiểm tra"></label>'+   /* 3.114: ngày kiểm tra cạnh nút In (trống = ghi tay) */
-    '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+GD.nut({chu:'📋 Mẫu 04', lenh:'ktk.dx04', tit:'Báo cáo tổng hợp Mẫu 04 cho tổ này (kiểm tra đột xuất)'})+(typeof ktttIn==='function' ? GD.nut({chu:'📋 Tóm tắt tổ', lenh:'kttt.in', tit:'Tóm tắt tình hình tổ 1 mặt A4 mang đi kiểm tra (js/71)'}) : '')+(typeof kt727Nut==='function' ? kt727Nut('dx') : '')+
+    (typeof ktttIn==='function' ? GD.nut({chu:'📋 Tóm tắt tổ', lenh:'kttt.in', tit:'Tóm tắt tình hình tổ 1 mặt A4 mang đi kiểm tra (js/71)'}) : '')+   /* 3.513 (anh 11/11): 1 tổ = đúng 4 mẫu Tóm tắt · 06/TD · 15/TD · 16/TD; Mẫu 04 lập ở thẻ Báo cáo tổng hợp */
+    '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+(typeof kt727Nut==='function' ? kt727Nut('dx') : '')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+
       '</div>'+   /* 3.329 (anh chốt ý 4): đột xuất có Mẫu 04 */
     '<p class="ghi">Hộ tốt = có món giải ngân trong 12 tháng, số dư 105 tăng so với tháng trước (chưa nạp tháng trước thì xét có 105), không lãi tồn, không món KHĐ. Cần quan tâm = món không giao dịch ≥ 3 tháng (file mẫu 14; chưa nạp thì xét ngày GD gần nhất), lãi tồn, không gửi TK đều. '+
       'Hộ có quá hạn / khoanh không gợi ý (kiểm tra riêng) — vẫn tích tay được. 105 tăng / giảm là suy ra từ số dư 2 tháng, không phải lịch sử nộp từng kỳ.</p></div>';

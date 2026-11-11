@@ -141,10 +141,15 @@ function ktThangHS(){   /* các tháng có Mẫu 31 chốt tháng — mới nh�
   var m = {}; KHO.dsBang('hstd').forEach(function(e){ m[slThang(e.ky)] = 1; });
   return Object.keys(m).sort().reverse();
 }
-function ktGNNgayCua(th){ var c = KHO.chotThang(th); return c && c.tam ? c.ky : ''; }   /* 3.333: qua cửa KHO (trước: đọc SLM) — tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */   /* 3.136: tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */
+function ktGNNgayCua(th){ var k = ktGNKyNgay(th); if(k) return k; var c = KHO.chotThang(th); return c && c.tam ? c.ky : ''; }
+/* 3.513 (anh 11/11 "chọn kỳ 31/5 thì hiện tất cả các món giải ngân trong tháng 5"): mặc định khoảng = tháng của kỳ đang chọn; kỳ là ngày → món GN đến ngày đó (Mẫu 31 ngày đó) */
+var KT_GN_KY = '';   /* kỳ chọn lúc anh tự đổi ô từ–đến (trong phiên); đổi kỳ đầu trang → khoảng về tháng của kỳ mới */
+function ktGNKyNgay(th){ var k = ktKyChon(); return k.length>7 && slThang(k)===th && tdnCuoiKy(th)!==k && KHO.coBang('hstd', k) ? k : ''; }   /* 3.333: qua cửa KHO (trước: đọc SLM) — tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */   /* 3.136: tháng chưa có Mẫu 31 cuối tháng → Mẫu 31 ngày mới nhất */
 function ktGNThangChu(k){ var n = ktGNNgayCua(k); return kyVN(k)+(n ? ' (đến '+ngayVNsl(n).slice(0, 5)+' — Mẫu 31 ngày)' : ''); }
 function ktGNKhoang(){
   var C = ktCH(), ds = ktThangHS(); if(!ds.length) return [];
+  var thK = slThang(ktKyChon()), tuDat = KT_GN_KY===ktKyChon();
+  if(!tuDat && ds.indexOf(thK)>=0) return [thK];
   var den = ds.indexOf(C.gnDen)>=0 ? C.gnDen : ds[0], tu = C.gnTu && C.gnTu<=den ? C.gnTu : den, ra = [];
   for(var k = tu; k<=den && ra.length<24; k = kyLui(k, 1)) ra.push(k);
   return ra;
@@ -154,7 +159,7 @@ function ktGNNap(){
   if(KT_GN && KT_GN.khoa===khoa) return Promise.resolve(KT_GN);
   var R = {khoa:khoa, thang:ks, thieu:[], ds:{}, ngay:{}, kh:{}};
   return ks.reduce(function(p, th){ return p.then(function(){   /* 3.333 (bàn giao KTGS mục 3): món GN trong tháng qua cửa KHO.monGN (cùng luật 3.136 / 3.329) */
-    return KHO.monGN(th).then(function(m){ if(!m){ R.thieu.push(th); return; } if(m.ngay) R.ngay[th] = m.ngay; R.ds[th] = m.ds; R.kh[th] = m.kh; });
+    return KHO.monGN(th, ktGNKyNgay(th)).then(function(m){ if(!m){ R.thieu.push(th); return; } if(m.ngay) R.ngay[th] = m.ngay; R.ds[th] = m.ds; R.kh[th] = m.kh; });
   }); }, Promise.resolve()).then(function(){ KT_GN = R; return R; });
 }
 function ktGNTrongPV(x){   /* tổ trong phạm vi cây (điểm GD theo cây của kỳ đang mở; tổ không còn trên cây thì xét theo xã / hội) */
@@ -165,9 +170,10 @@ function ktGNVe(o){
   var C = ktCH(), ds = ktThangHS();
   if(!ds.length){ o.innerHTML = ktCheDoHTML()+'<div class="rong">Chưa có Mẫu 31 chốt tháng — nạp ở tab con 📥 Nạp &amp; Kiểm tra.</div>'; return; }
   var ks = ktGNKhoang(), opt = function(v){ return ds.slice().reverse().map(function(k){ return '<option value="'+k+'"'+(k===v ? ' selected' : '')+'>'+coChuHTML(ktGNThangChu(k))+'</option>'; }).join(''); };
-  o.innerHTML = ktCheDoHTML()+'<div class="kt-gn-dau"><label>Tháng giải ngân: từ <select onchange="ktCH().gnTu=this.value;luu();ktVeThe()">'+opt(ks[0])+'</select></label>'+
-    '<label>đến <select onchange="ktCH().gnDen=this.value;if((ktCH().gnTu||\'\')>this.value)ktCH().gnTu=this.value;luu();ktVeThe()">'+opt(ks[ks.length-1])+'</select></label>'+
-    '<span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn ở cây phía trên (đến xã: cả xã · đến tổ: tích từng món)</span></div><div id="kt-gn"><div class="rong">Đang mở Mẫu 31…</div></div>';
+  o.innerHTML = ktCheDoHTML()+'<div class="kt-gn-dau"><label>Tháng giải ngân: từ <select onchange="ktGNDat();ktCH().gnTu=this.value;if((ktCH().gnDen||\'\')<this.value)ktCH().gnDen=this.value;luu();ktVeThe()">'+opt(ks[0])+'</select></label>'+
+    '<label>đến <select onchange="ktGNDat();ktCH().gnDen=this.value;if((ktCH().gnTu||\'\')>this.value)ktCH().gnTu=this.value;luu();ktVeThe()">'+opt(ks[ks.length-1])+'</select></label>'+
+    '<span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn ở cây phía trên (đến xã: cả xã · đến tổ: tích từng món)</span>'+
+    '<span class="kt-sl kt-gn-sl">📌 Số liệu: món giải ngân '+coChuHTML(ks.length>1 ? kyVN(ks[0])+' – '+ktGNThangChu(ks[ks.length-1]) : ktGNThangChu(ks[0]))+(KT_GN_KY===ktKyChon() ? '' : ' — theo ô Kỳ đầu trang')+'</span></div><div id="kt-gn"><div class="rong">Đang mở Mẫu 31…</div></div>';
   ktGNNap().then(ktGNVeLai)
     .catch(function(er){ var e = document.getElementById('kt-gn'); if(e) e.innerHTML = '<div class="sl-bao do">Chưa mở được Mẫu 31: '+coChuHTML(er && er.message || er)+'</div>'; });
 }
@@ -239,6 +245,7 @@ function ktGNDsHTML(){
       (C.to ? 'Bỏ tích hộ / món không cần lập phiếu.' : 'Chọn đến 1 tổ để tích / bỏ tích từng hộ, từng món.')+'</p>';
   return h;
 }
+function ktGNDat(){ if(KT_GN_KY!==ktKyChon()){ var k = slThang(ktKyChon()); ktCH().gnTu = k; ktCH().gnDen = k; } KT_GN_KY = ktKyChon(); }   /* anh tự đổi ô từ–đến: bắt đầu từ khoảng đang hiện */
 function ktGNVeLai(){ var e = document.getElementById('kt-gn'); if(e) e.innerHTML = ktGNDsHTML(); }
 function ktGNTich(k, v){ if(v) delete KT_GN_BO[k]; else KT_GN_BO[k] = 1; ktGNVeLai(); }
 function ktGNTichHo(ma, kh, v, th){ ktGNTo().forEach(function(p){ if(p.x.t.ma!==ma || (th && p.th!==th)) return; p.mon.forEach(function(o){ if(o.kh!==kh) return; var k = o._th+'|'+o.ku; if(v) delete KT_GN_BO[k]; else KT_GN_BO[k] = 1; }); }); ktGNVeLai(); }
