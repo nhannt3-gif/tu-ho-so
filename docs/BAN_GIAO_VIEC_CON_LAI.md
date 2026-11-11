@@ -269,7 +269,7 @@ _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` 
 ### Danh sách thử trên máy thật (3.512)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
-| 1 | Sao kê › Khách vay trong tổ có TK 105 chưa gán mã tổ (toàn PGD, rồi 1 tổ) | Đúng khách đang vay trong tổ mà dòng TK 105 trên Mẫu 31 chưa có mã tổ; ghi đúng tổ cần gán | |
+| 1 | Sao kê › TK 105 của khách vay trong tổ (nạp Sao kê TK 105 cùng kỳ) | Đối chiếu vài khách mỗi phần ① ② ③ trên hệ thống — đúng thì em giữ logic, sai anh báo để chỉnh | |
 
 ### Danh sách thử trên máy thật (3.511)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

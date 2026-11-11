@@ -1058,7 +1058,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.512', ds:[
-  ["📒 Sao kê › Khách hàng: thêm \"Sao kê khách vay trong tổ có TK 105 chưa gán mã tổ\" — khách đang vay trong tổ mà dòng TK 105 trên Mẫu 31 mã tổ trống / 0000000, chia theo tổ, ghi tổ cần gán", "dhSL('sk')"],
+  ["📒 Sao kê › Khách hàng: thêm \"Sao kê TK 105 của khách vay trong tổ\" — ① chưa có TK 105 (mở mới) · ② có TK 105 chưa gán vào tổ (gắn lại) · ③ TK 105 ở tổ khác (chuyển về), mỗi dòng ghi căn cứ", "dhSL('sk')"],
   ["03/GDX › Tổ giao dịch: chọn tên từ danh sách khai báo cán bộ; Tổ trưởng kiêm Bảo vệ, KSV / GDV kiêm Lái xe", "slDoiTab('gdx')"],
   ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
@@ -1074,7 +1074,7 @@ var CO_GI_MOI = {ban:'3.512', ds:[
   ["🏢 Giao dịch xã: chip mẫu hiện đủ hết (xuống dòng như tab Hồ sơ), không còn phải bấm ‹ › tìm mẫu bị khuất; điện thoại: nút Tra cứu / Xem xuống hàng dưới", "slDoiTab('gdx')"],
   ["🛡 KTGS: thêm 📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi (toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi, A4 ngang) và 🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã (mục I tự điền; mục III, IV đã sửa số) — VB 727, in + Word theo mẫu gốc", "slDoiTab('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
-    "3.512 · 📒 Sao kê › nhóm Khách hàng › Sao kê khách vay trong tổ có TK 105 chưa gán mã tổ → chọn xã / hội / tổ (cây lọc) → 👁 Xem → In / Excel",
+    "3.512 · 📒 Sao kê › nhóm Khách hàng › Sao kê TK 105 của khách vay trong tổ → chọn xã / hội / tổ → 👁 Xem: 3 phần ① ② ③, cột Căn cứ — đối chiếu vài khách trên hệ thống",
     "3.511 · 03/GDX › Tổ giao dịch: mỗi ô là ô chọn từ danh sách cán bộ, đã loại người giữ vai khác",
     "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm",
     "3.509 · 🎯 Phân bổ KH › 📄 Biểu 07 → chọn Biểu 07 cũ: các đoạn Căn cứ…, Ủy ban nhân dân…, Đề nghị… giãn dòng thoáng; In / Word vẫn 2 trang (Thông báo + Danh mục)",
