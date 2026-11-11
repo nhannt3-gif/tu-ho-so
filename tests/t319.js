@@ -11,7 +11,7 @@ const fs=require('fs'), path=require('path');
  await p.waitForTimeout(3000);
  const w = t=>p.waitForTimeout(t);
  await p.evaluate(()=>{ const t = Object.values(KT_K.to).find(x=>!toLaTT(x) && x.xa && String(x.dv)==='11'); const C = ktCH(); C.xa = String(t.xa); C.hoi = String(t.dv); C.khNam = 2026; luu(); ktVeThe(); }); await w(1500);
- let r = await p.evaluate(()=>({chip:[...document.querySelectorAll('.kt-con .gd-chip, .kt-a-the .gd-chip')].map(x=>x.textContent.trim()).find(x=>/Kế hoạch năm/.test(x)) || '', tt:(document.querySelector('.kt-kh-tt')||{}).textContent||'', nut:!!document.querySelector('.kt-kh-tt button[data-lenh$=".ktKHChot"]')}));
+ let r = await p.evaluate(()=>({chip:[...document.querySelectorAll('.kt-con .gd-chip, .kt-a-the .gd-chip, .kt-khoi .gd-chip')].map(x=>x.textContent.trim()).find(x=>/Kế hoạch năm/.test(x)) || '', tt:(document.querySelector('.kt-kh-tt')||{}).textContent||'', nut:!!document.querySelector('.kt-kh-tt button[data-lenh$=".ktKHChot"]')}));
  ok('③ chip "🗓 Kế hoạch năm"; ① chưa chốt → dòng trạng thái + nút 📌 Chốt kế hoạch', /Kế hoạch năm/.test(r.chip) && /chưa/.test(r.tt) && r.nut, JSON.stringify(r));
  await p.click('.kt-kh-tt button[data-lenh$=".ktKHChot"]'); await w(800);
  r = await p.evaluate(()=>{ const S = ktKHLuu(); return {khoa:S.khoa, n:(S.chot||[]).length, tt:document.querySelector('.kt-kh-tt').textContent, khoaO:[...document.querySelectorAll('.kt-kh-bang select')].every(x=>x.disabled), nam:!document.querySelector('.kt-gn-dau select').disabled}; });
