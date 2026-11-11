@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.513 KTGS tinh gọn — anh "code và gộp")
+- Đã làm: **3.513** theo phương án dưới — Mẫu 04 + Sau giải ngân chuyển sang Kỳ đầu trang; BC0437/0438 kỳ ngày giữa tháng → cuối tháng trước (`ktBCKyChon`); hàng nút 1 tổ = Tóm tắt · 06 · 15/TD · 16; bỏ nút lặp (Mẫu 04 ở 1 tổ, Tóm tắt + 15/TD ở Định kỳ — hàm giữ); dòng 📌 Số liệu mỗi màn (`ktSLDong`). `KHO.monGN(th, ky)` thêm tham số tùy chọn (chỉ KTGS gọi). t389 mới; sửa t106, t237, t238, t273, t318. `docs/BAN_GIAO_KTGS.md` mục 11.
+- Chờ anh: thử máy thật 3.513 (bảng thử trong BAN_GIAO_VIEC_CON_LAI). Bẫy: khoảng Sau GN lưu cũ (`gnTu/gnDen`) chỉ dùng khi anh tự đổi ô trong kỳ đang chọn (`KT_GN_KY`, phiên) — đổi kỳ đầu trang là về tháng kỳ mới.
+
 ### 11/11/2026 — TK 2 · PHIÊN (KTGS tinh gọn — PHƯƠNG ÁN ĐÃ ĐỦ, chờ anh "code")
 - Anh chốt thêm: "lấy ngày chọn, ví dụ chấm điểm ngày không có thì lấy cuối tháng trước" · "kiểm tra sau giải ngân 30 ngày ví dụ chọn kỳ 31/5 thì hiện tất cả các món giải ngân trong tháng 5" · "không có phiếu kiểm tra 3 tháng".
 - **Luật số liệu:** ① GIỮ NHƯ CŨ: Kế hoạch năm 01/KH + Định kỳ 06 + 16 (tích tổ theo lịch) — cuối tháng liền trước tháng kiểm tra. ② THEO KỲ CHỌN (ô kỳ đầu trang): 06 Sau giải ngân = món giải ngân trong tháng của kỳ chọn, đến ngày chọn (31/5 → 01–31/5; 15/6 → 01–15/6), ô từ–đến tháng giữ (mặc định = tháng kỳ chọn); hàng nút 1 tổ (Tóm tắt · 06/TD · 15/TD · 16/TD), Mẫu 04, 03/BB-CX = Mẫu 31 đúng ngày chọn; số liệu chỉ có theo tháng (chấm điểm / xếp loại BC0437, BC0438…) → cuối tháng liền trước ngày chọn.
