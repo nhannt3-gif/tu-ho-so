@@ -4101,3 +4101,4 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 .pb-gon-dong:hover{background:var(--xanh-nhat)}
 .pb-gon-dong.bat{outline:2px solid var(--xanh);background:var(--xanh-nhat)}
 .pb-gon-dong .pb-nho{margin-left:auto;padding:1px 8px}
+.kt-gn-sl{font-size:calc(12px*var(--co));color:var(--chu-phu)}   /* 3.513 dòng 📌 Số liệu Sau giải ngân */

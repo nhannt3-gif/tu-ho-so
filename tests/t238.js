@@ -36,9 +36,10 @@ const fs=require('fs'), path=require('path');
    ok('chọn bộ ② trên màn → sửa vào dx_m16, bộ ① giữ', D.cauHinh.ktIn.dx_m16.dvc==='cham' && (D.cauHinh.ktIn.m16.dvc||'')==='' && /② Khai báo khi cần/.test(the().querySelector('.kt-bo-chon .bat').textContent));
    /* đột xuất: Mẫu 04 */
    await bam(khoi()[1]); const t = Object.values(KT_K.to).filter(x=>!toLaTT(x) && x.dv && String(x.dv)!=='99')[0]; ktChonTo(t.ma); await w(400);
-   ok('đột xuất có nút 📋 Mẫu 04', !!the().querySelector('[data-lenh="ktk.dx04"]'));
-   await bam(the().querySelector('[data-lenh="ktk.dx04"]'));
-   ok('bấm Mẫu 04 → hộp chọn khi in Mẫu 04', !!document.getElementById('ki-m04-ng1'));
+   const hn = [...the().querySelectorAll('.hang-nut.kt-in button')].map(b=>b.textContent.trim()).join('|');
+   ok('3.513: 1 tổ = Tóm tắt · 06/TD · 15/TD · 16/TD (bỏ nút Mẫu 04 — lập ở thẻ Báo cáo tổng hợp)', !the().querySelector('[data-lenh="ktk.dx04"]') && /^📋 Tóm tắt tổ\|🖨 In Mẫu 06\|📄 Word Mẫu 06\|📄 15\/TD Đối chiếu\|🖨 In Mẫu 16\|📄 Word Mẫu 16$/.test(hn), hn);
+   ktDX04(); await w(300);
+   ok('ktDX04 (hàm giữ) → hộp chọn khi in Mẫu 04', !!document.getElementById('ki-m04-ng1'));
    dongHop(); KT_KB.ngay = ''; ktDX04(1); await w(400);
    ok('Mẫu 04 đột xuất: 1 báo cáo, tháng để chấm khi chưa khai ngày, nút Đổi lựa chọn quay về Mẫu 04 đột xuất', KT_BC_XEM && KT_BC_XEM.tu==='dx' && KT_BC_XEM.gts.length===1 && KT_BC_XEM.gts[0].f.TH04==='' && /ktDX04\(\)/.test(document.getElementById('hop-in').innerHTML));
    dongHop();

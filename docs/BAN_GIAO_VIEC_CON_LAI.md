@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.513)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS, Kỳ đầu trang = ngày giữa tháng (vd 15/11) → 🎯 chọn 1 tổ | 📌 Mẫu 31 ngày 15/11 · BC0437 T10; nút Tóm tắt · 06 · 15/TD · 16 | |
+| 2 | Sau giải ngân, kỳ = 31/10 rồi 15/11 | món GN tháng 10; rồi 01–15/11 | |
+| 3 | Mẫu 04 theo kỳ chọn; Định kỳ + Kế hoạch năm in như cũ | Định kỳ / KH năm số liệu cuối tháng trước tháng KT | |
+
+**Ghi chú kỹ thuật 3.513:** `ktKyChon / ktBCKyChon / ktSLDong` (js/56); `KHO.monGN(th, ky)` tham số 2 tùy chọn; `KT_GN_KY` (phiên) — đổi kỳ đầu trang là khoảng Sau GN về tháng kỳ mới.
+
 ### Danh sách thử trên máy thật (3.512)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

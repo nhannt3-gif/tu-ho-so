@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.513 — 11/11/2026 — KTGS tinh gọn: thống nhất cách lấy số liệu (TK 2)
+- **Anh 11/11** "tạm thời không phân chia bắt buộc hay đột xuất mà thống nhất cách lấy số liệu của các mẫu cho gọn; kiểm tra KH năm lấy dữ liệu như cũ… các mẫu khác theo dữ liệu chọn" · "khi chọn tổ cho in Tóm tắt, 06TD, 15TD, 16TD" · "Hội cấp xã 03CX vẫn giữ… gom lại không bỏ chức năng" · "lấy ngày chọn, chấm điểm ngày không có thì lấy cuối tháng trước" · "kiểm tra sau giải ngân chọn kỳ 31/5 thì hiện tất cả các món giải ngân trong tháng 5" · "không có phiếu kiểm tra 3 tháng".
+- **Giữ như cũ:** Kế hoạch năm 01/KH + Định kỳ 06 + 16 — ô Tháng kiểm tra, Mẫu 31 chốt cuối tháng liền trước (`ktNguonVoi`). Bản in 06 / 16 / 04 / 01/KH không đổi (t179 khóa).
+- **Theo Kỳ đầu trang:** 🎯 1 tổ, 🏛 Hội cấp xã (như trước) + **Mẫu 04** (bỏ `ktNguonVoi` — `ktBCVe / ktBCGiaTri / ktBCXem`; kỳ là ngày → tháng kiểm tra = chính tháng đó, `ktThangKT` chỉ ở Mẫu 04 / Sau GN) + **Sau giải ngân** (khoảng mặc định = tháng của kỳ chọn; kỳ là ngày giữa tháng → Mẫu 31 ngày đó, món GN đến ngày đó — `KHO.monGN(th, ky)` thêm tham số tùy chọn, không truyền thì như cũ; anh tự đổi ô từ–đến thì giữ trong kỳ đó — `KT_GN_KY`).
+- **Chấm điểm BC0437 / BC0438** (chỉ có theo tháng): kỳ là ngày giữa tháng → cuối tháng liền trước (`ktBCKyChon`, áp ở `veKTGS`; ngày cuối tháng / có BC đúng ngày → như cũ). Chip BC0437 trên dải lọc so theo luật này.
+- **Gọn nút (không bỏ chức năng):** hàng nút 1 tổ = 📋 Tóm tắt · 06/TD · 15/TD · 16/TD (bỏ 📋 Mẫu 04 — lập ở thẻ Báo cáo tổng hợp); Định kỳ bỏ 📋 Tóm tắt từng dòng / n tổ + 📄 15/TD (lặp). Hàm cũ giữ (`ktDX04`, `kttt.dk`).
+- **Dòng 📌 Số liệu** mỗi màn (`ktSLDong`: Mẫu 31 kỳ · BC0437 tháng, ⚠ khi lệch): bảng tổ / 1 tổ, Mẫu 04, Hội cấp xã, Sau giải ngân (tháng + ngày), Kế hoạch năm (ghi giữ như cũ); Định kỳ giữ dòng "Số liệu in T…".
+- Phép thử mới t389 (19 ý: Mẫu 31 giả ngày 15/08 + BC0437 giả T7 / T8). Sửa theo bố cục mới: t106, t237, t238, t273, t318.
+
 ## 3.512 — 11/11/2026 — Sao kê TK 105 của khách vay trong tổ — 3 trường hợp (TK 2)
 - **Anh 11/11:** "sao kê hộ vay có TK105 nhưng chưa gán mã tổ" → "KH có dư nợ trong tổ nhưng TK 105 chưa có gán mã tổ" → "kiểm 2 loại: có dư nợ chưa có TK 105 → tạo mới; TK 105 còn hoạt động nhưng đã gỡ mã tổ → gắn lại; dư nợ 1 tổ nhưng TK 105 ở tổ khác — phân rõ" · "có dư nợ chưa có TK 105 em có làm rồi nên kiểm lại thôi" · "cho sao kê" · "lấy Mẫu 31 làm chuẩn, kiểm cấu trúc rút ra logic" · "em tự nội suy, anh không chắc".
 - **Cấu trúc Mẫu 31** (`docs/COT_FILE_MAU.md`, file thật 19/10): mỗi dòng = 1 khế ước mang mã tổ của món vay; cột 173 "Sổ tiết kiệm 105" + 174 "Số dư tiền gửi 105" nằm trên dòng món vay (nhiều sổ → khế ước lặp dòng); không có dòng TK 105 riêng cho khách đang vay; ~1/4 món trống sổ.

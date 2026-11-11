@@ -283,7 +283,8 @@ function ktKHXoa(){   /* 3.123: xóa kế hoạch đã lưu của Hội – xã 
 function ktKHNgay(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? hai(d.getDate())+'/'+hai(d.getMonth()+1)+'/'+d.getFullYear() : ''; }
 function ktKHVe(o){
   var C = ktCH(), nam = ktKHNam(), y = nay().getFullYear();
-  var h = ktCheDoHTML()+'<div class="kt-gn-dau"><label>Năm: <select onchange="ktCH().khNam=+this.value;luu();ktVeThe()">'+[y-1, y, y+1].map(function(n){ return '<option'+(n===nam ? ' selected' : '')+'>'+n+'</option>'; }).join('')+'</select></label>';
+  var h = ktCheDoHTML()+'<div class="to-the-so kt-sl">📌 Số liệu: Kế hoạch năm giữ như cũ — in theo tháng lấy Mẫu 31 chốt cuối tháng liền trước tháng kiểm tra (không theo ô Kỳ đầu trang)</div>'+
+    '<div class="kt-gn-dau"><label>Năm: <select onchange="ktCH().khNam=+this.value;luu();ktVeThe()">'+[y-1, y, y+1].map(function(n){ return '<option'+(n===nam ? ' selected' : '')+'>'+n+'</option>'; }).join('')+'</select></label>';
   var hs = ktHoiDs(), hoi = ktKHHoi();
   /* 3.157 (anh chốt): bỏ hàng chip Hội riêng — Kế hoạch dùng hàng chip Hội chung của cây địa bàn (chọn được ở cấp xã) */
   if(!C.xa || !hoi){ o.innerHTML = h+'</div><div class="rong">Chọn <b>xã</b> ở cây phía trên rồi chọn <b>Hội</b> ở hàng chip Hội — mỗi Hội cấp xã 1 kế hoạch (lấy 100% tổ của Hội tại xã, mọi điểm GD).</div>'; return; }
@@ -516,12 +517,11 @@ function ktDKVeG(o, th){
     h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="ktk.dkTich" data-su="change" data-m="'+m+'" aria-label="Chọn tổ"></td>'+
       '<td class="to-ten"><b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML([t.tenThon, t.tenXa].filter(Boolean).join(' · '))+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td><td></td>'+
       '<td>'+(x ? '<b class="'+(x.pt>=90 ? 'xanh' : 'do')+'">'+x.nChon+'/'+x.nDung+' hộ = '+ktPT(x.pt)+'%</b>'+(x.nTong>x.nChon ? ' <small>+ '+(x.nTong-x.nChon)+' QH/khoanh</small>' : '') : '')+'</td>'+
-      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button>'+(typeof ktttIn==='function' ? ' <button type="button" class="nho" data-lenh="kttt.in" data-m="'+m+'" title="Tóm tắt tình hình tổ 1 mặt A4 (js/71)">📋</button>' : '')+'</td></tr>';   /* 3.379 */
+      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button>'+'</td></tr>';   /* 3.513 (anh 11/11 gom nút): bỏ 📋 Tóm tắt từng dòng — Tóm tắt ở hàng nút 1 tổ (🎯 chọn tổ) */
     if(KT_DK_MO===m) h += '<tr><td colspan="8">'+ktDKHoHTML(t, x)+'</td></tr>'; });
   h += '</tbody></table></div>';
   var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });
-  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+(typeof ktttIn==='function' ? '<button type="button" class="nho" data-lenh="kttt.dk"'+(chon.length ? '' : ' disabled')+'>📋 Tóm tắt '+chon.length+' tổ</button>' : '')+
-    (typeof kt727Nut==='function' && chon.length ? kt727Nut('dk') : '')+'</div>'+   /* 3.498: 15/TD · 03/BB-CX (js/56b) */
+  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+'</div>'+   /* 3.513: bỏ 📋 Tóm tắt n tổ + 📄 15/TD ở Định kỳ (lặp) — 2 mẫu này ở hàng nút 1 tổ, theo kỳ chọn */
     '<p class="ghi">Mẫu 06: hộ còn dư nợ có món giải ngân từ các năm trước (trước 01/01/'+th.slice(0, 4)+'), chỉ in các món đó; tích sẵn 100%, bỏ tích hộ không kiểm — 727: tối thiểu 90% (tính theo hộ, kèm tỷ lệ món). '+
       'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(K.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
   o.innerHTML = h;

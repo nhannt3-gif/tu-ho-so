@@ -124,7 +124,7 @@ function kt7HXVe(o){
   var r = ds.map(function(x){ var g = kt03DL(x.k, {}), f = g.f;
     return '<tr><td>'+coChuHTML(ktHoiTenTD(x.t))+'</td><td class="so">'+f.STO+'</td><td class="so">'+f.STH1+'/'+f.STH2+'</td><td class="so">'+f.SKH+'</td><td class="so">'+f.DN+'</td><td class="so">'+f.NQH+' ('+f.TLQH+'%)</td>'+
       '<td>'+(g.coXL ? 'Tốt '+f.X1+' · Khá '+f.X2+' · TB '+f.X3+' · Yếu '+f.X4 : '<span class="sl-phu">—</span>')+'</td><td>'+GD.nut({chu:'🏛 03/BB-CX', lenh:'kt7.m03', du:{k:x.k}, chinh:1, tit:'Xem / In / Word biên bản kiểm tra Hội này'})+'</td></tr>'; }).join('');
-  o.innerHTML = h+'<p class="sl-phu">🏛 <b>Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã</b> (Mẫu 03/BB-CX — VB 727/HD-NHCS) · số liệu đến '+coChuHTML(KT_K.ngay ? ngayVNsl(KT_K.ngay) : '…')+' (Kỳ đầu trang)'+(C.xa ? '' : ' · toàn PGD — chọn xã ở lọc địa bàn để thu gọn')+'</p>'+
+  o.innerHTML = h+ktSLDong()+'<p class="sl-phu">🏛 <b>Biên bản kiểm tra hoạt động nhận ủy thác của tổ chức CT-XH cấp xã</b> (Mẫu 03/BB-CX — VB 727/HD-NHCS) · số liệu đến '+coChuHTML(KT_K.ngay ? ngayVNsl(KT_K.ngay) : '…')+' (Kỳ đầu trang)'+(C.xa ? '' : ' · toàn PGD — chọn xã ở lọc địa bàn để thu gọn')+'</p>'+
     (ds.length ? '<div class="to-bang-cuon"><table class="to-bang kt-hx"><thead><tr><th>Hội – xã</th><th>Số tổ</th><th>Thôn</th><th>Khách</th><th>Dư nợ (tr)</th><th>Nợ quá hạn (tr)</th><th>Xếp loại tổ (BC0437)</th><th></th></tr></thead><tbody>'+r+'</tbody></table></div>'
       : '<div class="rong">Không có Hội – xã trong phạm vi lọc.</div>');
 }

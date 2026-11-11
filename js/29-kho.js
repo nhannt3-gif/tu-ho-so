@@ -150,7 +150,7 @@ var KHO = (function(){
       return slBo(tr).then(function(B){ var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh) t[o.kh] = slT105Them(t, o, o.kh); });   /* 3.409 QT-C-01 cộng sổ */
         return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
     /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
-    monGN: function(th){ var co = this.chotThang(th); if(!co) return Promise.resolve(null); var nd = co.tam ? co.ky : '';
+    monGN: function(th, ky){ var co = ky && String(ky).length>7 && slThang(ky)===String(th).slice(0, 7) && this.coBang('hstd', ky) ? {ky:String(ky), tam:true} : this.chotThang(th); if(!co) return Promise.resolve(null);   /* 3.513: ky = Mẫu 31 ngày trong tháng th (kỳ chọn) — không truyền thì như cũ */ var nd = co.tam ? co.ky : '';
       return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};
         hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); k.t105 = slT105Them(k, o); if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
         hs.forEach(function(o){
