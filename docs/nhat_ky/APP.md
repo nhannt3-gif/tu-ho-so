@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 11/11/2026 — TK 2 · PHIÊN (3.517 Kế hoạch năm lập theo Mẫu 31 đầu năm — anh "code và gộp")
+- Anh: "KH năm lấy theo Mẫu 31 đầu năm" · "khi lập, còn in số liệu thì lấy đúng tháng KH". Em chốt hiểu: đầu năm = chốt 31/12 năm trước; in theo tháng giữ luật cũ (cuối tháng liền trước tháng kiểm tra) — anh "code và gộp" không sửa.
+- Đã làm **3.517** (`js/80b`, t392 15 ý, t125 sửa). Tổ gộp / mới so với Mẫu 31 mới nhất chỉ cảnh báo.
+
 ### 11/11/2026 — TK 2 · PHIÊN (3.516 Kế hoạch năm theo Mẫu 31 mới nhất — anh "code")
 - Anh báo kế hoạch đã chốt nay "chưa lưu" (ảnh: Gia Lộc · Đoàn TN, nháp 11/11, chưa chốt, 2 tổ không còn trong số liệu). Đối chiếu diff: 3.513–3.515 không đụng chỗ lưu KH → bản chốt (nếu có) ở khóa năm / mã xã / mã Hội khác hoặc máy khác.
 - Anh chốt: kế hoạch phải lưu + chạy theo Mẫu 31 hàng tháng; hiện đúng tổ hiện tại (đã gộp); tổ đã gộp chỉ cảnh báo. Đã làm **3.516** (gói `js/80b`, t392 13 ý). Chờ anh: bấm 🔎 Kế hoạch đã lưu trên máy thật để tìm bản chốt cũ; nếu bản chốt nằm ở mã xã / Hội cũ → đề xuất "nhận về mã mới" (chưa làm).

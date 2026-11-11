@@ -104,7 +104,7 @@ const fs=require('fs'), path=require('path');
    /* 10. tự lưu khi Xem; tổ không còn trong số liệu; xóa */
    delete D.cauHinh.ktKH['2026|'+xa+'|'+dv]; ktVeThe(); await w(100); ok('chưa lưu trước khi Xem', !ktKHLich().luu);
    ktKHXem(1); await w(300); dongHop(); ok('bấm Xem Kế hoạch → tự lưu kế hoạch (để quay lại in báo cáo tổ)', ktKHLich().luu && /đã lưu nháp/.test(document.getElementById('kt-the').textContent));
-   L = ktKHLich(); const tMat = L.ds[L.ds.length-1], thMat = L.gan[tMat.ma], toGoc = KT_K.to[tMat.ma]; delete KT_K.to[tMat.ma]; ktVeThe(); await w(100);
+   L = ktKHLich(); const tMat = L.ds[L.ds.length-1], thMat = L.gan[tMat.ma], KL = typeof KTKH!=='undefined' ? KTKH.Kdung() : KT_K, toGoc = KL.to[tMat.ma]; delete KL.to[tMat.ma];   /* 3.517: Kế hoạch lập theo Mẫu 31 đầu năm (KTKH.Kdung) */ ktVeThe(); await w(100);
    L = ktKHLich(); ok('tổ không còn trong số liệu → giữ trong kế hoạch, báo ⚠ kèm tên tổ đã lưu', L.mat.length===1 && L.mat[0].ma===tMat.ma && L.mat[0].ten===(tMat.ten||'') && /không còn trong số liệu/.test(document.getElementById('kt-the').textContent));
    ktKHDoiThang(L.ds[0].ma, L.thang[0]); ok('sửa kế hoạch sau đó vẫn giữ tổ đã mất trong lịch đã lưu', +D.cauHinh.ktKH['2026|'+xa+'|'+dv].to[tMat.ma]===thMat);
    /* 11. Báo cáo tổ (Mẫu 04) theo kế hoạch */
@@ -113,7 +113,7 @@ const fs=require('fs'), path=require('path');
    const S = D.cauHinh.ktKH['2026|'+xa+'|'+dv], dTh = {}; Object.keys(S.to).forEach(m=>{ if(m!==tMat.ma) dTh[S.to[m]] = (dTh[S.to[m]]||0)+1; }); const mBC = +Object.keys(dTh).sort((a, b2)=>dTh[b2]-dTh[a])[0], soMBC = Object.keys(S.to).filter(m=>+S.to[m]===mBC && m!==tMat.ma).length;
    ktBCTheoKH('2026|'+xa+'|'+dv, mBC); await w(150);
    ok('bấm tháng → tích sẵn đúng các tổ của tháng đó; tổ không còn trong số liệu không tích', soMBC>0 && Object.keys(KT_BC_CHON).length===soMBC && !KT_BC_CHON[tMat.ma] && ktBCDs().filter(r=>r.chon).length===soMBC, soMBC+' tổ');
-   KT_K.to[tMat.ma] = toGoc; KT_BC_CHON = {};
+   KL.to[tMat.ma] = toGoc; KT_BC_CHON = {};
    C.che = 'kh'; C.khHoi = dv; ktVeThe(); await w(150);
    const nR = (D.rac||[]).length; ktKHXoa(); await w(150);
    ok('3.153: 🗑 Xóa kế hoạch → không hỏi, kế hoạch cũ vào Thùng rác (ngăn Mục nhỏ)', !document.getElementById('hop').classList.contains('hien') && D.rac.length===nR+1 && nganRac(D.rac[D.rac.length-1])==='mucNho');
