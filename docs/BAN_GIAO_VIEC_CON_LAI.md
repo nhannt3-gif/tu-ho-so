@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.517)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS › Kế hoạch năm 2026 (đã nạp Mẫu 31 T12/2025) | 📌 lập theo T12/2025 (đầu năm) | |
+| 2 | Hội có tổ đã gộp sau đầu năm | ⚠ chỉ cảnh báo, lịch giữ nguyên | |
+| 3 | In theo tháng T6 | số liệu 31/05 | |
+
 ### Danh sách thử trên máy thật (3.516)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

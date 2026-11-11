@@ -142,3 +142,7 @@ Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD �
 - Màn 🗓 Kế hoạch năm: `ktKHDsTo` đọc `KTKH.Kdung()` = Mẫu 31 mới nhất đã nạp (chốt tháng hoặc ngày); trong `ktKHVoiSL` (In theo tháng / `ktNguonVoi`) cờ `KTKH.muon` → số liệu tháng kiểm tra như cũ.
 - Bản chốt không tự sửa khi tổ đổi: tổ đã gộp / đi khỏi chỉ ⚠ (L.mat); tổ mới của ấp có tháng theo ấp (3.140); ấp mới chưa có tháng → ⚠ cần xếp.
 - 🔎 `KTKH.hop()` liệt kê `D.cauHinh.ktKH` + `D.rac` (loaiNho 'ktKH'); `KTKH.mo(khóa)` đặt năm / xã / Hội.
+
+## 14. Bản 3.517 (11/11/2026) — Kế hoạch năm lập theo Mẫu 31 đầu năm
+- `KTKH.dau(năm)` = chốt 31/12 năm trước (chưa có → tháng chốt gần nhất trước; không có → bản sớm nhất, ⚠); `ktKHDsTo` ← `KTKH.Kdung()`; In theo tháng (`ktKHVoiSL`, cờ `KTKH.muon`) như cũ.
+- `KTKH.baoHTML`: so đầu năm ↔ Mẫu 31 mới nhất (`KTKH.kyMoi`) → ⚠ tổ đã gộp / đi khỏi (chỉ cảnh báo), 🆕 tổ mới (tháng của ấp). Cache `KTKH.c[kỳ]`.

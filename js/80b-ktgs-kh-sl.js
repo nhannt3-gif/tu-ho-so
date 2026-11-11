@@ -1,34 +1,38 @@
 /* ===== js/80b-ktgs-kh-sl.js — 3.516 (anh 11/11/2026): KẾ HOẠCH NĂM CHẠY THEO MẪU 31 HÀNG THÁNG + 🔎 KẾ HOẠCH ĐÃ LƯU =====
    Anh: "kế hoạch anh đã ghi chốt lưu sao giờ lại không lưu" · "hiện tại theo Mẫu 31 mới đã sắp xếp lại các tổ, nhưng kế hoạch phải lưu và chạy theo Mẫu 31 hàng tháng" → duyệt A + B + C.
-   B. Màn 🗓 Kế hoạch năm lập / xem lịch theo Mẫu 31 MỚI NHẤT đã nạp (chốt tháng hoặc theo ngày — tổ hiện tại, đã gộp) (không theo ô Kỳ đầu trang) — ktKHDsTo đọc KTKH.K.
+   B. 3.517 (anh "KH năm lấy theo Mẫu 31 đầu năm khi lập, còn in số liệu thì lấy đúng tháng KH"): màn 🗓 Kế hoạch năm LẬP theo Mẫu 31 ĐẦU NĂM = chốt 31/12 năm trước
+      (chưa nạp → tháng chốt gần nhất trước đó; không có → bản sớm nhất, ghi ⚠) — ktKHDsTo đọc KTKH.Kdung(). (3.516: Mẫu 31 mới nhất)
       In theo tháng giữ như cũ: Mẫu 31 cuối tháng liền trước tháng kiểm tra (ktKHVoiSL mượn số liệu tháng đó → ktKHDsTo đọc KT_K đang mượn).
-   A. Kế hoạch đã chốt giữ nguyên khi Mẫu 31 sắp lại tổ: tổ mới của ấp đã có tháng → theo tháng ấp (như 3.140); tổ mới ở ấp chưa có tháng → báo "cần xếp",
-      bản chốt vẫn dùng để in; tổ đã gộp / đi khỏi → CHỈ CẢNH BÁO (dòng ⚠ sẵn có), không tự sửa kế hoạch / bản chốt. Không đổi chỗ lưu (D.cauHinh.ktKH[năm|xã|hội]).
+   A. Kế hoạch / bản chốt giữ nguyên khi Mẫu 31 sắp lại tổ: so danh sách đầu năm với Mẫu 31 MỚI NHẤT → tổ đã gộp / đi khỏi CHỈ CẢNH BÁO; tổ mới → 🆕 khi in
+      tự theo tháng của ấp (3.140) hoặc ⚠ ấp chưa có tháng. Không tự sửa kế hoạch / bản chốt. Không đổi chỗ lưu (D.cauHinh.ktKH[năm|xã|hội]).
    C. 🔎 Kế hoạch đã lưu (chỉ xem): mọi kế hoạch trong máy + bản đã xóa trong 🗑 Thùng rác — năm · xã · Hội · số tổ · nháp · chốt; bấm Mở → đúng năm / xã / Hội.
    Gói 1 không gian tên KTKH (QUY_CHUAN mục 13) · cắm rút: bỏ dòng <script> → màn Kế hoạch về như 3.515 (theo Kỳ đầu trang). ===== */
 var KTKH = {
-  K: null, ky: '', dang: '', muon: 0,   /* muon > 0: đang trong ktKHVoiSL (In theo tháng) → dùng số liệu tháng kiểm tra */
-  kyMoi: function(){ var tot = '', ng0 = '';   /* Mẫu 31 MỚI NHẤT đã nạp (anh: "KH vẫn hiện đúng dữ liệu hiện tại, tổ đã gộp") — chốt tháng hoặc theo ngày; cùng ngày ưu tiên chốt tháng */
+  c: {}, dang: {}, muon: 0,   /* c: số liệu đã mở theo kỳ · muon > 0: đang trong ktKHVoiSL (In theo tháng) → dùng số liệu tháng kiểm tra */
+  kyMoi: function(){ var tot = '', ng0 = '';   /* Mẫu 31 MỚI NHẤT đã nạp — chốt tháng hoặc theo ngày; cùng ngày ưu tiên chốt tháng (để so tổ đã gộp) */
     toDsKy().forEach(function(e){ var k = String(e.ky), ng = k.length>7 ? k : tdnCuoiKy(k); if(ng>ng0 || (ng===ng0 && k.length===7)){ tot = k; ng0 = ng; } }); return tot; },
-  /* số liệu cho màn Kế hoạch: KTKH.K (tháng mới nhất) — trừ lúc In theo tháng đang mượn số liệu tháng kiểm tra (ktKHVoiSL) */
-  Kdung: function(){ if(KTKH.muon) return KT_K; return KTKH.K && KTKH.ky===KTKH.kyMoi() ? KTKH.K : KT_K; },
-  nap: function(){ var ky = KTKH.kyMoi(); if(!ky) return Promise.resolve(null);
-    if(KTKH.K && KTKH.ky===ky) return Promise.resolve(KTKH.K);
-    if(KT_K && KT_K.ky===ky){ KTKH.K = KT_K; KTKH.ky = ky; return Promise.resolve(KT_K); }
-    if(KTKH.dang===ky) return Promise.resolve(null); KTKH.dang = ky;
-    return KHO.nap(ky).then(function(K){ KTKH.K = K; KTKH.ky = ky; KTKH.dang = ''; return K; }, function(){ KTKH.dang = ''; return null; }); },
-  slHTML: function(){ var ky = KTKH.ky || KTKH.kyMoi();
-    return '<div class="to-the-so kt-sl">📌 Số liệu: Kế hoạch lập theo Mẫu 31 <b>'+coChuHTML(ky ? slKyChu(ky) : '(chưa có Mẫu 31)')+'</b> (mới nhất đã nạp — tổ hiện tại) — in theo tháng lấy Mẫu 31 cuối tháng liền trước tháng kiểm tra · không theo ô Kỳ đầu trang</div>'; },
-  /* A: kế hoạch đã chốt mà số liệu tháng mới có tổ mới / tổ đi khỏi → dòng báo (bản chốt vẫn dùng) */
-  baoHTML: function(){ var o = typeof ktKHLuu==='function' ? ktKHLuu() : null; if(!o || !o.chot || !o.chot.length) return '';
-    var L = ktKHLich(), b = ktKHChotCuoi(o), moiAp = L.ds.filter(function(t){ return !(b.to || {})[t.ma] && L.gan[t.ma]; });
-    var h = '';
-    if(moiAp.length) h += '<div class="to-the-so">🆕 '+moiAp.length+' tổ mới theo Mẫu 31 '+coChuHTML(slKyChu(KTKH.ky))+' tự theo tháng của ấp: '+moiAp.map(function(t){ return coChuHTML((t.ten || t.ma)+' · T'+L.gan[t.ma]); }).join(', ')+' — không cần chốt lại.</div>';
-    if(L.thieu.length) h += '<div class="sl-bao vang">⚠ '+L.thieu.length+' tổ mới ở ấp chưa có tháng ('+L.thieu.map(function(t){ return coChuHTML(t.ten || t.ma); }).join(', ')+') — <b>cần xếp</b>: bản chốt ngày '+ktKHNgay(b.luc)+' vẫn dùng để in; bấm ✏ Sửa kế hoạch, xếp tháng rồi 📌 Chốt lại.</div>';
-    /* tổ đã gộp / đi khỏi: chỉ cảnh báo (anh 11/11 "nếu hiện tại tổ đã gộp thì chỉ cảnh báo") — dòng ⚠ sẵn có của màn (L.mat), không đổi kế hoạch / bản chốt */
+  dau: function(nam){ nam = +nam || ktKHNam(); var can = (nam-1)+'-12', ds = toDsKy().map(function(e){ return String(e.ky); }).filter(function(k){ return k.length===7; }).sort();
+    var truoc = ds.filter(function(k){ return k<=can; }), ky = truoc.length ? truoc[truoc.length-1] : (ds[0] || ''); return {ky:ky, can:can, lech:!!ky && ky!==can}; },   /* Mẫu 31 đầu năm = chốt 31/12 năm trước */
+  lay: function(ky){ if(!ky) return null; if(KT_K && KT_K.ky===ky) return KTKH.c[ky] = KT_K; return KTKH.c[ky] || null; },
+  nap: function(ky){ if(!ky || KTKH.lay(ky)) return Promise.resolve(KTKH.lay(ky)); if(KTKH.dang[ky]) return KTKH.dang[ky];
+    return KTKH.dang[ky] = KHO.nap(ky).then(function(K){ KTKH.c[ky] = K; delete KTKH.dang[ky]; return K; }, function(){ delete KTKH.dang[ky]; return null; }); },
+  /* số liệu màn Kế hoạch: Mẫu 31 đầu năm — trừ lúc In theo tháng đang mượn số liệu tháng kiểm tra (ktKHVoiSL) */
+  Kdung: function(){ if(KTKH.muon) return KT_K; return KTKH.lay(KTKH.dau().ky) || KT_K; },
+  slHTML: function(){ var d = KTKH.dau(), moi = KTKH.kyMoi();
+    return '<div class="to-the-so kt-sl">📌 Số liệu: Kế hoạch lập theo Mẫu 31 <b>'+coChuHTML(d.ky ? slKyChu(d.ky) : '(chưa có Mẫu 31)')+'</b> (đầu năm'+(d.lech ? ' — <span class="vang">⚠ chưa nạp '+kyVN(d.can)+', dùng bản gần nhất</span>' : '')+')'+
+      ' · in theo tháng lấy Mẫu 31 cuối tháng liền trước tháng kiểm tra'+(moi && moi!==d.ky ? ' · tổ đã gộp / đổi so với Mẫu 31 mới nhất ('+coChuHTML(slKyChu(moi))+') chỉ cảnh báo' : '')+'</div>'; },
+  /* A: so danh sách đầu năm với Mẫu 31 mới nhất — chỉ cảnh báo, không sửa kế hoạch / bản chốt */
+  baoHTML: function(){ var d = KTKH.dau(), kyM = KTKH.kyMoi(), Km = KTKH.lay(kyM); if(!Km || !d.ky || kyM===d.ky) return '';
+    var C = ktCH(), hoi = ktKHHoi(), L = ktKHLich(), S = ktKHLuu() || {}, coM = {}, coL = {};
+    var moi = Object.keys(Km.to).map(function(m){ return Km.to[m]; }).filter(function(t){ return !toLaTT(t) && t.xa===C.xa && String(t.dv || '')===hoi; });
+    moi.forEach(function(t){ coM[t.ma] = 1; }); L.ds.forEach(function(t){ coL[t.ma] = 1; });
+    var di = L.ds.filter(function(t){ return !coM[t.ma]; }), den = moi.filter(function(t){ return !coL[t.ma] && !(S.to || {})[t.ma]; }), h = '', mc = coChuHTML(slKyChu(kyM));
+    if(di.length) h += '<div class="sl-bao vang">⚠ '+di.length+' tổ trong kế hoạch đã gộp / đi khỏi theo Mẫu 31 '+mc+': '+di.map(function(t){ return coChuHTML((t.ten || t.ma)+(L.gan[t.ma] ? ' · T'+L.gan[t.ma] : '')); }).join(', ')+' — <b>chỉ cảnh báo</b>, kế hoạch giữ nguyên; tháng in mà tổ không còn trong số liệu thì không in tổ đó.</div>';
+    if(den.length) h += '<div class="to-the-so">🆕 '+den.length+' tổ mới theo Mẫu 31 '+mc+': '+den.map(function(t){ var ap = ktKHAp(t), x = L.ds.find(function(y){ return ktKHAp(y)===ap && L.gan[y.ma]; });
+      return coChuHTML(t.ten || t.ma)+(x ? ' · in theo T'+L.gan[x.ma]+' của ấp' : ' · <span class="vang">ấp chưa có tháng</span>'); }).join(', ')+' — kế hoạch không đổi.</div>';
     return h; },
   /* C: 🔎 Kế hoạch đã lưu */
-  ten: function(xa, dv){ var K = KTKH.K || KT_K, t = K && Object.keys(K.to).map(function(m){ return K.to[m]; }).find(function(x){ return String(x.xa)===String(xa) && String(x.dv||'')===String(dv); });
+  ten: function(xa, dv){ var K = KTKH.lay(KTKH.kyMoi()) || KT_K, t = K && Object.keys(K.to).map(function(m){ return K.to[m]; }).find(function(x){ return String(x.xa)===String(xa) && String(x.dv||'')===String(dv); });
     return {xa:t ? String(t.tenXa || xa).trim() : 'xã mã '+xa, hoi:t ? ktHoiTenTD(t) : (tdnHoi(dv) || 'Hội '+dv), co:!!t}; },
   ds: function(){ var S = D.cauHinh.ktKH || {}, ra = [];
     Object.keys(S).forEach(function(k){ var o = S[k], p = k.split('|'); if(!o || o.xoa || p.length<3) return;
@@ -51,13 +55,12 @@ var KTKH = {
 };
 GD.dangKy('ktkh', {ds:function(){ KTKH.hop(); }, mo:function(el){ KTKH.mo(el.getAttribute('data-k')); }});
 (function(){ if(typeof ktKHVoiSL!=='function') return; var cu = ktKHVoiSL; ktKHVoiSL = function(fn){ KTKH.muon++; try { return cu(fn); } finally { KTKH.muon--; } }; })();
-(function(){   /* bọc màn Kế hoạch năm: nạp Mẫu 31 tháng mới nhất → vẽ; thay dòng 📌; thêm 🔎 + dòng báo A */
+(function(){   /* bọc màn Kế hoạch năm: nạp Mẫu 31 đầu năm (+ mới nhất để so) → vẽ; thay dòng 📌; thêm 🔎 + dòng báo A */
   if(typeof ktKHVe!=='function') return; var cu = ktKHVe;
   ktKHVe = function(o){
-    var ky = KTKH.kyMoi();
-    if(ky && !(KTKH.K && KTKH.ky===ky) && !(KT_K && KT_K.ky===ky)){ o.innerHTML = ktCheDoHTML()+KTKH.slHTML()+'<div class="rong">Đang mở Mẫu 31 '+coChuHTML(slKyChu(ky))+'…</div>';
-      KTKH.nap().then(function(K){ if(K && document.getElementById('kt-the') && ktCheDo()==='kh') ktVeThe(); }); return; }
-    if(ky && !KTKH.K) KTKH.nap();
+    var d = KTKH.dau(), kyM = KTKH.kyMoi(), thieu = [d.ky, kyM].filter(function(k){ return k && !KTKH.lay(k); });
+    if(thieu.length){ o.innerHTML = ktCheDoHTML()+KTKH.slHTML()+'<div class="rong">Đang mở Mẫu 31 '+thieu.map(function(k){ return coChuHTML(slKyChu(k)); }).join(', ')+'…</div>';
+      Promise.all(thieu.map(KTKH.nap)).then(function(r){ if(r.every(Boolean) && document.getElementById('kt-the') && ktCheDo()==='kh') ktVeThe(); }); return; }
     var r = cu(o), sl = o.querySelector(':scope > .kt-sl'); if(sl) sl.outerHTML = KTKH.slHTML();
     var dau = o.querySelector(':scope > .kt-gn-dau'); if(dau){ var n = document.createElement('span'); n.innerHTML = GD.nut({chu:'🔎 Kế hoạch đã lưu', lenh:'ktkh.ds', tit:'Mọi kế hoạch trong máy (cả bản đã xóa trong Thùng rác) — năm · xã · Hội · chốt ngày nào'}); dau.appendChild(n.firstChild); }
     var tt = o.querySelector('.kt-kh-tt'), bao = KTKH.baoHTML(); if(tt && bao) tt.insertAdjacentHTML('afterend', bao);

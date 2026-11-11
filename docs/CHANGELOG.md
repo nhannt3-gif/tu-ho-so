@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.517 — 11/11/2026 — Kế hoạch năm lập theo Mẫu 31 đầu năm (TK 2)
+- **Anh 11/11:** "KH năm lấy theo Mẫu 31 đầu năm" · "khi lập, còn in số liệu thì lấy đúng tháng KH" → "code và gộp".
+- `js/80b-ktgs-kh-sl.js` (`KTKH`): màn 🗓 Kế hoạch năm **lập** theo Mẫu 31 **đầu năm = chốt 31/12 năm trước** (`KTKH.dau(năm)`; chưa nạp → tháng chốt gần nhất trước đó; không có → bản sớm nhất, dòng 📌 ghi ⚠) — thay "Mẫu 31 mới nhất" của 3.516. In theo tháng giữ như cũ (cuối tháng liền trước tháng kiểm tra).
+- So danh sách đầu năm với **Mẫu 31 mới nhất** (`KTKH.baoHTML`): tổ đã gộp / đi khỏi → ⚠ **chỉ cảnh báo**, kế hoạch / bản chốt giữ nguyên, tháng in mà tổ không còn thì không in; tổ mới → 🆕 "in theo T… của ấp" hoặc ⚠ "ấp chưa có tháng". Số liệu đã mở theo kỳ cache `KTKH.c`.
+- Phép thử t392 viết lại (15 ý: KH 2026 chưa có T12/2025 → bản sớm nhất + ⚠; KH 2027 → T8/2026; tổ gộp / tổ mới giả). t125 xóa tổ ở số liệu lập (`KTKH.Kdung`).
+
 ## 3.516 — 11/11/2026 — Kế hoạch năm theo Mẫu 31 mới nhất + 🔎 Kế hoạch đã lưu (TK 2)
 - **Anh 11/11:** "kế hoạch anh đã ghi chốt lưu sao giờ lại không lưu" · "hiện tại theo Mẫu 31 mới đã sắp xếp lại các tổ, nhưng kế hoạch phải lưu và chạy theo Mẫu 31 hàng tháng" · "KH vẫn hiện đúng dữ liệu hiện tại, tổ đã gộp" · "nếu hiện tại tổ đã gộp thì chỉ cảnh báo" → duyệt A + B + C.
 - Kiểm tra code: 3.513–3.515 không sửa chỗ lưu / chốt / đọc Kế hoạch năm (đối chiếu diff). Ảnh anh gửi: bản đang mở là nháp có từ trước, chưa có lần chốt nào → bản chốt (nếu có) nằm ở năm / mã xã / mã Hội khác hoặc máy khác — 🔎 để tìm.
