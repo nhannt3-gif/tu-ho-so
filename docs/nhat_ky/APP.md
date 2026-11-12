@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 12/11/2026 — TK 2 · PHIÊN (3.519 nút đổi chữ che ô Tên văn bản)
+- Anh gửi ảnh: "tab văn bản bị che, em ghi nhận sửa 1 lần". Đo lại: nút đặt nổi đè ô nhập. Sửa: nhãn + nút 1 hàng flex, nút nhỏ. t394 (3 bề rộng + tối). Chờ anh "gộp".
+
 ### 12/11/2026 — TK 2 · PHIÊN (3.518 nhận kế hoạch đã chốt về mã xã mới — anh "code và gộp")
 - Anh: "bản cũ anh đã chốt nhưng chuyển qua bản mới làm lại báo chưa chốt". Kiểm: không code nào đổi trạng thái chốt khi lên bản; nghi mã xã đổi sau sáp nhập 01/7 (suy luận — chờ anh gửi ảnh 🔎).
 - Đã làm **3.518**: nút ↪ Nhận về xã / Hội hiện tại trong 🔎 (t393 9 ý). Chờ anh: dùng trên máy thật, báo lại.

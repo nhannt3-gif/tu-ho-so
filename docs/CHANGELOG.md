@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.519 — 12/11/2026 — Sửa nút đổi chữ che ô Tên văn bản (TK 2)
+- **Anh 12/11** (ảnh): "tab văn bản bị che, em ghi nhận sửa 1 lần".
+- Nguyên nhân: 4 nút đổi chữ (3.437) đặt nổi `position:absolute; top:0; right:0` — nút cao hơn dòng nhãn nên đè lên ô nhập (đo: nút y 295–329, ô y 310–339).
+- Sửa (`js/06-hop-thoai.js` `suaCho`, `css/app.css`): nhãn + nút trong 1 hàng flex `.o-chu-dau` (nút bên phải, tự xuống dòng khi hẹp), nút cao 22px. Chỉ ô Tên văn bản dùng nút này (`chuDoiNut` 1 chỗ).
+- Phép thử mới t394 (10 ý: 1366 / 1100 tối / 420px — không đè, nút ≤ 26px, Aa Aa vẫn đổi chữ). t353, t374 đạt.
+
 ## 3.518 — 12/11/2026 — Nhận kế hoạch đã chốt về mã xã / Hội hiện tại (TK 2)
 - **Anh 12/11:** "bản cũ anh đã chốt nhưng chuyển qua bản mới làm lại báo chưa chốt" → "code và gộp". Kiểm code: không chỗ nào khi lên bản tự xóa / đổi trạng thái chốt; nghi do Mẫu 31 sau sáp nhập (01/7/2026) đổi mã xã → khóa kế hoạch (năm · mã xã · mã Hội) khác.
 - `js/80b-ktgs-kh-sl.js`: bảng 🔎 Kế hoạch đã lưu — dòng mã xã / Hội không còn trong số liệu có nút **↪ Nhận về xã / Hội hiện tại** (`KTKH.nhan`): tìm đích theo mã tổ trong kế hoạch ở Mẫu 31 mới nhất (nhiều tổ khớp nhất, `KTKH.dich`); hộp hỏi trước (bản cũ, số lần chốt, đích, khớp n tổ); chép lịch + lịch sử chốt (giữ đã chốt, ghi `nhan.tu`); bản cũ giữ nguyên; đích có bản nháp → nháp vào 🗑 Thùng rác (khôi phục được); đích đã chốt → không ghi đè. Mở đúng kế hoạch sau khi nhận; tổ đã gộp chỉ cảnh báo.
