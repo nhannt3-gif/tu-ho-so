@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.518)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Kế hoạch năm › 🔎 Kế hoạch đã lưu | thấy bản đã chốt cũ (mã xã cũ) | |
+| 2 | ↪ Nhận về → hộp hỏi → ↪ Nhận về | Kế hoạch Đoàn TN Gia Lộc ✅ Đã chốt, tổ đã gộp chỉ ⚠ | |
+
 ### Danh sách thử trên máy thật (3.517)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

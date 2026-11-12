@@ -48,12 +48,34 @@ var KTKH = {
       (ds.length ? '<div class="to-bang-cuon" style="max-height:60vh"><table class="to-bang kt-kh-ds"><thead><tr><th>Năm</th><th>Xã</th><th>Hội</th><th>Số tổ</th><th>Lưu nháp</th><th>Chốt</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+
         ds.map(function(x){ return '<tr class="'+(x.k===dang && !x.rac ? 'kt-co' : '')+'"><td class="c">'+x.nam+'</td><td>'+coChuHTML(x.tenXa)+'</td><td>'+coChuHTML(x.tenHoi)+(x.co ? '' : ' <small class="vang">(mã xã / Hội không còn trong số liệu)</small>')+'</td>'+
           '<td class="s">'+x.n+'</td><td>'+(x.luc ? ktKHNgay(x.luc) : '')+'</td><td>'+(x.chot ? x.chot+' lần · '+ktKHNgay(x.chotLuc) : '—')+'</td><td>'+tt(x)+'</td>'+
-          '<td>'+(x.rac || !x.co ? '' : GD.nut({chu:x.k===dang ? 'Đang mở' : 'Mở', lenh:'ktkh.mo', du:{k:x.k}, tat:x.k===dang}))+'</td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="rong">Chưa có kế hoạch nào được lưu trong máy này.</div>')+
+          '<td>'+(x.rac ? '' : !x.co ? GD.nut({chu:'↪ Nhận về xã / Hội hiện tại', lenh:'ktkh.nhan', du:{k:x.k}, chinh:1, tit:'Chép lịch + lịch sử chốt sang mã xã / Hội theo Mẫu 31 hiện tại (bản cũ giữ nguyên)'}) : GD.nut({chu:x.k===dang ? 'Đang mở' : 'Mở', lenh:'ktkh.mo', du:{k:x.k}, tat:x.k===dang}))+'</td></tr>'; }).join('')+'</tbody></table></div>' : '<div class="rong">Chưa có kế hoạch nào được lưu trong máy này.</div>')+
       '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button></div>', true);
     var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); },
+  /* 3.518 (anh 12/11 "bản cũ anh đã chốt nhưng chuyển qua bản mới làm lại báo chưa chốt" → "code và gộp"): kế hoạch mang mã xã / Hội cũ (Mẫu 31 mới đổi mã
+     sau sáp nhập) → NHẬN VỀ mã hiện tại: tìm xã / Hội theo mã tổ trong kế hoạch (Mẫu 31 mới nhất — nhiều tổ khớp nhất); chép lịch + lịch sử chốt (giữ đã chốt);
+     bản cũ giữ nguyên; đích đã có bản nháp → hỏi trước, nháp cũ vào 🗑 Thùng rác; đích đã chốt → không ghi đè. */
+  dich: function(k){ var o = (D.cauHinh.ktKH || {})[k], p = String(k).split('|'), K = KTKH.lay(KTKH.kyMoi()) || KT_K; if(!o || !K) return null;
+    var dem = {}, ma = Object.keys(o.to || {}); ma.forEach(function(m){ var t = K.to[m]; if(!t || toLaTT(t)) return; var c = t.xa+'|'+String(t.dv || ''); dem[c] = (dem[c] || 0)+1; });
+    var tot = Object.keys(dem).sort(function(a, b){ return dem[b]-dem[a]; })[0]; if(!tot) return {k:'', khop:0, n:ma.length};
+    var q = tot.split('|'), x = KTKH.ten(q[0], q[1]); return {k:p[0]+'|'+tot, xa:q[0], dv:q[1], tenXa:x.xa, tenHoi:x.hoi, khop:dem[tot], n:ma.length}; },
+  nhan: function(k, ok){ var S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, o = S[k], d = KTKH.dich(k), p = String(k).split('|'); if(!o) return;
+    var b = ktKHChotCuoi(o), cu = KTKH.ten(p[1], p[2]);
+    if(!d || !d.k) return bao('Không tìm thấy tổ nào của kế hoạch này trong Mẫu 31 hiện tại — chưa nhận về được.', 6);
+    var dg = S[d.k] && !S[d.k].xoa ? S[d.k] : null;
+    if(dg && dg.chot && dg.chot.length) return bao('Kế hoạch '+p[0]+' · '+d.tenHoi+' đã có bản chốt ngày '+ktKHNgay(ktKHChotCuoi(dg).luc)+' — không ghi đè.', 6);
+    if(!ok) return moHop('<div class="hop-tit">↪ Nhận kế hoạch cũ về xã / Hội hiện tại</div>'+
+      '<div class="hop-phu">Bản cũ: năm <b>'+p[0]+'</b> · '+coChuHTML(cu.xa)+' · '+coChuHTML(cu.hoi)+' — '+d.n+' tổ'+(b ? ' · <b>đã chốt '+o.chot.length+' lần, lần cuối '+ktKHNgay(b.luc)+'</b>' : ' · chưa chốt')+'<br>'+
+        '→ Sang: <b>'+coChuHTML(d.tenXa)+' · '+coChuHTML(d.tenHoi)+'</b> (theo Mẫu 31 '+coChuHTML(slKyChu(KTKH.kyMoi()))+': khớp <b>'+d.khop+'</b>/'+d.n+' tổ; tổ không khớp chỉ cảnh báo).<br>'+
+        'Chép lịch + lịch sử chốt'+(b && o.khoa ? ', giữ <b>đã chốt</b>' : '')+'. Bản cũ giữ nguyên.'+(dg ? '<br><b class="vang">Đích đang có bản nháp ngày '+ktKHNgay(dg.luc)+' — sẽ thay, bản nháp chuyển vào 🗑 Thùng rác (khôi phục được).</b>' : '')+'</div>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+GD.nut({chu:'↪ Nhận về', lenh:'ktkh.nhanOk', du:{k:k}, chinh:1})+'</div>', true);
+    if(dg) racMucNho('ktKH', 'Kế hoạch KTGS năm '+p[0]+' · '+d.tenHoi+' (nháp, thay khi nhận bản cũ)', 'KTGS Hội › Kế hoạch năm '+p[0], dg, {khoa:d.k});
+    var moi = JSON.parse(JSON.stringify(o)); moi.luc = new Date().toISOString(); moi.nhan = {tu:k, luc:moi.luc}; delete moi.xoa; S[d.k] = moi; luu();
+    bao('↪ Đã nhận kế hoạch '+p[0]+' về '+d.tenXa+' · '+d.tenHoi+(b && o.khoa ? ' — giữ đã chốt ngày '+ktKHNgay(b.luc) : '')+'.', 6);
+    KTKH.mo(d.k); },
   mo: function(k){ var p = String(k).split('|'), C = ktCH(); if(p.length<3) return; C.khNam = +p[0]; C.xa = p[1]; C.diem = ''; C.ap = ''; C.to = ''; C.hoi = p[2]; C.khHoi = p[2]; C.che = 'kh'; luu(); dongHop(); if(typeof pvVeCay==='function') pvVeCay('kt'); else ktVeThe(); }
 };
-GD.dangKy('ktkh', {ds:function(){ KTKH.hop(); }, mo:function(el){ KTKH.mo(el.getAttribute('data-k')); }});
+GD.dangKy('ktkh', {ds:function(){ KTKH.hop(); }, mo:function(el){ KTKH.mo(el.getAttribute('data-k')); },
+  nhan:function(el){ KTKH.nhan(el.getAttribute('data-k')); }, nhanOk:function(el){ dongHop(); KTKH.nhan(el.getAttribute('data-k'), 1); }});
 (function(){ if(typeof ktKHVoiSL!=='function') return; var cu = ktKHVoiSL; ktKHVoiSL = function(fn){ KTKH.muon++; try { return cu(fn); } finally { KTKH.muon--; } }; })();
 (function(){   /* bọc màn Kế hoạch năm: nạp Mẫu 31 đầu năm (+ mới nhất để so) → vẽ; thay dòng 📌; thêm 🔎 + dòng báo A */
   if(typeof ktKHVe!=='function') return; var cu = ktKHVe;

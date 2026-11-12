@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.517** — TK 2: Kế hoạch năm lập theo Mẫu 31 đầu năm (31/12 năm trước), in theo tháng như cũ, tổ gộp / mới chỉ cảnh báo. Trước: 3.516 Kế hoạch theo Mẫu 31 mới nhất + 🔎.
+- **`main` = 3.518** — TK 2: 🔎 Kế hoạch đã lưu › ↪ Nhận kế hoạch đã chốt về mã xã / Hội hiện tại. Trước: 3.517 Kế hoạch lập theo Mẫu 31 đầu năm.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**
