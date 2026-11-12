@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 12/11/2026 — TK 2 · PHIÊN (3.518 nhận kế hoạch đã chốt về mã xã mới — anh "code và gộp")
+- Anh: "bản cũ anh đã chốt nhưng chuyển qua bản mới làm lại báo chưa chốt". Kiểm: không code nào đổi trạng thái chốt khi lên bản; nghi mã xã đổi sau sáp nhập 01/7 (suy luận — chờ anh gửi ảnh 🔎).
+- Đã làm **3.518**: nút ↪ Nhận về xã / Hội hiện tại trong 🔎 (t393 9 ý). Chờ anh: dùng trên máy thật, báo lại.
+
 ### 11/11/2026 — TK 2 · PHIÊN (3.517 Kế hoạch năm lập theo Mẫu 31 đầu năm — anh "code và gộp")
 - Anh: "KH năm lấy theo Mẫu 31 đầu năm" · "khi lập, còn in số liệu thì lấy đúng tháng KH". Em chốt hiểu: đầu năm = chốt 31/12 năm trước; in theo tháng giữ luật cũ (cuối tháng liền trước tháng kiểm tra) — anh "code và gộp" không sửa.
 - Đã làm **3.517** (`js/80b`, t392 15 ý, t125 sửa). Tổ gộp / mới so với Mẫu 31 mới nhất chỉ cảnh báo.
