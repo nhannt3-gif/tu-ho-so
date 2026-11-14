@@ -17,7 +17,7 @@ Tên file: `DOI_CHIEU_GB_<YYYY-MM-DD>.csv` (Giao ban) và `DOI_CHIEU_APP_<YYYY-M
 |---|---|---|
 | khoa | Mã tổ; vay trực tiếp `TT|<mã ấp>` | QT-C-10, 11 |
 | ma_xa, ma_ap | Mã xã, mã ấp/khu phố của tổ | File Tổ trưởng cùng ngày |
-| ma_diem | Mã điểm giao dịch | ⚠ thống nhất 1 cách ghi, xem mục 5 |
+| ma_diem | Mã điểm giao dịch | **Ghi đầy đủ mã hệ thống** `TXN054` + 4 số (vd `TXN0543405`) — anh chốt 15/11, xem mục 5 |
 | hoi | HND, HPN, HCCB, ĐTN, TT | ĐVUT 11–14 |
 | so_tv | Tổ viên: tổ theo Mẫu 01/TV cùng ngày; nhóm trực tiếp là số KH còn dư nợ | QT-18 app, bang_so_lieu 1.9 |
 | so_tv_du_no | Tổ viên còn dư nợ (= "khách hàng còn dư nợ" trong văn bản) | QT-C-14 |
@@ -33,7 +33,7 @@ Kết quả 14/11: App 3.533 = Giao ban toàn bộ ở cả 2 mốc 30/09 và 31
 
 ## 3. File 2 — Danh sách món (bản 1.1)
 Mục đích: hai bên ra **cùng danh sách hộ** cho nợ quá hạn, nợ khoanh, món 3 tháng KHĐ, nợ đến hạn tháng tới. Đây là phần phụ lục và phần nêu tên trong văn bản. Hiện chỉ so được số món, chưa so được từng món.
-Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-DD>.csv`, đặt cùng thư mục với file tổ cùng ngày. UTF-8 có BOM; dòng 1 chú thích `#`, dòng 2 tên cột **đúng thứ tự bảng dưới**. Mỗi khế ước thuộc ít nhất 1 nhóm là một dòng; khế ước tính 1 lần (dòng đầu theo số KU). Ngày ghi dd/mm/yyyy, ô không có để trống. `so_thang_lai` theo QT-C-23 (lãi suất 0 → theo số tháng từ ngày giao dịch gần nhất), 1 chữ số thập phân. Cột `ma_ap`, `ma_diem`, `hoi` lấy theo dòng tổ ở File 1 (vay trực tiếp: theo nhóm `TT|<mã ấp>`). Giao ban đã xuất từ `bang_so_lieu.py` 1.10 (15/11).
+Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-DD>.csv`, đặt cùng thư mục với file tổ cùng ngày. UTF-8 có BOM; dòng 1 chú thích `#`, dòng 2 tên cột **đúng thứ tự bảng dưới**. Mỗi khế ước thuộc ít nhất 1 nhóm là một dòng; khế ước tính 1 lần (dòng đầu theo số KU). Ngày ghi dd/mm/yyyy, ô không có để trống. `so_thang_lai` (TK 1 chốt 15/11, theo `bang_so_lieu.py`): lãi tồn (sau khi bỏ lãi dồn QT-C-03) ≤ 0 → `0`; dư nợ > 0 và lãi suất > 0 → lãi tồn ÷ (dư nợ × lãi suất ÷ 1200), làm tròn 1 chữ số; còn lại → **số tháng lịch** từ Ngày giao dịch gần nhất đến ngày số liệu (hiệu tháng, trừ 1 nếu ngày-trong-tháng của ngày số liệu nhỏ hơn của ngày GD; không âm), ghi dạng `n.0`; không có ngày GD → để trống. Lãi suất Mẫu 31 là %/năm (số liệu thật 31/10: thấp nhất 3,0 — không có giá trị ≤ 2), không quy đổi. Cột `ma_ap`, `ma_diem`, `hoi` lấy theo dòng tổ ở File 1 (vay trực tiếp: theo nhóm `TT|<mã ấp>`). Giao ban đã xuất từ `bang_so_lieu.py` 1.10, mã điểm đầy đủ từ 1.11 (15/11).
 
 | Cột | Ý nghĩa |
 |---|---|
@@ -58,7 +58,7 @@ Không ghi họ tên khách hàng (mục 5.4).
 - Thời điểm: cuối tháng (bắt buộc) và sau mỗi phiên khi làm Thông báo KL.
 
 ## 5. Đã quyết (TK 1, 14/11/2026)
-1. **Mã điểm ghi 4 số cuối** (vd `3405`), không ghi tiền tố `TXN054`. → App sửa (kỳ 31/10 đang ghi đủ mã).
+1. **Mã điểm ghi đầy đủ** (vd `TXN0543405`) — anh chốt 15/11 "mã điểm phải ghi đầy đủ TXN", thay quyết định 14/11 (4 số cuối). → Giao ban đã sửa (`bang_so_lieu.py` 1.11); App trả về cách ghi đủ mã như bản 3.533 trở về trước.
 2. **Nhóm vay trực tiếp (`TT|<mã ấp>`) chỉ đếm khách còn dư nợ** ở cột `so_tv`; TW không có số tổ viên cho vay trực tiếp. → App sửa (2 nhóm hết dư nợ ở kỳ 30/09, 31/10 app đang đếm khách tất nợ).
 3. **Tổ có trên Mẫu 01/TV mà không có trong Mẫu 31:** vẫn ghi 1 dòng, ấp / điểm / Hội lấy theo File Tổ trưởng cùng ngày. → Giao ban đã áp (`bang_so_lieu.py` 1.9, chạy lại 30/09: khớp dòng app).
 4. **File 2 chỉ ghi mã KH và số khế ước, không ghi họ tên** (file trên Drive dùng chung; khi làm văn bản mỗi bên tự tra tên từ Mẫu 31).
