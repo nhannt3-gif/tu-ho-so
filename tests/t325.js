@@ -15,6 +15,7 @@ const fs=require('fs'), path=require('path');
    SL_BO = {}; TO_KS = {}; const K = await toNap('2026-08');
    const csv = slDCCsv(K), L = csv.replace(/\r\n$/, '').split('\r\n');
    ok('BOM + dòng 1 "#" ghi chú (bên APP, bản, ngày số liệu, K1/K5/K7)', csv.charCodeAt(0)===0xFEFF && /^﻿# bên=APP/.test(L[0]) && /bản=/.test(L[0]) && /ngày số liệu=2026-08-31/.test(L[0]) && /K1=QT-18/.test(L[0]) && /K7=/.test(L[0]), L[0].slice(0, 120));
+   ok('3.525: dòng 1 ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày) hoặc "không có"', /xuất lúc=\d\d\/\d\d\/\d{4} \d\d:\d\d/.test(L[0]) && /File Tổ trưởng=(.+\(ngày \d\d\/\d\d\/\d{4}\)|không có)/.test(L[0]), (L[0].match(/xuất lúc=.*?ngày số liệu/)||[''])[0]);
    ok('dòng 2 = 17 cột đúng hợp đồng', L[1]==='khoa,ma_xa,ma_ap,ma_diem,hoi,so_tv,so_tv_du_no,du_no,nqh,khoanh,lai_ton,tien_gui,cho_vay,thu_no,so_mon_khd,so_mon_lech_ap,so_mon_den_han_thang_toi', L[1]);
    const rows = L.slice(2).map(l=>l.split(',')), to = rows.filter(r=>!/^TT\|/.test(r[0])), tt = rows.filter(r=>/^TT\|/.test(r[0]));
    const soTo = Object.keys(K.to).filter(m=>!K.to[m].trucTiep).length;

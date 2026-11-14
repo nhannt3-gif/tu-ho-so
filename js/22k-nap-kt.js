@@ -1074,10 +1074,14 @@ function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   return {ngay:K.ngay, dong:dong};
 }
 function slDCCsv(K){
-  var r = slDCGBTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
+  var r = slDCGBTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · File Tổ trưởng='+slDCTT(K)+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
     ' · K7=ĐH gia hạn có thì gia hạn, không thì HĐ (chưa gồm kỳ con phân kỳ) · điểm GD QT-C-10/11 · tiền: đồng';
   return '﻿'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DC_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';   /* dòng 1 '#' ghi nguyên văn (hợp đồng: dòng bắt đầu '#' là ghi chú) */
 }
+/* 3.525 (TK 1 nhờ 14/11, anh "làm thêm ý này"): dòng đầu file đối chiếu ghi giờ xuất + File Tổ trưởng đã dùng (tên file, ngày) — để so 2 mốc biết nguồn tổ */
+function slDCLuc(){ var d = new Date(); return ngayVNsl(ngayISO(d))+' '+hai(d.getHours())+':'+hai(d.getMinutes()); }
+function slDCTT(K){ var k = K && K.B && K.B.nguon && K.B.nguon.dsto, e = k ? SLM.bang[slKhoa('dsto', k)] : null;
+  return e ? (e.tenFile || 'File Tổ trưởng')+' (ngày '+ngayVNsl(slNgaySo(e))+')'+(K.dsLech ? ' KHÁC NGÀY Mẫu 31' : '') : 'không có (điểm GD theo dự phòng)'; }
 function slDCXuat(ky){
   if(!ky || !KHO.coBang('hstd', ky)) return bao('Tháng '+kyVN(ky)+' chưa có Mẫu 31 — nạp trước rồi xuất.', 5);
   batChay(true, 'Đang lập file đối chiếu '+kyVN(ky)+'…');

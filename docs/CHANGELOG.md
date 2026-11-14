@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.525 — 14/11/2026 — File đối chiếu ghi giờ xuất + File Tổ trưởng (TK 2)
+- **TK 1 nhờ (anh 14/11 "làm thêm ý này")**: xuất file đối chiếu 2 mốc bằng app thật, dòng đầu ghi bản app, ngày giờ xuất, File Tổ trưởng đã dùng.
+- `slDCCsv` (js/22k): dòng `#` thêm `xuất lúc=dd/mm/yyyy hh:mm` (`slDCLuc`) + `File Tổ trưởng=<tên file> (ngày …)` hoặc `không có (điểm GD theo dự phòng)`; ghi "KHÁC NGÀY Mẫu 31" nếu lệch ngày (`slDCTT`). Không đổi số, không đổi cột.
+- t325 thêm 1 ý.
+
 ## 3.524 — 14/11/2026 — Gọn giao diện các tab còn lại (TK 2)
 - **Anh 14/11** "code hết 1 lần và gộp" (đề xuất rà 5 tab, đo 1366×768).
 - **④ Khung LỌC ĐỊA BÀN** (CSS chung, màn ≥ 1100px): nhãn · số tổ / chip báo · 3 ô chọn · nút Tìm tổ / Chip / Về ghim **1 hàng** (trước: nhãn nổi trên viền + hàng ô chọn, khung 56px + lề 14px → 45px); ô chọn co theo chỗ trống (96–168px). Màn hẹp giữ như cũ. Bảng các tab lên cao ~13–20px.
