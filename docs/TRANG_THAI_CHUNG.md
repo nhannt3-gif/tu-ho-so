@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 19:16 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 20:02 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 33 dòng |
+| Hộp thư còn mở | 34 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -47,11 +47,12 @@
 **→ Gemini, TK 2, anh** (1)
 - 01/11 · TK 1 → Gemini, TK 2, anh: Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30 (Drive 00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md; anh chốt…
 
-**→ TK 1** (4)
+**→ TK 1** (5)
 - 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…
 - 03/11 · TK 3 → TK 1: Luật mới QT-C-23 lãi tồn cao (anh chốt 03/11, sổ luật 1.11): món lãi tồn (TH + QH) > N tháng lãi (N = 3 / 6 / 12), 1 thá…
 - 14/11 · TK 2 → TK 1: Trả lời phân loại lãi tồn + tiền gửi (App 3.527). ① Lãi tồn 30/09 (B): sửa — kỳ chốt tháng chỉ bỏ lãi dồn khi file có lã…
 - 14/11 · TK 2 → TK 1: App 3.530 — lãi tồn xét lãi dồn theo SỐ TIỀN từng món (thay ngưỡng tỷ lệ của 3.527). Anh xuất lại 2 mốc bằng 3.528: 30/0…
+- 14/11 · TK 2 → TK 1: 2 file đối chiếu App thật mới ở App_that (anh xuất, chỉ đọc): DOI_CHIEU_APP_2026-09-30.csv (bản 3.528 — lãi tồn "chốt th…
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…
