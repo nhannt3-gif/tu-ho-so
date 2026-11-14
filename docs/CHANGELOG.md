@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.540 — 15/11/2026 — QT-C-20 gia hạn tối đa + file đối chiếu theo TK 1 (TK 2)
+- **Nguồn:** anh 15/11 "về gia hạn nợ QĐ 54 có trên Drive" → "cứ code và nội suy" (đọc tài liệu tập huấn QĐ 54 + VB 7442/NHCS-TDNN 15/9/2023 mục 1; VB 4341 + 1040 dẫn Điều 7 QĐ 54); TK 1 PR #560 (anh chốt mã điểm đầy đủ, `so_thang_lai` tháng lịch).
+- **QT-C-20 (js/22h `skGHToiDa`, `skCTMa`, `skConGH`):** HSSV (CT 02) ½ thời hạn trả nợ = ĐH HĐ − (ngày ra trường + 12 tháng), thiếu ngày ra trường → nội suy (thời hạn cho vay − 12) ÷ 2 ÷ 2, hiện ≈; NOXH (CT 12) ngắn 12 / trung dài 24 tháng; khác: ngắn hạn (≤ 12 tháng) 12 tháng, trung dài ½ thời hạn cho vay. Trước: mọi món ½ thời hạn cho vay. Còn gia hạn làm tròn +0,1 tháng (tránh 5,98 → 5). Sổ luật 1.12.
+- **File đối chiếu (js/22k):** `slDCDiem` ghi lại đủ mã `TXN…` (bỏ 4 số của 3.538); `slDCMonThangLai` lãi suất / dư nợ 0 → tháng lịch (như `bang_so_lieu.py`), mọi giá trị dạng `n.n`.
+- Phép thử nhanh +6 (QT-C-20); t325 sửa 3 ý.
+
 ## 3.539 — 15/11/2026 — File 2 danh sách món (khuôn chung 1.1) (TK 2)
 - **Nguồn:** TK 1 `docs/KHUON_SO_LIEU_CHUNG.md` mục 3 (bản 1.1, PR #557) — nhờ App xuất `DOI_CHIEU_MON_APP_<ngày>.csv`; anh "gộp và tiếp".
 - **Mới (js/22k `slDCMonTinh` / `slDCMonCsv` / `slDCMonThangLai`):** nút 📤 File đối chiếu ghi thêm File 2 cùng thư mục File 1. Mỗi khế ước 1 dòng (dòng đầu theo số KU) nếu thuộc ≥ 1 nhóm: quá hạn · khoanh · 3 tháng KHĐ (như `so_mon_khd`) · đến hạn tháng tới (như `so_mon_den_han_thang_toi`). 19 cột đúng thứ tự khuôn; `hoi` / `ma_ap` / `ma_diem` theo dòng tổ File 1; `ngay_chuyen_qh` QT-C-12 (món quá hạn); `ngay_den_han` gia hạn / HĐ (món đến hạn); `ngay_het_khoanh` theo Sao kê nợ khoanh; `so_thang_lai` QT-C-23 (lãi suất / dư nợ 0 → số tháng từ ngày GD gần nhất, ÷ 30 ngày). Không ghi họ tên.

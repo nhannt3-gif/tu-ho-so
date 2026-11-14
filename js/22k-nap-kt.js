@@ -1040,8 +1040,8 @@ function slKTAp(K, them){
    dòng 2 tiêu đề, tiền đồng nguyên. Lưu kho Drive Số liệu/<tháng>/ (chưa nối Drive → tải về máy). Chỉ đọc số app đang tính (toSoTo, tvChuan QT-18, slKHD, K.qtc), không tính lại. */
 var SL_DC_COT = ['khoa', 'ma_xa', 'ma_ap', 'ma_diem', 'hoi', 'so_tv', 'so_tv_du_no', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'tien_gui', 'cho_vay', 'thu_no', 'so_mon_khd', 'so_mon_lech_ap', 'so_mon_den_han_thang_toi'];
 var SL_DC_HOI = {'11':'HND', '12':'HPN', '13':'HCCB', '14':'ĐTN'};
-/* 3.538 (khuôn số liệu chung 1.0, TK 1 mục 5.1): mã điểm GD ghi 4 số cuối (bỏ tiền tố TXN054) — vd TXN0543502 → 3502; không đủ 4 số thì giữ nguyên */
-function slDCDiem(d){ var x = String(d||'').trim(), m = x.match(/(\d{4})$/); return m ? m[1] : x; }
+/* 3.538 → 3.540: anh chốt 15/11 "mã điểm phải ghi đầy đủ TXN" (khuôn chung 1.1 mục 5.1, thay quyết định 4 số cuối) — ghi đủ mã hệ thống như trước 3.538, chỉ bỏ khoảng trắng thừa */
+function slDCDiem(d){ return String(d||'').trim(); }
 function slDCNut(ky){ slDCDK(); return '<button class="nho" data-lenh="sldc.xuat" data-ky="'+coChuHTML(ky)+'" title="File đối chiếu số liệu với giao ban (kỳ đối chiếu): 1 dòng 1 tổ + món vay trực tiếp theo ấp, lưu vào Số liệu/'+coChuHTML(ky)+'/">📤 File đối chiếu giao ban (DOI_CHIEU_APP)</button>'; }
 function slDCDK(){ if(slDCDK.xong || typeof GD==='undefined') return; slDCDK.xong = 1; GD.dangKy('sldc', {xuat:function(el){ dongHop(); slDCXuat(el.getAttribute('data-ky')); }}); }
 function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
@@ -1086,10 +1086,12 @@ function slDCCsv(K, f1){
    hoi / ma_ap / ma_diem lấy theo dòng tổ ở File 1 (vay trực tiếp: dòng TT|<mã ấp>). ngay_chuyen_qh = QT-C-12 (skCQH) cho món quá hạn; ngay_den_han = ĐH gia hạn / HĐ (skHL) cho món đến hạn;
    ngay_het_khoanh = Sao kê nợ khoanh (nếu có); so_thang_lai = QT-C-23: lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12) — lãi suất / dư nợ 0 → số tháng từ ngày GD gần nhất đến ngày số liệu (÷ 30). */
 var SL_DCM_COT = ['so_ku', 'ma_kh', 'khoa', 'hoi', 'ma_ap', 'ma_diem', 'chuong_trinh', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'la_nqh', 'la_khoanh', 'la_khd', 'la_den_han', 'ngay_chuyen_qh', 'ngay_den_han', 'ngay_het_khoanh', 'so_thang_lai'];
-function slDCMonThangLai(o, nd){ var lt = laiTon(o), dn = +o.dn || 0, ls = +o.ls || 0; if(!(lt>0)) return 0; if(ls>0 && ls<=2) ls *= 12;
-  if(dn>0 && ls>0) return Math.round(lt/(dn*ls/100/12)*10)/10;
-  var g = String(o.ngdg||''), x = g.match(/^(\d{4})-(\d{2})-(\d{2})/), y = String(nd||'').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return '';
-  return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5/30*10)/10; }
+function slDCMonThangLai(o, nd){   /* 3.540 (TK 1 chốt 15/11, khuôn 1.1 mục 3 — như bang_so_lieu.py): lãi tồn (sau bỏ lãi dồn) ≤ 0 → 0; dư nợ & lãi suất > 0 → lãi tồn ÷ (dư nợ × lãi suất ÷ 1200), 1 chữ số;
+     còn lại → số THÁNG LỊCH từ ngày GD gần nhất đến ngày số liệu (hiệu tháng, trừ 1 nếu ngày-trong-tháng ngày số liệu < ngày GD; không âm), dạng n.0; không ngày GD → trống */
+  var lt = laiTon(o), dn = +o.dn || 0, ls = +o.ls || 0; if(!(lt>0)) return 0; if(ls>0 && ls<=2) ls *= 12;
+  if(dn>0 && ls>0) return (Math.round(lt/(dn*ls/1200)*10)/10).toFixed(1);
+  var x = String(o.ngdg||'').match(/^(\d{4})-(\d{2})-(\d{2})/), y = String(nd||'').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return '';
+  var t = (+y[1] - +x[1])*12 + (+y[2] - +x[2]) - (+y[3] < +x[3] ? 1 : 0); return Math.max(0, t).toFixed(1); }
 function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_diem theo khoa */
   f1 = f1 || slDCGBTinh(K); var theo = {}, khd = {}, nk = (K.B && K.B.nk) || {}, da = {}, dong = [], R = function(v){ return Math.round(v||0); }, nd = String(K.ngay||'');
   f1.dong.forEach(function(r){ theo[r[0]] = r; });

@@ -521,10 +521,28 @@ function skNhomDH(o, tu, den, ns){
   if(hl>=tu && hl<=den) return (!gd || gd<=den) ? 2 : 3;   /* chưa có ngày GDXA → tính trong kỳ (ô Chuyển QH ghi “chưa có”) */
   return 0;
 }
+/* 3.540 QT-C-20 (anh 15/11 "QĐ 54 có trên Drive… cứ code và nội suy"): THỜI GIAN GIA HẠN NỢ TỐI ĐA theo QĐ 54/QĐ-HĐQT + VB 7442/NHCS-TDNN 15/9/2023 mục 1:
+   · HSSV (CT 02, QĐ 157): ½ THỜI HẠN TRẢ NỢ — trả nợ bắt đầu 12 tháng sau ngày ra trường → thời hạn trả nợ = ĐH hợp đồng − (ngày ra trường + 12 tháng);
+     thiếu ngày ra trường → NỘI SUY (thời hạn trả nợ ≈ thời hạn phát tiền vay — QĐ 157): (thời hạn cho vay − 12 tháng) ÷ 2, đánh dấu ≈;
+   · Nhà ở xã hội (CT 12, NĐ 100): ngắn hạn 12 tháng · trung, dài hạn 24 tháng;
+   · chương trình khác: ngắn hạn (thời hạn cho vay ≤ 12 tháng) 12 tháng · trung, dài hạn ½ thời hạn cho vay ban đầu (ngày vay → ĐH hợp đồng).
+   Trước 3.540: mọi món ½ thời hạn cho vay. Trả {n: số ngày tối đa, cach, noiSuy} | null (thiếu ngày vay / ĐH). */
+var SK_THANG = 30.4375;
+function skCTMa(o){ var c = String(o && (o.ct || o.ctVT) || '').trim().toUpperCase(); if(/HSSV/.test(c)) return '02'; if(/NOXH/.test(c)) return '12'; var m = c.match(/^0*(\d{1,2})$/); return m ? (m[1].length<2 ? '0'+m[1] : m[1]) : c; }
+function skGHToiDa(o){
+  if(!o || !o.nv || !o.dhg) return null; var tN = tdnSoNgay(o.nv, o.dhg); if(!(tN>0)) return null;
+  var ngan = tN <= 366, ma = skCTMa(o);
+  if(ma==='02'){ var rt = String(o.raTruong||'').slice(0, 10);
+    if(/^\d{4}-\d{2}-\d{2}$/.test(rt)){ var y = +rt.slice(0, 4)+1, bd = y+rt.slice(4); var tr = tdnSoNgay(bd, o.dhg); if(tr>0) return {n:Math.floor(tr/2), cach:'hssv'}; }
+    return {n:Math.max(0, Math.floor((tN - 12*SK_THANG)/2/2)), cach:'hssv', noiSuy:true}; }
+  if(ma==='12') return {n:Math.round((ngan ? 12 : 24)*SK_THANG), cach:'noxh'};
+  return ngan ? {n:Math.round(12*SK_THANG), cach:'ngan'} : {n:Math.floor(tN/2), cach:'nua'};
+}
 function skConGH(o){
-  var tN = (o.nv && o.dhg) ? tdnSoNgay(o.nv, o.dhg) : 0, daN = (o.dhgh && o.dhg && o.dhgh>o.dhg) ? tdnSoNgay(o.dhg, o.dhgh) : 0, ghi = o.c_so_thang_da_gh||0;
-  var dungN = Math.max(daN, Math.round(ghi*30.4375)), conN = Math.floor(tN/2) - dungN, lech = (ghi>0) !== (daN>0) || ((o.ghT||0)>0 && !dungN);
-  return !tN ? '?' : (conN>0 ? Math.floor(conN/30.4375)+' th' : 'Hết')+(lech ? ' ⚠' : '');
+  var t = skGHToiDa(o), daN = (o.dhgh && o.dhg && o.dhgh>o.dhg) ? tdnSoNgay(o.dhg, o.dhgh) : 0, ghi = o.c_so_thang_da_gh||0;
+  var dungN = Math.max(daN, Math.round(ghi*SK_THANG)), lech = (ghi>0) !== (daN>0) || ((o.ghT||0)>0 && !dungN);
+  if(!t) return '?'; var conN = t.n - dungN;
+  return (conN>0 ? (t.noiSuy ? '≈' : '')+Math.floor(conN/SK_THANG+0.1)+' th' : 'Hết')   /* +0,1: tránh 5,98 tháng ghi thành 5 do làm tròn ngày */+(lech ? ' ⚠' : '');
 }
 /* ---------- 3.91: MÓN VAY TRẢ GỐC PHÂN KỲ — NỢ ĐẾN HẠN KỲ CON (anh Nhân; Công văn 597/NHCS-TDNN 30/01/2026) ----------
    gồm: nhà ở xã hội (CT 12, quy định riêng — chuyển QH kỳ con) · cho vay trực tiếp (không mã tổ: GQVL hội người mù, XKLD…)

@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.540 QT-C-20 gia hạn tối đa + theo PR #560 TK 1)
+- Anh chỉ QĐ 54 trên Drive → đọc tài liệu tập huấn QĐ 54 + VB 7442 (mục 1 thời gian gia hạn) → anh "cứ code và nội suy": `skGHToiDa` (HSSV ½ thời hạn trả nợ, nội suy khi thiếu ngày ra trường; NOXH 12/24; ngắn hạn 12; khác ½). Sổ luật 1.12, gạch C9.
+- Theo PR #560 (TK 1, chưa gộp): mã điểm đủ `TXN…`, số tháng lãi tháng lịch. Bẫy: số tháng lãi giờ là chuỗi `n.n`.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.539 File 2 danh sách món)
 - Anh "gộp và tiếp": gộp 3.538 (xử lý xung đột hộp thư với PR #557 TK 1 — giữ cả 2 dòng). 3.539: `slDCMonTinh` / `slDCMonCsv` — File 2 khuôn 1.1. Chờ TK 1 xác nhận 3 cách hiểu (hộp thư 15/11) + anh xuất lại 31/10.
 
