@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.522 lãi tồn cuối tháng + tiền gửi sổ trên KU hủy — anh "ok code theo em")
+- Theo KQ so 2 mốc của TK 1. A: anh chốt bỏ lãi dồn cả file cuối tháng → `toLaiTonNgay` mọi kỳ, `KHO.monGN` qua `toNap`. B: `slHuyLap` (js/22) giữ sổ trên dòng KU hủy vào `B.lap`. Phép thử chung 1.3 (C03-1 sửa ngày GD, thêm C03-2). t396 mới, t352 sửa. Hồi quy đủ. Chờ anh "gộp"; sau đó TK 1 so lại.
+- Bước tiếp: 3.523 màn Kiểm tra sau 30 ngày (anh duyệt: cột Ngày GN, Mục đích, Hạn KT, ấp, tích tổ / chọn hết, căn cột).
+- Bẫy: Mẫu 31 dòng lặp `B.lap` giờ có thêm dòng `_huy` (không `ku`) — chỗ nào đếm dòng lặp theo số dòng thì lọc `_huy`.
+
 ### 14/11/2026 — TK 2 · PHIÊN (phối hợp 2 mốc 30/09 + 31/10 — anh "em và TK giao ban phối hợp làm")
 - Đã gộp 3.521 (PR #541). Đọc trạng thái phối hợp: kế hoạch 2 mốc (PR #542, phiên đánh giá). Anh: 30/09 tổ chưa gộp, 31/10 đã gộp → sửa B0 / B3 kế hoạch + 1 dòng hộp thư cho TK 1. Chỉ tài liệu, không lên bản.
 - Kiểm `slDCXuat`: không File Tổ trưởng → vẫn xuất (điểm GD dự phòng); File Tổ trưởng khác ngày → chặn (QT-C-09) — đúng ý mốc 30/09, không sửa code.

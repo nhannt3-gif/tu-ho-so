@@ -151,7 +151,7 @@ var KHO = (function(){
         return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
     /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
     monGN: function(th, ky){ var co = ky && String(ky).length>7 && slThang(ky)===String(th).slice(0, 7) && this.coBang('hstd', ky) ? {ky:String(ky), tam:true} : this.chotThang(th); if(!co) return Promise.resolve(null);   /* 3.513: ky = Mẫu 31 ngày trong tháng th (kỳ chọn) — không truyền thì như cũ */ var nd = co.tam ? co.ky : '';
-      return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};
+      return (typeof toNap==='function' ? toNap(co.ky).catch(function(){}) : Promise.resolve()).then(function(){ return slBo(co.ky); }).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};   /* 3.522: qua toNap trước → lãi tồn đã trừ lãi dồn (QT-C-03) như thẻ tổ */
         hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); k.t105 = slT105Them(k, o); if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
         hs.forEach(function(o){
           if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;

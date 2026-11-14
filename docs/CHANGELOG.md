@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.522 — 14/11/2026 — Lãi tồn cuối tháng + tiền gửi sổ trên KU hủy (TK 2)
+- **Nguồn:** TK 1 so 2 mốc 30/09 + 31/10 (Drive `KQ_DOI_CHIEU_2_MOC_30-09_31-10-2026.xlsx`): khớp tuyệt đối dư nợ, NQH, khoanh, tổ viên còn dư nợ, cho vay, thu nợ, KHĐ, đến hạn; lệch lãi tồn 31/10 (app +759 tr) và tiền gửi (app −268 tr / −172 tr).
+- **A — lãi tồn (anh chốt 14/11: "món vay đã trả lãi đến ngày giao dịch coi như không có lãi tồn"; file 31/10 là bản chốt tháng nhưng lãi tồn TH có lãi dồn như bản ngày):** `toLaiTonNgay` (js/22g) áp cả kỳ chốt tháng (trước chỉ kỳ theo ngày, 3.436). `KHO.monGN` (KTGS sau giải ngân) chạy qua `toNap` trước → lãi tồn phiếu Mẫu 06 cùng số thẻ tổ. Với file chốt tháng không có lãi dồn: không đổi số.
+- **B — tiền gửi TK 105 (lỗi app, QT-C-01):** dòng KU hủy vẫn loại khỏi món / tổ viên (3.138), nhưng sổ TK 105 trên dòng đó giữ thành dòng lặp (`slHuyLap`, js/22 — không mã KU, không dư nợ) → mọi chỗ cộng 105 đã đọc `B.lap` tự tính, mỗi sổ 1 lần. Gắn sau `slDanhRaTo` → không đổi luật ra khỏi tổ.
+- Phép thử chung `tests/chung/truong_hop_mau.json` 1.3: C03-1 đặt Ngày GD 05/09 (giữ ý TH + QH), thêm C03-2 (GD đúng phiên → chỉ còn QH) — báo TK 1 chạy lại phía giao ban.
+- Phép thử mới t396 (7 ý); t352 sửa ý "chốt tháng không đổi" theo luật mới.
+
 ## 3.521 — 14/11/2026 — Gọn chip các tab (TK 2)
 - **Anh 14/11** "gộp và code 4 ý" (đề xuất đo 1366×768).
 - **① Hồ sơ vay › 📒 Sổ hộ vay** (`hmSoHTML`, js/25c + CSS): chip Ngày nhập + loại hộ (Tất cả / Hộ cũ / Hộ mới / HSSV / Cần bổ sung / Chưa có tổ / Có cảnh báo) chung 1 khung chip nhỏ (22px); số hộ lên hàng nút ＋ Hộ mới (bỏ dòng "📒 Sổ hộ vay — n hộ"); dòng "✎ Nhập liệu — Sổ hộ vay" ẩn (chế độ rộng); hướng dẫn vào ⓘ Cách dùng sổ; nút Phóng to / In / PDF / Word / Gửi cùng hàng tiêu đề (màn ≥ 900px). Bảng y 493 → 338.

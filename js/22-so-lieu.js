@@ -977,7 +977,7 @@ function slBo0(ky){
         if(!b) return;
         var rows = slMoBang(b); B.co[L.k] = rows;
         if(slLaHS(L.k)){ var huy = rows.filter(slKUHuy); if(huy.length){ rows = B.co[L.k] = rows.filter(function(o){ return !slKUHuy(o); }); B.huy = huy; } }   /* 3.138 (anh chốt): KU hủy / nhập nhầm tổ → loại khỏi mọi báo cáo */
-        if(slLaHS(L.k)){ rows.forEach(function(o){ if(o.ku) B.mon[o.ku] = o; (B.theoKH[o.kh] = B.theoKH[o.kh]||[]).push(o); }); B.lap = slMoLap(b); slDanhRaTo(B, rows); }   /* 3.138.1: khách đã ra khỏi tổ (theo TK 105) */   /* kỳ theo ngày: bảng Mẫu 10 */
+        if(slLaHS(L.k)){ rows.forEach(function(o){ if(o.ku) B.mon[o.ku] = o; (B.theoKH[o.kh] = B.theoKH[o.kh]||[]).push(o); }); B.lap = slMoLap(b); slDanhRaTo(B, rows); if(B.huy) B.lap = B.lap.concat(slHuyLap(B.huy)); }   /* 3.138.1: khách đã ra khỏi tổ (theo TK 105) */   /* kỳ theo ngày: bảng Mẫu 10 */
         if(L.k==='nqh' || L.k==='nk' || L.k==='khd') rows.forEach(function(o){ B[L.k][o.ku] = o; });
         if(L.k==='tt') rows.forEach(function(o){ B.to[o.to] = o; });
         if(L.k==='tdn') B.tdn = rows;
@@ -993,6 +993,10 @@ function slBo0(ky){
     SL_BO[ky] = B; slDung(ky); slBot(SL_BO); return B;
   });
 }
+/* 3.522 (TK 1 so 2 mốc 14/11, lỗi app loại B): dòng KU hủy bị loại (3.138) nhưng sổ TK 105 ghi trên dòng đó vẫn là tiền gửi thật của khách →
+   giữ phần SỔ thành dòng lặp (như dòng lặp khế ước 3.87: không mã KU, không dư nợ) — mọi chỗ cộng 105 đã đọc B.lap, mỗi sổ 1 lần (QT-C-01). Gắn sau slDanhRaTo: không đổi luật ra khỏi tổ. */
+function slHuyLap(huy){ return (huy||[]).filter(function(o){ return o.kh && (slStk(o.stk).length || (o.t105||0)>0); })
+  .map(function(o){ return {kh:o.kh, ten:o.ten||'', to:o.to||'', xa:o.xa||'', thon:o.thon||'', stk:o.stk||'', t105:+o.t105||0, _huy:1}; }); }
 /* 3.138 (anh chốt): KU hủy / nhập nhầm tổ = Đã đóng (CLOSE) mà Tổng giải ngân = 0 (không dư nợ, không lãi) → không phải tổ viên / tất nợ / mới vào / ra khỏi tổ
    KU đã nhập máy, chưa giải ngân = còn mở (OPEN), Tổng giải ngân = 0, dư nợ = 0 → không tính tất nợ; báo cáo riêng ở Sao kê (quá 1 tháng → cần đóng KU) */
 /* 3.145: món 3 tháng không hoạt động theo quy tắc hệ thống (kiểm với file mẫu 14 thật, DU_LIEU_THANG.md):

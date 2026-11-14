@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.521', ds:[
+var CO_GI_MOI = {ban:'3.522', ds:[
+  ["Lãi tồn: món đã trả lãi đến ngày giao dịch (phiên gần nhất) coi như không có lãi tồn — áp cả Mẫu 31 cuối tháng; KTGS cùng số với thẻ tổ", ""],
+  ["Tiền gửi TK 105: sổ ghi trên dòng KU hủy vẫn cộng vào tiền gửi khách (mỗi sổ 1 lần)", ""],
   ["Gọn chip các tab: Sổ hộ vay (bảng lên cao ~150px — 2 hàng chip gộp 1 khung, bỏ dòng kẻ thừa, hướng dẫn vào ⓘ), Giao dịch xã (chip mẫu nhỏ 2 hàng), Phân bổ KH (6 nút gọn), Hồ sơ (chip mẫu nhỏ)", ""],
   ["🛡 KTGS: dọn code màn cũ (Định kỳ, Mẫu 04 theo ấp, khung 1 tổ cũ) không còn dùng; ↺ Gợi ý lại ở Kiểm tra tổ mỗi lần ra lượt hộ khác (như trước 3.514)", "dhSL('kt')"],
   ["📄 Hộp khai văn bản: 4 nút đổi chữ (aa · Aa. · AA · Aa Aa) lên cùng hàng nhãn \"Tên văn bản\", không còn che chữ trong ô", ""],
@@ -1070,10 +1072,10 @@ var CO_GI_MOI = {ban:'3.521', ds:[
   ["📒 Sao kê › Khách hàng: thêm \"Sao kê TK 105 của khách vay trong tổ\" — ① chưa có TK 105 (mở mới) · ② có TK 105 chưa gán vào tổ (gắn lại) · ③ TK 105 ở tổ khác (chuyển về), mỗi dòng ghi căn cứ", "dhSL('sk')"],
   ["03/GDX › Tổ giao dịch: chọn tên từ danh sách khai báo cán bộ; Tổ trưởng kiêm Bảo vệ, KSV / GDV kiêm Lái xe", "slDoiTab('gdx')"],
   ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
-  ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
-  ["Tên chương trình GQVL đổi chung cả app: \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" (02/BG, 15/TD, sao kê, danh mục, khai báo); cột bảng tổng hợp ghi \"Hỗ trợ tạo việc làm\"", "dhSL('sk')"],
-  ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.522 · Tổ TK&VV kỳ 10/2026: lãi tồn tổ giảm (bỏ lãi dồn món đã trả phiên tháng 10)",
+    "3.522 · Số liệu › Nạp & KT › 📤 File đối chiếu kỳ 31/10: lãi tồn khớp giao ban; tiền gửi tăng (sổ trên KU hủy)",
     "3.521 · 📄 Hồ sơ vay › 📒 Sổ hộ vay: chip Ngày nhập + Hộ chung 1 khung, ⓘ Cách dùng sổ bấm mở",
     "3.521 · 🏢 Giao dịch xã: chip mẫu nhỏ, 2 hàng",
     "3.521 · 🎯 Phân bổ KH › Quyết định: 6 nút nhỏ 1 nhóm",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.521', ds:[
     "3.513 · 🛡 KTGS › Báo cáo tổng hợp (Mẫu 04): theo Kỳ đầu trang, không còn ô Tháng kiểm tra",
     "3.512 · 📒 Sao kê › nhóm Khách hàng › Sao kê TK 105 của khách vay trong tổ → chọn xã / hội / tổ → 👁 Xem: 3 phần ① ② ③, cột Căn cứ — đối chiếu vài khách trên hệ thống",
     "3.511 · 03/GDX › Tổ giao dịch: mỗi ô là ô chọn từ danh sách cán bộ, đã loại người giữ vai khác",
-    "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm",
-    "3.509 · 🎯 Phân bổ KH › 📄 Biểu 07 → chọn Biểu 07 cũ: các đoạn Căn cứ…, Ủy ban nhân dân…, Đề nghị… giãn dòng thoáng; In / Word vẫn 2 trang (Thông báo + Danh mục)",
-    "3.508 · 📒 Sao kê theo chương trình vay / nhà đầu tư · Hồ sơ Tổ 02/BG · KTGS 15/TD: chương trình 03 ghi \"Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"; ⚙ Cài đặt › tên chương trình GQVL = tên mới (tên anh tự sửa giữ nguyên)"],
+    "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

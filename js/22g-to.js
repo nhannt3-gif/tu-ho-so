@@ -270,7 +270,7 @@ function toPhienGan(ngay, gd){ var x = String(ngay||'').match(/^(\d{4})-(\d{2})-
   var y = +x[1], m = +x[2], d = +x[3]; if(d < gd){ m--; if(!m){ m = 12; y--; } }
   var cuoi = new Date(y, m, 0).getDate(), dd = Math.min(gd, cuoi); return y+'-'+String(m).padStart(2, '0')+'-'+String(dd).padStart(2, '0'); }
 function toLaiTonNgay(K){
-  if(!K || String(K.ky||'').length<=7) return; var nd = K.ngay || K.ky, dem = 0;
+  if(!K) return; var nd = K.ngay || K.ky, dem = 0;   /* 3.522 (anh chốt 14/11): áp cả Mẫu 31 cuối tháng — "món đã trả lãi đến ngày giao dịch coi như không có lãi tồn" (file 31/10 có lãi dồn như bản ngày) */
   (K.hs||[]).forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, o._ngGD); if(!ph) return;
     o._ltNgay = ph; if(o.ngdg && String(o.ngdg)>=ph && (o.ltTH||0)>0){ o.lt = o.ltQH||0; dem++; } });
   K.ltNgay = dem; }
