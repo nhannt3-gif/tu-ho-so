@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.522)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV kỳ 10/2026, so lãi tồn 1 tổ với giao ban | khớp (bỏ lãi dồn) | |
+| 2 | Nạp & KT › 📤 File đối chiếu 31/10 → TK 1 so lại | lãi tồn khớp; tiền gửi lệch giảm | |
+| 3 | KTGS › Kiểm tra sau 30 ngày → Xem phiếu Mẫu 06 | lãi tồn hộ = thẻ tổ | |
+
 ### Danh sách thử trên máy thật (3.521)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.521** — TK 2: gọn chip Sổ hộ vay · Giao dịch xã · Phân bổ KH · Hồ sơ. Trước: 3.520 dọn code màn cũ KTGS.
+- **`main` = 3.522** — TK 2: lãi tồn bỏ lãi dồn cả file cuối tháng (anh chốt 14/11) + tiền gửi tính cả sổ trên dòng KU hủy (TK 1 so 2 mốc). Trước: 3.521 gọn chip các tab.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

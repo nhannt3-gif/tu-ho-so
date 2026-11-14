@@ -23,7 +23,7 @@ const path=require('path');
    ok('đếm số món đã bỏ lãi dồn', K.ltNgay===2, K.ltNgay);
    toLaiTonNgay(K); ok('chạy lại không đổi thêm', K.hs.map(laiTon).join()===L.join());
    const K2 = {ky:'2026-09', ngay:'2026-09-30', hs:r()}; toLaiTonNgay(K2);
-   ok('chốt tháng: không đổi (TH + QH như cũ)', laiTon(K2.hs[0])===205151 && laiTon(K2.hs[2])===92055+24215045);
+   ok('chốt tháng: 3.522 (anh chốt 14/11) cũng bỏ lãi dồn — trả phiên → 0, có QH → còn QH', laiTon(K2.hs[0])===0 && laiTon(K2.hs[2])===24215045);
    return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t352 đạt'); await b.close(); process.exit(sai?1:0);
