@@ -33,14 +33,14 @@ const fs=require('fs'), path=require('path');
    /* 3. gợi ý lại */
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t)); let best = ds[0]; ds.forEach(t=>{ if(toKhach(t).length>toKhach(best).length) best = t; });
    ktChonTo(best.ma); await w(300); const bo = () => ktDaChon().map(h=>h.kh).sort().join(',');
-   const g1 = bo(), bb = Object.keys(KT_CHON.chon).filter(k=>KT_CHON.chon[k].bb); ktGoiYLai(); await w(150); const g2 = bo(); ktGoiYLai(); await w(150); const g3 = bo();
+   const g1 = bo(), bb = Object.keys(KT_CHON.chon).filter(k=>KT_CHON.chon[k].bb); KTTO.lai(); await w(150); const g2 = bo(); KTTO.lai(); await w(150); const g3 = bo();   /* 3.520: ↺ Gợi ý lại ở 🎯 Kiểm tra tổ */
    ok('↺ Gợi ý lại: mỗi lần ra lượt hộ khác', g1!==g2 && g2!==g3 && g1!==g3);
    ok('gợi ý lại vẫn giữ hộ bắt buộc, không gợi ý QH / khoanh', bb.every(k=>KT_CHON.chon[k]) && !ktDaChon().some(h=>h.loai && !KT_CHON.chon[h.kh].bb));
    ok('hiện số hộ theo nhóm (giải thích khi kiểu ra trùng)', /hộ tốt · .* hộ cần quan tâm/.test(document.querySelector('.kt-nhom-so').textContent));
    /* 4. khai báo theo thứ tự mẫu */
-   KT_KB = {}; ktXuat('m06', 'word'); await w(80); const id06 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
+   KT_KB = {}; KTTO.xem('m06'); await w(80); const id06 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: bấm In / Word Mẫu 06 → hộp chọn khi in (mục đích, người kiểm tra) + tùy chọn khác', id06==='m06-md,m06-dvc,m06-ng1,cb2,cv2' && !!document.querySelector('#hop-in .kt-in-luoi'), id06);
-   ktXuat('m16', 'in'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
+   KTTO.xem('m16'); await w(80); const id16 = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
    ok('3.114: hộp Mẫu 16: nhận xét, Bảng II, người kiểm tra 1, 2', id16==='m16-nxud,m16-nxtt,m16-nxkn,m16-b2,m16-dvc,m16-ng1,m16-ng2', id16); dongHop();
    ok('3.154 Khai báo Hội: tên → Chủ tịch → Phó CT → 3 BTV → nhiệm kỳ → HĐUT → KH Hội tỉnh', KT_HKB_O.map(x=>x[0]).join(',')==='ten,ct,pct,uv1,uv2,uv3,nk,hd,hdNgay,kh,khNgay');
    /* 5. định kỳ theo lịch */
@@ -49,20 +49,20 @@ const fs=require('fs'), path=require('path');
    KT_DK_CHON = {}; KT_DK_BO = {}; KT_DK_THEM = {}; ktDoiCheDo('dk'); await w(300); const the = () => document.getElementById('kt-the').textContent;
    ok('số liệu 31/08/2026 → kiểm tra tháng 09/2026 (3.328: ô Tháng kiểm tra + dòng số liệu)', ktDKThang()==='2026-09' && KTTO.thKT()==='2026-09' && /📌 Số liệu: Mẫu 31 T8\/2026/.test(the()), (the().match(/📌 Số liệu.{0,40}/)||[''])[0]);   /* 3.514: Định kỳ gộp 🎯 Kiểm tra tổ (dòng 📌) */
    const r0 = ktDKDs(); ok('3.140: Định kỳ chọn tự do — không tích sẵn tổ theo Kế hoạch; tích tay thì chọn', !r0.some(r=>r.chon) && r0.some(r=>r.t.ma===t0.ma));
-   ktDKTich(t0.ma, true); await w(150);
+   KT_DK_CHON[t0.ma] = true; await w(150);
    const x0 = ktDKTyLe(t0), ho = ktDKHo(t0);
    ok('Mẫu 06 định kỳ: chỉ món giải ngân trước 01/01/2026, tích sẵn 100% hộ không QH / khoanh', ho.length>0 && ho.every(y=>y.mon.every(m=>(m.ngn||m.nv)<'2026-01-01')) && x0.nChon===x0.nDung && x0.pt===100, x0.nChon+'/'+x0.nDung+' hộ · '+x0.monC+'/'+x0.monD+' món');
    ok('hộ QH / khoanh không tích', ho.filter(y=>y.h.loai).every(y=>!ktDKCo(t0.ma, y)));
    const dung = ho.filter(y=>!y.h.loai); dung.slice(0, Math.ceil(dung.length*0.2)).forEach(y=>{ KT_DK_BO[t0.ma+'|'+y.h.kh] = 1; }); ktVeThe(); await w(150);
    ok('bỏ tích → tỷ lệ < 90% (ktDKTyLe — Kế hoạch in theo tháng dùng)', ktDKTyLe(t0).pt<90);
    KT_DK_BO = {}; const qh = ho.find(y=>y.h.loai); if(qh){ ktDKHoTich(t0.ma, qh.h.kh, 1, true); await w(100); ok('tích tay hộ QH / khoanh → thêm vào, không tính vào tỷ lệ', ktDKCo(t0.ma, qh) && ktDKTyLe(t0).pt===100 && ktDKTyLe(t0).nTong===ktDKTyLe(t0).nChon+1); }
-   KT_KB = {}; ktDKXem(); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');
-   ok('3.114: định kỳ → hộp chọn có cả Mẫu 06 và Mẫu 16, không hỏi ngày', idDK==='m06-md,m06-dvc,m06-ng1,m16-nxud,m16-nxtt,m16-nxkn,m16-b2,m16-dvc,m16-ng1,m16-ng2,cb2,cv2' && !document.querySelector('#hop-in #kb-ngay'), idDK); dongHop();
-   ktDKXem('', 1); await w(400); const X = KT_DK_XEM;
+   KT_KB = {}; KTTO.xem('m06'); await w(80); const idDK = [...document.querySelectorAll('#hop-in [id^=ki-]')].map(e=>e.id.slice(3)).filter(x=>!/-b2o-/.test(x)).join(',');   /* 3.520: Định kỳ = 🎯 Kiểm tra tổ (KTTO) */
+   ok('3.114 / 3.514: Kiểm tra tổ → hộp chọn Mẫu 06, không hỏi ngày trong hộp', idDK==='m06-md,m06-dvc,m06-ng1,cb2,cv2' && !document.querySelector('#hop-in #kb-ngay'), idDK); dongHop();
+   const X = KTTO.giaTri(ktInV('m06'), ktInV('m16'));
    ok('Mẫu 06: thời điểm "…../09/2026", ngày trống, tháng 09 năm 2026', X.g06[0].f.TD==='…../09/2026' && X.g06[0].f.ND==='' && X.g06[0].f.NM==='09' && X.g06[0].f.NY==='2026');
    ok('Mẫu 16: ngày trống, tháng 09 năm 26; số liệu đến 31/08/2026; số khách = số hộ chọn', X.g16[0].f.ND==='' && X.g16[0].f.NM==='09' && X.g16[0].f.NY==='26' && X.g16[0].f.SD==='31' && X.g16[0].f.SM==='08' && +X.g16[0].f.SKH===X.g06[0].dc.length);
-   ktDKIn('word', '06'); await w(1000); ktDKXem('', 1); await w(200); ktDKIn('word', '16'); await w(1000);
-   const f06 = Object.keys(F).find(n=>/Mau 06 dinh ky/.test(n)), f16 = Object.keys(F).find(n=>/Mau 16 dinh ky/.test(n)); const z06 = await moZip(F[f06]), z16 = await moZip(F[f16]);
+   KTTO.xem('m06', 1); KTTO.in('word'); await w(1000); KTTO.xem('m16', 1); KTTO.in('word'); await w(1000);
+   const f06 = Object.keys(F).filter(n=>/^Mau 06/.test(n)).pop(), f16 = Object.keys(F).filter(n=>/^Mau 16/.test(n)).pop(); const z06 = await moZip(F[f06]), z16 = await moZip(F[f16]);
    const c06 = z06.doc.replace(/<[^>]+>/g, ''), c16 = z16.doc.replace(/<[^>]+>/g, '');
    ok('Word 06 + 16 hợp lệ, hết dấu {{', hopLe(z06.doc) && hopLe(z16.doc) && z06.doc.indexOf('{{')<0 && z16.doc.indexOf('{{')<0, f06+' · '+f16);
    ok('Word 06: thời điểm …../09/2026 + "tháng 09 năm 2026"', /…\.\.\/09\/2026/.test(c06) && /tháng 09/.test(c06) && /năm 2026/.test(c06));

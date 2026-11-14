@@ -43,7 +43,7 @@ const fs=require('fs'), path=require('path');
    const g16t = ktGiaTri16(t, ktDaChon(), Object.assign(ktInV('m16'), {dv:'-'})), c16t = chu(await docx(await ktDocx('m16', g16t)));
    ok('đơn vị để trống (ghi tay) → giữ "ĐƠN VỊ KIỂM TRA" + dòng chấm', c16t.indexOf('ĐƠN VỊ KIỂM TRA')>=0 && /\.{20}/.test(c16t.slice(0, 300)));
    /* 4. Mẫu 04 */
-   C.che='bc'; ktVeThe(); await w(200); ktBCTich(t.ma, true); await w(100); ktBCXem(1); await w(500); const g4 = KT_BC_XEM.gts[0]; dongHop();
+   C.che='bc'; ktVeThe(); await w(200); KT_BC_CHON[t.ma] = true; await w(100); ktBCXem(1); await w(500); const g4 = KT_BC_XEM.gts[0]; dongHop();
    const x4 = await docx(await ktDocx('m04', g4)), c4 = chu(x4);
    ok('Word 04 hợp lệ; nơi nhận "- PGD NHCSXH …;"; bỏ nhãn đơn vị', hopLe(x4) && x4.indexOf('{{')<0 && /- PGD NHCSXH [^.;]+;/.test(c4) && c4.indexOf('ĐƠN VỊ KIỂM TRA')<0 && c4.indexOf(g4.f.DV0)>=0, (c4.match(/- PGD NHCSXH[^¶]*/)||[''])[0]);
    const h4 = ktHTML04(g4); ok('bản In 04: nơi nhận + bỏ nhãn', /- PGD NHCSXH [^<]+;<\/p>/.test(h4) && h4.indexOf('ĐƠN VỊ KIỂM TRA')<0);

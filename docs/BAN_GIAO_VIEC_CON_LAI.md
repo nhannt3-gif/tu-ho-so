@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.520)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | KTGS 5 màn: bấm qua từng nút, in 06 / 16 / 04 / 15 | chạy như 3.519 | |
+| 2 | Kiểm tra tổ: ↺ 2–3 lần | mỗi lần lượt hộ khác | |
+
 ### Danh sách thử trên máy thật (3.519)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

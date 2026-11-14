@@ -223,7 +223,6 @@ function ktKHGhi(L){   /* 3.123: lưu cả cách chọn tháng, tên tổ / ấp
    📌 Chốt lại = bản mới theo ngày sửa; 📜 Lịch sử chốt giữ mọi bản. Lưu trong D.cauHinh.ktKH[khóa]: chot = [{luc, tu, den, cach, thang, to, snap, n}], khoa = 1 (đã chốt) / 0 (đang sửa).
    Khuôn Word 01/KH để trống ngày tháng (viết tay) — không sửa khuôn (luật KTGS / t179). ---------- */
 function ktKHChotCuoi(S){ return S && S.chot && S.chot.length ? S.chot[S.chot.length-1] : null; }
-function ktKHBanDung(S){ return S && S.khoa===0 && ktKHChotCuoi(S) ? ktKHChotCuoi(S) : S; }   /* Định kỳ / Mẫu 04 dùng bản chốt mới nhất (đang sửa dở chưa chốt lại → vẫn bản chốt) */
 function ktKHChot(){
   var L = ktKHLich(), S = D.cauHinh.ktKH = D.cauHinh.ktKH || {}, k = ktKHKhoa();
   if(L.thieu.length) return bao('Còn '+L.thieu.length+' tổ chưa xếp tháng — xếp đủ 100% tổ rồi mới chốt.', 5);
@@ -475,11 +474,6 @@ function ktXmlHTML(xml){
 var KT_DK_CHON = {}, KT_DK_BO = {}, KT_DK_THEM = {}, KT_DK_MO = '', KT_DK_XEM = null, KT_DK_CACHE = {};
 var KT_DK_TH = '';   /* 3.140: tháng kiểm tra ép (in theo tháng kế hoạch) */
 function ktDKThang(){ return KT_DK_TH || ktNguonThangKT(); }   /* 3.328: tháng kiểm tra = ô Tháng kiểm tra khối Bắt buộc (mặc định tháng sau kỳ số liệu như cũ) */
-function ktDKLich(th){   /* tổ có lịch tháng th trong các Kế hoạch 01/KH đã lưu → {mã tổ: 'năm|xã|hội'} */
-  var S = D.cauHinh.ktKH || {}, nam = th.slice(0, 4), m = +th.slice(5, 7), ra = {};
-  Object.keys(S).forEach(function(k){ if(k.split('|')[0]!==nam) return; var to = (ktKHBanDung(S[k])||{}).to || {};   /* 3.398: bản chốt mới nhất */ Object.keys(to).forEach(function(ma){ if(+to[ma]===m) ra[ma] = k; }); });
-  return ra;
-}
 function ktDKHo(t){   /* hộ của tổ cho kiểm tra định kỳ: có món còn dư nợ giải ngân trước 01/01 năm kiểm tra */
   var th = ktDKThang(), k = KT_K.ky+'|'+th+'|'+t.ma; if(KT_DK_CACHE[k]) return KT_DK_CACHE[k];
   var dau = th.slice(0, 4)+'-01-01', ho = [];
@@ -499,40 +493,12 @@ function ktDKDs(){   /* 3.140 (anh chốt): chọn TỰ DO — tổ trong phạm
   Object.keys(KT_K.to).forEach(function(m){ var t = KT_K.to[m]; if(toLaTT(t) || !(KT_DK_CHON[m] || (C.xa && pvLoc(C, t)))) return; ds.push({t:t, lich:false, chon:!!KT_DK_CHON[m]}); });
   return ds.sort(function(a, b){ return ((a.t.tenXa||'')+'|'+String(a.t.dv||'')+'|'+ktKHAp(a.t)+'|'+(a.t.ten||'')).localeCompare((b.t.tenXa||'')+'|'+String(b.t.dv||'')+'|'+ktKHAp(b.t)+'|'+(b.t.ten||''), 'vi', {numeric:true}); });
 }
-function ktDKVe(o){ var th = ktDKThang(); return ktNguonVe(o, th, function(){ ktDKVeG(o, th); }); }   /* 3.328: số liệu cuối tháng liền trước tháng kiểm tra */
-function ktDKVeG(o, th){
-  var C = ktCH(), K = KT_K;
-  var h = ktCheDoHTML()+ktAThangHTML(th);
-  if(!th){ o.innerHTML = h+'<div class="sl-bao vang">Kiểm tra định kỳ cần <b>số liệu cuối tháng</b> (Mẫu 31 chốt tháng) — chọn ở ô <b>Số liệu</b> phía trên. Số liệu theo ngày không dùng cho kiểm tra định kỳ.</div>'; return; }
-  var lich = ktDKLich(th), nLich = Object.keys(lich).filter(function(m){ return K.to[m]; }).length;   /* 3.329: gộp lối Kế hoạch — tích tổ có lịch tháng kiểm tra */
-  h += '<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã / hội ở cây để thêm tổ ngoài lịch</span>'+(nLich ? GD.nut({chu:'📅 Tích '+nLich+' tổ có lịch T'+(+th.slice(5)), lenh:'ktk.dkLich', tit:'Theo Kế hoạch 01/KH đã lưu (thẻ 🗓 Lịch năm)'}) : '')+'</div>';
-  var ds = ktDKDs();
-  if(!ds.length){ o.innerHTML = h+'<div class="rong">Chọn xã (hoặc hội, điểm GD) ở cây phía trên để chọn tổ kiểm tra — chọn tự do, không theo Kế hoạch. Theo kế hoạch: nút 📅 Tích tổ có lịch, hoặc thẻ 🗓 Lịch năm → bấm tháng.</div>'; return; }
-  var chon = ds.filter(function(r){ return r.chon; });
-  h += '<div class="to-the-so">Chọn tự do (không theo Kế hoạch) · đã chọn <b>'+chon.length+'</b> tổ → '+chon.length+' phiếu Mẫu 06 + '+chon.length+' biên bản Mẫu 16</div>';
-  h += '<div class="to-bang-cuon"><table class="to-bang kt-bc-bang kt-dk-bang"><thead><tr><th>Chọn</th><th>Tổ (mã)</th><th>Ấp · xã</th><th>Hội</th><th>Lịch</th><th>Hộ kiểm tra (≥ 90%)</th><th>Món</th><th></th></tr></thead><tbody>';
-  var truoc = '';
-  ds.forEach(function(r){ var t = r.t, m = t.ma;
-    var x = r.chon || KT_DK_MO===m ? ktDKTyLe(t) : null;
-    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="ktk.dkTich" data-su="change" data-m="'+m+'" aria-label="Chọn tổ"></td>'+
-      '<td class="to-ten"><b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML([t.tenThon, t.tenXa].filter(Boolean).join(' · '))+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td><td></td>'+
-      '<td>'+(x ? '<b class="'+(x.pt>=90 ? 'xanh' : 'do')+'">'+x.nChon+'/'+x.nDung+' hộ = '+ktPT(x.pt)+'%</b>'+(x.nTong>x.nChon ? ' <small>+ '+(x.nTong-x.nChon)+' QH/khoanh</small>' : '') : '')+'</td>'+
-      '<td>'+(x ? x.monC+'/'+x.monD+' món ('+ktPT(x.ptMon)+'%)' : '')+'</td><td><button type="button" class="nho" data-lenh="ktk.dkMo" data-m="'+m+'">'+(KT_DK_MO===m ? '▴ Thu gọn' : '▾ Chọn hộ')+'</button>'+'</td></tr>';   /* 3.513 (anh 11/11 gom nút): bỏ 📋 Tóm tắt từng dòng — Tóm tắt ở hàng nút 1 tổ (🎯 chọn tổ) */
-    if(KT_DK_MO===m) h += '<tr><td colspan="8">'+ktDKHoHTML(t, x)+'</td></tr>'; });
-  h += '</tbody></table></div>';
-  var xaDK = {}; chon.forEach(function(r){ if(r.t.xa) xaDK[r.t.xa] = 1; });
-  h += ktKBKhung('dk', ktHoiDsXa(xaDK))+'<div class="hang-nut kt-in"><button class="nho chinh" onclick="ktDocKB();ktDKXem()"'+(chon.length ? '' : ' disabled')+'>👁 Xem '+chon.length+' tổ · Mẫu 06 + 16</button>'+'</div>'+   /* 3.513: bỏ 📋 Tóm tắt n tổ + 📄 15/TD ở Định kỳ (lặp) — 2 mẫu này ở hàng nút 1 tổ, theo kỳ chọn */
-    '<p class="ghi">Mẫu 06: hộ còn dư nợ có món giải ngân từ các năm trước (trước 01/01/'+th.slice(0, 4)+'), chỉ in các món đó; tích sẵn 100%, bỏ tích hộ không kiểm — 727: tối thiểu 90% (tính theo hộ, kèm tỷ lệ món). '+
-      'Hộ quá hạn / khoanh không tích (kiểm tra riêng) — tích tay khi cần. Mẫu 16 lấy số liệu đến '+ngayVNsl(tdnCuoiKy(K.ky))+' (BC0437 cùng tháng nếu đã nạp, không thì tính từ Mẫu 31). Ngày kiểm tra để trống, ghi tháng '+th.slice(5)+'/'+th.slice(0, 4)+'.</p>';
-  o.innerHTML = h;
-}
 function ktDKHoHTML(t, x){   /* 3.98: cột chung (mã KH, món, lãi tồn, 105, ghi chú) — theo mã KH; chỉ in các món giải ngân năm trước */
   return '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+
     x.ho.map(function(y, i){ var c = ktDKCo(t.ma, y), k = y.h.kh;
       return ktHoDongHTML({stt:i+1, h:y.h, lop:c ? 'kt-co' : '', chon:'<input type="checkbox"'+(c ? ' checked' : '')+' onchange="ktDKHoTich(\''+t.ma+'\',\''+k+'\','+(y.h.loai ? 1 : 0)+',this.checked)" aria-label="Chọn hộ">',
         mon:y.mon.map(function(m){ return ktMonDong(m); }).join('')+(y.mon.length<y.h.mon.length ? '<small class="kt-ku">+ '+(y.h.mon.length-y.mon.length)+' món GN năm nay (không in)</small>' : ''), ghi:ktGhiHo(y.h)}); }).join('')+'</tbody></table></div>';
 }
-function ktDKTich(m, v){ KT_DK_CHON[m] = !!v; ktVeThe(); }
 function ktDKMo(m){ KT_DK_MO = KT_DK_MO===m ? '' : m; ktVeThe(); }
 function ktDKHoTich(ma, kh, loai, v){ var k = ma+'|'+kh; if(loai){ if(v) KT_DK_THEM[k] = 1; else delete KT_DK_THEM[k]; } else { if(v) delete KT_DK_BO[k]; else KT_DK_BO[k] = 1; } ktVeThe(); }
 var KT_SO_CUNG = false;   /* 3.97: định kỳ — BC0437 chỉ dùng khi cùng tháng số liệu */
@@ -550,38 +516,10 @@ function ktDKGiaTri(v, v16, dsTo){ v16 = v16 || v;   /* 3.114: lựa chọn in r
   } finally { KT_SO_CUNG = false; }
   return {th:th, g06:g06, g16:g16};
 }
-function ktDKXem(che, ok){ return ktNguonVoi(ktDKThang(), function(){ return ktDKXemG(che, ok); }); }   /* 3.328 */
-function ktDKXemG(che, ok){
-  if(!che){ if(!ok) return ktInHop(['m06','m16'], ktInNutXem("ktDKXem('',1)"), ktHoiCuaTo(ktDKDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; })));
-    KT_DK_XEM = ktDKGiaTri(ktInV('m06'), ktInV('m16')); che = '06'; }
-  var X = KT_DK_XEM; if(!X || !X.g06.length) return bao('Chưa chọn tổ nào.', 3);
-  var tit = 'Kiểm tra định kỳ tháng '+X.th.slice(5)+'/'+X.th.slice(0, 4)+' — '+X.g06.length+' tổ';
-  moHop('<div class="hop-tit">👁 '+tit+'</div>'+
-    '<div class="kt-che"><button class="to-loc'+(che==='06' ? ' bat' : '')+'" data-lenh="f22e.ktDKXem" data-a1="06">Mẫu 06 · '+X.g06.length+' phiếu</button><button class="to-loc'+(che==='16' ? ' bat' : '')+'" data-lenh="f22e.ktDKXem" data-a1="16">Mẫu 16 · '+X.g16.length+' biên bản</button></div>'+
-    '<iframe id="kt-dk-khung" class="to-khung" title="Xem trước"></iframe>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="f22e.ktDKXem_" data-dong="1">‹ Đổi lựa chọn in</button><button class="nho" data-lenh="hop.dong">Đóng</button>'+
-    '<button class="nho" data-lenh="f22e.ktDKIn" data-a1="in" data-a2="06">🖨 In 06</button><button class="nho" data-lenh="f22e.ktDKIn" data-a1="in" data-a2="16">🖨 In 16</button>'+
-    '<button class="nho chinh" data-lenh="f22e.ktDKIn" data-a1="word" data-a2="06">📄 Word 06</button><button class="nho chinh" data-lenh="f22e.ktDKIn" data-a1="word" data-a2="16">📄 Word 16</button></div>', true);
-  var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
-  var f = document.getElementById('kt-dk-khung'); xemChuan(f, che==='16' ? ktHTML16(X.g16) : ktHTML06(X.g06));
-}
-function ktDKIn(cach, mau){
-  var X = KT_DK_XEM; if(!X) return;
-  var ten = (mau==='06' ? 'Mau 06 dinh ky ' : 'Mau 16 dinh ky ')+kyVN(X.th).replace(/\//g, '-')+' - '+boDauTen(pvChu(ktCH(), KT_K)).slice(0, 50)+' - '+X.g06.length+' to';
-  dongHop();
-  var gt = mau==='06' ? X.g06 : X.g16;
-  if(cach==='word') return ktDocx(mau==='06' ? 'm06' : 'm16', gt).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx (mỗi tổ 1 trang mới) — chỉ lưu trên máy / Drive của anh.', 7); if(D.cauHinh.slTab==='kt') ktVeThe(); })
-    .catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
-  inBlob(new Blob([mau==='06' ? ktHTML06(gt) : ktHTML16(gt)], {type:'text/html'}), ten+'.html');
-  if(D.cauHinh.slTab==='kt') ktVeThe();
-}
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22e.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('f22e', gdLenh({
-  ktDKIn:function(el, ev){ ktDKIn(gdA(el, 1), gdA(el, 2)); },
   ktDKMo:function(el, ev){ ktDKMo(gdA(el, 1)); },
-  ktDKXem:function(el, ev){ ktDKXem(gdA(el, 1)); },
-  ktDKXem_:function(el, ev){ ktDKXem(); },
   ktKH04Xem:function(el, ev){ ktKH04Xem(); },
   ktKHBoSua:function(el, ev){ ktKHBoSua(); },
   ktKHChot:function(el, ev){ ktKHChot(); },

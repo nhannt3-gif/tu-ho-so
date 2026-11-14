@@ -91,50 +91,6 @@ function ktBCNhom(ds){   /* tổ đã chọn → báo cáo theo Hội – xã */
   ds.filter(function(r){ return r.chon; }).forEach(function(r){ var k = ktHoiKhoa(r.t); if(!g[k]){ g[k] = {k:k, t:r.t, ds:[]}; thu.push(g[k]); } g[k].ds.push(r); });
   return thu.sort(function(a, b){ return ((a.t.tenXa||'')+'|'+a.t.dv).localeCompare((b.t.tenXa||'')+'|'+b.t.dv, 'vi'); });
 }
-function ktBCVe(o){ return ktBCVeG(o); }   /* 3.513 (anh 11/11): Mẫu 04 theo KỲ ĐANG CHỌN (ô Kỳ đầu trang) — trước 3.328–3.512: cuối tháng liền trước tháng kiểm tra */
-function ktBCVeG(o){   /* 3.98 ①: chọn xã / hội ở cây → tổ chia nhóm theo ấp; tích cả ấp hoặc từng tổ; ngày nhập tùy chọn (chỉ cho lần in này) */
-  var C = ktCH(), ds = ktBCDs(), nh = ktBCNhom(ds);
-  var h = ktCheDoHTML()+ktSLDong()+'<div class="kt-gn-dau"><span class="sl-phu">Phạm vi: <b>'+coChuHTML(pvChu(C, KT_K))+'</b> — chọn xã (hoặc hội) ở cây, tích cả ấp hoặc từng tổ. Lập theo tháng của kế hoạch: thẻ 🗓 Lịch năm.</span></div>';
-  if(!C.xa){ o.innerHTML = h+'<div class="rong">Chọn <b>xã</b> (hoặc hội) ở cây phía trên để chọn ấp / tổ lập Mẫu 04.</div>'+ktBCGhi(); return; }
-  if(!ds.length){ o.innerHTML = h+'<div class="rong">Không có tổ trong phạm vi đã chọn.</div>'; return; }
-  var soChon = ds.filter(function(r){ return r.chon; }).length;
-  h += ktBCTheoKHHTML(ds);   /* 3.123 */
-  h += '<div class="to-the-so">Đã chọn <b>'+soChon+'</b>/'+ds.length+' tổ → <b>'+nh.length+'</b> báo cáo (mỗi Hội – xã 1 báo cáo)</div>';
-  h += '<div class="to-bang-cuon"><table class="to-bang kt-bc-bang"><thead><tr><th>Chọn</th><th>Ấp / Tổ (mã)</th><th>Xã</th><th>Hội</th><th>Ngày kiểm tra (tùy chọn)</th></tr></thead><tbody>';
-  KT_BC_AP = []; var apTruoc = null;
-  ds.forEach(function(r){ var t = r.t, m = t.ma, ap = ktKHAp(t);
-    if(ap!==apTruoc){ apTruoc = ap; KT_BC_AP.push(ap); var cua = ds.filter(function(x){ return ktKHAp(x.t)===ap; }), nc = cua.filter(function(x){ return x.chon; }).length;
-      h += '<tr class="kt-kh-ap"><td class="c"><input type="checkbox"'+(nc===cua.length ? ' checked' : '')+' onchange="ktBCTichAp('+(KT_BC_AP.length-1)+',this.checked)" aria-label="Chọn cả ấp"></td><td colspan="4"><b>'+coChuHTML(ap)+'</b> <small>('+nc+'/'+cua.length+' tổ)</small></td></tr>'; }
-    h += '<tr class="'+(r.chon ? 'kt-co' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(r.chon ? ' checked' : '')+' data-lenh="f22d.ktBCTich" data-su="change" data-a1="'+m+'" aria-label="Chọn tổ"></td>'+
-      '<td class="to-ten">&nbsp;&nbsp;<b>'+coChuHTML(t.ten||'Tổ '+m)+'</b> ('+m+')</td><td>'+coChuHTML(t.tenXa||'')+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td>'+
-      '<td><input type="date" value="'+coChuHTML(r.ngay)+'" data-lenh="f22d.ktBCNgay" data-su="change" data-a1="'+m+'" aria-label="Ngày kiểm tra"></td></tr>'; });
-  h += '</tbody></table></div>';
-  h += ktHdtNhac(ktHoiDs(), ['pct'])+   /* 3.113: khai ở 🏛 Khai báo Hội đoàn thể */   /* 3.106: Đoàn kiểm tra Mẫu 04 = cán bộ kiểm tra 06 / 16 */
-    '<div class="hang-nut kt-in"><button class="nho chinh" data-lenh="f22d.ktBCXem"'+(nh.length ? '' : ' disabled')+'>👁 Xem '+nh.length+' báo cáo Mẫu 04</button>'+'</div>'+ktBCGhi();
-  o.innerHTML = h;
-}
-function ktBCKH(){   /* 3.123: kế hoạch đã lưu của xã đang chọn (năm kế hoạch) → [{k, dv, to:{mã: tháng}}]; chọn hội ở cây → chỉ hội đó */
-  var C = ktCH(), S = D.cauHinh.ktKH || {}, nam = String(ktKHNam()); if(!C.xa) return [];
-  return Object.keys(S).filter(function(k){ var p = k.split('|'); return p[0]===nam && p[1]===String(C.xa) && (!C.hoi || p[2]===String(C.hoi)) && S[k] && !S[k].xoa && S[k].to; })
-    .map(function(k){ return {k:k, dv:k.split('|')[2], to:(typeof ktKHBanDung==='function' ? ktKHBanDung(S[k]) : S[k]).to || {}}; });   /* 3.398: bản chốt mới nhất */
-}
-function ktBCTheoKHHTML(ds){   /* 3.123 (anh chốt): hàng "Theo kế hoạch" — bấm tháng = tích sẵn các tổ của tháng đó (anh vẫn sửa) */
-  var kh = ktBCKH(); if(!kh.length) return ''; var nam = ktKHNam(), thNay = nay().getFullYear()===nam ? nay().getMonth()+1 : 0;
-  return kh.map(function(x){ var dem = {}, t0 = ds.filter(function(r){ return String(r.t.dv)===x.dv; })[0];
-    Object.keys(x.to).forEach(function(ma){ var m = +x.to[ma]; if(m) dem[m] = (dem[m]||0)+1; });
-    return '<div class="kt-che kt-bc-kh"><span class="sl-phu">📅 Theo kế hoạch '+nam+' · <b>'+coChuHTML(t0 ? ktHoiTenTD(t0.t) : tdnHoi(x.dv))+'</b>:</span>'+
-      Object.keys(dem).map(Number).sort(function(a, b){ return a-b; }).map(function(m){ return '<button class="to-loc'+(m===thNay ? ' bat' : '')+'" onclick="ktBCTheoKH(\''+x.k+'\','+m+')" title="Tích sẵn các tổ có lịch tháng '+m+'">T'+m+' · '+dem[m]+' tổ</button>'; }).join('')+'</div>'; }).join('');
-}
-function ktBCTheoKH(k, m){ var S = (D.cauHinh.ktKH || {})[k]; if(S && typeof ktKHBanDung==='function') S = ktKHBanDung(S); if(!S || !S.to) return;   /* 3.398: bản chốt mới nhất */ var ds = ktBCDs(), co = {}, mat = 0;
-  ds.forEach(function(r){ co[r.t.ma] = 1; }); KT_BC_CHON = {};
-  Object.keys(S.to).forEach(function(ma){ if(+S.to[ma]!==m) return; if(co[ma]) KT_BC_CHON[ma] = true; else mat++; });
-  ktVeThe(); bao('Đã tích '+Object.keys(KT_BC_CHON).length+' tổ có lịch tháng '+m+(mat ? ' · '+mat+' tổ không còn trong số liệu (không tích)' : '')+'.', 5);
-}
-function ktBCGhi(){ return '<p class="ghi">App điền: Đơn vị kiểm tra, Đoàn kiểm tra (Phó Chủ tịch theo 🏛 Khai báo Hội đoàn thể), bảng mục II (mỗi tổ 1 dòng: ngày · Tổ TK&amp;VV · Tây Ninh, xã / phường, ấp / khu phố). '+
-  'Ngày để trống = dòng chấm; số phiếu Mẫu 06 ở mục VI và các phần còn lại để dòng chấm ghi tay; xuất Word để sửa. App không theo dõi phiếu đã lập.</p>'; }
-function ktBCTich(m, v){ KT_BC_CHON[m] = !!v; ktVeThe(); }
-function ktBCTichAp(i, v){ var ap = KT_BC_AP[i]; ktBCDs().forEach(function(r){ if(ktKHAp(r.t)===ap) KT_BC_CHON[r.t.ma] = !!v; }); ktVeThe(); }
-function ktBCNgay(m, v){ if(v) KT_BC_NGAY[m] = v; else delete KT_BC_NGAY[m]; ktVeThe(); }
 function ktBC04(ds, th, v){ v = v || ktInV('m04');   /* 3.114: v = lựa chọn in (nhận xét, người kiểm tra 1 / 2) */   /* ds = [{t, ngay}] → mỗi Hội – xã 1 báo cáo {k, ten, f:{DV, SP}, doan, rows:[{C1..C4}]}; th = tháng kế hoạch (ngày "…../mm/yyyy") */
   return ktBCNhom(ds.map(function(r){ return {t:r.t, ngay:r.ngay||'', chon:true}; })).map(function(g){
     var kb = ktHoiKB(g.k);
@@ -700,9 +656,6 @@ function ktHoiKBSua(k, o, v){
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('f22d', gdLenh({
-  ktBCNgay:function(el, ev){ ktBCNgay(gdA(el, 1), el.value); },
-  ktBCTich:function(el, ev){ ktBCTich(gdA(el, 1), el.checked); },
-  ktBCXem:function(el, ev){ ktBCXem(); },
   ktHkbDoi:function(el, ev){ ktHkbDoi(el, gdA(el, 1), gdA(el, 2)); },
   ktHkbVe:function(el, ev){ ktHkbVe(gdA(el, 1), gdA(el, 2), gdA(el, 3)); },
   ktHoiKBHop:function(el, ev){ ktHoiKBHop(); },

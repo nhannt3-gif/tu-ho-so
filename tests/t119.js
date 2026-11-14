@@ -26,21 +26,21 @@ const fs=require('fs'), path=require('path');
    /* 2. đột xuất: bấm Word → hộp chọn, mặc định PCT; đổi CT → Word ghi CT; ngày cạnh nút In */
    C.xa = t.xa; ktChonTo(t.ma); await w(300);
    ok('đột xuất: ô Ngày kiểm tra nằm cạnh nút In, không còn khung ✎', !!document.querySelector('#kt-the .kt-in #kb-ngay') && !document.querySelector('#kt-the .kt-kb-khung'));
-   ktXuat('m06', 'word'); await w(100);
+   KTTO.xem('m06'); await w(100);
    ok('bấm Word Mẫu 06 → hộp chọn khi in, chưa xuất file; mặc định Phó Chủ tịch, mục đích để trống', !!document.querySelector('#hop-in .kt-in-luoi') && !Object.keys(F).length && document.getElementById('ki-m06-ng1').value==='pct' && document.getElementById('ki-m06-md').value==='');
    chon('ki-m06-ng1', 'ct'); await w(50);
    ok('đổi người kiểm tra → nhớ lựa chọn (đồng bộ Drive)', D.cauHinh.ktIn[ktInKhoa('m06')].ng1==='ct' && document.getElementById('ki-m06-ng1').value==='ct' && !chRieng('ktIn'));
-   [...document.querySelectorAll('#hop-in button')].find(x=>/Word/.test(x.textContent)).click(); await w(800);
+   KTTO.xem('m06', 1); KTTO.in('word'); await w(800);   /* 3.520: in qua 🎯 Kiểm tra tổ (bỏ ktXuat) */
    const f6 = Object.keys(F).find(x=>/Mau 06/.test(x)), c6 = chu(await docx(F[f6]));
    ok('Word Mẫu 06: người kiểm tra = Chủ tịch đã khai (chức danh theo Chuẩn hóa)', c6.indexOf('Nguyễn Văn Chủ⇥Chức vụ: '+c.ky)>=0, (c6.match(/1\. Ông \(bà\)[^⇥]*⇥[^⇥]{0,30}/)||[''])[0]);
    /* 3. Mẫu 16: mặc định Bảng II trống, nhận xét gợi ý; người 2 = ủy viên */
-   ktXuat('m16', 'word'); await w(80);
+   KTTO.xem('m16'); await w(80);
    ok('hộp Mẫu 16: nhận xét gợi ý, Bảng II để trống (mặc định)', ['nxud','nxtt','nxkn'].every(k=>document.getElementById('ki-m16-'+k).value==='so') && document.getElementById('ki-m16-b2').value==='' && document.getElementById('ki-m16-ng2').value==='');
    chon('ki-m16-ng2', 'uv2'); await w(50);
-   [...document.querySelectorAll('#hop-in button')].find(x=>/Word/.test(x.textContent)).click(); await w(800);
+   KTTO.xem('m16', 1); KTTO.in('word'); await w(800);
    const c16 = chu(await docx(F[Object.keys(F).find(x=>/Mau 16/.test(x))]));
    ok('Word Mẫu 16: người 1 PCT, người 2 ủy viên BTV, Bảng II trống', c16.indexOf('Trần Thị Phó')>=0 && c16.indexOf('Lê Văn Ủy')>=0 && (c16.indexOf(c.uv)>=0 || c16.indexOf(ktCVGon(c.uv, 1, 27))>=0) && !/định kỳ theo quý/.test(c16));
-   ktXuat('m16', 'in'); await w(50); document.querySelector('#hop-in button[data-lenh$=".ktInDayDu"]').click(); await w(50);
+   KTTO.xem('m16'); await w(50); document.querySelector('#hop-in button[data-lenh$=".ktInDayDu"]').click(); await w(50);
    ok('✚ Điền đầy đủ: Bảng II theo 727 + gợi ý nhận xét', D.cauHinh.ktIn[ktInKhoa('m16')].b2==='dien' && D.cauHinh.ktIn[ktInKhoa('m16')].nx==='so' && document.getElementById('ki-m16-b2').value==='dien');
    ok('Mẫu 16 điền đầy đủ → Bảng II ghi như mẫu (định kỳ theo quý…)', /định kỳ theo quý/.test(ktGiaTri16(t, [], ktInV('m16')).b2.join('|'))); dongHop();
    /* 4. Mẫu 04: 2 người, tên Trưởng đoàn, nhận xét để trống */
@@ -71,8 +71,8 @@ const fs=require('fs'), path=require('path');
    /* 7. các luồng khác đều hỏi trước */
    C.che = 'bc'; ktVeThe(); await w(100); KT_BC_CHON = {}; KT_BC_CHON[t.ma] = true; ktVeThe(); await w(100); ktBCXem(); await w(80);
    ok('Mẫu 04 → hộp chọn (nhận xét, 2 người)', !!document.getElementById('ki-m04-nxto') && !!document.getElementById('ki-m04-nxkn') && !!document.getElementById('ki-m04-ng2')); dongHop();
-   C.che = 'dk'; ktVeThe(); await w(150); ktDKXem(); await w(80);
-   ok('định kỳ → hộp chọn có cả 06 và 16', !!document.getElementById('ki-m06-md') && !!document.getElementById('ki-m16-b2')); dongHop();
+   C.che = 'dx'; KT_DK_CHON = {}; KT_DK_CHON[t.ma] = true; ktVeThe(); await w(150); KTTO.xem('m06'); await w(80); const co06 = !!document.getElementById('ki-m06-md'); dongHop(); KTTO.xem('m16'); await w(80);
+   ok('🎯 Kiểm tra tổ (gộp định kỳ) → hộp chọn 06 / 16', co06 && !!document.getElementById('ki-m16-b2')); dongHop();
    C.che = 'dx'; C.xa = ''; C.to = '';
    return o;
  }, files);
