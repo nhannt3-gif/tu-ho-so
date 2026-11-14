@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.536 tải sẵn VB trên điện thoại)
+- Anh "gộp và làm tiếp": rà Hôm nay / Scan / ☰ trên 390 px — ổn. Thêm ⬇ Tải sẵn VB về máy (⋯ Văn bản, chỉ điện thoại). Chờ anh dùng thật góp ý → Đ2 tiếp; Đ3 gỡ dt.html.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.535 điện thoại Đ1)
 - Anh: điện thoại đang lỗi, giao diện riêng (dt.html) không ổn; dùng nhiều nhất xem VB + tra cứu KH; muốn đọc nhanh VB đã lưu, gửi cả VB / 1 trang. Hướng: 1 bản app tự gọn ≤ 600 px; Đ3 gỡ dt.html khi ổn.
 - 3.535: `DTM` (js/66) + css/dt-may.css — Tra cứu 1 ô tìm, lọc gọn bấm mở, 📞 Gọi; Văn bản thẻ gọn, 📤 Gửi trang này / Gửi cả VB; ẩn nút 📱 nổi. t401 mới.

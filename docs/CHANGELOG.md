@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.536 — 14/11/2026 — Điện thoại: tải sẵn văn bản (TK 2)
+- **Nguồn:** anh 14/11 "load đọc nhanh các VB đã lưu" + "gộp và làm tiếp".
+- **Mới (chỉ ≤ 600 px, `DTM.taiSan` js/66):** ⋯ của tab Văn bản có "⬇ Tải sẵn VB về máy" — lấy VB ⭐ + 40 VB mới nhất có trên Drive mà máy chưa có, tải lần lượt (`layNoiDung` tự cất máy), báo tiến độ; bấm lại chỉ tải phần còn thiếu. Máy tính không có nút này (file ở ổ G).
+- Rà Hôm nay / Scan / ☰ Mọi mục trên điện thoại 390 px: không tràn, không lỗi — chưa cần sửa (chờ anh góp ý dùng thật).
+- t401 +2 ý.
+
 ## 3.535 — 14/11/2026 — Điện thoại Đ1: Tra cứu KH + Văn bản (TK 2)
 - **Nguồn:** anh 14/11 "trên điện thoại đang lỗi… làm lại cho phù hợp, kiểu giao diện riêng không ổn" · "dùng nhiều nhất là xem văn bản, tra cứu KH" · "load đọc nhanh các VB đã lưu, gửi cả VB hay 1 trang". Hướng chốt: 1 bản app (index.html) tự gọn trên điện thoại; dt.html gỡ ở Đ3 khi Đ1–Đ2 ổn.
 - **Chỉ ≤ 600 px** (`css/dt-may.css` + `js/66-dt-may.js` gói `DTM`, bọc hàm gốc — máy tính không đổi):

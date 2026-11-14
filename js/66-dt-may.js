@@ -42,12 +42,30 @@ var DTM = {
   nutTrang: function(n){ if(n!=='lon') return; var S = XEM.lon; if(!S || !S.khung || S.tong<2) return;
     S.khung.forEach(function(box, k){ if(box.querySelector('.dtm-gui1')) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'dtm-gui1';
       b.setAttribute('data-lenh', 'dtm.gui1'); b.setAttribute('data-a1', String(k+1)); b.textContent = '📤 Gửi trang này'; b.title = 'Gửi riêng trang '+(k+1)+' (Zalo, Mail…)'; box.appendChild(b); }); },
+  /* 3.536 (anh 14/11 "load đọc nhanh các VB đã lưu"): ⬇ Tải sẵn — VB ⭐ + 40 VB mới nhất có trên Drive mà máy chưa có → cất máy (layNoiDung tự lưu), lần sau mở ngay, không cần mạng */
+  taiSanDs: function(){ var ds = (D.vanBan||[]).filter(function(m){ return m && (m.driveId || m.tuKhay) && !m.khongLuu; });
+    ds.sort(function(a, b){ return String(b.ngay||'').localeCompare(String(a.ngay||'')); });
+    var sao = ds.filter(function(m){ return typeof laSao==='function' && laSao(m); }), moi = ds.filter(function(m){ return sao.indexOf(m)<0; }).slice(0, 40);
+    return sao.concat(moi); },
+  taiSan: function(){ if(DTM.dangTai) return bao('Đang tải sẵn — chờ xong lượt này.', 3);
+    var ds = DTM.taiSanDs(); if(!ds.length) return bao('Chưa có văn bản nào trên Drive để tải sẵn.', 4);
+    DTM.dangTai = true; var can = [], i = 0, xong = 0, loi = 0;
+    Promise.all(ds.map(function(m){ return docFile(m.id).then(function(b){ if(!b) can.push(m); }).catch(function(){ can.push(m); }); })).then(function(){
+      if(!can.length){ DTM.dangTai = false; return bao('✓ '+ds.length+' văn bản (⭐ + mới nhất) đã có sẵn trong máy — mở ngay, không cần mạng.', 5); }
+      bao('⬇ Đang tải sẵn '+can.length+' văn bản về máy…', 4);
+      var tiep = function(){ if(i>=can.length){ DTM.dangTai = false; return bao('✓ Đã tải sẵn '+xong+' / '+can.length+' văn bản'+(loi ? ' · '+loi+' chưa tải được (kiểm tra mạng / Nối Drive rồi bấm lại)' : '')+' — lần sau mở ngay.', 7); }
+        var m = can[i++]; layNoiDung(m).then(function(b){ if(b) xong++; else loi++; }, function(){ loi++; }).then(function(){ if(i % 5===0) bao('⬇ Tải sẵn '+i+' / '+can.length+'…', 3); tiep(); }); };
+      tiep(); }); },
   nhan: function(){ var n = Object.keys(trangChon||{}).length, b = document.getElementById('nut-gui-trang'); if(b) b.textContent = '📤 Gửi '+n+' trang';
     var g = document.querySelector('#xem .xem-day [data-lenh="khung.guiFileMenu"]'); if(g) g.textContent = n ? '📤 Cả VB' : '📤 Gửi cả VB';
     var d = document.querySelector('#xem .xem-day [data-lenh="khung.dongXem"]'); if(d) d.textContent = '✕ Đóng'; }
 };
 if(DTM_HEP){
-  if(typeof GD!=='undefined') GD.dangKy('dtm', {gui1:function(el){ DTM.gui1(+gdA(el, 1)); }});
+  if(typeof GD!=='undefined') GD.dangKy('dtm', {gui1:function(el){ DTM.gui1(+gdA(el, 1)); }, taiSan:function(){ DTM.taiSan(); }});
+  if(typeof moThemTab==='function'){ var dtmThemTabGoc = moThemTab; moThemTab = function(ev, tab){   /* ⋯ của tab Văn bản: thêm ⬇ Tải sẵn ở đầu menu */
+    if(tab==='vanBan' && TL_OPT.vanBan){ var o = TL_OPT.vanBan, cu = o.themPhu; o.themPhu = '<button data-lenh="dtm.taiSan" title="Tải về máy VB ⭐ + 40 VB mới nhất — đọc nhanh, không cần mạng">⬇ Tải sẵn VB về máy</button>'+(cu||'');
+      try { return dtmThemTabGoc.apply(this, arguments); } finally { o.themPhu = cu; } }
+    return dtmThemTabGoc.apply(this, arguments); }; }
   document.addEventListener('click', function(e){ var d = e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
   if(typeof veTrang==='function'){ var dtmVeTrangGoc = veTrang; veTrang = function(n){ var r = dtmVeTrangGoc.apply(this, arguments); try { DTM.nutTrang(n); } catch(e){} return r; }; }
   if(typeof capNhatThanhChon==='function'){ var dtmChonGoc = capNhatThanhChon; capNhatThanhChon = function(){ var r = dtmChonGoc.apply(this, arguments); try { DTM.nhan(); } catch(e){} return r; }; }
