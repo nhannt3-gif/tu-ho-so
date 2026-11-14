@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.536)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Điện thoại › mở 1 VB, đóng, mở lại | lần 2 mở ngay | |
+| 2 | Hôm sau mở app trên điện thoại | báo 🧹 đã dọn N VB; mở VB vẫn được (tải lại từ Drive) | |
+
 ### Danh sách thử trên máy thật (3.535)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

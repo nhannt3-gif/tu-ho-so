@@ -42,12 +42,25 @@ var DTM = {
   nutTrang: function(n){ if(n!=='lon') return; var S = XEM.lon; if(!S || !S.khung || S.tong<2) return;
     S.khung.forEach(function(box, k){ if(box.querySelector('.dtm-gui1')) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'dtm-gui1';
       b.setAttribute('data-lenh', 'dtm.gui1'); b.setAttribute('data-a1', String(k+1)); b.textContent = '📤 Gửi trang này'; b.title = 'Gửi riêng trang '+(k+1)+' (Zalo, Mail…)'; box.appendChild(b); }); },
+  /* 3.536 (anh 14/11: "máy có 5G đọc file từ Drive rất nhanh… không tự tải nhưng file đã xem thì lưu lại" → "giữ trong ngày thôi"):
+     VB đã xem cất máy (layNoiDung — sẵn có) chỉ giữ TRONG NGÀY. Mở app ngày mới → xóa bản trong máy của VB đã có trên Drive (driveId) mà hôm nay chưa xem.
+     Không đụng: VB chưa lên Drive (chỉ có trong máy), khi còn việc chờ đẩy Drive (DR.hangCho), bản scan / dữ liệu khác. Ngày xem lưu localStorage (không đồng bộ). */
+  XEM_KHOA: 'tuhoso_dt_xem',
+  xemDoc: function(){ try { return JSON.parse(localStorage.getItem(DTM.XEM_KHOA)||'{}') || {}; } catch(e){ return {}; } },
+  xemGhi: function(id){ if(!id) return; var m = DTM.xemDoc(), h = ngayISO(nay()); m[id] = h; Object.keys(m).forEach(function(k){ if(m[k]!==h) delete m[k]; });
+    try { localStorage.setItem(DTM.XEM_KHOA, JSON.stringify(m)); } catch(e){} },
+  don: function(){ if(typeof DR!=='undefined' && DR.hangCho && DR.hangCho.length) return Promise.resolve(0);
+    var x = DTM.xemDoc(), h = ngayISO(nay()), ds = (D.vanBan||[]).filter(function(m){ return m && m.driveId && x[m.id]!==h; }), n = 0;
+    return ds.reduce(function(p, m){ return p.then(function(){ return docFile(m.id).then(function(b){ if(b){ n++; return xoaFile(m.id); } }).catch(function(){}); }); }, Promise.resolve())
+      .then(function(){ if(n) bao('🧹 Đã dọn '+n+' văn bản xem hôm trước khỏi máy (mở lại sẽ tải từ Drive).', 4); return n; }); },
   nhan: function(){ var n = Object.keys(trangChon||{}).length, b = document.getElementById('nut-gui-trang'); if(b) b.textContent = '📤 Gửi '+n+' trang';
     var g = document.querySelector('#xem .xem-day [data-lenh="khung.guiFileMenu"]'); if(g) g.textContent = n ? '📤 Cả VB' : '📤 Gửi cả VB';
     var d = document.querySelector('#xem .xem-day [data-lenh="khung.dongXem"]'); if(d) d.textContent = '✕ Đóng'; }
 };
 if(DTM_HEP){
   if(typeof GD!=='undefined') GD.dangKy('dtm', {gui1:function(el){ DTM.gui1(+gdA(el, 1)); }});
+  if(typeof moXem==='function'){ var dtmMoXemGoc = moXem; moXem = function(id, tam){ try { DTM.xemGhi((tam && tam.id) || id); } catch(e){} return dtmMoXemGoc.apply(this, arguments); }; }
+  setTimeout(function(){ try { if(typeof D!=='undefined' && D.vanBan) DTM.don(); } catch(e){} }, 8000);   /* sau khởi động, không chặn mở app */
   document.addEventListener('click', function(e){ var d = e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
   if(typeof veTrang==='function'){ var dtmVeTrangGoc = veTrang; veTrang = function(n){ var r = dtmVeTrangGoc.apply(this, arguments); try { DTM.nutTrang(n); } catch(e){} return r; }; }
   if(typeof capNhatThanhChon==='function'){ var dtmChonGoc = capNhatThanhChon; capNhatThanhChon = function(){ var r = dtmChonGoc.apply(this, arguments); try { DTM.nhan(); } catch(e){} return r; }; }

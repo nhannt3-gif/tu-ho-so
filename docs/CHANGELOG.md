@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.536 — 14/11/2026 — Điện thoại: VB đã xem giữ trong ngày (TK 2)
+- **Nguồn:** anh 14/11 "có nên tải sẵn ko vì máy có 5G đọc file từ Drive rất nhanh, có thể ko tự tải nhưng file đã xem thì lưu lại 1 thời gian" → "giữ trong ngày thôi". (Bỏ nút ⬇ Tải sẵn đã làm thử, chưa gộp.)
+- **Mới (chỉ ≤ 600 px, js/66 `DTM.xemGhi` / `DTM.don`):** mở VB (moXem) ghi ngày xem (localStorage `tuhoso_dt_xem`, không đồng bộ); mở app ngày mới (sau 8 giây) → xóa bản trong máy của VB **đã có trên Drive** mà hôm nay chưa xem, báo "🧹 Đã dọn N văn bản". Không đụng VB chỉ có trong máy, khi còn việc chờ đẩy Drive, scan / dữ liệu khác. Máy tính không đổi.
+- Rà Hôm nay / Scan / ☰ trên 390 px: không tràn, không lỗi.
+- t401 +2 ý (dọn đúng / máy tính không dọn).
+
 ## 3.535 — 14/11/2026 — Điện thoại Đ1: Tra cứu KH + Văn bản (TK 2)
 - **Nguồn:** anh 14/11 "trên điện thoại đang lỗi… làm lại cho phù hợp, kiểu giao diện riêng không ổn" · "dùng nhiều nhất là xem văn bản, tra cứu KH" · "load đọc nhanh các VB đã lưu, gửi cả VB hay 1 trang". Hướng chốt: 1 bản app (index.html) tự gọn trên điện thoại; dt.html gỡ ở Đ3 khi Đ1–Đ2 ổn.
 - **Chỉ ≤ 600 px** (`css/dt-may.css` + `js/66-dt-may.js` gói `DTM`, bọc hàm gốc — máy tính không đổi):
