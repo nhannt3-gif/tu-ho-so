@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.526 — 14/11/2026 — Chọn File Tổ trưởng theo ngày + sửa khung lọc 3.524 (TK 2)
+- **Anh 14/11:** "tinh chỉnh lại tại sao chọn file tổ cũ" — xuất file đối chiếu T10 bị chặn (QT-C-09) tới khi anh xóa các bản theo ngày cũ.
+- **Nguyên nhân:** `dsChonKy` (js/28) xếp các File Tổ trưởng theo CHỮ của kỳ — bản chốt `2026-10` đứng trước `2026-10-25` … `2026-10-30` → "bản mới nhất trong tháng" lấy nhầm bản ngày 30/10 thay bản chốt 31/10 → lệch ngày Mẫu 31 → chặn.
+- **Sửa:** `dsNgayKy` / `dsSoKy` — xếp theo NGÀY (chốt tháng = cuối tháng; trùng ngày → ưu tiên bản chốt). Áp cho Danh sách tổ, Sao kê TK 104 / 105 (`tkMoiNhat`, `tkChonBan` — so ngày thay so chữ).
+- **Khung LỌC ĐỊA BÀN (3.524, hồi quy đủ trượt t162 / t260 / t278):** kiểu 1 hàng chỉ áp chế độ gọn (`.gon`, chế độ ▦ Chip như cũ); hàng ô chọn co lại / xuống dòng trong khung khi nhiều ô (đã chọn xã → thêm Điểm GD, Tổ) — không tràn ngang; thiếu chỗ thì hàng ô chọn xuống dòng 2.
+- Phép thử mới t399 (6 ý); t278 cập nhật theo bố cục 3.524.
+
 ## 3.525 — 14/11/2026 — File đối chiếu ghi giờ xuất + File Tổ trưởng (TK 2)
 - **TK 1 nhờ (anh 14/11 "làm thêm ý này")**: xuất file đối chiếu 2 mốc bằng app thật, dòng đầu ghi bản app, ngày giờ xuất, File Tổ trưởng đã dùng.
 - `slDCCsv` (js/22k): dòng `#` thêm `xuất lúc=dd/mm/yyyy hh:mm` (`slDCLuc`) + `File Tổ trưởng=<tên file> (ngày …)` hoặc `không có (điểm GD theo dự phòng)`; ghi "KHÁC NGÀY Mẫu 31" nếu lệch ngày (`slDCTT`). Không đổi số, không đổi cột.

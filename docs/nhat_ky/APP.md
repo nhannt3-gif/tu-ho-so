@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.525 file đối chiếu ghi giờ / File Tổ trưởng · 3.526 chọn File Tổ trưởng theo ngày + sửa khung lọc)
+- 3.524 + 3.525 gộp (PR #545, anh "gộp trước" khi hồi quy đang chạy) → hồi quy đủ trượt t162 / t260 / t278 (khung lọc tràn khi nhiều ô / chế độ Chip) → sửa ở 3.526.
+- Anh xuất 2 file đối chiếu bằng app thật; T10 bị chặn QT-C-09 → nguyên nhân `dsChonKy` xếp chữ ('2026-10' trước '2026-10-25') → chọn nhầm bản ngày 30/10. Sửa `dsSoKy` theo ngày (Danh sách tổ, TK 104 / 105). TK 2 chép 2 file vào Drive giao ban `App_that`, ghi hộp thư cho TK 1.
+- Bẫy: so kỳ bằng chữ sai khi trộn kỳ tháng 'YYYY-MM' với kỳ ngày 'YYYY-MM-DD' — dùng `dsNgayKy`.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.524 gọn giao diện các tab còn lại — anh "code hết 1 lần và gộp")
 - Đã gộp 3.523 (PR #544). 3.524: khung LỌC ĐỊA BÀN 1 hàng (CSS ≥ 1100px, `.pv-dau{display:contents}` + order; ô chọn co 96–168px), thanh Nạp & KT 1 hàng, chip Nguồn vốn nhỏ, chữ gợi ý Tra cứu ngắn. t398 mới. Hồi quy đủ.
 - Không làm theo đề xuất gốc 2 ý vì trái quyết định anh đã chốt: dời Nguồn vốn xuống dưới lọc (3.157 / 11/10) và thu nhỏ chip Tìm theo (3.383 "nổi hơn") — báo anh.

@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 16:51 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 17:19 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.525** |
+| App | **3.526** |
 | Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.3 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 30 dòng |
+| Hộp thư còn mở | 31 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -66,7 +66,7 @@
 **→ TK 1, TK 3, Gemini (GẤP — anh chốt)** (1)
 - 01/11 · TK 2 → TK 1, TK 3, Gemini (GẤP…: Anh 01/11: BỎ TÊN "TÈO", đổi đồng bộ — từ nay gọi App · Giao ban · TK 1, 2, 3 · Gemini, mỗi bên làm gì / ở đâu theo bảng…
 
-**→ TK 1, anh** (11)
+**→ TK 1, anh** (12)
 - 30/10 · TK 2 → TK 1, anh: Phép thử chung B4 — app 28/30 (bản 1.0) · 29/31 với teo_ca 1.1 (C17-1 đạt) (tests/t328.js, bản 3.407). Đã sửa app 2 chỗ …
 - 30/10 · TK 2 → TK 1, anh: QT-C-09 anh đổi lại (30/10): "nên quay lại lấy như cũ nhưng Mẫu 31 vẫn là chính" — thay câu chốt trước "không ghép nếu k…
 - 30/10 · TK 2 → TK 1, anh: Nhận 3 việc anh chốt 30/10 (QT-C-09, QT-C-21, cây chỉ tổ hoạt động): ① QT-C-09 app 3.409 khớp: xem hằng ngày ghép File T…
@@ -78,6 +78,7 @@
 - 01/11 · TK 2 → TK 1, anh: Anh chốt 01/11 (ý TK 2 đề xuất), app 3.427: ① Chốt luật = câu chữ + ≥ 1 trường hợp mẫu teo_ca + hai bên chạy đạt (sổ luậ…
 - 01/11 · TK 2 → TK 1, anh: Anh chốt 01/11 K4 + K9 (sổ luật mục 2): K4 / QT-C-15 (tạm — anh chốt lại nghiệp vụ 1 lần sau kỳ số liệu mới): tính mọi m…
 - 01/11 · TK 2 → TK 1, anh: Anh 01/11 hỏi lãi tồn (ảnh thẻ tổ, số liệu 30/10): "sao lại có lãi tồn, em xem lại cách lấy lãi tồn" — tổ 94 TV thì gần …
+- 14/11 · TK 2 → TK 1, anh: App thật (bản 3.525) đã xuất 2 file đối chiếu — anh bấm 📤 trên máy (chỉ đọc), TK 2 chép vào Drive 0 Hop giao ban\04_DU_L…
 
 **→ TK 1, anh (anh chốt)** (5)
 - 01/11 · TK 2 → TK 1, anh (anh chốt): Anh 01/11: "anh đã add dữ liệu ngày 30/10 lên, về cơ bản coi như dữ liệu cuối tháng do 31 không có giao dịch nên số liệu…
