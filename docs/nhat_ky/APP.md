@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (xuất lại 2 mốc bằng 3.531)
+- Đã làm: chép 2 file 3.531 vào `App_that`. 31/10 khớp GB theo ngày; 30/09 tiền gửi = GB, lãi tồn bị trừ lãi dồn (−63,1 tr so GB, gần TW hơn).
+- Chờ ai: TK 1 so 30/09 với BC0438 → quyết có trừ lãi dồn file chốt tháng không (anh duyệt). Không tự sửa trước.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.531 lãi tồn + tiền gửi đúng hàm giao ban)
 - TK 1 gửi quy tắc `lai_ton_ngay` + `mon_vay`. 3.531: `toLaiTonNgay` (phiên theo dòng, `toGdxaTruoc`, /360, trừ một phần), `slT105To` (khóa sổ lần đầu, `B.hsGoc`) cho `toSoTo`. Chờ "gộp" → anh xuất lại 2 mốc → TK 1 so TW.
 
