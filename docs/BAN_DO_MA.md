@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.533 · 14/11/2026 21:09 · 153 file · 47269 dòng · 3757 hàm cấp ngoài · 645 biến toàn cục.
+Bản 3.534 · 14/11/2026 21:26 · 153 file · 47250 dòng · 3755 hàm cấp ngoài · 645 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -17,7 +17,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/02-nen.js` | 380 | 29 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 638 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 115 | 12 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
-| `js/04b-hom-nay.js` | 702 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
+| `js/04b-hom-nay.js` | 701 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
 | `js/04b2-hom-nay-ghi-chu.js` | 771 | 77 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HÔM NAY — ghi chú 2 chế độ · sổ gạch dòng (to-do) · ho |
 | `js/04b3-hom-nay-lich-viec.js` | 951 | 69 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HÔM NAY — câu chữ & ngày này năm xưa · can chi, giờ ho |
 | `js/04c-van-ban-thang.js` | 1005 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
@@ -68,7 +68,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/26-giao-dich-xa.js` | 1158 | 138 | /*   3.172 (anh chốt 11/10/2026): 🏢 GIAO DỊCH XÃ — in nhanh 04/TD + 12/GDX, KHÔNG cần số liệu hộ vay   - Mẫu i |
 | `js/26b-gdx-4368.js` | 329 | 33 | /*   3.493 (anh 07/11/2026 "các mẫu nào dựng nhanh đơn giản em cứ dựng theo đúng chuẩn gắn mẫu đã làm — mẫu 12 |
 | `js/26c-gdx-to.js` | 215 | 31 | /*   js/26c-gdx-to.js — 3.497 (tách từ js/26b, QUY_CHUAN 1.3 "tách dữ liệu – nghiệp vụ – giao diện"; không đổi |
-| `js/27-mini-gdx.js` | 324 | 8 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - Nút " |
+| `js/27-mini-gdx.js` | 306 | 6 | /*   3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn   - 3.534 |
 | `js/28-tv-tk.js` | 401 | 45 | /*   3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ ① Mẫu 01/TV — Danh sách thành viên tổ (t |
 | `js/29-kho.js` | 176 | 2 | /*   3.216 (anh 15/10/2026): CỬA KHO — kho số liệu chung (KIEN_TRUC_3_LOP 3.5 · QUY_CHUAN_KIEN_TRUC mục 3 "cửa |
 | `js/30-khai-bao.js` | 28 | 2 | /*   3.222 (anh 16/10/2026, phương án B): ⚙ KHAI BÁO ĐƠN VỊ — 1 cửa sổ dùng chung mọi tab   - Mở từ nút "⚙ Kha |
@@ -179,10 +179,10 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/04b-hom-nay.js:91` · NGÀY CHAY · MÙNG 1 · RẰM · LỄ ÂM (3.12)
 - `js/04b-hom-nay.js:161` · vẽ
 - `js/04b-hom-nay.js:201` · 3.62 — VIỆC W: CỘT 🧰 CÔNG CỤ cạnh lịch (anh chốt 02/10/2026)
-- `js/04b-hom-nay.js:218` · 3.71 — 🧰 CÔNG CỤ: 📋 CHƯƠNG TRÌNH VAY
-- `js/04b-hom-nay.js:360` · W① HẠN TRẢ NỢ HSSV — đúng công thức file Excel Sheet2 anh đang dùng
-- `js/04b-hom-nay.js:656` · W② CÂY ĐỊA BÀN — mã xã · mã điểm GD · mã ấp/KP, xếp theo mã
-- `js/04b-hom-nay.js:702` · trang NHẬT KÝ CÔNG VIỆC (giấy vàng) của ngày đang chọn
+- `js/04b-hom-nay.js:217` · 3.71 — 🧰 CÔNG CỤ: 📋 CHƯƠNG TRÌNH VAY
+- `js/04b-hom-nay.js:359` · W① HẠN TRẢ NỢ HSSV — đúng công thức file Excel Sheet2 anh đang dùng
+- `js/04b-hom-nay.js:655` · W② CÂY ĐỊA BÀN — mã xã · mã điểm GD · mã ấp/KP, xếp theo mã
+- `js/04b-hom-nay.js:701` · trang NHẬT KÝ CÔNG VIỆC (giấy vàng) của ngày đang chọn
 - `js/04b2-hom-nay-ghi-chu.js:3` · GHI CHÚ 2 CHẾ ĐỘ (3.12) — cùng một kho dữ liệu, đổi qua lại không mất chữ
 - `js/04b2-hom-nay-ghi-chu.js:23` · SỔ GẠCH DÒNG (3.18) — chế độ 'don' nay là TO-DO LIST tuần tự:
 - `js/04b2-hom-nay-ghi-chu.js:70` · HOÀN TÁC (3.19) — giữ 20 bước gần nhất trong phiên: xóa dòng, xóa nhiều,
@@ -432,7 +432,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/26c-gdx-to.js:8` · 3.496 (anh 07/11 "mẫu 03 cho chọn trực quan, 1 số quy tắc đọc kỹ VB — ví dụ tổ trưởng tổ GD kiêm bảo vệ"; "tạm cứ cho kh
 - `js/26c-gdx-to.js:109` · 3.510 (anh 10/11 "thêm chức năng lưu phiên theo điểm, có thể mở ra xem lại theo tháng, khi lưu có thể liên kết dữ liệu i
 - `js/27-mini-gdx.js:24` · gói số liệu (chỉ chạy trên máy anh lúc xuất)
-- `js/27-mini-gdx.js:76` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
+- `js/27-mini-gdx.js:58` · KHUNG MINI APP — chỉ chạy TRONG file mini (gdxMiniApp được chép nguyên vào file lúc xuất). Không chạy trong app chính.
 - `js/28-tv-tk.js:1` · 3.201 (anh chốt 14/10/2026): 2 nguồn dữ liệu mới của hệ thống TƯ
 - `js/28-tv-tk.js:102` · 3.333 QT-18 (anh chốt 24/10): THÀNH VIÊN CHUẨN 1 TỔ theo kỳ đang dựng (TO_K — chốt tháng hoặc ngày)
 - `js/28-tv-tk.js:124` · ③ ĐỐI CHIẾU THÀNH VIÊN TỔ: app (Mẫu 31) ↔ Mẫu 01/TV (TƯ)

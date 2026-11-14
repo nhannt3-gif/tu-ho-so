@@ -20,7 +20,7 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
    const ds = gdxDsDiem(), d = ds.find(x=>x.to.length>=2), t = d.to[0];
    TO_K.to[t.maTo].cif = '9990000001'; TO_K.tk = {tk104:{ky:'2026-10-13', rows:[{kh:'9990000001', stk:'9990001112223'}]}}; TO_K.bangTo = null;   /* 3.201: Mã CIF TT + Sao kê TK 104 GIẢ */
    const nut = [...document.querySelectorAll('.gdx2-nut button')].some(x=>/Mini app/.test(x.textContent));
-   gdxMiniHop(60); await w(100); const hop = document.querySelector('#hop').textContent;
+   const hop = '';   /* 3.534: bỏ hộp xuất mini (anh tinh gọn) */
    const G = gdxMiniGoi(), M = gdxMiniHTML(30, G);
    /* khách TK 105 (không phải tổ trưởng) không được gói */
    const tens = new Set(); ds.forEach(x=>x.to.forEach(o=>tens.add(o.tenTo)));
@@ -54,12 +54,11 @@ const lech = n => `(()=>{const D=Date, off=${n}*864e5; function X(...a){ if(!(th
  ok('3.201: không thấy TK 104 → báo rõ lý do (chưa nạp Sao kê TK 104 / tổ trưởng không có trong Sao kê)', X.m180.viChua && X.m180.viMa);
  ok('3.201: TK 104 tổ trưởng lấy theo mã KH tổ trưởng trong Sao kê TK 104', X.m180.so0 && X.m180.ten);
  ok('3.180: 📋 Tóm tắt thu gọn 1 dòng (chip + cảnh báo đầu + nút in)', X.m180.tom <= 60 && X.m180.tomCanh, X.m180.tom+' px');
- ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in, Mini app) — 3.499 (anh 07/11): chip mẫu xuống dòng hiện đủ, đầu khung ≤ 4 hàng', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && /Mini app/.test(X.m180.menu) && X.m180.dau1 <= 200, X.m180.dau1+' px');
+ ok('3.181: bấm vào vùng nhập → khối lọc gom gọn lại; nút phụ gom vào ⋯ (Khai báo riêng / chung, Nhật ký in — 3.534 bỏ Mini app) — 3.499 (anh 07/11): chip mẫu xuống dòng hiện đủ, đầu khung ≤ 4 hàng', X.m180.gonNhap && /Khai báo riêng/.test(X.m180.menu) && !/Mini app/.test(X.m180.menu) && X.m180.dau1 <= 200, X.m180.dau1+' px');
  ok('3.180/3.181: đã chọn điểm (hoặc chọn Xã › Hội › Tổ, không chọn điểm) → khối lọc gọn (ẩn Xã · Điểm · Hội · Tổ), nút ▾ Đổi sổ ra; chọn xong tự gọn lại', X.m180.gon && X.m180.mo && X.m180.gonLai && X.m180.gonTo);
  ok('3.178 app: đã chọn điểm GD → ô tìm Giấy lĩnh chỉ tìm trong điểm đó (tổ trưởng điểm khác không ra), có "Tìm cả PGD" để mở rộng', X.pham.khac && X.pham.ngoai===false && X.pham.trong && /Đang tìm trong/.test(X.pham.chu) && X.pham.tatCa===true, JSON.stringify(X.pham));
- ok('3.178: hộp xuất ghi số CCCD tổ trưởng được gói', /CCCD tổ trưởng/.test(X.hop));
  ok('3.178: CCCD tổ trưởng (giả) không đọc được trong mã file', !X.cc.cccd || X.html.indexOf(X.cc.cccd)<0, X.cc.cccd ? 'có CCCD giả' : 'tổ thử không có CCCD');
- ok('tab Giao dịch xã có nút 📦 Mini app; hộp xuất cho chọn 30 / 60 / 90 ngày, ghi rõ gói gì, không gói khách TK 105', X.nut && /30 ngày/.test(X.hop) && /90 ngày/.test(X.hop) && /Không gói số liệu khách TK 105/.test(X.hop.replace(/\s+/g, ' ')));
+ ok('3.534: tab Giao dịch xã không còn nút 📦 Mini app (lõi mini vẫn dựng được cho bản điện thoại)', !X.nut && X.html.length > 1000);
  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mini-')), f = path.join(tmp, 'mini.html'); fs.writeFileSync(f, X.html);
  ok('file mini gọn (< 400 KB), một file, không gọi mạng (không <script src>, không link CSS ngoài)', X.html.length < 400e3 && !/<script[^>]+src=/i.test(X.html) && !/<link /i.test(X.html), Math.round(X.html.length/1024)+' KB');
  ok('số liệu xáo mã: mở bằng Notepad không thấy tên tổ trưởng, tên điểm, TK 104, tên cán bộ', X.tens.every(n=>!n || X.html.indexOf(n)<0) && X.html.indexOf('9990001112223')<0 && X.html.indexOf(X.d.ten)<0 && X.canBo.every(n=>X.html.indexOf(n)<0));

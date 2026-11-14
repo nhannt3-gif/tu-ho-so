@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.534 — 14/11/2026 — Tinh gọn đợt 1 (TK 2)
+- **Nguồn:** anh 14/11 "app đã chạy cơ bản nên dần tinh gọn bỏ chức năng thừa" — anh duyệt từng mục.
+- **Bỏ:** ô trống "Công cụ 6" (js/04b `CONG_CU`); nút 📦 Mini app + hộp xuất gửi đồng nghiệp (`gdxMiniHop`, `gdxMiniXuat` — js/27). **Giữ lõi mini** (`gdxMiniGoi` / `gdxMiniHTML` / `gdxMiniApp`) vì bản điện thoại (gói xem js/38 → tab 🏢) đang dùng.
+- **Giữ (rà ra dính chức năng đang dùng, chờ anh quyết):** dt.html (cả bản điện thoại), Thư viện (Bộ hồ sơ + Ghi chú ảnh), Biểu mẫu, OCR tiếng Việt (đọc lại gợi ý tên văn bản chụp, chép chữ trang ảnh), Cắt ảnh CCCD từ PDF / Rà CCCD đã lưu (gắn với 3.271 ảnh 2 mặt lên Drive, CMND 9 số), cầu nối Windows (chép / mở file).
+- t168: bỏ ý hộp xuất, thêm ý không còn nút Mini app, lõi mini vẫn dựng được.
+
 ## 3.533 — 14/11/2026 — Lãi tồn: ngày GD sau ngày số liệu (TK 2)
 - **Nguồn:** TK 1 dò 2 tổ còn lệch (30/09, 31/10): không do lãi suất (cả hai 5,4%) mà do Ngày GD gần nhất **sau** ngày số liệu (01/10, 01/11 — Mẫu 31 xuất muộn). Luật giao ban: số ngày dồn = ngày số liệu − ngày GD + 1; ≤ 0 → lãi dồn 0 → TH > 1.000 đ thì giữ nguyên.
 - **Sửa (`toLaiTonNgay`, js/22g):** số ngày âm → lãi dồn 0 (trước: không tính được → bỏ hết TH). `soNgay` trả null khi không đọc được ngày (trước −1, lẫn với ngày âm). Giữ sửa 3.532 (món không lãi suất → lãi dồn 0, đúng luật giao ban).

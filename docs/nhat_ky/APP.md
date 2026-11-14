@@ -12,6 +12,16 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.534 tinh gọn đợt 1)
+- Bỏ ô Công cụ 6 + nút 📦 Mini app (giữ lõi mini — bản điện thoại dùng). Rà sâu: OCR tiếng Việt (đọc lại gợi ý tên, chép chữ trang ảnh), Cắt ảnh CCCD từ PDF / Rà CCCD (3.271 anh chốt) dính chức năng đang dùng → KHÔNG xóa, chờ anh quyết lại. Bẫy: napOCR còn dùng đọc mã máy CCCD (js/41) — không gỡ.
+
+### 14/11/2026 — TK 2 · PHIÊN (đóng so 2 mốc · bắt đầu tinh gọn)
+- TK 1 xác nhận 3.533 = GB toàn bộ 2 mốc → đóng. Tổ viên theo Mẫu 01/TV giữ nguyên.
+- Tinh gọn: anh chọn bỏ 5 mục (ô Công cụ 6, Mini app GDX, OCR/cầu nối Windows, Cắt ảnh CCCD từ PDF cũ, Rà CCCD đã lưu). dt.html / Thư viện / Biểu mẫu: TK 2 mô tả sai lúc hỏi (là bản điện thoại / dữ liệu anh) → giữ, chờ anh xác nhận lại.
+
+### 14/11/2026 — TK 2 · PHIÊN (2 mốc 3.533 khớp giao ban)
+- Anh xuất 2 mốc bằng 3.533 → TK 2 chép `App_that`. Chỉ 2 tổ đổi đúng số; tổng lãi tồn = GB (31/10 lệch 4 đ làm tròn). TK 1 hết hạn mức → chờ xác nhận lần cuối, đóng việc so 2 mốc.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.533 lãi tồn: ngày GD sau ngày số liệu)
 - TK 1 dò: 2 món lệch do Ngày GD gần nhất sau ngày số liệu (Mẫu 31 xuất muộn), không do lãi suất. 3.533: số ngày dồn ≤ 0 → lãi dồn 0, giữ TH. Chờ anh gộp → xuất lại 2 mốc → TK 1 xác nhận khớp toàn bộ.
 - Bẫy: `soNgay` trả null khi không đọc được ngày (đừng dùng −1).

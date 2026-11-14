@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 21:09 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 14/11/2026 21:27 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.533** |
+| App | **3.534** |
 | Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 38 dòng |
+| Hộp thư còn mở | 39 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -72,7 +72,7 @@
 **→ TK 1, TK 3, Gemini (GẤP — anh chốt)** (1)
 - 01/11 · TK 2 → TK 1, TK 3, Gemini (GẤP…: Anh 01/11: BỎ TÊN "TÈO", đổi đồng bộ — từ nay gọi App · Giao ban · TK 1, 2, 3 · Gemini, mỗi bên làm gì / ở đâu theo bảng…
 
-**→ TK 1, anh** (13)
+**→ TK 1, anh** (14)
 - 30/10 · TK 2 → TK 1, anh: Phép thử chung B4 — app 28/30 (bản 1.0) · 29/31 với teo_ca 1.1 (C17-1 đạt) (tests/t328.js, bản 3.407). Đã sửa app 2 chỗ …
 - 30/10 · TK 2 → TK 1, anh: QT-C-09 anh đổi lại (30/10): "nên quay lại lấy như cũ nhưng Mẫu 31 vẫn là chính" — thay câu chốt trước "không ghép nếu k…
 - 30/10 · TK 2 → TK 1, anh: Nhận 3 việc anh chốt 30/10 (QT-C-09, QT-C-21, cây chỉ tổ hoạt động): ① QT-C-09 app 3.409 khớp: xem hằng ngày ghép File T…
@@ -86,6 +86,7 @@
 - 01/11 · TK 2 → TK 1, anh: Anh 01/11 hỏi lãi tồn (ảnh thẻ tổ, số liệu 30/10): "sao lại có lãi tồn, em xem lại cách lấy lãi tồn" — tổ 94 TV thì gần …
 - 14/11 · TK 2 → TK 1, anh: App thật (bản 3.525) đã xuất 2 file đối chiếu — anh bấm 📤 trên máy (chỉ đọc), TK 2 chép vào Drive 0 Hop giao ban\04_DU_L…
 - 14/11 · TK 2 → TK 1, anh: Anh xuất lại 2 mốc bằng 3.531 → App_that (30/09 xuất 20:52 · 31/10 xuất 20:48). ① 31/10: lãi tồn khớp GB "theo ngày" ở c…
+- 14/11 · TK 2 → TK 1, anh: 2 mốc bản 3.533 ở App_that (xuất 21:12). So với 3.531: chỉ 2 tổ TK 1 báo đổi, đúng số (+1.673.399 / +1.716.310), không c…
 
 **→ TK 1, anh (anh chốt)** (5)
 - 01/11 · TK 2 → TK 1, anh (anh chốt): Anh 01/11: "anh đã add dữ liệu ngày 30/10 lên, về cơ bản coi như dữ liệu cuối tháng do 31 không có giao dịch nên số liệu…
