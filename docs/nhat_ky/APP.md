@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.524 gọn giao diện các tab còn lại — anh "code hết 1 lần và gộp")
+- Đã gộp 3.523 (PR #544). 3.524: khung LỌC ĐỊA BÀN 1 hàng (CSS ≥ 1100px, `.pv-dau{display:contents}` + order; ô chọn co 96–168px), thanh Nạp & KT 1 hàng, chip Nguồn vốn nhỏ, chữ gợi ý Tra cứu ngắn. t398 mới. Hồi quy đủ.
+- Không làm theo đề xuất gốc 2 ý vì trái quyết định anh đã chốt: dời Nguồn vốn xuống dưới lọc (3.157 / 11/10) và thu nhỏ chip Tìm theo (3.383 "nổi hơn") — báo anh.
+- Bẫy: luật lề cũ `.pv-cay .loc-khoi.co-dau{padding-top:17px;margin-top:14px}` + `body.ngan7 #tr7 .pv-cay .loc-khoi` — muốn đổi lề phải thắng 2 luật này.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.523 Kiểm tra sau 30 ngày — chọn tổ + cột mới)
 - Đã gộp 3.522 (PR #543, hồi quy đủ 276/276). Làm 3.523 theo ảnh anh: ô tích tổ + Chọn hết (`KT_GN_BO_TO`), ấp theo `KT_K`, cột Ngày GN / Hạn KT / Mục đích, căn cột. t397 mới. Hồi quy theo đổi. Chờ anh "gộp".
 

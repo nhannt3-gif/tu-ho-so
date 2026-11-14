@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.525 — 14/11/2026 — File đối chiếu ghi giờ xuất + File Tổ trưởng (TK 2)
+- **TK 1 nhờ (anh 14/11 "làm thêm ý này")**: xuất file đối chiếu 2 mốc bằng app thật, dòng đầu ghi bản app, ngày giờ xuất, File Tổ trưởng đã dùng.
+- `slDCCsv` (js/22k): dòng `#` thêm `xuất lúc=dd/mm/yyyy hh:mm` (`slDCLuc`) + `File Tổ trưởng=<tên file> (ngày …)` hoặc `không có (điểm GD theo dự phòng)`; ghi "KHÁC NGÀY Mẫu 31" nếu lệch ngày (`slDCTT`). Không đổi số, không đổi cột.
+- t325 thêm 1 ý.
+
+## 3.524 — 14/11/2026 — Gọn giao diện các tab còn lại (TK 2)
+- **Anh 14/11** "code hết 1 lần và gộp" (đề xuất rà 5 tab, đo 1366×768).
+- **④ Khung LỌC ĐỊA BÀN** (CSS chung, màn ≥ 1100px): nhãn · số tổ / chip báo · 3 ô chọn · nút Tìm tổ / Chip / Về ghim **1 hàng** (trước: nhãn nổi trên viền + hàng ô chọn, khung 56px + lề 14px → 45px); ô chọn co theo chỗ trống (96–168px). Màn hẹp giữ như cũ. Bảng các tab lên cao ~13–20px.
+- **① 📥 Nạp & KT:** nút thanh công cụ 28px → 1 hàng (trước ⋯ / ❓ rớt hàng 2) — bảng file lên 40px.
+- **② Tổng hợp:** chip Nguồn vốn nhỏ (22px). **Giữ vị trí trên khung lọc** — anh đã chốt 3.157 (nguồn vốn là lọc lớn nhất) + 11/10 ("Nguồn vốn + Chương trình 1 dòng, cây lọc dưới").
+- **③ Tra cứu:** chữ gợi ý ô tìm ngắn cho vừa ô (đủ ý ở chú thích chip). **Giữ cỡ chip Tìm theo 28px** — anh chốt 3.383 "nổi hơn".
+- Không đổi chức năng. Phép thử mới t398 (10 ý).
+
 ## 3.523 — 14/11/2026 — Kiểm tra sau 30 ngày: chọn tổ + cột mới (TK 2)
 - **Anh 14/11** (ảnh màn hình): "ghi rõ ngày giải ngân, mục đích, các cột còn trống và bị lệch" + "nên có ô tích chọn tổ hoặc chọn hết"; "ok code theo em" (có cột Hạn KT).
 - Bảng tổ (`ktGNDsHTML`, js/22c): cột ☐ · Tổ (mã) · Ấp · **Ngày GN** (các ngày trong tháng) · **Hạn KT** (ngày GN sớm nhất + 30 ngày — 727; quá hạn tô đỏ) · Số hộ · Số món · GN (tr) · **Mục đích** (ngành kinh tế như phiếu Mẫu 06, gom "×n"). Bỏ cột Tháng GN; xã chỉ hiện khi ≥ 2 xã.
