@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (phối hợp 2 mốc 30/09 + 31/10 — anh "em và TK giao ban phối hợp làm")
+- Đã gộp 3.521 (PR #541). Đọc trạng thái phối hợp: kế hoạch 2 mốc (PR #542, phiên đánh giá). Anh: 30/09 tổ chưa gộp, 31/10 đã gộp → sửa B0 / B3 kế hoạch + 1 dòng hộp thư cho TK 1. Chỉ tài liệu, không lên bản.
+- Kiểm `slDCXuat`: không File Tổ trưởng → vẫn xuất (điểm GD dự phòng); File Tổ trưởng khác ngày → chặn (QT-C-09) — đúng ý mốc 30/09, không sửa code.
+- Chờ: anh bấm 📤 xuất 2 mốc (B1); TK 1 B2–B4. Bước tiếp phía app: B5 khi có bảng lệch.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.521 gọn chip các tab — anh "gộp và code 4 ý")
 - Đã gộp 3.520 (PR #540). Làm **3.521**: Sổ hộ vay (bảng 493 → 338px), GDX (khung chip 134 → 93px), Phân bổ KH (6 nút 1 nhóm nhỏ), Hồ sơ (chip mẫu nhỏ). t395 mới; t245 sửa. Chờ anh "gộp".
 
