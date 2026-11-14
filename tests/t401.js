@@ -59,6 +59,18 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
      ok('390 VB đã xem giữ trong ngày: mở VB → ghi ngày xem hôm nay (bỏ ngày cũ); dọn: xóa bản máy VB đã lên Drive xem hôm trước, giữ VB xem hôm nay + VB chỉ có trong máy',
        d.ghi.vnay===d.h && !d.ghi.vcu && d.n===1 && !d.con.vcu && d.con.vnay && d.con.vmay, JSON.stringify(d)); }
    await ctx.close(); }
+ /* 3.537 (ảnh iPhone anh: lọc không mở được, thanh dưới kiểu cũ — JS điện thoại không chạy lúc nạp): nạp ở 800 px rồi thu về 390 → phần điện thoại tự khởi động */
+ { const {p, ctx} = await mo(800, 900, true); await p.setViewportSize({width:390, height:844}); await W8(2500);
+   await p.evaluate(async()=>{ dhMuc('tra').mo(); await new Promise(r=>setTimeout(r,2000)); });
+   const a = await p.evaluate(()=>({on:document.body.classList.contains('dtm-on'), nut:[...document.querySelectorAll('#thanh-duoi a')].map(x=>x.textContent.trim()).join('|')}));
+   await p.click('#tc-cay .pv-dau-nhan'); await W8(300);
+   const m = await p.evaluate(()=>document.querySelector('#tc-cay .pv-hang1').offsetParent!==null);
+   ok('nạp ở màn rộng rồi thu về 390 px: phần điện thoại tự khởi động (body.dtm-on, thanh dưới Tra cứu · Văn bản), bấm LỌC ĐỊA BÀN mở được', a.on && /Tra cứu/.test(a.nut) && /Văn bản/.test(a.nut) && m, JSON.stringify([a, m]));
+   await ctx.close(); }
+ /* chưa có JS điện thoại (body không có dtm-on) → lọc KHÔNG bị gọn (không kẹt) */
+ { const {p, ctx} = await mo(390, 844, true); await p.evaluate(async()=>{ document.body.classList.remove('dtm-on'); dhMuc('tra').mo(); await new Promise(r=>setTimeout(r,2000)); });
+   const v = await p.evaluate(()=>document.querySelector('#tc-cay .pv-hang1').offsetParent!==null);
+   ok('390 px khi JS điện thoại chưa chạy: lọc địa bàn hiện đủ ô chọn (không kẹt gọn)', v); await ctx.close(); }
  /* máy tính: không đổi */
  { const {p, ctx} = await mo(1366, 900, false);
    await p.evaluate(async()=>{ dhMuc('tra').mo(); await new Promise(r=>setTimeout(r,2000)); });

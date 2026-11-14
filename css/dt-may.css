@@ -129,14 +129,14 @@ body.co-td .day #chip-bn{display:none}
 /* ===== 3.535 (anh 14/11 "trên điện thoại em làm lại cho phù hợp… dùng nhiều nhất là xem văn bản, tra cứu KH"; "load đọc nhanh các VB đã lưu, gửi cả VB hay 1 trang") ===== */
 #ve-dt{display:none !important}   /* bỏ nút 📱 nổi (đè nội dung) — bản gọn vẫn vào được ở ☰ Thêm tới khi gỡ (Đ3) */
 /* Tra cứu KH: 1 ô tìm khách ở đầu (ô tìm chung trên cùng là tìm văn bản — ẩn khi đang ở Tra cứu), lọc địa bàn gọn 1 dòng, bấm mở */
-body[data-dtm="tra"] .tim-bao{display:none}
+body.dtm-on[data-dtm="tra"] .tim-bao{display:none}
 #tr7 .tc-dau{display:flex;flex-direction:column}
 #tr7 .tc-dau .tc-tim{order:-1;margin-bottom:6px}
 #tc-cay .loc-khoi.co-dau,#tc-cay .loc-khoi.co-dau.gon{padding:6px 8px !important;margin:2px 0 6px !important}
 #tc-cay .loc-khoi .pv-dau{position:static;pointer-events:auto;height:auto;min-height:30px;cursor:pointer;flex:1 1 100%}
-#tc-cay .pv-dau::after{content:"▾";margin-left:auto;padding-left:6px;color:var(--chu-phu)}
-body.dtm-loc-mo #tc-cay .pv-dau::after{content:"▴"}
-body:not(.dtm-loc-mo) #tc-cay .loc-khoi > :not(.pv-dau),body:not(.dtm-loc-mo) #tc-cay .pv-dau-nut{display:none !important}
+body.dtm-on #tc-cay .pv-dau::after{content:"▾";margin-left:auto;padding-left:6px;color:var(--chu-phu)}
+body.dtm-on.dtm-loc-mo #tc-cay .pv-dau::after{content:"▴"}
+body.dtm-on:not(.dtm-loc-mo) #tc-cay .loc-khoi > :not(.pv-dau),body.dtm-on:not(.dtm-loc-mo) #tc-cay .pv-dau-nut{display:none !important}
 .tc-goi{display:inline-block;margin-left:6px;padding:2px 10px;border-radius:999px;background:var(--luc-nen,#e9f6ec);color:var(--luc,#1a7f37);border:1px solid var(--luc,#1a7f37);font-weight:600;text-decoration:none}
 /* Văn bản: thẻ gọn — số hiệu · tên 2 dòng, trích yếu 1 dòng */
 #tr1 .d2 .h1 .ico{display:none}

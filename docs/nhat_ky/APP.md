@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.537 sửa lọc địa bàn iPhone)
+- Ảnh iPhone anh: lọc gọn nhưng bấm không mở, thanh dưới kiểu cũ ⇒ JS điện thoại không khởi động (CSS có). Sửa: `dtmKhoi()` chạy lại khi tải xong / đổi cỡ; CSS gọn chỉ khi `body.dtm-on`. Bẫy: không thử được Safari thật — chờ anh xác nhận thanh dưới mới hiện.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.536 VB đã xem giữ trong ngày trên điện thoại)
 - Anh "gộp và làm tiếp": rà Hôm nay / Scan / ☰ trên 390 px — ổn. Anh bỏ ý tải sẵn (5G đủ nhanh) → "giữ trong ngày thôi": VB đã xem cất máy trong ngày, ngày mới tự dọn (chỉ VB đã lên Drive). Chờ anh dùng thật góp ý → Đ2 tiếp; Đ3 gỡ dt.html.
 
