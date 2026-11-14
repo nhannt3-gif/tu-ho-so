@@ -31,9 +31,9 @@ Tên file: `DOI_CHIEU_GB_<YYYY-MM-DD>.csv` (Giao ban) và `DOI_CHIEU_APP_<YYYY-M
 
 Kết quả 14/11: App 3.533 = Giao ban toàn bộ ở cả 2 mốc 30/09 và 31/10 (lãi tồn lệch làm tròn 4–6 đồng); còn đúng các điểm ở mục 5.1–5.3, nay đã quyết.
 
-## 3. File 2 — Danh sách món (MỚI, đề xuất)
+## 3. File 2 — Danh sách món (bản 1.1)
 Mục đích: hai bên ra **cùng danh sách hộ** cho nợ quá hạn, nợ khoanh, món 3 tháng KHĐ, nợ đến hạn tháng tới. Đây là phần phụ lục và phần nêu tên trong văn bản. Hiện chỉ so được số món, chưa so được từng món.
-Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-DD>.csv`. Mỗi khế ước thuộc ít nhất 1 nhóm là một dòng.
+Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-DD>.csv`, đặt cùng thư mục với file tổ cùng ngày. UTF-8 có BOM; dòng 1 chú thích `#`, dòng 2 tên cột **đúng thứ tự bảng dưới**. Mỗi khế ước thuộc ít nhất 1 nhóm là một dòng; khế ước tính 1 lần (dòng đầu theo số KU). Ngày ghi dd/mm/yyyy, ô không có để trống. `so_thang_lai` theo QT-C-23 (lãi suất 0 → theo số tháng từ ngày giao dịch gần nhất), 1 chữ số thập phân. Cột `ma_ap`, `ma_diem`, `hoi` lấy theo dòng tổ ở File 1 (vay trực tiếp: theo nhóm `TT|<mã ấp>`). Giao ban đã xuất từ `bang_so_lieu.py` 1.10 (15/11).
 
 | Cột | Ý nghĩa |
 |---|---|
@@ -52,7 +52,7 @@ Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-D
 Không ghi họ tên khách hàng (mục 5.4).
 
 ## 4. So sánh hai bên
-- Công cụ: `doi_chieu_app.py` (Giao ban) hiện so File 1. Nâng lên so cả File 2: món chỉ có ở 1 bên, món khác nhóm, món lệch số tiền.
+- Công cụ: `doi_chieu_app.py` 1.2 (Giao ban, 15/11) so File 1 và — khi có cả 2 file món cùng ngày — so File 2 (sheet 5_Mon): món chỉ có ở 1 bên, khác nhóm, khác tiền > 2 đồng, khác ngày, khác tổ / mã KH.
 - Ngưỡng: tiền lệch ≤ 2 đồng một dòng coi là làm tròn. Số món, số tổ viên phải bằng nhau.
 - Kết quả ghi `KQ_DOI_CHIEU_APP_<dd-mm-yyyy>.xlsx`. Lệch thì xếp loại A–D theo `docs/KE_HOACH_KY_DOI_CHIEU.md`, kèm kết luận theo TW.
 - Thời điểm: cuối tháng (bắt buộc) và sau mỗi phiên khi làm Thông báo KL.
@@ -67,9 +67,9 @@ Không ghi họ tên khách hàng (mục 5.4).
 | Phiên bản | Nội dung | Thời điểm |
 |---|---|---|
 | 1.0 | File 1 như hiện nay + 3 điểm ở mục 5 | Kỳ 30/11/2026 |
-| 1.1 | Thêm File 2 (danh sách món), nâng `doi_chieu_app.py` | Sau khi anh duyệt khuôn, chạy song song 2 kỳ |
+| 1.1 | Thêm File 2 (danh sách món), nâng `doi_chieu_app.py` — phía Giao ban xong 15/11, chờ App xuất | Kỳ 30/11/2026, chạy song song 2 kỳ |
 | 1.2 | Khung văn bản và file cấu hình kỳ dùng chung, để App dựng được văn bản khi cần | Sau 1.1 ổn định |
 
 ## 7. Việc của từng bên
-- **TK 1 (Giao ban):** ✓ ghi khuôn (file này) · ✓ `bang_so_lieu.py` theo mục 5.3 · làm File 2 và nâng `doi_chieu_app.py` (bản 1.1).
+- **TK 1 (Giao ban):** ✓ ghi khuôn (file này) · ✓ `bang_so_lieu.py` theo mục 5.3 · ✓ File 2 (`bang_so_lieu.py` 1.10) và `doi_chieu_app.py` 1.2 (15/11).
 - **TK 2 (App):** sửa theo mục 5.1, 5.2 (bản 1.0, kịp kỳ 30/11) · xuất File 2 cùng khuôn (bản 1.1).
