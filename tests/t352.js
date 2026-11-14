@@ -41,6 +41,8 @@ const path=require('path');
    ok('3.531 món đổi Ngày GDXA (kỳ trước 07, nay 23) → phiên sớm hơn 07/10: GD 20/10 vẫn bỏ lãi dồn', laiTon(K7.hs[0])===0 && laiTon(K7.hs[1])===0, K7.hs.map(laiTon).join());
    const K8 = {ky:'2026-10', ngay:'2026-10-31', hs:[{ku:'v', to:'', ngayGD:'23', ngdg:'2026-10-24', ltTH:40000, ltQH:0, ls:6.6, dn:30e6}, {ku:'w', to:'T1', ngayGD:'23', ngdg:'2026-10-24', ltTH:40000, ltQH:0, ls:6.6, dn:30e6}]}; toLaiTonNgay(K8);
    ok('3.531 món vay trực tiếp không trừ', laiTon(K8.hs[0])===40000 && laiTon(K8.hs[1])===0, K8.hs.map(laiTon).join());
+   const K9 = {ky:'2026-10', ngay:'2026-10-31', hs:[{ku:'a', ngayGD:'25', ngdg:'2026-10-25', ltTH:30000, ltQH:0, ls:6.6, th:30e6}, {ku:'b', ngayGD:'25', ngdg:'2026-10-25', ltTH:31000, ltQH:0, ls:6.6, th:30e6}, {ku:'m', ngayGD:'25', ngdg:'2026-10-25', ltTH:1673399, ltQH:0, ls:0, th:30e6}, {ku:'n', ngayGD:'25', ngdg:'2026-10-25', ltTH:800, ltQH:5000, th:30e6}]}; toLaiTonNgay(fix(K9));
+   ok('3.532 món không có lãi suất (file có cột lãi suất): lãi dồn 0 → TH 1.673.399 giữ nguyên; TH ≤ 1.000 → bỏ, còn QH', laiTon(K9.hs[2])===1673399 && laiTon(K9.hs[3])===5000 && laiTon(K9.hs[0])===0, K9.hs.map(laiTon).join());
    return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t352 đạt'); await b.close(); process.exit(sai?1:0);
