@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (2 mốc 3.533 khớp giao ban)
+- Anh xuất 2 mốc bằng 3.533 → TK 2 chép `App_that`. Chỉ 2 tổ đổi đúng số; tổng lãi tồn = GB (31/10 lệch 4 đ làm tròn). TK 1 hết hạn mức → chờ xác nhận lần cuối, đóng việc so 2 mốc.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.533 lãi tồn: ngày GD sau ngày số liệu)
 - TK 1 dò: 2 món lệch do Ngày GD gần nhất sau ngày số liệu (Mẫu 31 xuất muộn), không do lãi suất. 3.533: số ngày dồn ≤ 0 → lãi dồn 0, giữ TH. Chờ anh gộp → xuất lại 2 mốc → TK 1 xác nhận khớp toàn bộ.
 - Bẫy: `soNgay` trả null khi không đọc được ngày (đừng dùng −1).
