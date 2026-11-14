@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.526', ds:[
+var CO_GI_MOI = {ban:'3.527', ds:[
+  ["Lãi tồn: file chốt tháng thật (30/09) không trừ lãi dồn nữa; ngày phiên theo từng món (cột Ngày GDXA) — theo kết quả TK 1 so biểu TW", ""],
   ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""],
   ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""],
   ["File đối chiếu giao ban (📤): dòng đầu ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày)", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.526', ds:[
   ["🗓 Kế hoạch năm: bản đã chốt mang mã xã / Hội cũ (Mẫu 31 mới đổi mã sau sáp nhập) → 🔎 Kế hoạch đã lưu › ↪ Nhận về xã / Hội hiện tại — giữ đã chốt, bản cũ giữ nguyên", "dhSL('kt')"],
   ["🗓 Kế hoạch năm lập theo Mẫu 31 đầu năm (chốt 31/12 năm trước); in theo tháng lấy số liệu cuối tháng liền trước tháng kiểm tra như cũ; tổ đã gộp / tổ mới so với Mẫu 31 mới nhất chỉ cảnh báo", "dhSL('kt')"],
   ["🗓 Kế hoạch năm hiện theo Mẫu 31 mới nhất (tổ hiện tại, đã gộp) — không theo Kỳ đầu trang; kế hoạch đã chốt giữ nguyên, tổ đã gộp chỉ cảnh báo; nút 🔎 Kế hoạch đã lưu để tìm bản chốt", "dhSL('kt')"],
-  ["🛡 KTGS gọn chỗ: chip nhỏ lại, khung chọn hộ 1 hàng, nút ▾ Hộ gọn — màn Kiểm tra tổ thấy thêm khoảng 4–5 tổ; Sau 30 ngày chip Tất cả / Lần 1 lên cùng hàng tháng", "dhSL('kt')"],
-  ["🛡 KTGS còn 5 nút: Kiểm tra tổ · Kiểm tra sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo. Kiểm tra tổ chọn được nhiều tổ, kiểu chọn hộ (tốt · cần quan tâm · Trung hòa · hết tổ), in Tóm tắt · 06 · 15 · 16 · 04; Esc lùi 1 cấp", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS gọn chỗ: chip nhỏ lại, khung chọn hộ 1 hàng, nút ▾ Hộ gọn — màn Kiểm tra tổ thấy thêm khoảng 4–5 tổ; Sau 30 ngày chip Tất cả / Lần 1 lên cùng hàng tháng", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.527 · 📤 File đối chiếu T9: dòng đầu ghi \"lãi tồn=giữ nguyên (chốt tháng thật …)\"; T10: \"bỏ lãi dồn … (file có lãi dồn …)\"",
     "3.526 · Nạp & KT › T10 › ⋯ › 📤 File đối chiếu (khi tháng còn bản theo ngày): dòng đầu ghi File Tổ trưởng 31/10, không bị chặn",
     "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ",
     "3.525 · 📥 Nạp & KT › T9 / T10 › 📤 File đối chiếu: dòng đầu có \"xuất lúc=…\" và \"File Tổ trưởng=…\"",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.526', ds:[
     "3.517 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi \"lập theo Mẫu 31 T12/… (đầu năm)\" và Mẫu 31 mới nhất; tổ đã gộp hiện ⚠, tổ mới hiện 🆕 (in theo tháng của ấp)",
     "3.516 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi Mẫu 31 đang dùng (mới nhất); bấm 🔎 Kế hoạch đã lưu → xem mọi kế hoạch trong máy (cả bản đã xóa ở Thùng rác), bấm Mở",
     "3.515 · 🛡 KTGS › 🎯 Kiểm tra tổ: Món · Kiểu · Số hộ · ↺ trên 1 hàng (rê chuột xem tên đủ); 📅 Kiểm tra sau 30 ngày: chip Tất cả / Lần 1 cạnh ô tháng",
-    "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt",
-    "3.514 · 🛡 KTGS › ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định"],
+    "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
