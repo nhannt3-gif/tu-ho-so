@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.532 — 14/11/2026 — Lãi tồn: món không có lãi suất (TK 2)
+- **Nguồn:** TK 1 so 2 mốc bản 3.531: tiền gửi khớp TW 20/20 Hội cả 2 mốc; lãi tồn giữ luật trừ lãi dồn mọi kỳ (kể cả chốt tháng — 30/09 chạy `lai_ton_ngay` gần TW hơn). Còn 2 tổ app thấp hơn giao ban ~1,7 tr (30/09 tổ 3405, 31/10 tổ 8202).
+- **Sửa (`toLaiTonNgay`, js/22g):** món đã GD ở phiên mà không có lãi suất (trống / 0) → trước bỏ hết lãi tồn TH; nay như giao ban: lãi dồn = 0 → TH ≤ 1.000 đ thì bỏ, lớn hơn thì giữ. Chỉ khi file có cột lãi suất (`coCot`); file theo ngày cũ không có cột lãi suất giữ cách cũ.
+- t352 +1 ý (K9).
+
 ## 3.531 — 14/11/2026 — Lãi tồn + tiền gửi theo đúng hàm giao ban (TK 2)
 - **Nguồn:** TK 1 so app thật 3.528 / 3.530 với TW BC0438: 30/09 lãi tồn bằng giao ban từng tổ (chênh nền +84,7 tr chung 2 bên — việc riêng); 31/10 app 2.623,2 tr ≠ TW 2.246,4 tr — 3 điểm 2 phiên/tháng do gộp điểm (3405: 07 + 23; 3503: 12 + 18; 3502: 05 + 18). TK 1 gửi quy tắc giao ban.
 - **Lãi tồn (`toLaiTonNgay`, js/22g — như `lai_ton_ngay` giao ban, QT-C-03 bổ sung):** phiên = Ngày GDXA của chính món trong tháng ngày số liệu (chưa tới → tháng trước); món đổi Ngày GDXA so kỳ trước (`toGdxaTruoc`, đọc Mẫu 31 tháng trước) → phiên sớm hơn; GD ≥ phiên: lãi dồn = dư nợ × lãi suất / 100 / 360 × (ngày số liệu − ngày GD + 1); TH ≤ lãi dồn × 1,05 + 1.000 → bỏ hết, ngược lại **chỉ trừ phần lãi dồn**; giữ QH; món vay trực tiếp không trừ. Giữ tầng nhận file 3.530 (30/09 không trừ — TK 1 xác nhận khớp giao ban từng tổ).

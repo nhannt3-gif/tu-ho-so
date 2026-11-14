@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.532 lãi tồn món không có lãi suất)
+- TK 1: 3.531 đạt (tiền gửi 20/20 Hội; giữ trừ lãi dồn mọi kỳ). Còn 2 tổ app thấp hơn GB ~1,7 tr. TK 2 không tải được Mẫu 31 thật (23 MB > giới hạn) → suy từ mã: món không có lãi suất bị bỏ hết TH, giao ban giữ (lãi dồn 0). 3.532 sửa; chờ TK 1 xác nhận số KU + anh gộp, xuất lại.
+- Bẫy: file cũ không có cột lãi suất giữ cách cũ (`coCot`).
+
 ### 14/11/2026 — TK 2 · PHIÊN (xuất lại 2 mốc bằng 3.531)
 - Đã làm: chép 2 file 3.531 vào `App_that`. 31/10 khớp GB theo ngày; 30/09 tiền gửi = GB, lãi tồn bị trừ lãi dồn (−63,1 tr so GB, gần TW hơn).
 - Chờ ai: TK 1 so 30/09 với BC0438 → quyết có trừ lãi dồn file chốt tháng không (anh duyệt). Không tự sửa trước.
