@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.534', ds:[
+var CO_GI_MOI = {ban:'3.535', ds:[
+  ["Điện thoại: Tra cứu KH gọn (1 ô tìm ở đầu, lọc địa bàn bấm mở, 📞 Gọi) · Văn bản thẻ gọn, xem VB có \"📤 Gửi trang này\" và \"📤 Gửi cả VB\"", ""],
   ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
   ["Lãi tồn: món có ngày GD sau ngày số liệu (Mẫu 31 xuất muộn) giữ nguyên lãi tồn — khớp giao ban cả 2 mốc", ""],
   ["Lãi tồn: món không có lãi suất không bị bỏ hết lãi tồn trong hạn (khớp giao ban)", ""],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.534', ds:[
   ["File đối chiếu giao ban (📤): dòng đầu ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày)", ""],
   ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""],
   ["KTGS › Kiểm tra sau 30 ngày: bảng tổ có ô tích chọn tổ + Chọn hết, cột Ngày GN · Hạn KT (quá 30 ngày tô đỏ) · Mục đích; ấp đúng theo danh sách tổ; cột thẳng hàng", ""],
-  ["Lãi tồn: món đã trả lãi đến ngày giao dịch (phiên gần nhất) coi như không có lãi tồn — áp cả Mẫu 31 cuối tháng; KTGS cùng số với thẻ tổ", ""],
-  ["Tiền gửi TK 105: sổ ghi trên dòng KU hủy vẫn cộng vào tiền gửi khách (mỗi sổ 1 lần)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Lãi tồn: món đã trả lãi đến ngày giao dịch (phiên gần nhất) coi như không có lãi tồn — áp cả Mẫu 31 cuối tháng; KTGS cùng số với thẻ tổ", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn",
+    "3.535 · Thẻ khách: 📞 Gọi",
+    "3.535 · Văn bản › mở 1 VB: mỗi trang có 📤 Gửi trang này → Zalo nhận 1 trang",
     "3.534 · 🧰 Công cụ: còn 3 ô (HSSV, Địa bàn, CT vay)",
     "3.534 · 🏢 Giao dịch xã › ⋯: không còn Mini app; bản điện thoại tab 🏢 vẫn chạy",
     "3.533 · 📤 File đối chiếu 30/09 + 31/10: lãi tồn = giao ban mọi tổ",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.534', ds:[
     "3.525 · 📥 Nạp & KT › T9 / T10 › 📤 File đối chiếu: dòng đầu có \"xuất lúc=…\" và \"File Tổ trưởng=…\"",
     "3.524 · Tổ TK&VV / Tra cứu / Sao kê / Tổng hợp / KTGS: khung Lọc địa bàn 1 hàng, chọn xã · Hội · ấp vẫn đúng",
     "3.524 · 📥 Nạp & KT: thanh công cụ 1 hàng",
-    "3.523 · KTGS › ⏱ Kiểm tra sau 30 ngày: bỏ tích 1 tổ → số phiếu giảm; Chọn hết / bỏ hết",
-    "3.523 · Cột Ấp hiện tên ấp (không còn \"chưa rõ ấp\"); Ngày GN, Hạn KT, Mục đích đúng",
-    "3.522 · Tổ TK&VV kỳ 10/2026: lãi tồn tổ giảm (bỏ lãi dồn món đã trả phiên tháng 10)",
-    "3.522 · Số liệu › Nạp & KT › 📤 File đối chiếu kỳ 31/10: lãi tồn khớp giao ban; tiền gửi tăng (sổ trên KU hủy)"],
+    "3.523 · KTGS › ⏱ Kiểm tra sau 30 ngày: bỏ tích 1 tổ → số phiếu giảm; Chọn hết / bỏ hết"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

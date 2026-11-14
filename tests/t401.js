@@ -1,0 +1,58 @@
+// t401 (3.535, anh 14/11 "trên điện thoại em làm lại cho phù hợp… dùng nhiều nhất là xem văn bản, tra cứu KH… gửi cả VB hay 1 trang"):
+//   điện thoại 360 / 390 / 430 px — Tra cứu KH 1 ô tìm ở đầu, lọc địa bàn gọn bấm mở, 📞 Gọi; Văn bản thẻ gọn, xem: nút "📤 Gửi trang này" tách đúng 1 trang, "📤 Gửi cả VB".
+//   Máy tính 1366: không đổi (ô tìm chung còn, không nút gửi trang, không 📞). Dữ liệu GIẢ (tests/gianho31 + PDF dựng tại chỗ).
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
+(async()=>{ const b=await chromium.launch(); const o=[], loi=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined&&!d?' — '+c:''));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const mo = async (W, H, dt) => { const ctx = await b.newContext(dt ? {viewport:{width:W, height:H}, isMobile:true, hasTouch:true,
+     userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'} : {viewport:{width:W, height:H}});
+   const p = await ctx.newPage(); p.on('pageerror', e=>loi.push(W+': '+e.message));
+   await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+   await p.goto('file://'+G+'/index.html'); await p.waitForTimeout(1500);
+   await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM = 1;
+     for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } }
+     kyChungDoi('2026-08');
+     for(let i=1;i<=3;i++){ const d = await PDFLib.PDFDocument.create(); for(let t=1;t<=3;t++) d.addPage([595,842]); const by = await d.save(); const id='vgia'+i; await luuFile(id, new Blob([by],{type:'application/pdf'}));
+       D.vanBan.push({id, nhom:'vanBan', tenMoi:'2026-10-0'+i+' '+i+'/NHCS-TD Van ban gia '+i+'.pdf', tenCu:'a'+i+'.pdf', duoi:'pdf', soHieu:i+'/NHCS-TD', ngay:'2026-10-0'+i, trichYeu:'Văn bản giả '+i, mang:'Tín dụng', soTrang:3, co:by.length}); }
+     luu(); window.GUI = []; navigator.canShare = ()=>true; navigator.share = async x=>{ for(const f of x.files){ const d = await PDFLib.PDFDocument.load(await f.arrayBuffer()); GUI.push({ten:f.name, trang:d.getPageCount()}); } }; }, files);
+   return {p, ctx}; };
+ const W8 = t=>new Promise(r=>setTimeout(r,t));
+ for(const [W, H] of [[360, 740], [390, 844], [430, 932]]){
+   const {p, ctx} = await mo(W, H, true);
+   await p.evaluate(async()=>{ dhMuc('tra').mo(); await new Promise(r=>setTimeout(r,2000)); });
+   const t = await p.evaluate(()=>{ const r = e=>e && e.getBoundingClientRect(), vis = e=>!!e && e.offsetParent!==null && getComputedStyle(e).display!=='none';
+     const tim = document.getElementById('sl-tim'), loc = document.querySelector('#tc-cay .loc-khoi'), sel = document.querySelector('#tc-cay .pv-hang1');
+     return {tran:document.documentElement.scrollWidth - innerWidth, chung:vis(document.querySelector('.tim-bao')), timTren: r(tim).top < r(loc).top, selAn:!vis(sel), dong1:r(document.querySelector('#sl-kq .sl-kq-dong')).top}; });
+   ok(W+' Tra cứu: không tràn ngang, ẩn ô tìm chung (tìm văn bản), ô tìm khách nằm trên lọc địa bàn', t.tran<=1 && !t.chung && t.timTren, JSON.stringify(t));
+   ok(W+' Tra cứu: lọc địa bàn gọn 1 dòng (ô chọn ẩn), khách đầu tiên lên trong 330 px', t.selAn && t.dong1 < 330, JSON.stringify(t));
+   await p.click('#tc-cay .pv-dau-nhan'); await W8(300);
+   const m = await p.evaluate(()=>{ const s = document.querySelector('#tc-cay .pv-hang1'); return !!s && s.offsetParent!==null; });
+   await p.click('#tc-cay .pv-dau-nhan'); await W8(300);
+   const g = await p.evaluate(()=>{ const s = document.querySelector('#tc-cay .pv-hang1'); return !!s && s.offsetParent!==null; });
+   ok(W+' Tra cứu: bấm "LỌC ĐỊA BÀN" mở 3 ô chọn, bấm lại gọn', m && !g, m+'/'+g);
+   await p.evaluate(async()=>{ document.querySelector('#sl-kq .sl-kq-dong').click(); await new Promise(r=>setTimeout(r,800)); });
+   const goi = await p.evaluate(()=>{ const a = document.querySelector('#hop .tc-goi'); return a ? {href:a.getAttribute('href'), hien:a.offsetParent!==null} : null; });
+   ok(W+' thẻ khách: có nút 📞 Gọi (tel:)', !!goi && /^tel:\d{9,11}$/.test(goi.href) && goi.hien, JSON.stringify(goi));
+   await p.evaluate(()=>{ try{dongHop()}catch(e){} dhMuc('1').mo(); }); await W8(1500);
+   const v = await p.evaluate(()=>{ const d = document.querySelector('#tr1 .d2'); return {tran:document.documentElement.scrollWidth - innerWidth, cao:d ? d.offsetHeight : 0, ico:d && d.querySelector('.ico').offsetParent!==null}; });
+   ok(W+' Văn bản: không tràn, thẻ gọn (≤ 150 px, bỏ biểu tượng 📄 thừa)', v.tran<=1 && v.cao>0 && v.cao<=150 && !v.ico, JSON.stringify(v));
+   await p.evaluate(()=>moXem('vgia2')); await W8(1800);
+   const x = await p.evaluate(()=>({n:document.querySelectorAll('#x-than .dtm-gui1').length, ca:(document.querySelector('#xem [data-lenh="khung.guiFileMenu"]')||{}).textContent, zoom:document.querySelector('#xem .xem-dau .zoom').offsetParent!==null, tran:document.querySelector('#xem .xem-day').scrollWidth - document.querySelector('#xem .xem-day').clientWidth}));
+   ok(W+' Xem VB: mỗi trang có "📤 Gửi trang này", nút dưới "📤 Gửi cả VB", bỏ nhóm zoom trùng, thanh dưới không tràn', x.n===3 && /Gửi cả VB/.test(x.ca) && !x.zoom && x.tran<=1, JSON.stringify(x));
+   await p.evaluate(()=>document.querySelectorAll('#x-than .dtm-gui1')[1].click()); await W8(1500);
+   const s = await p.evaluate(()=>({gui:GUI.slice(), chon:Object.keys(trangChon).length}));
+   ok(W+' "📤 Gửi trang này" (trang 2) → bảng chia sẻ nhận 1 file PDF đúng 1 trang, tên có _trang-2; không để lại trang đã chọn', s.gui.length===1 && s.gui[0].trang===1 && /_trang-2\.pdf$/.test(s.gui[0].ten) && s.chon===0, JSON.stringify(s));
+   await p.evaluate(()=>doiChonTrang(XEM.lon.khung[0], 1)); const n1 = await p.evaluate(()=>document.getElementById('nut-gui-trang').textContent);
+   ok(W+' tích 1 trang → nút "📤 Gửi 1 trang"', /Gửi 1 trang/.test(n1), n1);
+   await ctx.close(); }
+ /* máy tính: không đổi */
+ { const {p, ctx} = await mo(1366, 900, false);
+   await p.evaluate(async()=>{ dhMuc('tra').mo(); await new Promise(r=>setTimeout(r,2000)); });
+   const d = await p.evaluate(()=>({chung:document.querySelector('.tim-bao').offsetParent!==null, sel:document.querySelector('#tc-cay .pv-hang1').offsetParent!==null}));
+   await p.evaluate(async()=>{ dhMuc('1').mo(); await new Promise(r=>setTimeout(r,1200)); moXem('vgia1'); await new Promise(r=>setTimeout(r,1800)); });
+   const x = await p.evaluate(()=>({n:document.querySelectorAll('.dtm-gui1').length, ca:document.querySelector('#xem [data-lenh="khung.guiFileMenu"]').textContent.trim()}));
+   ok('máy tính 1366: Tra cứu giữ ô tìm chung + 3 ô chọn lọc; xem VB không thêm nút gửi trang, nút "📤 Gửi" như cũ', d.chung && d.sel && x.n===0 && x.ca==='📤 Gửi', JSON.stringify([d, x]));
+   await ctx.close(); }
+ ok('không lỗi trang', !loi.length, loi.slice(0,3).join(' | '));
+ console.log(o.join('\n')); const tr = o.filter(x=>x[0]==='✗').length; console.log(tr ? tr+' ✗' : '✓ t401 đạt'); await b.close(); process.exit(tr ? 1 : 0); })();

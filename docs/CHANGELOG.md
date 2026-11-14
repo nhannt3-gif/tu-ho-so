@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.535 — 14/11/2026 — Điện thoại Đ1: Tra cứu KH + Văn bản (TK 2)
+- **Nguồn:** anh 14/11 "trên điện thoại đang lỗi… làm lại cho phù hợp, kiểu giao diện riêng không ổn" · "dùng nhiều nhất là xem văn bản, tra cứu KH" · "load đọc nhanh các VB đã lưu, gửi cả VB hay 1 trang". Hướng chốt: 1 bản app (index.html) tự gọn trên điện thoại; dt.html gỡ ở Đ3 khi Đ1–Đ2 ổn.
+- **Chỉ ≤ 600 px** (`css/dt-may.css` + `js/66-dt-may.js` gói `DTM`, bọc hàm gốc — máy tính không đổi):
+  - Tra cứu KH: ẩn ô tìm chung (tìm văn bản) khi ở Tra cứu → 1 ô tìm khách ở đầu; LỌC ĐỊA BÀN gọn 1 dòng, bấm mở 3 ô chọn (cờ `body.dtm-loc-mo`); thẻ khách có 📞 Gọi (`tel:`, js/22f — máy tính ẩn).
+  - Văn bản: thẻ gọn (bỏ 📄, ☆ góc phải, tên 2 dòng); xem VB: bỏ nhóm zoom trùng ở đầu, thanh điều khiển 1 dòng cuộn ngang, mỗi trang nút "📤 Gửi trang này" (`DTM.gui1` → `guiTrangChon` tách 1 trang → bảng chia sẻ), nút dưới "📤 Gửi cả VB" / "📤 Gửi N trang", "✕ Đóng".
+  - Bỏ nút 📱 nổi (đè nội dung); bản gọn vẫn vào ở ☰ Thêm tới Đ3.
+- Đọc nhanh: VB mở lần đầu tải Drive rồi cất máy (sẵn có) — lần sau mở ngay.
+- t401 mới (3 cỡ điện thoại + máy tính); t193 / t262 / t266 vào bản gọn qua ☰ Thêm.
+
 ## 3.534 — 14/11/2026 — Tinh gọn đợt 1 (TK 2)
 - **Nguồn:** anh 14/11 "app đã chạy cơ bản nên dần tinh gọn bỏ chức năng thừa" — anh duyệt từng mục.
 - **Bỏ:** ô trống "Công cụ 6" (js/04b `CONG_CU`); nút 📦 Mini app + hộp xuất gửi đồng nghiệp (`gdxMiniHop`, `gdxMiniXuat` — js/27). **Giữ lõi mini** (`gdxMiniGoi` / `gdxMiniHTML` / `gdxMiniApp`) vì bản điện thoại (gói xem js/38 → tab 🏢) đang dùng.

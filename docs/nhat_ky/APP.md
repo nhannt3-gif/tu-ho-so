@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.535 điện thoại Đ1)
+- Anh: điện thoại đang lỗi, giao diện riêng (dt.html) không ổn; dùng nhiều nhất xem VB + tra cứu KH; muốn đọc nhanh VB đã lưu, gửi cả VB / 1 trang. Hướng: 1 bản app tự gọn ≤ 600 px; Đ3 gỡ dt.html khi ổn.
+- 3.535: `DTM` (js/66) + css/dt-may.css — Tra cứu 1 ô tìm, lọc gọn bấm mở, 📞 Gọi; Văn bản thẻ gọn, 📤 Gửi trang này / Gửi cả VB; ẩn nút 📱 nổi. t401 mới.
+- Chờ anh: ảnh lỗi điện thoại thật (chưa thấy được lỗi anh gặp); thử máy thật → Đ2.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.534 tinh gọn đợt 1)
 - Bỏ ô Công cụ 6 + nút 📦 Mini app (giữ lõi mini — bản điện thoại dùng). Rà sâu: OCR tiếng Việt (đọc lại gợi ý tên, chép chữ trang ảnh), Cắt ảnh CCCD từ PDF / Rà CCCD (3.271 anh chốt) dính chức năng đang dùng → KHÔNG xóa, chờ anh quyết lại. Bẫy: napOCR còn dùng đọc mã máy CCCD (js/41) — không gỡ.
 

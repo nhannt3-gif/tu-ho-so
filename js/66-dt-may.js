@@ -32,3 +32,24 @@ if(DTM_HEP && typeof DT_NUT!=='undefined' && typeof dtVe==='function'){
       try { var moi = TTB.chay || (TTB.chu && Date.now()-TTB.luc < (TTB.loi===TTB.luc ? 12000 : 8000)); document.body.classList.toggle('dtm-tt', !!moi); } catch(e){} return r; }; }
   try { if(document.getElementById('thanh-duoi')) dtVe(); } catch(e){}
 }
+
+/* ===== 3.535 (anh 14/11): điện thoại — Tra cứu KH gọn + Văn bản gửi cả VB / 1 trang. Chỉ ≤ 600 px, bọc hàm gốc (máy tính không đổi). =====
+   - Lọc địa bàn ở Tra cứu: gọn 1 dòng, bấm dòng "LỌC ĐỊA BÀN" mở / gọn (cờ trên body → giữ qua lần vẽ lại).
+   - Xem văn bản: mỗi trang có nút "📤 Gửi trang này" (tách 1 trang → bảng chia sẻ Zalo / Mail); nút dưới "📤 Gửi cả VB"; tích nhiều trang → "📤 Gửi N trang". */
+var DTM = {
+  locDoi: function(){ document.body.classList.toggle('dtm-loc-mo'); },
+  gui1: function(i){ if(!i) return; var cu = trangChon; trangChon = {}; trangChon[i] = 1; try { guiTrangChon(); } finally { trangChon = cu; } },
+  nutTrang: function(n){ if(n!=='lon') return; var S = XEM.lon; if(!S || !S.khung || S.tong<2) return;
+    S.khung.forEach(function(box, k){ if(box.querySelector('.dtm-gui1')) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'dtm-gui1';
+      b.setAttribute('data-lenh', 'dtm.gui1'); b.setAttribute('data-a1', String(k+1)); b.textContent = '📤 Gửi trang này'; b.title = 'Gửi riêng trang '+(k+1)+' (Zalo, Mail…)'; box.appendChild(b); }); },
+  nhan: function(){ var n = Object.keys(trangChon||{}).length, b = document.getElementById('nut-gui-trang'); if(b) b.textContent = '📤 Gửi '+n+' trang';
+    var g = document.querySelector('#xem .xem-day [data-lenh="khung.guiFileMenu"]'); if(g) g.textContent = n ? '📤 Cả VB' : '📤 Gửi cả VB';
+    var d = document.querySelector('#xem .xem-day [data-lenh="khung.dongXem"]'); if(d) d.textContent = '✕ Đóng'; }
+};
+if(DTM_HEP){
+  if(typeof GD!=='undefined') GD.dangKy('dtm', {gui1:function(el){ DTM.gui1(+gdA(el, 1)); }});
+  document.addEventListener('click', function(e){ var d = e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
+  if(typeof veTrang==='function'){ var dtmVeTrangGoc = veTrang; veTrang = function(n){ var r = dtmVeTrangGoc.apply(this, arguments); try { DTM.nutTrang(n); } catch(e){} return r; }; }
+  if(typeof capNhatThanhChon==='function'){ var dtmChonGoc = capNhatThanhChon; capNhatThanhChon = function(){ var r = dtmChonGoc.apply(this, arguments); try { DTM.nhan(); } catch(e){} return r; }; }
+  try { DTM.nhan(); } catch(e){}
+}

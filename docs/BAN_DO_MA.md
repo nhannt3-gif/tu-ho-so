@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.534 · 14/11/2026 21:26 · 153 file · 47250 dòng · 3755 hàm cấp ngoài · 645 biến toàn cục.
+Bản 3.535 · 14/11/2026 21:46 · 153 file · 47300 dòng · 3755 hàm cấp ngoài · 646 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,8 +10,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 337 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4152 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
-| `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
+| `css/app.css` | 4153 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/dt-may.css` | 155 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
 | `js/02-nen.js` | 380 | 29 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
@@ -125,7 +125,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/63-bao-cao-toi.js` | 122 | 12 | /*   3.356 (KE_HOACH_DANG_KY — đợt D5): 🧩 BÁO CÁO CỦA TÔI — anh tự khai báo cáo bảng, không sửa code   Anh chố |
 | `js/64-so-to-vien.js` | 60 | 8 | /*   3.357 (KE_HOACH_CHOT_SO — đợt C1): SỔ TỔ VIÊN / CHỐT SỔ 31/12   Anh 24/10: "theo em, tiếp tục Mẫu 01/TV — |
 | `js/65-dong-thoi-gian.js` | 78 | 10 | /*   3.359 (KE_HOACH_CHOT_SO — đợt C3): 📅 DÒNG THỜI GIAN KHÁCH / TỔ TRONG NĂM   QUY_CHUAN_KIEN_TRUC mục 8 điểm |
-| `js/66-dt-may.js` | 34 | 2 | /*   3.362 (docs/KE_HOACH_DIEN_THOAI_MAY.md — Đ2): BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI — phần cần JS   Cắm rút: chỉ c |
+| `js/66-dt-may.js` | 55 | 2 | /*   3.362 (docs/KE_HOACH_DIEN_THOAI_MAY.md — Đ2): BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI — phần cần JS   Cắm rút: chỉ c |
 | `js/67-nhat-ky-loi.js` | 53 | 7 | /*   3.363 (docs/TU_VAN_KY_THUAT.md mục 5 — anh 25/10 "Ok em làm tiếp"): ⚠ NHẬT KÝ LỖI TỰ ĐỘNG   - Bắt mọi lỗi |
 | `js/68-do-toc-do.js` | 60 | 7 | /*   3.372 (KE_HOACH_DIEN_THOAI_MAY — Đ6 mục 5, anh duyệt 25/10: "drive nạp rất lâu"): ⏱ ĐO TỐC ĐỘ TRÊN MÁY TH |
 | `js/69-bo-cuc-a.js` | 71 | 0 | /*   3.373 (TK 3 nhận bàn giao — RA_SOAT_BO_CUC_2510 Đợt A việc ① ② ③ ⑥; anh 26/10 "còn gì nữa gom làm 1 lần l |

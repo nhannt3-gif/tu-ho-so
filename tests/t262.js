@@ -42,7 +42,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  await d.click('.navbar-current .dt-may'); await w(2500);
  ok('🖥 → bản web index.html (không tự chuyển lại)', /index\.html$/.test(d.url()) && await d.evaluate(()=>typeof doiNgan==='function'));
  ok('bản web trên điện thoại có nút 📱 về bản điện thoại', !!(await d.$('#ve-dt')));
- await d.click('#ve-dt'); await w(2500);
+ await d.evaluate(()=>{ const b = document.createElement('button'); b.setAttribute('data-lenh', 'dtm.banGon'); document.body.appendChild(b); b.click(); })   /* 3.535: nút 📱 nổi ẩn trên điện thoại — vào bản gọn qua ☰ Thêm › 📱 */; await w(2500);
  ok('bấm 📱 → bản gọn dt.html', /dt\.html$/.test(d.url()));
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
  console.log(o.join('\n')); console.log(o.filter(x=>x[0]==='✓').length+'/'+o.length+' đạt'); await b.close(); process.exit(o.some(x=>x[0]!=='✓') ? 1 : 0); })();
