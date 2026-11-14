@@ -266,6 +266,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.530)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | T10 › ⋯ › 📤 | dòng đầu "file có lãi dồn … bỏ lãi dồn … món" | |
+| 2 | T9 › ⋯ › 📤 | "chốt tháng thật … giữ …" | |
+| 3 | TK 1 so lãi tồn với TW BC0438 | 2 mốc gần TW (còn chênh nền ~80 tr chung) | |
+
+### Danh sách thử trên máy thật (3.529)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Ghép PDF kỳ / ghép bộ biểu mẫu | file ghép đủ trang | |
+
 ### Danh sách thử trên máy thật (3.528)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

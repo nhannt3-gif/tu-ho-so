@@ -525,20 +525,7 @@ function inBoMau(){
   if(!window.PDFLib) return baoLoi('Chưa tải được bộ ghép PDF. Có mạng một lần rồi thử lại.');
   bao('Đang ghép '+pdf.length+' mẫu…', 4);
   PDFLib.PDFDocument.create().then(function(moi){
-    return pdf.reduce(function(p, m){
-      return p.then(function(){
-        return layNoiDung(m).then(function(b){
-          if(!b) return;
-          return b.arrayBuffer().then(function(buf){
-            return PDFLib.PDFDocument.load(buf).then(function(g){
-              return moi.copyPages(g, g.getPageIndices()).then(function(tr){
-                tr.forEach(function(t){ moi.addPage(t); });
-              });
-            });
-          });
-        }).catch(function(e){ console.warn('bỏ qua', m.ten, e); });
-      });
-    }, Promise.resolve()).then(function(){
+    return ghepPDFVao(moi, pdf).then(function(){
       if(moi.getPageCount()===0) throw new Error('không ghép được trang nào');
       return moi.save();
     });

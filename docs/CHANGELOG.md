@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.530 — 14/11/2026 — Lãi tồn: xét lãi dồn theo số tiền từng món (TK 2)
+- **Nguồn:** anh xuất lại 2 mốc bằng 3.528 — 30/09 nhận đúng "chốt tháng thật" (823/20.817 = 4% món đã GD ở phiên còn lãi TH), nhưng **31/10 cũng bị nhận nhầm là chốt thật** (4.843/18.653 = 26% < ngưỡng 50%) → không bỏ lãi dồn (lỗi 3.527).
+- **Sửa `toLaiTonNgay` (js/22g) — 2 tầng theo SỐ TIỀN:** lãi dồn của món = dư nợ trong hạn × lãi suất %/năm × số ngày từ ngày GD gần nhất tới ngày số liệu / 36500 (+5% +1.000đ). ① FILE có lãi dồn khi phần lớn (≥ 50%) món đã GD ở phiên còn TH có TH ≤ lãi dồn (file chốt thật: TH lớn hơn hẳn — 30/09 trung bình ~535 nghìn/món). ② File có lãi dồn: từng món chỉ bỏ khi TH ≤ lãi dồn; TH lớn hơn = lãi tồn thật → giữ. Món không có lãi suất theo tầng ①; kỳ theo ngày luôn coi có lãi dồn.
+- Dòng `#` file đối chiếu: `lãi tồn=file có lãi dồn / chốt tháng thật (khớp/có LS) — bỏ … món, giữ … món`.
+- Phép thử chung 1.4: C03-2 lãi TH 120.000 → 40.000 (đúng luật mới). t352 +2 ý, t396 sửa dữ liệu mẫu (có lãi suất).
+
+## 3.529 — 14/11/2026 — Dọn hàm trùng (TK 2)
+- Anh 14/11 "em làm tiếp phần tối ưu" · "app đã chạy cơ bản nên dần tinh gọn". Thước đo `kiem.py` hàm trùng 2 → 0, không đổi chức năng.
+- `ghepPDFVao(moi, ds)` (js/04e) dùng chung cho Ghép PDF kỳ (`lamGhep`) và Ghép bộ biểu mẫu (js/09) — trước chép nguyên đoạn 13 dòng ở 2 nơi.
+- `KHO` nguồn vốn (js/29) dùng `pbNguon` (js/47) thay bản chép.
+
 ## 3.528 — 14/11/2026 — Cỡ chữ tự động theo cỡ màn (TK 2)
 - **Anh 14/11:** màn ở nhà 24" (1920), cơ quan 17" 1600×900 100%, laptop 17" để 125%; "không nên tự ẩn nút" · "em nên tự nhận và tối ưu cỡ chữ".
 - **Cỡ chữ Tự động** (mặc định, khóa mới `coTu` — lưu riêng từng máy, `CH_RIENG`): `coTuDong` theo cỡ trang (px CSS) — rộng ≥ 1800 → 1.1 · thấp < 760 mà rộng ≥ 1400 (laptop 125% ~1536×730) → 0.95 · còn lại (1600×780, 1366…) → 1. Tự đổi khi kéo cửa sổ / đổi màn (`resize`). Không ẩn, không đổi nút.
