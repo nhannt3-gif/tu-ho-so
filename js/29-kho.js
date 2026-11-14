@@ -116,9 +116,7 @@ var KHO = (function(){
        Chưa có Mẫu 31 kỳ đó → null. Chỉ đọc. Dùng: 🎯 Phân bổ KH (QT-15 chế độ chính xác) — P1 KE_HOACH_PHAN_BO_KH (anh 20/10/2026) */
     duNoAp: function(ky){
       if(!ky || !this.coBang('hstd', ky)) return Promise.resolve(null);
-      function nguon(v){ var s = String(v==null ? '' : v).trim(); if(/^\d+$/.test(s)) return +s;
-        s = s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/[\s.]/g, '');
-        return s==='tw' || s.indexOf('trunguong')===0 ? 1 : s==='dp' || s.indexOf('diaphuong')===0 ? 2 : 0; }
+      var nguon = pbNguon;   /* 3.529: dùng chung pbNguon (js/47) — trước chép trùng thân hàm */
       return slBo(ky).then(function(B){
         var g = {}, ku = {}, ds = [];
         ((B && B.co && B.co.hstd) || []).forEach(function(o){

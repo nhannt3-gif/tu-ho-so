@@ -207,6 +207,17 @@ function ghepKy(){
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
     '<button class="nho chinh" data-lenh="f04e.lamGhep">Ghép</button></div>');
 }
+/* 3.529 (dọn hàm trùng — kiem.py): ghép trang các file PDF (mục có tệp) vào tài liệu PDFLib `moi` theo thứ tự — dùng chung Ghép kỳ (lamGhep) + Ghép bộ biểu mẫu (js/09) */
+function ghepPDFVao(moi, ds){
+  return ds.reduce(function(p, m){
+    return p.then(function(){
+      return layNoiDung(m).then(function(b){
+        if(!b) return;
+        return b.arrayBuffer().then(function(buf){ return PDFLib.PDFDocument.load(buf).then(function(g){ return moi.copyPages(g, g.getPageIndices()).then(function(tr){ tr.forEach(function(t){ moi.addPage(t); }); }); }); });
+      }).catch(function(e){ console.warn('bỏ qua', m.tenCu || m.ten, e); });
+    });
+  }, Promise.resolve());
+}
 function lamGhep(){
   var ky = gt('gk-ky'); dongHop();
   if(!window.PDFLib) return baoLoi('Chưa tải được bộ ghép PDF. Kiểm tra mạng rồi thử lại.');
@@ -215,20 +226,7 @@ function lamGhep(){
   ds.sort(function(a,b){ return (a.tenLoai||'').localeCompare(b.tenLoai||''); });
   bao('Đang ghép '+ds.length+' file…', 4);
   PDFLib.PDFDocument.create().then(function(moi){
-    return ds.reduce(function(p, m){
-      return p.then(function(){
-        return layNoiDung(m).then(function(b){
-          if(!b) return;
-          return b.arrayBuffer().then(function(buf){
-            return PDFLib.PDFDocument.load(buf).then(function(g){
-              return moi.copyPages(g, g.getPageIndices()).then(function(tr){
-                tr.forEach(function(t){ moi.addPage(t); });
-              });
-            });
-          });
-        }).catch(function(e){ console.warn('bỏ qua', m.tenCu, e); });
-      });
-    }, Promise.resolve()).then(function(){
+    return ghepPDFVao(moi, ds).then(function(){
       if(moi.getPageCount()===0) throw new Error('rong');
       return moi.save();
     });

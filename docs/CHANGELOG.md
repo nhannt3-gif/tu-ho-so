@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.529 — 14/11/2026 — Dọn hàm trùng (TK 2)
+- Anh 14/11 "em làm tiếp phần tối ưu" · "app đã chạy cơ bản nên dần tinh gọn". Thước đo `kiem.py` hàm trùng 2 → 0, không đổi chức năng.
+- `ghepPDFVao(moi, ds)` (js/04e) dùng chung cho Ghép PDF kỳ (`lamGhep`) và Ghép bộ biểu mẫu (js/09) — trước chép nguyên đoạn 13 dòng ở 2 nơi.
+- `KHO` nguồn vốn (js/29) dùng `pbNguon` (js/47) thay bản chép.
+
 ## 3.528 — 14/11/2026 — Cỡ chữ tự động theo cỡ màn (TK 2)
 - **Anh 14/11:** màn ở nhà 24" (1920), cơ quan 17" 1600×900 100%, laptop 17" để 125%; "không nên tự ẩn nút" · "em nên tự nhận và tối ưu cỡ chữ".
 - **Cỡ chữ Tự động** (mặc định, khóa mới `coTu` — lưu riêng từng máy, `CH_RIENG`): `coTuDong` theo cỡ trang (px CSS) — rộng ≥ 1800 → 1.1 · thấp < 760 mà rộng ≥ 1400 (laptop 125% ~1536×730) → 0.95 · còn lại (1600×780, 1366…) → 1. Tự đổi khi kéo cửa sổ / đổi màn (`resize`). Không ẩn, không đổi nút.

@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.529 dọn hàm trùng — anh vắng, "làm tiếp tối ưu" + "dần tinh gọn bỏ chức năng thừa")
+- 3.527 + 3.528 gộp (PR #547). 3.529: `ghepPDFVao` (js/04e) + `pbNguon` thay bản chép (hàm trùng 2 → 0). Chờ "gộp".
+- Đang lập danh sách đề xuất bỏ chức năng thừa (chờ anh duyệt từng mục — không tự xóa). Chờ anh xuất lại 2 mốc (3.528) cho TK 1.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.528 cỡ chữ tự động theo cỡ màn)
 - Màn anh: 24" 1920 (nhà), 1600×900 100% (cơ quan), laptop 17" 125% (~1536×730). Anh: không tự ẩn nút; "em nên tự nhận và tối ưu cỡ chữ" → `coTu` (mặc định) + `coTuDong` / `coApDung` (js/06), resize. t400 mới; t260 thêm 3 cỡ màn (84/84).
 
