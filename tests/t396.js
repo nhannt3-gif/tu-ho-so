@@ -9,9 +9,10 @@ const path=require('path'), fs=require('fs');
  const dir = path.join(__dirname,'gia31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[];
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+   const fix = K => (K.hs.forEach(o=>{ o.to = o.to || '9000001'; if(o.th!==undefined && o.dn===undefined) o.dn = o.th; }), K);   /* 3.531: món qua tổ (trực tiếp không trừ) + dư nợ cho lãi dồn */
    /* A1: hàm — kỳ chốt tháng cũng trừ lãi dồn */
    const r = () => [{ku:'1', _ngGD:'7', ngdg:'2026-10-07', ltTH:205151, ltQH:0, ls:6.6, th:50e6}, {ku:'2', _ngGD:'7', ngdg:'2026-09-07', ltTH:410301, ltQH:0, ls:6.6, th:50e6}, {ku:'3', _ngGD:'7', ngdg:'2026-10-07', ltTH:92055, ltQH:24215045, ls:6.6, th:50e6}];
-   const K = {ky:'2026-10', ngay:'2026-10-31', hs:r()}; toLaiTonNgay(K); const L = K.hs.map(laiTon);
+   const K = {ky:'2026-10', ngay:'2026-10-31', hs:r()}; toLaiTonNgay(fix(K)); const L = K.hs.map(laiTon);
    ok('chốt tháng 31/10: trả đúng phiên → 0; không GD → giữ; có QH → còn QH', L[0]===0 && L[1]===410301 && L[2]===24215045, L.join());
    /* dữ liệu giả */
    const tep = n => { const f = files.find(x=>x.n===n), bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new File([u], n); };
@@ -34,6 +35,9 @@ const path=require('path'), fs=require('fs');
    const truoc = Object.keys(so).filter(s=>s!=='_' || Object.keys(so).length===1).reduce((t, s)=>t+so[s], 0);
    ok('tiền gửi khách có KU hủy: cộng thêm sổ trên dòng hủy đúng 1 lần (+2.000.000)', ka && ka.t105===truoc+2000000, ka && (ka.t105+' / trước '+truoc));
    ok('khách chỉ có KU hủy: không thành tổ viên', !tv.some(k=>k.kh==='4899999981'));
+   { const g = slT105To(K8.B), ds = (K8.B.hsGoc||[]).concat((K8.B.lap||[]).filter(x=>!x._huy)), gap = {}; let tay = 0;
+     ds.forEach(x=>{ const k = String(x.stk==null?'':x.stk).trim(); if(!k || gap[k]) return; gap[k] = 1; if(x.to===a.to && +x.dv>=11 && +x.dv<=14) tay += +x.t105||0; });
+     ok('3.531 tiền gửi tổ theo khóa sổ (giao ban mon_vay): mỗi sổ lấy dòng đầu, kể cả dòng KU hủy; thẻ tổ dùng số này', g && g[a.to]===tay && toSoTo(K8.to[a.to]).t105===tay && (K8.B.hsGoc||[]).some(x=>x.ku==='9900000000000011'), g && (g[a.to]+' / tay '+tay)); }
    /* A2: KTGS giải ngân đọc lãi tồn đã trừ lãi dồn */
    const mm = B.co.hstd.find(x=>x.ku===m.ku), lt1 = mm && laiTon(mm); ok('thẻ tổ: món đã xét lãi dồn (3.530 xét từng món theo lãi suất)', mm && !!mm._ltNgay, mm && (mm._ltNgay+' / '+lt1));
    TO_KS = {}; SL_BO = {}; await KHO.monGN('2026-08'); const B2 = await slBo('2026-08'); const m2 = B2.co.hstd.find(x=>x.ku===m.ku);

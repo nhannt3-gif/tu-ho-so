@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.531)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | T10 › ⋯ › 📤 → TK 1 so TW BC0438 | lãi tồn gần TW (còn chênh nền chung) | |
+| 2 | Tổ TK&VV: số dư 105 tổ | = giao ban | |
+
 ### Danh sách thử trên máy thật (3.530)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

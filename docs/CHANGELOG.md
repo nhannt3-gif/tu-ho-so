@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.531 — 14/11/2026 — Lãi tồn + tiền gửi theo đúng hàm giao ban (TK 2)
+- **Nguồn:** TK 1 so app thật 3.528 / 3.530 với TW BC0438: 30/09 lãi tồn bằng giao ban từng tổ (chênh nền +84,7 tr chung 2 bên — việc riêng); 31/10 app 2.623,2 tr ≠ TW 2.246,4 tr — 3 điểm 2 phiên/tháng do gộp điểm (3405: 07 + 23; 3503: 12 + 18; 3502: 05 + 18). TK 1 gửi quy tắc giao ban.
+- **Lãi tồn (`toLaiTonNgay`, js/22g — như `lai_ton_ngay` giao ban, QT-C-03 bổ sung):** phiên = Ngày GDXA của chính món trong tháng ngày số liệu (chưa tới → tháng trước); món đổi Ngày GDXA so kỳ trước (`toGdxaTruoc`, đọc Mẫu 31 tháng trước) → phiên sớm hơn; GD ≥ phiên: lãi dồn = dư nợ × lãi suất / 100 / 360 × (ngày số liệu − ngày GD + 1); TH ≤ lãi dồn × 1,05 + 1.000 → bỏ hết, ngược lại **chỉ trừ phần lãi dồn**; giữ QH; món vay trực tiếp không trừ. Giữ tầng nhận file 3.530 (30/09 không trừ — TK 1 xác nhận khớp giao ban từng tổ).
+- **Tiền gửi tổ (`slT105To`, js/22 — như `mon_vay` giao ban, khớp BC0438 20/20 Hội):** duyệt mọi dòng Mẫu 31 theo thứ tự file (kể cả KU hủy, tất nợ — `B.hsGoc`); khóa "Sổ tiết kiệm 105", sổ gặp lần đầu lấy số dư dòng đó; cộng vào tổ của dòng khi có Hội (Mã ĐVUT 11–14); vay trực tiếp không cộng. `toSoTo` dùng số này (thẻ tổ, bảng xã / điểm, file đối chiếu). Tiền gửi từng khách giữ cách cũ.
+- t352 +2 ý (đổi Ngày GDXA, vay trực tiếp), sửa ý trừ một phần; t396 +1 ý tiền gửi khóa sổ.
+
 ## 3.530 — 14/11/2026 — Lãi tồn: xét lãi dồn theo số tiền từng món (TK 2)
 - **Nguồn:** anh xuất lại 2 mốc bằng 3.528 — 30/09 nhận đúng "chốt tháng thật" (823/20.817 = 4% món đã GD ở phiên còn lãi TH), nhưng **31/10 cũng bị nhận nhầm là chốt thật** (4.843/18.653 = 26% < ngưỡng 50%) → không bỏ lãi dồn (lỗi 3.527).
 - **Sửa `toLaiTonNgay` (js/22g) — 2 tầng theo SỐ TIỀN:** lãi dồn của món = dư nợ trong hạn × lãi suất %/năm × số ngày từ ngày GD gần nhất tới ngày số liệu / 36500 (+5% +1.000đ). ① FILE có lãi dồn khi phần lớn (≥ 50%) món đã GD ở phiên còn TH có TH ≤ lãi dồn (file chốt thật: TH lớn hơn hẳn — 30/09 trung bình ~535 nghìn/món). ② File có lãi dồn: từng món chỉ bỏ khi TH ≤ lãi dồn; TH lớn hơn = lãi tồn thật → giữ. Món không có lãi suất theo tầng ①; kỳ theo ngày luôn coi có lãi dồn.
