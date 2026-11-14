@@ -263,54 +263,10 @@ function ktVeThe(){
   ktHdtChuyen();   /* 3.113: chuyển khai báo cũ (cán bộ / người ký) sang lãnh đạo Hội — 1 lần */
   if(ktCheDo()==='hdt') return ktHDTVe(o);   /* 3.113: 🏛 Khai báo Hội đoàn thể */
   if(ktCheDo()==='gn') return ktGNVe(o);   /* 3.93.1: Mẫu 06 sau giải ngân */
-  if(ktCheDo()==='bc') return ktBCVe(o);   /* 3.95: Mẫu 04/BC-TH */
   if(ktCheDo()==='kh') return ktKHVe(o);   /* 3.96: Kế hoạch 01/KH */
   if(ktCheDo()==='hx' && typeof kt7HXVe==='function') return kt7HXVe(o);   /* 3.500: 🏛 Hội cấp xã — 03/BB-CX (js/56b) */
-  if(ktCheDo()==='dk') return ktDKVe(o);   /* 3.97: kiểm tra định kỳ theo lịch (3.514: không còn vào — gộp Kiểm tra tổ; giữ hàm cho Kế hoạch in theo tháng) */
-  if(typeof KTTO!=='undefined') return KTTO.ve(o);   /* 3.514: 🎯 Kiểm tra tổ — 1 hay nhiều tổ (js/80) */
-  if(!t){ o.innerHTML = ktCheDoHTML()+ktSLDong()+(C.xa ? ktBangToHTML(C) : '<div class="rong">Chọn xã / điểm GD / hội để xem bảng các tổ (điểm chấm, xếp loại), hoặc chọn 1 tổ để chọn hộ kiểm tra.</div>'+ktToanPGDHTML()); return; }
-  if(!KT_CHON || KT_CHON.to!==t.ma) KT_CHON = ktGoiY(t, C.kieu||'trung', 0);
-  o.innerHTML = ktCheDoHTML()+ktSLDong()+ktTheHTML(t)+ktChonHTML(t);
-}
-function ktToanPGDHTML(){
-  var x = KT_BC && KT_BC.k37; if(!x) return '<p class="ghi">Chưa nạp BC0437 — bảng tổ vẫn xem được (số liệu Mẫu 31) nhưng không có điểm chấm, xếp loại.</p>';
-  var dem = {}; x.rows.forEach(function(o){ dem[o.xepLoai||'—'] = (dem[o.xepLoai||'—']||0)+1; });
-  return '<p class="ghi">BC0437 '+coChuHTML(slKyChu(x.e.ky))+': <b>'+x.rows.length+'</b> tổ · '+['Tốt','Khá','Trung bình','Yếu'].map(function(k){ return k+' <b>'+(dem[k]||0)+'</b>'; }).join(' · ')+'</p>';
-}
-function ktHoi38(xa, dv){
-  var x = KT_BC && KT_BC.k38; if(!x) return null;
-  var ut = x.rows.find(function(o){ return o.phan==='ut' && o.xa===xa && o.dv===dv; }), cd = x.rows.find(function(o){ return o.phan==='cd' && o.xa===xa && o.dv===dv; });
-  return ut || cd ? {ut:ut, cd:cd, ngay:x.e.ky} : null;
-}
-function ktBangToHTML(C){
-  var K = KT_K, T = K.to;
-  var ds = Object.keys(T).map(function(m){ return T[m]; }).filter(function(t){ return !toLaTT(t) && pvLoc(C, t); })
-    .sort(function(a, b){ return ((a.tenDiemDu||'')+'|'+String(a.dv||'')+'|'+(a.ten||'')).localeCompare((b.tenDiemDu||'')+'|'+String(b.dv||'')+'|'+(b.ten||''), 'vi'); });
-  if(!ds.length) return '<div class="rong">Không có tổ trong phạm vi.</div>';
-  var dem = {}, coBC = !!(KT_BC && KT_BC.k37);
-  var h = ds.map(function(t, i){
-    var s = ktSoTo(t); if(s.xl) dem[s.xl] = (dem[s.xl]||0)+1;
-    return '<tr data-lenh="f22b.ktChonTo" data-a1="'+t.ma+'" title="Bấm để chọn hộ kiểm tra"><td class="c">'+(i+1)+'</td><td>'+t.ma+'</td><td class="to-ten"><b>'+coChuHTML(t.ten||'')+'</b></td><td>'+coChuHTML(t.tenThon||'')+'</td><td>'+coChuHTML(tdnHoi(t.dv))+'</td>'+
-      '<td class="s">'+(s.stv||'')+'</td><td class="s">'+ktTr(s.dn)+'</td><td class="s">'+(s.qh ? ktTr(s.qh) : '')+'</td><td class="s">'+(s.lt ? ktTr(s.lt) : '')+'</td><td class="s">'+ktTr(s.tg)+'</td>'+
-      '<td class="s">'+(s.diem!=='' && s.diem!==undefined ? String(s.diem).replace('.', ',') : '')+'</td><td class="'+(KT_XL_LOP[s.xl]||'')+'">'+coChuHTML(s.xl||'')+'</td></tr>';
-  }).join('');
-  var hoi = '';
-  var dvs = {}; ds.forEach(function(t){ dvs[String(t.dv||'')] = 1; });
-  var xaMa = ds[0].xa;
-  Object.keys(dvs).sort().forEach(function(dv){ var r = ktHoi38(xaMa, dv); if(!r) return; var u = r.ut || {}, c = r.cd || {};
-    hoi += '<div>'+coChuHTML(tdnHoi(dv))+': '+(u.soTo!==undefined ? '<b>'+u.soTo+'</b> tổ tại <b>'+u.apCo+'</b>/'+u.apTong+' ấp · <b>'+tdnTien(u.soKH)+'</b> khách · dư nợ <b>'+tdnTr(u.dn)+'</b> · tiết kiệm '+tdnTr(u.tg) : '')+
-      (c.tong!==undefined ? ' │ chấm điểm: Tốt '+c.tot+' · Khá '+c.kha+' · TB '+c.tb+' · Yếu '+c.yeu : '')+'</div>'; });
-  return '<div class="to-the"><div class="to-the-ten"><b>'+ds.length+'</b> tổ · '+coChuHTML(pvChu(C, K))+'</div>'+
-    '<div class="to-the-so">'+(coBC ? 'Số liệu tổ theo BC0437 '+coChuHTML(slKyChu(KT_BC.k37.e.ky))+' · ' : 'Chưa nạp BC0437 — số liệu tổ tính từ '+coChuHTML(K.hsTen)+' · ')+
-      ['Tốt','Khá','Trung bình','Yếu'].map(function(k){ return k+' <b>'+(dem[k]||0)+'</b>'; }).join(' · ')+' · bấm 1 dòng để chọn hộ kiểm tra</div>'+
-    (hoi ? '<div class="kt-hoi"><span class="nhan-nhom">BC0438 — ủy thác theo hội</span>'+hoi+'</div>' : '')+'</div>'+
-    '<div class="to-bang-cuon"><table class="to-bang chon"><thead><tr><th>STT</th><th>Mã tổ</th><th>Tổ trưởng</th><th>Ấp</th><th>Hội</th><th>Tổ viên</th><th>Dư nợ (tr)</th><th>Quá hạn</th><th>Lãi tồn</th><th>Tiết kiệm</th><th>Điểm</th><th>Xếp loại</th></tr></thead><tbody>'+h+'</tbody></table></div>';
-}
-function ktTheHTML(t){
-  var s = ktSoTo(t);
-  return '<div class="to-the"><div class="to-the-ten">Tổ <b>'+coChuHTML(t.ten||'')+'</b> (mã '+t.ma+') <span class="to-the-phu">· '+coChuHTML([t.tenThon ? 'Ấp '+String(t.tenThon).replace(/^(ấp|ap)\s+/i, '') : '', t.tenXa, tdnHoi(t.dv)].filter(Boolean).join(' · '))+'</span></div>'+
-    '<div class="to-the-so">'+coChuHTML(s.nguon)+' '+ngayVNsl(s.ngay)+': <b>'+(s.stv||0)+'</b> tổ viên · dư nợ <b>'+ktTr(s.dn)+'</b> tr · QH '+ktTr(s.qh)+' ('+ktPT(s.tlQH)+'%) · khoanh '+ktTr(s.kn)+' ('+ktPT(s.tlKN)+'%) · lãi tồn '+ktTr(s.lt)+' · tiết kiệm '+ktTr(s.tg)+' tr'+
-      (s.xl ? ' │ chấm điểm '+(s.ngayXL ? 'tháng '+slThang(s.ngayXL).slice(5, 7)+'/'+slThang(s.ngayXL).slice(0, 4)+' ' : '')+'<b>'+String(s.diem).replace('.', ',')+'</b> · <b class="'+(KT_XL_LOP[s.xl]||'')+'">'+coChuHTML(s.xl)+'</b>' : '')+'</div></div>';
+  if(typeof KTTO!=='undefined') return KTTO.ve(o);   /* 3.514: 🎯 Kiểm tra tổ — 1 hay nhiều tổ (js/80) · 3.520: bỏ nhánh màn cũ Định kỳ / Mẫu 04 / 1 tổ */
+  o.innerHTML = ktCheDoHTML()+'<div class="rong">Thiếu gói Kiểm tra tổ (js/80-ktgs-to.js).</div>';
 }
 
 /* ---------- phân loại hộ + gợi ý (Mẫu 06 kiểm tra đột xuất) ---------- */
@@ -382,48 +338,10 @@ function ktGoiY(t, kieu, so, tranh, loc){   /* 3.514: loc(ds) lọc hộ / món 
   }
   return {to:t.ma, kieu:kieu, so:n, goiY:ktSoGoiY(s.stv || toKhach(t).length), chon:chon, ds:ds, daGoi:{}};
 }
-function ktDoiKieu(k){ var C = ktCH(); C.kieu = k; luu(); var t = KT_K.to[C.to]; KT_CHON = ktGoiY(t, k, KT_CHON ? KT_CHON.so : 0); ktVeThe(); }
-function ktDoiSo(d){ var C = ktCH(), t = KT_K.to[C.to]; var n = Math.max(1, Math.min(30, (KT_CHON ? KT_CHON.so : 6)+d)); KT_CHON = ktGoiY(t, C.kieu||'trung', n); ktVeThe(); }
-function ktGoiYLai(){   /* 3.97: mỗi lần bấm ra lượt hộ khác — tránh các hộ đã gợi ý ở các lượt trước (giữ hộ bắt buộc); hết hộ mới thì quay vòng */
-  var C = ktCH(), t = KT_K.to[C.to], X = KT_CHON, so = X ? X.so : 0, da = X && X.to===t.ma ? Object.assign({}, X.daGoi || {}) : {};
-  if(X && X.to===t.ma) Object.keys(X.chon).forEach(function(k){ if(!X.chon[k].bb) da[k] = 1; });
-  var moi = ktGoiY(t, C.kieu||'trung', so, da), conMoi = moi.ds.filter(function(h){ return !h.loai && !da[h.kh]; }).length;
-  if(!conMoi){ da = {}; moi = ktGoiY(t, C.kieu||'trung', so, X ? (function(){ var o = {}; Object.keys(X.chon).forEach(function(k){ if(!X.chon[k].bb) o[k] = 1; }); return o; })() : {}); bao('Đã gợi ý hết các hộ của tổ — quay vòng lại từ đầu.', 4); }
-  moi.daGoi = da; KT_CHON = moi; ktVeThe();
-}
-function ktTich(kh, v){ if(!KT_CHON) return; if(v) KT_CHON.chon[kh] = KT_CHON.chon[kh] || {ly:'Anh chọn thêm', bb:false}; else delete KT_CHON.chon[kh]; ktVeThe(); }
 function ktDaChon(){ if(!KT_CHON) return []; var c = KT_CHON.chon; return KT_CHON.ds.filter(function(h){ return c[h.kh]; }).sort(ktTheoKH); }
 var KT_KIEU = [['tot','👍 Hộ tốt'], ['xau','⚠ Hộ cần quan tâm'], ['trung','⚖ Trung hòa (6 tốt + 2 KHĐ)']];
-function ktChonHTML(t){
-  var X = KT_CHON, C = ktCH(), dc = ktDaChon(), soMon = 0, dn = 0, coHS = X.ds.some(function(h){ return !h.loai && h.hssv; });
-  dc.forEach(function(h){ soMon += h.mon.length; h.mon.forEach(function(m){ dn += m.dn||0; }); });
-  var ds = (KT_LOC==='goi' ? X.ds.filter(function(h){ return X.chon[h.kh]; }) : X.ds.slice()).sort(ktTheoKH);   /* 3.98: theo mã KH */
-  var h = ds.map(function(x, i){ var c = X.chon[x.kh];
-    return ktHoDongHTML({stt:i+1, h:x, lop:c ? 'kt-co' : '', chon:'<input type="checkbox"'+(c ? ' checked' : '')+' data-lenh="f22b.ktTich" data-su="change" data-a1="'+x.kh+'" aria-label="Chọn hộ">',
-      mon:x.mon.map(function(m){ return ktMonDong(m); }).join(''), ghi:ktGhiHo(x, c ? c.ly : (x.loai ? '' : x.tot ? ktLyDoTot(x) : x.xau ? ktLyDoXau(x) : ''))}); }).join('');
-  var nBB = Object.keys(X.chon).filter(function(k){ return X.chon[k].bb; }).length;
-  var nTot = X.ds.filter(function(h){ return h.tot; }).length, nXau = X.ds.filter(function(h){ return h.xau; }).length, nLoai = X.ds.filter(function(h){ return h.loai; }).length, nKhac = X.ds.length-nTot-nXau-nLoai;
-  var kk = C.kieu||'trung', thieu = kk==='tot' && nTot<X.so ? 'chỉ có '+nTot+' hộ tốt — bổ sung hộ khác cho đủ số' : kk==='xau' && nXau<X.so ? 'chỉ có '+nXau+' hộ cần quan tâm — bổ sung hộ khác cho đủ số' : kk==='trung' && nTot<X.so-2 ? 'chỉ có '+nTot+' hộ tốt — Trung hòa bổ sung bằng hộ cần quan tâm / hộ khác (nên kết quả có thể giống kiểu khác)' : '';
-  return '<div class="kt-chon"><div class="nhan-nhom">Chọn hộ kiểm tra — Mẫu 06 kiểm tra đột xuất</div>'+
-    '<div class="kt-kieu">'+KT_KIEU.map(function(k){ return '<button type="button" class="to-loc'+((C.kieu||'trung')===k[0] ? ' bat' : '')+'" data-lenh="ktk.kieu" data-k="'+k[0]+'">'+k[1]+'</button>'; }).join('')+
-    '<span class="kt-so">Số hộ <button type="button" class="nho" data-lenh="ktk.so" data-d="-1" aria-label="Bớt 1 hộ">−</button><b>'+X.so+'</b><button type="button" class="nho" data-lenh="ktk.so" data-d="1" aria-label="Thêm 1 hộ">+</button> <small>(gợi ý '+X.goiY+')</small></span>'+
-    '<button type="button" class="nho" data-lenh="ktk.goiYLai">↺ Gợi ý lại</button></div>'+
-    '<div class="kt-nhom-so"><small>Tổ có <b>'+nTot+'</b> hộ tốt · <b>'+nXau+'</b> hộ cần quan tâm · <b>'+nKhac+'</b> hộ khác · <b>'+nLoai+'</b> hộ quá hạn / khoanh'+(thieu ? ' — <span class="vang">'+thieu+'</span>' : '')+(Object.keys(X.daGoi||{}).length ? ' · ↺ lượt mới (tránh '+Object.keys(X.daGoi).length+' hộ đã gợi ý)' : '')+'</small></div>'+
-    '<div class="to-the-so">Đã chọn <b>'+dc.length+'</b> hộ · <b>'+soMon+'</b> món · dư nợ '+ktTr(dn)+' tr'+(nBB ? ' · '+nBB+' hộ giải ngân dưới 30 ngày (bắt buộc)' : '')+
-      (coHS && !dc.some(function(x){ return x.hssv; }) ? ' · <b class="do">tổ có HSSV nhưng chưa chọn món HSSV</b>' : '')+(dc.length>X.so ? ' · <span class="vang">nhiều hơn số gợi ý do món mới dưới 30 ngày / anh chọn thêm</span>' : '')+'</div>'+
-    '<div class="kt-loc"><button type="button" class="to-loc'+(KT_LOC==='goi' ? ' bat' : '')+'" data-lenh="ktk.loc" data-l="goi">Đã chọn <b>'+dc.length+'</b></button><button type="button" class="to-loc'+(KT_LOC==='tat' ? ' bat' : '')+'" data-lenh="ktk.loc" data-l="tat">Tất cả hộ còn dư nợ <b>'+X.ds.length+'</b></button></div>'+
-    '<div class="to-bang-cuon"><table class="to-bang kt-bang">'+KT_HO_TH+'<tbody>'+(h || '<tr><td colspan="8" class="rong">Chưa chọn hộ nào — bấm “Tất cả hộ còn dư nợ” để tích.</td></tr>')+'</tbody></table></div>'+
-    ktKBKhung('dx', ktHoiDsXa((function(){ var x = {}; x[t.xa] = 1; return x; })()))+ktDXTom(t)+
-    '<div class="hang-nut kt-in"><label class="kt-ngay-in"><span>Ngày kiểm tra</span><input id="kb-ngay" type="date" value="'+coChuHTML(KT_KB.ngay||'')+'" data-lenh="f22b.ktDocKB" data-su="change" aria-label="Ngày kiểm tra"></label>'+   /* 3.114: ngày kiểm tra cạnh nút In (trống = ghi tay) */
-    (typeof ktttIn==='function' ? GD.nut({chu:'📋 Tóm tắt tổ', lenh:'kttt.in', tit:'Tóm tắt tình hình tổ 1 mặt A4 mang đi kiểm tra (js/71)'}) : '')+   /* 3.513 (anh 11/11): 1 tổ = đúng 4 mẫu Tóm tắt · 06/TD · 15/TD · 16/TD; Mẫu 04 lập ở thẻ Báo cáo tổng hợp */
-    '<span class="sl-phu">📄 Mẫu 06 · Phiếu KT sử dụng vốn:</span>'+ktXuatNut('m06')+(typeof kt727Nut==='function' ? kt727Nut('dx') : '')+'<span class="sl-phu">📄 Mẫu 16 · Biên bản KT tổ:</span>'+ktXuatNut('m16')+
-      '</div>'+   /* 3.329 (anh chốt ý 4): đột xuất có Mẫu 04 */
-    '<p class="ghi">Hộ tốt = có món giải ngân trong 12 tháng, số dư 105 tăng so với tháng trước (chưa nạp tháng trước thì xét có 105), không lãi tồn, không món KHĐ. Cần quan tâm = món không giao dịch ≥ 3 tháng (file mẫu 14; chưa nạp thì xét ngày GD gần nhất), lãi tồn, không gửi TK đều. '+
-      'Hộ có quá hạn / khoanh không gợi ý (kiểm tra riêng) — vẫn tích tay được. 105 tăng / giảm là suy ra từ số dư 2 tháng, không phải lịch sử nộp từng kỳ.</p></div>';
-}
 
 /* ---------- khai báo khi in (mặc định trống) → Word đúng khuôn / In PDF ---------- */
-function ktXuatNut(mau){ var n = mau==='m06' ? 'Mẫu 06' : 'Mẫu 16'; return GD.nut({chu:'🖨 In '+n, lenh:'ktk.xuat', du:{m:mau, c:'in'}})+GD.nut({chu:'📄 Word '+n, lenh:'ktk.xuat', du:{m:mau, c:'word'}, chinh:1}); }   /* 3.329: data-lenh */
 /* ---------- 3.98 (anh chốt): khai báo nằm ngay trong tab của mẫu (khung ✎ thu gọn được), lưu lâu dài trừ ngày; cán bộ kiểm tra lấy theo bảng Hội – xã ---------- */
 var KT_KB_LUU = ['dv','cbtu','cb2','cv2'];
 function ktCanBo(t, v){   /* 3.114: có v.ng1 (chọn khi in) → theo vai trò */
@@ -512,7 +430,6 @@ function ktDXTom(t){
 }
 /* 3.326: nút theo data-lenh — đăng ký khi vẽ dòng (GD nạp sau file này) */
 function ktDXKhai(){ var C = ktCH(), t = KT_K && KT_K.to[C.to], ds = typeof KTTO!=='undefined' && KTTO.dsTo().length ? KTTO.dsTo() : (t ? [t] : []); ktInHop(['m06', 'm16'], '', ktHoiCuaTo(ds), 1); }   /* 3.514: tổ đã tích ở Kiểm tra tổ */
-function ktInNut(inJs, wordJs){ return '<button class="nho" onclick="'+inJs+'">🖨 In / PDF</button><button class="nho chinh" onclick="'+wordJs+'">📄 Word</button>'; }
 function ktInNutXem(js){ return '<button class="nho chinh" onclick="'+js+'">👁 Xem trước</button>'; }
 function ktInHop(ds, nut, hoi, veThe, ve){   /* ve = vẽ lại hộp đang mở (giữ bộ đang chọn); mở mới → bộ mặc định của khối */
   if(!ve) KT_BO_IN = null;
@@ -548,17 +465,6 @@ function ktDocKB(){ ['ngay','dv','cbtu','cb2','cv2','md','nx','b2'].forEach(func
   if(document.getElementById('kb-md')){ D.cauHinh.ktMucDich = KT_KB.md; luu(); }
   if(document.getElementById('kb-b2')){ D.cauHinh.ktBang16 = KT_KB.b2; luu(); }   /* 3.111: nhớ lựa chọn Bảng II Mẫu 16 */   /* nhớ lựa chọn cột mục đích lần sau */
   return KT_KB; }
-function ktXuat(mau, cach, ok){   /* 3.114: hỏi lựa chọn in trước (ok = đã chọn) */
-  var C = ktCH(), t = KT_K && KT_K.to[C.to]; if(!t) return;
-  if(mau==='m06' && !ktDaChon().length) return bao('Chưa chọn hộ nào.', 3);
-  ktDocKB(); if(!ok) return ktInHop([mau], ktInNut("ktXuat('"+mau+"','in',1)", "ktXuat('"+mau+"','word',1)"), ktHoiCuaTo([t]));
-  var v = ktInV(mau), dc = ktDaChon(), ten = (mau==='m06' ? 'Mau 06 Phieu KT su dung von' : 'Mau 16 Bien ban KT to')+' - To '+boDauTen(t.ten||t.ma)+(v.ngay ? ' - '+ngayVNsl(v.ngay).replace(/\//g, '-') : '');
-  var gt = mau==='m06' ? ktGiaTri06(t, dc, v) : ktGiaTri16(t, dc, v);
-  dongHop();
-  if(cach==='word') return ktDocx(mau, gt).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx — khuôn đúng mẫu gốc, chỉ lưu trên máy / Drive của anh.', 7); })
-    .catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
-  inBlob(new Blob([mau==='m06' ? ktHTML06(gt) : ktHTML16(gt)], {type:'text/html'}), ten+'.html');
-}
 function ktNguoi2(t, v){ return v && v.ng2 && v.ng2!=='go' ? ktNguoi(t, v.ng2) : {cb:(v && v.cb2)||'', cv:(v && v.cv2)||''}; }   /* 3.114: người kiểm tra 2 (16 / 04) — để trống thì dùng ô gõ tay */
 function ktNgayP(iso){ var p = String(iso||'').split('-'); return iso ? {d:p[2], m:p[1], y:p[0], y2:p[0].slice(2)} : {d:'', m:'', y:'', y2:''}; }
 /* 3.98: chuẩn địa danh dùng chung các mẫu (anh chốt) — xã → "ấp", phường → "khu phố"; trong câu viết thường; luôn kèm "tỉnh Tây Ninh".
@@ -757,13 +663,11 @@ function ktOSz2(x, m){ var k = -1; return x.replace(/<w:tc>[\s\S]*?<\/w:tc>/g, f
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('f22b', gdLenh({
-  ktChonTo:function(el, ev){ ktChonTo(gdA(el, 1)); },
   ktDocKB:function(el, ev){ ktDocKB(); },
   ktInDayDu:function(el, ev){ ktInDayDu(); },
   ktInDoc:function(el, ev){ ktInDoc(); },
   ktKiemTra:function(el, ev){ ktKiemTra(gdA(el, 1)); },
   ktNganhSua:function(el, ev){ ktNganhSua(gdA(el, 1), el.value); },
-  ktTich:function(el, ev){ ktTich(gdA(el, 1), el.checked); },
   moNapSL:function(el, ev){ moNapSL(); },
   toNoiDrive:function(el, ev){ toNoiDrive(); },
   toThuLai:function(el, ev){ toThuLai(); }

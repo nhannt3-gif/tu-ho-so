@@ -103,8 +103,6 @@ MAU_IN.dangKy('kt03', {ma:'03/BB-CX', ten:'03/BB-CX Biên bản kiểm tra Hội
   word:function(K, g){ return MAU_IN.dien(K.than, g.f); }});
 
 /* ---------- GIAO DIỆN: nút ở 3 chỗ KTGS + hộp xem / in ---------- */
-function kt727Nut(cho){   /* nút 15/TD cấp TỔ — cho: 'dk' (khối A Định kỳ — tổ đã tích) · 'dx' (khối B — tổ đang chọn). 3.500 (anh 08/11): 03/BB-CX là cấp HỘI → khối riêng 🏛 Hội cấp xã */
-  return GD.nut({chu:'📄 15/TD Đối chiếu', lenh:'kt7.m15', du:{c:cho}, tit:'Danh sách đối chiếu số dư tiền vay và tiền gửi (VB 727) — toàn bộ tổ viên còn dư nợ / tiền gửi'}); }
 function kt7KB(){ var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {}; return S.kt03 = S.kt03 || {}; }   /* khai báo 03/BB-CX: cán bộ NH (cb1, cv1, cb2, cv2) — đồng bộ Drive cùng ktIn */
 function kt7Chay(cho, fn){ return cho==='dx' || cho==='hx' || cho==='to' ? fn() : ktNguonVoi(cho==='dk' ? ktDKThang() : ktNguonThangKT(), fn); }   /* khối A: số liệu chốt tháng; khối B: kỳ đầu trang */
 function kt7To(cho){ if(cho==='to') return KTTO.dsTo(); if(cho==='dx'){ var C = ktCH(), t = KT_K && KT_K.to[C.to]; return t ? [t] : []; }

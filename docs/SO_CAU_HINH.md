@@ -94,7 +94,7 @@
 | `ktKBKhoa` | 79-ktgs-khoa.js | 3 | 79-ktgs-khoa.js |  |
 | `ktKBLuu` | 22b-ktgs.js | 8 | 22b-ktgs.js | ô "Đơn vị kiểm tra" gõ ở Tùy chọn khác trước 3.323 |
 | `ktKBNK` | 79-ktgs-khoa.js | 3 | 79-ktgs-khoa.js |  |
-| `ktKH` | 06a-dong-bo-cai-dat.js | 19 | 06a-dong-bo-cai-dat.js · 22d-ktgs-04.js · 22e-ktgs-kh.js · 80b-ktgs-kh-sl.js | 3.398: bản chốt mới nhất |
+| `ktKH` | 06a-dong-bo-cai-dat.js | 16 | 06a-dong-bo-cai-dat.js · 22e-ktgs-kh.js · 80b-ktgs-kh-sl.js | 3.398: bản chốt mới nhất |
 | `ktKHChuan` | 22d-ktgs-04.js | 2 | 22d-ktgs-04.js |  |
 | `ktKN04` | 22d-ktgs-04.js | 6 | 22d-ktgs-04.js | 3.329: + màn Bộ khai báo |
 | `ktMucDich` | 22b-ktgs.js | 2 | 22b-ktgs.js | lựa chọn cột mục đích trước 3.114 |
@@ -153,7 +153,7 @@
 | `slMt` | 22-so-lieu.js | 6 | 22-so-lieu.js | gon · tq (tổng quan) · thu (thu gọn 1 dòng) |
 | `slMtTruoc` | 22-so-lieu.js | 2 | 22-so-lieu.js |  |
 | `slNdtTen` | 74-sk-ndt.js | 5 | 74-sk-ndt.js |  |
-| `slTab` | 04-giao-dien.js | 54 | 04-giao-dien.js · 17-dong-bo-cai-dat.js · 22b-ktgs.js · 22e-ktgs-kh.js · 22f-tra-cuu.js · 22g-to.js …+13 | 3.163: mở tab Nạp & KT → ⦿ Gần nhất |
+| `slTab` | 04-giao-dien.js | 52 | 04-giao-dien.js · 17-dong-bo-cai-dat.js · 22b-ktgs.js · 22f-tra-cuu.js · 22g-to.js · 22gb-to-giao-dien.js …+12 | 3.163: mở tab Nạp & KT → ⦿ Gần nhất |
 | `slTabBC` | 04-giao-dien.js | 2 | 04-giao-dien.js · 22f-tra-cuu.js |  |
 | `slTQ` | 22f-tra-cuu.js | 1 | 22f-tra-cuu.js |  |
 | `soKyBang` | 04c-van-ban-thang.js | 1 | 04c-van-ban-thang.js |  |

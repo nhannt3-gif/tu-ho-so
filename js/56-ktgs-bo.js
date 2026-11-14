@@ -58,27 +58,10 @@ function ktSLDong(){   /* dòng 📌 Số liệu của màn theo kỳ chọn (KT
   if(!KT_K) return ''; var b = KT_BC && KT_BC.k37, can = slThang(ktBCKyChon(KT_K.ky)), dung = b && slThang(b.e.ky)===can;
   return '<div class="'+(b && !dung ? 'sl-bao vang' : 'to-the-so')+' kt-sl">📌 Số liệu: Mẫu 31 <b>'+coChuHTML(slKyChu(KT_K.ky))+'</b> · chấm điểm BC0437 '+
     (b ? '<b>'+coChuHTML(slKyChu(b.e.ky))+'</b>'+(dung ? '' : ' ⚠ cần '+kyVN(can)+' — chưa nạp, điểm để trống') : 'chưa nạp — điểm để trống')+' — theo ô Kỳ đầu trang</div>'; }
-function ktNguonKy(th){ return ktKHKySL(th); }   /* → {can: tháng cần, ky: kỳ Mẫu 31 dùng được} */
 function ktNguonNap(th){ return ktKHNapSL(th); }   /* nạp Mẫu 31 + BC0437 / BC0438 + 105 tháng trước của tháng kiểm tra th */
 function ktNguonSan(th){ var S = KT_KH_SL; return !!S && S.th===th && S.goc===KT_K; }
 function ktNguonVoi(th, fn){ return ktNguonSan(th) ? ktKHVoiSL(fn) : fn(); }   /* chạy fn với số liệu tháng kiểm tra th (KT_K / kỳ đang dựng / KT_BC / KT_TRUOC tạm đổi rồi trả lại) */
-function ktNguonVe(o, th, ve){   /* vẽ thẻ khối Bắt buộc: chưa có số liệu tháng → nạp rồi vẽ lại */
-  if(!th) return ve();
-  if(!ktNguonSan(th)){ o.innerHTML = ktCheDoHTML()+ktAThangHTML(th)+'<div class="rong">Đang mở số liệu '+(ktNguonKy(th).ky ? slKyChu(ktNguonKy(th).ky) : 'cuối '+kyVN(kyLui(th, -1)))+'…</div>';
-    ktNguonNap(th).then(function(){ if(KT_K && document.getElementById('kt-the')) ktVeThe(); }); return; }
-  return ktNguonVoi(th, ve);
-}
-function ktAThangDs(th){   /* tháng chọn được: tháng sau mỗi tháng có Mẫu 31, + tháng hiện tại, + tháng đang chọn */
-  var m = {}; toDsKy().forEach(function(e){ if(String(e.ky).length===7) m[kyLui(e.ky, 1)] = 1; });
-  var d = nay(); m[d.getFullYear()+'-'+hai(d.getMonth()+1)] = 1; if(th) m[th] = 1;
-  return Object.keys(m).sort().reverse().slice(0, 18);
-}
-function ktAThangHTML(th){
-  var S = KT_KH_SL, san = !!S && S.th===th && (S.goc===KT_K || S.K===KT_K);   /* gọi cả lúc đang mượn số liệu (KT_K = S.K) */
-  return '<div class="kt-a-thang"><label><b>📅 Tháng kiểm tra</b> <select data-lenh="kta.th" data-su="change">'+ktAThangDs(th).map(function(k){ return '<option value="'+k+'"'+(k===th ? ' selected' : '')+'>'+kyVN(k)+'</option>'; }).join('')+'</select></label>'+
-    '<span class="sl-phu">số liệu cuối tháng liền trước — không theo ô Kỳ đầu trang</span></div>'+(san ? ktKHSLChu(S, +th.slice(5)) : '');
-}
-GD.dangKy('kta', {th:function(el){ KT_A_TH = el.value || ''; KT_DK_CACHE = {}; ktVeThe(); }});
+
 /* ===== 3.329 — KTGS bước 3–4: THANH 3 KHỐI + MÀN 🧩 BỘ KHAI BÁO MẪU + Mẫu 04 đột xuất (docs/KE_HOACH_KTGS_GON.md mục 2.1, 2.4) =====
    khối A 📅 Bắt buộc (che dk · gn · bc · kh — thẻ con), B 🎯 Đột xuất (dx), C ⚙ Khai báo (hdt: Hội – xã · Chuẩn hóa · Bộ khai báo). Khóa che cũ giữ nguyên. */
 var KT_A_THE = [['dk', '🗓 Định kỳ · Mẫu 06 + 16'], ['gn', '📅 Sau giải ngân · Mẫu 06'], ['bc', '📋 Báo cáo tổng hợp · Mẫu 04'], ['kh', '🗓 Kế hoạch năm · 01/KH']];
@@ -112,13 +95,8 @@ function ktDX04(ok){   /* Mẫu 04 cho tổ đang chọn — kiểm tra đột x
 GD.dangKy('ktk', {
   khoi:function(el){ var k = el.getAttribute('data-k'); ktDoiCheDo(k==='B' ? 'dx' : k==='C' ? 'hdt' : k==='D' ? 'hx' : k); },   /* 3.514: gn · kh trực tiếp */
   lui:function(){ if(typeof KTTO!=='undefined') KTTO.lui(); },
-  che:function(el){ var c = el.getAttribute('data-c'); ktCH().aThe = c; ktDoiCheDo(c); },
   hdt:function(el){ ktCH().hdtTab = el.getAttribute('data-t'); luu(); ktVeThe(); },
   chep:function(){ var S = D.cauHinh.ktIn = D.cauHinh.ktIn || {}; ['m06', 'm16'].forEach(function(m){ S['dx_'+m] = JSON.parse(JSON.stringify(S[m] || {})); }); luu(); ktVeThe(); bao('Đã chép bộ ① sang bộ ② (Mẫu 06, 16).', 3); },
   trang:function(){ ktTrang06(); },
-  dx04:function(){ ktDX04(); },
-  kieu:function(el){ ktDoiKieu(el.getAttribute('data-k')); }, so:function(el){ ktDoiSo(+el.getAttribute('data-d')); }, goiYLai:function(){ ktGoiYLai(); },
-  loc:function(el){ KT_LOC = el.getAttribute('data-l'); ktVeThe(); }, xuat:function(el){ ktXuat(el.getAttribute('data-m'), el.getAttribute('data-c')); },
-  dkTich:function(el){ ktDKTich(el.getAttribute('data-m'), el.checked); }, dkMo:function(el){ ktDKMo(el.getAttribute('data-m')); },
-  dkLich:function(){ var th = ktDKThang(), lich = ktDKLich(th); Object.keys(lich).forEach(function(m){ KT_DK_CHON[m] = true; }); ktVeThe(); }
+  /* 3.520: bỏ lệnh màn cũ (dx04 · kieu · so · goiYLai · loc · xuat · dkTich · dkMo · dkLich · che) — Kiểm tra tổ dùng ktto.* (js/80) */
 });

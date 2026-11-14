@@ -149,3 +149,6 @@ Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD �
 
 ## 15. Bản 3.518 (12/11/2026) — ↪ Nhận kế hoạch về mã xã / Hội hiện tại
 - `KTKH.dich(khóa)`: đích = (xã, Hội) có nhiều tổ của kế hoạch nhất trong Mẫu 31 mới nhất · `KTKH.nhan(khóa, ok)`: hỏi trước → chép (giữ chốt, `nhan:{tu, luc}`), nháp đích → `racMucNho`, đích đã chốt → không ghi đè.
+
+## 16. Bản 3.520 (14/11/2026) — dọn code màn cũ
+- Xóa 36 hàm màn Định kỳ / Mẫu 04 theo ấp / khung 1 tổ cũ (danh sách: CHANGELOG 3.520). Mục 12 "còn hàm cũ không gọi" đã xong. `KTTO.lai` = ↺ lượt hộ khác.

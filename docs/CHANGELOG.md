@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.520 — 14/11/2026 — Dọn code màn cũ KTGS (TK 2)
+- **Anh 14/11** "ok" (việc 1: dọn hàm màn cũ KTGS sau 3.514).
+- Bỏ nhánh vẽ màn cũ ở `ktVeThe` (Định kỳ `dk`, Mẫu 04 `bc`, khung 1 tổ cũ) và lệnh nút cũ (`ktk.dx04 · kieu · so · goiYLai · loc · xuat · dkTich · dkMo · dkLich · che`, `kta.th`, `f22b.ktTich · ktChonTo`, `f22d.ktBCTich · ktBCNgay · ktBCXem`, `f22e.ktDKXem · ktDKIn`).
+- Xóa 36 hàm không còn gọi (đo bằng `tests/rac.js`): js/22b `ktToanPGDHTML ktHoi38 ktBangToHTML ktTheHTML ktTich ktChonHTML ktXuatNut ktInNut ktXuat ktDoiKieu ktDoiSo ktGoiYLai` · js/22d `ktBCVe ktBCVeG ktBCTheoKHHTML ktBCGhi ktBCKH ktBCTheoKH ktBCTich ktBCTichAp ktBCNgay` · js/22e `ktKHBanDung ktDKVe ktDKVeG ktDKXem ktDKXemG ktDKIn ktDKTich ktDKLich` · js/56 `ktNguonKy ktNguonVe ktAThangDs ktAThangHTML` · js/56b `kt727Nut`; CSS chết `.kt-hoi .kt-chon .kt-kieu .kt-loc .kt-dk-bang .kt-bc-bang`. Giữ hàm Kế hoạch năm còn dùng (in theo tháng `ktDKGiaTri · ktDKTyLe · ktDKMo…`) và hàm phép thử khóa mẫu dùng (`ktDaChon`, `ktGoiY`, `ktChonTo`).
+- **Sửa thiếu sót 3.514:** ↺ Gợi ý lại ở 🎯 Kiểm tra tổ chỉ tính lại cùng kết quả → nay mỗi lần ra lượt hộ khác (tránh hộ đã gợi ý, giữ hộ bắt buộc, hết thì quay vòng — như `ktGoiYLai` cũ) — `KTTO.lai`.
+- Phép thử sửa theo hàm mới (KTTO): t106, t108, t110, t111, t119, t122, t125, t132, t319. t179 (khóa mẫu) không đổi. Thước đo: hàm không tới được 0, lớp CSS chết 0.
+
 ## 3.519 — 12/11/2026 — Sửa nút đổi chữ che ô Tên văn bản (TK 2)
 - **Anh 12/11** (ảnh): "tab văn bản bị che, em ghi nhận sửa 1 lần".
 - Nguyên nhân: 4 nút đổi chữ (3.437) đặt nổi `position:absolute; top:0; right:0` — nút cao hơn dòng nhãn nên đè lên ô nhập (đo: nút y 295–329, ô y 310–339).

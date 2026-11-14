@@ -34,6 +34,15 @@ var KTTO = {
     var s = ktSoTo(t), n0 = ktSoGoiY(s.stv || toKhach(t).length), kieu = KTTO.kieuDung();
     var X = ktGoiY(t, kieu, kieu!=='het' && KTTO.d ? Math.max(1, Math.min(30, n0+KTTO.d)) : 0, null, KTTO.loc());
     return KTTO.ho[t.ma] = X; },
+  /* ↺ Gợi ý lại: mỗi lần ra LƯỢT HỘ KHÁC (như ktGoiYLai 3.97 — tránh hộ đã gợi ý, giữ hộ bắt buộc); tổ hết hộ mới → quay vòng */
+  lai: function(){ var k = KTTO.khoa(), het = 0, so = function(X){ return X.kieu==='het' ? 0 : X.so; };
+    if(k!==KTTO.khoaHo){ KTTO.ho = {}; KTTO.khoaHo = k; }
+    KTTO.dsTo().forEach(function(t){ var X = KTTO.goi(t), da = Object.assign({}, X.daGoi || {});
+      Object.keys(X.chon).forEach(function(kh){ if(!X.chon[kh].bb) da[kh] = 1; });
+      var moi = ktGoiY(t, X.kieu, so(X), da, KTTO.loc()), con = moi.ds.filter(function(h){ return !h.loai && !da[h.kh]; }).length;
+      if(!con){ het++; var cu = {}; Object.keys(X.chon).forEach(function(kh){ if(!X.chon[kh].bb) cu[kh] = 1; }); moi = ktGoiY(t, X.kieu, so(X), cu, KTTO.loc()); da = {}; }
+      moi.daGoi = da; KTTO.ho[t.ma] = moi; });
+    if(het) bao(het+' tổ đã gợi ý hết hộ — quay vòng lại từ đầu.', 4); ktVeThe(); },
   daChon: function(t){ var X = KTTO.goi(t); return X.ds.filter(function(h){ return X.chon[h.kh]; }).sort(ktTheoKH); },
   dsBang: function(){ return typeof ktDKDs==='function' ? ktDKDs() : []; },
   dsTo: function(){ return KTTO.dsBang().filter(function(r){ return r.chon; }).map(function(r){ return r.t; }); },
@@ -53,7 +62,7 @@ var KTTO = {
     var C = ktCH(), K = KT_K; if(!K){ o.innerHTML = ktCheDoHTML()+'<div class="rong">Chưa có số liệu Mẫu 31.</div>'; return; }
     if(C.to && C.to!==KTTO.toCu && K.to[C.to] && !toLaTT(K.to[C.to])){ KT_DK_CHON[C.to] = true; KTTO.mo = C.to; }   /* chọn 1 tổ ở cây → tích + mở sẵn */
     KTTO.toCu = C.to || '';
-    var t1 = C.to && K.to[C.to] && KT_DK_CHON[C.to] ? K.to[C.to] : null;   /* tương thích hàm 1 tổ cũ (ktDaChon, ktXuat, ktDoiKieu…): KT_CHON = hộ của tổ đang chọn ở cây */
+    var t1 = C.to && K.to[C.to] && KT_DK_CHON[C.to] ? K.to[C.to] : null;   /* tương thích hàm 1 tổ cũ (ktDaChon…): KT_CHON = hộ của tổ đang chọn ở cây */
     if(t1){ KTTO.khoaHo = KTTO.khoa()===KTTO.khoaHo ? KTTO.khoaHo : (KTTO.ho = {}, KTTO.khoa());
       if(KT_CHON && KT_CHON.to===t1.ma && KT_CHON!==KTTO.chonGan) KTTO.ho[t1.ma] = KT_CHON;   /* hàm cũ vừa gợi ý lại → nhận */
       KT_CHON = KTTO.chonGan = KTTO.goi(t1); }
@@ -156,7 +165,7 @@ GD.dangKy('ktto', {
   kieu:function(el){ KTTO.kieu = el.getAttribute('data-k'); ktVeThe(); },
   mon:function(el){ KTTO.mon = el.getAttribute('data-k'); ktVeThe(); },
   so:function(el){ KTTO.d = Math.max(-20, Math.min(20, KTTO.d+(+el.getAttribute('data-d')||0))); ktVeThe(); },
-  lai:function(){ KTTO.ho = {}; ktVeThe(); },
+  lai:function(){ KTTO.lai(); },
   xem:function(el){ KTTO.xem(el.getAttribute('data-m')); },
   doi:function(){ var m = KTTO.X && KTTO.X.m; dongHop(); if(m) KTTO.xem(m); },
   kb:function(el){ KTTO.kbSua(el.getAttribute('data-o'), el.value); },

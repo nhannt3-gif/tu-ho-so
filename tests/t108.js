@@ -22,20 +22,19 @@ const fs=require('fs'), path=require('path');
    const A = ds[0], A2 = ds.find(t=>t.xa===A.xa && String(t.dv)===String(A.dv) && t.ma!==A.ma), B = ds.find(t=>ktHoiKhoa(t)!==ktHoiKhoa(A));
    const B2 = ds.find(t=>t.xa===A.xa && String(t.dv)!==String(A.dv)) || B;
    /* 3.98: không theo dõi — xuất 16 / 06 không ghi nhật ký, lịch sử */
-   ktChonTo(A.ma); await w(300); KT_KB = {ngay:'2026-09-05'}; ktInHop(['m16'], '', ktHoiDs()); await w(50); ktXuat('m16', 'word', 1); await w(600);
-   ktInHop(['m06'], '', ktHoiDs()); await w(50); ktXuat('m06', 'in', 1); await w(300);
+   ktChonTo(A.ma); await w(300); KT_KB = {ngay:'2026-09-05'}; ktInHop(['m16'], '', ktHoiDs()); await w(50); (KTTO.xem('m16', 1), KTTO.in('word')); await w(600);
+   ktInHop(['m06'], '', ktHoiDs()); await w(50); (KTTO.xem('m06', 1), KTTO.in('in')); await w(300);
    ok('3.98: xuất Biên bản 16 / Mẫu 06 không ghi nhật ký, lịch sử', !((D.cauHinh.ktgsNK||{})[A.ma]||[]).length && !((D.cauHinh.ktgsLS||{})[A.ma]||[]).length);
    /* màn Mẫu 04 ① — chọn theo cây địa bàn */
    C.xa=''; C.diem=''; C.hoi=''; C.to=''; KT_BC_CHON = {}; KT_BC_NGAY = {}; KT_DK_CHON = {}; ktDoiCheDo('bc'); await w(300);
    ok('Toàn PGD: nhắc chọn xã, chưa có tổ', !ktBCDs().length && /Chọn <b>xã<\/b>|Chọn xã/.test(document.getElementById('kt-the').innerHTML));
    C.xa = A.xa; pvVeCay('kt'); await w(300);
-   const hang = () => [...document.querySelectorAll('#kt-the .kt-bc-bang tbody tr:not(.kt-kh-ap)')].filter(tr=>tr.querySelector('input[type=checkbox]'));
    ok('chọn xã: tổ của xã, chưa tích tổ nào (hàm Mẫu 04 giữ — 3.514 màn gộp Kiểm tra tổ)', ktBCDs().length>0 && ktBCDs().every(r=>!r.chon && r.t.xa===A.xa), ktBCDs().length+' tổ');
-   const apA = ktKHAp(A); KT_BC_AP = [...new Set(ktBCDs().map(r=>ktKHAp(r.t)))]; ktBCTichAp(KT_BC_AP.indexOf(apA), true); await w(100);
+   const apA = ktKHAp(A); KT_BC_AP = [...new Set(ktBCDs().map(r=>ktKHAp(r.t)))]; ktBCDs().filter(r=>ktKHAp(r.t)===apA).forEach(r=>{ KT_BC_CHON[r.t.ma] = true; }); await w(100);   /* 3.520: bỏ ktBCTichAp / ktBCTich / ktBCNgay (màn Mẫu 04 cũ) */
    const cuaAp = ktBCDs().filter(r=>ktKHAp(r.t)===apA);
    ok('tích dòng ấp → chọn mọi tổ của ấp', cuaAp.length>0 && cuaAp.every(r=>r.chon) && ktBCDs().filter(r=>r.chon).length===cuaAp.length, cuaAp.length+' tổ');
-   ktBCTichAp(KT_BC_AP.indexOf(apA), false); await w(50); ok('bỏ tích dòng ấp → bỏ cả ấp', !ktBCDs().some(r=>r.chon));
-   [A, A2, B2].forEach(t=>ktBCTich(t.ma, true)); ktBCNgay(A.ma, '2026-09-05'); await w(100);
+   ktBCDs().filter(r=>ktKHAp(r.t)===apA).forEach(r=>{ KT_BC_CHON[r.t.ma] = false; }); await w(50); ok('bỏ tích dòng ấp → bỏ cả ấp', !ktBCDs().some(r=>r.chon));
+   [A, A2, B2].forEach(t=>{ KT_BC_CHON[t.ma] = true; }); KT_BC_NGAY[A.ma] = '2026-09-05'; await w(100);
    ok('tích từng tổ + ngày (tùy chọn)', ktBCDs().find(r=>r.t.ma===A.ma).chon && ktBCDs().find(r=>r.t.ma===A.ma).ngay==='2026-09-05' && ktBCDs().find(r=>r.t.ma===A2.ma).chon);
    const nhom = ktBCNhom(ktBCDs()).length; ok('mỗi Hội – xã 1 báo cáo', nhom===(String(B2.dv)!==String(A.dv) && B2.xa===A.xa ? 2 : 1) , nhom+' báo cáo');
    C.hoi = String(A.dv); pvVeCay('kt'); await w(200);

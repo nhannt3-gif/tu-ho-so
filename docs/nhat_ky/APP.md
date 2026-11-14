@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.520 dọn code KTGS — anh "ok")
+- Anh "tiếp tục" → em đề xuất 4 việc, anh "ok" (việc 1 dọn KTGS trước, việc 2 rà chip các tab — đo + đề xuất).
+- Đã làm **3.520**: xóa 36 hàm + 6 lớp CSS chết (rac.js); phát hiện ↺ Gợi ý lại ở Kiểm tra tổ (3.514) không ra lượt khác → sửa `KTTO.lai`. Sửa 9 phép thử sang KTTO. Chờ anh "gộp".
+
 ### 12/11/2026 — TK 2 · PHIÊN (3.519 nút đổi chữ che ô Tên văn bản)
 - Anh gửi ảnh: "tab văn bản bị che, em ghi nhận sửa 1 lần". Đo lại: nút đặt nổi đè ô nhập. Sửa: nhãn + nút 1 hàng flex, nút nhỏ. t394 (3 bề rộng + tối). Chờ anh "gộp".
 

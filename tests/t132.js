@@ -37,7 +37,7 @@ const fs=require('fs'), path=require('path');
    { const g5 = Object.assign({}, g1, {rows:Array.apply(null, Array(5)).map((x,i)=>Object.assign({}, g1.rows[0], {R1:String(i+1)}))}); window.__h5 = inChuan(ktHTML06(g5)); }
    window.__h = [inChuan(h1), inChuan(ht), inChuan(ktHTML06(ktTrang06GT('hai')))];
    /* Mẫu 04 */
-   C.che='bc'; const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99'); C.xa = ds[0].xa; KT_BC_CHON = {}; ktDoiCheDo('bc'); await w(400); ktBCTich(ktBCDs()[0].t.ma, true); await w(100);
+   C.che='bc'; const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99'); C.xa = ds[0].xa; KT_BC_CHON = {}; ktDoiCheDo('bc'); await w(400); KT_BC_CHON[ktBCDs()[0].t.ma] = true; await w(100);
    delete D.cauHinh.ktKN04; let gts = ktBCGiaTri(); gts.forEach(g=>{ g.f.TD04 = 'Trưởng Đoàn Giả'; });
    let x4 = await docx(await ktDocx('m04', gts)), h4 = ktHTML04(gts);
    ok('Mẫu 04 Word hợp lệ; không còn phông "Times New Roman Bold"', hopLe(x4) && !/\{\{/.test(x4) && !/Times New Roman Bold/.test(x4));
