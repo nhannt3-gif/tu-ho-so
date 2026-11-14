@@ -172,7 +172,7 @@ function toNap(ky){
 }
 function toNap0(ky){
   var K = {ky:ky, ngay:ky.length>7 ? ky : tdnCuoiKy(ky), thang:slThang(ky)}, Bm;
-  return slBo(ky).then(function(b){ Bm = b;   /* 3.136: kỳ ngày — mỗi loại lấy bảng đúng ngày, thiếu thì bảng liền trước (slKyDung) */
+  return toGdxaTruoc(ky).then(function(m){ K.gdxaTr = m; return slBo(ky); }).then(function(b){ Bm = b;   /* 3.531: Ngày GDXA kỳ trước (lãi dồn — phiên sớm hơn khi món đổi ngày) */   /* 3.136: kỳ ngày — mỗi loại lấy bảng đúng ngày, thiếu thì bảng liền trước (slKyDung) */
     K.hs = Bm.co.hstd || []; K.lap = Bm.lap || []; var nh = Bm.nguon.hstd || ky;
     K.hsTen = 'Mẫu 31 '+slKyChu(nh); if(ky.length>7) K.Bd = Bm;
   }).then(function(){
@@ -269,22 +269,27 @@ var TO_GIA = '0000000';
 function toPhienGan(ngay, gd){ var x = String(ngay||'').match(/^(\d{4})-(\d{2})-(\d{2})/); gd = +gd; if(!x || !gd) return '';
   var y = +x[1], m = +x[2], d = +x[3]; if(d < gd){ m--; if(!m){ m = 12; y--; } }
   var cuoi = new Date(y, m, 0).getDate(), dd = Math.min(gd, cuoi); return y+'-'+String(m).padStart(2, '0')+'-'+String(dd).padStart(2, '0'); }
-function toLaiTonNgay(K){   /* 3.530 (file 31/10 xuất lại bằng 3.528: cách nhận theo tỷ lệ ≥ 50% không bắt được — 31/10 chỉ 26% món, 30/09 4%) → XÉT TỪNG MÓN:
-     món đã GD ở phiên gần nhất (ngày phiên = cột Ngày GDXA của dòng, trống → ngày điểm — 3.527) mà lãi TH ≤ lãi DỒN tính được từ ngày GD tới ngày số liệu
-     (dư nợ trong hạn × lãi suất %/năm × số ngày / 36500, +5% +1.000đ) → phần TH đó là lãi dồn chưa đến kỳ → bỏ (QT-C-03 bổ sung, anh chốt 14/11);
-     TH lớn hơn → lãi tồn thật → giữ (file chốt tháng thật 30/09 tự đúng). Món không có lãi suất: kỳ theo ngày bỏ như 3.436, kỳ chốt tháng giữ. */
+/* 3.531 (TK 1 14/11 — đúng hàm lai_ton_ngay của giao ban, QT-C-03 bổ sung): ngày phiên = Ngày GDXA của CHÍNH MÓN trong tháng của ngày số liệu (chưa tới → tháng trước);
+   món đổi Ngày GDXA so với kỳ trước → lấy phiên SỚM HƠN; món có Ngày GD gần nhất ≥ phiên: lãi dồn = dư nợ × lãi suất / 100 / 360 × (ngày số liệu − ngày GD + 1);
+   lãi TH ≤ lãi dồn × 1,05 + 1.000 → bỏ hết TH, ngược lại chỉ TRỪ phần lãi dồn; giữ lãi QH; món vay trực tiếp không trừ.
+   Tầng nhận file (3.530) giữ: chỉ áp khi file có lãi dồn (≥ 50% món đã GD ở phiên còn TH có TH khớp lãi dồn) — TK 1 xác nhận 30/09 không trừ thì khớp giao ban từng tổ. */
+function toGdxaTruoc(ky){ var tr = kyLui(slThang(ky), -1); if(!SLM.bang[slKhoa('hstd', tr)]) return Promise.resolve(null);
+  return slBo(tr).then(function(B){ var m = {}; (B.co.hstd||[]).forEach(function(o){ if(o.ku && +o.ngayGD) m[o.ku] = +o.ngayGD; }); return m; }).catch(function(){ return null; }); }
+function toLaiTonNgay(K){
   if(!K) return; var hs = K.hs||[]; if(hs._ltDon){ K.ltDon = hs._ltDon; K.ltNgay = hs._ltNgay; return; }   /* dòng dùng chung (slBo) — đã xét 1 lần */
-  var nd = String(K.ngay || K.ky), theoNgay = String(K.ky||'').length>7, dem = 0, xet = 0, giu = 0;
+  var nd = String(K.ngay || K.ky), theoNgay = String(K.ky||'').length>7, dem = 0, giu = 0, xet = 0, ds = [], coLS = 0, khop = 0, Tr = K.gdxaTr || {};
   var soNgay = function(a, b){ var x = a.match(/^(\d{4})-(\d{2})-(\d{2})/), y = b.match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return -1; return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5); };
-  var ds = [], coLS = 0, khop = 0;
-  hs.forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, +o.ngayGD ? String(+o.ngayGD) : o._ngGD); if(!ph) return;
+  hs.forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return;
+    var tt = !o.to || (typeof TO_GIA!=='undefined' && o.to===TO_GIA) || (K.to && K.to[o.to] && K.to[o.to].trucTiep); if(tt){ o._ltNgay = 'tt'; return; }   /* món vay trực tiếp không trừ */
+    var n = +o.ngayGD || +o._ngGD || 0, ph = toPhienGan(nd, n ? String(n) : ''); if(!ph) return;
+    var nt = +Tr[o.ku] || 0; if(nt && nt!==n){ var p2 = toPhienGan(nd, String(nt)); if(p2 && p2<ph) ph = p2; }   /* đổi Ngày GDXA so kỳ trước → phiên sớm hơn */
     o._ltNgay = ph; if(!o.ngdg || String(o.ngdg)<ph || !((o.ltTH||0)>0)) return; xet++;
-    var ls = +o.ls || 0, d = soNgay(String(o.ngdg), nd), dd = null;
-    if(ls>0 && d>=0){ dd = o.ltTH <= ((o.th!==undefined ? +o.th : +o.dn)||0)*(ls>2 ? ls : ls*12)*d/36500*1.05+1000; coLS++; if(dd) khop++; }
-    ds.push([o, dd]); });
-  var coDon = theoNgay || (coLS>0 && khop/coLS>=0.5);   /* tầng 1 — FILE có lãi dồn: phần lớn món (có lãi suất) đã GD ở phiên mà TH khớp lãi dồn; file chốt thật TH lớn hơn hẳn */
-  ds.forEach(function(x){ var o = x[0], bo = coDon && (x[1]===null ? true : x[1]);   /* tầng 2 — từng món: chỉ bỏ khi TH ≤ lãi dồn (không có lãi suất → theo tầng 1) */
-    if(bo){ o.lt = o.ltQH||0; dem++; } else giu++; });
+    var ls = +o.ls || 0, d = soNgay(String(o.ngdg), nd), don = null;
+    if(ls>0 && d>=0){ don = (+o.dn||0)*(ls>2 ? ls : ls*12)/100/360*(d+1); coLS++; if(o.ltTH <= don*1.05+1000) khop++; }
+    ds.push([o, don]); });
+  var coDon = theoNgay || (coLS>0 && khop/coLS>=0.5);
+  ds.forEach(function(x){ var o = x[0], don = x[1]; if(!coDon){ giu++; return; }
+    if(don===null || o.ltTH <= don*1.05+1000){ o.lt = o.ltQH||0; dem++; } else { o.lt = Math.round(o.ltTH-don)+(o.ltQH||0); giu++; } });   /* vượt → chỉ trừ phần lãi dồn */
   K.ltDon = {xet:xet, bo:dem, giu:giu, coDon:coDon, khop:khop, coLS:coLS}; K.ltNgay = dem;
   if(hs.length){ Object.defineProperty(hs, '_ltDon', {value:K.ltDon, configurable:true}); Object.defineProperty(hs, '_ltNgay', {value:dem, configurable:true}); } }
 function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
@@ -468,6 +473,7 @@ function toSoTo(t){
     s.lt += k.lt||0; if(!k.stk.length && !k.coTK) s.ctk++; var r = r0[k.kh]; if(r){ var cc = toCCCDHan(r.cccd, r.ns, r.ncap); if(cc.kq==='het' || cc.kq==='sap') s.cch++; }
     k.mon.forEach(function(m){ if(!(m.qh>0) && (m.dn||0)>0 && skNhomDH(m, tuS, denS, K.ngay)>0) s.dhs++; });
     k.mon.forEach(function(m){ s.tn += (m.tnTH||0)+(m.tnQH||0)+(m.tnK||0); s.tl += (slSo(m.c_thu_lai_th_thang)||0)+(slSo(m.c_thu_lai_qh_thang)||0); }); });
+  var g105 = K && K.B ? slT105To(K.B) : null; if(g105) s.t105 = g105[t.ma]||0;   /* 3.531: tiền gửi tổ theo khóa sổ (giao ban mon_vay) */
   return s;
 }
 /* 3.424 QT-C-21 (anh duyệt 30/10 — sổ luật QUY_TAC_SO_LIEU): SỐ KỲ TRƯỚC THEO VỊ TRÍ HIỆN NAY CỦA KHẾ ƯỚC.

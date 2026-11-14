@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.530', ds:[
+var CO_GI_MOI = {ban:'3.531', ds:[
+  ["Lãi tồn + tiền gửi tính đúng như giao ban (TK 1 đối chiếu biểu TW BC0438): phiên theo Ngày GDXA từng món, lãi dồn /360, tiền gửi theo khóa sổ", ""],
   ["Lãi tồn: nhận file có lãi dồn theo SỐ TIỀN từng món (TH ≤ lãi dồn tính từ ngày GD) — file 31/10 xuất lại bằng 3.528 chưa được bỏ lãi dồn", ""],
   ["Dọn mã: gộp 2 hàm trùng (ghép PDF · nguồn vốn TW/ĐP) — không đổi chức năng", ""],
   ["Cỡ chữ Tự động theo cỡ màn (mặc định): màn 24\" chữ to hơn, laptop 125% nhỏ hơn chút — không ẩn / đổi nút; ⚙ Cài đặt › Cỡ chữ vẫn chọn tay được", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.530', ds:[
   ["Tiền gửi TK 105: sổ ghi trên dòng KU hủy vẫn cộng vào tiền gửi khách (mỗi sổ 1 lần)", ""],
   ["Gọn chip các tab: Sổ hộ vay (bảng lên cao ~150px — 2 hàng chip gộp 1 khung, bỏ dòng kẻ thừa, hướng dẫn vào ⓘ), Giao dịch xã (chip mẫu nhỏ 2 hàng), Phân bổ KH (6 nút gọn), Hồ sơ (chip mẫu nhỏ)", ""],
   ["🛡 KTGS: dọn code màn cũ (Định kỳ, Mẫu 04 theo ấp, khung 1 tổ cũ) không còn dùng; ↺ Gợi ý lại ở Kiểm tra tổ mỗi lần ra lượt hộ khác (như trước 3.514)", "dhSL('kt')"],
-  ["📄 Hộp khai văn bản: 4 nút đổi chữ (aa · Aa. · AA · Aa Aa) lên cùng hàng nhãn \"Tên văn bản\", không còn che chữ trong ô", ""],
-  ["🗓 Kế hoạch năm: bản đã chốt mang mã xã / Hội cũ (Mẫu 31 mới đổi mã sau sáp nhập) → 🔎 Kế hoạch đã lưu › ↪ Nhận về xã / Hội hiện tại — giữ đã chốt, bản cũ giữ nguyên", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📄 Hộp khai văn bản: 4 nút đổi chữ (aa · Aa. · AA · Aa Aa) lên cùng hàng nhãn \"Tên văn bản\", không còn che chữ trong ô", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.531 · 📤 File đối chiếu T10: lãi tồn gần TW (TK 1 so); tiền gửi khớp giao ban từng tổ",
     "3.530 · 📤 File đối chiếu T10: dòng đầu \"lãi tồn=file có lãi dồn (…) — bỏ lãi dồn … món\"; T9: \"chốt tháng thật … giữ …\"",
     "3.529 · Văn bản › Ghép PDF kỳ; Biểu mẫu › Ghép bộ — vẫn ghép đúng",
     "3.528 · Màn 24\" ở nhà: chữ to hơn (Tự động)",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.530', ds:[
     "3.521 · 📄 Hồ sơ vay › 📒 Sổ hộ vay: chip Ngày nhập + Hộ chung 1 khung, ⓘ Cách dùng sổ bấm mở",
     "3.521 · 🏢 Giao dịch xã: chip mẫu nhỏ, 2 hàng",
     "3.521 · 🎯 Phân bổ KH › Quyết định: 6 nút nhỏ 1 nhóm",
-    "3.520 · 🛡 KTGS › 🎯 Kiểm tra tổ: tích tổ → bấm ↺ vài lần → mỗi lần ra lượt hộ khác (hộ giải ngân dưới 30 ngày giữ)",
-    "3.519 · 📄 Văn bản › bấm sửa 1 văn bản → ô Tên văn bản hiện đủ chữ, 4 nút đổi chữ nằm phía trên bên phải"],
+    "3.520 · 🛡 KTGS › 🎯 Kiểm tra tổ: tích tổ → bấm ↺ vài lần → mỗi lần ra lượt hộ khác (hộ giải ngân dưới 30 ngày giữ)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

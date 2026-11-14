@@ -308,6 +308,14 @@ function slTimKy(sheet, r, rows, tenFile){
 /* 3.409 (Tèo QT-C-01 · TK 1 kiểm file thật 30/10: cột "Số dư tiền gửi 105" của Mẫu 31 là số dư TỪNG SỔ — khách nhiều sổ các sổ khác số; 1 sổ lặp nhiều dòng luôn cùng số
    · anh 30/10 "lưu ý KH có từ 2 số TK 105"): tiền gửi khách = CỘNG các sổ, mỗi sổ lấy 1 lần (trước 3.87–3.408: lấy số lớn nhất / khách).
    slT105Them(m, o, khoa) — cộng dồn vào kho ẩn của m (không hiện khi duyệt khóa), trả tổng hiện tại của khoa; dòng không ghi số sổ chỉ tính khi khách không có sổ nào ghi số. */
+/* 3.531 (TK 1 14/11 — đúng hàm mon_vay của giao ban, khớp BC0438 20/20 Hội): TIỀN GỬI THEO TỔ — duyệt mọi dòng Mẫu 31 theo thứ tự file (kể cả dòng KU hủy, món tất nợ),
+   khóa = "Sổ tiết kiệm 105"; sổ gặp lần đầu → lấy số dư dòng đó, các dòng sau cùng sổ bỏ qua; cộng vào tổ ("Mã tổ") của dòng đó khi dòng có Hội (Mã ĐVUT 11–14);
+   dòng vay trực tiếp không cộng. → {mã tổ: tiền gửi} (lưu trên B). */
+function slT105To(B){ if(!B) return null; if(B._t105To) return B._t105To;
+  var g = {}, gap = {}, ds = (B.hsGoc || (B.co && B.co.hstd) || []).concat((B.lap||[]).filter(function(o){ return !o._huy; }));
+  ds.forEach(function(o){ var k = String(o.stk==null ? '' : o.stk).trim(); if(!k || gap[k]) return; gap[k] = 1;
+    var dv = +o.dv || 0, to = o.to; if(dv<11 || dv>14 || !to || (typeof TO_GIA!=='undefined' && to===TO_GIA)) return; g[to] = (g[to]||0)+(+o.t105||0); });
+  Object.defineProperty(B, '_t105To', {value:g, configurable:true}); return g; }
 function slT105Them(m, o, khoa){
   if(!m.__s105) Object.defineProperty(m, '__s105', {value:{}, enumerable:false});
   var k = khoa==null ? '' : String(khoa), g = m.__s105[k] = m.__s105[k] || {}, so = (slStk(o && o.stk)[0]) || '_', v = +(o && o.t105) || 0;
@@ -976,6 +984,7 @@ function slBo0(ky){
         if(b) B.nguon[L.k] = kd;
         if(!b) return;
         var rows = slMoBang(b); B.co[L.k] = rows;
+        if(slLaHS(L.k)) Object.defineProperty(B, 'hsGoc', {value:rows, configurable:true});   /* 3.531: mọi dòng Mẫu 31 theo thứ tự file (kể cả KU hủy) — tiền gửi theo khóa sổ của giao ban */
         if(slLaHS(L.k)){ var huy = rows.filter(slKUHuy); if(huy.length){ rows = B.co[L.k] = rows.filter(function(o){ return !slKUHuy(o); }); B.huy = huy; } }   /* 3.138 (anh chốt): KU hủy / nhập nhầm tổ → loại khỏi mọi báo cáo */
         if(slLaHS(L.k)){ rows.forEach(function(o){ if(o.ku) B.mon[o.ku] = o; (B.theoKH[o.kh] = B.theoKH[o.kh]||[]).push(o); }); B.lap = slMoLap(b); slDanhRaTo(B, rows); if(B.huy) B.lap = B.lap.concat(slHuyLap(B.huy)); }   /* 3.138.1: khách đã ra khỏi tổ (theo TK 105) */   /* kỳ theo ngày: bảng Mẫu 10 */
         if(L.k==='nqh' || L.k==='nk' || L.k==='khd') rows.forEach(function(o){ B[L.k][o.ku] = o; });

@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.531 lãi tồn + tiền gửi đúng hàm giao ban)
+- TK 1 gửi quy tắc `lai_ton_ngay` + `mon_vay`. 3.531: `toLaiTonNgay` (phiên theo dòng, `toGdxaTruoc`, /360, trừ một phần), `slT105To` (khóa sổ lần đầu, `B.hsGoc`) cho `toSoTo`. Chờ "gộp" → anh xuất lại 2 mốc → TK 1 so TW.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.530 lãi tồn xét theo số tiền từng món)
 - Anh xuất lại 2 mốc bằng 3.528 → 31/10 bị nhận nhầm chốt thật (26% < 50%). 3.530: `toLaiTonNgay` 2 tầng theo số tiền (TH ≤ lãi dồn = th × ls × ngày/36500). Phép thử chung 1.4 (C03-2). Chờ "gộp" 3.529 + 3.530; sau đó anh xuất lại, TK 1 so TW.
 - Bẫy: dòng Mẫu 31 thiếu `ls` → theo tầng file; `_ltDon` lưu trên mảng dòng (xét 1 lần).
