@@ -168,11 +168,11 @@ function tvRaHTML(ma){
 }
 
 /* ---------- ④ TK 104 / TK 105 theo Sao kê ngày ---------- */
-function tkMoiNhat(loai){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; }); return ds[0] || null; }
+function tkMoiNhat(loai){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return dsSoKy(b, a); }); return ds[0] || null; }
 /* 3.202 (anh chốt 14/10): TK 104 / 105 = số 10 số theo Sao kê; kỳ nào chưa có Sao kê mới → dùng bản GẦN NHẤT (ngày ≤ ngày kỳ, không có thì bản sớm nhất sau đó) */
 function tkChonBan(loai, ngay){
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
-  if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || e.ky<=ngay; });
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===loai; }).sort(dsSoKy);
+  if(!ds.length) return null; var truoc = ds.filter(function(e){ return !ngay || dsNgayKy(e.ky)<=dsNgayKy(ngay); });   /* 3.526: so theo ngày */
   return truoc.length ? truoc[truoc.length-1] : ds[0];
 }
 /* 3.416 (anh 31/10 "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ"): tìm số CCCD trong MỌI File Tổ trưởng đã nạp (mới nhất trước) → tổ trưởng cũ / hiện tại
@@ -198,7 +198,7 @@ function dsTimTT(o){
 var DS_TK104 = {};
 function tk104TimTT(ten, B){
   var t = typeof sxChuan==='function' ? sxChuan(ten||'') : String(ten||'').toLowerCase(); if(!t) return Promise.resolve(null);
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tk104'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='tk104'; }).sort(function(a, b){ return dsSoKy(b, a); });
   return Promise.all(ds.map(function(e){ var khoa = e.ky+'|'+(e.luc||'');
     return (DS_TK104[khoa] ? Promise.resolve(DS_TK104[khoa]) : slDocBang('tk104', e.ky).then(function(b){ return DS_TK104[khoa] = b ? slMoBang(b) : []; }).catch(function(){ return []; }))
       .then(function(rows){ return {ky:e.ky, rows:rows}; }); })).then(function(S){ var kh = {};
@@ -209,7 +209,7 @@ function tk104TimTT(ten, B){
 }
 function dsTimCCCD(cccd){
   var so = String(cccd||'').replace(/\D/g, ''); if(so.length!==12 && so.length!==9) return Promise.resolve(null);
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return dsSoKy(b, a); });
   return ds.reduce(function(p, e){ return p.then(function(x){ if(x) return x;
     var khoa = e.ky+'|'+(e.luc||''), idx = DS_CCCD[khoa];
     var lay = idx ? Promise.resolve(idx) : slDocBang('dsto', e.ky).then(function(b){ var m = {}; if(b) slMoBang(b).forEach(function(o){ if(o.cccd) m[o.cccd] = o; }); return DS_CCCD[khoa] = m; }).catch(function(){ return {}; });
@@ -217,15 +217,18 @@ function dsTimCCCD(cccd){
 }
 var DS_TT = {};
 function dsTTDs(){   /* 3.416.1: mọi File Tổ trưởng đã nạp (mới nhất trước) → Promise [{ky, rows}] — 👑 Tổ trưởng cũ (js/84) */
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return a.ky<b.ky ? 1 : -1; });
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto'; }).sort(function(a, b){ return dsSoKy(b, a); });
   return Promise.all(ds.map(function(e){ var khoa = e.ky+'|'+(e.luc||'');
     return (DS_TT[khoa] ? Promise.resolve(DS_TT[khoa]) : slDocBang('dsto', e.ky).then(function(b){ return DS_TT[khoa] = b ? slMoBang(b) : []; }).catch(function(){ return []; }))
       .then(function(rows){ return {ky:e.ky, rows:rows}; }); }));
 }
+function dsNgayKy(k){ k = String(k||''); return k.length<=7 ? tdnCuoiKy(k) : k; }
+function dsSoKy(a, b){ var x = dsNgayKy(a.ky), y = dsNgayKy(b.ky); return x!==y ? (x<y ? -1 : 1) : String(a.ky).length>7 ? -1 : 1; }   /* 3.526: so kỳ theo NGÀY (chốt tháng = cuối tháng, trùng ngày → chốt sau) */
 function dsChonKy(ky){   /* 3.202 (anh chốt 14/10: nạp theo tháng là chính, theo ngày khi thay đổi lớn; giữ 1 danh sách tổ): bản Danh sách tổ hệ thống CỦA THÁNG (mới nhất ≤ ngày kỳ); tháng không có → bản mới nhất; không có bản hệ thống nào → '' (DSTO cũ theo kỳ) */
-  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto' && e.tong && e.tong.rieng; }).sort(function(a, b){ return a.ky<b.ky ? -1 : 1; });
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai==='dsto' && e.tong && e.tong.rieng; })
+    .sort(dsSoKy);   /* 3.526: xếp theo NGÀY (chốt tháng = cuối tháng; trùng ngày → bản chốt sau cùng = được chọn) — trước xếp chữ: '2026-10' đứng trước '2026-10-25' → chọn nhầm bản theo ngày cũ */
   if(!ds.length) return ''; ky = String(ky||''); var th = ky.slice(0, 7), den = ky.length<=7 ? tdnCuoiKy(ky) : ky;
-  var cung = ds.filter(function(e){ return String(e.ky).slice(0, 7)===th && (String(e.ky).length<=7 ? tdnCuoiKy(e.ky) : e.ky)<=den; });
+  var cung = ds.filter(function(e){ return String(e.ky).slice(0, 7)===th && dsNgayKy(e.ky)<=den; });
   return (cung.length ? cung[cung.length-1] : ds[ds.length-1]).ky;
 }
 function tkNapMoi(K){   /* gắn K.tk = {tk104:{ky, rows, theo}, tk105:{…}} — 1 lần khi dựng kỳ (nối Sao kê vào Mẫu 31 theo mã KH) */

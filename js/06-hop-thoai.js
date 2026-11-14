@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.525', ds:[
+var CO_GI_MOI = {ban:'3.526', ds:[
+  ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""],
+  ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""],
   ["File đối chiếu giao ban (📤): dòng đầu ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày)", ""],
   ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""],
   ["KTGS › Kiểm tra sau 30 ngày: bảng tổ có ô tích chọn tổ + Chọn hết, cột Ngày GN · Hạn KT (quá 30 ngày tô đỏ) · Mục đích; ấp đúng theo danh sách tổ; cột thẳng hàng", ""],
@@ -1070,10 +1072,10 @@ var CO_GI_MOI = {ban:'3.525', ds:[
   ["🗓 Kế hoạch năm lập theo Mẫu 31 đầu năm (chốt 31/12 năm trước); in theo tháng lấy số liệu cuối tháng liền trước tháng kiểm tra như cũ; tổ đã gộp / tổ mới so với Mẫu 31 mới nhất chỉ cảnh báo", "dhSL('kt')"],
   ["🗓 Kế hoạch năm hiện theo Mẫu 31 mới nhất (tổ hiện tại, đã gộp) — không theo Kỳ đầu trang; kế hoạch đã chốt giữ nguyên, tổ đã gộp chỉ cảnh báo; nút 🔎 Kế hoạch đã lưu để tìm bản chốt", "dhSL('kt')"],
   ["🛡 KTGS gọn chỗ: chip nhỏ lại, khung chọn hộ 1 hàng, nút ▾ Hộ gọn — màn Kiểm tra tổ thấy thêm khoảng 4–5 tổ; Sau 30 ngày chip Tất cả / Lần 1 lên cùng hàng tháng", "dhSL('kt')"],
-  ["🛡 KTGS còn 5 nút: Kiểm tra tổ · Kiểm tra sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo. Kiểm tra tổ chọn được nhiều tổ, kiểu chọn hộ (tốt · cần quan tâm · Trung hòa · hết tổ), in Tóm tắt · 06 · 15 · 16 · 04; Esc lùi 1 cấp", "dhSL('kt')"],
-  ["🛡 KTGS gọn lại, thống nhất cách lấy số liệu: Kế hoạch năm + Định kỳ 06/16 giữ như cũ; Sau giải ngân, Mẫu 04, 1 tổ, Hội cấp xã theo Kỳ đầu trang (chấm điểm ngày giữa tháng lấy cuối tháng trước); mỗi màn có dòng 📌 Số liệu", "dhSL('kt')"],
-  ["📒 Sao kê › Khách hàng: thêm \"Sao kê TK 105 của khách vay trong tổ\" — ① chưa có TK 105 (mở mới) · ② có TK 105 chưa gán vào tổ (gắn lại) · ③ TK 105 ở tổ khác (chuyển về), mỗi dòng ghi căn cứ", "dhSL('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🛡 KTGS còn 5 nút: Kiểm tra tổ · Kiểm tra sau 30 ngày · Kiểm tra Hội · Kế hoạch năm · Khai báo. Kiểm tra tổ chọn được nhiều tổ, kiểu chọn hộ (tốt · cần quan tâm · Trung hòa · hết tổ), in Tóm tắt · 06 · 15 · 16 · 04; Esc lùi 1 cấp", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.526 · Nạp & KT › T10 › ⋯ › 📤 File đối chiếu (khi tháng còn bản theo ngày): dòng đầu ghi File Tổ trưởng 31/10, không bị chặn",
+    "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ",
     "3.525 · 📥 Nạp & KT › T9 / T10 › 📤 File đối chiếu: dòng đầu có \"xuất lúc=…\" và \"File Tổ trưởng=…\"",
     "3.524 · Tổ TK&VV / Tra cứu / Sao kê / Tổng hợp / KTGS: khung Lọc địa bàn 1 hàng, chọn xã · Hội · ấp vẫn đúng",
     "3.524 · 📥 Nạp & KT: thanh công cụ 1 hàng",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.525', ds:[
     "3.516 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi Mẫu 31 đang dùng (mới nhất); bấm 🔎 Kế hoạch đã lưu → xem mọi kế hoạch trong máy (cả bản đã xóa ở Thùng rác), bấm Mở",
     "3.515 · 🛡 KTGS › 🎯 Kiểm tra tổ: Món · Kiểu · Số hộ · ↺ trên 1 hàng (rê chuột xem tên đủ); 📅 Kiểm tra sau 30 ngày: chip Tất cả / Lần 1 cạnh ô tháng",
     "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt",
-    "3.514 · 🛡 KTGS › ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định",
-    "3.514 · 🛡 KTGS: phím Esc (hoặc ‹ Lùi) lùi 1 cấp — thu gọn ▾ tổ, rồi lên cấp cây lọc",
-    "3.513 · 🛡 KTGS › chọn Kỳ đầu trang ngày giữa tháng → 🎯 chọn 1 tổ: hàng nút Tóm tắt · 06 · 15/TD · 16, dòng 📌 ghi Mẫu 31 ngày đó + BC0437 tháng trước"],
+    "3.514 · 🛡 KTGS › ⚙ Khai báo › 🎯 Chọn hộ kiểm tra: số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

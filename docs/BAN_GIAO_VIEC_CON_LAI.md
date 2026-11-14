@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.526)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tháng sau: nạp bản theo ngày + bản chốt, 📤 File đối chiếu | lấy File Tổ trưởng bản chốt, không bị chặn | |
+| 2 | Tổ TK&VV: chọn xã, Hội | khung lọc không tràn, xuống dòng gọn | |
+
 ### Danh sách thử trên máy thật (3.525)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
