@@ -76,8 +76,8 @@ function pbVeTrai(){
       '<label class="nut-tep nho" title="File PDF QĐ có chữ (bản điện tử) — app đọc bảng danh mục chương trình → PGD → xã, lấy PGD mình, xem trước rồi lưu">📄 Đọc QĐ (PDF)'+
         '<input type="file" accept=".pdf,application/pdf" style="display:none" data-lenh="pb.nhapPdf" data-su="change"></label>',
       '<label class="nut-tep nho" title="File Excel theo mẫu chuẩn (Gemini điền từ QĐ scan / chụp) — xem trước, soát rồi mới lưu">📥 Nạp QĐ (Excel mẫu)<input type="file" accept=".xlsx,.xls" style="display:none" data-lenh="pb.nhapXls" data-su="change"></label>',
-      GD.nut({chu:'⬇ Tải mẫu Excel', lenh:'pb.xlsMau', tit:'Mẫu trống + hướng dẫn + lời nhắc cho Gemini'})])+
-    GD.hang([GD.nut({chu:'⬇ Xuất số liệu đã lưu', lenh:'pb.xuatTat', tit:'Excel toàn bộ QĐ đã nhập — danh sách, từng QĐ như danh mục trên giấy, chi tiết xã × chương trình — để đối chiếu với QĐ'}),
+      GD.nut({chu:'⬇ Tải mẫu Excel', lenh:'pb.xlsMau', tit:'Mẫu trống + hướng dẫn + lời nhắc cho Gemini'}),   /* 3.521: 6 nút 1 nhóm, nút nhỏ (cột hẹp tự xuống dòng) */
+      GD.nut({chu:'⬇ Xuất số liệu đã lưu', lenh:'pb.xuatTat', tit:'Excel toàn bộ QĐ đã nhập — danh sách, từng QĐ như danh mục trên giấy, chi tiết xã × chương trình — để đối chiếu với QĐ'}),
       GD.nut({chu:'📅 Dòng thời gian QĐ', lenh:'pb.dtg', chinh:PB.xem==='__dtg', tit:'Thống kê QĐ theo ngày, STT, soát đợt bỏ sót'})])+   /* 3.467 · 3.469: QĐ không giao cho PGD nhập ở ＋ QĐ mới (0 xã) */
     (gon ? pbGonHTML(nh) : '<div class="pb-ds">'+pbVaKhong(nh).map(function(g){ if(g.khong) return pbKhongTheHTML(g.khong, false);
       var q0 = g.ds[0], giao = /giao mới/i.test(q0.loai), dangChon = PB.chon.khoa===g.k;

@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.521 gọn chip các tab — anh "gộp và code 4 ý")
+- Đã gộp 3.520 (PR #540). Làm **3.521**: Sổ hộ vay (bảng 493 → 338px), GDX (khung chip 134 → 93px), Phân bổ KH (6 nút 1 nhóm nhỏ), Hồ sơ (chip mẫu nhỏ). t395 mới; t245 sửa. Chờ anh "gộp".
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.520 dọn code KTGS — anh "ok")
 - Anh "tiếp tục" → em đề xuất 4 việc, anh "ok" (việc 1 dọn KTGS trước, việc 2 rà chip các tab — đo + đề xuất).
 - Đã làm **3.520**: xóa 36 hàm + 6 lớp CSS chết (rac.js); phát hiện ↺ Gợi ý lại ở Kiểm tra tổ (3.514) không ra lượt khác → sửa `KTTO.lai`. Sửa 9 phép thử sang KTTO. Chờ anh "gộp".
