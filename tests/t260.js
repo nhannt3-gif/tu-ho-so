@@ -1,4 +1,4 @@
-// t260 (TK 3, 24/10 — RA_SOAT_BO_CUC_2410 mục 8 việc 1): PHÉP THỬ ẢNH BỐ CỤC — mở từng tab ở 2 cỡ màn máy tính (1366, 1440) + bản điện thoại dt.html (iPhone 390),
+// t260 (TK 3, 24/10 — RA_SOAT_BO_CUC_2410 mục 8 việc 1): PHÉP THỬ ẢNH BỐ CỤC — mở từng tab ở 5 cỡ màn máy tính (1366, 1440 + 3.528: 1536×730, 1600×780, 1920×950) + bản điện thoại dt.html (iPhone 390),
 //   tự báo: trang tràn ngang · nút / chip / ô chọn bị cắt chữ hoặc thò ra ngoài màn (không nằm trong khung cuộn) · ô chọn hẹp hơn 60 px. Bộ GIẢ tests/gianho31.
 //   Chụp ảnh từng màn vào tests/anh260/ (đã .gitignore theo tests/*.png? — thư mục ảnh không commit). Chạy: node tests/t260.js [tab,tab…]
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
@@ -22,8 +22,8 @@ const CHI = (process.argv[2]||'').split(',').filter(Boolean);
    return loi; };
  /* 1. máy tính */
  const TAB = ['0','gdx','nap','th','sk','to','tra','kt','pb','hsv','hst','1','5','4','3'].filter(k=>!CHI.length || CHI.indexOf(k)>=0);
- for(const W of [1366, 1440]){
-   const p = await b.newPage({viewport:{width:W, height:900}}); p.on('pageerror', e=>loi.push(W+': '+e.message));
+ for(const [W, H] of [[1366, 900], [1440, 900], [1536, 730], [1600, 780], [1920, 950]]){   /* 3.528: + 3 màn thật của anh — laptop 17" 125% · màn cơ quan 1600×900 · 24" ở nhà (cỡ chữ Tự động 0.95 / 1 / 1.1) */
+   const p = await b.newPage({viewport:{width:W, height:H}}); p.on('pageerror', e=>loi.push(W+': '+e.message));
    await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
    await p.goto('file://'+G+'/index.html'); await p.waitForTimeout(1500); await napGia(p);
    if(W===1366){ const L0 = await p.evaluate(DO), Lm = await p.evaluate(()=>{ const z = document.createElement('div'); z.id = 'thu260'; z.style.cssText = 'position:fixed;top:300px;left:400px;z-index:9';

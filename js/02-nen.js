@@ -14,7 +14,7 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.526', APP_LUC = '14/11/2026 17:19';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.528', APP_LUC = '14/11/2026 17:55';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
 var GD_CHO = [];   /* 3.474 (Đ4): lệnh data-lenh của file nạp TRƯỚC js/39-gd.js — gdDangKy xếp hàng, GD tự nhận khi nạp */
 function gdDangKy(khoi, ds){ if(typeof GD!=='undefined') GD.dangKy(khoi, ds); else GD_CHO.push([khoi, ds]); }
@@ -25,6 +25,7 @@ var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
   thumuc: 'Tủ hồ sơ',
   coChu: 1,
+  coTu: true,   /* 3.528 (anh 14/11 "em nên tự nhận và tối ưu cỡ chữ"): cỡ chữ tự theo cỡ màn — bấm Nhỏ / Vừa / To thì tắt */
   tuTai: true,
   tuLenDrive: true,
   hsTuDrive: true,   /* 3.32: lưu hồ sơ CCCD là đưa PDF lên Drive */

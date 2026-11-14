@@ -4,6 +4,19 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.528 — 14/11/2026 — Cỡ chữ tự động theo cỡ màn (TK 2)
+- **Anh 14/11:** màn ở nhà 24" (1920), cơ quan 17" 1600×900 100%, laptop 17" để 125%; "không nên tự ẩn nút" · "em nên tự nhận và tối ưu cỡ chữ".
+- **Cỡ chữ Tự động** (mặc định, khóa mới `coTu` — lưu riêng từng máy, `CH_RIENG`): `coTuDong` theo cỡ trang (px CSS) — rộng ≥ 1800 → 1.1 · thấp < 760 mà rộng ≥ 1400 (laptop 125% ~1536×730) → 0.95 · còn lại (1600×780, 1366…) → 1. Tự đổi khi kéo cửa sổ / đổi màn (`resize`). Không ẩn, không đổi nút.
+- ⚙ Cài đặt › Hiển thị › Cỡ chữ: thêm nút **Tự động**; bấm Nhỏ / Vừa / To → dùng cỡ chọn (tắt tự động). Máy đã chọn cỡ trước đây → nay theo Tự động (bấm lại cỡ cũ nếu muốn giữ).
+- Phép thử bố cục t260 thêm 3 màn thật của anh (1536×730, 1600×780, 1920×950): 84/84 — không nút nào cắt chữ / tràn. Phép thử mới t400 (7 ý).
+
+## 3.527 — 14/11/2026 — Lãi tồn: nhận đúng file có lãi dồn + ngày phiên theo món (TK 2)
+- **Nguồn:** TK 1 so app thật 3.525 với biểu TW BC0438 theo Hội (14/11): lãi tồn 30/09 lỗi app (3.522 bỏ lãi dồn cả file chốt tháng thật — file 30/09 không có lãi dồn: TW 2.201,1 tr, GB thô 2.285,9 tr, app 1.844,9 tr); 31/10 lỗi app hai chiều (điểm 3405 / 3503 không có ngày phiên → để thô; 8201/8202, 7901/7902 trừ quá tay — sai ngày phiên sau gộp xã).
+- **Sửa `toLaiTonNgay` (js/22g):** ① ngày phiên theo TỪNG MÓN = cột Ngày GDXA của dòng Mẫu 31 (trống → ngày của điểm như cũ); ② kỳ chốt tháng chỉ bỏ lãi dồn khi file có lãi dồn: trong các món đã GD ở phiên mà không có lãi QH, ≥ 50% còn lãi TH > 0 → file xuất theo ngày (31/10) → bỏ; ít hơn → chốt tháng thật (30/09) → giữ (cách nhận biết TK 1 đề xuất). Kỳ theo ngày luôn bỏ (3.436). Kết quả xét lưu 1 lần trên bảng dòng.
+- File đối chiếu: dòng `#` ghi thêm `lãi tồn=…` (bỏ / giữ, căn cứ) để TK 1 so.
+- Tiền gửi lệch nhỏ (9 tổ 30/09, 1 tổ 31/10): **chưa sửa** — chờ TK 1 cho biết giao ban xác định "mỗi sổ 1 lần" theo cột nào (nghi dòng chỉ ghi số TK 14 số, không số sổ 10 số; sửa đoán có thể cộng trùng).
+- t352 thêm 2 ý.
+
 ## 3.526 — 14/11/2026 — Chọn File Tổ trưởng theo ngày + sửa khung lọc 3.524 (TK 2)
 - **Anh 14/11:** "tinh chỉnh lại tại sao chọn file tổ cũ" — xuất file đối chiếu T10 bị chặn (QT-C-09) tới khi anh xóa các bản theo ngày cũ.
 - **Nguyên nhân:** `dsChonKy` (js/28) xếp các File Tổ trưởng theo CHỮ của kỳ — bản chốt `2026-10` đứng trước `2026-10-25` … `2026-10-30` → "bản mới nhất trong tháng" lấy nhầm bản ngày 30/10 thay bản chốt 31/10 → lệch ngày Mẫu 31 → chặn.

@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.528 cỡ chữ tự động theo cỡ màn)
+- Màn anh: 24" 1920 (nhà), 1600×900 100% (cơ quan), laptop 17" 125% (~1536×730). Anh: không tự ẩn nút; "em nên tự nhận và tối ưu cỡ chữ" → `coTu` (mặc định) + `coTuDong` / `coApDung` (js/06), resize. t400 mới; t260 thêm 3 cỡ màn (84/84).
+
+### 14/11/2026 — TK 2 · PHIÊN (3.527 lãi tồn theo kết quả TK 1 so TW)
+- 3.526 gộp (PR #546). TK 1 so app thật với TW BC0438: tiền gửi đạt (còn lệch nhỏ), lãi tồn 30/09 + 31/10 lỗi app. 3.527: `toLaiTonNgay` ngày phiên theo dòng (Ngày GDXA) + chỉ bỏ lãi dồn khi file có lãi dồn (≥ 50%). Tiền gửi lệch nhỏ chưa sửa — hỏi TK 1 khóa "mỗi sổ".
+- Đang dở: tinh chỉnh giao diện 3 cỡ màn (24" 1920, laptop 17" 125% = 1536×730, màn 17" cơ quan) — đã chụp, chưa đề xuất.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.525 file đối chiếu ghi giờ / File Tổ trưởng · 3.526 chọn File Tổ trưởng theo ngày + sửa khung lọc)
 - 3.524 + 3.525 gộp (PR #545, anh "gộp trước" khi hồi quy đang chạy) → hồi quy đủ trượt t162 / t260 / t278 (khung lọc tràn khi nhiều ô / chế độ Chip) → sửa ở 3.526.
 - Anh xuất 2 file đối chiếu bằng app thật; T10 bị chặn QT-C-09 → nguyên nhân `dsChonKy` xếp chữ ('2026-10' trước '2026-10-25') → chọn nhầm bản ngày 30/10. Sửa `dsSoKy` theo ngày (Danh sách tổ, TK 104 / 105). TK 2 chép 2 file vào Drive giao ban `App_that`, ghi hộp thư cho TK 1.

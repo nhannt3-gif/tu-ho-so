@@ -266,6 +266,20 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.528)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Mở app ở màn 24" | chữ to hơn chút, đủ nút | |
+| 2 | Laptop 125% | chữ nhỏ hơn chút, đủ nút | |
+| 3 | ⚙ Cài đặt › Cỡ chữ › To → kéo cửa sổ | giữ To | |
+
+### Danh sách thử trên máy thật (3.527)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp & KT › T9 › ⋯ › 📤 | dòng đầu "lãi tồn=giữ nguyên (chốt tháng thật …)" | |
+| 2 | T10 › ⋯ › 📤 | "lãi tồn=bỏ lãi dồn … (file có lãi dồn …)" | |
+| 3 | TK 1 so lại 2 mốc với TW | lãi tồn gần TW (còn chênh nền ~80 tr chung 2 bên) | |
+
 ### Danh sách thử trên máy thật (3.526)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

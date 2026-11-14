@@ -269,11 +269,18 @@ var TO_GIA = '0000000';
 function toPhienGan(ngay, gd){ var x = String(ngay||'').match(/^(\d{4})-(\d{2})-(\d{2})/); gd = +gd; if(!x || !gd) return '';
   var y = +x[1], m = +x[2], d = +x[3]; if(d < gd){ m--; if(!m){ m = 12; y--; } }
   var cuoi = new Date(y, m, 0).getDate(), dd = Math.min(gd, cuoi); return y+'-'+String(m).padStart(2, '0')+'-'+String(dd).padStart(2, '0'); }
-function toLaiTonNgay(K){
-  if(!K) return; var nd = K.ngay || K.ky, dem = 0;   /* 3.522 (anh chốt 14/11): áp cả Mẫu 31 cuối tháng — "món đã trả lãi đến ngày giao dịch coi như không có lãi tồn" (file 31/10 có lãi dồn như bản ngày) */
-  (K.hs||[]).forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, o._ngGD); if(!ph) return;
-    o._ltNgay = ph; if(o.ngdg && String(o.ngdg)>=ph && (o.ltTH||0)>0){ o.lt = o.ltQH||0; dem++; } });
-  K.ltNgay = dem; }
+function toLaiTonNgay(K){   /* 3.527 (TK 1 so 2 mốc với TW BC0438, 14/11): ① ngày phiên theo TỪNG MÓN — cột Ngày GDXA trên dòng Mẫu 31 (sau gộp xã 1 điểm có 2–3 phiên), trống → ngày của điểm;
+     ② kỳ chốt tháng chỉ bỏ lãi dồn khi FILE CÓ LÃI DỒN: trong các món đã GD ở phiên mà không có lãi QH, phần lớn (≥ 50%) còn lãi TH > 0 → bản xuất theo ngày (31/10) → bỏ;
+     ít → bản chốt tháng thật (30/09, không có lãi dồn) → giữ nguyên. Kỳ theo ngày luôn bỏ (3.436). */
+  if(!K) return; var hs = K.hs||[]; if(hs._ltDon){ K.ltDon = hs._ltDon; K.ltNgay = hs._ltNgay; return; }   /* dòng dùng chung (slBo) — đã xét 1 lần */
+  var nd = K.ngay || K.ky, dem = 0, ds = [], p = 0, co = 0;
+  (K.hs||[]).forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, +o.ngayGD ? String(+o.ngayGD) : o._ngGD); if(!ph) return;
+    o._ltNgay = ph; if(o.ngdg && String(o.ngdg)>=ph){ ds.push(o); if(!((o.ltQH||0)>0)){ p++; if((o.ltTH||0)>0) co++; } } });
+  if(!p){ p = ds.length; co = ds.filter(function(o){ return (o.ltTH||0)>0; }).length; }   /* không có món sạch QH để xét → xét mọi món đã GD ở phiên */
+  var theoNgay = String(K.ky||'').length>7 || (p>0 && co/p>=0.5);
+  K.ltDon = {theoNgay:theoNgay, mon:p, coTH:co};
+  if(theoNgay) ds.forEach(function(o){ if((o.ltTH||0)>0){ o.lt = o.ltQH||0; dem++; } });
+  K.ltNgay = dem; if(hs.length){ Object.defineProperty(hs, '_ltDon', {value:K.ltDon, configurable:true}); Object.defineProperty(hs, '_ltNgay', {value:dem, configurable:true}); } }
 function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
 function toLaTT(t){ return !!(t && t.trucTiep); }
 /* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
