@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.520', ds:[
+var CO_GI_MOI = {ban:'3.521', ds:[
+  ["Gọn chip các tab: Sổ hộ vay (bảng lên cao ~150px — 2 hàng chip gộp 1 khung, bỏ dòng kẻ thừa, hướng dẫn vào ⓘ), Giao dịch xã (chip mẫu nhỏ 2 hàng), Phân bổ KH (6 nút gọn), Hồ sơ (chip mẫu nhỏ)", ""],
   ["🛡 KTGS: dọn code màn cũ (Định kỳ, Mẫu 04 theo ấp, khung 1 tổ cũ) không còn dùng; ↺ Gợi ý lại ở Kiểm tra tổ mỗi lần ra lượt hộ khác (như trước 3.514)", "dhSL('kt')"],
   ["📄 Hộp khai văn bản: 4 nút đổi chữ (aa · Aa. · AA · Aa Aa) lên cùng hàng nhãn \"Tên văn bản\", không còn che chữ trong ô", ""],
   ["🗓 Kế hoạch năm: bản đã chốt mang mã xã / Hội cũ (Mẫu 31 mới đổi mã sau sáp nhập) → 🔎 Kế hoạch đã lưu › ↪ Nhận về xã / Hội hiện tại — giữ đã chốt, bản cũ giữ nguyên", "dhSL('kt')"],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.520', ds:[
   ["03/GDX › Tổ giao dịch: khung cố định Tổ trưởng · KSV · GDV chính · GDV, kiêm Lái xe / Bảo vệ; 💾 lưu phiên theo điểm, xem theo tháng, cảnh báo thiếu phiên từ 11/2026", "slDoiTab('gdx')"],
   ["🎯 Phân bổ KH › Biểu 07 cũ: đoạn văn giãn dòng thoáng hơn (1,3, cách đoạn ~10 pt như mẫu gốc), vẫn 1 trang Thông báo; lề 2 · 2 · 3 · 2 cm", "slDoiTab('pb')"],
   ["Tên chương trình GQVL đổi chung cả app: \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" (02/BG, 15/TD, sao kê, danh mục, khai báo); cột bảng tổng hợp ghi \"Hỗ trợ tạo việc làm\"", "dhSL('sk')"],
-  ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"],
-  ["📒 Sao kê: thêm \"Sao kê theo chương trình vay\" — chọn 1 chương trình hoặc tất cả, chia chương trình › tổ › món, cộng tổ · chương trình · tổng, A4 ngang", "dhSL('sk')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🎯 Phân bổ KH: chương trình 03 ghi tên mới \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\" trên QĐ 07/KH, 08/KH, Tờ trình 09/KH, Biểu 07 và màn đối chiếu", "slDoiTab('pb')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.521 · 📄 Hồ sơ vay › 📒 Sổ hộ vay: chip Ngày nhập + Hộ chung 1 khung, ⓘ Cách dùng sổ bấm mở",
+    "3.521 · 🏢 Giao dịch xã: chip mẫu nhỏ, 2 hàng",
+    "3.521 · 🎯 Phân bổ KH › Quyết định: 6 nút nhỏ 1 nhóm",
     "3.520 · 🛡 KTGS › 🎯 Kiểm tra tổ: tích tổ → bấm ↺ vài lần → mỗi lần ra lượt hộ khác (hộ giải ngân dưới 30 ngày giữ)",
     "3.519 · 📄 Văn bản › bấm sửa 1 văn bản → ô Tên văn bản hiện đủ chữ, 4 nút đổi chữ nằm phía trên bên phải",
     "3.518 · 🛡 KTGS › 🗓 Kế hoạch năm › 🔎 Kế hoạch đã lưu: dòng ghi \"mã xã / Hội không còn trong số liệu\" → ↪ Nhận về xã / Hội hiện tại → xem hộp hỏi → ↪ Nhận về",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.520', ds:[
     "3.511 · 03/GDX › Tổ giao dịch: mỗi ô là ô chọn từ danh sách cán bộ, đã loại người giữ vai khác",
     "3.510 · Giao dịch xã › 03/GDX › 👥 Tổ giao dịch: mỗi vai 1 ô, gõ / chọn tên; cùng tên 2 ô = kiêm",
     "3.509 · 🎯 Phân bổ KH › 📄 Biểu 07 → chọn Biểu 07 cũ: các đoạn Căn cứ…, Ủy ban nhân dân…, Đề nghị… giãn dòng thoáng; In / Word vẫn 2 trang (Thông báo + Danh mục)",
-    "3.508 · 📒 Sao kê theo chương trình vay / nhà đầu tư · Hồ sơ Tổ 02/BG · KTGS 15/TD: chương trình 03 ghi \"Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"; ⚙ Cài đặt › tên chương trình GQVL = tên mới (tên anh tự sửa giữ nguyên)",
-    "3.507 · 🎯 Phân bổ KH › chọn QĐ có chương trình 03 → 📄 Biểu 07 / 07/KH / 08/KH / Tờ trình 09/KH: dòng chương trình ghi \"Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"",
-    "3.506 · 📒 Sao kê › Thông tin tổ › Sao kê theo chương trình vay → ô Chương trình (Tất cả / 1 CT) → 👁 Xem → In / PDF / Excel; chọn địa bàn ở cây lọc để thu gọn",
-    "3.505 · 🔎 Tra cứu KH › Tìm theo Tổ trưởng → chọn xã / điểm (hoặc lọc cột) → bấm 🖨 In DS tổ (đầu bảng, bên phải) → xem trước A4 dọc → In / PDF"],
+    "3.508 · 📒 Sao kê theo chương trình vay / nhà đầu tư · Hồ sơ Tổ 02/BG · KTGS 15/TD: chương trình 03 ghi \"Hỗ trợ tạo việc làm, duy trì và mở rộng việc làm\"; ⚙ Cài đặt › tên chương trình GQVL = tên mới (tên anh tự sửa giữ nguyên)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.521 — 14/11/2026 — Gọn chip các tab (TK 2)
+- **Anh 14/11** "gộp và code 4 ý" (đề xuất đo 1366×768).
+- **① Hồ sơ vay › 📒 Sổ hộ vay** (`hmSoHTML`, js/25c + CSS): chip Ngày nhập + loại hộ (Tất cả / Hộ cũ / Hộ mới / HSSV / Cần bổ sung / Chưa có tổ / Có cảnh báo) chung 1 khung chip nhỏ (22px); số hộ lên hàng nút ＋ Hộ mới (bỏ dòng "📒 Sổ hộ vay — n hộ"); dòng "✎ Nhập liệu — Sổ hộ vay" ẩn (chế độ rộng); hướng dẫn vào ⓘ Cách dùng sổ; nút Phóng to / In / PDF / Word / Gửi cùng hàng tiêu đề (màn ≥ 900px). Bảng y 493 → 338.
+- **② Giao dịch xã:** chip mẫu nhỏ (22px, chữ 12px), chip + cụm nút chảy chung dòng (`display:contents`) → khung chip 134 → 93px (2 hàng chip + nút).
+- **③ Phân bổ KH › 📋 Quyết định:** 6 nút (QĐ mới · Đọc QĐ · Nạp QĐ · Tải mẫu · Xuất · Dòng thời gian) 1 nhóm, nút nhỏ 26px (cột hẹp tự xuống dòng: 4 → 3 hàng); ☰ Xem gọn nhỏ.
+- **④ Hồ sơ Tổ / Hồ sơ vay:** chip mẫu 12.5px, cao 26px.
+- CSS áp riêng từng tab; Tổ TK&VV, Tra cứu, Sao kê, Tổng hợp giữ nguyên. Không đổi chức năng.
+- Phép thử mới t395 (12 ý). t245 cập nhật (khung chip GDX dùng `display:contents`).
+
 ## 3.520 — 14/11/2026 — Dọn code màn cũ KTGS (TK 2)
 - **Anh 14/11** "ok" (việc 1: dọn hàm màn cũ KTGS sau 3.514).
 - Bỏ nhánh vẽ màn cũ ở `ktVeThe` (Định kỳ `dk`, Mẫu 04 `bc`, khung 1 tổ cũ) và lệnh nút cũ (`ktk.dx04 · kieu · so · goiYLai · loc · xuat · dkTich · dkMo · dkLich · che`, `kta.th`, `f22b.ktTich · ktChonTo`, `f22d.ktBCTich · ktBCNgay · ktBCXem`, `f22e.ktDKXem · ktDKIn`).

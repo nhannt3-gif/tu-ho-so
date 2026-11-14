@@ -374,17 +374,18 @@ function hmSoHTML(){
   var kh = function(k, chu){ var r = hmSoKhoangTinh(k); return GD.chip(chu, HM_SO.tu===r[0] && HM_SO.den===r[1], 'so.khoang', {k:k}).replace('gd-chip', 'gd-chip hm-so-chip'); };
   var ngay = function(f, ph){ return GD.o({loai:'ngay', gt:HM_SO[f] ? ngayVNsl(HM_SO[f]) : '', ph:ph, lenh:'so.ngay', du:{f:f}}).replace('gd-o ', 'gd-o hm-so-ngay '); };
   var chon = function(lenh, tit, ops, gt){ return '<select data-lenh="'+lenh+'" data-su="change" title="'+tit+'">'+ops.map(function(x){ return '<option value="'+x[0]+'"'+(gt===x[0] ? ' selected' : '')+'>'+x[1]+'</option>'; }).join('')+'</select>'; };
-  return '<div class="nhan-nhom">📒 Sổ hộ vay — <span id="hm-so-dem">'+hmSoDemChu(ds)+'</span></div>'+
-    '<div class="hang-nut hm-so-loc">'+GD.nut({chu:'＋ Hộ mới', lenh:'so.moi', chinh:1})+GD.nut({chu:'📥 Lấy từ Mẫu 31', lenh:'so.m31'})+'<span id="hm-so-chon" class="hm-so-chon">'+hmSoNutChonHTML()+'</span>'+
+  return '<div class="hang-nut hm-so-loc"><span class="hm-so-dem-o" title="Số hộ đang hiện / tổng sổ">📒 <span id="hm-so-dem">'+hmSoDemChu(ds)+'</span></span>'+GD.nut({chu:'＋ Hộ mới', lenh:'so.moi', chinh:1})+GD.nut({chu:'📥 Lấy từ Mẫu 31', lenh:'so.m31'})+'<span id="hm-so-chon" class="hm-so-chon">'+hmSoNutChonHTML()+'</span>'+
       GD.o({loai:'tim', id:'hm-so-tim', gt:HM_SO.q, ph:'Tìm tên / CCCD / mã KH / ấp', lenh:'so.tim', su:'input'}).replace('gd-o ', 'gd-o hm-tim ')+
       (typeof HM_MAU_TEN!=='undefined' ? chon('so.mau', 'Chỉ hiện hộ còn thiếu thông tin cho mẫu', [['', 'Thiếu cho mẫu: —']].concat(Object.keys(HM_MAU_TEN).map(function(m){ return [m, 'Thiếu cho '+HM_MAU_TEN[m]]; })), HM_SO.mau) : '')+   /* 3.223 M2 */
       chon('so.sx', 'Sắp xếp', [['tao', '↕ Ngày nhập'], ['ten', '↕ Tên A → Z'], ['ns', '↕ Ngày sinh'], ['to', '↕ Tổ · ấp'], ['sua', '↕ Mới sửa trước']], S.k)+
       GD.nut({chu:S.xuoi ? '▲ Tăng' : '▼ Giảm', lenh:'so.sx', du:{k:S.k}, tit:'Đảo chiều sắp xếp'})+'</div>'+
     '<div class="hang-nut hm-so-loc"><span class="pv-nhan">Ngày nhập</span>'+kh('', 'Tất cả')+kh('thang', 'Tháng này')+kh('truoc', 'Tháng trước')+kh('quy', 'Quý này')+kh('nam', 'Năm nay')+
       ngay('tu', 'từ ngày')+ngay('den', 'đến ngày')+
-      '<label class="hso-o2" title="Nhóm các hộ theo tháng nhập vào sổ — bấm dòng tháng để gập / mở"><input type="checkbox" data-lenh="so.nhom" data-su="change"'+(HM_SO.nhom ? ' checked' : '')+'> Nhóm theo tháng</label></div>'+
-    '<div class="hang-nut">'+chip('', 'Tất cả')+chip('cu', 'Hộ cũ (mã KH)')+chip('moi', 'Hộ mới')+chip('sv', 'Có HSSV')+chip('thieu', '⚠ Cần bổ sung ('+nThieu+')')+chip('chuaTo', 'Chưa có tổ ('+nChuaTo+')')+chip('canh', '🔎 Có cảnh báo ('+nCanh+')')+'</div>'+
-    '<div class="sl-phu">Lọc <b>Xã · Điểm GD · Hội · Tổ</b> ở khối LỌC ĐỊA BÀN phía trên. Hộ mới: sửa thẳng trong bảng — <b>Enter / Tab</b> sang ô kế, <b>↑ ↓</b> lên / xuống dòng, tự lưu. Hộ cũ: nhân thân theo Mẫu 31 mới nhất (chữ xám). <b>✎</b> sửa đầy đủ; bấm dòng tháng để gập / mở; ☐ tích hộ → 📋 Lập 03/TD. 🖨 In = đúng danh sách đang lọc.</div>'+
+      '<label class="hso-o2" title="Nhóm các hộ theo tháng nhập vào sổ — bấm dòng tháng để gập / mở"><input type="checkbox" data-lenh="so.nhom" data-su="change"'+(HM_SO.nhom ? ' checked' : '')+'> Nhóm theo tháng</label>'+
+      '<span class="hm-so-vach"></span><span class="pv-nhan">Hộ</span>'+chip('', 'Tất cả')+
+      chip('cu', 'Hộ cũ (mã KH)')+chip('moi', 'Hộ mới')+chip('sv', 'Có HSSV')+chip('thieu', '⚠ Cần bổ sung ('+nThieu+')')+chip('chuaTo', 'Chưa có tổ ('+nChuaTo+')')+chip('canh', '🔎 Có cảnh báo ('+nCanh+')')+'</div>'+   /* 3.521 (anh 14/11 gọn chip): Ngày nhập + loại hộ 1 hàng chip nhỏ; số hộ lên hàng nút; hướng dẫn vào ⓘ */
+    '<details class="hm-so-ghi"><summary>ⓘ Cách dùng sổ</summary>'+
+      '<div class="sl-phu">Lọc <b>Xã · Điểm GD · Hội · Tổ</b> ở khối LỌC ĐỊA BÀN phía trên. Hộ mới: sửa thẳng trong bảng — <b>Enter / Tab</b> sang ô kế, <b>↑ ↓</b> lên / xuống dòng, tự lưu. Hộ cũ: nhân thân theo Mẫu 31 mới nhất (chữ xám). <b>✎</b> sửa đầy đủ; bấm dòng tháng để gập / mở; ☐ tích hộ → 📋 Lập 03/TD. 🖨 In = đúng danh sách đang lọc.</div></details>'+
     '<div class="hm-so-khung" id="hm-so-bang">'+hmSoBangHTML(ds)+'</div>';
 }
 function hmSoVeBang(){ var k = document.getElementById('hm-so-bang'); if(!k) return hsoVe(); var ds = hmSoDs(); k.innerHTML = hmSoBangHTML(ds); var d = document.getElementById('hm-so-dem'); if(d) d.textContent = hmSoDemChu(ds); hmSoVeNut(); hsoHen(); }
