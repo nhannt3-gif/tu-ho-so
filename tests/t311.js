@@ -15,7 +15,7 @@ const fs=require('fs'), path=require('path');
  ok('3.372 đầu trang không còn ❓ 🧰 🗑 ⚙ (vào ☰ Thêm)', await p.evaluate(()=>[...document.querySelectorAll('.dau-hang .nut-cd')].every(x=>!x.offsetParent)));
  await p.click('#thanh-duoi a[data-d="tra"]'); await p.waitForTimeout(1200);
  const tra = await p.evaluate(()=>{ const c=document.querySelector('#tr7 > .sl-con'), h=document.querySelector('#tc-cay .pv-hang1'); return {tab:dhDang(), bat:document.querySelector('#thanh-duoi a.bat').getAttribute('data-d'), con:c ? getComputedStyle(c).display : '', hang:h ? Math.round(h.getBoundingClientRect().height) : 0}; });
- ok('3.372 bấm Tra cứu → mở Tra cứu KH, nút Tra cứu sáng, ẩn hàng tab con, Lọc địa bàn 1 hàng (≤ 42 px, 2 hàng ≈ 65)', tra.tab==='tra' && tra.bat==='tra' && tra.con==='none' && tra.hang>0 && tra.hang<=42, JSON.stringify(tra));
+ ok('3.372 bấm Tra cứu → mở Tra cứu KH, nút Tra cứu sáng, ẩn hàng tab con; 3.535: Lọc địa bàn gọn (ô chọn ẩn tới khi bấm, t401 kiểm mở / gọn)', tra.tab==='tra' && tra.bat==='tra' && tra.con==='none' && tra.hang===0, JSON.stringify(tra));
  await p.click('#thanh-duoi a[data-d="1"]'); await p.waitForTimeout(900);
  const vb = await p.evaluate(()=>{ const d=document.querySelector('#tr1 .d2'), t=d && d.querySelector('.ten'), s=d && d.querySelector('.nut button[title="Sửa"]'); return {tab:dhDang(), bat:document.querySelector('#thanh-duoi a.bat').getAttribute('data-d'), dong:t ? Math.round(t.getBoundingClientRect().height/parseFloat(getComputedStyle(t).lineHeight)) : 0, sua:s ? getComputedStyle(s).display : ''}; });
  ok('3.372 bấm Văn bản → tab Văn bản, nút Văn bản sáng (thẻ gọn: TK 3 css/dt-may-vbsc.css — không nút ✎)', vb.tab==='1' && vb.bat==='1' && vb.sua==='none', JSON.stringify(vb));

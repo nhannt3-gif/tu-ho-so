@@ -45,7 +45,7 @@ const fs=require('fs'), path=require('path');
  await p.close();
  const d = await mo(390, 844, true);
  for(const t of ['to','sk','th','kt','tra']){ await d.evaluate(t=>slDoiTab(t), t); await d.waitForTimeout(800);
-   const h = await d.evaluate(t=>{ const x=document.querySelector('#'+(t==='tra'?'tc':t)+'-cay .pv-hang1'); return x ? Math.round(x.getBoundingClientRect().height) : 0; }, t);
+   const h = await d.evaluate(t=>{ if(t==='tra') document.body.classList.add('dtm-loc-mo');   /* 3.535: Tra cứu điện thoại lọc gọn — bấm LỌC ĐỊA BÀN mới mở; đo khi mở */ const x=document.querySelector('#'+(t==='tra'?'tc':t)+'-cay .pv-hang1'); return x ? Math.round(x.getBoundingClientRect().height) : 0; }, t);
    ok('điện thoại '+t+': hàng lọc 1 dòng (≤ 42 px)', h>0 && h<=42, h); }
  await d.evaluate(()=>slDoiTab('sk')); await d.waitForTimeout(500); await d.click('#sk-cay .pv-tim-nut'); await d.waitForTimeout(200);
  r = await d.evaluate(()=>{ const i=document.getElementById('sk-tim').closest('.pv-tim').getBoundingClientRect(), s=document.querySelector('#sk-cay .pv-sel').getBoundingClientRect(); return {rong:Math.round(i.width), duoi:i.top>=s.bottom-1}; });

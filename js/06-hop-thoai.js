@@ -1058,7 +1058,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.536', ds:[
-  ["Điện thoại: Văn bản › ⋯ › ⬇ Tải sẵn VB về máy — VB ⭐ + 40 VB mới nhất, đọc nhanh không cần mạng", ""],
+  ["Điện thoại: văn bản đã xem lưu trong máy trong ngày (mở lại ngay), sang ngày mới tự dọn — không tải sẵn", ""],
   ["Điện thoại: Tra cứu KH gọn (1 ô tìm ở đầu, lọc địa bàn bấm mở, 📞 Gọi) · Văn bản thẻ gọn, xem VB có \"📤 Gửi trang này\" và \"📤 Gửi cả VB\"", ""],
   ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
   ["Lãi tồn: món có ngày GD sau ngày số liệu (Mẫu 31 xuất muộn) giữ nguyên lãi tồn — khớp giao ban cả 2 mốc", ""],
@@ -1074,7 +1074,7 @@ var CO_GI_MOI = {ban:'3.536', ds:[
   ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""],
   ["KTGS › Kiểm tra sau 30 ngày: bảng tổ có ô tích chọn tổ + Chọn hết, cột Ngày GN · Hạn KT (quá 30 ngày tô đỏ) · Mục đích; ấp đúng theo danh sách tổ; cột thẳng hàng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
-    "3.536 · Điện thoại › Văn bản › ⋯ › ⬇ Tải sẵn VB về máy → tắt mạng, mở VB vẫn đọc được",
+    "3.536 · Điện thoại: mở 1 VB, mở lại ngay; hôm sau mở app → báo đã dọn, VB vẫn mở được từ Drive",
     "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn",
     "3.535 · Thẻ khách: 📞 Gọi",
     "3.535 · Văn bản › mở 1 VB: mỗi trang có 📤 Gửi trang này → Zalo nhận 1 trang",
