@@ -2104,6 +2104,8 @@
   .kt-che{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}#tr7 .kt-che button{flex:0 0 auto}
   .kt-gn-dau{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:4px 0 6px;font-size:calc(13px*var(--co))}.kt-gn-dau select{font:inherit;padding:2px 6px;border:1px solid var(--vien);border-radius:6px;background:var(--the);color:var(--chu)}
   .kt-gn-bang input[type=checkbox]{width:18px;height:18px;margin:0}#kt-the .kt-gn-bang td:first-child,#kt-the .kt-gn-bang th:first-child{width:auto;min-width:0}.kt-gn-bang small.vang{color:#a86f00}
+  #kt-the .kt-gn-bang{width:auto;max-width:100%}#kt-the .kt-gn-bang td:first-child,#kt-the .kt-gn-bang th:first-child{width:28px;text-align:center}.kt-gn-bang th.s,.kt-gn-bang td.s{text-align:right}#kt-the .kt-gn-bang td.to-ten{text-align:left}   /* 3.523 */
+  .kt-gn-bang td.kt-gn-md{white-space:normal;min-width:160px;max-width:320px}.kt-gn-bang td.do{color:var(--do,#c62828);font-weight:600}.kt-gn-bang tr.kt-gn-bo td{opacity:.5}.kt-gn-bang tr.kt-gn-bo td:first-child{opacity:1}
   
   /* ===== 3.92 — Tra cứu KH 2 cột (≥ 900 px): trái tìm + danh sách gọn, phải chi tiết ===== */
   .tc-2cot{display:block}

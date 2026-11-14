@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.523 Kiểm tra sau 30 ngày — chọn tổ + cột mới)
+- Đã gộp 3.522 (PR #543, hồi quy đủ 276/276). Làm 3.523 theo ảnh anh: ô tích tổ + Chọn hết (`KT_GN_BO_TO`), ấp theo `KT_K`, cột Ngày GN / Hạn KT / Mục đích, căn cột. t397 mới. Hồi quy theo đổi. Chờ anh "gộp".
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.522 lãi tồn cuối tháng + tiền gửi sổ trên KU hủy — anh "ok code theo em")
 - Theo KQ so 2 mốc của TK 1. A: anh chốt bỏ lãi dồn cả file cuối tháng → `toLaiTonNgay` mọi kỳ, `KHO.monGN` qua `toNap`. B: `slHuyLap` (js/22) giữ sổ trên dòng KU hủy vào `B.lap`. Phép thử chung 1.3 (C03-1 sửa ngày GD, thêm C03-2). t396 mới, t352 sửa. Hồi quy đủ. Chờ anh "gộp"; sau đó TK 1 so lại.
 - Bước tiếp: 3.523 màn Kiểm tra sau 30 ngày (anh duyệt: cột Ngày GN, Mục đích, Hạn KT, ấp, tích tổ / chọn hết, căn cột).

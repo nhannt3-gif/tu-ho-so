@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.523 — 14/11/2026 — Kiểm tra sau 30 ngày: chọn tổ + cột mới (TK 2)
+- **Anh 14/11** (ảnh màn hình): "ghi rõ ngày giải ngân, mục đích, các cột còn trống và bị lệch" + "nên có ô tích chọn tổ hoặc chọn hết"; "ok code theo em" (có cột Hạn KT).
+- Bảng tổ (`ktGNDsHTML`, js/22c): cột ☐ · Tổ (mã) · Ấp · **Ngày GN** (các ngày trong tháng) · **Hạn KT** (ngày GN sớm nhất + 30 ngày — 727; quá hạn tô đỏ) · Số hộ · Số món · GN (tr) · **Mục đích** (ngành kinh tế như phiếu Mẫu 06, gom "×n"). Bỏ cột Tháng GN; xã chỉ hiện khi ≥ 2 xã.
+- **Ấp:** tra theo danh sách tổ của kỳ (`KT_K`, File Tổ trưởng — QT-C-10) như phiếu in; trước lấy ô ấp Mẫu 31 (thường trống) → "(chưa rõ ấp)".
+- **Chọn tổ:** ô tích từng tổ (1 tổ × 1 tháng = 1 phiếu) + ô Chọn hết ở tiêu đề; `KT_GN_BO_TO`; nút Xem phiếu / dòng đếm chỉ tính tổ đang tích; tổ bỏ tích hiện mờ. Chọn hộ / món khi xem 1 tổ giữ như cũ.
+- **Cột thẳng:** bảng co theo nội dung, tên tổ căn trái, tiêu đề + số căn phải.
+- Phép thử mới t397 (13 ý).
+
 ## 3.522 — 14/11/2026 — Lãi tồn cuối tháng + tiền gửi sổ trên KU hủy (TK 2)
 - **Nguồn:** TK 1 so 2 mốc 30/09 + 31/10 (Drive `KQ_DOI_CHIEU_2_MOC_30-09_31-10-2026.xlsx`): khớp tuyệt đối dư nợ, NQH, khoanh, tổ viên còn dư nợ, cho vay, thu nợ, KHĐ, đến hạn; lệch lãi tồn 31/10 (app +759 tr) và tiền gửi (app −268 tr / −172 tr).
 - **A — lãi tồn (anh chốt 14/11: "món vay đã trả lãi đến ngày giao dịch coi như không có lãi tồn"; file 31/10 là bản chốt tháng nhưng lãi tồn TH có lãi dồn như bản ngày):** `toLaiTonNgay` (js/22g) áp cả kỳ chốt tháng (trước chỉ kỳ theo ngày, 3.436). `KHO.monGN` (KTGS sau giải ngân) chạy qua `toNap` trước → lãi tồn phiếu Mẫu 06 cùng số thẻ tổ. Với file chốt tháng không có lãi dồn: không đổi số.
