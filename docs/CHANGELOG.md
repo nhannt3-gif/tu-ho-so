@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.537 — 14/11/2026 — Sửa lọc địa bàn trên iPhone (TK 2)
+- **Nguồn:** anh 14/11 gửi ảnh iPhone "ko lọc địa bàn được" — lọc đã gọn (CSS ≤ 600 px chạy) nhưng bấm không mở; thanh dưới vẫn kiểu cũ (GD xã · Số liệu · Hồ sơ) ⇒ phần JS điện thoại (js/66) không khởi động lúc nạp (suy luận: máy báo cỡ màn > 600 lúc nạp script; chưa thử được Safari thật).
+- **Sửa (js/66, css/dt-may.css):** gom khởi động vào `dtmKhoi()` chạy 1 lần — ngay lúc nạp nếu ≤ 600 px, không thì thử lại khi trang tải xong / đổi cỡ / sau 1,5 giây; `body.dtm-on` bật khi JS đã chạy — CSS gọn lọc / ẩn ô tìm chung chỉ áp khi có `dtm-on` (JS không chạy thì lọc hiện đủ như cũ, không kẹt); bấm LỌC ĐỊA BÀN luôn đăng ký.
+- t401 +2 ý (nạp màn rộng rồi thu về 390; không có JS thì lọc hiện đủ).
+
 ## 3.536 — 14/11/2026 — Điện thoại: VB đã xem giữ trong ngày (TK 2)
 - **Nguồn:** anh 14/11 "có nên tải sẵn ko vì máy có 5G đọc file từ Drive rất nhanh, có thể ko tự tải nhưng file đã xem thì lưu lại 1 thời gian" → "giữ trong ngày thôi". (Bỏ nút ⬇ Tải sẵn đã làm thử, chưa gộp.)
 - **Mới (chỉ ≤ 600 px, js/66 `DTM.xemGhi` / `DTM.don`):** mở VB (moXem) ghi ngày xem (localStorage `tuhoso_dt_xem`, không đồng bộ); mở app ngày mới (sau 8 giây) → xóa bản trong máy của VB **đã có trên Drive** mà hôm nay chưa xem, báo "🧹 Đã dọn N văn bản". Không đụng VB chỉ có trong máy, khi còn việc chờ đẩy Drive, scan / dữ liệu khác. Máy tính không đổi.

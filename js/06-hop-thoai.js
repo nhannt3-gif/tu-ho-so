@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.536', ds:[
+var CO_GI_MOI = {ban:'3.537', ds:[
+  ["Sửa: điện thoại không mở được Lọc địa bàn ở Tra cứu (máy báo cỡ màn muộn) — phần điện thoại tự khởi động lại, lọc không bao giờ kẹt gọn", ""],
   ["Điện thoại: văn bản đã xem lưu trong máy trong ngày (mở lại ngay), sang ngày mới tự dọn — không tải sẵn", ""],
   ["Điện thoại: Tra cứu KH gọn (1 ô tìm ở đầu, lọc địa bàn bấm mở, 📞 Gọi) · Văn bản thẻ gọn, xem VB có \"📤 Gửi trang này\" và \"📤 Gửi cả VB\"", ""],
   ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.536', ds:[
   ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""],
   ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""],
   ["File đối chiếu giao ban (📤): dòng đầu ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày)", ""],
-  ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""],
-  ["KTGS › Kiểm tra sau 30 ngày: bảng tổ có ô tích chọn tổ + Chọn hết, cột Ngày GN · Hạn KT (quá 30 ngày tô đỏ) · Mục đích; ấp đúng theo danh sách tổ; cột thẳng hàng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.537 · iPhone › Số liệu › Tra cứu KH › bấm LỌC ĐỊA BÀN → mở 3 ô chọn; thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm",
     "3.536 · Điện thoại: mở 1 VB, mở lại ngay; hôm sau mở app → báo đã dọn, VB vẫn mở được từ Drive",
     "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn",
     "3.535 · Thẻ khách: 📞 Gọi",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.536', ds:[
     "3.526 · Nạp & KT › T10 › ⋯ › 📤 File đối chiếu (khi tháng còn bản theo ngày): dòng đầu ghi File Tổ trưởng 31/10, không bị chặn",
     "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ",
     "3.525 · 📥 Nạp & KT › T9 / T10 › 📤 File đối chiếu: dòng đầu có \"xuất lúc=…\" và \"File Tổ trưởng=…\"",
-    "3.524 · Tổ TK&VV / Tra cứu / Sao kê / Tổng hợp / KTGS: khung Lọc địa bàn 1 hàng, chọn xã · Hội · ấp vẫn đúng",
-    "3.524 · 📥 Nạp & KT: thanh công cụ 1 hàng"],
+    "3.524 · Tổ TK&VV / Tra cứu / Sao kê / Tổng hợp / KTGS: khung Lọc địa bàn 1 hàng, chọn xã · Hội · ấp vẫn đúng"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

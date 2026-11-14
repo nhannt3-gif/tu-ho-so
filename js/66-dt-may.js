@@ -6,16 +6,16 @@ try { DTM_HEP = window.matchMedia && matchMedia('(max-width:600px)').matches; } 
 function dtmKyChu(t){ return String(t||'').replace(/\bT(\d{1,2})\/20(\d\d)\b/g, 'T$1/$2').replace(/Mẫu\s*31/g, 'M31').replace(/\s*\((chốt tháng|chot thang)\)/gi, '').replace(/\s{2,}/g, ' ').trim(); }
 function dtmKyGon(){ var s = document.getElementById('ky-chung-o'); if(!s) return;
   for(var i = 0; i < s.options.length; i++){ var o = s.options[i]; if(!o.getAttribute('data-du')){ o.setAttribute('data-du', o.text); o.title = o.text; o.text = dtmKyChu(o.text); } } }
-if(DTM_HEP && typeof kyChungVe==='function'){
+function dtmKhoi1(){ if(typeof kyChungVe==='function'){
   var dtmKyGoc = kyChungVe;
   kyChungVe = function(){ var r = dtmKyGoc.apply(this, arguments); try { dtmKyGon(); } catch(e){} return r; };   /* bọc hàm vẽ ô kỳ — gốc không đổi */
-}
+} }
 /* ===== 3.372 (KE_HOACH_DIEN_THOAI_MAY — đợt Đ6, anh duyệt 25/10: "tab Hôm nay, Văn bản, Tra cứu KH là 3 tab chính", ô 4 = Scan) =====
    Chỉ điện thoại (≤ 600 px) — máy tính / máy tính bảng giữ thanh dưới cũ (DT_NUT trong js/23):
    - Thanh dưới: Hôm nay · Tra cứu · Văn bản · Scan · ☰ Thêm (GD xã, Số liệu, Hồ sơ, Cài đặt… vào ☰; thêm "📱 Bản điện thoại gọn").
    - body[data-dtm] = nút đang mở (CSS ẩn hàng tab con Số liệu khi đang ở Tra cứu).
    - Dòng trạng thái chân trang chỉ hiện khi có tin mới / đang chạy (body.dtm-tt) — chip ⚠ lỗi vẫn hiện (CSS). */
-if(DTM_HEP && typeof DT_NUT!=='undefined' && typeof dtVe==='function'){
+function dtmKhoi2(){ if(typeof DT_NUT!=='undefined' && typeof dtVe==='function'){
   DT_NUT = [['0', '🏠', 'Hôm nay', function(){ doiNgan(0); }], ['tra', '👤', 'Tra cứu', function(){ dhSL('tra'); }],
     ['1', '📄', 'Văn bản', function(){ doiNgan(1); }], ['4', '🪪', 'Scan', function(){ doiNgan(4); }], ['them', '☰', 'Thêm', function(){ dtThem(); }]];
   dtDang = function(){ var d = dhDang(); return ['0', 'tra', '1', '4'].indexOf(d)>=0 ? d : 'them'; };
@@ -31,7 +31,7 @@ if(DTM_HEP && typeof DT_NUT!=='undefined' && typeof dtVe==='function'){
     ttVe = function(){ var r = dtmTtGoc.apply(this, arguments);
       try { var moi = TTB.chay || (TTB.chu && Date.now()-TTB.luc < (TTB.loi===TTB.luc ? 12000 : 8000)); document.body.classList.toggle('dtm-tt', !!moi); } catch(e){} return r; }; }
   try { if(document.getElementById('thanh-duoi')) dtVe(); } catch(e){}
-}
+} }
 
 /* ===== 3.535 (anh 14/11): điện thoại — Tra cứu KH gọn + Văn bản gửi cả VB / 1 trang. Chỉ ≤ 600 px, bọc hàm gốc (máy tính không đổi). =====
    - Lọc địa bàn ở Tra cứu: gọn 1 dòng, bấm dòng "LỌC ĐỊA BÀN" mở / gọn (cờ trên body → giữ qua lần vẽ lại).
@@ -57,12 +57,24 @@ var DTM = {
     var g = document.querySelector('#xem .xem-day [data-lenh="khung.guiFileMenu"]'); if(g) g.textContent = n ? '📤 Cả VB' : '📤 Gửi cả VB';
     var d = document.querySelector('#xem .xem-day [data-lenh="khung.dongXem"]'); if(d) d.textContent = '✕ Đóng'; }
 };
-if(DTM_HEP){
+function dtmKhoi3(){
   if(typeof GD!=='undefined') GD.dangKy('dtm', {gui1:function(el){ DTM.gui1(+gdA(el, 1)); }});
   if(typeof moXem==='function'){ var dtmMoXemGoc = moXem; moXem = function(id, tam){ try { DTM.xemGhi((tam && tam.id) || id); } catch(e){} return dtmMoXemGoc.apply(this, arguments); }; }
   setTimeout(function(){ try { if(typeof D!=='undefined' && D.vanBan) DTM.don(); } catch(e){} }, 8000);   /* sau khởi động, không chặn mở app */
-  document.addEventListener('click', function(e){ var d = e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
   if(typeof veTrang==='function'){ var dtmVeTrangGoc = veTrang; veTrang = function(n){ var r = dtmVeTrangGoc.apply(this, arguments); try { DTM.nutTrang(n); } catch(e){} return r; }; }
   if(typeof capNhatThanhChon==='function'){ var dtmChonGoc = capNhatThanhChon; capNhatThanhChon = function(){ var r = dtmChonGoc.apply(this, arguments); try { DTM.nhan(); } catch(e){} return r; }; }
   try { DTM.nhan(); } catch(e){}
 }
+/* 3.537 (anh 14/11 ảnh iPhone: "ko lọc địa bàn được" — thanh dưới vẫn kiểu cũ ⇒ phần JS điện thoại không chạy lúc nạp, CSS vẫn gọn lọc):
+   - khởi động phần điện thoại 1 lần: ngay lúc nạp nếu màn ≤ 600 px; không thì thử lại khi trang tải xong / đổi cỡ màn (máy báo cỡ muộn);
+   - body.dtm-on chỉ bật khi JS đã chạy → CSS gọn lọc / ẩn ô tìm chỉ áp khi có JS (không bao giờ kẹt lọc);
+   - bấm "LỌC ĐỊA BÀN" luôn đăng ký (không phụ thuộc cỡ màn lúc nạp). */
+var DTM_DA = false;
+function dtmKhoi(){ if(DTM_DA) return; DTM_DA = true; DTM_HEP = true;
+  [dtmKhoi1, dtmKhoi2, dtmKhoi3].forEach(function(f){ try { f(); } catch(e){ console.warn('dtm', e); } });
+  try { document.body.classList.add('dtm-on'); } catch(e){} }
+document.addEventListener('click', function(e){ var d = e.target && e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
+(function(){ var mq = null; try { mq = window.matchMedia && matchMedia('(max-width:600px)'); } catch(e){}
+  var thu = function(){ try { if(!DTM_DA && mq && mq.matches) dtmKhoi(); } catch(e){} };
+  if(DTM_HEP) dtmKhoi();
+  else { window.addEventListener('load', thu); window.addEventListener('resize', thu); try { if(mq && mq.addEventListener) mq.addEventListener('change', thu); else if(mq && mq.addListener) mq.addListener(thu); } catch(e){} setTimeout(thu, 1500); } })();
