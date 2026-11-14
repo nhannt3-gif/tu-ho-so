@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.533 lãi tồn: ngày GD sau ngày số liệu)
+- TK 1 dò: 2 món lệch do Ngày GD gần nhất sau ngày số liệu (Mẫu 31 xuất muộn), không do lãi suất. 3.533: số ngày dồn ≤ 0 → lãi dồn 0, giữ TH. Chờ anh gộp → xuất lại 2 mốc → TK 1 xác nhận khớp toàn bộ.
+- Bẫy: `soNgay` trả null khi không đọc được ngày (đừng dùng −1).
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.532 lãi tồn món không có lãi suất)
 - TK 1: 3.531 đạt (tiền gửi 20/20 Hội; giữ trừ lãi dồn mọi kỳ). Còn 2 tổ app thấp hơn GB ~1,7 tr. TK 2 không tải được Mẫu 31 thật (23 MB > giới hạn) → suy từ mã: món không có lãi suất bị bỏ hết TH, giao ban giữ (lãi dồn 0). 3.532 sửa; chờ TK 1 xác nhận số KU + anh gộp, xuất lại.
 - Bẫy: file cũ không có cột lãi suất giữ cách cũ (`coCot`).

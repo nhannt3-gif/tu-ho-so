@@ -279,14 +279,15 @@ function toLaiTonNgay(K){
   if(!K) return; var hs = K.hs||[]; if(hs._ltDon){ K.ltDon = hs._ltDon; K.ltNgay = hs._ltNgay; return; }   /* dòng dùng chung (slBo) — đã xét 1 lần */
   var nd = String(K.ngay || K.ky), theoNgay = String(K.ky||'').length>7, dem = 0, giu = 0, xet = 0, ds = [], coLS = 0, khop = 0, Tr = K.gdxaTr || {};
   var coCot = hs.some(function(o){ return +o.ls>0; });   /* 3.532: file có cột lãi suất → món thiếu / 0 lãi suất coi lãi dồn = 0 (giao ban); file cũ không có cột → như cũ */
-  var soNgay = function(a, b){ var x = a.match(/^(\d{4})-(\d{2})-(\d{2})/), y = b.match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return -1; return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5); };
+  var soNgay = function(a, b){ var x = a.match(/^(\d{4})-(\d{2})-(\d{2})/), y = b.match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return null; return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5); };
   hs.forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return;
     var tt = !o.to || (typeof TO_GIA!=='undefined' && o.to===TO_GIA) || (K.to && K.to[o.to] && K.to[o.to].trucTiep); if(tt){ o._ltNgay = 'tt'; return; }   /* món vay trực tiếp không trừ */
     var n = +o.ngayGD || +o._ngGD || 0, ph = toPhienGan(nd, n ? String(n) : ''); if(!ph) return;
     var nt = +Tr[o.ku] || 0; if(nt && nt!==n){ var p2 = toPhienGan(nd, String(nt)); if(p2 && p2<ph) ph = p2; }   /* đổi Ngày GDXA so kỳ trước → phiên sớm hơn */
     o._ltNgay = ph; if(!o.ngdg || String(o.ngdg)<ph || !((o.ltTH||0)>0)) return; xet++;
     var ls = +o.ls || 0, d = soNgay(String(o.ngdg), nd), don = null;
-    if(ls>0 && d>=0){ don = (+o.dn||0)*(ls>2 ? ls : ls*12)/100/360*(d+1); coLS++; if(o.ltTH <= don*1.05+1000) khop++; }
+    if(d!==null && d<0) don = 0;   /* 3.533 (TK 1): Ngày GD gần nhất SAU ngày số liệu (Mẫu 31 xuất muộn) → số ngày dồn ≤ 0 → lãi dồn 0, không trừ */
+    else if(ls>0 && d>=0){ don = (+o.dn||0)*(ls>2 ? ls : ls*12)/100/360*(d+1); coLS++; if(o.ltTH <= don*1.05+1000) khop++; }
     else if(coCot && d>=0) don = 0;   /* 3.532 (TK 1: 2 tổ app thấp hơn GB ~1,7 tr) — lãi dồn 0 → TH > 1.000 đ thì giữ */
     ds.push([o, don]); });
   var coDon = theoNgay || (coLS>0 && khop/coLS>=0.5);

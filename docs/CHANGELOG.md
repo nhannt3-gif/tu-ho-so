@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.533 — 14/11/2026 — Lãi tồn: ngày GD sau ngày số liệu (TK 2)
+- **Nguồn:** TK 1 dò 2 tổ còn lệch (30/09, 31/10): không do lãi suất (cả hai 5,4%) mà do Ngày GD gần nhất **sau** ngày số liệu (01/10, 01/11 — Mẫu 31 xuất muộn). Luật giao ban: số ngày dồn = ngày số liệu − ngày GD + 1; ≤ 0 → lãi dồn 0 → TH > 1.000 đ thì giữ nguyên.
+- **Sửa (`toLaiTonNgay`, js/22g):** số ngày âm → lãi dồn 0 (trước: không tính được → bỏ hết TH). `soNgay` trả null khi không đọc được ngày (trước −1, lẫn với ngày âm). Giữ sửa 3.532 (món không lãi suất → lãi dồn 0, đúng luật giao ban).
+- t352 +1 ý (K10).
+
 ## 3.532 — 14/11/2026 — Lãi tồn: món không có lãi suất (TK 2)
 - **Nguồn:** TK 1 so 2 mốc bản 3.531: tiền gửi khớp TW 20/20 Hội cả 2 mốc; lãi tồn giữ luật trừ lãi dồn mọi kỳ (kể cả chốt tháng — 30/09 chạy `lai_ton_ngay` gần TW hơn). Còn 2 tổ app thấp hơn giao ban ~1,7 tr (30/09 tổ 3405, 31/10 tổ 8202).
 - **Sửa (`toLaiTonNgay`, js/22g):** món đã GD ở phiên mà không có lãi suất (trống / 0) → trước bỏ hết lãi tồn TH; nay như giao ban: lãi dồn = 0 → TH ≤ 1.000 đ thì bỏ, lớn hơn thì giữ. Chỉ khi file có cột lãi suất (`coCot`); file theo ngày cũ không có cột lãi suất giữ cách cũ.
