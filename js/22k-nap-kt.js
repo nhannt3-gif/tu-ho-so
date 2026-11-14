@@ -1040,6 +1040,8 @@ function slKTAp(K, them){
    dòng 2 tiêu đề, tiền đồng nguyên. Lưu kho Drive Số liệu/<tháng>/ (chưa nối Drive → tải về máy). Chỉ đọc số app đang tính (toSoTo, tvChuan QT-18, slKHD, K.qtc), không tính lại. */
 var SL_DC_COT = ['khoa', 'ma_xa', 'ma_ap', 'ma_diem', 'hoi', 'so_tv', 'so_tv_du_no', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'tien_gui', 'cho_vay', 'thu_no', 'so_mon_khd', 'so_mon_lech_ap', 'so_mon_den_han_thang_toi'];
 var SL_DC_HOI = {'11':'HND', '12':'HPN', '13':'HCCB', '14':'ĐTN'};
+/* 3.538 (khuôn số liệu chung 1.0, TK 1 mục 5.1): mã điểm GD ghi 4 số cuối (bỏ tiền tố TXN054) — vd TXN0543502 → 3502; không đủ 4 số thì giữ nguyên */
+function slDCDiem(d){ var x = String(d||'').trim(), m = x.match(/(\d{4})$/); return m ? m[1] : x; }
 function slDCNut(ky){ slDCDK(); return '<button class="nho" data-lenh="sldc.xuat" data-ky="'+coChuHTML(ky)+'" title="File đối chiếu số liệu với giao ban (kỳ đối chiếu): 1 dòng 1 tổ + món vay trực tiếp theo ấp, lưu vào Số liệu/'+coChuHTML(ky)+'/">📤 File đối chiếu giao ban (DOI_CHIEU_APP)</button>'; }
 function slDCDK(){ if(slDCDK.xong || typeof GD==='undefined') return; slDCDK.xong = 1; GD.dangKy('sldc', {xuat:function(el){ dongHop(); slDCXuat(el.getAttribute('data-ky')); }}); }
 function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
@@ -1057,12 +1059,12 @@ function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
   try {
     Object.keys(T).forEach(function(ma){ var t = T[ma]; if(t.trucTiep || toLaTT(t)) return; daRa[ma] = 1;
       var s = toSoTo(t, null), r = tvChuan(t, K), mon = (K.kh[ma]||[]).filter(function(o){ return o.ku; });
-      dong.push([ma, maXa(t.xa, t.thon), t.thon||'', t.diem||'', SL_DC_HOI[String(t.dv)] || String(t.dv||''), r ? r.tong : s.tv, r ? r.coNo : s.co, R(s.dn), R(s.qh), R(s.kn), R(s.lt), R(s.t105),
+      dong.push([ma, maXa(t.xa, t.thon), t.thon||'', slDCDiem(t.diem), SL_DC_HOI[String(t.dv)] || String(t.dv||''), r ? r.tong : s.tv, r ? r.coNo : s.co, R(s.dn), R(s.qh), R(s.kn), R(s.lt), R(s.t105),
         R(mon.reduce(function(a, m){ return a+cv(m); }, 0)), R(hsT[ma] ? hsT[ma].tn : 0), mon.filter(function(m){ return khd[m.ku]; }).length, lech[ma]||0, mon.filter(dh).length]); });
   } finally { TO_K = giu; }
   Object.keys(hsT).sort().forEach(function(ma){ var g = hsT[ma], t = (K.toAn && K.toAn[ma]) || {}, o = g.o, so = function(x){ return Object.keys(x).length; };   /* tổ đã đóng (bỏ khỏi cây) còn thu nợ / lãi tồn / dư nợ — tổ viên: chỉ đếm khách còn dư nợ (tổ đóng không còn tổ viên; K1 chờ chốt) */
     if(daRa[ma] || (T[ma] && (T[ma].trucTiep || toLaTT(T[ma]))) || !(g.tn || g.lt || g.dn)) return;
-    dong.push([ma, maXa(t.xa || o.xa, t.thon || o.thon), String(t.thon || o.thon || ''), t.diem||'', SL_DC_HOI[String(t.dv)] || String(t.dv||''), so(g.khNo), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), 0, R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
+    dong.push([ma, maXa(t.xa || o.xa, t.thon || o.thon), String(t.thon || o.thon || ''), slDCDiem(t.diem), SL_DC_HOI[String(t.dv)] || String(t.dv||''), so(g.khNo), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), 0, R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
   var tt = {};
   (K.hs||[]).forEach(function(o){ if(o.to || !o.ku) return; var k = 'TT|'+String(o.thon||''), g = tt[k];
     if(!g){ var d = T[o._tt]; g = tt[k] = {xa:o.xa||'', ap:String(o.thon||''), diem:d && (o._ttCach==='ap' || o._ttCach==='danhMuc') ? d.diem || '' : '',   /* QT-C-11: chỉ ghi mã điểm xác định theo ấp (tạm GDXA / xã 1 điểm → để trống, như giao ban) */ kh:{}, khNo:{}, t105:{}, dn:0, qh:0, kn:0, lt:0, cv:0, tn:0, khd:0, dh:0}; }
@@ -1070,7 +1072,8 @@ function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
     g.dn += o.dn||0; g.qh += o.qh||0; g.kn += o.kn||0; g.lt += laiTon(o); g.cv += cv(o); g.tn += tn(o); if(khd[o.ku]) g.khd++; if(dh(o)) g.dh++; });
   Object.keys(tt).sort().forEach(function(k){ var g = tt[k], so = function(x){ return Object.keys(x).length; };
     if(!R(g.dn) && !R(g.lt) && !R(g.tn) && !R(g.qh) && !R(g.kn)) return;   /* 3.423: như giao ban — không xuất nhóm vay trực tiếp không còn dư nợ / lãi tồn / thu nợ */
-    dong.push([k, maXa(g.xa, g.ap), g.ap, g.diem, 'TT', so(g.kh), so(g.khNo), R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
+    dong.push([k, maXa(g.xa, g.ap), g.ap, slDCDiem(g.diem), 'TT', so(g.khNo), so(g.khNo),   /* 3.538 (khuôn 1.0 mục 5.2): nhóm vay trực tiếp — so_tv chỉ đếm khách còn dư nợ (TW không có tổ viên vay trực tiếp) */
+       R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
   return {ngay:K.ngay, dong:dong};
 }
 function slDCCsv(K){

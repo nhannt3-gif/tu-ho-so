@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.538 khuôn số liệu chung 1.0)
+- Anh gộp PR #555 (TK 1: `docs/KHUON_SO_LIEU_CHUNG.md`) + "tiếp TK 1 nhờ": `slDCDiem` (mã điểm 4 số), TT `so_tv` = khách còn dư nợ. t325 +3. Chờ: anh thử 3.537 iPhone; File 2 (1.1) chờ khuôn TK 1.
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.537 sửa lọc địa bàn iPhone)
 - Ảnh iPhone anh: lọc gọn nhưng bấm không mở, thanh dưới kiểu cũ ⇒ JS điện thoại không khởi động (CSS có). Sửa: `dtmKhoi()` chạy lại khi tải xong / đổi cỡ; CSS gọn chỉ khi `body.dtm-on`. Bẫy: không thử được Safari thật — chờ anh xác nhận thanh dưới mới hiện.
 

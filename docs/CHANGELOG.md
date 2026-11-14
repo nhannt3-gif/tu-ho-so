@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.538 — 15/11/2026 — File đối chiếu theo khuôn số liệu chung 1.0 (TK 2)
+- **Nguồn:** TK 1 `docs/KHUON_SO_LIEU_CHUNG.md` mục 5.1–5.2 (anh gộp PR #555, "gộp và tiếp TK 1 nhờ"), kịp kỳ 30/11.
+- **Sửa (`slDCGBTinh`, js/22k):** ① `ma_diem` ghi 4 số cuối (`slDCDiem`: TXN0543502 → 3502; không đủ 4 số thì giữ) cho mọi dòng (tổ, tổ đã đóng, vay trực tiếp); ② nhóm vay trực tiếp `TT|<mã ấp>`: `so_tv` chỉ đếm khách còn dư nợ (= `so_tv_du_no`). Màn app không đổi.
+- t325 +3 ý.
+
 ## 3.537 — 14/11/2026 — Sửa lọc địa bàn trên iPhone (TK 2)
 - **Nguồn:** anh 14/11 gửi ảnh iPhone "ko lọc địa bàn được" — lọc đã gọn (CSS ≤ 600 px chạy) nhưng bấm không mở; thanh dưới vẫn kiểu cũ (GD xã · Số liệu · Hồ sơ) ⇒ phần JS điện thoại (js/66) không khởi động lúc nạp (suy luận: máy báo cỡ màn > 600 lúc nạp script; chưa thử được Safari thật).
 - **Sửa (js/66, css/dt-may.css):** gom khởi động vào `dtmKhoi()` chạy 1 lần — ngay lúc nạp nếu ≤ 600 px, không thì thử lại khi trang tải xong / đổi cỡ / sau 1,5 giây; `body.dtm-on` bật khi JS đã chạy — CSS gọn lọc / ẩn ô tìm chung chỉ áp khi có `dtm-on` (JS không chạy thì lọc hiện đủ như cũ, không kẹt); bấm LỌC ĐỊA BÀN luôn đăng ký.

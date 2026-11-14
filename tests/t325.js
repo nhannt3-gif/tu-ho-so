@@ -25,6 +25,9 @@ const fs=require('fs'), path=require('path');
    const dnM = K.hs.filter(x=>x.ku && x.to!==TO_GIA).reduce((a, x)=>a+(x.dn||0), 0), qhM = K.hs.filter(x=>x.ku && x.to!==TO_GIA).reduce((a, x)=>a+(x.qh||0), 0);
    ok('tổng du_no file = tổng dư nợ Mẫu 31 (mỗi khế ước 1 lần)', Math.abs(cong(7)-Math.round(dnM))<=rows.length, cong(7)+' / '+Math.round(dnM));
    ok('tổng nqh file = tổng quá hạn Mẫu 31', Math.abs(cong(8)-Math.round(qhM))<=rows.length, cong(8)+' / '+Math.round(qhM));
+   ok('3.538 (khuôn 1.0 mục 5.1): mã điểm ghi 4 số cuối (không tiền tố TXN…) hoặc trống', rows.every(r=>r[3]==='' || /^\d{4}$/.test(r[3])), JSON.stringify(rows.map(r=>r[3]).filter(x=>x && !/^\d{4}$/.test(x)).slice(0,3)));
+   ok('3.538: slDCDiem — TXN0543502 → 3502, 3501 → 3501, trống → trống', slDCDiem('TXN0543502')==='3502' && slDCDiem('3501')==='3501' && slDCDiem('')==='' && slDCDiem(' TXN0548202 ')==='8202');
+   ok('3.538 (khuôn 1.0 mục 5.2): dòng vay trực tiếp so_tv = số khách còn dư nợ (= so_tv_du_no)', tt.every(r=>r[5]===r[6]), JSON.stringify(tt.filter(r=>r[5]!==r[6]).slice(0,2)));
    ok('tiền đồng nguyên (không số lẻ)', rows.every(r=>[7,8,9,10,11,12,13].every(c=>/^-?\d+$/.test(r[c]))));
    /* lưu Drive giả */
    const ghi = []; window.coTheNoiDrive = ()=>true; DR.sanSang = true; window.baoDamDuong = d=>Promise.resolve('tm:'+d); window.timFileTrong = ()=>Promise.resolve(null);
