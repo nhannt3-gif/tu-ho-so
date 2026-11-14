@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.539 — 15/11/2026 — File 2 danh sách món (khuôn chung 1.1) (TK 2)
+- **Nguồn:** TK 1 `docs/KHUON_SO_LIEU_CHUNG.md` mục 3 (bản 1.1, PR #557) — nhờ App xuất `DOI_CHIEU_MON_APP_<ngày>.csv`; anh "gộp và tiếp".
+- **Mới (js/22k `slDCMonTinh` / `slDCMonCsv` / `slDCMonThangLai`):** nút 📤 File đối chiếu ghi thêm File 2 cùng thư mục File 1. Mỗi khế ước 1 dòng (dòng đầu theo số KU) nếu thuộc ≥ 1 nhóm: quá hạn · khoanh · 3 tháng KHĐ (như `so_mon_khd`) · đến hạn tháng tới (như `so_mon_den_han_thang_toi`). 19 cột đúng thứ tự khuôn; `hoi` / `ma_ap` / `ma_diem` theo dòng tổ File 1; `ngay_chuyen_qh` QT-C-12 (món quá hạn); `ngay_den_han` gia hạn / HĐ (món đến hạn); `ngay_het_khoanh` theo Sao kê nợ khoanh; `so_thang_lai` QT-C-23 (lãi suất / dư nợ 0 → số tháng từ ngày GD gần nhất, ÷ 30 ngày). Không ghi họ tên.
+- t325 +7 ý (bộ giả lớn gia31: 438 món, nhóm khớp File 1).
+
 ## 3.538 — 15/11/2026 — File đối chiếu theo khuôn số liệu chung 1.0 (TK 2)
 - **Nguồn:** TK 1 `docs/KHUON_SO_LIEU_CHUNG.md` mục 5.1–5.2 (anh gộp PR #555, "gộp và tiếp TK 1 nhờ"), kịp kỳ 30/11.
 - **Sửa (`slDCGBTinh`, js/22k):** ① `ma_diem` ghi 4 số cuối (`slDCDiem`: TXN0543502 → 3502; không đủ 4 số thì giữ) cho mọi dòng (tổ, tổ đã đóng, vay trực tiếp); ② nhóm vay trực tiếp `TT|<mã ấp>`: `so_tv` chỉ đếm khách còn dư nợ (= `so_tv_du_no`). Màn app không đổi.

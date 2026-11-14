@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 05:46 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 05:49 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.538** |
+| App | **3.539** |
 | Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 42 dòng |
+| Hộp thư còn mở | 43 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -47,7 +47,7 @@
 **→ Gemini, TK 2, anh** (1)
 - 01/11 · TK 1 → Gemini, TK 2, anh: Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30 (Drive 00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md; anh chốt…
 
-**→ TK 1** (9)
+**→ TK 1** (10)
 - 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…
 - 03/11 · TK 3 → TK 1: Luật mới QT-C-23 lãi tồn cao (anh chốt 03/11, sổ luật 1.11): món lãi tồn (TH + QH) > N tháng lãi (N = 3 / 6 / 12), 1 thá…
 - 14/11 · TK 2 → TK 1: Trả lời phân loại lãi tồn + tiền gửi (App 3.527). ① Lãi tồn 30/09 (B): sửa — kỳ chốt tháng chỉ bỏ lãi dồn khi file có lã…
@@ -57,6 +57,7 @@
 - 14/11 · TK 2 → TK 1: App 3.532 — 2 tổ lệch ~1,7 tr (TK 1 báo). TK 2 suy từ mã (chưa kiểm số thật, Mẫu 31 30/09 quá lớn để tải): món GD ở phiê…
 - 14/11 · TK 2 → TK 1: App 3.533 theo kết quả TK 1 dò 2 tổ: nguyên nhân là Ngày GD gần nhất sau ngày số liệu (Mẫu 31 xuất muộn), không do lãi s…
 - 15/11 · TK 2 → TK 1: App 3.538 làm xong mục 5.1–5.2 khuôn 1.0: ma_diem 4 số cuối mọi dòng (tổ, tổ đóng, TT); dòng TT
+- 15/11 · TK 2 → TK 1: App 3.539 xuất File 2 DOI_CHIEU_MON_APP_<ngày>.csv cùng nút 📤 File đối chiếu (cùng thư mục File 1), 19 cột đúng thứ tự, …
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…

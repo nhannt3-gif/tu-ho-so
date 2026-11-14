@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.538', ds:[
+var CO_GI_MOI = {ban:'3.539', ds:[
+  ["📤 File đối chiếu xuất thêm File 2 — danh sách món (DOI_CHIEU_MON_APP): món quá hạn, khoanh, 3 tháng KHĐ, đến hạn tháng tới — theo khuôn chung 1.1, không ghi họ tên", ""],
   ["File đối chiếu theo khuôn số liệu chung 1.0: mã điểm ghi 4 số cuối, dòng vay trực tiếp chỉ đếm khách còn dư nợ", ""],
   ["Sửa: điện thoại không mở được Lọc địa bàn ở Tra cứu (máy báo cỡ màn muộn) — phần điện thoại tự khởi động lại, lọc không bao giờ kẹt gọn", ""],
   ["Điện thoại: văn bản đã xem lưu trong máy trong ngày (mở lại ngay), sang ngày mới tự dọn — không tải sẵn", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.538', ds:[
   ["Cỡ chữ Tự động theo cỡ màn (mặc định): màn 24\" chữ to hơn, laptop 125% nhỏ hơn chút — không ẩn / đổi nút; ⚙ Cài đặt › Cỡ chữ vẫn chọn tay được", ""],
   ["Lãi tồn: file chốt tháng thật (30/09) không trừ lãi dồn nữa; ngày phiên theo từng món (cột Ngày GDXA) — theo kết quả TK 1 so biểu TW", ""],
   ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""],
-  ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""],
-  ["File đối chiếu giao ban (📤): dòng đầu ghi giờ xuất + File Tổ trưởng đã dùng (tên, ngày)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.539 · ⋯ Nạp & KT › 📤 File đối chiếu 31/10 → Drive Số liệu/2026-10 có thêm DOI_CHIEU_MON_APP_2026-10-31.csv (19 cột)",
     "3.538 · ⋯ Nạp & KT › 📤 File đối chiếu 30/09 + 31/10 → cột ma_diem 4 số (3502…), dòng TT| so_tv = so_tv_du_no",
     "3.537 · iPhone › Số liệu › Tra cứu KH › bấm LỌC ĐỊA BÀN → mở 3 ô chọn; thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm",
     "3.536 · Điện thoại: mở 1 VB, mở lại ngay; hôm sau mở app → báo đã dọn, VB vẫn mở được từ Drive",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.538', ds:[
     "3.528 · ⚙ Cài đặt › Hiển thị › Cỡ chữ: Tự động / Nhỏ / Vừa / To",
     "3.527 · 📤 File đối chiếu T9: dòng đầu ghi \"lãi tồn=giữ nguyên (chốt tháng thật …)\"; T10: \"bỏ lãi dồn … (file có lãi dồn …)\"",
     "3.526 · Nạp & KT › T10 › ⋯ › 📤 File đối chiếu (khi tháng còn bản theo ngày): dòng đầu ghi File Tổ trưởng 31/10, không bị chặn",
-    "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ",
-    "3.525 · 📥 Nạp & KT › T9 / T10 › 📤 File đối chiếu: dòng đầu có \"xuất lúc=…\" và \"File Tổ trưởng=…\""],
+    "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

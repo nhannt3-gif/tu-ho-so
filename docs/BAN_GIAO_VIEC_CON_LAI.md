@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.539)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⋯ Nạp & KT › 📤 File đối chiếu 31/10 | Drive có thêm DOI_CHIEU_MON_APP_2026-10-31.csv | |
+| 2 | TK 1 chạy doi_chieu_app.py 1.2 | so được từng món với DOI_CHIEU_MON_GB (687 món) | |
+
 ### Danh sách thử trên máy thật (3.538)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
