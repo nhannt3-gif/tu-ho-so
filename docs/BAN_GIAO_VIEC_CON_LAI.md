@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.535)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Điện thoại › Tra cứu: gõ tên khách | ô tìm ở đầu, kết quả ngay dưới | |
+| 2 | Bấm LỌC ĐỊA BÀN | mở 3 ô chọn; bấm lại gọn | |
+| 3 | Thẻ khách › 📞 Gọi | mở trình gọi | |
+| 4 | Văn bản › mở VB nhiều trang › 📤 Gửi trang này | Zalo nhận 1 trang PDF | |
+| 5 | 📤 Gửi cả VB | gửi cả file | |
+| 6 | Máy tính | không đổi | |
+
 ### Danh sách thử trên máy thật (3.534)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

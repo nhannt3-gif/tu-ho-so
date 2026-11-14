@@ -306,7 +306,9 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
+| t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 
 

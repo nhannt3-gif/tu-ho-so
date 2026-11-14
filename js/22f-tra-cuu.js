@@ -265,7 +265,7 @@ function slTheKH(ma){
       dong('Sinh · giới · DT', [c.ns ? tcC(ngayVNsl(c.ns), 'ngày sinh') : '', coChuHTML([{'01':'Nam','02':'Nữ'}[c.gt]||c.gt||'', c.danToc||''].filter(Boolean).join(' · '))].filter(Boolean).join(' · ') || '—')+
       dong('Vợ/chồng', c.voChong ? tcC(c.voChong, 'tên vợ/chồng')+' <small>(người thừa kế)</small>' : '—')+'</div></div>'+
     '<div class="tc-nhom"><div class="tc-nhom-tit">Liên hệ · TK 105</div><div class="tc-luoi">'+   /* 3.337: gộp Liên hệ + Tiết kiệm 105 */
-      dong('SĐT', c.sdt ? tcC(c.sdt, 'SĐT')+(tcSdtDat(c.sdt) ? '' : ' <b class="vang">không đạt</b>') : '<b class="vang">thiếu</b>')+
+      dong('SĐT', c.sdt ? tcC(c.sdt, 'SĐT')+(tcSdtDat(c.sdt) ? ' <a class="tc-goi" href="tel:'+coChuHTML(String(c.sdt).replace(/[^\d+]/g, ''))+'" title="Gọi">📞 Gọi</a>' : ' <b class="vang">không đạt</b>') : '<b class="vang">thiếu</b>')+
       dong('Địa chỉ', tcC(tcDiaChi(c.dc), 'địa chỉ'))+
       dong('Ấp · xã', coChuHTML([c.tenThon||t.tenThon, xaTenSach(c.xa, c.tenXa) || t.tenXa].filter(Boolean).join(', ') || '—'))+
       dong(tkDs.length>1 ? 'TK 105 ('+tkDs.length+')' : 'TK 105', tkDs.length>1 ? tcTkNhieuHTML(tkDs) : (stk.length ? stk.map(function(s){ return tcC(s, 'số TK 105'); }).join(' · ') : '—'))+dong('Số dư 105', (c.t105 ? '<b>'+tdnTien(c.t105)+'</b>' : '0')+
