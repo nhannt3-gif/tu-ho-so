@@ -10,7 +10,7 @@ const path=require('path'), fs=require('fs');
  const R = await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} const o=[];
    const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
    /* A1: hàm — kỳ chốt tháng cũng trừ lãi dồn */
-   const r = () => [{ku:'1', _ngGD:'7', ngdg:'2026-10-07', ltTH:205151, ltQH:0}, {ku:'2', _ngGD:'7', ngdg:'2026-09-07', ltTH:410301, ltQH:0}, {ku:'3', _ngGD:'7', ngdg:'2026-10-07', ltTH:92055, ltQH:24215045}];
+   const r = () => [{ku:'1', _ngGD:'7', ngdg:'2026-10-07', ltTH:205151, ltQH:0, ls:6.6, th:50e6}, {ku:'2', _ngGD:'7', ngdg:'2026-09-07', ltTH:410301, ltQH:0, ls:6.6, th:50e6}, {ku:'3', _ngGD:'7', ngdg:'2026-10-07', ltTH:92055, ltQH:24215045, ls:6.6, th:50e6}];
    const K = {ky:'2026-10', ngay:'2026-10-31', hs:r()}; toLaiTonNgay(K); const L = K.hs.map(laiTon);
    ok('chốt tháng 31/10: trả đúng phiên → 0; không GD → giữ; có QH → còn QH', L[0]===0 && L[1]===410301 && L[2]===24215045, L.join());
    /* dữ liệu giả */
@@ -35,9 +35,9 @@ const path=require('path'), fs=require('fs');
    ok('tiền gửi khách có KU hủy: cộng thêm sổ trên dòng hủy đúng 1 lần (+2.000.000)', ka && ka.t105===truoc+2000000, ka && (ka.t105+' / trước '+truoc));
    ok('khách chỉ có KU hủy: không thành tổ viên', !tv.some(k=>k.kh==='4899999981'));
    /* A2: KTGS giải ngân đọc lãi tồn đã trừ lãi dồn */
-   const mm = B.co.hstd.find(x=>x.ku===m.ku); ok('thẻ tổ: món trả phiên tháng 8 → lãi tồn bỏ phần TH dồn', mm && (!mm._ngGD || laiTon(mm)===0), mm && (mm._ngGD+' / '+laiTon(mm)));
+   const mm = B.co.hstd.find(x=>x.ku===m.ku), lt1 = mm && laiTon(mm); ok('thẻ tổ: món đã xét lãi dồn (3.530 xét từng món theo lãi suất)', mm && !!mm._ltNgay, mm && (mm._ltNgay+' / '+lt1));
    TO_KS = {}; SL_BO = {}; await KHO.monGN('2026-08'); const B2 = await slBo('2026-08'); const m2 = B2.co.hstd.find(x=>x.ku===m.ku);
-   ok('KHO.monGN (KTGS) chạy qua toNap → lãi tồn đã trừ', m2 && (!m2._ngGD || (m2._ltNgay && laiTon(m2)===0)), m2 && (m2._ltNgay+' / '+laiTon(m2)));
+   ok('KHO.monGN (KTGS) chạy qua toNap → lãi tồn cùng số thẻ tổ', m2 && !!m2._ltNgay && laiTon(m2)===lt1, m2 && (m2._ltNgay+' / '+laiTon(m2)+' / thẻ tổ '+lt1));
    return o; }, files);
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t396 đạt'); await b.close(); process.exit(sai?1:0);

@@ -22,15 +22,20 @@ const path=require('path');
    ok('món trực tiếp / dòng có cột lãi tồn riêng → không đổi', L[3]===50000 && L[4]===777);
    ok('đếm số món đã bỏ lãi dồn', K.ltNgay===2, K.ltNgay);
    toLaiTonNgay(K); ok('chạy lại không đổi thêm', K.hs.map(laiTon).join()===L.join());
-   const K2 = {ky:'2026-09', ngay:'2026-09-30', hs:r()}; toLaiTonNgay(K2);
-   ok('chốt tháng: 3.522 (anh chốt 14/11) cũng bỏ lãi dồn — trả phiên → 0, có QH → còn QH', laiTon(K2.hs[0])===0 && laiTon(K2.hs[2])===24215045);
+   const K2 = {ky:'2026-10', ngay:'2026-10-31', hs:r().map(o=>Object.assign(o, {ls:6.6, th:50e6}))}; toLaiTonNgay(K2);   /* 3.530: TH khớp lãi dồn (50 tr × 6,6% × 24 ngày ≈ 217 nghìn) */
+   ok('file chốt tháng CÓ lãi dồn (TH khớp lãi dồn tính được) → bỏ — trả phiên → 0, có QH → còn QH', laiTon(K2.hs[0])===0 && laiTon(K2.hs[2])===24215045);
    /* 3.527 (TK 1 so TW BC0438): chốt tháng THẬT (món đã GD ở phiên hầu hết lãi TH = 0) → không bỏ gì; ngày phiên theo cột Ngày GDXA của dòng */
    const c = () => [{ku:'a', _ngGD:'7', ngdg:'2026-09-07', ltTH:0, ltQH:0}, {ku:'b', _ngGD:'7', ngdg:'2026-09-07', ltTH:0, ltQH:0}, {ku:'c', _ngGD:'7', ngdg:'2026-09-07', ltTH:55000, ltQH:0}, {ku:'d', _ngGD:'7', ngdg:'2026-08-07', ltTH:410301, ltQH:0}];
    const K3 = {ky:'2026-09', ngay:'2026-09-30', hs:c()}; toLaiTonNgay(K3);
    ok('3.527 chốt tháng thật (1/3 món đã GD còn TH) → giữ nguyên, không bỏ lãi dồn', laiTon(K3.hs[2])===55000 && K3.ltNgay===0 && K3.ltDon && !K3.ltDon.theoNgay, JSON.stringify(K3.ltDon));
-   const K4 = {ky:'2026-10', ngay:'2026-10-31', hs:[{ku:'x', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-14', ltTH:30000, ltQH:0}, {ku:'y', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-15', ltTH:20000, ltQH:0}, {ku:'z', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-16', ltTH:9000, ltQH:0}]};
+   const K4 = {ky:'2026-10', ngay:'2026-10-31', hs:[{ku:'x', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-14', ltTH:30000, ltQH:0, ls:6.6, th:30e6}, {ku:'y', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-15', ltTH:20000, ltQH:0, ls:6.6, th:30e6}, {ku:'z', ngayGD:'15', _ngGD:'13', ngdg:'2026-10-16', ltTH:9000, ltQH:0, ls:6.6, th:30e6}]};
    toLaiTonNgay(K4);
    ok('3.527 ngày phiên theo Ngày GDXA của dòng (15) — GD 14/10 (trước phiên 15) giữ TH; GD 15, 16/10 → bỏ', laiTon(K4.hs[0])===30000 && laiTon(K4.hs[1])===0 && laiTon(K4.hs[2])===0, K4.hs.map(laiTon).join());
+   /* 3.530: chốt tháng THẬT — món đã GD ở phiên còn TH LỚN hơn hẳn lãi dồn (lãi tồn thật) → giữ hết; file có lãi dồn nhưng 1 món TH lớn → món đó giữ */
+   const K5 = {ky:'2026-09', ngay:'2026-09-30', hs:[1,2,3].map(i=>({ku:'p'+i, ngayGD:'25', ngdg:'2026-09-25', ltTH:535000, ltQH:0, ls:6.6, th:30e6}))}; toLaiTonNgay(K5);
+   ok('3.530 chốt thật: TH 535 nghìn ≫ lãi dồn 5 ngày (~27 nghìn) → giữ cả 3 món', K5.hs.every(o=>laiTon(o)===535000) && !K5.ltDon.coDon, JSON.stringify(K5.ltDon));
+   const K6 = {ky:'2026-10', ngay:'2026-10-31', hs:[{ku:'a', ngayGD:'25', ngdg:'2026-10-25', ltTH:30000, ltQH:0, ls:6.6, th:30e6}, {ku:'b', ngayGD:'25', ngdg:'2026-10-25', ltTH:31000, ltQH:0, ls:6.6, th:30e6}, {ku:'c', ngayGD:'25', ngdg:'2026-10-25', ltTH:600000, ltQH:0, ls:6.6, th:30e6}]}; toLaiTonNgay(K6);
+   ok('3.530 file có lãi dồn: 2 món TH khớp lãi dồn 6 ngày → bỏ; món TH 600 nghìn (lãi tồn thật) → giữ', laiTon(K6.hs[0])===0 && laiTon(K6.hs[1])===0 && laiTon(K6.hs[2])===600000, K6.hs.map(laiTon).join());
    return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = R.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t352 đạt'); await b.close(); process.exit(sai?1:0);

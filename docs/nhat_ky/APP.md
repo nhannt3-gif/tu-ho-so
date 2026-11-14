@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.530 lãi tồn xét theo số tiền từng món)
+- Anh xuất lại 2 mốc bằng 3.528 → 31/10 bị nhận nhầm chốt thật (26% < 50%). 3.530: `toLaiTonNgay` 2 tầng theo số tiền (TH ≤ lãi dồn = th × ls × ngày/36500). Phép thử chung 1.4 (C03-2). Chờ "gộp" 3.529 + 3.530; sau đó anh xuất lại, TK 1 so TW.
+- Bẫy: dòng Mẫu 31 thiếu `ls` → theo tầng file; `_ltDon` lưu trên mảng dòng (xét 1 lần).
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.529 dọn hàm trùng — anh vắng, "làm tiếp tối ưu" + "dần tinh gọn bỏ chức năng thừa")
 - 3.527 + 3.528 gộp (PR #547). 3.529: `ghepPDFVao` (js/04e) + `pbNguon` thay bản chép (hàm trùng 2 → 0). Chờ "gộp".
 - Đang lập danh sách đề xuất bỏ chức năng thừa (chờ anh duyệt từng mục — không tự xóa). Chờ anh xuất lại 2 mốc (3.528) cho TK 1.

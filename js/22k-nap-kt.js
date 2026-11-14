@@ -1079,7 +1079,7 @@ function slDCCsv(K){
   return '﻿'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DC_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';   /* dòng 1 '#' ghi nguyên văn (hợp đồng: dòng bắt đầu '#' là ghi chú) */
 }
 /* 3.525 (TK 1 nhờ 14/11, anh "làm thêm ý này"): dòng đầu file đối chiếu ghi giờ xuất + File Tổ trưởng đã dùng (tên file, ngày) — để so 2 mốc biết nguồn tổ */
-function slDCLT(K){ var d = K && K.ltDon; if(!d) return 'thô'; return (d.theoNgay ? 'bỏ lãi dồn '+(K.ltNgay||0)+' món (file có lãi dồn' : 'giữ nguyên (chốt tháng thật')+': '+d.coTH+'/'+d.mon+' món GD ở phiên còn lãi TH)'; }   /* 3.527 */
+function slDCLT(K){ var d = K && K.ltDon; if(!d) return 'thô'; return (d.coDon ? 'file có lãi dồn' : 'chốt tháng thật')+' ('+d.khop+'/'+d.coLS+' món đã GD ở phiên có TH khớp lãi dồn) — bỏ lãi dồn '+d.bo+' món, giữ '+d.giu+' món'; }   /* 3.530 */
 function slDCLuc(){ var d = new Date(); return ngayVNsl(ngayISO(d))+' '+hai(d.getHours())+':'+hai(d.getMinutes()); }
 function slDCTT(K){ var k = K && K.B && K.B.nguon && K.B.nguon.dsto, e = k ? SLM.bang[slKhoa('dsto', k)] : null;
   return e ? (e.tenFile || 'File Tổ trưởng')+' (ngày '+ngayVNsl(slNgaySo(e))+')'+(K.dsLech ? ' KHÁC NGÀY Mẫu 31' : '') : 'không có (điểm GD theo dự phòng)'; }

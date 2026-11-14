@@ -269,18 +269,24 @@ var TO_GIA = '0000000';
 function toPhienGan(ngay, gd){ var x = String(ngay||'').match(/^(\d{4})-(\d{2})-(\d{2})/); gd = +gd; if(!x || !gd) return '';
   var y = +x[1], m = +x[2], d = +x[3]; if(d < gd){ m--; if(!m){ m = 12; y--; } }
   var cuoi = new Date(y, m, 0).getDate(), dd = Math.min(gd, cuoi); return y+'-'+String(m).padStart(2, '0')+'-'+String(dd).padStart(2, '0'); }
-function toLaiTonNgay(K){   /* 3.527 (TK 1 so 2 mốc với TW BC0438, 14/11): ① ngày phiên theo TỪNG MÓN — cột Ngày GDXA trên dòng Mẫu 31 (sau gộp xã 1 điểm có 2–3 phiên), trống → ngày của điểm;
-     ② kỳ chốt tháng chỉ bỏ lãi dồn khi FILE CÓ LÃI DỒN: trong các món đã GD ở phiên mà không có lãi QH, phần lớn (≥ 50%) còn lãi TH > 0 → bản xuất theo ngày (31/10) → bỏ;
-     ít → bản chốt tháng thật (30/09, không có lãi dồn) → giữ nguyên. Kỳ theo ngày luôn bỏ (3.436). */
+function toLaiTonNgay(K){   /* 3.530 (file 31/10 xuất lại bằng 3.528: cách nhận theo tỷ lệ ≥ 50% không bắt được — 31/10 chỉ 26% món, 30/09 4%) → XÉT TỪNG MÓN:
+     món đã GD ở phiên gần nhất (ngày phiên = cột Ngày GDXA của dòng, trống → ngày điểm — 3.527) mà lãi TH ≤ lãi DỒN tính được từ ngày GD tới ngày số liệu
+     (dư nợ trong hạn × lãi suất %/năm × số ngày / 36500, +5% +1.000đ) → phần TH đó là lãi dồn chưa đến kỳ → bỏ (QT-C-03 bổ sung, anh chốt 14/11);
+     TH lớn hơn → lãi tồn thật → giữ (file chốt tháng thật 30/09 tự đúng). Món không có lãi suất: kỳ theo ngày bỏ như 3.436, kỳ chốt tháng giữ. */
   if(!K) return; var hs = K.hs||[]; if(hs._ltDon){ K.ltDon = hs._ltDon; K.ltNgay = hs._ltNgay; return; }   /* dòng dùng chung (slBo) — đã xét 1 lần */
-  var nd = K.ngay || K.ky, dem = 0, ds = [], p = 0, co = 0;
-  (K.hs||[]).forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, +o.ngayGD ? String(+o.ngayGD) : o._ngGD); if(!ph) return;
-    o._ltNgay = ph; if(o.ngdg && String(o.ngdg)>=ph){ ds.push(o); if(!((o.ltQH||0)>0)){ p++; if((o.ltTH||0)>0) co++; } } });
-  if(!p){ p = ds.length; co = ds.filter(function(o){ return (o.ltTH||0)>0; }).length; }   /* không có món sạch QH để xét → xét mọi món đã GD ở phiên */
-  var theoNgay = String(K.ky||'').length>7 || (p>0 && co/p>=0.5);
-  K.ltDon = {theoNgay:theoNgay, mon:p, coTH:co};
-  if(theoNgay) ds.forEach(function(o){ if((o.ltTH||0)>0){ o.lt = o.ltQH||0; dem++; } });
-  K.ltNgay = dem; if(hs.length){ Object.defineProperty(hs, '_ltDon', {value:K.ltDon, configurable:true}); Object.defineProperty(hs, '_ltNgay', {value:dem, configurable:true}); } }
+  var nd = String(K.ngay || K.ky), theoNgay = String(K.ky||'').length>7, dem = 0, xet = 0, giu = 0;
+  var soNgay = function(a, b){ var x = a.match(/^(\d{4})-(\d{2})-(\d{2})/), y = b.match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return -1; return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5); };
+  var ds = [], coLS = 0, khop = 0;
+  hs.forEach(function(o){ if(o._ltNgay || !o.ku || typeof o.lt==='number') return; var ph = toPhienGan(nd, +o.ngayGD ? String(+o.ngayGD) : o._ngGD); if(!ph) return;
+    o._ltNgay = ph; if(!o.ngdg || String(o.ngdg)<ph || !((o.ltTH||0)>0)) return; xet++;
+    var ls = +o.ls || 0, d = soNgay(String(o.ngdg), nd), dd = null;
+    if(ls>0 && d>=0){ dd = o.ltTH <= ((o.th!==undefined ? +o.th : +o.dn)||0)*(ls>2 ? ls : ls*12)*d/36500*1.05+1000; coLS++; if(dd) khop++; }
+    ds.push([o, dd]); });
+  var coDon = theoNgay || (coLS>0 && khop/coLS>=0.5);   /* tầng 1 — FILE có lãi dồn: phần lớn món (có lãi suất) đã GD ở phiên mà TH khớp lãi dồn; file chốt thật TH lớn hơn hẳn */
+  ds.forEach(function(x){ var o = x[0], bo = coDon && (x[1]===null ? true : x[1]);   /* tầng 2 — từng món: chỉ bỏ khi TH ≤ lãi dồn (không có lãi suất → theo tầng 1) */
+    if(bo){ o.lt = o.ltQH||0; dem++; } else giu++; });
+  K.ltDon = {xet:xet, bo:dem, giu:giu, coDon:coDon, khop:khop, coLS:coLS}; K.ltNgay = dem;
+  if(hs.length){ Object.defineProperty(hs, '_ltDon', {value:K.ltDon, configurable:true}); Object.defineProperty(hs, '_ltNgay', {value:dem, configurable:true}); } }
 function toMaCua(o){ return (o && o.to && o.to!==TO_GIA) ? o.to : ((o && o._tt) || ''); }
 function toLaTT(t){ return !!(t && t.trucTiep); }
 /* 3.409 (anh 30/10: cây địa bàn 3 xã hiện tên "Vay trực tiếp"): tên xã của tổ = tên chiếm đa số trong Mẫu 31 của mã xã đó (Mẫu 31 là chính),
