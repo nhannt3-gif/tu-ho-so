@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.533', ds:[
+var CO_GI_MOI = {ban:'3.534', ds:[
+  ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
   ["Lãi tồn: món có ngày GD sau ngày số liệu (Mẫu 31 xuất muộn) giữ nguyên lãi tồn — khớp giao ban cả 2 mốc", ""],
   ["Lãi tồn: món không có lãi suất không bị bỏ hết lãi tồn trong hạn (khớp giao ban)", ""],
   ["Lãi tồn + tiền gửi tính đúng như giao ban (TK 1 đối chiếu biểu TW BC0438): phiên theo Ngày GDXA từng món, lãi dồn /360, tiền gửi theo khóa sổ", ""],
@@ -1071,9 +1072,10 @@ var CO_GI_MOI = {ban:'3.533', ds:[
   ["Gọn giao diện: khung Lọc địa bàn 1 hàng (màn rộng), thanh Nạp & KT 1 hàng, chip Nguồn vốn Tổng hợp nhỏ, chữ gợi ý Tra cứu ngắn", ""],
   ["KTGS › Kiểm tra sau 30 ngày: bảng tổ có ô tích chọn tổ + Chọn hết, cột Ngày GN · Hạn KT (quá 30 ngày tô đỏ) · Mục đích; ấp đúng theo danh sách tổ; cột thẳng hàng", ""],
   ["Lãi tồn: món đã trả lãi đến ngày giao dịch (phiên gần nhất) coi như không có lãi tồn — áp cả Mẫu 31 cuối tháng; KTGS cùng số với thẻ tổ", ""],
-  ["Tiền gửi TK 105: sổ ghi trên dòng KU hủy vẫn cộng vào tiền gửi khách (mỗi sổ 1 lần)", ""],
-  ["Gọn chip các tab: Sổ hộ vay (bảng lên cao ~150px — 2 hàng chip gộp 1 khung, bỏ dòng kẻ thừa, hướng dẫn vào ⓘ), Giao dịch xã (chip mẫu nhỏ 2 hàng), Phân bổ KH (6 nút gọn), Hồ sơ (chip mẫu nhỏ)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tiền gửi TK 105: sổ ghi trên dòng KU hủy vẫn cộng vào tiền gửi khách (mỗi sổ 1 lần)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.534 · 🧰 Công cụ: còn 3 ô (HSSV, Địa bàn, CT vay)",
+    "3.534 · 🏢 Giao dịch xã › ⋯: không còn Mini app; bản điện thoại tab 🏢 vẫn chạy",
     "3.533 · 📤 File đối chiếu 30/09 + 31/10: lãi tồn = giao ban mọi tổ",
     "3.532 · 📤 File đối chiếu: tổ 0062097 (30/09), 0050383 (31/10) lãi tồn = giao ban",
     "3.531 · 📤 File đối chiếu T10: lãi tồn gần TW (TK 1 so); tiền gửi khớp giao ban từng tổ",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.533', ds:[
     "3.523 · KTGS › ⏱ Kiểm tra sau 30 ngày: bỏ tích 1 tổ → số phiếu giảm; Chọn hết / bỏ hết",
     "3.523 · Cột Ấp hiện tên ấp (không còn \"chưa rõ ấp\"); Ngày GN, Hạn KT, Mục đích đúng",
     "3.522 · Tổ TK&VV kỳ 10/2026: lãi tồn tổ giảm (bỏ lãi dồn món đã trả phiên tháng 10)",
-    "3.522 · Số liệu › Nạp & KT › 📤 File đối chiếu kỳ 31/10: lãi tồn khớp giao ban; tiền gửi tăng (sổ trên KU hủy)",
-    "3.521 · 📄 Hồ sơ vay › 📒 Sổ hộ vay: chip Ngày nhập + Hộ chung 1 khung, ⓘ Cách dùng sổ bấm mở",
-    "3.521 · 🏢 Giao dịch xã: chip mẫu nhỏ, 2 hàng"],
+    "3.522 · Số liệu › Nạp & KT › 📤 File đối chiếu kỳ 31/10: lãi tồn khớp giao ban; tiền gửi tăng (sổ trên KU hủy)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

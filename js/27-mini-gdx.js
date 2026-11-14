@@ -1,5 +1,5 @@
 /* ===== 3.177 (anh chốt 13/10/2026): 📦 MINI APP Giao dịch xã — 1 file HTML gửi đồng nghiệp, có thời hạn =====
-   - Nút "📦 Mini app" ở tab 🏢 Giao dịch xã → chọn hạn 30 / 60 / 90 ngày → tải về GiaoDichXa_mini_han-ddmmyyyy.html (chạy offline, không CDN, không mật khẩu).
+   - 3.534: nút xuất ở tab 🏢 đã bỏ; lõi còn dùng cho bản điện thoại (gói xem js/38). Trước: nút "📦 Mini app" → hạn 30 / 60 / 90 ngày → GiaoDichXa_mini_han-ddmmyyyy.html.
    - Mini in 04/TD, 12/GDX theo điểm GD; Giấy lĩnh: gõ tay (TK 105), TK 104 chọn tổ trưởng → điền tên, TK 104, địa chỉ.
    - Số liệu gói kèm (CHỈ lúc xuất, trên máy anh — mã nguồn repo KHÔNG có số liệu): điểm GD (tên, mã, xã, ngày GD), tổ (tên tổ trưởng, ấp, TK 104),
      danh sách cán bộ, khai báo mẫu. KHÔNG gói số liệu khách TK 105 (anh chốt).
@@ -36,19 +36,7 @@ function gdxMiniGoi(){
   });
   return {C:c, diem:diem, nTo:nTo, nTK:nTK, nCC:nCC};
 }
-function gdxMiniHop(han){
-  han = han || 30; var G = gdxMiniGoi(), het = new Date(nay()); het.setDate(het.getDate() + han);
-  moHop('<div class="hop-tit">📦 Xuất mini app Giao dịch xã</div>'+
-    '<div class="hop-phu">Tạo 1 file HTML gọn gửi đồng nghiệp: in <b>04/TD</b>, <b>12/GDX</b> theo điểm GD và <b>Giấy lĩnh</b> (TK 105 gõ tay, TK 104 chọn tổ trưởng). Chạy offline, không cần mật khẩu.</div>'+
-    '<div class="gdx-mini-tom">Gói kèm: <b>'+G.diem.length+'</b> điểm GD · <b>'+G.nTo+'</b> tổ (tên tổ trưởng) · <b>'+G.nTK+'</b> TK 104 · <b>'+G.nCC+'</b> CCCD tổ trưởng (số, ngày cấp, nơi cấp) · <b>'+(G.C.danhSachCanBo||[]).length+'</b> cán bộ · khai báo mẫu. <b>Không</b> gói số liệu khách TK 105.</div>'+
-    (G.diem.length ? '' : '<div class="sl-bao vang">Chưa có điểm GD — mở số liệu Mẫu 31 (hoặc Cài đặt › Địa bàn) trước khi xuất.</div>')+
-    (G.nTo && !G.nTK ? '<div class="sl-bao vang">Chưa có TK 104 tổ trưởng — nạp danh mục ở 📥 Nạp &amp; KT nếu cần.</div>' : '')+
-    '<div class="gdx-l1"><b>Thời hạn dùng:</b> '+[30, 60, 90].map(function(n){ return gdxChip(n+' ngày', n===han, 'gdxMiniHop('+n+')'); }).join('')+
-    ' → dùng tới hết ngày <b>'+gdxDMY(ngayISO(het))+'</b></div>'+
-    '<div class="sl-phu">Hết hạn file tự khóa hết (không mở được số liệu, không in). Lùi giờ máy cũng khóa. Số liệu trong file được xáo mã, mở bằng Notepad không đọc được '+
-    '(không có mật khẩu nên chỉ là che — chỉ gửi người trong đơn vị).</div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="gdxMiniXuat('+han+')"'+(G.diem.length ? '' : ' disabled')+'>📦 Xuất file</button></div>', true);
-}
+/* 3.534 (anh 14/11 tinh gọn): bỏ nút 📦 Mini app + hộp xuất gửi đồng nghiệp (gdxMiniHop / gdxMiniXuat). Giữ lõi gdxMiniGoi / gdxMiniHTML / gdxMiniApp — bản điện thoại (js/38 gói xem → tab 🏢) đang dùng. */
 /* dựng file mini: hàm mẫu chép từ app (toString) + số liệu đã xáo + khung giao diện gdxMiniApp */
 function gdxMiniHTML(han, G){
   G = G || gdxMiniGoi();
@@ -65,12 +53,6 @@ function gdxMiniHTML(han, G){
   return {html:'<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">'+
     '<title>Giao dịch xã — bản mini</title><style>'+GDX_MINI_CSS+'</style></head><body><div id="mn-app"><div class="mn-mo">Đang mở…</div></div><script>\n'+js+'<\/script></body></html>',
     han:hanISO, id:id};
-}
-function gdxMiniXuat(han){
-  var G = gdxMiniGoi(); if(!G.diem.length) return bao('Chưa có điểm GD để gói.');
-  var M = gdxMiniHTML(han, G), ten = 'GiaoDichXa_mini_han-'+M.han.split('-').reverse().join('')+'.html';
-  taiXuongBlob(new Blob([M.html], {type:'text/html;charset=utf-8'}), ten);
-  dongHop(); bao('Đã xuất '+ten+' — dùng tới hết ngày '+gdxDMY(M.han)+'.', 6000);
 }
 
 /* ==========================================================

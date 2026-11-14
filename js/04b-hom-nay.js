@@ -211,9 +211,8 @@ var CONG_CU = [
     /* 3.276 (anh: "nút nổi lên và Esc bố trí gọn tiết kiệm 1 dòng"): 📌 Nổi, ✕ Đóng chỉ biểu tượng — tiêu đề công cụ 1 dòng */
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
-    dau:function(){ return ctvChonHTML(); }},
-  /* 3.399: bỏ 📊 Giao ban + 📅 Buổi GD (lấy số từ ⚠ Theo dõi nợ — đã gỡ) */
-  {id:'cc6',    ico:'🧰', ten:'Công cụ 6'}
+    dau:function(){ return ctvChonHTML(); }}
+  /* 3.399: bỏ 📊 Giao ban + 📅 Buổi GD (lấy số từ ⚠ Theo dõi nợ — đã gỡ) · 3.534: bỏ ô trống "Công cụ 6" (anh 14/11 tinh gọn) */
 ];
 /* ==========================================================
    3.71 — 🧰 CÔNG CỤ: 📋 CHƯƠNG TRÌNH VAY

@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.534 tinh gọn đợt 1)
+- Bỏ ô Công cụ 6 + nút 📦 Mini app (giữ lõi mini — bản điện thoại dùng). Rà sâu: OCR tiếng Việt (đọc lại gợi ý tên, chép chữ trang ảnh), Cắt ảnh CCCD từ PDF / Rà CCCD (3.271 anh chốt) dính chức năng đang dùng → KHÔNG xóa, chờ anh quyết lại. Bẫy: napOCR còn dùng đọc mã máy CCCD (js/41) — không gỡ.
+
 ### 14/11/2026 — TK 2 · PHIÊN (đóng so 2 mốc · bắt đầu tinh gọn)
 - TK 1 xác nhận 3.533 = GB toàn bộ 2 mốc → đóng. Tổ viên theo Mẫu 01/TV giữ nguyên.
 - Tinh gọn: anh chọn bỏ 5 mục (ô Công cụ 6, Mini app GDX, OCR/cầu nối Windows, Cắt ảnh CCCD từ PDF cũ, Rà CCCD đã lưu). dt.html / Thư viện / Biểu mẫu: TK 2 mô tả sai lúc hỏi (là bản điện thoại / dữ liệu anh) → giữ, chờ anh xác nhận lại.
