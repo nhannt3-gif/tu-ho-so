@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 14/11/2026 — TK 2 · PHIÊN (3.528 cỡ chữ tự động theo cỡ màn)
+- Màn anh: 24" 1920 (nhà), 1600×900 100% (cơ quan), laptop 17" 125% (~1536×730). Anh: không tự ẩn nút; "em nên tự nhận và tối ưu cỡ chữ" → `coTu` (mặc định) + `coTuDong` / `coApDung` (js/06), resize. t400 mới; t260 thêm 3 cỡ màn (84/84).
+
 ### 14/11/2026 — TK 2 · PHIÊN (3.527 lãi tồn theo kết quả TK 1 so TW)
 - 3.526 gộp (PR #546). TK 1 so app thật với TW BC0438: tiền gửi đạt (còn lệch nhỏ), lãi tồn 30/09 + 31/10 lỗi app. 3.527: `toLaiTonNgay` ngày phiên theo dòng (Ngày GDXA) + chỉ bỏ lãi dồn khi file có lãi dồn (≥ 50%). Tiền gửi lệch nhỏ chưa sửa — hỏi TK 1 khóa "mỗi sổ".
 - Đang dở: tinh chỉnh giao diện 3 cỡ màn (24" 1920, laptop 17" 125% = 1536×730, màn 17" cơ quan) — đã chụp, chưa đề xuất.

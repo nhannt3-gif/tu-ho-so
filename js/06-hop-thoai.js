@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.527', ds:[
+var CO_GI_MOI = {ban:'3.528', ds:[
+  ["Cỡ chữ Tự động theo cỡ màn (mặc định): màn 24\" chữ to hơn, laptop 125% nhỏ hơn chút — không ẩn / đổi nút; ⚙ Cài đặt › Cỡ chữ vẫn chọn tay được", ""],
   ["Lãi tồn: file chốt tháng thật (30/09) không trừ lãi dồn nữa; ngày phiên theo từng món (cột Ngày GDXA) — theo kết quả TK 1 so biểu TW", ""],
   ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""],
   ["Khung Lọc địa bàn 1 hàng: không tràn ngang khi nhiều ô chọn / chế độ Chip", ""],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.527', ds:[
   ["📄 Hộp khai văn bản: 4 nút đổi chữ (aa · Aa. · AA · Aa Aa) lên cùng hàng nhãn \"Tên văn bản\", không còn che chữ trong ô", ""],
   ["🗓 Kế hoạch năm: bản đã chốt mang mã xã / Hội cũ (Mẫu 31 mới đổi mã sau sáp nhập) → 🔎 Kế hoạch đã lưu › ↪ Nhận về xã / Hội hiện tại — giữ đã chốt, bản cũ giữ nguyên", "dhSL('kt')"],
   ["🗓 Kế hoạch năm lập theo Mẫu 31 đầu năm (chốt 31/12 năm trước); in theo tháng lấy số liệu cuối tháng liền trước tháng kiểm tra như cũ; tổ đã gộp / tổ mới so với Mẫu 31 mới nhất chỉ cảnh báo", "dhSL('kt')"],
-  ["🗓 Kế hoạch năm hiện theo Mẫu 31 mới nhất (tổ hiện tại, đã gộp) — không theo Kỳ đầu trang; kế hoạch đã chốt giữ nguyên, tổ đã gộp chỉ cảnh báo; nút 🔎 Kế hoạch đã lưu để tìm bản chốt", "dhSL('kt')"],
-  ["🛡 KTGS gọn chỗ: chip nhỏ lại, khung chọn hộ 1 hàng, nút ▾ Hộ gọn — màn Kiểm tra tổ thấy thêm khoảng 4–5 tổ; Sau 30 ngày chip Tất cả / Lần 1 lên cùng hàng tháng", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["🗓 Kế hoạch năm hiện theo Mẫu 31 mới nhất (tổ hiện tại, đã gộp) — không theo Kỳ đầu trang; kế hoạch đã chốt giữ nguyên, tổ đã gộp chỉ cảnh báo; nút 🔎 Kế hoạch đã lưu để tìm bản chốt", "dhSL('kt')"]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.528 · Màn 24\" ở nhà: chữ to hơn (Tự động)",
+    "3.528 · Laptop 125%: chữ nhỏ hơn chút, đủ nút",
+    "3.528 · ⚙ Cài đặt › Hiển thị › Cỡ chữ: Tự động / Nhỏ / Vừa / To",
     "3.527 · 📤 File đối chiếu T9: dòng đầu ghi \"lãi tồn=giữ nguyên (chốt tháng thật …)\"; T10: \"bỏ lãi dồn … (file có lãi dồn …)\"",
     "3.526 · Nạp & KT › T10 › ⋯ › 📤 File đối chiếu (khi tháng còn bản theo ngày): dòng đầu ghi File Tổ trưởng 31/10, không bị chặn",
     "3.526 · Tổ TK&VV: chọn xã → thêm ô Điểm GD / Tổ — khung lọc xuống dòng, không tràn; bấm ▦ Chip → như cũ",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.527', ds:[
     "3.520 · 🛡 KTGS › 🎯 Kiểm tra tổ: tích tổ → bấm ↺ vài lần → mỗi lần ra lượt hộ khác (hộ giải ngân dưới 30 ngày giữ)",
     "3.519 · 📄 Văn bản › bấm sửa 1 văn bản → ô Tên văn bản hiện đủ chữ, 4 nút đổi chữ nằm phía trên bên phải",
     "3.518 · 🛡 KTGS › 🗓 Kế hoạch năm › 🔎 Kế hoạch đã lưu: dòng ghi \"mã xã / Hội không còn trong số liệu\" → ↪ Nhận về xã / Hội hiện tại → xem hộp hỏi → ↪ Nhận về",
-    "3.517 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi \"lập theo Mẫu 31 T12/… (đầu năm)\" và Mẫu 31 mới nhất; tổ đã gộp hiện ⚠, tổ mới hiện 🆕 (in theo tháng của ấp)",
-    "3.516 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi Mẫu 31 đang dùng (mới nhất); bấm 🔎 Kế hoạch đã lưu → xem mọi kế hoạch trong máy (cả bản đã xóa ở Thùng rác), bấm Mở",
-    "3.515 · 🛡 KTGS › 🎯 Kiểm tra tổ: Món · Kiểu · Số hộ · ↺ trên 1 hàng (rê chuột xem tên đủ); 📅 Kiểm tra sau 30 ngày: chip Tất cả / Lần 1 cạnh ô tháng",
-    "3.514 · 🛡 KTGS › 🎯 Kiểm tra tổ: chọn xã → tích vài tổ → chọn Món xét + Kiểu chọn hộ → ▾ Hộ để sửa → ô Ngày kiểm tra (chung) → 📄 06 / 16 / 04 / 15 / 📋 Tóm tắt"],
+    "3.517 · 🛡 KTGS › 🗓 Kế hoạch năm: dòng 📌 ghi \"lập theo Mẫu 31 T12/… (đầu năm)\" và Mẫu 31 mới nhất; tổ đã gộp hiện ⚠, tổ mới hiện 🆕 (in theo tháng của ấp)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
@@ -1206,8 +1206,13 @@ function datKieuTen(v, el){
   luu();
   bao('Đã đổi kiểu đặt tên. Dùng cho file thêm mới từ giờ.', 4);
 }
+/* 3.528 (anh 14/11): cỡ chữ TỰ ĐỘNG theo cỡ trang (px CSS): màn rộng ≥ 1800 (24\" 1920) → to hơn 10%; màn thấp < 760 mà rộng ≥ 1400 (laptop để 125%) → nhỏ hơn 5%;
+   còn lại (1600×900, 1366…) → chuẩn. Không ẩn / đổi nút. Bấm Nhỏ / Vừa / To → dùng cỡ chọn (tắt tự động) — lưu riêng từng máy. */
+function coTuDong(){ var w = window.innerWidth || 0, h = window.innerHeight || 0; return w>=1800 ? 1.1 : (h<760 && w>=1400) ? 0.95 : 1; }
+function coApDung(){ var v = D.cauHinh.coTu!==false ? coTuDong() : (D.cauHinh.coChu||1); document.documentElement.style.setProperty('--co', v); return v; }
+function datCoTu(el){ D.cauHinh.coTu = true; coApDung(); var b = el.parentNode.children; for(var i=0;i<b.length;i++) b[i].classList.toggle('bat', b[i]===el); luu(); }
 function datCo(v, el){
-  D.cauHinh.coChu = v;
+  D.cauHinh.coChu = v; D.cauHinh.coTu = false;
   document.documentElement.style.setProperty('--co', v);
   var b = el.parentNode.children;
   for(var i=0;i<b.length;i++) b[i].classList.toggle('bat', b[i]===el);

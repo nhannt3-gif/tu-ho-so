@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**177 khóa** trong code · 177 khóa trong sổ.
+**178 khóa** trong code · 178 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -34,7 +34,8 @@
 | `chKhoi` | 36-dong-bo-khoi.js | 1 | 36-dong-bo-khoi.js |  |
 | `chuongTrinh` | 06-hop-thoai.js | 13 | 06-hop-thoai.js · 09-bieu-mau.js · 10-danh-sach.js · 11-khung-tab.js · 15-ai-chuan-hoa.js · 18-cai-dat.js |  |
 | `clientId` | 06c-drive.js | 1 | 06c-drive.js |  |
-| `coChu` | 06-hop-thoai.js | 2 | 06-hop-thoai.js · 20-khoi-dong.js |  |
+| `coChu` | 06-hop-thoai.js | 2 | 06-hop-thoai.js |  |
+| `coTu` | 06-hop-thoai.js | 3 | 06-hop-thoai.js |  |
 | `ctNCHXAPT` | 10-danh-sach.js | 2 | 10-danh-sach.js |  |
 | `ctTen` | 06-hop-thoai.js | 10 | 06-hop-thoai.js · 10-danh-sach.js · 19-danh-muc.js |  |
 | `daXemMoi` | 06-hop-thoai.js | 3 | 06-hop-thoai.js · 20-khoi-dong.js |  |

@@ -555,8 +555,9 @@ function veNoiCD(k){
   if(k==='chung'){
     return '<h3>Hiển thị</h3>'+
       '<div class="o"><label>Cỡ chữ</label><div class="co-chu" id="cd-co">'+
+      '<button'+(c.coTu!==false?' class="bat"':'')+' onclick="datCoTu(this)" title="Tự chọn theo cỡ màn: màn rộng (24 inch) chữ to hơn, laptop để 125% chữ nhỏ hơn chút — tự đổi khi kéo cửa sổ">Tự động</button>'+
       [['Nhỏ',.9],['Vừa',1],['To',1.12]].map(function(x){
-        return '<button'+(Math.abs(c.coChu-x[1])<.01?' class="bat"':'')+
+        return '<button'+(c.coTu===false&&Math.abs(c.coChu-x[1])<.01?' class="bat"':'')+
           ' onclick="datCo('+x[1]+',this)">'+x[0]+'</button>';
       }).join('')+'</div></div>'+
       '<div class="o"><label>Giao diện</label><div class="co-chu" id="cd-gd">'+

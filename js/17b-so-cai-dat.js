@@ -8,7 +8,7 @@
 var CH_SO = {
   /* chung — đơn vị, Drive, giao diện */
   donvi:'Tên đơn vị (PGD)', thumuc:'Thư mục gốc trên Drive', clientId:'Mã Google Client riêng (trống = mặc định)', apiKey:'Khóa API AI (riêng máy)',
-  giaoDien:'Giao diện sáng / tối / tự động', coChu:'Cỡ chữ app', phongSo:'Phông chữ số', phongGanDay:'Phông chữ dùng gần đây',
+  giaoDien:'Giao diện sáng / tối / tự động', coChu:'Cỡ chữ app', coTu:'Cỡ chữ tự động theo cỡ màn (3.528)', phongSo:'Phông chữ số', phongGanDay:'Phông chữ dùng gần đây',
   gocMay:'Đường dẫn Drive trên máy (mở file ngoài)', tuTai:'Tự tải file về khi thêm', tuLenDrive:'Tự đưa file lên Drive', pdfNet:'PDF nét cao (không nén)',
   daXemMoi:'Bản "Có gì mới" đã xem', demDung:'Đếm lượt dùng chức năng', plPhienBan:'Mốc chuyển dữ liệu phân loại (1 lần)', racTuXoa:'Thùng rác tự xóa sau 30 ngày',
   boThang:'Mốc bỏ tab Tháng cũ (1 lần)', saoLuuNgay:'Ngày tự sao lưu gần nhất (riêng máy)',

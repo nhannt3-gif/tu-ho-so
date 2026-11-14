@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.527 · 14/11/2026 17:31 · 153 file · 47255 dòng · 3751 hàm cấp ngoài · 645 biến toàn cục.
+Bản 3.528 · 14/11/2026 17:55 · 153 file · 47262 dòng · 3754 hàm cấp ngoài · 645 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -14,7 +14,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `css/dt-may.css` | 127 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 68 | 4 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
-| `js/02-nen.js` | 379 | 29 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
+| `js/02-nen.js` | 380 | 29 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 638 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 115 | 12 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
 | `js/04b-hom-nay.js` | 702 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
@@ -24,8 +24,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04d-bo-ho-so.js` | 275 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-chung.js` | 292 | 25 | /*   3.399 (anh 28/10: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn c |
 | `js/05-them-file.js` | 1394 | 72 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
-| `js/06-hop-thoai.js` | 1357 | 106 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
-| `js/06a-dong-bo-cai-dat.js` | 961 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
+| `js/06-hop-thoai.js` | 1362 | 109 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
+| `js/06a-dong-bo-cai-dat.js` | 962 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
 | `js/06b-xoa-nhieu.js` | 226 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
 | `js/06c-drive.js` | 717 | 38 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2422–3118 của bản 3.3 |
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
@@ -168,8 +168,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/01-thu-vien.js:1` · BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được
 - `js/02-nen.js:1` · TỦ HỒ SƠ — bản 1.0  (giai đoạn 1)
 - `js/02-nen.js:14` · 1. HẰNG SỐ
-- `js/02-nen.js:180` · 2. LƯU TRỮ
-- `js/02-nen.js:307` · 3. TIỆN ÍCH
+- `js/02-nen.js:181` · 2. LƯU TRỮ
+- `js/02-nen.js:308` · 3. TIỆN ÍCH
 - `js/03-doc-pdf.js:1` · 4. ĐỌC PDF & RÚT THÔNG TIN
 - `js/03-doc-pdf.js:383` · RÚT THÔNG TIN TỪ CHÍNH TÊN FILE
 - `js/03-doc-pdf.js:462` · 5. SINH TÊN CHUẨN
@@ -217,14 +217,14 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/06-hop-thoai.js:121` · PHÂN LOẠI 3 CẤP (bản 3.4): Mảng (1) · CT vay (1 hoặc Dùng chung) · Tag (nhiều)
 - `js/06-hop-thoai.js:312` · 3.69 (việc AJ, anh chốt) — HỘP SỬA GỌN: ô chọn, Tag gợi ý, phím nhập nhanh, dòng 💡 hướng dẫn chung
 - `js/06-hop-thoai.js:942` · 3.50: ❓ HƯỚNG DẪN TRỰC QUAN — chia theo tab, sơ đồ luồng dữ liệu, các bước theo logic.
-- `js/06-hop-thoai.js:1335` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/06-hop-thoai.js:1340` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/06a-dong-bo-cai-dat.js:3` · ĐỒNG BỘ MỤC LÊN FILE THẬT TRÊN DRIVE (bản 3.6)
 - `js/06a-dong-bo-cai-dat.js:191` · XÓA · THÙNG RÁC · XÓA HẲN (bản 3.10)
 - `js/06a-dong-bo-cai-dat.js:330` · 3.144 — BỎ TAB THÁNG (anh chốt Q5, Q12, 10/10/2026): xóa dữ liệu cũ của tab một lần, không sao lưu.
 - `js/06a-dong-bo-cai-dat.js:388` · CHỜ KHAI (3.11) — mọi file chưa đủ thông tin về MỘT danh sách, xem ở tab Văn bản
 - `js/06a-dong-bo-cai-dat.js:480` · CHỤP / CHỌN ẢNH GHI CHÚ
 - `js/06a-dong-bo-cai-dat.js:500` · 9. CÀI ĐẶT
-- `js/06a-dong-bo-cai-dat.js:926` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/06a-dong-bo-cai-dat.js:927` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/06b-xoa-nhieu.js:2` · 3.49: XÓA NHIỀU FILE (lúc đầu tên "− Bớt file", 3.49b đổi tên theo anh). Bấm "🗑 Xóa file" ở đầu tab → tích dòng (hoặc ch
 - `js/06b-xoa-nhieu.js:213` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/06c-drive.js:2` · 10. GOOGLE DRIVE  (tùy chọn — không có vẫn chạy bình thường)
@@ -577,13 +577,13 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 - `ve` `js/04-giao-dien.js:100`
 - `doiNgan` `js/04-giao-dien.js:4`
-- `luu` `js/02-nen.js:205`
-- `luuFile` `js/02-nen.js:268`
-- `docFile` `js/02-nen.js:282`
+- `luu` `js/02-nen.js:206`
+- `luuFile` `js/02-nen.js:269`
+- `docFile` `js/02-nen.js:283`
 - `moHop` `js/06-hop-thoai.js:3`
 - `dongHop` `js/06-hop-thoai.js:57`
 - `hoi` `js/06-hop-thoai.js:96`
-- `bao` `js/02-nen.js:338`
+- `bao` `js/02-nen.js:339`
 - `veHomNay` `js/04b3-hom-nay-lich-viec.js:723`
 - `veVanBan` `js/04c-van-ban-thang.js:3`
 - `veThang` `js/04c-van-ban-thang.js:887`
