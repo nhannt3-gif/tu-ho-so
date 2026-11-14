@@ -90,6 +90,14 @@ const MOI = 'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng vi�
 thu('Phân bổ: CT 03 tên cũ / trống → tên mới; CT khác, tên khác giữ nguyên', () => A.pbTenDung('03', 'Cho vay giải quyết việc làm')===MOI && A.pbTenDung('03', '')===MOI && A.pbTenDung('03', 'CHO VAY GIẢI QUYẾT VIỆC LÀM')===MOI && A.pbTenDung('01', 'Cho vay hộ nghèo')==='Cho vay hộ nghèo' && A.pbTenCT('03')===MOI);
 thu('Phân bổ đọc QĐ: tên mới / tên cũ đều nhận là mã 03', () => A.pbCTMa('Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm')==='03' && A.pbCTMa('Cho vay giải quyết việc làm')==='03' && A.pbCTMa('Hỗ trợ tạo việc làm')==='03', () => [A.pbCTMa(MOI), A.pbCTMa('Hỗ trợ tạo việc làm')]);
 
+/* 3.540 QT-C-20 gia hạn tối đa (QĐ 54/QĐ-HĐQT + VB 7442/NHCS-TDNN) — dữ liệu giả */
+thu('QT-C-20: chương trình khác trung hạn 36 tháng → ½ thời hạn cho vay (≈ 18 tháng)', () => { const t = A.skGHToiDa({ct:'01', nv:'2024-01-10', dhg:'2027-01-10'}); return t.cach==='nua' && Math.round(t.n/30.4375)===18; }, () => A.skGHToiDa({ct:'01', nv:'2024-01-10', dhg:'2027-01-10'}));
+thu('QT-C-20: ngắn hạn (≤ 12 tháng) → tối đa 12 tháng (không phải ½)', () => { const t = A.skGHToiDa({ct:'03', nv:'2026-01-10', dhg:'2027-01-10'}); return t.cach==='ngan' && Math.round(t.n/30.4375)===12; }, () => A.skGHToiDa({ct:'03', nv:'2026-01-10', dhg:'2027-01-10'}));
+thu('QT-C-20: Nhà ở xã hội (CT 12) trung, dài hạn → 24 tháng; ngắn hạn → 12 tháng', () => Math.round(A.skGHToiDa({ct:'12', nv:'2020-01-01', dhg:'2045-01-01'}).n/30.4375)===24 && Math.round(A.skGHToiDa({ct:'NOXH', nv:'2026-01-01', dhg:'2026-12-01'}).n/30.4375)===12);
+thu('QT-C-20: HSSV có ngày ra trường → ½ thời hạn trả nợ (ra trường 30/06/2025 + 12 tháng → ĐH 30/06/2029: 36 tháng → 18 tháng)', () => { const t = A.skGHToiDa({ct:'02', nv:'2021-09-01', dhg:'2029-06-30', raTruong:'2025-06-30'}); return t.cach==='hssv' && !t.noiSuy && Math.round(t.n/30.4375)===18; }, () => A.skGHToiDa({ct:'02', nv:'2021-09-01', dhg:'2029-06-30', raTruong:'2025-06-30'}));
+thu('QT-C-20: HSSV thiếu ngày ra trường → nội suy (thời hạn cho vay − 12) ÷ 2 ÷ 2, đánh dấu ≈', () => { const t = A.skGHToiDa({ct:'02', nv:'2021-01-01', dhg:'2029-01-01'}); return t.noiSuy && Math.round(t.n/30.4375)===21 && /^≈/.test(A.skConGH({ct:'02', nv:'2021-01-01', dhg:'2029-01-01'})); }, () => [A.skGHToiDa({ct:'02', nv:'2021-01-01', dhg:'2029-01-01'}), A.skConGH({ct:'02', nv:'2021-01-01', dhg:'2029-01-01'})]);
+thu('QT-C-20: còn gia hạn trừ phần đã gia hạn; thiếu ngày vay → "?"', () => A.skConGH({ct:'03', nv:'2026-01-10', dhg:'2027-01-10', dhgh:'2027-07-10', c_so_thang_da_gh:6})==='6 th' && A.skConGH({ct:'03', dhg:'2027-01-10'})==='?', () => A.skConGH({ct:'03', nv:'2026-01-10', dhg:'2027-01-10', dhgh:'2027-07-10', c_so_thang_da_gh:6}));
+
 const sai = o.filter(x => x[0]==='✗');
 console.log(o.join('\n')); console.log((o.length-sai.length)+'/'+o.length+' đạt · '+(Date.now()-t0)+' ms');
 process.exitCode = sai.length ? 1 : 0;

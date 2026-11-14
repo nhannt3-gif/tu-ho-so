@@ -25,8 +25,8 @@ const fs=require('fs'), path=require('path');
    const dnM = K.hs.filter(x=>x.ku && x.to!==TO_GIA).reduce((a, x)=>a+(x.dn||0), 0), qhM = K.hs.filter(x=>x.ku && x.to!==TO_GIA).reduce((a, x)=>a+(x.qh||0), 0);
    ok('tổng du_no file = tổng dư nợ Mẫu 31 (mỗi khế ước 1 lần)', Math.abs(cong(7)-Math.round(dnM))<=rows.length, cong(7)+' / '+Math.round(dnM));
    ok('tổng nqh file = tổng quá hạn Mẫu 31', Math.abs(cong(8)-Math.round(qhM))<=rows.length, cong(8)+' / '+Math.round(qhM));
-   ok('3.538 (khuôn 1.0 mục 5.1): mã điểm ghi 4 số cuối (không tiền tố TXN…) hoặc trống', rows.every(r=>r[3]==='' || /^\d{4}$/.test(r[3])), JSON.stringify(rows.map(r=>r[3]).filter(x=>x && !/^\d{4}$/.test(x)).slice(0,3)));
-   ok('3.538: slDCDiem — TXN0543502 → 3502, 3501 → 3501, trống → trống', slDCDiem('TXN0543502')==='3502' && slDCDiem('3501')==='3501' && slDCDiem('')==='' && slDCDiem(' TXN0548202 ')==='8202');
+   ok('3.540 (anh chốt 15/11 "mã điểm phải ghi đầy đủ TXN"): mã điểm ghi đủ mã hệ thống (không cắt 4 số)', rows.some(r=>/^TXN/.test(r[3])) || rows.every(r=>r[3]===''), JSON.stringify(rows.map(r=>r[3]).slice(0,3)));
+   ok('3.540: slDCDiem giữ nguyên mã — TXN0543502 → TXN0543502, bỏ khoảng trắng thừa', slDCDiem('TXN0543502')==='TXN0543502' && slDCDiem(' TXN0548202 ')==='TXN0548202' && slDCDiem('')==='');
    ok('3.538 (khuôn 1.0 mục 5.2): dòng vay trực tiếp so_tv = số khách còn dư nợ (= so_tv_du_no)', tt.every(r=>r[5]===r[6]), JSON.stringify(tt.filter(r=>r[5]!==r[6]).slice(0,2)));
    ok('tiền đồng nguyên (không số lẻ)', rows.every(r=>[7,8,9,10,11,12,13].every(c=>/^-?\d+$/.test(r[c]))));
    /* 3.539 File 2 — danh sách món (khuôn 1.1 mục 3) */
@@ -41,8 +41,9 @@ const fs=require('fs'), path=require('path');
    ok('3.539 File 2: số món quá hạn = số khế ước có dư nợ quá hạn trên Mẫu 31; món quá hạn có ngày chuyển QH dd/mm/yyyy hoặc trống', dem(11)===qhM2 && mr.filter(r=>r[11]==='1').every(r=>r[15]==='' || /^\d\d\/\d\d\/\d{4}$/.test(r[15])), dem(11)+'/'+qhM2);
    const f1m = {}; rows.forEach(r=>f1m[r[0]] = r);
    ok('3.539 File 2: hoi / ma_ap / ma_diem theo dòng tổ ở File 1', mr.every(r=>!f1m[r[2]] || (r[3]===f1m[r[2]][4] && r[4]===f1m[r[2]][2] && r[5]===f1m[r[2]][3])), JSON.stringify(mr.find(r=>f1m[r[2]] && r[3]!==f1m[r[2]][4])||''));
-   ok('3.539 slDCMonThangLai (QT-C-23): 30 tr × 6% → 1 tháng lãi 150.000; lãi 450.000 → 3.0; lãi suất 0 → số tháng từ ngày GD gần nhất (60 ngày → 2.0); không lãi → 0',
-     slDCMonThangLai({lt:450000, dn:30e6, ls:6}, '2026-08-31')===3 && slDCMonThangLai({lt:100000, dn:30e6, ls:0, ngdg:'2026-07-02'}, '2026-08-31')===2 && slDCMonThangLai({lt:0, dn:30e6, ls:6}, '2026-08-31')===0);
+   ok('3.540 slDCMonThangLai (khuôn 1.1, như giao ban): 30 tr × 6% → 450.000 = "3.0"; lãi suất 0 → tháng lịch từ ngày GD (02/07 → 31/08 = "1.0"; 31/07 → 31/08 = "1.0"; 15/06 → 10/08 = "1.0"); không ngày GD → trống; không lãi → 0',
+     slDCMonThangLai({lt:450000, dn:30e6, ls:6}, '2026-08-31')==='3.0' && slDCMonThangLai({lt:100000, dn:30e6, ls:0, ngdg:'2026-07-02'}, '2026-08-31')==='1.0' && slDCMonThangLai({lt:100000, dn:0, ls:6, ngdg:'2026-07-31'}, '2026-08-31')==='1.0'
+     && slDCMonThangLai({lt:1, dn:0, ls:0, ngdg:'2026-06-15'}, '2026-08-10')==='1.0' && slDCMonThangLai({lt:1, dn:0, ls:0}, '2026-08-31')==='' && slDCMonThangLai({lt:0, dn:30e6, ls:6}, '2026-08-31')===0);
    /* lưu Drive giả */
    const ghi = []; window.coTheNoiDrive = ()=>true; DR.sanSang = true; window.baoDamDuong = d=>Promise.resolve('tm:'+d); window.timFileTrong = ()=>Promise.resolve(null);
    window.slGhiBlob = (ten, idTM, blob, cuId)=>{ ghi.push({ten, idTM}); return Promise.resolve({id:'x'}); };

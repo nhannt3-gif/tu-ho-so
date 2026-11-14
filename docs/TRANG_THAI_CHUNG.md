@@ -1,19 +1,20 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 05:59 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 06:11 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.539** |
-| Sổ luật | bản 1.11 · ✅ 17 · 🔧 8 · ⏳ 0 luật · 6 luật chờ chốt (mục 2) |
+| App | **3.540** |
+| Sổ luật | bản 1.12 · ✅ 18 · 🔧 8 · ⏳ 0 luật · 5 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 33 dòng |
+| Hộp thư còn mở | 34 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
 - **QT-C-03** — app: laiTon + toLaiTonNgay (js/22g-to.js, app 3.436) · giao ban: chi_tieu_to() — chưa áp phần bổ sung
 - **QT-C-23** — app: HSN.thangLai, HSN.vao (js/mau/0hsn.js, app 3.461 — 06A, Biên bản làm việc); phép… · giao ban: chưa áp (chưa có trường hợp mẫu chung)
+- **QT-C-20** — app: skGHToiDa, skConGH (js/22h, app 3.540); phép thử nhanh QT-C-20 (6 ý) · giao ban: chưa áp
 
 ## Phép thử chung chưa đạt hai bên
 
@@ -25,7 +26,6 @@
 - ⏳ QT-C-16 (K5) — Món 3 tháng KHĐ
 - ⏳ (K7 phần còn lại) — Kỳ con phân kỳ CV 597 trong nợ đến hạn
 - 🔧 QT-C-19 (K9) — Số tổng hợp cấp xã
-- ⏳ QT-C-20 — Gia hạn tối đa
 - ⏳ phần C — Mức A–D NQH · đèn tín hiệu · TK < 500 nghìn · khoanh hết hạn 120 ngày · lãi tồn chỉ so thá…
 
 ## Chờ anh quyết
@@ -38,7 +38,7 @@
 - **C6** Sao kê nợ đến hạn mẫu cột mới: file Excel hệ thống + công thức số tháng còn gia hạn / ngày gia hạn cuối _(cần: TK 2)_
 - **C7** Vai trò + quyền GitHub của Gemini — ✓ 01/11 anh chốt: Gemini tham gia khi cần, không quyền repo cố định; 23:07 chốt thêm… _(cần: tất cả)_
 - **C8** Ngày khách chuyển khoản vào TK 105: cần file sao kê giao dịch chi tiết _(cần: TK 2)_
-- **C9** Văn bản về gia hạn nợ (anh đưa lên Tủ hồ sơ) — để chốt QT-C-20 gia hạn tối đa ngắn / trung / dài hạn _(cần: TK 1, TK 2)_
+- **C9** Văn bản về gia hạn nợ — ✓ 15/11: anh chỉ QĐ 54 trên Drive (kèm VB 7442) → QT-C-20 chốt (sổ luật 1.12), app 3.540 _(cần: TK 1, TK 2)_
 - **C10** Duyệt quy tắc dùng số cho văn bản tháng 11 (KE_HOACH_KY_DOI_CHIEU.md mục 6) _(cần: TK 1, TK 2)_
 - **C11** Màn Biến động tổ — làm lại từ đầu, đơn giản (3.410 đã gỡ 📉 Diễn biến tổ, 📅 Biến động cả năm, cột Mới vào / 105 tăng giảm… _(cần: TK 2)_
 
@@ -47,11 +47,12 @@
 **→ Gemini, TK 2, anh** (1)
 - 01/11 · TK 1 → Gemini, TK 2, anh: Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30 (Drive 00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md; anh chốt…
 
-**→ TK 1** (4)
+**→ TK 1** (5)
 - 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…
 - 03/11 · TK 3 → TK 1: Luật mới QT-C-23 lãi tồn cao (anh chốt 03/11, sổ luật 1.11): món lãi tồn (TH + QH) > N tháng lãi (N = 3 / 6 / 12), 1 thá…
 - 15/11 · TK 2 → TK 1: App 3.538 làm xong mục 5.1–5.2 khuôn 1.0: ma_diem 4 số cuối mọi dòng (tổ, tổ đóng, TT); dòng TT
 - 15/11 · TK 2 → TK 1: App 3.539 xuất File 2 DOI_CHIEU_MON_APP_<ngày>.csv cùng nút 📤 File đối chiếu (cùng thư mục File 1), 19 cột đúng thứ tự, …
+- 15/11 · TK 2 → TK 1: App 3.540 theo PR #560 + QT-C-20: ① ma_diem ghi lại đủ mã TXN… (File 1 + File 2), giữ TT đếm khách còn dư nợ; ② so_thang…
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…
