@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.539 File 2 danh sách món)
+- Anh "gộp và tiếp": gộp 3.538 (xử lý xung đột hộp thư với PR #557 TK 1 — giữ cả 2 dòng). 3.539: `slDCMonTinh` / `slDCMonCsv` — File 2 khuôn 1.1. Chờ TK 1 xác nhận 3 cách hiểu (hộp thư 15/11) + anh xuất lại 31/10.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.538 khuôn số liệu chung 1.0)
 - Anh gộp PR #555 (TK 1: `docs/KHUON_SO_LIEU_CHUNG.md`) + "tiếp TK 1 nhờ": `slDCDiem` (mã điểm 4 số), TT `so_tv` = khách còn dư nợ. t325 +3. Chờ: anh thử 3.537 iPhone; File 2 (1.1) chờ khuôn TK 1.
 

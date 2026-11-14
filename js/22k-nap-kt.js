@@ -1076,10 +1076,38 @@ function slDCGBTinh(K){   /* → {ngay, dong:[[…17 cột]]} */
        R(g.dn), R(g.qh), R(g.kn), R(g.lt), R(Object.keys(g.t105).reduce(function(a, m){ return a+g.t105[m]; }, 0)), R(g.cv), R(g.tn), g.khd, 0, g.dh]); });
   return {ngay:K.ngay, dong:dong};
 }
-function slDCCsv(K){
-  var r = slDCGBTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · File Tổ trưởng='+slDCTT(K)+' · lãi tồn='+slDCLT(K)+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
+function slDCCsv(K, f1){
+  var r = f1 || slDCGBTinh(K), ghi = '# bên=APP Tủ hồ sơ · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · File Tổ trưởng='+slDCTT(K)+' · lãi tồn='+slDCLT(K)+' · ngày số liệu='+r.ngay+' · K1=QT-18 (Mẫu 31 + bù Mẫu 01/TV khi chốt tháng) · K5=file KHĐ mẫu 14 nếu có — không thì slKHDTinh'+
     ' · K7=ĐH gia hạn có thì gia hạn, không thì HĐ (chưa gồm kỳ con phân kỳ) · điểm GD QT-C-10/11 · tiền: đồng';
   return '﻿'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DC_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';   /* dòng 1 '#' ghi nguyên văn (hợp đồng: dòng bắt đầu '#' là ghi chú) */
+}
+/* 3.539 (khuôn số liệu chung 1.1 mục 3, TK 1 nhờ 15/11, anh "gộp và tiếp"): FILE 2 — DANH SÁCH MÓN DOI_CHIEU_MON_APP_<ngày>.csv, cùng thư mục File 1.
+   Mỗi khế ước (1 lần, dòng đầu theo số KU) thuộc ≥ 1 nhóm: quá hạn · khoanh · 3 tháng KHĐ (như so_mon_khd) · đến hạn tháng tới (như so_mon_den_han_thang_toi). 19 cột đúng thứ tự, KHÔNG họ tên.
+   hoi / ma_ap / ma_diem lấy theo dòng tổ ở File 1 (vay trực tiếp: dòng TT|<mã ấp>). ngay_chuyen_qh = QT-C-12 (skCQH) cho món quá hạn; ngay_den_han = ĐH gia hạn / HĐ (skHL) cho món đến hạn;
+   ngay_het_khoanh = Sao kê nợ khoanh (nếu có); so_thang_lai = QT-C-23: lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12) — lãi suất / dư nợ 0 → số tháng từ ngày GD gần nhất đến ngày số liệu (÷ 30). */
+var SL_DCM_COT = ['so_ku', 'ma_kh', 'khoa', 'hoi', 'ma_ap', 'ma_diem', 'chuong_trinh', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'la_nqh', 'la_khoanh', 'la_khd', 'la_den_han', 'ngay_chuyen_qh', 'ngay_den_han', 'ngay_het_khoanh', 'so_thang_lai'];
+function slDCMonThangLai(o, nd){ var lt = laiTon(o), dn = +o.dn || 0, ls = +o.ls || 0; if(!(lt>0)) return 0; if(ls>0 && ls<=2) ls *= 12;
+  if(dn>0 && ls>0) return Math.round(lt/(dn*ls/100/12)*10)/10;
+  var g = String(o.ngdg||''), x = g.match(/^(\d{4})-(\d{2})-(\d{2})/), y = String(nd||'').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return '';
+  return Math.round((new Date(+y[1], +y[2]-1, +y[3]) - new Date(+x[1], +x[2]-1, +x[3]))/864e5/30*10)/10; }
+function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_diem theo khoa */
+  f1 = f1 || slDCGBTinh(K); var theo = {}, khd = {}, nk = (K.B && K.B.nk) || {}, da = {}, dong = [], R = function(v){ return Math.round(v||0); }, nd = String(K.ngay||'');
+  f1.dong.forEach(function(r){ theo[r[0]] = r; });
+  slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
+  var sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), vn = function(d){ return d ? ngayVNsl(d) : ''; };
+  var dh = function(m){ var hl = skHL(m); return (m.dn||0)>0 && !(m.qh>0) && hl>=tu && hl<=den; };
+  (K.hs||[]).forEach(function(o){ if(!o.ku || da[o.ku]) return; da[o.ku] = 1;
+    var q = (o.qh||0)>0 ? 1 : 0, k = (o.kn||0)>0 ? 1 : 0, h = khd[o.ku] ? 1 : 0, d = dh(o) ? 1 : 0; if(!(q || k || h || d)) return;
+    var khoa = o.to ? o.to : 'TT|'+String(o.thon||''), f = theo[khoa] || [];
+    dong.push([o.ku, o.kh||'', khoa, f[4]||'', f[2] || String(o.thon||''), f[3]||'', o.ct||'', R(o.dn), R(o.qh), R(o.kn), R(laiTon(o)), q, k, h, d,
+      q ? vn(skCQH(o).d) : '', d ? vn(skHL(o)) : '', k && nk[o.ku] && nk[o.ku].nhh ? vn(nk[o.ku].nhh) : '', slDCMonThangLai(o, nd)]); });
+  return {ngay:K.ngay, dong:dong};
+}
+function slDCMonCsv(K, f1){
+  var r = slDCMonTinh(K, f1), dem = function(c){ return r.dong.filter(function(x){ return x[c]===1; }).length; };
+  var ghi = '# bên=APP Tủ hồ sơ · khuôn=1.1 File 2 danh sách món · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · ngày số liệu='+r.ngay+' · '+r.dong.length+' món (quá hạn '+dem(11)+' · khoanh '+dem(12)+' · 3T KHĐ '+dem(13)+' · đến hạn tháng tới '+dem(14)+')'+
+    ' · lãi tồn='+slDCLT(K)+' · ngày chuyển QH=QT-C-12 · số tháng lãi=QT-C-23 · không ghi họ tên · tiền: đồng';
+  return '\ufeff'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DCM_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';
 }
 /* 3.525 (TK 1 nhờ 14/11, anh "làm thêm ý này"): dòng đầu file đối chiếu ghi giờ xuất + File Tổ trưởng đã dùng (tên file, ngày) — để so 2 mốc biết nguồn tổ */
 function slDCLT(K){ var d = K && K.ltDon; if(!d) return 'thô'; return (d.coDon ? 'file có lãi dồn' : 'chốt tháng thật')+' ('+d.khop+'/'+d.coLS+' món đã GD ở phiên có TH khớp lãi dồn) — bỏ lãi dồn '+d.bo+' món, giữ '+d.giu+' món'; }   /* 3.530 */
@@ -1092,10 +1120,12 @@ function slDCXuat(ky){
   var ten = '';
   toNap(ky).then(function(K){
     if(K.dsLech) return 'lech:'+ngayVNsl(K.dsLech.ds)+' ≠ Mẫu 31 '+ngayVNsl(K.dsLech.m31);   /* 3.409 QT-C-09 (anh chốt 30/10): chốt / so sánh phải cùng ngày — lệch thì chặn */
-    var csv = slDCCsv(K); ten = 'DOI_CHIEU_APP_'+K.ngay+'.csv'; var bl = new Blob([csv], {type:'text/csv'});
-    if(!(coTheNoiDrive() && DR.sanSang)){ taiXuongBlob(bl, ten); return 'may'; }
+    var f1 = slDCGBTinh(K), csv = slDCCsv(K, f1); ten = 'DOI_CHIEU_APP_'+K.ngay+'.csv'; var bl = new Blob([csv], {type:'text/csv'});
+    var ten2 = 'DOI_CHIEU_MON_APP_'+K.ngay+'.csv', bl2 = new Blob([slDCMonCsv(K, f1)], {type:'text/csv'});   /* 3.539: File 2 danh sách món, cùng chỗ File 1 */
+    if(!(coTheNoiDrive() && DR.sanSang)){ taiXuongBlob(bl, ten); setTimeout(function(){ taiXuongBlob(bl2, ten2); }, 600); ten += ' + '+ten2; return 'may'; }
     return baoDamDuong(D.cauHinh.thumuc+'/Số liệu/'+slThang(K.ngay)).then(function(idTM){
-      return timFileTrong(ten, idTM).then(function(cu){ return slGhiBlob(ten, idTM, bl, cu ? cu.id : null); }); }).then(function(){ return 'drive'; });
+      var ghi = function(t, b){ return timFileTrong(t, idTM).then(function(cu){ return slGhiBlob(t, idTM, b, cu ? cu.id : null); }); };
+      return ghi(ten, bl).then(function(){ return ghi(ten2, bl2); }); }).then(function(){ ten += ' + '+ten2; return 'drive'; });
   }).then(function(noi){ tatChay(); if(/^lech:/.test(noi)) return bao('Chưa lập file đối chiếu: File Tổ trưởng '+noi.slice(5)+' — chốt / so sánh phải cùng ngày (QT-C-09). Nạp File Tổ trưởng cùng ngày Mẫu 31 rồi xuất lại.', 8); bao(noi==='drive' ? 'Đã lưu '+ten+' vào Số liệu/'+slThang(ky)+'/ trên Drive — giao ban đọc file này để so.' : 'Chưa nối Drive — đã tải '+ten+' về máy.', 6); })
     .catch(function(er){ tatChay(); baoLoi('Lập file đối chiếu lỗi: '+(er && er.message || er)); });
 }
