@@ -71,12 +71,12 @@ function tcDongHTML(c, ma, i){
     '<small>'+coChuHTML([c.cccd ? 'CCCD '+c.cccd : '', tcNoiGon(c)].filter(Boolean).join(' · '))+'</small></div>';
 }
 /* 3.335 (anh 24/10 — tham khảo app "Truy vấn thông tin"): chip "Tìm theo" (Tự nhận = cách cũ) + danh sách kiểu bảng / thẻ + tìm theo số TK 105 (Sao kê gắn kỳ) */
-var TC_THEO_DS = [['', 'Tự nhận', 'Tên khách / vợ-chồng / HSSV, CCCD, mã KH, SĐT, khế ước…'], ['ten', 'Tên KH', 'Tên khách hàng (người vay)'], ['tt', 'Tổ trưởng', 'Tên tổ trưởng, mã tổ, SĐT hoặc mã KH tổ trưởng — hiện thông tin tổ'], ['vc', 'Vợ/chồng', 'Tên vợ / chồng (người thừa kế)'],
-  ['hs', 'HSSV', 'Tên hoặc CCCD học sinh sinh viên'], ['cccd', 'CCCD', 'Số CCCD / CMND người vay (gõ một phần)'], ['ma', 'Mã KH', 'Mã khách hàng'], ['ku', 'Mã món vay', 'Số khế ước (cả món đã tất toán)'],
-  ['sdt', 'SĐT', 'Số điện thoại'], ['tk', 'Số TK 105', 'Số tài khoản tiết kiệm TK 105 (Sao kê TK 105)']];
+var TC_THEO_DS = [['', 'Tự nhận', 'Tên khách / vợ-chồng / HSSV, CCCD, mã KH, SĐT, khế ước…', 'Tên, CCCD, mã KH, SĐT…'], ['ten', 'Tên KH', 'Tên khách hàng (người vay)'], ['tt', 'Tổ trưởng', 'Tên tổ trưởng, mã tổ, SĐT hoặc mã KH tổ trưởng — hiện thông tin tổ', 'Tổ trưởng: tên, mã tổ, SĐT…'], ['vc', 'Vợ/chồng', 'Tên vợ / chồng (người thừa kế)'],
+  ['hs', 'HSSV', 'Tên hoặc CCCD học sinh sinh viên'], ['cccd', 'CCCD', 'Số CCCD / CMND người vay (gõ một phần)', 'Số CCCD / CMND (một phần)'], ['ma', 'Mã KH', 'Mã khách hàng'], ['ku', 'Mã món vay', 'Số khế ước (cả món đã tất toán)'],
+  ['sdt', 'SĐT', 'Số điện thoại'], ['tk', 'Số TK 105', 'Số tài khoản tiết kiệm TK 105 (Sao kê TK 105)', 'Số TK 105']];
 function tcTim(){ return D.cauHinh.tcTim = D.cauHinh.tcTim || {theo:'', kieu:''}; }
 function tcTheo(){ var t = tcTim().theo || ''; return TC_THEO_DS.some(function(x){ return x[0]===t; }) ? t : ''; }
-function tcTheoPH(){ var t = tcTheo(); return TC_THEO_DS.filter(function(x){ return x[0]===t; })[0][2]; }
+function tcTheoPH(){ var t = tcTheo(), x = TC_THEO_DS.filter(function(x){ return x[0]===t; })[0]; return x[3] || x[2]; }   /* 3.524: chữ gợi ý ngắn cho vừa ô (đủ ý ở title chip) */
 function tcKieuBang(){ var k = tcTim().kieu; return k ? k==='bang' : window.innerWidth>=900; }   /* máy tính mặc định bảng, điện thoại thẻ */
 function tcTheoHTML(){ var t = tcTheo();   /* 3.336: thêm "Tổ trưởng" (js/58 tcToTim) */
   return '<div class="tc-theo"><span class="tc-theo-nhan">Tìm theo</span>'+TC_THEO_DS.map(function(x){ return GD.chip(x[1], t===x[0], 'tc.theo', {k:x[0]}, x[2]); }).join('')+'</div>'; }

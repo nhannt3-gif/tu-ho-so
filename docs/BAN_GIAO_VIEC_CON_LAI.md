@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.524)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tổ TK&VV: chọn xã → Hội → ấp ở khung lọc 1 hàng | lọc đúng, nút Tìm tổ / Chip / Về ghim bấm được | |
+| 2 | 📥 Nạp & KT | thanh công cụ 1 hàng | |
+| 3 | Màn nhỏ / điện thoại | khung lọc như cũ | |
+
 ### Danh sách thử trên máy thật (3.523)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
