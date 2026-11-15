@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.545)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Máy còn bản cũ, mở app | sau ~5 giây dải vàng "đang chạy bản X — đã có bản Y" | |
+| 2 | Bấm ⟳ Cập nhật ngay | tải lại, góc trên ghi bản mới, hết dải | |
+| 3 | 📤 File đối chiếu trên máy bản cũ | báo chưa lập, nhắc cập nhật | |
+
+Ghi chú kỹ thuật 3.545: `BMN.kiem()` đọc `APP_BAN` trong `js/02-nen.js?kiem_ban=1` (`cache:'no-store'`); bộ đệm không mạng (dt-sw.js) đi mạng trước nên không kẹt. `BMN.chan(viec, goi)` dùng lại được cho nút xuất khác.
+
 ### Danh sách thử trên máy thật (3.544)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

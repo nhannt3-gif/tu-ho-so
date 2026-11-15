@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.545 — 15/11/2026 — A4: biết máy chạy bản nào + nhắc cập nhật (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` ý A4 (sự cố 15/11: laptop còn 3.519 khi main 3.542 → file đối chiếu 30/09 phải xuất lại). Anh 15/11 "code A4 và gộp".
+- **Gói mới `js/92-ban-moi.js` (không gian tên `BMN`, cắm rút):** hỏi máy chủ `js/02-nen.js?kiem_ban=1` (không đệm) lúc mở app +5 s, 30 phút / lần, khi quay lại tab sau ≥ 10 phút → bản mới hơn `APP_BAN` thì dải `#dai-ban` trên cùng + ⟳ Cập nhật ngay (làm mới đệm trang gốc + bộ đệm không mạng rồi tải lại) / Để sau (ẩn trong phiên). Bọc `slDCXuat`: kiểm lại ngay trước khi xuất — bản cũ → không xuất; không hỏi được (mất mạng) → xuất như cũ. Mở bằng file:// → không hỏi. Không gửi gì đi đâu.
+- Chưa làm (ngoài phạm vi): ghi bản từng máy vào Drive (đi cùng A2), chặn bộ số chuẩn CSV (chỉ dùng trong app).
+- Phép thử mới t402 (10 ý, máy chủ tĩnh tại chỗ).
+
 ## 3.544 — 15/11/2026 — Ngày chuyển QH: thêm "Ngày CNQH gần nhất" Mẫu 31 (TK 2)
 - **Nguồn:** TK 1 hộp thư 15/11 (PR #565, gộp vào nhánh TK 2 — có xung đột hộp thư với main): so 3.542 ↔ GB 1.12 — File 1 307/307 tổ khớp; 3 món ngày chuyển QH app sai (đã sửa 3.543); nhờ ưu tiên "Ngày CNQH gần nhất" khi có. Anh "gộp và code".
 - **Sửa (`slDCNgayCQH`, js/22k):** ngày chuyển QH = Sao kê nợ quá hạn → Mẫu 31 "Ngày CNQH gần nhất" (`c_ngay_cnqh_gan_nhat`, đọc dd/mm/yyyy hoặc số Excel qua `tdnNgay`) → QT-C-12. Mốc cuối tháng không đổi (có sao kê); kỳ giữa tháng nay có ngày hệ thống.
