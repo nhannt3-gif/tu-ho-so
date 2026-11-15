@@ -1085,7 +1085,9 @@ function slDCCsv(K, f1){
    Mỗi khế ước (1 lần, dòng đầu theo số KU) thuộc ≥ 1 nhóm: quá hạn · khoanh · 3 tháng KHĐ (như so_mon_khd) · đến hạn tháng tới (như so_mon_den_han_thang_toi). 19 cột đúng thứ tự, KHÔNG họ tên.
    hoi / ma_ap / ma_diem lấy theo dòng tổ ở File 1 (vay trực tiếp: dòng TT|<mã ấp>). ngay_chuyen_qh = QT-C-12 (skCQH) cho món quá hạn; ngay_den_han = ĐH gia hạn / HĐ (skHL) cho món đến hạn;
    ngay_het_khoanh = Sao kê nợ khoanh (nếu có); so_thang_lai = QT-C-23: lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12) — lãi suất / dư nợ 0 → số tháng từ ngày GD gần nhất đến ngày số liệu (÷ 30). */
-var SL_DCM_COT = ['so_ku', 'ma_kh', 'khoa', 'hoi', 'ma_ap', 'ma_diem', 'chuong_trinh', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'la_nqh', 'la_khoanh', 'la_khd', 'la_den_han', 'ngay_chuyen_qh', 'ngay_den_han', 'ngay_het_khoanh', 'so_thang_lai'];
+var SL_DCM_COT = ['so_ku', 'ma_kh', 'khoa', 'hoi', 'ma_ap', 'ma_diem', 'chuong_trinh', 'du_no', 'nqh', 'khoanh', 'lai_ton', 'la_nqh', 'la_khoanh', 'la_khd', 'la_den_han', 'ngay_chuyen_qh', 'ngay_den_han', 'ngay_het_khoanh', 'so_thang_lai', 'ngay_khoanh'];
+/* 3.543 (anh 15/11 "ngày khoanh và hết hạn khoanh, ngày chuyển nợ quá hạn nếu có thống nhất 2 bên"): 3 cột ngày lấy theo FILE HỆ THỐNG khi có — ngay_chuyen_qh = Sao kê nợ quá hạn
+   "Ngày chuyển quá hạn" (không có → QT-C-12 như cũ); ngay_het_khoanh / ngay_khoanh (cột 20 thêm cuối, ngày hiệu lực khoanh) = Sao kê nợ khoanh. So 31/10 App ↔ GB: 3 món lệch ngày chuyển QH (app tính theo Mẫu 31, cũ hơn). */
 function slDCMonThangLai(o, nd){   /* 3.540 (TK 1 chốt 15/11, khuôn 1.1 mục 3 — như bang_so_lieu.py): lãi tồn (sau bỏ lãi dồn) ≤ 0 → 0; dư nợ & lãi suất > 0 → lãi tồn ÷ (dư nợ × lãi suất ÷ 1200), 1 chữ số;
      còn lại → số THÁNG LỊCH từ ngày GD gần nhất đến ngày số liệu (hiệu tháng, trừ 1 nếu ngày-trong-tháng ngày số liệu < ngày GD; không âm), dạng n.0; không ngày GD → trống */
   var lt = laiTon(o), dn = +o.dn || 0, ls = +o.ls || 0; if(!(lt>0)) return 0; if(ls>0 && ls<=2) ls *= 12;
@@ -1093,7 +1095,7 @@ function slDCMonThangLai(o, nd){   /* 3.540 (TK 1 chốt 15/11, khuôn 1.1 mục
   var x = String(o.ngdg||'').match(/^(\d{4})-(\d{2})-(\d{2})/), y = String(nd||'').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return '';
   var t = (+y[1] - +x[1])*12 + (+y[2] - +x[2]) - (+y[3] < +x[3] ? 1 : 0); return Math.max(0, t).toFixed(1); }
 function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_diem theo khoa */
-  f1 = f1 || slDCGBTinh(K); var theo = {}, khd = {}, nk = (K.B && K.B.nk) || {}, da = {}, dong = [], R = function(v){ return Math.round(v||0); }, nd = String(K.ngay||'');
+  f1 = f1 || slDCGBTinh(K); var theo = {}, khd = {}, nk = (K.B && K.B.nk) || {}, nqhB = (K.B && K.B.nqh) || {}, da = {}, dong = [], R = function(v){ return Math.round(v||0); }, nd = String(K.ngay||'');
   f1.dong.forEach(function(r){ theo[r[0]] = r; });
   slKHD(K.B).forEach(function(o){ if(o.ku) khd[o.ku] = 1; });
   var sau = kyLui(K.thang, 1), tu = sau+'-01', den = tdnCuoiKy(sau), vn = function(d){ return d ? ngayVNsl(d) : ''; };
@@ -1102,13 +1104,13 @@ function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_
     var q = (o.qh||0)>0 ? 1 : 0, k = (o.kn||0)>0 ? 1 : 0, h = khd[o.ku] ? 1 : 0, d = dh(o) ? 1 : 0; if(!(q || k || h || d)) return;
     var khoa = o.to ? o.to : 'TT|'+String(o.thon||''), f = theo[khoa] || [];
     dong.push([o.ku, o.kh||'', khoa, f[4]||'', f[2] || String(o.thon||''), f[3]||'', o.ct||'', R(o.dn), R(o.qh), R(o.kn), R(laiTon(o)), q, k, h, d,
-      q ? vn(skCQH(o).d) : '', d ? vn(skHL(o)) : '', k && nk[o.ku] && nk[o.ku].nhh ? vn(nk[o.ku].nhh) : '', slDCMonThangLai(o, nd)]); });
+      q ? vn((nqhB[o.ku] && nqhB[o.ku].ncqh) || skCQH(o).d) : '', d ? vn(skHL(o)) : '', k && nk[o.ku] && nk[o.ku].nhh ? vn(nk[o.ku].nhh) : '', slDCMonThangLai(o, nd), k && nk[o.ku] && nk[o.ku].nhl ? vn(nk[o.ku].nhl) : '']); });
   return {ngay:K.ngay, dong:dong};
 }
 function slDCMonCsv(K, f1){
   var r = slDCMonTinh(K, f1), dem = function(c){ return r.dong.filter(function(x){ return x[c]===1; }).length; };
   var ghi = '# bên=APP Tủ hồ sơ · khuôn=1.1 File 2 danh sách món · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · ngày số liệu='+r.ngay+' · '+r.dong.length+' món (quá hạn '+dem(11)+' · khoanh '+dem(12)+' · 3T KHĐ '+dem(13)+' · đến hạn tháng tới '+dem(14)+')'+
-    ' · lãi tồn='+slDCLT(K)+' · ngày chuyển QH=QT-C-12 · số tháng lãi=QT-C-23 · không ghi họ tên · tiền: đồng';
+    ' · lãi tồn='+slDCLT(K)+' · ngày chuyển QH=Sao kê NQH (không có → QT-C-12) · ngày khoanh / hết khoanh=Sao kê nợ khoanh · cột 20 ngay_khoanh · số tháng lãi=QT-C-23 · không ghi họ tên · tiền: đồng';
   return '\ufeff'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DCM_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';
 }
 /* 3.525 (TK 1 nhờ 14/11, anh "làm thêm ý này"): dòng đầu file đối chiếu ghi giờ xuất + File Tổ trưởng đã dùng (tên file, ngày) — để so 2 mốc biết nguồn tổ */

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.542', ds:[
+var CO_GI_MOI = {ban:'3.543', ds:[
+  ["File danh sách món: ngày chuyển quá hạn, ngày khoanh, ngày hết khoanh lấy theo Sao kê hệ thống (thống nhất với Giao ban)", ""],
   ["iPhone: KTGS (Món / Kiểu / Số hộ) và Tổ TK&VV (Khách / Cần xử lý) — mỗi nhóm chip 1 dòng vuốt ngang", ""],
   ["iPhone: vuốt ngang đổi tab (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan), vuốt xuống đóng hộp / thẻ khách; lọc địa bàn gọn 1 dòng ở mọi màn; nút mẫu Giao dịch xã 1 dòng cuộn", ""],
   ["Gia hạn tối đa theo QĐ 54 / VB 7442 (QT-C-20): HSSV ½ thời hạn trả nợ, Nhà ở xã hội 12 / 24 tháng, ngắn hạn 12 tháng; file đối chiếu ghi đủ mã điểm TXN…", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.542', ds:[
   ["Lãi tồn: món không có lãi suất không bị bỏ hết lãi tồn trong hạn (khớp giao ban)", ""],
   ["Lãi tồn + tiền gửi tính đúng như giao ban (TK 1 đối chiếu biểu TW BC0438): phiên theo Ngày GDXA từng món, lãi dồn /360, tiền gửi theo khóa sổ", ""],
   ["Lãi tồn: nhận file có lãi dồn theo SỐ TIỀN từng món (TH ≤ lãi dồn tính từ ngày GD) — file 31/10 xuất lại bằng 3.528 chưa được bỏ lãi dồn", ""],
-  ["Dọn mã: gộp 2 hàm trùng (ghép PDF · nguồn vốn TW/ĐP) — không đổi chức năng", ""],
-  ["Cỡ chữ Tự động theo cỡ màn (mặc định): màn 24\" chữ to hơn, laptop 125% nhỏ hơn chút — không ẩn / đổi nút; ⚙ Cài đặt › Cỡ chữ vẫn chọn tay được", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Dọn mã: gộp 2 hàm trùng (ghép PDF · nguồn vốn TW/ĐP) — không đổi chức năng", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.543 · 📤 File đối chiếu 31/10 → DOI_CHIEU_MON_APP 20 cột; ngày chuyển QH theo Sao kê nợ quá hạn",
     "3.542 · KTGS › Kiểm tra tổ: Món / Kiểu / Số hộ mỗi nhóm 1 dòng",
     "3.542 · Tổ TK&VV: Khách / Cần xử lý vuốt ngang",
     "3.541 · iPhone: vuốt trái / phải giữa 4 tab chính",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.542', ds:[
     "3.534 · 🏢 Giao dịch xã › ⋯: không còn Mini app; bản điện thoại tab 🏢 vẫn chạy",
     "3.533 · 📤 File đối chiếu 30/09 + 31/10: lãi tồn = giao ban mọi tổ",
     "3.532 · 📤 File đối chiếu: tổ 0062097 (30/09), 0050383 (31/10) lãi tồn = giao ban",
-    "3.531 · 📤 File đối chiếu T10: lãi tồn gần TW (TK 1 so); tiền gửi khớp giao ban từng tổ",
-    "3.530 · 📤 File đối chiếu T10: dòng đầu \"lãi tồn=file có lãi dồn (…) — bỏ lãi dồn … món\"; T9: \"chốt tháng thật … giữ …\""],
+    "3.531 · 📤 File đối chiếu T10: lãi tồn gần TW (TK 1 so); tiền gửi khớp giao ban từng tổ"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

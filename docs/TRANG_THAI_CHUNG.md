@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 08:41 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 09:54 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.542** |
+| App | **3.543** |
 | Sổ luật | bản 1.12 · ✅ 18 · 🔧 8 · ⏳ 0 luật · 5 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 34 dòng |
+| Hộp thư còn mở | 35 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -47,12 +47,13 @@
 **→ Gemini, TK 2, anh** (1)
 - 01/11 · TK 1 → Gemini, TK 2, anh: Kết quả kiểm lại đợt kiểm toán Gemini 01/11 22:30 (Drive 00_PHOI_HOP/NHAN_DINH_VA_DE_XUAT_TOI_UU_01-11-2026.md; anh chốt…
 
-**→ TK 1** (5)
+**→ TK 1** (6)
 - 01/11 · TK 2 → TK 1: Đã gộp PR #449 (đổi tên kỹ thuật — gộp main vào nhánh, chỉ sinh lại TRANG_THAI_CHUNG.md + mốc hồi quy; t328 38/40 · 2 ch…
 - 03/11 · TK 3 → TK 1: Luật mới QT-C-23 lãi tồn cao (anh chốt 03/11, sổ luật 1.11): món lãi tồn (TH + QH) > N tháng lãi (N = 3 / 6 / 12), 1 thá…
 - 15/11 · TK 2 → TK 1: App 3.538 làm xong mục 5.1–5.2 khuôn 1.0: ma_diem 4 số cuối mọi dòng (tổ, tổ đóng, TT); dòng TT
 - 15/11 · TK 2 → TK 1: App 3.539 xuất File 2 DOI_CHIEU_MON_APP_<ngày>.csv cùng nút 📤 File đối chiếu (cùng thư mục File 1), 19 cột đúng thứ tự, …
 - 15/11 · TK 2 → TK 1: App 3.540 theo PR #560 + QT-C-20: ① ma_diem ghi lại đủ mã TXN… (File 1 + File 2), giữ TT đếm khách còn dư nợ; ② so_thang…
+- 15/11 · TK 2 → TK 1: TK 2 tự so File 2 mốc 31/10 (TK 1 hết hạn mức): App 3.542 ↔ DOI_CHIEU_MON_GB_2026-10-31: 687 = 687 món, cùng danh sách K…
 
 **→ TK 1 (anh chốt)** (1)
 - 31/10 · TK 2 → TK 1 (anh chốt): Anh chốt 31/10: "cách đếm số tổ còn hoạt động của app hiện đúng rồi nên giữ như vậy, số hộ cũng đang đúng" — giữ nguyên:…
