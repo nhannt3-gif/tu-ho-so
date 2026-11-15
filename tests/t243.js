@@ -32,10 +32,10 @@ const path=require('path');
    dhDoiGon(); await w(200); ok('thu gọn 60 px: nhóm + mục con chỉ biểu tượng', tb.getBoundingClientRect().width<=64 && getComputedStyle(tb.querySelector('a.tb-cha .chu')).display==='none'); dhDoiGon();
    return o; });
  /* điện thoại: thanh dưới 5 nút */
- await p.setViewportSize({width:390, height:800}); await p.waitForTimeout(500);
+ await p.setViewportSize({width:700, height:800});   /* 3.540: 390 px giờ tự bật thanh điện thoại mới (3.537 khởi động khi đổi cỡ — t311 / t401 kiểm) → thanh 5 nút cũ thử ở cỡ máy tính bảng */ await p.waitForTimeout(500);
  R.push(...await p.evaluate(async()=>{ const o=[], w=t=>new Promise(r=>setTimeout(r,t)), ok=(ten,dk,chi)=>o.push((dk?'✓ ':'✗ ')+ten+(chi!==undefined?' — '+chi:''));
    doiNgan(0); await w(300); const td = document.getElementById('thanh-duoi'), nut = [...td.querySelectorAll('a .chu')].map(x=>x.textContent).join(',');
-   ok('điện thoại: thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · Thêm, ẩn hàng tab ngang', getComputedStyle(td).display==='flex' && nut==='Hôm nay,GD xã,Số liệu,Hồ sơ,Thêm' && getComputedStyle(document.getElementById('hangngan')).display==='none', nut);
+   ok('máy tính bảng 700 px: thanh dưới Hôm nay · GD xã · Số liệu · Hồ sơ · Thêm, ẩn hàng tab ngang', getComputedStyle(td).display==='flex' && nut==='Hôm nay,GD xã,Số liệu,Hồ sơ,Thêm' && getComputedStyle(document.getElementById('hangngan')).display==='none', nut);
    ok('thanh đáy (trạng thái) nằm trên thanh dưới, không đè', document.querySelector('.day').getBoundingClientRect().bottom <= td.getBoundingClientRect().top+1);
    td.querySelector('a[data-d="gd"]').click(); await w(700); ok('GD xã → tab Giao dịch xã, nút tô', D.cauHinh.slTab==='gdx' && nganHienTai===7 && td.querySelector('a.bat').getAttribute('data-d')==='gd');
    td.querySelector('a[data-d="hs"]').click(); await w(700); ok('Hồ sơ → Hồ sơ vay', D.cauHinh.slTab==='hsv' && td.querySelector('a.bat').getAttribute('data-d')==='hs');

@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.541)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone: vuốt trái / phải ở Hôm nay | đổi tab Tra cứu ⇄ Văn bản ⇄ Scan; vuốt từ mép trái vẫn là lùi của Safari | |
+| 2 | Mở thẻ khách → vuốt xuống | hộp trượt theo tay, thả đóng | |
+| 3 | GD xã: hàng nút mẫu | 1 dòng, vuốt ngang mượt | |
+| 4 | Tổ TK&VV / KTGS: LỌC ĐỊA BÀN | 1 dòng ghi phạm vi, bấm mở 3 ô chọn | |
+
 ### Danh sách thử trên máy thật (3.540)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

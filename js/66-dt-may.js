@@ -69,11 +69,38 @@ function dtmKhoi3(){
    - khởi động phần điện thoại 1 lần: ngay lúc nạp nếu màn ≤ 600 px; không thì thử lại khi trang tải xong / đổi cỡ màn (máy báo cỡ muộn);
    - body.dtm-on chỉ bật khi JS đã chạy → CSS gọn lọc / ẩn ô tìm chỉ áp khi có JS (không bao giờ kẹt lọc);
    - bấm "LỌC ĐỊA BÀN" luôn đăng ký (không phụ thuộc cỡ màn lúc nạp). */
+/* ===== 3.541 (anh 15/11 "tận dụng khả năng vuốt mượt của iP"): VUỐT — chỉ điện thoại (gắn trong dtmKhoi) =====
+   ① vuốt ngang giữa 4 tab chính (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan): vuốt trái = tab kế, phải = tab trước; bỏ qua khi ngón bắt đầu sát mép (vuốt lùi của Safari),
+     trong ô nhập / bảng / hàng cuộn ngang, khi đang mở hộp hay xem văn bản; cần ≥ 80 px ngang, lệch dọc < 45 px, < 0,6 giây.
+   ② vuốt xuống đóng hộp (thẻ khách, ☰ Mọi mục…): hộp đang ở đầu (chưa cuộn) → kéo theo ngón tay, thả > 100 px thì đóng, ít hơn thì trượt về. */
+DTM.cuonNgang = function(el){ for(var e = el; e && e!==document.body; e = e.parentElement){ if(e.scrollWidth > e.clientWidth+2){ var o = getComputedStyle(e).overflowX; if(o==='auto' || o==='scroll') return true; } } return false; };
+DTM.vuotTab = function(){ var bd = null;
+  document.addEventListener('touchstart', function(e){ bd = null; if(e.touches.length!==1) return; var t = e.touches[0], el = e.target;
+    if(t.clientX < 24 || t.clientX > innerWidth-24) return;
+    if(document.getElementById('hop').classList.contains('hien') || document.getElementById('xem').classList.contains('hien')) return;
+    if(el.closest && el.closest('input, textarea, select, table, .loc-khoi, #thanh-duoi, [contenteditable]')) return; if(DTM.cuonNgang(el)) return;
+    bd = {x:t.clientX, y:t.clientY, t:Date.now()}; }, {passive:true});
+  document.addEventListener('touchend', function(e){ if(!bd) return; var t = e.changedTouches[0], dx = t.clientX-bd.x, dy = t.clientY-bd.y, dt = Date.now()-bd.t; bd = null;
+    if(Math.abs(dx) < 80 || Math.abs(dy) > 45 || dt > 600 || typeof DT_NUT==='undefined' || typeof dtDang!=='function') return;
+    var ds = DT_NUT.filter(function(n){ return n[0]!=='them'; }), i = ds.map(function(n){ return n[0]; }).indexOf(dtDang()); if(i<0) return;
+    var j = i + (dx<0 ? 1 : -1); if(j<0 || j>=ds.length) return; ds[j][3](); try { if(typeof dtVe==='function') dtVe(); } catch(er){} }, {passive:true}); };
+DTM.vuotHop = function(){ var k = null, hop = document.getElementById('hop');
+  hop.addEventListener('touchstart', function(e){ k = null; var hi = hop.querySelector('.hop-in'); if(!hi || e.touches.length!==1) return;
+    if(e.target.closest && e.target.closest('input, textarea, select, table')) return; if(hi.scrollTop > 0) return;
+    k = {y:e.touches[0].clientY, x:e.touches[0].clientX, hi:hi, d:0}; }, {passive:true});
+  hop.addEventListener('touchmove', function(e){ if(!k) return; var d = e.touches[0].clientY - k.y;
+    if(Math.abs(e.touches[0].clientX - k.x) > Math.abs(d) || d < 0 || k.hi.scrollTop > 0){ if(k.d){ k.hi.style.transform = ''; } k = null; return; }
+    k.d = d; k.hi.classList.add('dtm-keo'); k.hi.style.transform = 'translateY('+Math.round(d*0.9)+'px)'; }, {passive:true});
+  hop.addEventListener('touchend', function(){ if(!k) return; var hi = k.hi, d = k.d; k = null; hi.classList.remove('dtm-keo'); if(!d) return;
+    hi.classList.add('dtm-tha');
+    if(d > 100){ hi.style.transform = 'translateY(100%)'; setTimeout(function(){ hi.classList.remove('dtm-tha'); hi.style.transform = ''; try { dongHop(); } catch(er){} }, 200); }
+    else { hi.style.transform = ''; setTimeout(function(){ hi.classList.remove('dtm-tha'); }, 240); } }, {passive:true}); };
 var DTM_DA = false;
 function dtmKhoi(){ if(DTM_DA) return; DTM_DA = true; DTM_HEP = true;
   [dtmKhoi1, dtmKhoi2, dtmKhoi3].forEach(function(f){ try { f(); } catch(e){ console.warn('dtm', e); } });
-  try { document.body.classList.add('dtm-on'); } catch(e){} }
-document.addEventListener('click', function(e){ var d = e.target && e.target.closest && e.target.closest('#tc-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a')) DTM.locDoi(); });
+  try { document.body.classList.add('dtm-on'); } catch(e){}
+  try { DTM.vuotTab(); DTM.vuotHop(); } catch(e){ console.warn('dtm vuốt', e); } }
+document.addEventListener('click', function(e){ var d = e.target && e.target.closest && e.target.closest('.pv-cay .pv-dau'); if(d && !e.target.closest('button, select, input, a, [data-lenh]')) DTM.locDoi(); });
 (function(){ var mq = null; try { mq = window.matchMedia && matchMedia('(max-width:600px)'); } catch(e){}
   var thu = function(){ try { if(!DTM_DA && mq && mq.matches) dtmKhoi(); } catch(e){} };
   if(DTM_HEP) dtmKhoi();

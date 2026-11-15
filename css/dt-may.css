@@ -132,11 +132,16 @@ body.co-td .day #chip-bn{display:none}
 body.dtm-on[data-dtm="tra"] .tim-bao{display:none}
 #tr7 .tc-dau{display:flex;flex-direction:column}
 #tr7 .tc-dau .tc-tim{order:-1;margin-bottom:6px}
-#tc-cay .loc-khoi.co-dau,#tc-cay .loc-khoi.co-dau.gon{padding:6px 8px !important;margin:2px 0 6px !important}
-#tc-cay .loc-khoi .pv-dau{position:static;pointer-events:auto;height:auto;min-height:30px;cursor:pointer;flex:1 1 100%}
-body.dtm-on #tc-cay .pv-dau::after{content:"▾";margin-left:auto;padding-left:6px;color:var(--chu-phu)}
-body.dtm-on.dtm-loc-mo #tc-cay .pv-dau::after{content:"▴"}
-body.dtm-on:not(.dtm-loc-mo) #tc-cay .loc-khoi > :not(.pv-dau),body.dtm-on:not(.dtm-loc-mo) #tc-cay .pv-dau-nut{display:none !important}
+/* 3.541 (anh 15/11 "tinh chỉnh cho màn iPhone"): lọc địa bàn gọn 1 dòng ở MỌI màn có cây lọc (trước 3.535 chỉ Tra cứu) — dòng gọn ghi phạm vi đang chọn (🏠 PGD › xã › điểm…), bấm mở / gọn; đang gõ tìm tổ thì luôn mở */
+body.dtm-on .pv-cay .loc-khoi.co-dau,body.dtm-on .pv-cay .loc-khoi.co-dau.gon{padding:6px 8px !important;margin:2px 0 6px !important}
+body.dtm-on .pv-cay .loc-khoi .pv-dau{position:static;display:flex !important;align-items:center;gap:6px;pointer-events:auto;height:auto;min-height:34px;cursor:pointer;flex:1 1 100%;min-width:0}
+body.dtm-on .pv-cay .loc-khoi .pv-dau .pv-dan{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.dtm-on .pv-cay .pv-dau::after{content:"▾";margin-left:auto;padding-left:6px;color:var(--chu-phu)}
+body.dtm-on.dtm-loc-mo .pv-cay .pv-dau::after{content:"▴"}
+body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-dan{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;font-weight:600;color:var(--xanh-dam,#1a4f8b)}
+body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-dan *{display:inline !important;border:0 !important;background:none !important;padding:0 !important;margin:0 1px !important}
+body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-dan .pv-dan-x,body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-apcu{display:none !important}
+body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) > :not(.pv-dau),body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-dau-nut,body.dtm-on:not(.dtm-loc-mo) .pv-cay .loc-khoi:not(.tim-mo) .pv-chip-o{display:none !important}
 .tc-goi{display:inline-block;margin-left:6px;padding:2px 10px;border-radius:999px;background:var(--luc-nen,#e9f6ec);color:var(--luc,#1a7f37);border:1px solid var(--luc,#1a7f37);font-weight:600;text-decoration:none}
 /* Văn bản: thẻ gọn — số hiệu · tên 2 dòng, trích yếu 1 dòng */
 #tr1 .d2 .h1 .ico{display:none}
@@ -153,3 +158,15 @@ body.dtm-on:not(.dtm-loc-mo) #tc-cay .loc-khoi > :not(.pv-dau),body.dtm-on:not(.
 #xem .xem-day{gap:6px}
 #xem .xem-day button{flex:1 1 0;min-width:0;padding-left:4px;padding-right:4px}
 .o-trang .dtm-gui1{position:absolute;right:8px;top:38px;z-index:3;min-height:36px;padding:4px 12px;border-radius:999px;border:1px solid var(--xanh,#1a5fb4);background:#fff;color:var(--xanh-dam,#1a4f8b);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+
+/* ===== 3.541 (anh 15/11 "tinh chỉnh cho màn iPhone, tận dụng khả năng vuốt mượt của iP"): =====
+   hàng nút / chip dài → 1 dòng cuộn ngang mượt (quán tính iOS, bắt dính từng nút, không kéo cả trang); nút đủ cao để bấm bằng ngón tay (≥ 34 px, trừ trong bảng). */
+body.dtm-on .gdx2-mau,body.dtm-on .gdx2-mau.gdx2-du,body.dtm-on .tc-theo,body.dtm-on .hs-chip,body.dtm-on #x-dk{flex-wrap:nowrap !important;overflow-x:auto !important;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none}
+body.dtm-on .gdx2-mau::-webkit-scrollbar{display:none}
+body.dtm-on .gdx2-dau > .gdx2-mau.gdx2-du{display:flex !important;flex:1 1 100% !important;width:100%;min-width:0;gap:5px;padding-bottom:2px}   /* trên điện thoại khung chip là display:contents → chip trôi vào hàng cha và xuống 5 dòng; nay là 1 dòng cuộn ngang */
+body.dtm-on .gdx2-mau > *,body.dtm-on .tc-theo > *,body.dtm-on #x-dk > *{flex:0 0 auto;scroll-snap-align:start}
+body.dtm-on section.trang button:not(table button):not(.sap-ico):not(.tick),body.dtm-on section.trang .gd-chip,body.dtm-on section.trang select:not(table select){min-height:34px}
+/* vuốt xuống đóng hộp / thẻ khách: hộp đi theo ngón tay, thả ra trượt về hoặc đóng */
+body.dtm-on #hop .hop-in.dtm-keo{transition:none !important}
+body.dtm-on #hop .hop-in.dtm-tha{transition:transform .22s ease-out !important}
+body.dtm-on #hop .hop-in::before{content:"";display:block;width:40px;height:5px;border-radius:3px;background:var(--vien,#ccc);margin:-4px auto 8px}   /* thanh kéo như bảng iOS */
