@@ -4,6 +4,24 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.547 — 15/11/2026 — Nạp & KT báo gọn (TK 2)
+- **Nguồn:** anh 15/11 "các phần đối chiếu, kiểm tra nay đã chuẩn dần nên không cần ghi quá chi tiết ra chỗ nạp và kiểm tra" · "có thể báo nhưng đơn giản lại" · "code gọn nạp và gộp".
+- **Kết quả kiểm tra (js/22k):** mục so 2 file chỉ hiện 1 lần ở file đứng trước — bỏ dòng "↗ xem ở …" lặp; file không còn mục riêng thì không hiện; bỏ dòng "Ghi nhận chênh lệch…" (vào chữ rê chuột dòng Đã kiểm); "Chưa kiểm" 1 dòng (giải thích rê chuột). Bảng số đối chiếu (`slDCHTML`) gập trong `<details>`, có ô lệch thì tự mở; chú giải màu vào chữ rê chuột.
+- **Khối 🏦 Tổ trưởng (`tkKhoiHTML`, js/28 — Nạp & KT + ⚙ Khai báo chung):** 1 dòng trạng thái (Danh sách tổ · Sao kê TK 104 · 105 · Mẫu 01/TV), 2 dòng chữ xám vào chữ rê chuột ở tiêu đề ⓘ. 4 nút giữ nguyên.
+- Không bỏ chức năng, không đổi cách kiểm. t160 sửa theo (không còn dòng ↗ lặp).
+
+## 3.546 — 15/11/2026 — A1 🧪 Kiểm mốc vàng + B4 kiểm tự động PR (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` đợt 1; anh 15/11 "code cả 2 và gộp"; anh 15/11 "đối chiếu, kiểm tra đã chuẩn dần nên không cần ghi quá chi tiết ở Nạp & KT — có thể báo nhưng đơn giản lại".
+- **A1 — gói mới `js/93-moc-vang.js` (`MVG`, cắm rút):** nút 🧪 Kiểm mốc cạnh 📤 File đối chiếu. Đáp án = file đối chiếu đã khớp giao ban, để trên Drive của anh `<thư mục app>/Mốc vàng/VANG_DOI_CHIEU_APP_<ngày>.csv` + `VANG_DOI_CHIEU_MON_APP_<ngày>.csv` (không vào repo); chưa nối Drive → chọn file trên máy. Tính lại File 1 + File 2 đúng ngày mốc từ kho (`slDCGBTinh` / `slDCCsv` / `slDCMonCsv`) → so từng ô (khóa tổ `khoa`, món `so_ku`; bỏ dòng `#`) → 1 dòng / mốc ✅ khớp / ❌ N chỗ lệch, chi tiết gập. Chỉ đọc.
+- **B4 — `.github/workflows/kiem-pr.yml` + `tools/kiem_pr.sh`:** mỗi PR vào main: `kiem.py` (cú pháp, trùng tên, thước đo trong mốc) + phép thử chọn theo mốc hồi quy **của main** (không tin mốc PR tự ghi), chia 4 phần song song, trượt chạy lại 1 lần, log phép trượt tải về được. Dữ liệu giả `taogia.py`; thư viện thử đệm.
+- Phép thử mới t403 (6 ý).
+
+## 3.545 — 15/11/2026 — A4: biết máy chạy bản nào + nhắc cập nhật (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` ý A4 (sự cố 15/11: laptop còn 3.519 khi main 3.542 → file đối chiếu 30/09 phải xuất lại). Anh 15/11 "code A4 và gộp".
+- **Gói mới `js/92-ban-moi.js` (không gian tên `BMN`, cắm rút):** hỏi máy chủ `js/02-nen.js?kiem_ban=1` (không đệm) lúc mở app +5 s, 30 phút / lần, khi quay lại tab sau ≥ 10 phút → bản mới hơn `APP_BAN` thì dải `#dai-ban` trên cùng + ⟳ Cập nhật ngay (làm mới đệm trang gốc + bộ đệm không mạng rồi tải lại) / Để sau (ẩn trong phiên). Bọc `slDCXuat`: kiểm lại ngay trước khi xuất — bản cũ → không xuất; không hỏi được (mất mạng) → xuất như cũ. Mở bằng file:// → không hỏi. Không gửi gì đi đâu.
+- Chưa làm (ngoài phạm vi): ghi bản từng máy vào Drive (đi cùng A2), chặn bộ số chuẩn CSV (chỉ dùng trong app).
+- Phép thử mới t402 (10 ý, máy chủ tĩnh tại chỗ).
+
 ## 3.544 — 15/11/2026 — Ngày chuyển QH: thêm "Ngày CNQH gần nhất" Mẫu 31 (TK 2)
 - **Nguồn:** TK 1 hộp thư 15/11 (PR #565, gộp vào nhánh TK 2 — có xung đột hộp thư với main): so 3.542 ↔ GB 1.12 — File 1 307/307 tổ khớp; 3 món ngày chuyển QH app sai (đã sửa 3.543); nhờ ưu tiên "Ngày CNQH gần nhất" khi có. Anh "gộp và code".
 - **Sửa (`slDCNgayCQH`, js/22k):** ngày chuyển QH = Sao kê nợ quá hạn → Mẫu 31 "Ngày CNQH gần nhất" (`c_ngay_cnqh_gan_nhat`, đọc dd/mm/yyyy hoặc số Excel qua `tdnNgay`) → QT-C-12. Mốc cuối tháng không đổi (có sao kê); kỳ giữa tháng nay có ngày hệ thống.

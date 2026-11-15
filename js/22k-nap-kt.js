@@ -329,8 +329,8 @@ function slKTHTML(ky){
   if(!slCoFileChinh(ky)) return '<div class="sl-kt-dau"><span class="sl-phu">Tháng '+kyVN(ky)+' chưa có file Ⓐ chuẩn TW / Ⓑ chi tiết nào — chưa kiểm. Nạp file rồi bấm Kiểm tra.</span></div>'+
     (k ? '<div class="sl-bao vang">Kết quả kiểm cũ ('+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+') không còn file tương ứng — đã ẩn.</div>' : '');   /* 3.91: không hiện kết quả cũ của tháng trống */
   if(!k) return '<div class="sl-kt-dau"><button class="nho chinh" data-lenh="nkt.kiem" data-a="'+ky+'">🔍 Kiểm tra kỳ '+kyVN(ky)+'</button>'+
-    '<span class="sl-phu">Chưa kiểm. App đánh giá Đạt (đủ file · đúng kỳ · đúng cấu trúc) và ghi nhận chênh lệch: so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, DSTO, tháng trước — chỉ báo, không sửa số.</span></div>';
-  var cu = slKTCu(ky), h = '<div class="sl-kt-dau"><span>Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+' · ✅ '+k.dem.ok+' khớp · ⚠ '+k.dem.lech+' chênh lệch (ghi nhận) · ⓘ '+k.dem.canh+' lưu ý</span>'+
+    '<span class="sl-phu" title="App đánh giá Đạt (đủ file · đúng kỳ · đúng cấu trúc) và ghi nhận chênh lệch: so các file chuẩn TW với nhau, Mẫu 31 với số chuẩn TW (từng xã, nguồn vốn, từng tổ), KHĐ, tổ trưởng, DSTO, tháng trước — chỉ báo, không sửa số.">Chưa kiểm.</span></div>';   /* 3.547 anh 15/11 "báo nhưng đơn giản lại": giải thích vào chữ rê chuột */
+  var cu = slKTCu(ky), h = '<div class="sl-kt-dau"><span title="Chênh lệch chỉ ghi nhận để biết — không ảnh hưởng Đạt, không sửa số">Đã kiểm '+ngayVNsl(k.luc.slice(0,10))+' '+k.luc.slice(11,16)+' · ✅ '+k.dem.ok+' khớp · ⚠ '+k.dem.lech+' chênh lệch · ⓘ '+k.dem.canh+' lưu ý</span>'+
     '<button class="nho'+(cu ? ' chinh' : '')+'" data-lenh="nkt.kiem" data-a="'+ky+'">🔍 Kiểm lại</button></div>';
   if(cu) h += '<div class="sl-bao vang">⟳ Dữ liệu tháng đã đổi sau lần kiểm (nạp / thay / xóa file) — kết quả dưới là của lần kiểm trước, bấm <b>Kiểm lại</b>.</div>';
   h += slDCHTML(ky);   /* 3.90.1: bảng đối chiếu chéo */
@@ -342,7 +342,6 @@ function slKTHTML(ky){
   h += '<div class="sl-kt-loc">'+chip('lc', '⚠ + ⓘ', dem.lech+dem.canh)+chip('all', 'Tất cả', kq.length)+chip('ok', '✓ Khớp', dem.ok)+chip('lech', '⚠ Chênh lệch', dem.lech)+chip('canh', 'ⓘ Lưu ý', dem.canh)+
     '<button class="nho" data-lenh="nkt.ktMo" data-a="1" title="Mở hết các file">⊞ Mở hết</button><button class="nho" data-lenh="nkt.ktMo" data-a="0" title="Gập hết">⊟ Gập hết</button>'+
     '<span class="sl-kt-tim">🔎 <input id="sl-kt-tim" placeholder="Tìm mục kiểm tra…" data-lenh="nkt.ktTim" data-su="input"></span></div>';
-  if(dem.lech || dem.canh) h += '<div class="sl-kt-ghi">Ghi nhận chênh lệch — chỉ để biết, không ảnh hưởng Đạt, không sửa số</div>';   /* 3.146 */
   var nhom = {}, thu = ['_'], tenF = function(l){ var L = l==='_' ? null : slLoai(l); return l==='_' ? 'Chung — đủ file, toàn vẹn từng file' : L ? slTenNgan(L) : l; };
   var thuL = []; SL_NHOM.forEach(function(n){ SL_LOAI.forEach(function(L){ if(L.nhom===n.k) thuL.push(L.k); }); });   /* thứ tự dòng ma trận: nhóm Ⓑ Ⓐ Ⓓ Ⓚ */
   kq.forEach(function(x){ var f = slKTFile(x).sort(function(a, b){ return thuL.indexOf(a)-thuL.indexOf(b); }); if(!f.length) f = ['_'];
@@ -350,7 +349,7 @@ function slKTHTML(ky){
   thu.sort(function(a, b){ return a==='_' ? -1 : b==='_' ? 1 : thuL.indexOf(a)-thuL.indexOf(b); });
   var coDong = 0;
   thu.forEach(function(l){ var ds = nhom[l]; if(!ds) return; var d = {ok:0, lech:0, canh:0}; ds.forEach(function(r){ if(!r.o && d[r.x.kq]!==undefined) d[r.x.kq]++; });
-    var hien = ds.filter(function(r){ return hop(r.x); }); if(!hien.length) return; coDong++;
+    var hien = ds.filter(function(r){ return !r.o && hop(r.x); }); if(!hien.length) return; coDong++;   /* 3.547 anh 15/11: mục so 2 file chỉ hiện 1 lần (ở file trước), bỏ dòng "↗ xem ở …" lặp */
     h += '<details class="sl-kt-file" id="sl-kt-f-'+l+'"'+(d.lech && loc!=='ok' ? ' open' : '')+'><summary><b>'+coChuHTML(tenF(l))+'</b> <span class="sl-kt-dem">'+(d.ok ? '<span class="ok">✓ '+d.ok+'</span>' : '')+(d.lech ? '<span class="lech">⚠ '+d.lech+'</span>' : '')+(d.canh ? '<span class="canh">ⓘ '+d.canh+'</span>' : '')+'</span></summary>'+
       hien.map(function(r){ return r.o ? '<div class="sl-kt-muc '+r.x.kq+' sl-kt-ref"><span class="ic">↗</span>'+coChuHTML(r.x.ten)+' — <a href="#" data-lenh="nkt.ktToi" data-a="'+r.o+'">xem ở '+coChuHTML(tenF(r.o))+'</a></div>' : slKTMuc(r.x); }).join('')+'</details>'; });
   if(!coDong) h += '<div class="rong">Không có mục nào trong bộ lọc này'+(loc==='lc' ? ' — các file khớp nhau ✓' : '')+'.</div>';
@@ -441,7 +440,8 @@ function slDCHTML(ky){
   if(d.thu.indexOf(SL_DC_PV)<0) SL_DC_PV = '';
   var pv = SL_DC_PV, V = d.v[pv] || {}, T = d.tt[pv] || {};
   var ng = DC_NG.filter(function(n){ return DC_CT.some(function(c){ return V[c[0]] && V[c[0]][n[0]]!==undefined; }); });
-  var h = '<div class="sl-dc"><div class="sl-dc-pv">'+d.thu.map(function(x){ return '<button class="to-chip'+(x===pv ? ' bat' : '')+'" data-lenh="nkt.dcPV" data-a="'+coChuHTML(x).replace(/"/g, '&quot;')+'" data-b="'+ky+'">'+coChuHTML(d.nhan[x]||x)+'</button>'; }).join('')+'</div>';
+  var coL = DC_CT.some(function(c){ var t = T[c[0]] || {}; return Object.keys(t).some(function(n){ return t[n] && t[n][0]==='l'; }); });   /* 3.547: gập, có ô lệch thì mở */
+  var h = '<details class="sl-dc"'+(coL ? ' open' : '')+'><summary>📊 Bảng số đối chiếu '+(coL ? '⚠ có ô lệch' : '✓')+'</summary><div class="sl-dc-pv">'+d.thu.map(function(x){ return '<button class="to-chip'+(x===pv ? ' bat' : '')+'" data-lenh="nkt.dcPV" data-a="'+coChuHTML(x).replace(/"/g, '&quot;')+'" data-b="'+ky+'">'+coChuHTML(d.nhan[x]||x)+'</button>'; }).join('')+'</div>';
   h += '<div class="bdc-cuon"><table class="sl-dc-bang"><thead><tr><th>Chỉ tiêu</th>'+ng.map(function(n){ return '<th>'+n[1]+(n[2] ? '<small>'+n[2]+'</small>' : '')+'</th>'; }).join('')+'</tr></thead><tbody>';
   DC_CT.forEach(function(c){
     var x = V[c[0]]; if(!x) return;
@@ -451,7 +451,7 @@ function slDCHTML(ky){
       var bam = t[0]==='l' || t[0]==='v' ? ' tabindex="0" data-lenh="nkt.dcChi" data-a="'+ky+'" data-b="'+c[0]+'" data-c="'+n[0]+'" onkeydown="if(event.key===\'Enter\')this.click()" title="Bấm xem chi tiết"' : '';
       return '<td class="o '+t[0]+'"'+bam+'>'+so+'<em>'+(t[0]==='k' ? '✓'+(t[1] ? ' '+coChuHTML(t[1]) : '') : t[0]==='c' ? 'chuẩn' : coChuHTML(t[1]))+'</em></td>'; }).join('')+'</tr>';
   });
-  h += '</tbody></table></div><div class="sl-dc-chu"><span class="k">khớp số chuẩn</span><span class="l">lệch — bấm xem</span><span class="v">lưu ý đã biết — bấm xem</span><span>Đơn vị: triệu đồng (số KH: khách). Chuẩn: BCDHTD; tiền gửi: LEN_31.</span></div><div id="sl-dc-chi"></div></div>';
+  h += '</tbody></table></div><div class="sl-dc-chu" title="Xanh: khớp số chuẩn · Đỏ: lệch — bấm xem · Vàng: lưu ý đã biết — bấm xem. Chuẩn: BCDHTD; tiền gửi: LEN_31."><span>Đơn vị: triệu đồng (số KH: khách)</span></div><div id="sl-dc-chi"></div></details>';   /* 3.547: chú giải vào chữ rê chuột */
   return h;
 }
 function slDCChi(ky, f, ng){

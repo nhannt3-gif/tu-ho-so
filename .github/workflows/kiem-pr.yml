@@ -1,0 +1,81 @@
+# 3.546 B4 (docs/DANH_GIA_CHUYEN_GIA_1511.md đợt 1 — anh 15/11 "code cả 2"): kiểm tự động mỗi PR vào main.
+# ① tests/kiem.py (cú pháp, trùng tên, thước đo trong mốc) · ② phép thử bị ảnh hưởng (chọn theo mốc hồi quy của main), chia 4 phần chạy song song,
+# phép trượt chạy lại 1 lần. Dữ liệu GIẢ (tests/taogia.py) — không dữ liệu thật. PR đỏ thì không gộp.
+name: Kiểm PR
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: kiem-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  kiem-ma:
+    name: Kiểm mã (kiem.py)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: kiem.py
+        run: |
+          python3 tests/kiem.py | tee /tmp/kiem.txt
+          grep -q 'Cú pháp OK' /tmp/kiem.txt && grep -q 'Trùng tên: không' /tmp/kiem.txt && grep -q 'trong mốc' /tmp/kiem.txt
+
+  phep-thu:
+    name: Phép thử phần ${{ matrix.phan }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        phan: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Thư viện thử (đệm)
+        id: dem
+        uses: actions/cache@v4
+        with:
+          path: tests/lib
+          key: tests-lib-v1
+      - name: Tải thư viện thử (tests/README.md — Chuẩn bị)
+        if: steps.dem.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p tests/lib && cd tests/lib
+          for p in xlsx@0.18.5 pdfjs-dist@3.11.174 pdf-lib@1.17.1 framework7@8.3.4 dompurify@3.2.6 jsqr@1.4.0 heic-to@1.6.5 qrcode-generator@1.4.4 tesseract.js@5.1.1 tesseract.js-core@5.1.0; do n=${p%@*}; v=${p#*@}; mkdir -p $n-$v && (cd $n-$v && npm pack $p && tar xzf *.tgz && rm *.tgz); done
+          mkdir -p tesseract.js-data-eng-1.0.0 && (cd tesseract.js-data-eng-1.0.0 && npm pack @tesseract.js-data/eng@1.0.0 && tar xzf *.tgz && rm *.tgz)
+      - name: Playwright + Chromium + phông
+        run: |
+          npm i -g playwright@1.63.0
+          npx -y playwright@1.63.0 install --with-deps chromium
+          sudo apt-get install -y -q fonts-liberation fonts-noto-color-emoji
+      - name: Dữ liệu giả
+        run: |
+          python3 -m pip install -q openpyxl
+          python3 tests/taogia.py 25000 tests/gia
+          python3 tests/taogia.py 300 tests/gianho
+          python3 tests/taogia.py 300 tests/gianho31 m31
+          python3 tests/taogia.py 25000 tests/gia31 m31
+      - name: Chạy phép thử bị ảnh hưởng
+        run: |
+          git show origin/${{ github.base_ref }}:tests/hoiquy_moc.json > /tmp/moc_dich.json || echo '{}' > /tmp/moc_dich.json
+          bash tools/kiem_pr.sh ${{ matrix.phan }} 4 /tmp/moc_dich.json
+      - name: Log phép trượt
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: log-phan-${{ matrix.phan }}
+          path: /tmp/kiem_pr/*.log
+          retention-days: 7

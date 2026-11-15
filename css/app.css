@@ -2596,7 +2596,7 @@
 :root[data-theme="dark"] .sl-bang thead th.dat{color:#7fd29a}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sl-bang thead th.dat{color:#7fd29a} }
 
-.sl-kt-ghi{margin:10px 0 2px;font-weight:700;color:var(--chu-phu);font-size:calc(12.5px*var(--co))}
+
 
 .sl-kt-muc.lech{border-color:var(--xanh);border-left-width:4px}   /* 3.146: chênh lệch chỉ ghi nhận — không tô đỏ như lỗi */
 
@@ -4151,3 +4151,9 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
   .pv-cay .loc-khoi.co-dau.gon>*:not(.pv-dau):not(.pv-hang1){order:5;flex:1 1 100%}
 }
 
+/* 3.545 A4: dải nhắc bản mới (js/92-ban-moi.js) */
+#dai-ban{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 12px;background:var(--vang-nen);color:var(--vang);border-bottom:1px solid currentColor;font-size:13px;position:relative;z-index:50}
+#dai-ban span{flex:1 1 auto;min-width:0}
+#dai-ban button{font-size:12px;padding:3px 10px}
+/* 3.547: bảng số đối chiếu gập (Nạp & KT) */
+details.sl-dc > summary{cursor:pointer;font-weight:600;color:var(--xanh-dam);margin-bottom:4px}

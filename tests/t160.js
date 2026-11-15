@@ -1,5 +1,5 @@
 // 3.165 (anh chốt, BAN_GIAO_3161.md §2.4) — Kết quả kiểm tra theo cấu trúc ma trận: gom theo từng file (thứ tự dòng ma trận), mỗi file "✓ n · ⚠ n · ⓘ n",
-//   mục so 2 file hiện ở file đứng trước, file kia "↗ xem ở …"; chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục, bấm ⚠ trên ma trận → nhảy tới file. Dữ liệu GIẢ.
+//   mục so 2 file hiện ở file đứng trước (3.547: bỏ dòng "↗ xem ở …" ở file kia); chip lọc (mặc định ⚠ + ⓘ), ⊞ Mở hết / ⊟ Gập hết, 🔎 tìm mục, bấm ⚠ trên ma trận → nhảy tới file. Dữ liệu GIẢ.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
 (async()=>{ const b=await chromium.launch(); const loi=[];
@@ -21,10 +21,10 @@ const path=require('path');
    const kt = () => document.getElementById('sl-kt'), files = () => [...kt().querySelectorAll('details.sl-kt-file')];
    const ten = () => files().map(d=>d.querySelector('summary b').textContent);
    ok('chip lọc: mặc định ⚠ + ⓘ (có chênh lệch)', /⚠ \+ ⓘ/.test(kt().querySelector('.sl-kt-loc .to-chip.bat').textContent));
-   ok('gom theo file, thứ tự như dòng ma trận (Mẫu 31 trước 01.1 trước LEN_31)', (i31 => i31>=0 && i31 < ten().findIndex(x=>/01\.1/.test(x)) && ten().findIndex(x=>/01\.1/.test(x)) < ten().findIndex(x=>/LEN_31/.test(x)))(ten().findIndex(x=>/^Mẫu 31/.test(x))), ten().join(' | '));
+   ok('gom theo file, thứ tự như dòng ma trận (Mẫu 31 trước 01.1 trước LEN_31 nếu có)', (i31 => i31>=0 && i31 < ten().findIndex(x=>/01\.1/.test(x)) && (ten().findIndex(x=>/LEN_31/.test(x)) < 0 || ten().findIndex(x=>/01\.1/.test(x)) < ten().findIndex(x=>/LEN_31/.test(x))))(ten().findIndex(x=>/^Mẫu 31/.test(x))), ten().join(' | '));   /* 3.547: file không còn mục riêng (chỉ có mục so ở file trước) thì không hiện */
    const f31 = document.getElementById('sl-kt-f-hstd');
    ok('dòng file có đếm ✓ / ⚠ / ⓘ', !!f31 && /⚠ 1/.test(f31.querySelector('.sl-kt-dem').textContent) && /ⓘ 1/.test(f31.querySelector('.sl-kt-dem').textContent), f31 && f31.querySelector('.sl-kt-dem').textContent);
-   ok('mục so 2 file: hiện ở file trước, file sau ghi "↗ xem ở …"', [...kt().querySelectorAll('.sl-kt-ref')].some(x=>/xem ở/.test(x.textContent)));
+   ok('3.547 (anh 15/11 "báo nhưng đơn giản lại"): mục so 2 file chỉ hiện 1 lần ở file trước — không còn dòng "↗ xem ở …" lặp; không còn dòng chú thích "Ghi nhận chênh lệch"', ![...kt().querySelectorAll('.sl-kt-ref')].length && !/Ghi nhận chênh lệch/.test(kt().textContent));
    ok('lọc ⚠ + ⓘ: không hiện mục ✓ khớp', !/Mẫu 31 ↔ BCDHTD 01.1 từng xã/.test(kt().textContent) || [...kt().querySelectorAll('.sl-kt-muc.ok')].length===0);
    [...kt().querySelectorAll('.sl-kt-loc .to-chip')].find(x=>/Tất cả/.test(x.textContent)).click(); await w(200);
    ok('chip Tất cả → có cả mục khớp, nhóm "Chung" (đủ file); app nhớ', /Đủ 9 file/.test(kt().textContent) && /Chung/.test(ten()[0]) && D.cauHinh.slKtLoc==='all');

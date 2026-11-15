@@ -12,6 +12,20 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.547 Nạp & KT báo gọn)
+- Anh "code gọn nạp và gộp": bỏ dòng ↗ lặp, bảng số đối chiếu gập (lệch thì mở), khối 🏦 Tổ trưởng 1 dòng; giải thích vào chữ rê chuột. Không bỏ chức năng. Màn mẫu dữ liệu giả 2.600 → 900 px.
+
+### 15/11/2026 — TK 2 · PHIÊN (3.546 A1 + B4 — xong đợt 1 đánh giá)
+- Anh "code cả 2 và gộp": A1 `js/93-moc-vang.js` (`MVG`) 🧪 Kiểm mốc — đáp án Drive `Tủ hồ sơ/Mốc vàng/VANG_DOI_CHIEU_(MON_)APP_2026-10-31.csv` (TK 2 chép từ App_that); B4 `.github/workflows/kiem-pr.yml` + `tools/kiem_pr.sh` (mốc của main, 4 phần, trượt chạy lại 1 lần). t403 6/6.
+- Anh 15/11: "đối chiếu, kiểm tra đã chuẩn dần — không cần ghi quá chi tiết ở Nạp & KT, có thể báo nhưng đơn giản lại" → kết quả 🧪 1 dòng / mốc, chi tiết gập. Phần cũ dài ở Nạp & KT (khối 🏦 Tổ trưởng 3 dòng + 2 dòng chữ xám; Kết quả kiểm tra mở ra) → trình phương án gọn, chờ anh duyệt.
+- Bẫy: B4 chạy lần đầu trên GitHub chưa thấy kết quả thật (máy này không chạy được Actions) — xem dấu "Kiểm PR" ở PR đầu tiên.
+
+### 15/11/2026 — TK 2 · PHIÊN (3.545 A4 nhắc bản mới)
+- Hồi quy đủ 3.543: 276/279 — 3 trượt (t241, t315, t398) do lọc ĐT thu gọn 3.541 (chủ ý) → sửa phép thử (PR #568); hồi quy theo đổi 3.544 279/279.
+- Anh "code A4 và gộp": `js/92-ban-moi.js` (`BMN`) hỏi bản máy chủ (mở +5 s, 30 phút, quay lại tab), dải `#dai-ban` + ⟳ Cập nhật ngay; bọc `slDCXuat` chặn xuất khi bản cũ. t402 10/10.
+- Anh đang nhờ TK 1 đánh giá lại app → TK 2 theo dõi hộp thư / nhánh TK 1, nhận việc qua anh duyệt.
+- Bẫy: phép thử mở app bằng file:// → BMN không hỏi (cố ý); muốn thử phải chạy qua http (t402 tự dựng máy chủ).
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.544 Ngày CNQH gần nhất)
 - 2 mốc 3.543 xuất xong: File 2 khớp GB (30/09 tuyệt đối; 31/10 trừ ngày hết khoanh GB trống — TK 1 đã sửa GB 1.12). Ngày khoanh: NOKHOANH hệ thống không có cột Ngày hiệu lực → trống.
 - PR #565 TK 1 xung đột hộp thư → gộp nhánh TK 1 vào nhánh TK 2 (không sửa nhánh TK 1). 3.544 `slDCNgayCQH`. Hồi quy đủ 3.543 đang chạy.
