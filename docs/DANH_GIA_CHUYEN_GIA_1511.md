@@ -137,6 +137,16 @@ Chưa làm: CSS lồng nhau, hiệu ứng chuyển màn (lợi ít); đổi các
 
 Không hợp: không có (mọi ý dùng được với trình duyệt mới anh dùng).
 
+### 4d. Kế hoạch đợt 3 — TK 2 (15/11, anh "tiếp tục kế hoạch đợt 3 trong khi chờ anh thử") — **chờ anh duyệt từng bản**
+
+| Bản | Việc | Làm gì | Rủi ro / ghi chú |
+|---|---|---|---|
+| **3.550** | **E6** cài như phần mềm · **F5** `dvh` · **F2** trang mẫu giao diện | E6: `manifest.webmanifest` + biểu tượng (chữ TH như logo) + thẻ `<link>` — Chrome / Edge / iPhone "Thêm vào MH chính" mở cửa sổ riêng. F5: 20 chỗ `100vh` trong `css/app.css` (+ 2 trong JS) → giữ `100vh` làm dự phòng, thêm `100dvh` (điện thoại không bị thanh địa chỉ che nút đáy). F2: `docs/mau-giao-dien.html` (nạp `css/app.css`) liệt kê nút, chip, thẻ, bảng, hộp, ô nhập kèm tên lớp — AI làm màn mới lấy mảnh có sẵn. | Thấp. Không đổi chức năng. Hồi quy phép thử điện thoại + bố cục. |
+| **3.551** | **E3** CSP + SRI bản máy tính | `<meta http-equiv="Content-Security-Policy">` cho `index.html`: chỉ cho script từ chính app + cdnjs / jsdelivr (danh mục mục 10) + Google đăng nhập; kết nối chỉ `googleapis.com`; `'unsafe-inline'` cho script (còn 462 onclick) + `'wasm-unsafe-eval'` (Tesseract) + `blob:` (luồng nền đọc Excel, pdf.js). SRI: thêm `integrity` cho thư viện cdnjs nạp ở `js/01` (tính từ đúng bản trong `tests/lib`). | Vừa — CSP sai chặn chức năng (đọc PDF, OCR, Drive). Làm sau khi có lượt kiểm GitHub xanh; hồi quy đủ trước gộp; thêm phép thử: mở đủ các tab không có lỗi CSP trong Console. |
+| **3.552** | **B1** gói số liệu kỳ (phối hợp TK 1) | Nút 📦 ở ⋯ Nạp & KT: xuất `GOI_SO_LIEU_<ngày>.json.gz` vào `Số liệu/<tháng>/` trên Drive = bảng app đã đọc (Mẫu 31 + DSTO + NQH + khoanh + KHĐ + CLT02…; tên trường theo `docs/COT_FILE_MAU.md`), có `khuon` (bản khuôn) + `ban` (bản app). Giao ban đọc gói thay vì mở Excel 22 MB. | Cần TK 1 chốt khuôn gói trước (thư hộp thư) — app làm phần xuất + tài liệu khuôn; script Giao ban sửa phía TK 1. Gói chứa dữ liệu thật → chỉ lên Drive anh, không vào repo. |
+| — | **B3** mã script Giao ban vào repo | TK 1 rà script (không dữ liệu / thông tin không công khai) rồi mở PR thư mục `giao_ban/`; B4 tự kiểm Python khi có. | Việc TK 1 — TK 2 chỉ thêm kiểm `python -m py_compile giao_ban/*.py` vào `kiem-pr.yml` khi thư mục có. |
+| — | **A5** hai kênh ổn định / thử | **Đề xuất hoãn.** GitHub Pages chỉ đăng 1 nhánh; làm được bằng Actions đăng `/` = bản ổn định + `/thu/` = main, nhưng **2 kênh cùng tên miền dùng chung kho dữ liệu trình duyệt** → bản thử có thể ghi dữ liệu kiểu mới mà bản ổn định chưa đọc được (nguy cơ mất dữ liệu). A4 (nhắc bản) + A2 (sổ thử) + B4 (kiểm PR) đã che phần lớn lợi ích. | Nếu anh vẫn muốn: kênh thử phải dùng kho riêng (tiền tố khóa riêng) — việc lớn, trình riêng. |
+
 ## 5. Thứ tự em đề xuất
 
 | Đợt | Việc | Vì sao trước |
@@ -159,5 +169,6 @@ Không hợp: không có (mọi ý dùng được với trình duyệt mới anh
 |---|---|
 | 15/11/2026 | Lập theo yêu cầu anh (phiên đánh giá, TK chính). Đo trên 3.541; khảo sát B4 nhưng **không làm** (anh: thiên về đánh giá + ý tưởng). |
 | 15/11/2026 | Anh "gộp và theo ý em": duyệt thứ tự 4 đợt, A3, B3, B5 (mục 6). Đợt 1 = A1 + B4 + A4. |
+| 15/11/2026 | TK 2 thêm mục 4d: kế hoạch đợt 3 (3.550 E6 · F5 · F2 → 3.551 E3 → 3.552 B1; B3 việc TK 1; A5 đề xuất hoãn). |
 | 15/11/2026 | TK 2 thêm mục 4c: xếp E / F vào đợt (đợt 2 thêm E1, E2, F7, F8). |
 | 15/11/2026 | Thêm mục 4b: kỹ thuật chạy app E1–E8, giao diện / CSS F1–F8 (anh duyệt ghi vào; trình duyệt anh dùng bản mới nhất). Anh xác nhận mốc đối chiếu = cuối tháng 10. |
