@@ -126,6 +126,17 @@ Hiện trạng `css/app.css` (356 KB, ≈ 4.100 luật): màu ghi cứng **637 c
 Thứ tự: **F2, F7, F8, F5** trước (ít công, thấy ngay) → **F1** làm dần (sửa khối nào chuyển khối đó) → **F3, F4, F6** chỉ cho màn mới.
 Chưa làm: CSS lồng nhau, hiệu ứng chuyển màn (lợi ít); đổi cách in mẫu sang CSS trang in (mẫu đang khóa chuẩn — rủi ro lệch form).
 
+### 4c. TK 2 xếp E / F vào đợt (15/11, theo thư mục 14 — dò trên mã 3.547)
+
+| Đợt | Việc | Đã có / lưu ý |
+|---|---|---|
+| **2** (cùng A2, A3) | **E1** khóa giữa các tab · **E2** tự xin lưu bền · **F7** focus-visible + accent-color · **F8** tabular-nums mọi cột tiền | E1: chưa có — dùng BroadcastChannel, tab mở sau báo "app đang mở ở tab khác" và chỉ xem. E2: đã có nút tay ở Ghi chú (`js/04b2`, `navigator.storage.persist`) → chỉ thêm tự xin khi mở. F8: đã có 13 chỗ (bảng đối chiếu…) → gom về 1 lớp chung. F7: chưa có. |
+| **3** (cùng B1, B3, A5) | **E3** CSP bản máy tính + SRI · **F2** trang mẫu giao diện · **F5** `dvh` · **E6** manifest | E3: `index.html` còn 462 `onclick` viết thẳng → CSP phải cho `'unsafe-inline'` cho script, vẫn chặn nguồn ngoài danh mục + SRI cho thư viện cdnjs; CSP chặt hơn chỉ sau khi hết onclick (Đ4 kế hoạch dọn). CSP hiện chỉ ở `dt.html` (Đ3 sẽ gỡ). F5: 26 chỗ `100vh`, 1 chỗ `dvh` → làm cùng bản điện thoại. |
+| **Làm dần** (sửa khối nào chuyển khối đó / màn mới) | **F1** bộ biến chuẩn · **F3** `@layer` · **F4** `@container` (đã có 2 chỗ) · **F6** `<dialog>` · **E4** content-visibility (đo trước / sau) · **E5** việc nặng lúc rảnh · **E8** DOMPurify | F6: hộp `moHop` dùng chung cả app → chỉ hộp mới, không chuyển hàng loạt. E8: DOMPurify có trong danh mục nhưng chưa nạp — dùng khi có màn hiện chữ từ file lạ. |
+| **Cùng B1** | **E7** thư mục thả file | đã có chọn thư mục ở 1 chỗ (`showDirectoryPicker`). |
+
+Không hợp: không có (mọi ý dùng được với trình duyệt mới anh dùng).
+
 ## 5. Thứ tự em đề xuất
 
 | Đợt | Việc | Vì sao trước |
@@ -148,4 +159,5 @@ Chưa làm: CSS lồng nhau, hiệu ứng chuyển màn (lợi ít); đổi các
 |---|---|
 | 15/11/2026 | Lập theo yêu cầu anh (phiên đánh giá, TK chính). Đo trên 3.541; khảo sát B4 nhưng **không làm** (anh: thiên về đánh giá + ý tưởng). |
 | 15/11/2026 | Anh "gộp và theo ý em": duyệt thứ tự 4 đợt, A3, B3, B5 (mục 6). Đợt 1 = A1 + B4 + A4. |
+| 15/11/2026 | TK 2 thêm mục 4c: xếp E / F vào đợt (đợt 2 thêm E1, E2, F7, F8). |
 | 15/11/2026 | Thêm mục 4b: kỹ thuật chạy app E1–E8, giao diện / CSS F1–F8 (anh duyệt ghi vào; trình duyệt anh dùng bản mới nhất). Anh xác nhận mốc đối chiếu = cuối tháng 10. |
