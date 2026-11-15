@@ -29,7 +29,7 @@ const fs=require('fs'), path=require('path');
  await p.close();
  p = await mo(600); await p.evaluate(t => slDoiTab(t), 'to'); await p.waitForTimeout(2500);
  const hep = await p.evaluate(() => { const d = document.querySelector('#tr7 .loc-khoi .pv-dau'); return d ? getComputedStyle(d).position : null; });
- ok('màn hẹp (600px): khung lọc giữ kiểu cũ (nhãn nổi trên viền)', hep==='absolute', hep);
+ ok('màn hẹp (600px = điện thoại, 3.541): đầu khung lọc thành thanh bấm mở/gọn (static)', hep==='static', hep);
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = o.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t398 đạt'); await b.close(); process.exit(sai?1:0);
 })();
