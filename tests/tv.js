@@ -27,6 +27,7 @@ module.exports = async function(p){
     else if(/pdfjs-dist@3\.11\.174\/build\/pdf\.worker\.min\.js/.test(u)) f=L+'pdfjs-dist-3.11.174/package/build/pdf.worker.min.js';   /* 3.344: điện thoại xem PDF trong app */
     else if(/pdfjs-dist@3\.11\.174\/build\/pdf\.min\.js/.test(u)) f=L+'pdfjs-dist-3.11.174/package/build/pdf.min.js';
     else if(/jsqr@1\.4\.0/.test(u)) f=L+'jsqr-1.4.0/package/dist/jsQR.js';
+    else if(/xlsx@0\.18\.5\/dist\/xlsx\.full\.min\.js/.test(u)) f=L+'xlsx-0.18.5/package/dist/xlsx.full.min.js';   /* 3.551: thư viện chính chuyển jsDelivr */
     else if(/heic-to@1\.6\.5\/dist\/iife\/heic-to\.js/.test(u)) f=L+'heic-to-1.6.5/package/dist/iife/heic-to.js';   /* 3.289: đọc ảnh HEIC iPhone */   /* 3.264: đọc mã QR CCCD */
     else if(/tesseract\.js@v?5\.1\.1\/dist\/tesseract\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/tesseract.min.js';   /* 3.269: đọc 3 dòng mã máy đọc (Tesseract) */
     else if(/tesseract\.js@v?5\.1\.1\/dist\/worker\.min\.js/.test(u)) f=L+'tesseract.js-5.1.1/package/dist/worker.min.js';

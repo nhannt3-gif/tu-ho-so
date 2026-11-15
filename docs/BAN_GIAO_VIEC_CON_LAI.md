@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.551)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nối Drive, đồng bộ | như cũ | |
+| 2 | Nạp Excel, xem PDF văn bản | như cũ | |
+| 3 | Scan CCCD (đọc mã máy / OCR), Picker chọn file Drive cũ | như cũ | |
+
+Ghi chú kỹ thuật 3.551: thêm nguồn ngoài mới → sửa thẻ CSP trong `index.html`; thêm / nâng thư viện → thêm dấu `TV_DAU` (openssl dgst -sha384 -binary | base64).
+
 ### Danh sách thử trên máy thật (3.550)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.550', ds:[
+var CO_GI_MOI = {ban:'3.551', ds:[
+  ["Bảo mật: app chỉ chạy mã của chính app và thư viện đã duyệt (có kiểm dấu vân tay), chỉ kết nối Google + kho thư viện — mã lạ chèn vào bị chặn", ""],
   ["Cài app như phần mềm: Chrome / Edge bấm \"Cài đặt ứng dụng\" (biểu tượng ở thanh địa chỉ), iPhone Safari \"Thêm vào MH chính\" — mở cửa sổ riêng, có biểu tượng TH", ""],
   ["Điện thoại: thanh địa chỉ không che nút ở đáy các khung cao", ""],
   ["Hộp 🧪 Kiểm mốc: bảng chỗ lệch + nút Đóng đúng kiểu chung", ""],
@@ -1071,9 +1072,10 @@ var CO_GI_MOI = {ban:'3.550', ds:[
   ["⋯ Nạp & KT: nút 🧪 Kiểm mốc — so mốc cuối tháng 10 (đã khớp giao ban) bằng bản app đang chạy, ra ✅ khớp / ❌ N chỗ lệch", ""],
   ["GitHub tự kiểm mỗi PR (cú pháp + phép thử bị ảnh hưởng) — PR đỏ thì không gộp", ""],
   ["Máy đang chạy bản cũ → dải trên cùng báo \"đã có bản mới\" + nút ⟳ Cập nhật ngay (tự kiểm khi mở app và 30 phút / lần)", ""],
-  ["📤 File đối chiếu không cho xuất khi máy đang chạy bản cũ — tránh hai bên so khác cách tính", ""],
-  ["File danh sách món: ngày chuyển quá hạn lấy thêm cột \"Ngày CNQH gần nhất\" của Mẫu 31 khi không có Sao kê nợ quá hạn (kỳ giữa tháng)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["📤 File đối chiếu không cho xuất khi máy đang chạy bản cũ — tránh hai bên so khác cách tính", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.551 · Mở app, nạp file Excel, xem PDF, quét CCCD (OCR), nối Drive — mọi thứ chạy như cũ",
+    "3.551 · Nếu có chức năng không chạy: ⚠ chip lỗi ở chân trang → ✓ Chưa trong Có gì mới (em đọc được)",
     "3.550 · Laptop Chrome: biểu tượng cài đặt ở cuối thanh địa chỉ → Cài đặt → app mở cửa sổ riêng",
     "3.550 · iPhone Safari: Chia sẻ › Thêm vào MH chính → biểu tượng TH",
     "3.549 · 📥 Nạp file: thả 4 file CLT02 (2 xã × tháng / định kỳ, XLSX) → ma trận Ⓓ Phụ có 4 dòng CLT02",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.550', ds:[
     "3.541 · iPhone: vuốt trái / phải giữa 4 tab chính",
     "3.541 · Mở thẻ khách hoặc ☰ → vuốt xuống để đóng",
     "3.541 · Tổ TK&VV / GD xã / KTGS: LỌC ĐỊA BÀN 1 dòng, bấm mở",
-    "3.540 · Sao kê nợ đến hạn › cột Còn GH: món ngắn hạn ≤ 12 tháng; NOXH 24 tháng; HSSV thiếu ngày ra trường hiện ≈",
-    "3.540 · 📤 File đối chiếu: ma_diem đủ TXN…; File 2 so_thang_lai dạng 3.0",
-    "3.539 · ⋯ Nạp & KT › 📤 File đối chiếu 31/10 → Drive Số liệu/2026-10 có thêm DOI_CHIEU_MON_APP_2026-10-31.csv (19 cột)"],
+    "3.540 · Sao kê nợ đến hạn › cột Còn GH: món ngắn hạn ≤ 12 tháng; NOXH 24 tháng; HSSV thiếu ngày ra trường hiện ≈"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
