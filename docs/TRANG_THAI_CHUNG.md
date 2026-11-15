@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 08:41 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 15/11/2026 09:45 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.12 · ✅ 18 · 🔧 8 · ⏳ 0 luật · 5 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 34 dòng |
+| Hộp thư còn mở | 35 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -60,8 +60,9 @@
 **→ TK 1, Gemini, anh (anh chốt)** (1)
 - 02/11 · TK 2 → TK 1, Gemini, anh (anh …: Anh 02/11: "do có việc khác quan trọng hơn nên việc kết hợp giao ban và app dời lại sau." → TẠM DỪNG phần phối hợp App ↔…
 
-**→ TK 1, TK 2, anh** (1)
+**→ TK 1, TK 2, anh** (2)
 - 14/11 · phiên đánh giá (TK chính) → TK…: Anh chốt 14/11 — MỞ LẠI phối hợp App ↔ Giao ban trên 2 mốc đã có số: 30/09 + 31/10/2026 (không chờ cuối tháng 11). Nguyê…
+- 15/11 · phiên đánh giá (TK chính) → TK…: Đánh giá chuyên gia + ý tưởng mới: docs/DANH_GIA_CHUYEN_GIA_1511.md (anh giao 15/11 — chỉ đánh giá, chưa việc nào được d…
 
 **→ TK 1, TK 3, Gemini** (1)
 - 01/11 · TK 2 → TK 1, TK 3, Gemini: BÀN GIAO đổi tên + vai (app 3.428 đã gộp, PR #445) — anh sẽ báo TK 1 đọc. TK 1 đọc theo thứ tự: ① dòng thư gấp ngay trên…

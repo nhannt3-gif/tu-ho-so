@@ -9,7 +9,7 @@
 1. **Một kho gốc:** App và Giao ban **đều tính từ bộ file anh nạp qua App** (`Tủ hồ sơ\Số liệu\<YYYY-MM>\<MÃ>_<YYYY-MM-DD>` + `DANH_MUC_NAP.csv`). Giao ban không tự lấy file ngoài kho.
 2. **App = số cứng:** chỉ chứa luật đã chốt (`QUY_TAC_SO_LIEU.md` ✅) và có phép thử.
 3. **Giao ban = linh hoạt:** được tinh chỉnh cách tính nhanh khi cần cho văn bản.
-4. **Đề xuất kèm theo (chờ anh xác nhận — em đã trình 14/11):** mỗi lần Giao ban tinh chỉnh cách tính → ghi **1 dòng** ở `QUY_TAC_SO_LIEU.md` mục 2 (luật đang thử: ngày, nội dung, lý do); số trong văn bản khác số App → ghi rõ lý do ở nhật ký giao ban. Dùng ổn → anh chốt → App áp → thành luật ✅. Mục đích: "linh hoạt" không thành "lệch âm thầm".
+4. **✓ Anh đồng ý 15/11 ("đồng ý và tiếp"):** mỗi lần Giao ban tinh chỉnh cách tính → ghi **1 dòng** ở `QUY_TAC_SO_LIEU.md` mục 2 (luật đang thử: ngày, nội dung, lý do); số trong văn bản khác số App → ghi rõ lý do ở nhật ký giao ban. Dùng ổn → anh chốt → App áp → thành luật ✅. Mục đích: "linh hoạt" không thành "lệch âm thầm".
 5. **Hai mốc 30/09 + 31/10 là BỘ MỐC CỐ ĐỊNH:** sau này bên nào đổi cách tính → chạy lại 2 mốc, so lại trước khi dùng cho kỳ mới.
 
 ## 2. Hiện trạng file trên Drive (kiểm 14/11 — chỉ tên file, không mở nội dung khách)
