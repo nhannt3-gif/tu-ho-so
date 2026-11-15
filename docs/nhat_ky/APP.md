@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.553 gỡ CSP)
+- Hồi quy đủ 3.551: 5 trượt (heic-to + phép thử cần eval, CSP chặn) + anh báo iPhone trắng màn / "không lưu được" (app cài MH chính) → gỡ thẻ CSP, giữ dấu vân tay. 6 phép đạt lại.
+- **Bẫy lớn:** CSP phải thử trên Safari iPhone thật trước khi bật lại; heic-to cần `'unsafe-eval'`. App cài ra MH chính trên iOS có kho riêng (trống, nối Drive lại). Chưa rõ nguyên nhân "không lưu được" trên iPhone — chờ anh gửi nhật ký lỗi (⚠ chip → 📋 Chép).
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.552 F7 + F8)
 - Anh "gộp và tiếp": gộp #573 (3.551). B1 chờ TK 1 chốt khuôn gói → làm phần đợt 2 còn sót: F7 (`:focus-visible`, accent-color), F8 (ô số tabular-nums). t408 3/3. Còn lại đợt 3: B1 (chờ TK 1), B3 (TK 1); A5 hoãn.
 

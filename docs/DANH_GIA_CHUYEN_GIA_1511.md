@@ -147,6 +147,9 @@ Không hợp: không có (mọi ý dùng được với trình duyệt mới anh
 | — | **B3** mã script Giao ban vào repo | TK 1 rà script (không dữ liệu / thông tin không công khai) rồi mở PR thư mục `giao_ban/`; B4 tự kiểm Python khi có. | Việc TK 1 — TK 2 chỉ thêm kiểm `python -m py_compile giao_ban/*.py` vào `kiem-pr.yml` khi thư mục có. |
 | — | **A5** hai kênh ổn định / thử | **Đề xuất hoãn.** GitHub Pages chỉ đăng 1 nhánh; làm được bằng Actions đăng `/` = bản ổn định + `/thu/` = main, nhưng **2 kênh cùng tên miền dùng chung kho dữ liệu trình duyệt** → bản thử có thể ghi dữ liệu kiểu mới mà bản ổn định chưa đọc được (nguy cơ mất dữ liệu). A4 (nhắc bản) + A2 (sổ thử) + B4 (kiểm PR) đã che phần lớn lợi ích. | Nếu anh vẫn muốn: kênh thử phải dùng kho riêng (tiền tố khóa riêng) — việc lớn, trình riêng. |
 
+**3.553 — gỡ CSP của 3.551 (TK 2, 15/11 tối):** hồi quy đủ 3.551 trượt 5 phép (t207 / t208 / t209 / t212 / t219) — thư viện `heic-to` (đổi ảnh HEIC iPhone) và phép thử cần `eval`, CSP chặn; anh báo iPhone (app cài ra MH chính, 3.551) trắng màn + "không lưu được". Gỡ thẻ CSP, giữ dấu vân tay thư viện. **Làm lại E3 khi:** thử được trên Safari iPhone thật + thêm `'unsafe-eval'` (hoặc nạp heic-to trong luồng nền riêng). Chuỗi đã dùng:
+`default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net https://apis.google.com https://accounts.google.com; worker-src 'self' blob:; connect-src 'self' blob: data: https://*.googleapis.com https://accounts.google.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://accounts.google.com; font-src 'self' data:; frame-src 'self' blob: data: https://accounts.google.com https://docs.google.com https://drive.google.com https://content.googleapis.com; media-src 'self' blob: data:; object-src 'none'; base-uri 'self'`
+
 ## 5. Thứ tự em đề xuất
 
 | Đợt | Việc | Vì sao trước |

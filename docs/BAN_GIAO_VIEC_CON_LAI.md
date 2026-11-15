@@ -266,6 +266,13 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.553)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone Safari (tab thường) | có dữ liệu, không báo lỗi lưu | |
+| 2 | iPhone app cài ra MH chính | trống lần đầu → nối Drive → có dữ liệu; nếu vẫn báo lỗi lưu: ⚠ chip lỗi → 📋 Chép gửi em | |
+| 3 | Scan: dán ảnh HEIC | vào hàng quét | |
+
 ### Danh sách thử trên máy thật (3.552)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
