@@ -43,7 +43,7 @@ Không phải nghẽn (em khuyên **giữ**): ES5 không build, 153 file rời (
 ### Nhóm A — khép vòng phản hồi (giải N1, N2) — **em khuyên làm trước**
 
 **A1. "Kiểm 2 mốc" một nút trong app (mốc vàng trên số thật).**
-> **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — em hiểu "30/10" là mốc cuối tháng 10; nếu anh muốn đúng bộ ngày 30/10 thì báo lại); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. → A1 thành **nút "Kiểm mốc" với 1 mốc cuối tháng 10**; thêm mốc mới chỉ khi anh giao.
+> **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — anh xác nhận 15/11 "đúng cuối tháng 10"); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. → A1 thành **nút "Kiểm mốc" với 1 mốc cuối tháng 10**; thêm mốc mới chỉ khi anh giao.
 Hai mốc 30/09 + 31/10 đã khớp → lưu kết quả đã khớp làm **đáp án vàng** trên Drive (không vào repo). App thêm nút: tính lại 2 mốc bằng bản app đang chạy → so đáp án → **xanh / đỏ + số chỗ lệch**. Sau mỗi lần cập nhật app, anh bấm 1 nút là biết bản mới có làm lệch số thật không — việc mà phép thử dữ liệu giả không bao giờ bắt được. Mỗi quý thêm 1 mốc. (Phần lõi `slDCTinh` + 🔎 So đã có — chủ yếu là ghép lại + chỗ lưu đáp án.)
 
 **A2. Sổ thử máy thật ngay trong app, AI đọc được.**
@@ -90,6 +90,42 @@ Trước mỗi phiên giao dịch, từ Mẫu 31 theo ngày: món sẽ chuyển 
 **D3. Nhịp bản:** 1–2 bản / ngày, mỗi bản 3–5 việc thử; mỗi tuần 1 bản chỉ dọn; đi cùng A2, A5.
 **D4. Giảm chi phí đọc của AI:** hộp thư đã xong → lưu trữ hằng tháng; mỗi vai 1 "thẻ phiên" tự sinh ≤ 60 dòng (trạng thái + chờ anh + bẫy); việc thường dùng model thường, chỉ kiểm toán / chốt luật mới dùng model mạnh.
 
+## 4b. Kỹ thuật nên áp dụng — chạy app + giao diện (anh hỏi 15/11; **anh duyệt ghi vào, máy / trình duyệt anh dùng đều bản mới nhất** → các kỹ thuật cần trình duyệt mới đều dùng được)
+
+> Dò trên mã 3.544. Cột "Lợi" là nhận định, chưa đo. Vai làm: **App (TK 2)** — xếp vào các đợt mục 5; mỗi việc vẫn trình kế hoạch ngắn → anh "code".
+
+### E — Kỹ thuật chạy app (app chưa dùng)
+| # | Kỹ thuật | Hiện trạng | Lợi | Công |
+|---|---|---|---|---|
+| E1 | **Khóa giữa các tab** (Web Locks / BroadcastChannel / sự kiện `storage`) | chưa có | Mỗi lần lưu ghi cả khối → mở 2 tab thì tab lưu sau đè mất phần tab kia (mất dữ liệu âm thầm) | ít |
+| E2 | **Tự xin "lưu bền"** (`navigator.storage.persist`) khi mở app | mới có nút bấm tay ở Ghi chú | Trình duyệt không tự xóa dữ liệu app khi máy đầy (nhất là iPhone) | rất ít |
+| E3 | **CSP cho bản máy tính + dấu vân tay thư viện (SRI)** | CSP mới có ở `dt.html`; thư viện CDN không kiểm dấu | App giữ CCCD, số liệu khách — CDN bị sửa mã thì trình duyệt chặn | ít – vừa |
+| E4 | **Chỉ vẽ phần đang nhìn** (`content-visibility`) cho bảng / danh sách dài | chưa dùng | Tab Tổ, Sao kê, danh sách khách mở + cuộn nhẹ hơn, không viết lại bảng; trang in không ảnh hưởng | ít (đo trước / sau) |
+| E5 | **Việc nặng lúc máy rảnh** (`requestIdleCallback`) / thêm luồng nền | luồng nền mới dùng cho đọc Excel | Dựng số liệu lần đầu mỗi phiên (≈ 1,8 s) không đứng màn hình | vừa |
+| E6 | **Cài như phần mềm** (manifest + biểu tượng) | đã chạy không mạng, chưa có manifest | Mở từ màn hình chính, cửa sổ riêng | ít |
+| E7 | **Thư mục thả file** (app tự nhận file mới trong thư mục đã cấp quyền) | đã có chọn thư mục ở 1 chỗ | Xuất file vào đúng thư mục, mở app là tự nạp — đi cùng B1 | vừa |
+| E8 | **Lọc trước khi hiển thị** chữ lấy từ file ngoài (DOMPurify đã trong danh mục) | hàm thoát chữ tự viết, `innerHTML` ở 70 file | Giảm rủi ro khi nạp file lạ (hiện thấp — chỉ nạp file hệ thống) | vừa, làm dần |
+
+Thứ tự: **E1, E2** trước (bảo vệ dữ liệu, rẻ nhất) → **E3** → E4, E5, E6 khi thấy chậm / cần tiện → E7 cùng B1.
+Không áp dụng: React / TypeScript, máy chủ riêng, gửi dữ liệu khách cho AI ngoài (như `KE_HOACH_NANG_CAP_0111.md` mục 3); cơ sở dữ liệu SQL trong trình duyệt (chưa cần).
+
+### F — Giao diện / chuẩn CSS
+Hiện trạng `css/app.css` (356 KB, ≈ 4.100 luật): màu ghi cứng **637 chỗ / 239 màu khác nhau** · cỡ chữ **20**, bo góc **18**, lớp chồng z-index **20** giá trị khác nhau · `!important` **228** · **149** luật theo bề rộng với **> 14 mốc** (899 / 900, 699 / 700, 560, 600, 520…) · kiểu dáng viết thẳng trong JS **483 chỗ** · cỡ chữ không theo hệ số `--co` **112 chỗ** · `100vh` **25 chỗ** · `@layer` 0 · `@container` 2 · `:focus-visible` 0 · `accent-color` 0 · `tabular-nums` 13.
+
+| # | Kỹ thuật | Giải quyết | Công |
+|---|---|---|---|
+| F1 | **Bộ biến chuẩn (design tokens):** 1 bảng màu ~20 màu, 1 thang cỡ chữ / khoảng cách / bo góc / lớp chồng; mọi chỗ chỉ dùng biến | Đồng đều; nền tối tự đúng; đổi 1 chỗ đổi cả app | vừa, làm dần theo khối + thước đo `kiem.py` "không thêm màu ghi cứng mới" |
+| F2 | **Trang mẫu giao diện** — 1 trang liệt kê mọi mảnh chuẩn (nút, chip, thẻ, bảng, hộp, ô nhập) kèm tên lớp | AI làm màn mới lấy đúng mảnh có sẵn, không tự chế kiểu mới — **lợi nhất với app nhiều AI viết** | ít |
+| F3 | **Phân tầng CSS (`@layer`)**: nền → khung → khối → ghi đè | Hết đè nhau bằng `!important` | vừa |
+| F4 | **Bố cục theo khung chứa (`@container`)** + gom về 3 mốc chuẩn | Thẻ / bảng / khung lọc tự co đúng dù ở cột hẹp hay màn rộng | vừa, khi sửa từng khối |
+| F5 | **`dvh` thay `100vh`** | Điện thoại không bị che nút ở đáy | ít |
+| F6 | **Hộp thoại / bảng chọn chuẩn trình duyệt** (`<dialog>`, popover) | Tự lo Esc, giữ con trỏ trong hộp, luôn nổi trên cùng — bớt quản lớp chồng | vừa, hộp mới trước |
+| F7 | **`:focus-visible`** (vòng sáng khi đi phím Tab) + **`accent-color`** (ô tích theo màu app) | Nhập liệu bằng bàn phím thấy rõ đang ở ô nào | rất ít |
+| F8 | **`tabular-nums`** cho mọi cột tiền | Số thẳng hàng, dễ so | rất ít |
+
+Thứ tự: **F2, F7, F8, F5** trước (ít công, thấy ngay) → **F1** làm dần (sửa khối nào chuyển khối đó) → **F3, F4, F6** chỉ cho màn mới.
+Chưa làm: CSS lồng nhau, hiệu ứng chuyển màn (lợi ít); đổi cách in mẫu sang CSS trang in (mẫu đang khóa chuẩn — rủi ro lệch form).
+
 ## 5. Thứ tự em đề xuất
 
 | Đợt | Việc | Vì sao trước |
@@ -112,3 +148,4 @@ Trước mỗi phiên giao dịch, từ Mẫu 31 theo ngày: món sẽ chuyển 
 |---|---|
 | 15/11/2026 | Lập theo yêu cầu anh (phiên đánh giá, TK chính). Đo trên 3.541; khảo sát B4 nhưng **không làm** (anh: thiên về đánh giá + ý tưởng). |
 | 15/11/2026 | Anh "gộp và theo ý em": duyệt thứ tự 4 đợt, A3, B3, B5 (mục 6). Đợt 1 = A1 + B4 + A4. |
+| 15/11/2026 | Thêm mục 4b: kỹ thuật chạy app E1–E8, giao diện / CSS F1–F8 (anh duyệt ghi vào; trình duyệt anh dùng bản mới nhất). Anh xác nhận mốc đối chiếu = cuối tháng 10. |

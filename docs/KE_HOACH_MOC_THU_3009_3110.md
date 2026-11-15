@@ -11,7 +11,7 @@
 3. **Giao ban = linh hoạt:** được tinh chỉnh cách tính nhanh khi cần cho văn bản.
 4. **✓ Anh đồng ý 15/11 ("đồng ý và tiếp"):** mỗi lần Giao ban tinh chỉnh cách tính → ghi **1 dòng** ở `QUY_TAC_SO_LIEU.md` mục 2 (luật đang thử: ngày, nội dung, lý do); số trong văn bản khác số App → ghi rõ lý do ở nhật ký giao ban. Dùng ổn → anh chốt → App áp → thành luật ✅. Mục đích: "linh hoạt" không thành "lệch âm thầm".
 5. **Hai mốc 30/09 + 31/10 là BỘ MỐC CỐ ĐỊNH:** sau này bên nào đổi cách tính → chạy lại 2 mốc, so lại trước khi dùng cho kỳ mới.
-   - **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — em hiểu "30/10" là mốc cuối tháng 10; nếu anh muốn đúng bộ ngày 30/10 thì báo lại); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. Đổi cách tính → chạy lại **mốc cuối tháng 10** trước khi dùng cho kỳ mới.
+   - **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — anh xác nhận 15/11 "đúng cuối tháng 10"); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. Đổi cách tính → chạy lại **mốc cuối tháng 10** trước khi dùng cho kỳ mới.
 
 ## 2. Hiện trạng file trên Drive (kiểm 14/11 — chỉ tên file, không mở nội dung khách)
 
