@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.548 — 15/11/2026 — Đợt 2 đánh giá: máy thật ↔ AI (A2 · A3) + khóa tab (E1) + lưu bền (E2) (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` A2, A3 (anh ✓), mục 4c E1, E2; anh 15/11 "code cả 2 và gộp".
+- **Gói mới `js/94-may-that.js` (`MTH`, cắm rút):** A2 — "Có gì mới" thêm khối Kết quả thử: mỗi việc ✓ Đạt / ✗ Chưa (+ ghi chú), lưu `localStorage tuhoso_thu_may` theo bản (giữ 10 bản). A3 — nhật ký lỗi js/67 (50 gần nhất) đẩy Drive, che dãy ≥ 6 chữ số + email. A4 thêm — bản + lúc mở + trình duyệt từng máy. Cả 3 vào **1 file** `<thư mục app>/_Hệ thống/may_that.json` `{may:{<mã máy>:{ban, luc, ua, thu, loi}}}` — đọc → thay mục máy mình → ghi (2 máy không đè nhau); đẩy 20 s sau mở, 3 s sau bấm thử, 60 s sau lỗi mới.
+- **E1:** BroadcastChannel `tuhoso-tab` — tab mở sau thấy tab chính → chỉ xem (bọc `luuNgay` không ghi), dải ⛔ + "Dùng tab này" (đổi vai); 2 tab mở cùng lúc → mã nhỏ làm chính. Trình duyệt tự động (phép thử) không khóa trừ khi cờ `tuhoso_e1_thu`. **E2:** mở app +3 s tự `navigator.storage.persist()` nếu chưa.
+- Phép thử mới t404 (9 ý — Drive giả 2 máy, 2 tab qua http).
+
 ## 3.547 — 15/11/2026 — Nạp & KT báo gọn (TK 2)
 - **Nguồn:** anh 15/11 "các phần đối chiếu, kiểm tra nay đã chuẩn dần nên không cần ghi quá chi tiết ra chỗ nạp và kiểm tra" · "có thể báo nhưng đơn giản lại" · "code gọn nạp và gộp".
 - **Kết quả kiểm tra (js/22k):** mục so 2 file chỉ hiện 1 lần ở file đứng trước — bỏ dòng "↗ xem ở …" lặp; file không còn mục riêng thì không hiện; bỏ dòng "Ghi nhận chênh lệch…" (vào chữ rê chuột dòng Đã kiểm); "Chưa kiểm" 1 dòng (giải thích rê chuột). Bảng số đối chiếu (`slDCHTML`) gập trong `<details>`, có ô lệch thì tự mở; chú giải màu vào chữ rê chuột.

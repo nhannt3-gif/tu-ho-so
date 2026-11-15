@@ -169,7 +169,7 @@
 | `tcTim` | 22f-tra-cuu.js | 2 | 22f-tra-cuu.js |  |
 | `tenCauTruc` | 03-doc-pdf.js | 1 | 03-doc-pdf.js |  |
 | `thTK` | 22i-tong-hop.js | 2 | 22i-tong-hop.js |  |
-| `thumuc` | 03-doc-pdf.js | 73 | 03-doc-pdf.js · 04b2-hom-nay-ghi-chu.js · 04b3-hom-nay-lich-viec.js · 04d-bo-ho-so.js · 06-hop-thoai.js · 06a-dong-bo-cai-dat.js …+17 | mục trong thùng rác → file nằm ở _ThungRac |
+| `thumuc` | 03-doc-pdf.js | 74 | 03-doc-pdf.js · 04b2-hom-nay-ghi-chu.js · 04b3-hom-nay-lich-viec.js · 04d-bo-ho-so.js · 06-hop-thoai.js · 06a-dong-bo-cai-dat.js …+18 | mục trong thùng rác → file nằm ở _ThungRac |
 | `tk104Tay` | 28-tv-tk.js | 3 | 28-tv-tk.js |  |
 | `tkChon` | 28-tv-tk.js | 5 | 28-tv-tk.js · 72-ho-vay.js | TK chính: anh đã chọn (js/28) → số dư lớn nhất |
 | `toCot` | 22gb-to-giao-dien.js | 1 | 22gb-to-giao-dien.js |  |

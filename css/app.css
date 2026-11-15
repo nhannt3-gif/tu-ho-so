@@ -4157,3 +4157,9 @@ table.tc-to-hang td.tc-to-canh{white-space:normal;width:100%;font-size:calc(12.5
 #dai-ban button{font-size:12px;padding:3px 10px}
 /* 3.547: bảng số đối chiếu gập (Nạp & KT) */
 details.sl-dc > summary{cursor:pointer;font-weight:600;color:var(--xanh-dam);margin-bottom:4px}
+/* 3.548 đợt 2 (js/94-may-that.js): dải tab chỉ xem + kết quả thử trên máy */
+#dai-tab{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 12px;background:var(--do-nen,#FDECEC);color:var(--do,#B42318);border-bottom:1px solid currentColor;font-size:13px;position:relative;z-index:51}
+#dai-tab span{flex:1 1 auto;min-width:0}
+.mth-dong{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--vien)}
+.mth-viec{flex:1 1 260px;min-width:0}
+.mth-ghi{flex:1 1 100%;color:var(--chu-phu)}
