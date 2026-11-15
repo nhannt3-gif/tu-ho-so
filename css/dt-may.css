@@ -170,3 +170,8 @@ body.dtm-on section.trang button:not(table button):not(.sap-ico):not(.tick),body
 body.dtm-on #hop .hop-in.dtm-keo{transition:none !important}
 body.dtm-on #hop .hop-in.dtm-tha{transition:transform .22s ease-out !important}
 body.dtm-on #hop .hop-in::before{content:"";display:block;width:40px;height:5px;border-radius:3px;background:var(--vien,#ccc);margin:-4px auto 8px}   /* thanh kéo như bảng iOS */
+/* 3.542 (Đ2 mục 4 + anh "tinh chỉnh cho iPhone"): KTGS (Món / Kiểu / Số hộ) và Tổ TK&VV (Khách / Cần xử lý) — mỗi nhóm chip 1 dòng cuộn ngang thay vì xuống nhiều dòng */
+body.dtm-on .kt-to-nhom,body.dtm-on .to-nhom{flex:1 1 100% !important;min-width:0;flex-wrap:nowrap !important;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:2px}
+body.dtm-on .kt-to-nhom::-webkit-scrollbar,body.dtm-on .to-nhom::-webkit-scrollbar{display:none}
+body.dtm-on .kt-to-nhom > *,body.dtm-on .to-nhom > *{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap}
+body.dtm-on .kt-to-cong,body.dtm-on .to-chip-khung{row-gap:4px !important}

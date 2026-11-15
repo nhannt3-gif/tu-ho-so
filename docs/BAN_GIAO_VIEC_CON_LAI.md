@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.542)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | iPhone › KTGS › Kiểm tra tổ | Món / Kiểu / Số hộ mỗi nhóm 1 dòng, vuốt ngang | |
+| 2 | iPhone › Tổ TK&VV | Khách / Cần xử lý 1 dòng vuốt ngang | |
+
 ### Danh sách thử trên máy thật (3.541)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
