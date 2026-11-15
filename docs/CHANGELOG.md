@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.544 — 15/11/2026 — Ngày chuyển QH: thêm "Ngày CNQH gần nhất" Mẫu 31 (TK 2)
+- **Nguồn:** TK 1 hộp thư 15/11 (PR #565, gộp vào nhánh TK 2 — có xung đột hộp thư với main): so 3.542 ↔ GB 1.12 — File 1 307/307 tổ khớp; 3 món ngày chuyển QH app sai (đã sửa 3.543); nhờ ưu tiên "Ngày CNQH gần nhất" khi có. Anh "gộp và code".
+- **Sửa (`slDCNgayCQH`, js/22k):** ngày chuyển QH = Sao kê nợ quá hạn → Mẫu 31 "Ngày CNQH gần nhất" (`c_ngay_cnqh_gan_nhat`, đọc dd/mm/yyyy hoặc số Excel qua `tdnNgay`) → QT-C-12. Mốc cuối tháng không đổi (có sao kê); kỳ giữa tháng nay có ngày hệ thống.
+- t325 +1 ý.
+
+## 3.543 — 15/11/2026 — File 2: ngày theo file hệ thống (TK 2)
+- **Nguồn:** TK 2 tự so File 2 mốc 31/10 (TK 1 hết hạn mức): App 3.542 = GB 687 món, cùng KU, tiền / nhóm / số tháng lãi khớp; lệch ngày hết khoanh 30 món (GB trống) + ngày chuyển QH 3 món. Anh chốt 15/11 "ngày khoanh và hết hạn khoanh, ngày chuyển nợ quá hạn nếu có thống nhất 2 bên".
+- **Sửa (`slDCMonTinh`, js/22k):** `ngay_chuyen_qh` = "Ngày chuyển quá hạn" Sao kê nợ quá hạn (không có → QT-C-12); thêm **cột 20 `ngay_khoanh`** (ngày hiệu lực khoanh, Sao kê nợ khoanh) ở cuối — script đọc 19 cột vẫn chạy. Khuôn mục 3 ghi; hộp thư nhờ GB làm theo.
+- t325 +1 ý.
+
 ## 3.542 — 15/11/2026 — Điện thoại Đ2 (tiếp): nhóm chip KTGS / Tổ TK&VV 1 dòng (TK 2)
 - **Nguồn:** anh 15/11 "gộp và tiếp" — làm nốt Đ2 mục 4.
 - **Chỉ ≤ 600 px** (`css/dt-may.css`): `.kt-to-nhom` (Món / Kiểu / Số hộ) và `.to-nhom` (Khách / Cần xử lý) mỗi nhóm 1 dòng cuộn ngang có quán tính, bắt dính từng chip (trước xuống 2–4 dòng). KTGS lên cao ~90 px, Tổ TK&VV ~130 px.

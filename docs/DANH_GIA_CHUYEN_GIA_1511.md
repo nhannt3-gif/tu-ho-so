@@ -1,7 +1,7 @@
 # ĐÁNH GIÁ CHUYÊN GIA + Ý TƯỞNG MỚI — hiệu suất app, điểm nghẽn, phối hợp App ↔ Giao ban (15/11/2026)
 
 > Anh 15/11: *"đóng vai 1 chuyên gia, đánh giá và góp ý cải thiện, tối ưu hiệu suất của app, chỉ ra điểm nghẽn hiệu suất và công nghệ, góp ý về ý tưởng phối hợp giữa app và giao ban"* · *"cái anh cần ở em là thiên về đánh giá và đề xuất ý tưởng mới"*.
-> File này **chỉ là đánh giá + đề xuất** — chưa việc nào được duyệt làm. Việc nào anh chọn → vai tương ứng (App / Giao ban) lên kế hoạch → anh nhắn "code".
+> **Anh duyệt hướng 15/11 ("gộp và theo ý em") — mục 6.** Từng việc vẫn: vai tương ứng (App / Giao ban) lên kế hoạch ngắn → anh nhắn "code".
 > Số đo: máy chủ đám mây, Chromium không giao diện, dữ liệu GIẢ — **chưa đo trên máy / điện thoại thật của anh**. Phần ghi "(suy luận)" là nhận định, không phải số đo.
 
 ## 1. Kết luận ngắn
@@ -98,15 +98,16 @@ Trước mỗi phiên giao dịch, từ Mẫu 31 theo ngày: món sẽ chuyển 
 | 3 | **B1** gói số liệu kỳ · **B3** script vào repo · **A5** hai kênh | Nền dài hạn |
 | 4 | **C1**, **C2** | Giá trị nghiệp vụ, cần nền ổn |
 
-## 6. Anh quyết
+## 6. Anh đã quyết (15/11: "gộp và theo ý em")
 
-1. Chọn ý nào làm (theo đợt hay chọn lẻ) — vai nào làm ý nào: A1, A2, A3, A4, A5, B1, B4, C2, D1–D3 → **App (TK 2)**; B2 → **App + Giao ban**; B3, C1 → **Giao ban (TK 1) + App**.
-2. A3: cho phép nhật ký lỗi lên Drive của anh không.
-3. B3: đưa mã script Giao ban vào repo công khai được không.
-4. B5: đồng ý dừng báo cáo BĐD trong app không.
+1. **Làm theo thứ tự 4 đợt ở mục 5.** Vai làm: A1, A2, A3, A4, A5, B1, B4, C2, D1–D3 → **App (TK 2)**; B2 → **App + Giao ban**; B3, C1 → **Giao ban (TK 1) + App**. Mỗi việc vẫn theo quy trình: vai làm lên kế hoạch ngắn → anh nhắn "code" → PR → anh nhắn "gộp".
+2. **A3 ✓** — nhật ký lỗi được tự lưu lên Drive của anh (đã lọc, không dữ liệu khách).
+3. **B3 ✓** — đưa mã script Giao ban vào repo (chỉ mã; TK 1 rà trước, không đưa dữ liệu / thông tin không công khai).
+4. **B5 ✓** — dừng báo cáo BĐD trong app; văn bản chỉ phát hành ở Giao ban.
 
 ## 7. Nhật ký
 
 | Ngày | Nội dung |
 |---|---|
 | 15/11/2026 | Lập theo yêu cầu anh (phiên đánh giá, TK chính). Đo trên 3.541; khảo sát B4 nhưng **không làm** (anh: thiên về đánh giá + ý tưởng). |
+| 15/11/2026 | Anh "gộp và theo ý em": duyệt thứ tự 4 đợt, A3, B3, B5 (mục 6). Đợt 1 = A1 + B4 + A4. |

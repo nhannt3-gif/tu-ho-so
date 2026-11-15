@@ -48,6 +48,9 @@ Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-D
 | ngay_den_han | Ngày đến hạn tháng tới (QT-C-17) |
 | ngay_het_khoanh | Ngày hết hạn khoanh (nếu nguồn có) |
 | so_thang_lai | Lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12), 1 chữ số thập phân |
+| ngay_khoanh | **Cột 20 (thêm cuối, 15/11):** ngày khoanh nợ (ngày hiệu lực khoanh) theo Sao kê nợ khoanh; trống nếu không có |
+
+**Ngày lấy theo file hệ thống, thống nhất 2 bên** (anh chốt 15/11 "ngày khoanh và hết hạn khoanh, ngày chuyển nợ quá hạn nếu có thống nhất 2 bên"): `ngay_chuyen_qh` = cột "Ngày chuyển quá hạn" của **Sao kê nợ quá hạn** (không có thì QT-C-12); `ngay_khoanh`, `ngay_het_khoanh` = **Sao kê nợ khoanh**. Cột 20 `ngay_khoanh` thêm ở cuối nên script đọc 19 cột đầu vẫn chạy.
 
 Không ghi họ tên khách hàng (mục 5.4).
 

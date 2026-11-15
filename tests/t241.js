@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path');
    const S = PV_DUNG.to.S(); ok('mở lại sau bỏ ghim: giữ địa bàn phiên trước (đến tổ)', !!S.xa && !!S.to); if(!pvGonCua('to')) pvGonDoi('to'); return o; }));
  /* điện thoại */
  await p.setViewportSize({width:390, height:800}); await p.waitForTimeout(500); await moTab('to');
- R.push(...await p.evaluate(()=>{ const o=[], ok=(ten,dk)=>o.push((dk?'✓ ':'✗ ')+ten); const k = document.querySelector('#to-cay .loc-khoi');
+ R.push(...await p.evaluate(()=>{ const o=[], ok=(ten,dk)=>o.push((dk?'✓ ':'✗ ')+ten); document.body.classList.add('dtm-loc-mo');   /* 3.541: lọc trên ĐT thu gọn, bấm mới mở — đo khi mở */ const k = document.querySelector('#to-cay .loc-khoi');
    ok('điện thoại: gọn — ô chọn Xã hiện, không chip', k.classList.contains('gon') && document.getElementById('to-xa').offsetParent!==null && !document.querySelector('#to-cay .pv-hang2:not([style*="none"])')?.offsetParent); return o; }));
  await p.screenshot({path:path.join(__dirname,'t241.png')});
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));

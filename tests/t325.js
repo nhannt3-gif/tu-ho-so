@@ -32,13 +32,21 @@ const fs=require('fs'), path=require('path');
    /* 3.539 File 2 — danh sách món (khuôn 1.1 mục 3) */
    const c2 = slDCMonCsv(K), M = c2.replace(/\r\n$/, '').split('\r\n'), mr = M.slice(2).map(l=>l.split(','));
    ok('3.539 File 2: BOM + dòng 1 "#" (khuôn 1.1, ngày số liệu, đếm nhóm, không ghi họ tên)', c2.charCodeAt(0)===0xFEFF && /^\ufeff# bên=APP/.test(M[0]) && /khuôn=1\.1/.test(M[0]) && /ngày số liệu=2026-08-31/.test(M[0]) && /không ghi họ tên/.test(M[0]), M[0].slice(0,160));
-   ok('3.539 File 2: dòng 2 = 19 cột đúng thứ tự khuôn', M[1]==='so_ku,ma_kh,khoa,hoi,ma_ap,ma_diem,chuong_trinh,du_no,nqh,khoanh,lai_ton,la_nqh,la_khoanh,la_khd,la_den_han,ngay_chuyen_qh,ngay_den_han,ngay_het_khoanh,so_thang_lai', M[1]);
+   ok('3.539 · 3.543 File 2: dòng 2 = 19 cột khuôn 1.1 + cột 20 ngay_khoanh (thêm cuối)', M[1]==='so_ku,ma_kh,khoa,hoi,ma_ap,ma_diem,chuong_trinh,du_no,nqh,khoanh,lai_ton,la_nqh,la_khoanh,la_khd,la_den_han,ngay_chuyen_qh,ngay_den_han,ngay_het_khoanh,so_thang_lai,ngay_khoanh', M[1]);
    const ten = new Set(K.hs.map(x=>x.ten).filter(Boolean));
-   ok('3.539 File 2: mỗi dòng 19 ô, mỗi khế ước 1 lần, mỗi món thuộc ≥ 1 nhóm, không có họ tên khách', mr.length>0 && mr.every(r=>r.length===19) && new Set(mr.map(r=>r[0])).size===mr.length && mr.every(r=>[11,12,13,14].some(c=>r[c]==='1')) && !mr.some(r=>r.some(v=>ten.has(v))), mr.length+' dòng');
+   ok('3.539 File 2: mỗi dòng 19 ô, mỗi khế ước 1 lần, mỗi món thuộc ≥ 1 nhóm, không có họ tên khách', mr.length>0 && mr.every(r=>r.length===20) && new Set(mr.map(r=>r[0])).size===mr.length && mr.every(r=>[11,12,13,14].some(c=>r[c]==='1')) && !mr.some(r=>r.some(v=>ten.has(v))), mr.length+' dòng');
    const dem = c=>mr.filter(r=>r[c]==='1').length, toR = rows.filter(r=>!/^TT\|/.test(r[0]) || true);
    ok('3.539 File 2: số món KHĐ / đến hạn tháng tới = tổng cột File 1 (so_mon_khd, so_mon_den_han_thang_toi)', dem(13)===cong(14) && dem(14)===cong(16), [dem(13), cong(14), dem(14), cong(16)].join('/'));
    const qhM2 = new Set(K.hs.filter(x=>x.ku && (x.qh||0)>0).map(x=>x.ku)).size;
    ok('3.539 File 2: số món quá hạn = số khế ước có dư nợ quá hạn trên Mẫu 31; món quá hạn có ngày chuyển QH dd/mm/yyyy hoặc trống', dem(11)===qhM2 && mr.filter(r=>r[11]==='1').every(r=>r[15]==='' || /^\d\d\/\d\d\/\d{4}$/.test(r[15])), dem(11)+'/'+qhM2);
+   /* 3.543: ngày chuyển QH ưu tiên Sao kê nợ quá hạn; ngày khoanh / hết khoanh theo Sao kê nợ khoanh (dữ liệu giả gắn tạm vào K.B) */
+   const qm = K.hs.find(x=>x.ku && (x.qh||0)>0) || K.hs.find(x=>x.ku); const qku = qm.ku, nqhCu = K.B.nqh, nkCu = K.B.nk, qhCu = qm.qh, knCu = qm.kn;
+   qm.qh = qm.qh || 1000; qm.kn = qm.kn || 2000; K.B.nqh = Object.assign({}, nqhCu||{}, {[qku]:{ncqh:'2026-03-09'}}); K.B.nk = Object.assign({}, nkCu||{}, {[qku]:{nhh:'2027-04-29', nhl:'2025-04-30'}});
+   const r43 = slDCMonTinh(K).dong.find(r=>r[0]===qku); K.B.nqh = nqhCu; K.B.nk = nkCu; qm.qh = qhCu; qm.kn = knCu;
+   ok('3.543 File 2: ngày chuyển QH = Sao kê NQH (09/03/2026), ngày hết khoanh 29/04/2027 + ngày khoanh 30/04/2025 = Sao kê nợ khoanh', !!r43 && r43[15]==='09/03/2026' && r43[17]==='29/04/2027' && r43[19]==='30/04/2025', JSON.stringify(r43));
+   ok('3.544 slDCNgayCQH: Sao kê NQH trước → Mẫu 31 "Ngày CNQH gần nhất" (dd/mm/yyyy hoặc số Excel) → QT-C-12',
+     slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:'05/06/2026'}, {x:{ncqh:'2026-03-09'}})==='2026-03-09' && slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:'05/06/2026'}, {})==='2026-06-05'
+     && slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:46178}, {})==='2026-06-05' && slDCNgayCQH({ku:'x', to:'', dhg:'2026-01-10'}, {})===skCQH({ku:'x', to:'', dhg:'2026-01-10'}).d);
    const f1m = {}; rows.forEach(r=>f1m[r[0]] = r);
    ok('3.539 File 2: hoi / ma_ap / ma_diem theo dòng tổ ở File 1', mr.every(r=>!f1m[r[2]] || (r[3]===f1m[r[2]][4] && r[4]===f1m[r[2]][2] && r[5]===f1m[r[2]][3])), JSON.stringify(mr.find(r=>f1m[r[2]] && r[3]!==f1m[r[2]][4])||''));
    ok('3.540 slDCMonThangLai (khuôn 1.1, như giao ban): 30 tr × 6% → 450.000 = "3.0"; lãi suất 0 → tháng lịch từ ngày GD (02/07 → 31/08 = "1.0"; 31/07 → 31/08 = "1.0"; 15/06 → 10/08 = "1.0"); không ngày GD → trống; không lãi → 0',
