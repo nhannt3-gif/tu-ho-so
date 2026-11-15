@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.546 A1 + B4 — xong đợt 1 đánh giá)
+- Anh "code cả 2 và gộp": A1 `js/93-moc-vang.js` (`MVG`) 🧪 Kiểm mốc — đáp án Drive `Tủ hồ sơ/Mốc vàng/VANG_DOI_CHIEU_(MON_)APP_2026-10-31.csv` (TK 2 chép từ App_that); B4 `.github/workflows/kiem-pr.yml` + `tools/kiem_pr.sh` (mốc của main, 4 phần, trượt chạy lại 1 lần). t403 6/6.
+- Anh 15/11: "đối chiếu, kiểm tra đã chuẩn dần — không cần ghi quá chi tiết ở Nạp & KT, có thể báo nhưng đơn giản lại" → kết quả 🧪 1 dòng / mốc, chi tiết gập. Phần cũ dài ở Nạp & KT (khối 🏦 Tổ trưởng 3 dòng + 2 dòng chữ xám; Kết quả kiểm tra mở ra) → trình phương án gọn, chờ anh duyệt.
+- Bẫy: B4 chạy lần đầu trên GitHub chưa thấy kết quả thật (máy này không chạy được Actions) — xem dấu "Kiểm PR" ở PR đầu tiên.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.545 A4 nhắc bản mới)
 - Hồi quy đủ 3.543: 276/279 — 3 trượt (t241, t315, t398) do lọc ĐT thu gọn 3.541 (chủ ý) → sửa phép thử (PR #568); hồi quy theo đổi 3.544 279/279.
 - Anh "code A4 và gộp": `js/92-ban-moi.js` (`BMN`) hỏi bản máy chủ (mở +5 s, 30 phút, quay lại tab), dải `#dai-ban` + ⟳ Cập nhật ngay; bọc `slDCXuat` chặn xuất khi bản cũ. t402 10/10.

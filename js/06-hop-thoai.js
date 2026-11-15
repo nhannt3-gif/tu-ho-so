@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.545', ds:[
+var CO_GI_MOI = {ban:'3.546', ds:[
+  ["⋯ Nạp & KT: nút 🧪 Kiểm mốc — so mốc cuối tháng 10 (đã khớp giao ban) bằng bản app đang chạy, ra ✅ khớp / ❌ N chỗ lệch", ""],
+  ["GitHub tự kiểm mỗi PR (cú pháp + phép thử bị ảnh hưởng) — PR đỏ thì không gộp", ""],
   ["Máy đang chạy bản cũ → dải trên cùng báo \"đã có bản mới\" + nút ⟳ Cập nhật ngay (tự kiểm khi mở app và 30 phút / lần)", ""],
   ["📤 File đối chiếu không cho xuất khi máy đang chạy bản cũ — tránh hai bên so khác cách tính", ""],
   ["File danh sách món: ngày chuyển quá hạn lấy thêm cột \"Ngày CNQH gần nhất\" của Mẫu 31 khi không có Sao kê nợ quá hạn (kỳ giữa tháng)", ""],
@@ -1070,10 +1072,9 @@ var CO_GI_MOI = {ban:'3.545', ds:[
   ["Sửa: điện thoại không mở được Lọc địa bàn ở Tra cứu (máy báo cỡ màn muộn) — phần điện thoại tự khởi động lại, lọc không bao giờ kẹt gọn", ""],
   ["Điện thoại: văn bản đã xem lưu trong máy trong ngày (mở lại ngay), sang ngày mới tự dọn — không tải sẵn", ""],
   ["Điện thoại: Tra cứu KH gọn (1 ô tìm ở đầu, lọc địa bàn bấm mở, 📞 Gọi) · Văn bản thẻ gọn, xem VB có \"📤 Gửi trang này\" và \"📤 Gửi cả VB\"", ""],
-  ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
-  ["Lãi tồn: món có ngày GD sau ngày số liệu (Mẫu 31 xuất muộn) giữ nguyên lãi tồn — khớp giao ban cả 2 mốc", ""],
-  ["Lãi tồn: món không có lãi suất không bị bỏ hết lãi tồn trong hạn (khớp giao ban)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.546 · Laptop (đã nối Drive, có số liệu 31/10): ⋯ Nạp & KT › 🧪 Kiểm mốc → ✅ Mốc 31/10/2026: khớp",
     "3.545 · Laptop: mở app khi đã có bản mới → thấy dải vàng trên cùng, bấm ⟳ Cập nhật ngay → góc trên ghi bản mới",
     "3.545 · Bấm 📤 File đối chiếu trên máy bản cũ → báo chưa lập, nhắc cập nhật",
     "3.544 · 📤 File đối chiếu kỳ giữa tháng (không có Sao kê NQH): món chuyển QH lại có ngày như Mẫu 31",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.545', ds:[
     "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn",
     "3.535 · Thẻ khách: 📞 Gọi",
     "3.535 · Văn bản › mở 1 VB: mỗi trang có 📤 Gửi trang này → Zalo nhận 1 trang",
-    "3.534 · 🧰 Công cụ: còn 3 ô (HSSV, Địa bàn, CT vay)",
-    "3.534 · 🏢 Giao dịch xã › ⋯: không còn Mini app; bản điện thoại tab 🏢 vẫn chạy"],
+    "3.534 · 🧰 Công cụ: còn 3 ô (HSSV, Địa bàn, CT vay)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.546 — 15/11/2026 — A1 🧪 Kiểm mốc vàng + B4 kiểm tự động PR (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` đợt 1; anh 15/11 "code cả 2 và gộp"; anh 15/11 "đối chiếu, kiểm tra đã chuẩn dần nên không cần ghi quá chi tiết ở Nạp & KT — có thể báo nhưng đơn giản lại".
+- **A1 — gói mới `js/93-moc-vang.js` (`MVG`, cắm rút):** nút 🧪 Kiểm mốc cạnh 📤 File đối chiếu. Đáp án = file đối chiếu đã khớp giao ban, để trên Drive của anh `<thư mục app>/Mốc vàng/VANG_DOI_CHIEU_APP_<ngày>.csv` + `VANG_DOI_CHIEU_MON_APP_<ngày>.csv` (không vào repo); chưa nối Drive → chọn file trên máy. Tính lại File 1 + File 2 đúng ngày mốc từ kho (`slDCGBTinh` / `slDCCsv` / `slDCMonCsv`) → so từng ô (khóa tổ `khoa`, món `so_ku`; bỏ dòng `#`) → 1 dòng / mốc ✅ khớp / ❌ N chỗ lệch, chi tiết gập. Chỉ đọc.
+- **B4 — `.github/workflows/kiem-pr.yml` + `tools/kiem_pr.sh`:** mỗi PR vào main: `kiem.py` (cú pháp, trùng tên, thước đo trong mốc) + phép thử chọn theo mốc hồi quy **của main** (không tin mốc PR tự ghi), chia 4 phần song song, trượt chạy lại 1 lần, log phép trượt tải về được. Dữ liệu giả `taogia.py`; thư viện thử đệm.
+- Phép thử mới t403 (6 ý).
+
 ## 3.545 — 15/11/2026 — A4: biết máy chạy bản nào + nhắc cập nhật (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` ý A4 (sự cố 15/11: laptop còn 3.519 khi main 3.542 → file đối chiếu 30/09 phải xuất lại). Anh 15/11 "code A4 và gộp".
 - **Gói mới `js/92-ban-moi.js` (không gian tên `BMN`, cắm rút):** hỏi máy chủ `js/02-nen.js?kiem_ban=1` (không đệm) lúc mở app +5 s, 30 phút / lần, khi quay lại tab sau ≥ 10 phút → bản mới hơn `APP_BAN` thì dải `#dai-ban` trên cùng + ⟳ Cập nhật ngay (làm mới đệm trang gốc + bộ đệm không mạng rồi tải lại) / Để sau (ẩn trong phiên). Bọc `slDCXuat`: kiểm lại ngay trước khi xuất — bản cũ → không xuất; không hỏi được (mất mạng) → xuất như cũ. Mở bằng file:// → không hỏi. Không gửi gì đi đâu.
