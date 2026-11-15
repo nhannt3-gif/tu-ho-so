@@ -25,7 +25,7 @@ const fs=require('fs'), path=require('path');
  ok('👁 Xem → hộp xem đủ 3 báo cáo đang bật (như trước)', r.hop && r.ds && r.no && r.tk, JSON.stringify(r));
  await p.evaluate(()=>{ try{ dongHop(); }catch(e){} }); await p.close();
  const d = await mo(390, 844, true); await chonTo(d); await d.waitForTimeout(1200);
- r = await d.evaluate(()=>{ const s=[...document.querySelectorAll('#to-cay .pv-hang1 select.pv-o')]; return {n:s.length, nho:Math.round(Math.min(...s.map(x=>x.getBoundingClientRect().width))), tran:document.documentElement.scrollWidth>innerWidth+1}; });
+ r = await d.evaluate(()=>{ document.body.classList.add('dtm-loc-mo');   /* 3.541: đo khi mở lọc */ const s=[...document.querySelectorAll('#to-cay .pv-hang1 select.pv-o')]; return {n:s.length, nho:Math.round(Math.min(...s.map(x=>x.getBoundingClientRect().width))), tran:document.documentElement.scrollWidth>innerWidth+1}; });
  ok('điện thoại chọn tới tổ: ≥ 4 ô chọn, ô hẹp nhất ≥ 100 px (đọc được), không tràn ngang', r.n>=4 && r.nho>=100 && !r.tran, JSON.stringify(r));
  await d.close();
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
