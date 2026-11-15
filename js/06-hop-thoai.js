@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.540', ds:[
+var CO_GI_MOI = {ban:'3.541', ds:[
+  ["iPhone: vuốt ngang đổi tab (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan), vuốt xuống đóng hộp / thẻ khách; lọc địa bàn gọn 1 dòng ở mọi màn; nút mẫu Giao dịch xã 1 dòng cuộn", ""],
   ["Gia hạn tối đa theo QĐ 54 / VB 7442 (QT-C-20): HSSV ½ thời hạn trả nợ, Nhà ở xã hội 12 / 24 tháng, ngắn hạn 12 tháng; file đối chiếu ghi đủ mã điểm TXN…", ""],
   ["📤 File đối chiếu xuất thêm File 2 — danh sách món (DOI_CHIEU_MON_APP): món quá hạn, khoanh, 3 tháng KHĐ, đến hạn tháng tới — theo khuôn chung 1.1, không ghi họ tên", ""],
   ["File đối chiếu theo khuôn số liệu chung 1.0: mã điểm ghi 4 số cuối, dòng vay trực tiếp chỉ đếm khách còn dư nợ", ""],
@@ -1071,9 +1072,11 @@ var CO_GI_MOI = {ban:'3.540', ds:[
   ["Lãi tồn: nhận file có lãi dồn theo SỐ TIỀN từng món (TH ≤ lãi dồn tính từ ngày GD) — file 31/10 xuất lại bằng 3.528 chưa được bỏ lãi dồn", ""],
   ["Dọn mã: gộp 2 hàm trùng (ghép PDF · nguồn vốn TW/ĐP) — không đổi chức năng", ""],
   ["Cỡ chữ Tự động theo cỡ màn (mặc định): màn 24\" chữ to hơn, laptop 125% nhỏ hơn chút — không ẩn / đổi nút; ⚙ Cài đặt › Cỡ chữ vẫn chọn tay được", ""],
-  ["Lãi tồn: file chốt tháng thật (30/09) không trừ lãi dồn nữa; ngày phiên theo từng món (cột Ngày GDXA) — theo kết quả TK 1 so biểu TW", ""],
-  ["Sửa lỗi chọn nhầm File Tổ trưởng / Sao kê TK 104, 105 theo ngày cũ thay bản chốt tháng (làm file đối chiếu T10 bị chặn)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Lãi tồn: file chốt tháng thật (30/09) không trừ lãi dồn nữa; ngày phiên theo từng món (cột Ngày GDXA) — theo kết quả TK 1 so biểu TW", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.541 · iPhone: vuốt trái / phải giữa 4 tab chính",
+    "3.541 · Mở thẻ khách hoặc ☰ → vuốt xuống để đóng",
+    "3.541 · Tổ TK&VV / GD xã / KTGS: LỌC ĐỊA BÀN 1 dòng, bấm mở",
     "3.540 · Sao kê nợ đến hạn › cột Còn GH: món ngắn hạn ≤ 12 tháng; NOXH 24 tháng; HSSV thiếu ngày ra trường hiện ≈",
     "3.540 · 📤 File đối chiếu: ma_diem đủ TXN…; File 2 so_thang_lai dạng 3.0",
     "3.539 · ⋯ Nạp & KT › 📤 File đối chiếu 31/10 → Drive Số liệu/2026-10 có thêm DOI_CHIEU_MON_APP_2026-10-31.csv (19 cột)",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.540', ds:[
     "3.531 · 📤 File đối chiếu T10: lãi tồn gần TW (TK 1 so); tiền gửi khớp giao ban từng tổ",
     "3.530 · 📤 File đối chiếu T10: dòng đầu \"lãi tồn=file có lãi dồn (…) — bỏ lãi dồn … món\"; T9: \"chốt tháng thật … giữ …\"",
     "3.529 · Văn bản › Ghép PDF kỳ; Biểu mẫu › Ghép bộ — vẫn ghép đúng",
-    "3.528 · Màn 24\" ở nhà: chữ to hơn (Tự động)",
-    "3.528 · Laptop 125%: chữ nhỏ hơn chút, đủ nút",
-    "3.528 · ⚙ Cài đặt › Hiển thị › Cỡ chữ: Tự động / Nhỏ / Vừa / To",
-    "3.527 · 📤 File đối chiếu T9: dòng đầu ghi \"lãi tồn=giữ nguyên (chốt tháng thật …)\"; T10: \"bỏ lãi dồn … (file có lãi dồn …)\""],
+    "3.528 · Màn 24\" ở nhà: chữ to hơn (Tự động)"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

@@ -45,6 +45,26 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    ok(W+' "📤 Gửi trang này" (trang 2) → bảng chia sẻ nhận 1 file PDF đúng 1 trang, tên có _trang-2; không để lại trang đã chọn', s.gui.length===1 && s.gui[0].trang===1 && /_trang-2\.pdf$/.test(s.gui[0].ten) && s.chon===0, JSON.stringify(s));
    await p.evaluate(()=>doiChonTrang(XEM.lon.khung[0], 1)); const n1 = await p.evaluate(()=>document.getElementById('nut-gui-trang').textContent);
    ok(W+' tích 1 trang → nút "📤 Gửi 1 trang"', /Gửi 1 trang/.test(n1), n1);
+   if(W===390){   /* 3.541 (anh "tinh chỉnh cho màn iPhone, tận dụng vuốt mượt"): lọc gọn mọi màn · chip GDX 1 dòng cuộn · vuốt ngang đổi tab · vuốt xuống đóng hộp */
+     const g = await p.evaluate(async()=>{ try{dongXem()}catch(e){} try{dongHop()}catch(e){} document.body.classList.remove('dtm-loc-mo'); const r = {};
+       for(const k of ['to', 'gdx', 'kt']){ dhMuc(k).mo(); await new Promise(z=>setTimeout(z,1500)); const sel = document.querySelector('section.trang.hien .pv-cay .pv-hang1'), dan = document.querySelector('section.trang.hien .pv-cay .pv-dan');
+         r[k] = {an:!sel || sel.offsetParent===null, dan:dan ? dan.textContent.replace(/\s+/g,' ').slice(0, 40) : ''}; }
+       dhMuc('gdx').mo(); await new Promise(z=>setTimeout(z,1200)); const m = [...document.querySelectorAll('section.trang.hien .gdx2-mau')].find(x=>x.offsetParent);
+       r.chip = m ? {cao:m.offsetHeight, cuon:m.scrollWidth > m.clientWidth} : null; return r; });
+     ok('390 lọc địa bàn gọn 1 dòng ở Tổ TK&VV / Giao dịch xã / KTGS, dòng gọn ghi phạm vi (🏠 …)', ['to','gdx','kt'].every(k=>g[k].an && /🏠/.test(g[k].dan)), JSON.stringify(g));
+     ok('390 Giao dịch xã: 15 nút mẫu 1 dòng cuộn ngang (cao < 50 px)', g.chip && g.chip.cao < 50 && g.chip.cuon, JSON.stringify(g.chip));
+     const tab = await p.evaluate(async()=>{ doiNgan(0); dtVe(); await new Promise(z=>setTimeout(z,600)); const el = document.querySelector('section.trang.hien');
+       const tc = (x, y) => new Touch({identifier:1, target:el, clientX:x, clientY:y}), ban = (loai, x, y) => el.dispatchEvent(new TouchEvent(loai, {bubbles:true, cancelable:true, touches:loai==='touchend' ? [] : [tc(x, y)], changedTouches:[tc(x, y)]}));
+       const truoc = dtDang(); ban('touchstart', 300, 400); ban('touchend', 120, 410); await new Promise(z=>setTimeout(z,1200)); const sau = dtDang();
+       ban('touchstart', 120, 400); ban('touchend', 320, 405); await new Promise(z=>setTimeout(z,1200)); const lui = dtDang();
+       ban('touchstart', 10, 400); ban('touchend', 300, 400); await new Promise(z=>setTimeout(z,600)); return {truoc, sau, lui, mep:dtDang()}; });
+     ok('390 vuốt trái: Hôm nay → Tra cứu; vuốt phải: về Hôm nay; vuốt từ sát mép trái (vuốt lùi Safari) không đổi tab', tab.truoc==='0' && tab.sau==='tra' && tab.lui==='0' && tab.mep==='0', JSON.stringify(tab));
+     const hop = await p.evaluate(async()=>{ dtThem(); await new Promise(z=>setTimeout(z,400)); const hi = document.querySelector('#hop .hop-in'), y0 = hi.getBoundingClientRect().top+30;
+       const tc = (y) => new Touch({identifier:2, target:hi, clientX:200, clientY:y}), ban = (loai, y) => hi.dispatchEvent(new TouchEvent(loai, {bubbles:true, touches:loai==='touchend' ? [] : [tc(y)], changedTouches:[tc(y)]}));
+       ban('touchstart', y0); ban('touchmove', y0+40); ban('touchend', y0+40); await new Promise(z=>setTimeout(z,400)); const conMo = document.getElementById('hop').classList.contains('hien');
+       ban('touchstart', y0); ban('touchmove', y0+80); ban('touchmove', y0+160); ban('touchend', y0+160); await new Promise(z=>setTimeout(z,500));
+       return {conMo, dong:!document.getElementById('hop').classList.contains('hien')}; });
+     ok('390 vuốt xuống hộp ☰: kéo ít (40 px) trượt về, kéo 160 px đóng hộp', hop.conMo && hop.dong, JSON.stringify(hop)); }
    if(W===390){   /* 3.536 (anh "giữ trong ngày thôi"): VB đã xem cất máy chỉ giữ trong ngày — ngày mới dọn bản trong máy của VB đã lên Drive */
      const d = await p.evaluate(async()=>{ try{dongXem()}catch(e){} try{dongHop()}catch(e){}
        const B = ()=>new Blob(['%PDF-1.4'], {type:'application/pdf'});

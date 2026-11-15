@@ -4,6 +4,16 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.541 — 15/11/2026 — Điện thoại Đ2: vuốt kiểu iPhone + gọn các màn còn lại (TK 2)
+- **Nguồn:** anh 15/11 "tinh chỉnh cho màn iPhone, tận dụng khả năng vuốt mượt của iP" (duyệt Đ2 mục 1–4 TK 2 đề xuất).
+- **Chỉ ≤ 600 px** (`css/dt-may.css`, `js/66-dt-may.js` `DTM.vuotTab` / `DTM.vuotHop` / `DTM.cuonNgang`):
+  - Vuốt ngang giữa 4 tab chính (trái = tab kế, phải = tab trước); bỏ qua khi bắt đầu sát mép (vuốt lùi Safari), trong ô nhập / bảng / lọc / hàng cuộn ngang, khi đang mở hộp hay xem VB.
+  - Vuốt xuống đóng hộp (thẻ khách, ☰ Mọi mục…): hộp đi theo ngón tay, thả > 100 px thì đóng, ít hơn trượt về; thanh kéo như bảng iOS.
+  - LỌC ĐỊA BÀN gọn 1 dòng ở **mọi màn** có cây lọc (trước chỉ Tra cứu): dòng gọn ghi phạm vi 🏠 PGD › xã › điểm; bấm mở / gọn; đang gõ tìm tổ thì luôn mở.
+  - Giao dịch xã: 15 nút mẫu 1 dòng cuộn ngang (trước 5 dòng); các hàng chip / thanh xem VB cuộn có quán tính, bắt dính từng nút.
+  - Nút / chip / ô chọn trong trang tối thiểu 34 px (trừ trong bảng).
+- t401 +4 ý (lọc gọn 3 màn, chip GDX, vuốt tab, vuốt đóng hộp); t312 đo lọc khi mở.
+
 ## 3.540 — 15/11/2026 — QT-C-20 gia hạn tối đa + file đối chiếu theo TK 1 (TK 2)
 - **Nguồn:** anh 15/11 "về gia hạn nợ QĐ 54 có trên Drive" → "cứ code và nội suy" (đọc tài liệu tập huấn QĐ 54 + VB 7442/NHCS-TDNN 15/9/2023 mục 1; VB 4341 + 1040 dẫn Điều 7 QĐ 54); TK 1 PR #560 (anh chốt mã điểm đầy đủ, `so_thang_lai` tháng lịch).
 - **QT-C-20 (js/22h `skGHToiDa`, `skCTMa`, `skConGH`):** HSSV (CT 02) ½ thời hạn trả nợ = ĐH HĐ − (ngày ra trường + 12 tháng), thiếu ngày ra trường → nội suy (thời hạn cho vay − 12) ÷ 2 ÷ 2, hiện ≈; NOXH (CT 12) ngắn 12 / trung dài 24 tháng; khác: ngắn hạn (≤ 12 tháng) 12 tháng, trung dài ½ thời hạn cho vay. Trước: mọi món ½ thời hạn cho vay. Còn gia hạn làm tròn +0,1 tháng (tránh 5,98 → 5). Sổ luật 1.12.
