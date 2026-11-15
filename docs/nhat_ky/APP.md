@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.543 File 2 ngày theo hệ thống)
+- TK 1 hết hạn mức → TK 2 tự so File 2 31/10: 687 = 687, khớp trừ ngày (hết khoanh GB trống 30; chuyển QH 3). Anh chốt 3 ngày theo file hệ thống. 3.543: ncqh Sao kê NQH, cột 20 ngay_khoanh. Laptop anh chạy app 3.519 (cũ) — đã hướng dẫn Ctrl+Shift+R; kỳ 25/10 còn trên laptop chờ anh thử lại.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.542 Đ2 nốt)
 - Anh "gộp và tiếp": gộp 3.541; 3.542 nhóm chip KTGS / Tổ TK&VV 1 dòng cuộn. Đ2 xong phần TK 2 đề xuất — chờ anh thử iPhone thật → Đ3 (gỡ dt.html).
 
