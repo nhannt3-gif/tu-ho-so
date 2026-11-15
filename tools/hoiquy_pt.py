@@ -71,7 +71,7 @@ def dinh_nghia(goc):
 
 
 def ds_phep(goc):
-    ds = ['hoiquy', 'hoiquy2'] + sorted(os.path.basename(f)[:-3] for f in glob.glob(os.path.join(goc, 'tests', 't[1-3][0-9][0-9].js')))
+    ds = ['hoiquy', 'hoiquy2'] + sorted(os.path.basename(f)[:-3] for f in glob.glob(os.path.join(goc, 'tests', 't[1-4][0-9][0-9].js')))
     return [t for t in ds if os.path.exists(os.path.join(goc, 'tests', t + '.js'))]
 
 

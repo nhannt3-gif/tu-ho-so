@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.550 đợt 3 phần 1: E6 · F5 · F2)
+- Kế hoạch đợt 3 ở `DANH_GIA_CHUYEN_GIA_1511.md` mục 4d (A5 đề xuất hoãn — 2 kênh chung kho trình duyệt). 3.550: manifest + biểu tượng TH, `--vh` = 100dvh (25 chỗ), `docs/mau-giao-dien.html` (15 mảnh từ GD.*). Sửa lớp CSS thiếu ở hộp 🧪 (3.546). t406 7/7.
+- Kiểm GitHub (B4): t244 / t260 / t395 trượt do phông DejaVu → workflow cài Inter + fontconfig như máy làm việc (edfcd50). Chờ lượt kiểm PR kế tiếp xác nhận xanh trước 3.551 (CSP).
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.549 C5 CLT02)
 - `js/95-clt02.js` (`CLT`): mỗi xã × (tháng | định kỳ) = 1 ô loại động `cltT_<MÃ>` / `cltDK_<MÃ>` (MÃ = tên xã bỏ dấu); ghép tổ app theo xã + Hội + tên tổ trưởng, không ghép → cảnh báo. File thật Gia Lộc 31/10 đọc đúng (khớp Tổng cộng) — chỉ thử ở thư mục nháp. t405 8/8.
 - Bẫy: loại động phải đăng ký trước `slBo0` / `veSoLieu` (CLT.dongBo đọc KHO.dsBang()) — rút gói thì ô CLT02 đã nạp không hiện (dữ liệu vẫn trong kho).

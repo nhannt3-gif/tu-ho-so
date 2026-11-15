@@ -1,0 +1,16 @@
+{
+  "name": "Tủ hồ sơ",
+  "short_name": "Tủ hồ sơ",
+  "description": "Tủ hồ sơ — CBTD NHCSXH: văn bản, số liệu, tổ TK&VV, hồ sơ vay",
+  "lang": "vi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#185FA5",
+  "icons": [
+    {"src": "img/tuhoso-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "img/tuhoso-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "img/tuhoso-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
