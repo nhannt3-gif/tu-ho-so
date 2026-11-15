@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.542 — 15/11/2026 — Điện thoại Đ2 (tiếp): nhóm chip KTGS / Tổ TK&VV 1 dòng (TK 2)
+- **Nguồn:** anh 15/11 "gộp và tiếp" — làm nốt Đ2 mục 4.
+- **Chỉ ≤ 600 px** (`css/dt-may.css`): `.kt-to-nhom` (Món / Kiểu / Số hộ) và `.to-nhom` (Khách / Cần xử lý) mỗi nhóm 1 dòng cuộn ngang có quán tính, bắt dính từng chip (trước xuống 2–4 dòng). KTGS lên cao ~90 px, Tổ TK&VV ~130 px.
+- t401 +1 ý.
+
 ## 3.541 — 15/11/2026 — Điện thoại Đ2: vuốt kiểu iPhone + gọn các màn còn lại (TK 2)
 - **Nguồn:** anh 15/11 "tinh chỉnh cho màn iPhone, tận dụng khả năng vuốt mượt của iP" (duyệt Đ2 mục 1–4 TK 2 đề xuất).
 - **Chỉ ≤ 600 px** (`css/dt-may.css`, `js/66-dt-may.js` `DTM.vuotTab` / `DTM.vuotHop` / `DTM.cuonNgang`):

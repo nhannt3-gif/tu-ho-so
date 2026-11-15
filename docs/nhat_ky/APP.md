@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.542 Đ2 nốt)
+- Anh "gộp và tiếp": gộp 3.541; 3.542 nhóm chip KTGS / Tổ TK&VV 1 dòng cuộn. Đ2 xong phần TK 2 đề xuất — chờ anh thử iPhone thật → Đ3 (gỡ dt.html).
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.541 điện thoại Đ2 — vuốt iPhone)
 - Anh "tinh chỉnh cho màn iPhone, tận dụng vuốt mượt": `DTM.vuotTab` (vuốt ngang 4 tab), `DTM.vuotHop` (vuốt xuống đóng hộp), lọc gọn mọi `.pv-cay`, chip GDX 1 dòng (khung chip là display:contents trên ĐT — ép flex), nút ≥ 34 px. Chưa thử Safari thật — chờ anh.
 - Bẫy: vuốt tab bỏ qua mép 24 px (vuốt lùi Safari), bảng / ô nhập / hàng cuộn ngang.
