@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.551 E3 CSP + dấu vân tay)
+- Anh "gộp và tiếp tục, không cần kiểm liên tục tốn token" → gộp #572, **bỏ lịch kiểm định kỳ**. 3.551: thẻ CSP `index.html`; `js/01` TV_DAU + tvKiemDau (SHA-384); thư viện chính cdnjs → jsDelivr npm cùng bản (máy làm việc không tải được cdnjs để đối byte). t407 5/5.
+- Bẫy: thêm nguồn ngoài (CDN / API mới) phải sửa thẻ CSP; nâng thư viện phải tính lại dấu — không thì app không nạp thư viện đó.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.550 đợt 3 phần 1: E6 · F5 · F2)
 - Kế hoạch đợt 3 ở `DANH_GIA_CHUYEN_GIA_1511.md` mục 4d (A5 đề xuất hoãn — 2 kênh chung kho trình duyệt). 3.550: manifest + biểu tượng TH, `--vh` = 100dvh (25 chỗ), `docs/mau-giao-dien.html` (15 mảnh từ GD.*). Sửa lớp CSS thiếu ở hộp 🧪 (3.546). t406 7/7.
 - Kiểm GitHub (B4): t244 / t260 / t395 trượt do phông DejaVu → workflow cài Inter + fontconfig như máy làm việc (edfcd50). Chờ lượt kiểm PR kế tiếp xác nhận xanh trước 3.551 (CSP).

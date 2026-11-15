@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.551 — 15/11/2026 — Đợt 3 phần 2: E3 CSP + dấu vân tay thư viện (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4b E3 / 4d; anh 15/11 "gộp và tiếp tục".
+- **CSP** (`<meta http-equiv="Content-Security-Policy">` trong `index.html`): script chỉ từ app + jsDelivr + Google đăng nhập / API (`'unsafe-inline'` vì còn onclick viết thẳng; `'wasm-unsafe-eval'` cho Tesseract; `blob:` cho luồng nền); kết nối chỉ `*.googleapis.com`, `accounts.google.com`, jsDelivr; khung chỉ Google; `object-src 'none'`, `base-uri 'self'`. Ảnh `https:` (ảnh Drive).
+- **Dấu vân tay thư viện** (`js/01` `TV_DAU` + `tvKiemDau`): tải mới thì băm SHA-384 so bảng — sai → không chạy, không cất. Thư viện chính (pdf.js, pdf-lib, SheetJS) chuyển **cdnjs → jsDelivr npm cùng bản** (byte đúng gói npm, đúng bản phép thử dùng; máy này không kiểm được byte cdnjs). Bản đã cất trong máy dùng tiếp.
+- Phép thử mới t407 (5 ý — vi phạm CSP khi nạp Excel / đọc PDF / qua 8 tab, dấu đúng / sai, chặn nguồn lạ).
+
 ## 3.550 — 15/11/2026 — Đợt 3 phần 1: E6 cài như phần mềm · F5 dvh · F2 trang mẫu giao diện (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4d (kế hoạch đợt 3 TK 2); anh 15/11 "code tiếp".
 - **E6:** `manifest.webmanifest` (Tủ hồ sơ, standalone, start `index.html`) + `img/tuhoso-192.png` / `-512.png` / `-180.png` (chữ TH màu logo) + `<link rel=manifest|icon|apple-touch-icon>` + theme-color.
