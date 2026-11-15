@@ -43,6 +43,7 @@ Không phải nghẽn (em khuyên **giữ**): ES5 không build, 153 file rời (
 ### Nhóm A — khép vòng phản hồi (giải N1, N2) — **em khuyên làm trước**
 
 **A1. "Kiểm 2 mốc" một nút trong app (mốc vàng trên số thật).**
+> **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — em hiểu "30/10" là mốc cuối tháng 10; nếu anh muốn đúng bộ ngày 30/10 thì báo lại); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. → A1 thành **nút "Kiểm mốc" với 1 mốc cuối tháng 10**; thêm mốc mới chỉ khi anh giao.
 Hai mốc 30/09 + 31/10 đã khớp → lưu kết quả đã khớp làm **đáp án vàng** trên Drive (không vào repo). App thêm nút: tính lại 2 mốc bằng bản app đang chạy → so đáp án → **xanh / đỏ + số chỗ lệch**. Sau mỗi lần cập nhật app, anh bấm 1 nút là biết bản mới có làm lệch số thật không — việc mà phép thử dữ liệu giả không bao giờ bắt được. Mỗi quý thêm 1 mốc. (Phần lõi `slDCTinh` + 🔎 So đã có — chủ yếu là ghép lại + chỗ lưu đáp án.)
 
 **A2. Sổ thử máy thật ngay trong app, AI đọc được.**

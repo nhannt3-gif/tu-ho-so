@@ -11,6 +11,7 @@
 3. **Giao ban = linh hoạt:** được tinh chỉnh cách tính nhanh khi cần cho văn bản.
 4. **✓ Anh đồng ý 15/11 ("đồng ý và tiếp"):** mỗi lần Giao ban tinh chỉnh cách tính → ghi **1 dòng** ở `QUY_TAC_SO_LIEU.md` mục 2 (luật đang thử: ngày, nội dung, lý do); số trong văn bản khác số App → ghi rõ lý do ở nhật ký giao ban. Dùng ổn → anh chốt → App áp → thành luật ✅. Mục đích: "linh hoạt" không thành "lệch âm thầm".
 5. **Hai mốc 30/09 + 31/10 là BỘ MỐC CỐ ĐỊNH:** sau này bên nào đổi cách tính → chạy lại 2 mốc, so lại trước khi dùng cho kỳ mới.
+   - **Anh 15/11: "file đối chiếu sau này chỉ cần mốc 30/10 là được"** → từ nay **chỉ giữ 1 mốc cuối tháng 10** (bộ file ngày số liệu 31/10/2026 — `…_2026-10-31` — em hiểu "30/10" là mốc cuối tháng 10; nếu anh muốn đúng bộ ngày 30/10 thì báo lại); **mốc 30/09 thôi dùng**, không phải xuất lại / so lại. Đổi cách tính → chạy lại **mốc cuối tháng 10** trước khi dùng cho kỳ mới.
 
 ## 2. Hiện trạng file trên Drive (kiểm 14/11 — chỉ tên file, không mở nội dung khách)
 
@@ -64,3 +65,4 @@
 | 14/11/2026 | phiên đánh giá tổng thể (TK chính) | Lập file theo anh chốt 14/11; kiểm tên file trên Drive (mục 2); chưa sửa code, chưa chạy so số. |
 | 14/11/2026 | TK 2 (App chính) | Anh 14/11 "30/9 số liệu tổ chưa gộp, 30/10 đã gộp" + "em và TK giao ban phối hợp làm": sửa B0 (không dùng Tổ trưởng sau gộp cho 30/09) + B3 (so từng tổ trong cùng mốc, giữa 2 mốc chỉ cấp xã / PGD). Kiểm code app `slDCXuat` (js/22k): không File Tổ trưởng → xuất được; khác ngày → chặn — khớp, không sửa code. |
 | 14/11/2026 | TK 2 (App chính) | Sửa lại B0 theo kết quả TK 1 (`KQ_DOI_CHIEU_2_MOC_30-09_31-10-2026.xlsx`, Drive): mốc 30/09 có File Tổ trưởng cùng ngày. Kết quả: khớp tuyệt đối dư nợ, NQH, khoanh, tổ viên còn dư nợ, cho vay, thu nợ, 3 tháng KHĐ, đến hạn (2 mốc); lệch: tổ viên (A — K1), tiền gửi TK 105 (B — app, 2 mốc), lãi tồn 31/10 (A — chờ anh), mã điểm GD (khuôn file). |
+| 15/11/2026 | phiên đánh giá (TK chính) | Anh 15/11: file đối chiếu sau này chỉ cần 1 mốc cuối tháng 10 — mốc 30/09 thôi dùng (mục 1.5). |
