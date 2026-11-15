@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.548', ds:[
+var CO_GI_MOI = {ban:'3.549', ds:[
+  ["Nạp & KT nhận file CLT02 (xếp loại tổ) — theo từng xã, 2 loại tháng và định kỳ; thả file là app tự nhận xã + loại", ""],
+  ["Thẻ tổ (tab Tổ) hiện xếp loại CLT02 tháng / định kỳ + tổng điểm", ""],
   ["Có gì mới: mỗi việc thử có nút ✓ Đạt / ✗ Chưa — kết quả lưu lên Drive, em đọc được, anh không phải gõ lại", ""],
   ["Lỗi app tự lưu lên Drive (đã che số dài) — em sửa được trước khi anh báo", ""],
   ["Mở app ở tab thứ 2 → tab đó chỉ xem, tránh 2 tab ghi đè mất dữ liệu", ""],
@@ -1070,10 +1072,10 @@ var CO_GI_MOI = {ban:'3.548', ds:[
   ["File danh sách món: ngày chuyển quá hạn lấy thêm cột \"Ngày CNQH gần nhất\" của Mẫu 31 khi không có Sao kê nợ quá hạn (kỳ giữa tháng)", ""],
   ["File danh sách món: ngày chuyển quá hạn, ngày khoanh, ngày hết khoanh lấy theo Sao kê hệ thống (thống nhất với Giao ban)", ""],
   ["iPhone: KTGS (Món / Kiểu / Số hộ) và Tổ TK&VV (Khách / Cần xử lý) — mỗi nhóm chip 1 dòng vuốt ngang", ""],
-  ["iPhone: vuốt ngang đổi tab (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan), vuốt xuống đóng hộp / thẻ khách; lọc địa bàn gọn 1 dòng ở mọi màn; nút mẫu Giao dịch xã 1 dòng cuộn", ""],
-  ["Gia hạn tối đa theo QĐ 54 / VB 7442 (QT-C-20): HSSV ½ thời hạn trả nợ, Nhà ở xã hội 12 / 24 tháng, ngắn hạn 12 tháng; file đối chiếu ghi đủ mã điểm TXN…", ""],
-  ["📤 File đối chiếu xuất thêm File 2 — danh sách món (DOI_CHIEU_MON_APP): món quá hạn, khoanh, 3 tháng KHĐ, đến hạn tháng tới — theo khuôn chung 1.1, không ghi họ tên", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["iPhone: vuốt ngang đổi tab (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan), vuốt xuống đóng hộp / thẻ khách; lọc địa bàn gọn 1 dòng ở mọi màn; nút mẫu Giao dịch xã 1 dòng cuộn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.549 · 📥 Nạp file: thả 4 file CLT02 (2 xã × tháng / định kỳ, XLSX) → ma trận Ⓓ Phụ có 4 dòng CLT02",
+    "3.549 · Tab Tổ: chọn 1 tổ → thẻ tổ có \"CLT02 tháng: Tốt …\"",
     "3.548 · Mở ❓ Có gì mới, bấm ✓ Đạt hoặc ✗ Chưa ở từng việc thử bên dưới",
     "3.548 · Mở app ở 2 tab cùng lúc → tab sau có dải đỏ \"chỉ xem\"",
     "3.547 · 📥 Nạp & KT: mở Kết quả kiểm tra — chỉ thấy các mục ⚠ / ⓘ, không còn dòng lặp; khối 🏦 Tổ trưởng 1 dòng",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.548', ds:[
     "3.540 · 📤 File đối chiếu: ma_diem đủ TXN…; File 2 so_thang_lai dạng 3.0",
     "3.539 · ⋯ Nạp & KT › 📤 File đối chiếu 31/10 → Drive Số liệu/2026-10 có thêm DOI_CHIEU_MON_APP_2026-10-31.csv (19 cột)",
     "3.538 · ⋯ Nạp & KT › 📤 File đối chiếu 30/09 + 31/10 → cột ma_diem 4 số (3502…), dòng TT| so_tv = so_tv_du_no",
-    "3.537 · iPhone › Số liệu › Tra cứu KH › bấm LỌC ĐỊA BÀN → mở 3 ô chọn; thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm",
-    "3.536 · Điện thoại: mở 1 VB, mở lại ngay; hôm sau mở app → báo đã dọn, VB vẫn mở được từ Drive",
-    "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn"],
+    "3.537 · iPhone › Số liệu › Tra cứu KH › bấm LỌC ĐỊA BÀN → mở 3 ô chọn; thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

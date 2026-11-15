@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.549 — 15/11/2026 — C5 nạp CLT02 xếp loại tổ (TK 2)
+- **Nguồn:** hộp thư TK 1 02/11 (chỗ nạp CLT02 — file mẫu 31/10); anh 15/11 "code cả 2 và gộp" · "CLT sẽ nạp theo xã và 2 loại tháng và định kỳ".
+- **Gói mới `js/95-clt02.js` (`CLT`, cắm rút):** đọc "Mẫu số 02/CLT" (sheet `CLT02_VB3986`) theo NỘI DUNG — tên xã ở dòng "TẠI XÃ/PHƯỜNG …", loại theo dòng kỳ (Tháng MM/YYYY = tháng · Từ … đến … = định kỳ), ngày số liệu = ngày cuối kỳ; vị trí cột theo dòng đánh số 1…16; Hội (La Mã) → tổ: tên tổ trưởng, xếp loại Tốt / Khá / TB / Yếu (dấu x), tổng điểm, 5 tiêu chí (số có dấu phẩy); dừng ở Tổng cộng.
+- **Mỗi xã × loại = 1 ô nạp** (loại động `cltT_<MÃ>` / `cltDK_<MÃ>`, MÃ = tên xã bỏ dấu viết liền, nhóm Ⓓ) — dùng lại trọn luồng nạp (lưu, thay → 🗑, Drive); tên chuẩn `CLT02T_<MÃ>_<ngày>` / `CLT02DK_<MÃ>_<ngày>` (TK 1 gợi ý mã xã Mẫu 31 — dùng tên xã để không phụ thuộc Mẫu 31). Ô hiện khi nạp file đầu của xã.
+- **Ghép tổ app** theo xã + Hội + tên tổ trưởng (không dấu); không ghép được → cảnh báo lúc nạp (không đoán). Thẻ tổ thêm "CLT02 tháng: Tốt 81,42 · định kỳ: Khá …".
+- Thử file thật Gia Lộc 31/10 (máy làm việc, không vào repo): tháng 31 tổ (Tốt 18 · Khá 9 · TB 3), định kỳ 31 tổ (Tốt 23 · Khá 7) — khớp dòng Tổng cộng. Chưa: PDF tháng cũ, đưa vào văn bản (việc Giao ban).
+- Phép thử mới t405 (8 ý, file CLT02 giả dựng từ tổ giả).
+
 ## 3.548 — 15/11/2026 — Đợt 2 đánh giá: máy thật ↔ AI (A2 · A3) + khóa tab (E1) + lưu bền (E2) (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` A2, A3 (anh ✓), mục 4c E1, E2; anh 15/11 "code cả 2 và gộp".
 - **Gói mới `js/94-may-that.js` (`MTH`, cắm rút):** A2 — "Có gì mới" thêm khối Kết quả thử: mỗi việc ✓ Đạt / ✗ Chưa (+ ghi chú), lưu `localStorage tuhoso_thu_may` theo bản (giữ 10 bản). A3 — nhật ký lỗi js/67 (50 gần nhất) đẩy Drive, che dãy ≥ 6 chữ số + email. A4 thêm — bản + lúc mở + trình duyệt từng máy. Cả 3 vào **1 file** `<thư mục app>/_Hệ thống/may_that.json` `{may:{<mã máy>:{ban, luc, ua, thu, loi}}}` — đọc → thay mục máy mình → ghi (2 máy không đè nhau); đẩy 20 s sau mở, 3 s sau bấm thử, 60 s sau lỗi mới.

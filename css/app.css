@@ -4163,3 +4163,5 @@ details.sl-dc > summary{cursor:pointer;font-weight:600;color:var(--xanh-dam);mar
 .mth-dong{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--vien)}
 .mth-viec{flex:1 1 260px;min-width:0}
 .mth-ghi{flex:1 1 100%;color:var(--chu-phu)}
+/* 3.549: xếp loại CLT02 trên thẻ tổ (js/95-clt02.js) */
+.to-clt{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:10px;background:var(--xanh-nhat);color:var(--xanh-dam);font-size:.9em}
