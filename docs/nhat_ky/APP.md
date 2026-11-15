@@ -12,6 +12,15 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.549 C5 CLT02)
+- `js/95-clt02.js` (`CLT`): mỗi xã × (tháng | định kỳ) = 1 ô loại động `cltT_<MÃ>` / `cltDK_<MÃ>` (MÃ = tên xã bỏ dấu); ghép tổ app theo xã + Hội + tên tổ trưởng, không ghép → cảnh báo. File thật Gia Lộc 31/10 đọc đúng (khớp Tổng cộng) — chỉ thử ở thư mục nháp. t405 8/8.
+- Bẫy: loại động phải đăng ký trước `slBo0` / `veSoLieu` (CLT.dongBo đọc KHO.dsBang()) — rút gói thì ô CLT02 đã nạp không hiện (dữ liệu vẫn trong kho).
+
+### 15/11/2026 — TK 2 · PHIÊN (3.548 đợt 2: A2 · A3 · E1 · E2)
+- `js/94-may-that.js` (`MTH`): 1 file Drive `Tủ hồ sơ/_Hệ thống/may_that.json` gom kết quả thử (A2) + lỗi đã che (A3) + bản từng máy. **Phiên AI sau: đọc file này đầu phiên.** E1 khóa tab (BroadcastChannel, tab sau chỉ xem), E2 tự xin lưu bền. t404 9/9.
+- Bẫy: E1 tắt khi trình duyệt tự động (navigator.webdriver) để phép thử cũ mở nhiều trang không bị khóa — phép thử E1 bật bằng cờ `tuhoso_e1_thu`.
+- Tiếp: 3.549 CLT02 (anh: nạp theo xã, 2 loại tháng + định kỳ).
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.547 Nạp & KT báo gọn)
 - Anh "code gọn nạp và gộp": bỏ dòng ↗ lặp, bảng số đối chiếu gập (lệch thì mở), khối 🏦 Tổ trưởng 1 dòng; giải thích vào chữ rê chuột. Không bỏ chức năng. Màn mẫu dữ liệu giả 2.600 → 900 px.
 

@@ -266,6 +266,23 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.549)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp 4 file CLT02 31/10 (Gia Lộc, Truông Mít × tháng / ĐK) | 4 dòng CLT02 ở Ⓓ Phụ, tóm tắt Tốt / Khá / TB / Yếu đúng Tổng cộng | |
+| 2 | Cảnh báo lúc nạp | số tổ chưa ghép (nếu có) — anh xem tên có sai chính tả | |
+| 3 | Tab Tổ › chọn tổ | thẻ tổ có CLT02 tháng / định kỳ | |
+
+Ghi chú kỹ thuật 3.549: loại động đăng ký lúc nạp + lúc mở (`CLT.dongBo` từ `KHO.dsBang()` trước `slBo0` / `veSoLieu`).
+
+### Danh sách thử trên máy thật (3.548)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ❓ Có gì mới › ✓ Đạt / ✗ Chưa | nút sáng; sau ~3 s có file `_Hệ thống/may_that.json` trên Drive | |
+| 2 | Mở app 2 tab | tab sau dải đỏ chỉ xem; "Dùng tab này" đổi vai | |
+
+Ghi chú kỹ thuật 3.548: AI đầu phiên đọc Drive `Tủ hồ sơ/_Hệ thống/may_that.json` (kết quả thử + lỗi + bản từng máy).
+
 ### Danh sách thử trên máy thật (3.547)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
