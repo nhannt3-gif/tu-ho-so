@@ -4168,3 +4168,7 @@ details.sl-dc > summary{cursor:pointer;font-weight:600;color:var(--xanh-dam);mar
 /* 3.550 F5: chiều cao màn — 100dvh (điện thoại: không bị thanh địa chỉ che nút đáy); trình duyệt cũ vẫn 100vh */
 :root{--vh:100vh}
 @supports (height:100dvh){ :root{--vh:100dvh} }
+/* 3.552 F7 + F8 (DANH_GIA_CHUYEN_GIA_1511.md mục 4c — đợt 2): đi phím Tab thấy rõ ô đang ở (chỉ khi dùng phím, bấm chuột không hiện); ô tích / chọn theo màu app; số tiền thẳng cột */
+:focus-visible{outline:2px solid var(--xanh);outline-offset:2px}
+input[type=checkbox],input[type=radio],input[type=range],progress{accent-color:var(--xanh)}
+td.s,td.so,td.r,.tien{font-variant-numeric:tabular-nums}

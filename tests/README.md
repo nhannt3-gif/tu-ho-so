@@ -323,6 +323,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
 | t243 (3.540) | Thanh dưới 5 nút kiểu cũ (GD xã · Số liệu · Hồ sơ) thử ở cỡ máy tính bảng 700 px — 390 px là thanh điện thoại mới (t311 / t401). |
 | t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). 3.536: + VB đã xem giữ trong ngày — dọn đúng bản trong máy (chỉ điện thoại). 3.537: + nạp màn rộng rồi thu về 390 tự khởi động; không JS thì lọc hiện đủ. 3.541: + lọc gọn Tổ / GDX / KTGS, chip GDX 1 dòng, vuốt đổi tab, vuốt đóng hộp. 3.542: + nhóm chip Tổ / KTGS 1 dòng. |
@@ -332,6 +334,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | t405 (3.549) | C5 CLT02: file "Mẫu số 02/CLT" GIẢ dựng từ tổ gianho31 — nhận theo nội dung (tháng / định kỳ, xã), ô riêng `cltT_<MÃ>` / `cltDK_<MÃ>`, tên chuẩn, số dấu phẩy, xếp loại, báo tổ không ghép, thẻ tổ hiện CLT02, file thiếu dòng kỳ báo lỗi. |
 | t406 (3.550) | Đợt 3: E6 manifest + biểu tượng + thẻ link · F5 mọi `100vh` qua `--vh` (= 100dvh) · F2 `docs/mau-giao-dien.html` khớp HTML `GD.*` đang sinh (đổi mảnh → sinh lại trang: chụp `GD.nut/hang/o/chip/kv` như mục F2 changelog 3.550). |
 | t407 (3.551) | E3: CSP — không vi phạm khi nạp Excel (luồng nền), dựng / đọc / vẽ PDF, qua 8 tab (trừ eval thử của pdf.js); dấu vân tay thư viện đúng / sửa 1 byte bị từ chối; script nguồn lạ bị chặn. |
+| t408 (3.552) | F7 phím Tab có viền 2px, bấm chuột không · ô tích theo màu app · F8 ô số `td.s` tabular-nums. |
 | `tools/kiem_pr.sh` (3.546 B4) | Chạy trên GitHub mỗi PR (`.github/workflows/kiem-pr.yml`): `bash tools/kiem_pr.sh <phần> <số phần> <mốc main>` — chọn phép như hồi quy theo đổi nhưng so mốc của main, trượt chạy lại 1 lần. |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 

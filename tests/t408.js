@@ -1,0 +1,20 @@
+// t408 (3.552 F7 + F8, anh 15/11 "gộp và tiếp" — DANH_GIA_CHUYEN_GIA_1511.md mục 4c): đi phím Tab có vòng sáng; ô tích theo màu app; ô số tiền thẳng cột.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path'), G=path.resolve(__dirname,'..');
+(async()=>{ const b=await chromium.launch(); const o=[], loi=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined&&!d?' — '+c:''));
+ const p = await (await b.newContext({viewport:{width:1366, height:800}})).newPage(); p.on('pageerror', e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+G+'/index.html'); await p.waitForTimeout(1500); await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} });
+ await p.evaluate(()=>{ const d = document.createElement('div'); d.id = 'f78'; d.innerHTML = '<button id="n1">A</button><button id="n2">B</button><input type="checkbox" id="c1"><table><tr><td class="s" id="s1">1.250.000</td></tr></table>'; document.body.appendChild(d); document.getElementById('n1').focus(); });
+ await p.keyboard.press('Tab'); await p.waitForTimeout(100);
+ let r = await p.evaluate(()=>{ const a = document.activeElement, cs = getComputedStyle(a); return {id:a.id, w:cs.outlineWidth, st:cs.outlineStyle}; });
+ ok('F7 đi phím Tab → ô đang ở có vòng sáng 2px', r.id==='n2' && r.st==='solid' && r.w==='2px', JSON.stringify(r));
+ await p.mouse.click(5, 790); await p.click('#n1'); await p.waitForTimeout(100);
+ r = await p.evaluate(()=>getComputedStyle(document.getElementById('n1')).outlineStyle);
+ ok('F7 bấm chuột → không hiện vòng (chỉ khi dùng phím)', r==='none', r);
+ r = await p.evaluate(()=>({ac:getComputedStyle(document.getElementById('c1')).accentColor, xanh:getComputedStyle(document.documentElement).getPropertyValue('--xanh').trim(), so:getComputedStyle(document.getElementById('s1')).fontVariantNumeric}));
+ ok('F7 ô tích theo màu app · F8 ô số tiền tabular-nums', /rgb\(24, 95, 165\)/.test(r.ac) && r.so==='tabular-nums', JSON.stringify(r));
+ o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = o.filter(x=>x.startsWith('✗')).length + (loi.length ? 1 : 0); console.log(sai ? '✗ '+sai+' sai' : '✓ t408 đạt hết');
+ await b.close(); process.exit(sai ? 1 : 0);
+})();

@@ -4,6 +4,17 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.553 — 15/11/2026 — Gỡ thẻ CSP của 3.551 (TK 2)
+- **Nguồn:** hồi quy đủ 3.551 trượt 5 phép (t207 / t208 / t209 / t212 / t219 — thư viện `heic-to` đổi ảnh HEIC và phép thử cần `eval`, CSP chặn); anh gửi ảnh iPhone 21:46 (3.551, app cài ra MH chính): Hôm nay trắng + "Không lưu được — bộ nhớ trình duyệt đã đầy".
+- Gỡ `<meta http-equiv="Content-Security-Policy">` khỏi `index.html` (chuỗi ghi lại ở `DANH_GIA_CHUYEN_GIA_1511.md` mục 4d để làm lại khi thử được Safari thật + cho `'unsafe-eval'`). **Giữ** dấu vân tay thư viện (`js/01`) + jsDelivr. t407 sửa theo (kiểm không còn thẻ CSP, vẫn kiểm dấu).
+- Lưu ý iPhone: app cài ra màn hình chính (3.550) có **kho dữ liệu riêng, tách Safari** — mở lần đầu trống, cần nối Drive trong app đó.
+
+## 3.552 — 15/11/2026 — F7 + F8 (đợt 2 còn lại, TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4c (đợt 2: F7, F8); anh 15/11 "gộp và tiếp".
+- **F7:** `:focus-visible` viền 2px màu app (chỉ khi đi phím, bấm chuột không hiện; chỗ đã tự đặt `outline:none` giữ nguyên) + `accent-color` cho ô tích / chọn / thanh trượt.
+- **F8:** `td.s`, `td.so`, `td.r`, `.tien` → `font-variant-numeric:tabular-nums` (số thẳng cột; trước chỉ 13 khối có).
+- Phép thử mới t408 (3 ý).
+
 ## 3.551 — 15/11/2026 — Đợt 3 phần 2: E3 CSP + dấu vân tay thư viện (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4b E3 / 4d; anh 15/11 "gộp và tiếp tục".
 - **CSP** (`<meta http-equiv="Content-Security-Policy">` trong `index.html`): script chỉ từ app + jsDelivr + Google đăng nhập / API (`'unsafe-inline'` vì còn onclick viết thẳng; `'wasm-unsafe-eval'` cho Tesseract; `blob:` cho luồng nền); kết nối chỉ `*.googleapis.com`, `accounts.google.com`, jsDelivr; khung chỉ Google; `object-src 'none'`, `base-uri 'self'`. Ảnh `https:` (ảnh Drive).
