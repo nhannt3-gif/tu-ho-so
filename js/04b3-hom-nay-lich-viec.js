@@ -272,7 +272,7 @@ function khoiCauHTML(iso){
   if(xua.length) h += '<div class="oq-d1"><b>Ngày này năm xưa</b> · '+
     xua.slice(0,2).map(function(x){ return x.y+' — '+coChuHTML(x.c); }).join(' <span class="oq-tg">·</span> ')+'</div>';
   if(cau) h += '<div class="oq-d2">“'+coChuHTML(cau.c)+'”'+(cau.t?' <span class="oq-tg">— '+coChuHTML(cau.t)+'</span>':'')+
-    ' <span class="oq-nut" onclick="doiCau()" title="Đổi câu khác">⟳</span></div>';
+    ' <span class="oq-nut" data-lenh="f04b3.doiCau" title="Đổi câu khác">⟳</span></div>';
   return h+'</div>';
 }
 /* tải nguồn của anh từ Drive */
@@ -348,10 +348,10 @@ function thaoTacViecHTML(c, vsC){
   if(!co) return '<span class="nk-goi">bấm một việc để sửa, dời ngày, lưu ý, xóa</span>';
   var v = lcTim(LICH.viecChon);
   return '<span class="thao-tac">'+
-    '<button onclick="lcSua()">✎ Sửa</button>'+
-    '<button onclick="lcDoi()">Dời ngày</button>'+
-    '<button onclick="lcLuuY()">'+(v&&v.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
-    '<button class="xau" onclick="lcXoa()">Xóa</button></span>';
+    '<button data-lenh="f04b3.lcSua">✎ Sửa</button>'+
+    '<button data-lenh="f04b3.lcDoi">Dời ngày</button>'+
+    '<button data-lenh="f04b3.lcLuuY">'+(v&&v.luuY?'Bỏ lưu ý':'Lưu ý')+'</button>'+
+    '<button class="xau" data-lenh="f04b3.lcXoa">Xóa</button></span>';
 }
 function veNhatKy(){
   var e = document.getElementById('nhat-ky'); if(!e) return;
@@ -363,7 +363,7 @@ function veNhatKy(){
       '<div class="nk-ngay">'+lcDMY(c)+'</div>'+
       '<div class="nk-am">Âm lịch '+lcAmChu(c)+' · tuần '+lcTuan(c)+
         (nhanNgayAm(c).length?' · <b class="nk-chay">'+coChuHTML(nhanNgayAm(c).join(' · '))+'</b>':'')+'</div>'+
-      '<div class="nk-tot'+(saoNgay(c).hoangDao?' hd':'')+'" onclick="moNgayTot(\''+c+'\')" title="Bấm xem giờ hoàng đạo">'+
+      '<div class="nk-tot'+(saoNgay(c).hoangDao?' hd':'')+'" data-lenh="f04b3.moNgayTot" data-a1="'+c+'" title="Bấm xem giờ hoàng đạo">'+
         coChuHTML(tomTatNgayTot(c))+' · <span class="nk-gio">giờ tốt: '+
         gioHoangDao(c).slice(0,3).map(function(x){ return x.chi; }).join(', ')+'…</span></div></div>'+
     khoiCauHTML(c)+'</div>'+'<div class="nk-than">'+
@@ -371,7 +371,7 @@ function veNhatKy(){
     '<div class="lc-ds nk-ds">'+(vsC.length ? vsC.map(function(v){
       var xg = lcXongNgay(v, c);
       return '<div class="lc-viec'+(v.id===LICH.viecChon?' chon':'')+(xg?' xong':'')+(v.luuY?' luuy':'')+
-        '" onclick="lcChonViec(\''+v.id+'\')" ondblclick="LICH.viecChon=\''+v.id+'\';lcSua()">'+
+        '" data-lenh="f04b3.lcChonViec" data-a1="'+v.id+'" ondblclick="LICH.viecChon=\''+v.id+'\';lcSua()">'+
         '<span class="lc-tick" onclick="event.stopPropagation();lcXong(\''+v.id+'\')" title="Đánh dấu xong">'+(xg?'✓':'')+'</span>'+
         '<span class="lc-vten">'+(v.luuY?'⚑ ':'')+coChuHTML(v.ten)+'</span>'+
         (v.lap&&v.lap!=='mot'?'<small>'+LC_LAP[v.lap]+'</small>':'')+'</div>';
@@ -380,16 +380,16 @@ function veNhatKy(){
   var che = ntCheDo(), chung = ntChung(c), ghim = ntGhim();   /* chung có thể là null khi chưa ghi gì */
   /* 3.55 (anh chốt): nút ↶ Hoàn tác kiểu Word + số việc xong đưa lên cùng dòng tiêu đề — bớt một dòng dưới danh sách */
   var dd0 = che==='don' ? dsDong(c) : [], xong0 = dd0.filter(function(x){ return x.xong; }).length, nHT = soHoanTac();
-  var nutHT = '<button class="nk-ht"'+(nHT?'':' disabled')+' onclick="hoanTac()" title="'+(nHT ? 'Hoàn tác (Ctrl+Z) — còn '+nHT+' bước' : 'Chưa có gì để hoàn tác')+'">↶'+(nHT?'<sup>'+nHT+'</sup>':'')+'</button>';
+  var nutHT = '<button class="nk-ht"'+(nHT?'':' disabled')+' data-lenh="f04b3.hoanTac" title="'+(nHT ? 'Hoàn tác (Ctrl+Z) — còn '+nHT+' bước' : 'Chưa có gì để hoàn tác')+'">↶'+(nHT?'<sup>'+nHT+'</sup>':'')+'</button>';
   h += '<div class="nk-muc">'+(che==='don'?'TO-DO LIST<span class="nk-viet">'+(dd0.length ? xong0+'/'+dd0.length+' xong' : 'Ghi chép trong ngày')+'</span>':'GHI CHÉP<span class="nk-viet">Mẩu giấy màu</span>')+nutHT+
     '<span class="nt-doi">'+
-      '<button class="nt-che'+(che==='don'?' bat':'')+'" onclick="ntDatChe(\'don\')" title="Danh sách gạch dòng, tick xong">▤ Dòng</button>'+
-      '<button class="nt-che'+(che==='note'?' bat':'')+'" onclick="ntDatChe(\'note\')" title="Lưới mẩu giấy màu, ghim được">⬚ Note màu</button>'+
+      '<button class="nt-che'+(che==='don'?' bat':'')+'" data-lenh="f04b3.ntDatChe" data-a1="don" title="Danh sách gạch dòng, tick xong">▤ Dòng</button>'+
+      '<button class="nt-che'+(che==='note'?' bat':'')+'" data-lenh="f04b3.ntDatChe" data-a1="note" title="Lưới mẩu giấy màu, ghim được">⬚ Note màu</button>'+
     '</span>'+
     '<span class="nt-doi nt-phong">'+phongNhanh().map(function(k){
-      return '<button class="nt-che'+(phongHienTai()===k?' bat':'')+'" onclick="datPhongSo(\''+k+'\')" '+
+      return '<button class="nt-che'+(phongHienTai()===k?' bat':'')+'" data-lenh="f04b3.datPhongSo" data-a1="'+k+'" '+
         'title="'+coChuHTML(PHONG_SO[k].ten+' — '+PHONG_SO[k].mota)+'" style="font-family:'+PHONG_SO[k].css+'">A</button>';
-    }).join('')+'<button class="nt-che mui" onclick="moDsPhong()" title="Xem đủ 8 kiểu chữ">▾</button></span>'+
+    }).join('')+'<button class="nt-che mui" data-lenh="f04b3.moDsPhong" title="Xem đủ 8 kiểu chữ">▾</button></span>'+
     (che==='don'?'<span class="nk-luu" id="nk-luu">'+(chung&&chung.suaLuc?'đã lưu '+chung.suaLuc.slice(11,16):'')+'</span>':'')+'</div>';
   if(ghim.length) h += '<div class="nt-ghim-hang"><div class="nt-ghim-nhan">📌 Ghim</div><div class="nt-luoi">'+
     ghim.map(function(m){ return ntOHTML(m, true); }).join('')+'</div></div>';
@@ -398,45 +398,45 @@ function veNhatKy(){
     var dd = dsDong(c), xong = dd.filter(function(x){ return x.xong; }).length;
     var hq = dongChuaXongHomQua(c);
     if(hq.length) h += '<div class="nk-nhac"><span>↪ Hôm qua còn <b>'+hq.length+'</b> việc chưa xong</span>'+
-      '<button class="nho" onclick="dongChuyenHomQua(\''+c+'\')" title="Chuyển các việc chưa xong hôm qua sang hôm nay">→ Hôm nay</button></div>';
+      '<button class="nho" data-lenh="f04b3.dongChuyenHomQua" data-a1="'+c+'" title="Chuyển các việc chưa xong hôm qua sang hôm nay">→ Hôm nay</button></div>';
     h += '<div class="dong-ds">'+(dd.length ? dd.map(function(m){
         var chon = DONG_CHON.indexOf(m.id)>=0;
         return '<div class="dong-o nt-'+(m.mau||'trang')+(m.xong?' xong':'')+(chon?' dang-chon':'')+'">'+
-          '<span class="dong-tick" onclick="dongXong(\''+m.id+'\')" title="'+(m.xong?'Bỏ đánh dấu xong':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
+          '<span class="dong-tick" data-lenh="f04b3.dongXong" data-a1="'+m.id+'" title="'+(m.xong?'Bỏ đánh dấu xong':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
           '<textarea rows="1" class="dong-chu" oninput="ntGo(\''+m.id+'\',this);dongCaoTuDong(this)" onfocus="dongCaoTuDong(this)" '+
             'onblur="ntRoiO(\''+m.id+'\');this.style.height=\'\'" onkeydown="dongPhim(event,\''+m.id+'\',\''+c+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+
           '<span class="dong-gio">'+(m.xong ? 'xong '+m.xong.slice(11,16) : (m.taoLuc||'').slice(11,16))+'</span>'+
           '<span class="dong-thaotac">'+
-            '<button title="Gắn ảnh / file" onclick="nkMenuDinh(\''+m.id+'\')">📎</button>'+
-            '<button title="Đưa lên SCHEDULE" onclick="dongLenLich(\''+m.id+'\')">🕘</button>'+
-            '<button title="Lên trên" onclick="dongChuyen(\''+m.id+'\',-1)">↑</button>'+
-            '<button title="Xuống dưới" onclick="dongChuyen(\''+m.id+'\',1)">↓</button>'+
-            '<button class="xau" title="Xóa dòng (lấy lại được bằng ↶)" onclick="dongXoa(\''+m.id+'\')">✕</button>'+
+            '<button title="Gắn ảnh / file" data-lenh="f04b3.nkMenuDinh" data-a1="'+m.id+'">📎</button>'+
+            '<button title="Đưa lên SCHEDULE" data-lenh="f04b3.dongLenLich" data-a1="'+m.id+'">🕘</button>'+
+            '<button title="Lên trên" data-lenh="f04b3.dongChuyen" data-a1="'+m.id+'" data-a2="-1">↑</button>'+
+            '<button title="Xuống dưới" data-lenh="f04b3.dongChuyen" data-a1="'+m.id+'" data-a2="1">↓</button>'+
+            '<button class="xau" title="Xóa dòng (lấy lại được bằng ↶)" data-lenh="f04b3.dongXoa" data-a1="'+m.id+'">✕</button>'+
           '</span>'+
-          '<span class="dong-chon'+(chon?' bat':'')+'" onclick="dongChon(\''+m.id+'\')" title="Chọn để xóa nhiều dòng">'+(chon?'✓':'')+'</span>'+
+          '<span class="dong-chon'+(chon?' bat':'')+'" data-lenh="f04b3.dongChon" data-a1="'+m.id+'" title="Chọn để xóa nhiều dòng">'+(chon?'✓':'')+'</span>'+
           '<span class="nt-luu" id="nt-luu-'+m.id+'"></span>'+
           /* 3.53: chấm màu chỉ hiện khi chạm / rê vào dòng — các nút khác hiện sẵn */
           '<span class="dong-mau">'+Object.keys(NT_MAU).map(function(k){
-              return '<i class="dcham nt-'+k+(m.mau===k?' bat':'')+'" title="'+NT_MAU[k]+'" onmousedown="event.preventDefault()" onclick="dongDoiMau(\''+m.id+'\',\''+k+'\')"></i>';
+              return '<i class="dcham nt-'+k+(m.mau===k?' bat':'')+'" title="'+NT_MAU[k]+'" onmousedown="event.preventDefault()" data-lenh="f04b3.dongDoiMau" data-a1="'+m.id+'" data-a2="'+k+'"></i>';
             }).join('')+'<small>màu dòng</small></span></div>'+nkDinhHTML(m);
       }).join('') : '<div class="lc-rong">Chưa có việc nào — gõ vào ô dưới cùng rồi bấm Enter</div>')+'</div>';
     if(DONG_CHON.length) h += '<div class="dong-nhom">Đã chọn <b>'+DONG_CHON.length+'</b> dòng'+
       '<span class="dn-mau">'+Object.keys(NT_MAU).map(function(k){
-        return '<i class="dcham nt-'+k+'" title="Đổi màu '+NT_MAU[k]+'" onclick="dongMauNhieu(\''+k+'\')"></i>'; }).join('')+'</span>'+
-      '<button class="nho" onclick="dongChonHet(\''+c+'\')">Chọn hết</button>'+
-      '<button class="nho" onclick="dongBoChon()">Bỏ chọn</button>'+
+        return '<i class="dcham nt-'+k+'" title="Đổi màu '+NT_MAU[k]+'" data-lenh="f04b3.dongMauNhieu" data-a1="'+k+'"></i>'; }).join('')+'</span>'+
+      '<button class="nho" data-lenh="f04b3.dongChonHet" data-a1="'+c+'">Chọn hết</button>'+
+      '<button class="nho" data-lenh="f04b3.dongBoChon">Bỏ chọn</button>'+
       '<button class="nho xau" onclick="dongXoa(DONG_CHON.slice())">Xóa '+DONG_CHON.length+' dòng</button></div>';
   }else{
     var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
-        return '<button class="nt-them nt-'+k+'" onclick="ntThem(\''+k+'\')" title="Thêm mẩu '+NT_MAU[k]+'">+</button>';
-      }).join('')+'<button class="nt-them nk-cam-nho" onclick="nkChupNhanh()" title="Chụp ảnh — tự lưu thành một mẩu">📷</button>'+
+        return '<button class="nt-them nt-'+k+'" data-lenh="f04b3.ntThem" data-a1="'+k+'" title="Thêm mẩu '+NT_MAU[k]+'">+</button>';
+      }).join('')+'<button class="nt-them nk-cam-nho" data-lenh="f04b3.nkChupNhanh" title="Chụp ảnh — tự lưu thành một mẩu">📷</button>'+
       '<span class="nt-goi">Thêm mẩu: bấm màu tương ứng — đỏ việc gấp, cam quan trọng, xanh lưu ý</span></div>';
     h += '<div class="nt-luoi" id="nt-luoi">'+(ds.length ? ds.map(function(m){ return ntOHTML(m, false); }).join('')
       : '<div class="lc-rong">Chưa có mẩu nào cho ngày này — bấm một màu ở trên để thêm</div>')+'</div>';
   }
   h += '</div>';   /* đóng .nk-than */
-  if(che==='don') h += '<div class="o-go"><button class="og-cam" onclick="nkChupNhanh()" title="Chụp ảnh — tự lưu thành một dòng của ngày này">📷</button>'+
+  if(che==='don') h += '<div class="o-go"><button class="og-cam" data-lenh="f04b3.nkChupNhanh" title="Chụp ảnh — tự lưu thành một dòng của ngày này">📷</button>'+
     '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)">'+
     '<button class="og-them" onclick="dongGoThem(document.getElementById(\'nk-dong-moi\'),\''+c+'\',{key:\'Enter\'})">Thêm</button></div>';
   h += '</div>';   /* đóng .nk-trang */
@@ -475,7 +475,7 @@ function lcSapToi(){
   var chay = chayGanNhat();
   var phu = chay ? '<span class="lc-chay-nho">☸ Ngày chay: '+coChuHTML(chay)+'</span>' : '';
   return (ra.length ? ra.map(function(x){
-      return '<a onclick="lcChonNgay(\''+x.iso+'\')">'+lcDM(x.iso)+' '+coChuHTML(x.v.ten)+'</a>';
+      return '<a data-lenh="f04b3.lcChonNgay" data-a1="'+x.iso+'">'+lcDM(x.iso)+' '+coChuHTML(x.v.ten)+'</a>';
     }).join(' · ') : '<span>14 ngày tới chưa có việc</span>') + phu;
 }
 
@@ -508,11 +508,11 @@ function lcDoi(){
     '<div class="hop-phu">'+coChuHTML(v.ten)+' — đang ở '+LC_THU[lcNgay(tu).getDay()]+' '+lcDMY(tu)+
       (v.lap&&v.lap!=='mot'?'<br>Việc lặp '+LC_LAP[v.lap].toLowerCase()+': chỉ dời <b>lần ngày này</b>, các lần khác giữ nguyên.':'')+'</div>'+
     '<div class="hang-nut">'+
-      '<button class="nho" onclick="lcDoiDen(\''+lcCong(tu,1)+'\')">+1 ngày</button>'+
-      '<button class="nho" onclick="lcDoiDen(\''+t2+'\')">Thứ Hai tới</button>'+
-      '<button class="nho" onclick="lcDoiDen(\''+lcCong(tu,7)+'\')">+1 tuần</button></div>'+
+      '<button class="nho" data-lenh="f04b3.lcDoiDen" data-a1="'+lcCong(tu,1)+'">+1 ngày</button>'+
+      '<button class="nho" data-lenh="f04b3.lcDoiDen" data-a1="'+t2+'">Thứ Hai tới</button>'+
+      '<button class="nho" data-lenh="f04b3.lcDoiDen" data-a1="'+lcCong(tu,7)+'">+1 tuần</button></div>'+
     '<div class="o"><label>Hoặc chọn ngày</label><input id="lc-doi" inputmode="numeric" placeholder="dd/mm/yyyy" '+
-      'value="'+lcDMY(lcCong(tu,1))+'" oninput="gonNgay(this)"></div>'+
+      'value="'+lcDMY(lcCong(tu,1))+'" data-lenh="f04b3.gonNgay" data-su="input"></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
       '<button class="nho chinh" onclick="lcDoiDen(ngayISOo(gt(\'lc-doi\')))">Dời</button></div>');
 }
@@ -535,8 +535,8 @@ function lcXoa(){
     moHop('<div class="hop-tit">Xóa việc lặp</div>'+
       '<div class="hop-phu">'+coChuHTML(v.ten)+' — lặp '+LC_LAP[v.lap].toLowerCase()+'.</div>'+
       '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho" onclick="lcXoaMotLan()">Chỉ lần ngày '+lcDM(LICH.chon)+'</button>'+
-      '<button class="nho xau" onclick="lcXoaHan()">Xóa cả chuỗi</button></div>');
+      '<button class="nho" data-lenh="f04b3.lcXoaMotLan">Chỉ lần ngày '+lcDM(LICH.chon)+'</button>'+
+      '<button class="nho xau" data-lenh="f04b3.lcXoaHan">Xóa cả chuỗi</button></div>');
   } else lcXoaHan();   /* 3.153: không hỏi — vào Thùng rác */
 }
 function lcXoaMotLan(){
@@ -572,7 +572,7 @@ function lcDanhSach(){
     return '<div class="lc-dsn'+(iso<hn?' qua':'')+(iso===hn?' nay':'')+'"><div class="lc-dsn-dau">'+
       LC_THU[d.getDay()]+' '+lcDMY(iso)+' · âm '+lcAmChu(iso)+(iso<hn?' · <b>quá hạn</b>':iso===hn?' · <b>hôm nay</b>':'')+'</div>'+
       nhom[iso].map(function(x){
-        return '<div class="lc-dsn-v'+(x.xg?' xong':'')+'" onclick="dongHop();lcChonNgay(\''+iso+'\')">'+
+        return '<div class="lc-dsn-v'+(x.xg?' xong':'')+'" data-lenh="f04b3.lcChonNgay" data-dong="1" data-a1="'+iso+'">'+
           (x.v.luuY?'⚑ ':'')+coChuHTML(x.v.ten)+(x.v.lap&&x.v.lap!=='mot'?' <small>'+LC_LAP[x.v.lap]+'</small>':'')+'</div>';
       }).join('')+'</div>';
   }).join('') : '<div class="lc-rong">Không có việc nào trong khoảng này.</div>';
@@ -586,9 +586,9 @@ function lcTinhNgay(){
   moHop('<div class="hop-tit">Tính ngày</div>'+
     '<div class="nhan-nhom">Cộng / trừ ngày</div>'+
     '<div class="lc-tn"><input id="tn-tu" inputmode="numeric" value="'+c+'" oninput="gonNgay(this);lcTinh()">'+
-      '<select id="tn-dau" onchange="lcTinh()"><option value="1">cộng</option><option value="-1">trừ</option></select>'+
-      '<input id="tn-n" type="number" min="0" value="15" oninput="lcTinh()" style="width:80px">'+
-      '<select id="tn-kieu" onchange="lcTinh()"><option value="n">ngày</option><option value="lv">ngày làm việc</option></select></div>'+
+      '<select id="tn-dau" data-lenh="f04b3.lcTinh" data-su="change"><option value="1">cộng</option><option value="-1">trừ</option></select>'+
+      '<input id="tn-n" type="number" min="0" value="15" data-lenh="f04b3.lcTinh" data-su="input" style="width:80px">'+
+      '<select id="tn-kieu" data-lenh="f04b3.lcTinh" data-su="change"><option value="n">ngày</option><option value="lv">ngày làm việc</option></select></div>'+
     '<div class="lc-kq" id="tn-kq1"></div>'+
     '<div class="nhan-nhom">Khoảng cách giữa 2 ngày</div>'+
     '<div class="lc-tn"><input id="tn-a" inputmode="numeric" value="'+c+'" oninput="gonNgay(this);lcTinh()">'+
@@ -713,7 +713,7 @@ function veTimGhiChu(){
   if(!ds.length){ e.innerHTML = ''; return; }
   e.innerHTML = '<div class="nhan-nhom">Tìm thấy trong ghi chú &amp; lịch ('+ds.length+')</div>'+
     ds.map(function(x){
-      return '<div class="tgc-dong nt-'+x.mau+'" onclick="lcChonNgay(\''+x.ngay+'\')">'+
+      return '<div class="tgc-dong nt-'+x.mau+'" data-lenh="f04b3.lcChonNgay" data-a1="'+x.ngay+'">'+
         '<span class="tgc-ngay">'+lcDM(x.ngay)+'</span>'+
         '<span class="tgc-chu">'+coChuHTML((x.chu||'').slice(0,110))+'</span>'+
         '<small>'+x.loai+'</small></div>';
@@ -754,7 +754,7 @@ function veHomNay(){
   if(v.length){
     /* 3.53 (anh chốt): gom thành MỘT dòng — bấm chip đi thẳng tới việc, bấm ▾ mở thẻ đầy đủ, ▴ thu lại */
     var moCXL = !!D.cauHinh.moCXL;
-    h += '<div class="gon-dong'+(moCXL?' mo':'')+'" onclick="datGon(\'moCXL\')"><b>⚠ Cần xử lý</b><span class="gon-ds">'+
+    h += '<div class="gon-dong'+(moCXL?' mo':'')+'" data-lenh="f04b3.datGon" data-a1="moCXL"><b>⚠ Cần xử lý</b><span class="gon-ds">'+
       v.map(function(x){ return '<span class="gon-chip'+(x.gap?' gap':'')+'" onclick="event.stopPropagation();'+(x.fn||('doiNgan('+x.di+')'))+'">'+coChuHTML(x.ngan||x.tit)+'</span>'; }).join('')+
       '</span><span class="gon-mui">'+(moCXL?'▴':'▾')+'</span></div>';
     if(moCXL) v.forEach(function(x){
@@ -772,7 +772,7 @@ function veHomNay(){
   /* 3.53 (anh chốt): thu gọn 1 dòng, bấm để mở */
   var moGD = !!D.cauHinh.moGanDay && g.length;
   var gd = document.getElementById('gan-dau');
-  if(gd) gd.innerHTML = '<div class="gon-dong'+(moGD?' mo':'')+(g.length?'':' tat')+'"'+(g.length?' onclick="datGon(\'moGanDay\')"':'')+'>'+
+  if(gd) gd.innerHTML = '<div class="gon-dong'+(moGD?' mo':'')+(g.length?'':' tat')+'"'+(g.length?' data-lenh="f04b3.datGon" data-a1="moGanDay"':'')+'>'+
     '<b>🕘 Vừa xem gần đây</b><span class="gon-ds">'+(g.length ? '<span class="gon-phu">'+g.length+' mục</span>' : '<span class="gon-phu">chưa xem mục nào</span>')+'</span>'+
     (g.length ? '<span class="gon-mui">'+(moGD?'▴':'▾')+'</span>' : '')+'</div>';
   document.getElementById('ds-ganday').innerHTML = moGD ? g.map(function(m){ return dongHTML(m,''); }).join('') : '';
@@ -914,3 +914,38 @@ function kyThieu(){
   if(!mau.length || !D.duLieu.length) return [];
   return thieuTheoKy(kyGanNhat()).map(function(x){ return x.dv+': '+x.bc+(x.ghi?' ('+x.ghi+')':''); });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04b3.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04b3', gdLenh({
+  datGon:function(el, ev){ datGon(gdA(el, 1)); },
+  datPhongSo:function(el, ev){ datPhongSo(gdA(el, 1)); },
+  doiCau:function(el, ev){ doiCau(); },
+  dongBoChon:function(el, ev){ dongBoChon(); },
+  dongChon:function(el, ev){ dongChon(gdA(el, 1)); },
+  dongChonHet:function(el, ev){ dongChonHet(gdA(el, 1)); },
+  dongChuyen:function(el, ev){ dongChuyen(gdA(el, 1), +gdA(el, 2)); },
+  dongChuyenHomQua:function(el, ev){ dongChuyenHomQua(gdA(el, 1)); },
+  dongDoiMau:function(el, ev){ dongDoiMau(gdA(el, 1), gdA(el, 2)); },
+  dongLenLich:function(el, ev){ dongLenLich(gdA(el, 1)); },
+  dongMauNhieu:function(el, ev){ dongMauNhieu(gdA(el, 1)); },
+  dongXoa:function(el, ev){ dongXoa(gdA(el, 1)); },
+  dongXong:function(el, ev){ dongXong(gdA(el, 1)); },
+  gonNgay:function(el, ev){ gonNgay(el); },
+  hoanTac:function(el, ev){ hoanTac(); },
+  lcChonNgay:function(el, ev){ lcChonNgay(gdA(el, 1)); },
+  lcChonViec:function(el, ev){ lcChonViec(gdA(el, 1)); },
+  lcDoi:function(el, ev){ lcDoi(); },
+  lcDoiDen:function(el, ev){ lcDoiDen(gdA(el, 1)); },
+  lcLuuY:function(el, ev){ lcLuuY(); },
+  lcSua:function(el, ev){ lcSua(); },
+  lcTinh:function(el, ev){ lcTinh(); },
+  lcXoa:function(el, ev){ lcXoa(); },
+  lcXoaHan:function(el, ev){ lcXoaHan(); },
+  lcXoaMotLan:function(el, ev){ lcXoaMotLan(); },
+  moDsPhong:function(el, ev){ moDsPhong(); },
+  moNgayTot:function(el, ev){ moNgayTot(gdA(el, 1)); },
+  nkChupNhanh:function(el, ev){ nkChupNhanh(); },
+  nkMenuDinh:function(el, ev){ nkMenuDinh(gdA(el, 1)); },
+  ntDatChe:function(el, ev){ ntDatChe(gdA(el, 1)); },
+  ntThem:function(el, ev){ ntThem(gdA(el, 1)); }
+}));

@@ -15,9 +15,10 @@ const fs=require('fs'), path=require('path');
    doiNgan(7); const K = ktCH(); K.ky='2026-08'; K.xa=''; K.diem=''; K.hoi=''; K.to=''; K.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99');
    const t = ds.map(t=>[t, ktttSo(t)]).sort((a, b)=>b[1].ho.length-a[1].ho.length)[0][0]; ktChonTo(t.ma); K.xa = t.xa; K.to = t.ma; ktVeThe(); await w(400);
-   for(let i=0;i<40 && !document.querySelector('[data-lenh="kttt.in"]');i++){ if(i===10 && document.getElementById('kt-the')) ktVeThe(); await w(250); }
-   const nut = document.querySelector('[data-lenh="kttt.in"]');
-   ok('🎯 Đột xuất: có nút 📋 Tóm tắt tổ cạnh 📋 Mẫu 04', !!nut && /Tóm tắt tổ/.test(nut.textContent));
+   const SEL = '[data-lenh="ktto.xem"][data-m="tt"]';   /* 3.514: 🎯 Kiểm tra tổ — nút 📋 Tóm tắt (tổ đã tích) */
+   for(let i=0;i<40 && !document.querySelector(SEL);i++){ if(i===10 && document.getElementById('kt-the')) ktVeThe(); await w(250); }
+   const nut = document.querySelector(SEL);
+   ok('🎯 Kiểm tra tổ: có nút 📋 Tóm tắt (đầu hàng 5 mẫu)', !!nut && /Tóm tắt/.test(nut.textContent) && !nut.disabled);
    const x = ktttSo(t), s = ktSoTo(t), h = ktttHTML(x), c = chu(h);
    ok('ghi "số liệu đến ngày" theo ngày số liệu đang chọn', c.indexOf('số liệu đến ngày '+ngayVNsl(s.ngay || KT_K.ngay))>=0, (c.match(/số liệu đến ngày [^,)]*/)||[''])[0]);
    ok('đầu trang: tên tổ, mã tổ, Hội', c.indexOf('mã '+t.ma)>=0 && c.indexOf(ktHoiTen(t))>=0);
@@ -38,15 +39,14 @@ const fs=require('fs'), path=require('path');
    /* định kỳ (anh "áp cho kiểm tra định kỳ và đột xuất luôn") */
    const t2 = ds.find(y=>y.xa===t.xa && y.ma!==t.ma) || ds.find(y=>y.ma!==t.ma);
    K.che = 'dk'; K.xa = t.xa; KT_DK_CHON = {}; KT_DK_CHON[t.ma] = true; KT_DK_CHON[t2.ma] = true; ktVeThe();
-   for(let i=0;i<40 && !document.querySelector('[data-lenh="kttt.dk"]');i++) await w(250);
-   const nDK = document.querySelector('[data-lenh="kttt.dk"]'), nDong = document.querySelector('[data-lenh="kttt.in"][data-m="'+t.ma+'"]');
-   ok('📅 Định kỳ: mỗi dòng tổ có 📋 + nút "📋 Tóm tắt 2 tổ"', !!nDong && !!nDK && /Tóm tắt 2 tổ/.test(nDK.textContent), nDK && nDK.textContent);
+   for(let i=0;i<40 && !document.querySelector('#kt-the [data-lenh="ktk.dkTich"]');i++) await w(250);
+   ok('3.513: 📅 Định kỳ không còn nút 📋 Tóm tắt (gom về hàng nút 1 tổ)', !document.querySelector('[data-lenh="kttt.dk"]') && !document.querySelector('#kt-the [data-lenh="kttt.in"]'));
    let kq = null; const goc2 = window.inBlob; window.inBlob = (bl, ten)=>{ kq = {bl, ten}; };
-   nDK.click(); for(let i=0;i<20 && !kq;i++) await w(100);
+   ktttInDs(ktDKDs().filter(r=>r.chon).map(r=>r.t)); for(let i=0;i<20 && !kq;i++) await w(100);
    const hd = kq ? await kq.bl.text() : '', cd = chu(hd);
    ok('bấm → 1 file In / PDF, mỗi tổ 1 trang (2 phần), số liệu đến ngày cuối tháng', !!kq && /^Tom tat to 2 to - so lieu /.test(kq.ten) && (hd.match(/<section class="kttt">/g)||[]).length===2 && /\.kttt\+\.kttt\{break-before:page\}/.test(hd) && cd.indexOf('số liệu đến ngày '+ngayVNsl(tdnCuoiKy(KT_K.ky)))>=0, kq && kq.ten);
-   kq = null; nDong.click(); for(let i=0;i<20 && !kq;i++) await w(100);
-   ok('📋 ở dòng tổ → tóm tắt riêng tổ đó', !!kq && (await kq.bl.text()).indexOf('mã '+t.ma)>=0 && !/ 2 to /.test(kq.ten), kq && kq.ten);
+   kq = null; ktttIn(t.ma); for(let i=0;i<20 && !kq;i++) await w(100);
+   ok('ktttIn(mã) → tóm tắt riêng tổ đó', !!kq && (await kq.bl.text()).indexOf('mã '+t.ma)>=0 && !/ 2 to /.test(kq.ten), kq && kq.ten);
    window.inBlob = goc2; K.che = 'dx'; KT_DK_CHON = {};
    return {o, h}; }, files);
  R.o.forEach(x=>o.push(x));

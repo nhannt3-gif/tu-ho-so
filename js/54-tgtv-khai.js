@@ -74,9 +74,9 @@ function tgTayDat(k, v){
 function tgFormHTML(T){   /* form chuẩn 7 ô — phần còn lại app tự tính */
   var DB = hmDiaBan(), xs = CAY.dsXa();
   var X = DB[T.xaMa], as = X ? CAY.dsAp(T.xaMa).map(function(a){ return [a[0], tgApTen(a[2])]; }) : [];
-  var o = function(nhan, k, gt, ph, them){ return hsoTuyO(nhan, '<input class="tg-f" data-k="'+k+'" value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph)+'"'+(them||'')+' onchange="tgTayDat(\''+k+'\', this.value)">'); };
-  var xaO = xs.length ? CAY.o('xa', T.xaMa || '', '— chọn xã ('+xs.length+') —', xs, 'onchange="tgTayDat(\'xaMa\', this.value)"') :   /* 3.328: ô chọn cây nhúng dùng chung (js/57) */ '<input class="tg-f" value="'+coChuHTML(T.xa||'')+'" placeholder="tên xã (chưa có địa bàn Mẫu 31)" onchange="tgTayDat(\'xa\', this.value)">';
-  var apO = xs.length ? CAY.o('ap', T.apMa || '', X ? '— chọn ấp ('+as.length+') —' : '— chọn xã trước —', as, 'onchange="tgTayDat(\'apMa\', this.value)"') : '<input class="tg-f" value="'+coChuHTML(T.ap||'')+'" placeholder="vd Ấp Cầu Sắt" onchange="tgTayDat(\'ap\', this.value)">';
+  var o = function(nhan, k, gt, ph, them){ return hsoTuyO(nhan, '<input class="tg-f" data-k="'+k+'" value="'+coChuHTML(gt||'')+'" placeholder="'+coChuHTML(ph)+'"'+(them||'')+' data-lenh="f54.tgTayDat" data-su="change" data-a1="'+k+'">'); };
+  var xaO = xs.length ? CAY.o('xa', T.xaMa || '', '— chọn xã ('+xs.length+') —', xs, 'data-lenh="f54.tgTayDat" data-su="change" data-a1="xaMa"') :   /* 3.328: ô chọn cây nhúng dùng chung (js/57) */ '<input class="tg-f" value="'+coChuHTML(T.xa||'')+'" placeholder="tên xã (chưa có địa bàn Mẫu 31)" data-lenh="f54.tgTayDat" data-su="change" data-a1="xa">';
+  var apO = xs.length ? CAY.o('ap', T.apMa || '', X ? '— chọn ấp ('+as.length+') —' : '— chọn xã trước —', as, 'data-lenh="f54.tgTayDat" data-su="change" data-a1="apMa"') : '<input class="tg-f" value="'+coChuHTML(T.ap||'')+'" placeholder="vd Ấp Cầu Sắt" data-lenh="f54.tgTayDat" data-su="change" data-a1="ap">';
   var so = String(T.cccd||''), gt = T.gt || hmGT({cccd:so}), han = so.length===12 && T.ns && T.ncap && typeof toCCCDHan==='function' ? toCCCDHan(so, T.ns, T.ncap) : null;
   var tu = [gt ? 'Giới tính <b>'+coChuHTML(gt)+'</b> (theo CCCD)' : '', han ? (han.den ? 'hết hạn <b>'+ngayVNsl(han.den)+'</b>' : coChuHTML(han.chu || '')) : '', T.ncap ? 'nơi cấp <b>'+coChuHTML(T.noiCap || hsoNoiCapGY(T.ncap))+'</b>' : '',
     'dân tộc <b>'+coChuHTML(T.danToc==null ? 'Kinh' : T.danToc || '(chấm)')+'</b>', '☒ Có cư trú', 'quốc tịch Việt Nam'].filter(Boolean);
@@ -109,7 +109,7 @@ function tgTayHop(k){
     return '<label class="tg-o"><span class="tg-n">'+coChuHTML(f[1])+'</span><input class="gdx-i" id="'+id+'" value="'+coChuHTML(gt)+'" placeholder="'+coChuHTML(f[2]==='ngay' ? 'dd/mm/yyyy — trống = chấm' : ph ? 'trống = chấm (gợi ý: '+ph+')' : 'trống = chấm')+'"'+(f[2]==='so' ? ' inputmode="numeric"' : '')+'></label>'; }).join('');
   moHop('<div class="hop-tit" id="tg-hop">✍ '+coChuHTML(x.n || k)+'</div><div class="hop-phu">01/TGTV — tự khai trên mẫu ('+(i+1)+'/'+tgTayDs().length+'). Enter = lưu và sang mục kế. Để trống = in chấm.</div>'+
     '<div class="tg-hop">'+h+'</div>'+
-    '<div class="hang-nut"><button class="nho" onclick="tgTayLuu(0, -1)" title="Lưu, về mục trước">◀</button><button class="nho chinh" onclick="tgTayLuu(1)">Lưu</button><button class="nho" onclick="tgTayLuu(0, 1)" title="Lưu, sang mục kế (Enter)">Lưu, mục kế ▶</button><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="f54.tgTayLuu" data-a1="0" data-a2="-1" title="Lưu, về mục trước">◀</button><button class="nho chinh" data-lenh="f54.tgTayLuu_n" data-a1="1">Lưu</button><button class="nho" data-lenh="f54.tgTayLuu" data-a1="0" data-a2="1" title="Lưu, sang mục kế (Enter)">Lưu, mục kế ▶</button><button class="nho" data-lenh="hop.dong">Thôi</button></div>');
   var e = document.getElementById('hop-in'); if(e){ var o = e.querySelector('input.gdx-i, input'); if(o){ o.focus(); if(o.select) o.select(); }
     e.onkeydown = function(ev){ if(ev.key==='Enter' && !ev.shiftKey){ ev.preventDefault(); tgTayLuu(0, 1); } }; }
 }
@@ -147,8 +147,17 @@ function tgCotHTML(t, B){   /* cột trái 01/TGTV */
   else { var n = tgTayCo(), T = tgTay();
     h += tgFormHTML(T)+
       '<div class="sl-phu tg-goi">👉 Mục khác: <b>bấm vào chỗ chấm / ô ☐ trên mẫu bên phải</b> để gõ — Enter lưu và sang mục kế. Đã khai <b>'+n+'</b> mục.</div>'+
-      '<div class="hang-nut"><button class="nho chinh" onclick="tgTayHop(\'ten\')">⌨ Khai lần lượt</button><button class="nho" onclick="tgTayMoi()"'+(n ? '' : ' disabled')+'>🧹 Khai người mới</button></div>'+
+      '<div class="hang-nut"><button class="nho chinh" data-lenh="f54.tgTayHop" data-a1="ten">⌨ Khai lần lượt</button><button class="nho" data-lenh="f54.tgTayMoi"'+(n ? '' : ' disabled')+'>🧹 Khai người mới</button></div>'+
       (t && tv.length ? hsoTuyO('Lấy từ Mẫu 31 rồi sửa', hsoChon('tgTayChep(this.value)', '', [['', '— chọn tổ viên ('+tv.length+') —']].concat(tv.map(function(k){ return [k.kh, k.ten+' · '+k.kh]; })))) : '')+
       (OM_KIEU!=='that' ? '<div class="sl-phu"><b>⚠ Đang xem '+(OM_KIEU==='trang' ? '📄 Bản trắng' : '📝 Bản mẫu')+'</b> — chọn 🖨 Bản thật để in chữ đã khai.</div>' : ''); }
   return h;
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f54.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f54', gdLenh({
+  tgTayDat:function(el, ev){ tgTayDat(gdA(el, 1), el.value); },
+  tgTayHop:function(el, ev){ tgTayHop(gdA(el, 1)); },
+  tgTayLuu:function(el, ev){ tgTayLuu(+gdA(el, 1), +gdA(el, 2)); },
+  tgTayLuu_n:function(el, ev){ tgTayLuu(+gdA(el, 1)); },
+  tgTayMoi:function(el, ev){ tgTayMoi(); }
+}));

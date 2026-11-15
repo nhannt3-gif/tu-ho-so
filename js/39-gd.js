@@ -73,7 +73,7 @@ var GD = (function(){
     var b = hang.querySelector(k==='p' ? '.xuat-in:not([disabled])' : '.xuat-app:not([disabled])'); if(!b) return;
     ev.preventDefault(); b.click(); });
   dangKy('dh', {lui:function(){ history.back(); }, tien:function(){ history.forward(); }});
-  return {dangKy:dangKy, nut:nut, hang:hang, o:o, chip:chip, kv:kv, moCon:moCon, boc:boc, chup:chup, so:function(){ return CHONG.length; }};
+  return {dangKy:dangKy, coLenh:function(k){ return !!LENH[k]; }, nut:nut, hang:hang, o:o, chip:chip, kv:kv, moCon:moCon, boc:boc, chup:chup, so:function(){ return CHONG.length; }};
 })();
 GD.boc();
 /* 3.239: nút khung app trong index.html (thanh bên, ô tìm, khung xem file, nền hộp) theo data-lenh — trước là onclick */
@@ -88,5 +88,6 @@ GD.boc();
   ['xoaTim', 'moHuongDan', 'moDonKho', 'moRac', 'moNapSL', 'moBCSL', 'moLonCP', 'anPreview', 'inFile', 'guiTrangChon', 'suaMuc', 'hienPreview', 'nutChinh', 'toanManHinh', 'dongXem']
     .forEach(function(t){ k[t] = function(){ return window[t](); }; });
   GD.dangKy('khung', k); })();
-GD.dangKy('hop', {dong:function(){ dongHop(); }});   /* 3.349 (mục 8 việc 7 — bớt onclick): nút Đóng / Thôi của hộp — data-lenh="hop.dong" thay onclick="dongHop()" */
+GD.dangKy('hop', {dong:function(){ dongHop(); }});
+GD_CHO.forEach(function(x){ GD.dangKy(x[0], x[1]); }); GD_CHO = [];   /* 3.474: nhận lệnh các file nạp trước (gdDangKy — js/02) */   /* 3.349 (mục 8 việc 7 — bớt onclick): nút Đóng / Thôi của hộp — data-lenh="hop.dong" thay onclick="dongHop()" */
 setTimeout(function(){ try { history.replaceState({th:1, s:GD.chup()}, ''); } catch(e){} }, 0);

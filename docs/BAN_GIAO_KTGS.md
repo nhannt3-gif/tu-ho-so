@@ -109,3 +109,46 @@ Chạy `bash tools/hoiquy.sh 330` trên bản 3.330 (153 phép, xong 24/10): **h
 | Còn đọc thẳng (để lại, chỉ đọc): `ktKiemTra` (`slBo` — so bảng thô BC0437 ↔ 0438 ↔ Mẫu 31), `ktDsBC` / `ktChonBC` (hiện chip BC), `toKhach` / `KT_K.to` (đọc kỳ đã dựng) | | |
 Phép thử mục 5 chạy lại sau khi đổi; mẫu khóa (t179) không đổi.
 
+## 10. Bản 3.498 (07/11/2026) — 2 mẫu VB 727/HD-NHCS (gói `js/56b-ktgs-727.js`, cắm rút)
+- **📄 15/TD Danh sách đối chiếu số dư tiền vay và tiền gửi** (A4 ngang): toàn bộ tổ viên còn nợ / lãi tồn / tiền gửi (`KHO.doiChieu` — QT-22, cùng 02/BG), nợ lãi = lãi tồn, dòng khách + dòng từng món, Tổng cộng.
+- **🏛 03/BB-CX Biên bản kiểm tra Hội cấp xã**: mục I tự điền theo Hội – xã của tổ (số tổ, thôn, khách, dư nợ / NQH / khoanh triệu đồng + tỷ lệ, xếp loại tổ theo BC0437); mục III / IV (mẫu gốc ghi IV / V — anh chốt sửa); cán bộ NH khai báo lưu `D.cauHinh.ktIn.kt03`.
+- 15/TD (cấp tổ): nút ở khối B (tổ đang chọn) và khối A Định kỳ (tổ đã tích — chạy qua `ktNguonVoi`, số liệu chốt tháng).
+- **3.500 (anh 08/11): 03/BB-CX là cấp Hội → khối riêng thứ 4 🏛 Hội cấp xã** trên thanh khối (`che = 'hx'`, `ktKhoi` → 'D', vẽ `kt7HXVe`): bảng Hội – xã theo lọc xã + Hội (số tổ, thôn, khách, dư nợ, NQH, xếp loại BC0437), mỗi Hội 1 nút 03/BB-CX; số liệu Kỳ đầu trang. Bỏ nút 03 ở cấp tổ (khối B, Định kỳ, Mẫu 04).
+- Word: khuôn dựng từ mẫu gốc `tests/mau_goc/15td.docx`, `03bbcx.docx` bằng `tools/khuon_727.py` → `js/khuon/kt-khuon-727.js` (nạp khi cần — `kt727Khuon`); `ktDocxLam` gọi `KT_DOCX_THEM[mau]` nếu có (mẫu cũ không đổi). Điền bằng `kt7Dien` (thêm cách khi mẫu gốc để nhãn dính chấm).
+- Phép thử: `tests/t383.js` (16 phép, có kiểm XML hợp lệ); t179 (khóa mẫu) không đổi.
+- **3.503:** 15/TD, 03/BB-CX chuyển sang khung mẫu in chung `MAU_IN` (js/31b): khuôn `js/khuon/kt727.js` (`MAU_KHUON.kt727`), hộp xem `MAU_IN.hop`, Word `MAU_IN.word` (+ `sau: ktChamMin` — dòng chấm mịn như mọi Word KTGS; thân XML giống hệt 3.502). Bỏ móc `KT_DOCX_THEM` ở `ktDocxLam` (lõi Word KTGS về như trước 3.498).
+
+## 11. Bản 3.513 (11/11/2026) — thống nhất cách lấy số liệu (anh "gom lại không bỏ chức năng")
+| Màn / mẫu | Số liệu |
+|---|---|
+| 🗓 Kế hoạch năm 01/KH · 🗓 Định kỳ 06 + 16 | **như cũ** — ô Tháng kiểm tra, Mẫu 31 chốt cuối tháng liền trước (`ktNguonVoi`) |
+| 🎯 1 tổ (Tóm tắt · 06 · 15/TD · 16) · 🏛 Hội cấp xã 03/BB-CX · 📋 Mẫu 04 | Kỳ đầu trang (`KT_K`), Mẫu 31 đúng ngày |
+| 📅 Sau giải ngân | tháng của kỳ chọn (kỳ ngày giữa tháng → Mẫu 31 ngày đó, món GN đến ngày đó); ô từ–đến anh đổi được (`KT_GN_KY`) |
+| Chấm điểm BC0437 / BC0438 | theo tháng: kỳ là ngày giữa tháng → cuối tháng liền trước (`ktBCKyChon`) |
+Bỏ nút lặp: 📋 Mẫu 04 ở hàng 1 tổ; 📋 Tóm tắt + 📄 15/TD ở Định kỳ (hàm giữ). Mỗi màn dòng 📌 Số liệu (`ktSLDong`). Phép thử t389.
+
+## 12. Bản 3.514 (11/11/2026) — 5 nút + 🎯 Kiểm tra tổ nhiều tổ (gói `js/80-ktgs-to.js`, `KTTO`)
+```
+🛡 KTGS Hội   [🎯 Kiểm tra tổ][📅 Kiểm tra sau 30 ngày][🏛 Kiểm tra Hội][🗓 Kế hoạch năm][⚙ Khai báo]   ‹ Lùi (Esc)
+📌 Số liệu: Mẫu 31 kỳ chọn · chấm điểm BC0437 đúng tháng (thiếu → để trống)
+```
+- `che`: `dx` Kiểm tra tổ (khóa cũ `dk` / `bc` đọc thành `dx`) · `gn` · `hx` · `kh` · `hdt`.
+- Kiểm tra tổ: tổ đã tích = `KT_DK_CHON`; hộ từng tổ `KTTO.ho` (= `ktGoiY(t, kiểu, số, null, loc)`); món xét `luat` (GN trước 01/01 năm KT) / `tat`; kiểu `tot` · `xau` · `trung` (% khai báo) · `het`; 1 ô ngày chung (`KT_KB.ngay`); in 06 / 16 qua `KTTO.giaTri` (như `ktDKGiaTri`), 04 `ktBC04` (`KT_BC_XEM.tu = 'to'`), 15/TD `kt7Mo15('to')`, Tóm tắt `ktttInDs`.
+- Tương thích: tổ chọn ở cây (`C.to`) → `KT_CHON` = hộ của tổ đó (hàm 1 tổ cũ `ktXuat`, `ktDaChon`, `ktDoiKieu`, `ktGoiYLai` vẫn chạy).
+- Khai báo chọn hộ: `D.cauHinh.ktChonHo` (⚙ Khai báo › 🎯 Chọn hộ kiểm tra), theo khóa / nhật ký khai báo Hội (`t:'chonho'`).
+- Còn hàm cũ không gọi từ giao diện (giữ cho Kế hoạch in theo tháng / phép thử): `ktDKVe`, `ktBCVe`, `ktChonHTML`, `ktTheHTML`, `ktBangToHTML`, `ktDX04` — dọn ở đợt rà mã sau (cần anh duyệt khi xóa).
+
+## 13. Bản 3.516 (11/11/2026) — Kế hoạch năm theo Mẫu 31 mới nhất + 🔎 Kế hoạch đã lưu (gói `js/80b-ktgs-kh-sl.js`, `KTKH`)
+- Màn 🗓 Kế hoạch năm: `ktKHDsTo` đọc `KTKH.Kdung()` = Mẫu 31 mới nhất đã nạp (chốt tháng hoặc ngày); trong `ktKHVoiSL` (In theo tháng / `ktNguonVoi`) cờ `KTKH.muon` → số liệu tháng kiểm tra như cũ.
+- Bản chốt không tự sửa khi tổ đổi: tổ đã gộp / đi khỏi chỉ ⚠ (L.mat); tổ mới của ấp có tháng theo ấp (3.140); ấp mới chưa có tháng → ⚠ cần xếp.
+- 🔎 `KTKH.hop()` liệt kê `D.cauHinh.ktKH` + `D.rac` (loaiNho 'ktKH'); `KTKH.mo(khóa)` đặt năm / xã / Hội.
+
+## 14. Bản 3.517 (11/11/2026) — Kế hoạch năm lập theo Mẫu 31 đầu năm
+- `KTKH.dau(năm)` = chốt 31/12 năm trước (chưa có → tháng chốt gần nhất trước; không có → bản sớm nhất, ⚠); `ktKHDsTo` ← `KTKH.Kdung()`; In theo tháng (`ktKHVoiSL`, cờ `KTKH.muon`) như cũ.
+- `KTKH.baoHTML`: so đầu năm ↔ Mẫu 31 mới nhất (`KTKH.kyMoi`) → ⚠ tổ đã gộp / đi khỏi (chỉ cảnh báo), 🆕 tổ mới (tháng của ấp). Cache `KTKH.c[kỳ]`.
+
+## 15. Bản 3.518 (12/11/2026) — ↪ Nhận kế hoạch về mã xã / Hội hiện tại
+- `KTKH.dich(khóa)`: đích = (xã, Hội) có nhiều tổ của kế hoạch nhất trong Mẫu 31 mới nhất · `KTKH.nhan(khóa, ok)`: hỏi trước → chép (giữ chốt, `nhan:{tu, luc}`), nháp đích → `racMucNho`, đích đã chốt → không ghi đè.
+
+## 16. Bản 3.520 (14/11/2026) — dọn code màn cũ
+- Xóa 36 hàm màn Định kỳ / Mẫu 04 theo ấp / khung 1 tổ cũ (danh sách: CHANGELOG 3.520). Mục 12 "còn hàm cũ không gọi" đã xong. `KTTO.lai` = ↺ lượt hộ khác.

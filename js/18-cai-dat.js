@@ -53,8 +53,8 @@ function xemCay(){
     'hoặc tạo tay theo cây này. Thư mục năm và tháng chỉ tạo khi cần dùng tới.</div>'+
     '<div class="cay">'+coChuHTML(t)+'</div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="chepCay()">Sao chép</button>'+
-      '<button class="nho chinh" onclick="dongHop();moCaiDat(\'drive\')">Đóng</button></div>');
+      '<button class="nho" data-lenh="f18.chepCay">Sao chép</button>'+
+      '<button class="nho chinh" data-lenh="f18.moCaiDat" data-dong="1" data-a1="drive">Đóng</button></div>');
 }
 function chepCay(){
   var t = window.__cay||'';
@@ -71,8 +71,8 @@ function moCayDB(){
     'Đây cũng là nguồn cho các ô chọn ở màn quét hồ sơ.</div>'+
     '<div id="cay-db"></div>'+
     '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho" onclick="themXa()">+ Thêm xã/phường</button>'+
-      '<button class="nho chinh" onclick="dongHop();moCaiDat(\'diaban\')">Xong</button></div>',
+      '<button class="nho" data-lenh="f18.themXa">+ Thêm xã/phường</button>'+
+      '<button class="nho chinh" data-lenh="f18.moCaiDat" data-dong="1" data-a1="diaban">Xong</button></div>',
     true);
   veCayDB();
 }
@@ -189,7 +189,7 @@ function suaTo(ix, iz, ia){
     '<div class="hop-phu">Mỗi dòng một tổ, dạng: <b>Mã tổ | Tên tổ trưởng | ĐVUT</b>. '+
     'Mã tổ chính là mã tổ trưởng, đổi người thì giữ nguyên mã.</div>'+
     ta('','sto',cu)+
-    '<div class="hang-nut"><button class="nho" onclick="dongHop();moCayDB()">Thôi</button>'+
+    '<div class="hang-nut"><button class="nho" data-lenh="f18.moCayDB" data-dong="1">Thôi</button>'+
     '<button class="nho chinh" onclick="luuTo('+ix+','+iz+','+ia+')">Lưu</button></div>', true);
 }
 function luuTo(ix, iz, ia){
@@ -396,3 +396,11 @@ function napExcel(){
   };
   i.click();
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f18.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f18', gdLenh({
+  chepCay:function(el, ev){ chepCay(); },
+  moCaiDat:function(el, ev){ moCaiDat(gdA(el, 1)); },
+  moCayDB:function(el, ev){ moCayDB(); },
+  themXa:function(el, ev){ themXa(); }
+}));

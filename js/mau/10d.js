@@ -3,16 +3,7 @@
    Lề 20 / 20 / 20 / 30 mm · Times New Roman 14 · đoạn dòng cố định 15 pt, cách 4–5 pt, thụt 12,7 mm. Bỏ file này → chip 10D báo chưa có mô-đun. */
 (function(){
   var MK = '10d';
-  function mm(s, k){ var m = new RegExp(k+':(-?[\\d.]+)mm').exec(s); return m ? +m[1] : 0; }
-  function P(noi, s){ s = s || ''; if(s && !/;$/.test(s)) s += ';';
-    if(/nowrap/.test(s) && noi.indexOf('<br>')<0){
-      var w = 0, h = noi.replace(/<span[^>]*display:inline-block;width:([\d.]+)mm[^>]*>[\s\S]*?<\/span>/g, function(_, x){ w += +x; return ''; }), tx = h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
-      var R = 159.5 - mm(s, 'text-indent') - mm(s, 'margin-left'), n = (tx.match(/ /g) || []).length; w += omRong(tx, 14, /^<b>/.test(noi));
-      if(w > R){ if(n && (w-R)/n <= 0.8) s += 'word-spacing:'+(-(w-R)/n).toFixed(2)+'mm;';
-        else { s += 'letter-spacing:'+(-(w-R)/tx.length).toFixed(3)+'mm;'; noi = noi.replace(/display:inline-block;/g, 'display:inline-block;letter-spacing:normal;'); } } }
-    else if(/justify/.test(s) && !/word-spacing/.test(s)) s += 'word-spacing:-0.25mm;';
-    if(/text-align-last:justify/.test(s)) noi = noi.replace(/display:inline-block;/g, 'display:inline-block;text-align-last:auto;word-spacing:normal;');
-    return '<p style="margin:0;'+s+'">'+noi+'</p>'; }
+  function P(noi, s){ return HST.P(noi, s); }   /* 3.464: đoạn văn chung Hồ sơ Tổ (js/mau/0hst.js — trước mỗi mẫu 1 bản giống hệt) */
   var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;';
   var B4 = 'margin:0 0 4pt;line-height:15pt;', B5 = 'margin:0 0 5pt;line-height:15pt;';   /* cách dồn sau đoạn: đầu trang không thêm khoảng */
   function P2(a, b, st, st2){ return P(a, st+W+TL+'margin-bottom:0;')+P(b, (st2||'')+W+';margin-top:0;'); }

@@ -27,6 +27,7 @@ const fs=require('fs'), path=require('path');
    slDoiTab('to'); for(let i=0;i<60 && !document.getElementById('to-cay');i++) await w(250);
    o.ky = toDsKy().map(x=>x.chu).join(' / '); o.soTo = Object.keys(TO_K.to).length;
    // phím: Enter ở ô Xã trống → báo, đứng lại; chọn xã bằng ↓ rồi Enter → sang ô Điểm GD
+   document.body.classList.add('dtm-loc-mo');   /* 3.541: điện thoại — LỌC ĐỊA BÀN gọn 1 dòng, bấm mới mở ô chọn (như người dùng bấm) */
    const xa = document.getElementById('to-xa'); xa.focus();
    xa.dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true})); await w(50); o.phimTrong = document.activeElement.id;
    xa.dispatchEvent(new KeyboardEvent('keydown', {key:'ArrowDown', bubbles:true})); await w(100);

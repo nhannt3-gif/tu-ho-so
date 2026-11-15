@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
    OM_KBT.k = 'ngan'; omKBVe(); await w(200);
    ok('ô Bên A: ✍ · ⚙ Khai báo chung · ⌨ Tự gõ', /⚙ Khai báo chung/.test(document.getElementById('om-kbt-phai').textContent));
    omKBLuu(); hsoVe(); await w(300);   /* 3.252: 💾 Lưu */
-   const tt = omKBRieng('11', OM_MAU['11'].V(KHO.to(hsoCH().to))).replace(/<[^>]+>/g, ' ');
+   const tt = omDemNguon('11');   /* 3.455: tóm tắt chuyển lên tiêu đề hộp ⚙ Khai báo riêng */
    ok('tóm tắt khai báo riêng đếm theo nguồn (📊 / ⚙ / ⌨ / ✍)', /\d+ 📊/.test(tt) && /\d+ ⌨/.test(tt), tt.slice(0, 120));
    OM_KIEU = 'trang'; const tr = lap('11'); OM_KIEU = 'that';
    ok('bản trắng: chữ riêng chỉ in ở phần NH in sẵn như trước', tr.indexOf('Tổ Trưởng Gõ Riêng')<0);

@@ -15,6 +15,8 @@ const fs=require('fs'), path=require('path');
    const K = ktCH(); K.ky='2026-08'; K.xa=''; K.diem=''; K.hoi=''; K.to=''; K.che='dx'; slDoiTab('kt'); for(let i=0;i<120 && !(KT_K && document.getElementById('kt-cay'));i++) await w(250); await w(300);
    const ds = Object.values(KT_K.to).filter(t=>!toLaTT(t) && t.dv && String(t.dv)!=='99'), t = ds[0]; ktChonTo(t.ma); await w(500);
    const dc = ktDaChon(), hoiTen = ktHoiTenTD(t);
+   ok('3.514: Kiểm tra tổ (gộp Định kỳ) mặc định bộ ① Hội kiểm tra', ktBoMacDinh()==='hoi' && ktInKhoa('m16')==='m16');
+   const boGoc = ktBoMacDinh; ktBoMacDinh = () => ktCheDo()==='dx' ? 'can' : 'hoi';   /* phép này kiểm bộ ② (đột xuất cũ mặc định ②) — chọn ② như anh bấm "② Khai báo khi cần" ở hộp In */
    ok('đang ở 🎯 Kiểm tra đột xuất → khóa lựa chọn riêng dx_m06 / dx_m16', ktInKhoa('m06')==='dx_m06' && ktInKhoa('m16')==='dx_m16' && ktInKhoa('m04')==='m04');
    /* mặc định: như cũ (Hội) */
    let v = ktInV('m16'), h = chu(ktHTML16(ktGiaTri16(t, dc, v)));
@@ -53,13 +55,14 @@ const fs=require('fs'), path=require('path');
    dongHop(); await w(300);
    ok('đóng hộp → dòng tóm tắt cập nhật tên đoàn', /Đoàn Chung Giả/.test((document.querySelector('.kt-dx-kb')||{}).textContent||''));
    /* 3.325: số liệu tổ theo ngày chọn (Mẫu 31), chấm điểm theo tháng (BC0437); đột xuất không tự ghi tháng */
-   const bcCu = KT_BC; KT_BC = Object.assign({}, KT_BC || {}, {k37:{e:{ky:'2026-09', ngay:'2026-09-30'}, theoTo:{}}}); KT_BC.k37.theoTo[t.ma] = {stv:99, dn:999e6, qh:0, kn:0, lt:0, tg:0, diemTo:85, xepLoai:'Khá'};
+   const bcCu = KT_BC; KT_BC = Object.assign({}, KT_BC || {}, {k37:{e:{ky:'2026-08', ngay:'2026-08-31'}, theoTo:{}}}   /* 3.514: BC0437 đúng tháng cần (kỳ 08 → T8) */); KT_BC.k37.theoTo[t.ma] = {stv:99, dn:999e6, qh:0, kn:0, lt:0, tg:0, diemTo:85, xepLoai:'Khá'};
    const s5 = ktSoTo(t), m31 = toKhach(t).reduce((a, k)=>a+k.dn, 0);
-   ok('số liệu tổ = Mẫu 31 ngày / kỳ đang chọn (không lấy dư nợ BC0437), xếp loại = BC0437 tháng 09', s5.ngay===KT_K.ngay && s5.dn===m31 && s5.dn!==999e6 && s5.xl==='Khá' && s5.ngayXL==='2026-09-30', JSON.stringify({ngay:s5.ngay, dn:s5.dn, xl:s5.xl}));
+   ok('số liệu tổ = Mẫu 31 ngày / kỳ đang chọn (không lấy dư nợ BC0437), xếp loại = BC0437 tháng 08', s5.ngay===KT_K.ngay && s5.dn===m31 && s5.dn!==999e6 && s5.xl==='Khá' && s5.ngayXL==='2026-08-31', JSON.stringify({ngay:s5.ngay, dn:s5.dn, xl:s5.xl}));
    K.che = 'dx'; const g5 = ktGiaTri16(t, dc, Object.assign(ktInV('m16'), {ngay:''})), h5 = chu(ktHTML16(g5)), nd = ktNgayP(KT_K.ngay);
-   ok('Mẫu 16: "đến thời điểm" = ngày chọn; chấm điểm "tháng 09/2026: 85 điểm, xếp loại Khá"', h5.indexOf('đến thời điểm '+nd.d+'/'+nd.m+'/20'+nd.y2)>=0 && /tháng 09\/2026\): 85 điểm, xếp loại Khá/.test(h5), (h5.match(/đến thời điểm[^)]*\)/)||[''])[0]);
+   ok('Mẫu 16: "đến thời điểm" = ngày chọn; chấm điểm "tháng 08/2026: 85 điểm, xếp loại Khá"', h5.indexOf('đến thời điểm '+nd.d+'/'+nd.m+'/20'+nd.y2)>=0 && /tháng 08\/2026\): 85 điểm, xếp loại Khá/.test(h5), (h5.match(/đến thời điểm[^)]*\)/)||[''])[0]);
    ok('đột xuất chưa khai ngày → "Hôm nay, ngày … tháng … năm …" để chấm (không tự ghi tháng)', g5.f.NM==='' && /Hôm nay, ngày \.+ tháng \.+ năm 20 ?\.+/.test(h5), (h5.match(/Hôm nay.{0,80}/)||[''])[0]);
-   K.che = 'dk'; ok('định kỳ vẫn tự ghi tháng kiểm tra như cũ', ktGiaTri16(t, dc, Object.assign(ktInV('m16'), {ngay:''})).f.NM!==''); K.che = 'dx';
+   ktBoMacDinh = boGoc;
+   KT_DK_CHON = {}; KT_DK_CHON[t.ma] = true; KT_KB.ngay = ''; ok('3.514 🎯 Kiểm tra tổ (gộp Định kỳ) chưa khai ngày → tự ghi tháng kiểm tra như Định kỳ cũ', KTTO.giaTri(ktInV('m06'), ktInV('m16')).g16[0].f.NM==='09');
    /* 3.327: 2 bộ khai báo — định kỳ mặc định ① Hội kiểm tra; lúc In chọn ② → dùng bộ ②; mở hộp in mới → về mặc định */
    K.che = 'dk'; ktInHop(['m06', 'm16'], '', ktHoiCuaTo([t])); await w(100);
    ok('3.327: định kỳ — hộp in có ô chọn bộ, mặc định ① Hội kiểm tra (khóa m16)', ktBoDang()==='hoi' && !!document.querySelector('.kt-bo-chon [data-bo="can"]') && ktInKhoa('m16')==='m16');

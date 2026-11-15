@@ -34,7 +34,7 @@ const fs=require('fs'), path=require('path');
    ok('bấm gợi ý → có kỳ, tích được, ghi "theo anh khai", trạng thái báo ngày do anh khai', SL_NAP[hK2.i].ky==='2026-08' && !hK2.tr.querySelector('.sl-tich').disabled && /anh khai/.test(hK2.tr.textContent) && /do anh khai/.test(hK2.tr.querySelector('.sl-xt-tt').textContent), SL_NAP[hK2.i].ky);
    /* khai tay ô Kỳ cho Thông tin tổ trưởng (ngày khác gợi ý) */
    const hT = hang('to truong'), oT = hT.tr.querySelector('input[type=date],input[type=month]');
-   oT.value = oT.type==='date' ? '2026-08-31' : '2026-08'; oT.dispatchEvent(new Event('change')); await w(200);
+   oT.value = oT.type==='date' ? '2026-08-31' : '2026-08'; oT.dispatchEvent(new Event('change', {bubbles:true})); await w(200);
    ok('khai tay ô Kỳ → nhận, nguồn "anh chọn"', SL_NAP[hang('to truong').i].ky==='2026-08' && SL_NAP[hang('to truong').i].nguonKy==='anh chọn');
    /* tích các file đã có kỳ rồi ghi nhận */
    document.querySelectorAll('.sl-tich').forEach(c=>{ if(!c.disabled) c.checked = true; });

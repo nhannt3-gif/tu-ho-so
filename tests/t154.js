@@ -47,9 +47,9 @@ const fs=require('fs'), path=require('path');
      document.getElementById('hkr-'+id+'-ten').value==='Hội Giả xã A' && document.getElementById('hkr-'+id+'-kh').value==='' && document.getElementById('hkr-'+id+'-kh').placeholder==='06-KH/HNDT');
    const tenB = [...r.querySelectorAll('tr[data-k]')].find(x=>x.getAttribute('data-k')!==kA);
    if(tenB){ const iT = tenB.querySelector('input[id$="-ten"]'); ok('ô tên trống: chữ mờ = tên theo quy tắc', iT.placeholder===ktHoiTenTD(KT_K.to[Object.keys(KT_K.to).find(m=>ktHoiKhoa(KT_K.to[m])===tenB.getAttribute('data-k'))])); }
-   const iK = document.getElementById('hkr-'+id+'-kh'); iK.value = '11-KH/RIENG'; iK.dispatchEvent(new Event('change'));
+   const iK = document.getElementById('hkr-'+id+'-kh'); iK.value = '11-KH/RIENG'; iK.dispatchEvent(new Event('change', {bubbles:true}));
    ok('gõ KH riêng 1 xã → xã đó dùng riêng, Hội khác / xã khác giữ chung', ktHoiKB(kA).kh==='11-KH/RIENG' && ktHoiKB(kB).kh==='06-KH/HNDT');
-   iK.value = ''; iK.dispatchEvent(new Event('change'));
+   iK.value = ''; iK.dispatchEvent(new Event('change', {bubbles:true}));
    ok('xóa ô riêng → về KH chung', ktHoiKB(kA).kh==='06-KH/HNDT');
    ktChuanSua('11', 'kh', '07-KH/MOI'); ok('sửa KH chung ở Chuẩn hóa → mọi xã (trừ ngoại lệ) đổi theo', ktHoiKB(kB).kh==='07-KH/MOI' && (!kC || ktHoiKB(kC).kh==='09-KH/KHAC'));
    const gK = (C.che='kh', C.khNam=2026, C.hoi=String(tA.dv), ktVeThe(), await w(150), ktKHGiaTri());

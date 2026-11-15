@@ -28,8 +28,8 @@ function doNetCam(c){
 }
 function nutKieuCam(){
   var td = camTuDong();
-  return '<button class="'+(td?'bat':'')+'" onclick="datKieuCam(true)">⚡ Tự động</button>'+
-    '<button class="'+(!td?'bat':'')+'" onclick="datKieuCam(false)">✋ Thủ công'+(laDT()?' (camera máy)':'')+'</button>';
+  return '<button class="'+(td?'bat':'')+'" data-lenh="f12c.datKieuCam" data-a1="1">⚡ Tự động</button>'+
+    '<button class="'+(!td?'bat':'')+'" data-lenh="f12c.datKieuCam" data-a1="">✋ Thủ công'+(laDT()?' (camera máy)':'')+'</button>';
 }
 function datKieuCam(v){
   D.cauHinh.camTuDong = !!v; luu();
@@ -43,13 +43,13 @@ function moCamera(o){
   CAM = {on:true, muc:o.muc, che:o.muc==='scan' ? (SC.che==='the'?'the':'tailieu') : (o.muc==='cccd'?'the':'ky'),
     tuDong:o.tuDong!==undefined ? o.tuDong : camTuDong(), anh:[], quad:null, yen:0, sanSang:true, tr:0, xam:null, dong:0};
   var e = document.createElement('div'); e.id = 'cam';
-  e.innerHTML = '<div class="cam-tren"><button onclick="dongCam()">✕</button>'+
-      '<span id="cam-tieu"></span><select id="cam-chon" onchange="doiCamMay(this.value)" style="display:none"></select></div>'+
+  e.innerHTML = '<div class="cam-tren"><button data-lenh="f12c.dongCam">✕</button>'+
+      '<span id="cam-tieu"></span><select id="cam-chon" data-lenh="f12c.doiCamMay" data-su="change" style="display:none"></select></div>'+
     '<div class="cam-khung"><video id="cam-v" playsinline muted autoplay></video><canvas id="cam-o"></canvas><div id="cam-loe"></div></div>'+
     '<div id="cam-goi" class="cam-goi"></div>'+
     '<div class="cam-duoi"><div class="cam-nho" id="cam-nho"></div>'+
-      '<button class="cam-chup" onclick="chupCam()" title="Chụp (phím cách)"></button>'+
-      '<button class="cam-xong" id="cam-xong" onclick="xongCam()">Xong</button></div>'+
+      '<button class="cam-chup" data-lenh="f12c.chupCam" title="Chụp (phím cách)"></button>'+
+      '<button class="cam-xong" id="cam-xong" data-lenh="f12c.xongCam">Xong</button></div>'+
     '<div class="cam-kieu cam-kieu-tren" id="cam-kieu"></div>';
   document.body.appendChild(e);
   document.addEventListener('keydown', phimCam);
@@ -61,8 +61,8 @@ function veThanhCam(){
     (CAM.anh.length ? ' · '+CAM.anh.length+' ảnh' : '');
   var k = document.getElementById('cam-kieu');
   if(k) k.innerHTML = '<button class="'+(CAM.tuDong?'bat':'')+'" onclick="CAM.tuDong=true;D.cauHinh.camTuDong=true;luu();veThanhCam()">⚡ Tự động</button>'+
-    '<button class="'+(!CAM.tuDong?'bat':'')+'" onclick="doiThuCongCam()">✋ Thủ công</button>'+
-    (CAM.tuDong ? '<button onclick="doiGiuCam()" title="Giữ yên bao lâu thì tự chụp — bấm để đổi: Nhanh 0,5s · Vừa 0,8s · Chắc 1,2s">⏱ '+nhanGiuCam()+'</button>' : '');
+    '<button class="'+(!CAM.tuDong?'bat':'')+'" data-lenh="f12c.doiThuCongCam">✋ Thủ công</button>'+
+    (CAM.tuDong ? '<button data-lenh="f12c.doiGiuCam" title="Giữ yên bao lâu thì tự chụp — bấm để đổi: Nhanh 0,5s · Vừa 0,8s · Chắc 1,2s">⏱ '+nhanGiuCam()+'</button>' : '');
   var x = document.getElementById('cam-xong'); if(x) x.style.visibility = (CAM.muc==='scan' && CAM.anh.length) ? 'visible' : 'hidden';
   goiCam();
 }
@@ -288,7 +288,7 @@ function veHangDoi(){
       return '<div class="ka-dong"><span class="ka-ic">'+d.loai+'</span><span class="ka-ten">'+coChuHTML(d.ten)+'<small>'+tt(d.k)+'</small></span></div>'; }).join('')
       : '<div class="rong">✓ Không còn bản nào chờ.</div>')+'</div>'+
     '<div class="hang-nut"><button class="nho" onclick="HD_MO=false;dongHop()">Đóng</button>'+
-      (dong.length ? '<button class="nho chinh" onclick="dongBoNgay()">☁ Thử lại tất cả</button>' : '')+'</div>');
+      (dong.length ? '<button class="nho chinh" data-lenh="f12c.dongBoNgay">☁ Thử lại tất cả</button>' : '')+'</div>');
 }
 function dongBoNgay(){
   if(!coTheNoiDrive()) return moCaiDat('drive');
@@ -371,3 +371,15 @@ function napOCR(){
   });
   return OCR_LIB;
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f12c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f12c', gdLenh({
+  chupCam:function(el, ev){ chupCam(); },
+  datKieuCam:function(el, ev){ datKieuCam(!!gdA(el, 1)); },
+  doiCamMay:function(el, ev){ doiCamMay(el.value); },
+  doiGiuCam:function(el, ev){ doiGiuCam(); },
+  doiThuCongCam:function(el, ev){ doiThuCongCam(); },
+  dongBoNgay:function(el, ev){ dongBoNgay(); },
+  dongCam:function(el, ev){ dongCam(); },
+  xongCam:function(el, ev){ xongCam(); }
+}));

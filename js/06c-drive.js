@@ -435,7 +435,7 @@ function veQuet(){
       '<div class="quet" id="hop-quet"></div>'+
       '<div class="tien"><i id="quet-tien"></i></div>'+
       '<div class="hang-nut" style="margin-top:14px">'+
-      '<button class="nho xau" onclick="dungQuet()">Dừng</button>'+
+      '<button class="nho xau" data-lenh="f06c.dungQuet">Dừng</button>'+
       '<button class="nho" data-lenh="hop.dong">Ẩn đi</button></div>');
     e = document.getElementById('hop-quet');
   }
@@ -608,7 +608,7 @@ function veLapChiMucHTML(){
   var h = '<div class="dk-mo-ta"><b>Lập chỉ mục</b> đi hết thư mục <b>'+coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+'</b> trên Drive để <b>mọi file đều được app quản lý</b>. '+
     'File chưa có trong app được xếp vào đúng tab theo <b>thư mục đang chứa file</b> (Văn bản, Dữ liệu tháng / năm / tháng, Biểu mẫu, Ghi chú, CCCD / xã / điểm / ấp / tổ, Hồ sơ scan, Chữ ký - CCCD). '+
     'Đủ thông tin thì vào thẳng tab, thiếu thì vào <b>Chờ khai</b>. App không dời, không đổi tên file nào.</div>'+
-    '<div class="dk-hang"><button class="nho chinh" onclick="lapChiMuc()"'+(coTheNoiDrive()?'':' disabled')+'>🗂 Bắt đầu lập chỉ mục</button>'+
+    '<div class="dk-hang"><button class="nho chinh" data-lenh="f06c.lapChiMuc"'+(coTheNoiDrive()?'':' disabled')+'>🗂 Bắt đầu lập chỉ mục</button>'+
     (coTheNoiDrive() ? '' : '<span class="huong-dan">Cần nối Drive.</span>')+'</div>'+
     '<div class="huong-dan" style="margin:0 0 10px">Lưu ý: Google chỉ cho app thấy file do app tạo hoặc anh chọn qua “Lấy từ kho Drive cũ”. File chép tay vào ổ G thì đưa vào bằng <b>+ Thêm file</b>.</div>';
   var k = DK.lcm; if(!k) return h;
@@ -624,14 +624,14 @@ function veLapChiMucHTML(){
         var m = timMuc(id) || timScan(id) || (D.kyAnh||[]).find(function(x){ return x.id===id; }) || (D.rac||[]).find(function(x){ return x.id===id; });
         if(!m) return '';
         var loai = tab==='scan' ? 'scan' : tab==='kyAnh' ? 'ka' : tab==='rac' ? 'rac' : 'muc';
-        return '<div class="dk-dong"><div class="dk-ten" onclick="xemThu(\''+loai+'\',\''+id+'\')"><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'')+'</b>'+
+        return '<div class="dk-dong"><div class="dk-ten" data-lenh="f06c.xemThu" data-a1="'+loai+'" data-a2="'+id+'"><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'')+'</b>'+
           '<small>'+coChuHTML(duongThat(m, loai==='ka'?'ka':''))+'</small>'+
           (k.canKhai.indexOf(id)>=0 ? '<small class="ck-thieu">cần khai thêm</small>' : '')+'</div></div>';
       }).join('')+'</details>';
   });
   if(k.saiCho.length) h += '<details class="dk-ngan"><summary><b>Nằm khác thư mục của tab</b> <span>'+k.saiCho.length+' file — app tin theo chỉ mục, không dời</span></summary>'+
     k.saiCho.map(function(x){ var m = timMuc(x.id); if(!m) return '';
-      return '<div class="dk-dong"><div class="dk-ten" onclick="xemThu(\'muc\',\''+x.id+'\')"><b>'+coChuHTML(m.tenMoi||'')+'</b>'+
+      return '<div class="dk-dong"><div class="dk-ten" data-lenh="f06c.xemThu" data-a1="muc" data-a2="'+x.id+'"><b>'+coChuHTML(m.tenMoi||'')+'</b>'+
         '<small>đang ở ☁ '+coChuHTML(D.cauHinh.thumuc+' / '+x.duong)+' · trong app thuộc '+coChuHTML(TEN_PHAN[khoCuaMuc(m)]||'')+'</small></div></div>'; }).join('')+'</details>';
   if(k.mat.length) h += '<details class="dk-ngan"><summary><b>Mất file trên Drive</b> <span>'+k.mat.length+' mục — dọn ở 🧹 Quét rác</span></summary>'+
     k.mat.map(function(id){ var m = timMuc(id); return m ? '<div class="dk-dong"><div class="dk-ten"><b>'+coChuHTML(m.tenMoi||'')+'</b><small>'+coChuHTML(thuMucCua(m))+'</small></div></div>' : ''; }).join('')+'</details>';
@@ -709,3 +709,9 @@ function nhomTrungVan(){
   });
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f06c', gdLenh({
+  dungQuet:function(el, ev){ dungQuet(); },
+  lapChiMuc:function(el, ev){ lapChiMuc(); },
+  xemThu:function(el, ev){ xemThu(gdA(el, 1), gdA(el, 2)); }
+}));

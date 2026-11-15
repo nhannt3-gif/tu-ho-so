@@ -42,13 +42,14 @@ function ganGoiYNhap(root){
    Màn có thanh bước (‹ Lùi): Esc = Lùi, chỉ gắn nhãn cho nút làm đúng việc của Lùi */
 function ganNutEsc(e){
   if(!e) return;
-  var lui = e.querySelector('.buoc .b-lui'), luiOn = lui ? (lui.getAttribute('onclick')||'') : null;
+  var viec = function(b){ return b.getAttribute('onclick') || [b.getAttribute('data-lenh') || ''].concat([1, 2, 3].map(function(i){ return b.getAttribute('data-a'+i) || ''; })).join('|'); };   /* 3.476: nút onclick hoặc data-lenh */
+  var lui = e.querySelector('.buoc .b-lui'), luiOn = lui ? viec(lui) : null;
   var ung = Array.prototype.filter.call(e.querySelectorAll('button'), function(b){
     if(!/^(Đóng|Thôi|Xong|Đóng \(Esc\))$/.test(b.textContent.trim())) return false;
-    return !lui || (b.getAttribute('onclick')||'')===luiOn;
+    return !lui || viec(b)===luiOn;
   });
   if(!ung.length) return;
-  var chon = ung.find(function(b){ return (b.getAttribute('onclick')||'')==='dongHop()'; }) || ung[0];
+  var chon = ung.find(function(b){ return b.getAttribute('onclick')==='dongHop()' || b.getAttribute('data-lenh')==='hop.dong'; }) || ung[0];
   chon.textContent = (chon.textContent.trim()==='Thôi' ? 'Thôi' : 'Đóng')+' (Esc)';
   chon.setAttribute('data-esc', '1');
 }
@@ -170,7 +171,7 @@ function oChonGon(nhan, idO, ds, dangCo, mot, loaiDem, phuHTML){
         ' onclick="bamChipGon(this,'+(mot?1:0)+')">'+coChuHTML(loaiDem==='ct' ? hienCT(t) : t)+
 '</span>';
     }).join('')+
-    '<span class="them-n" onclick="moChipGon(this)"></span></div>'+
+    '<span class="them-n" data-lenh="f06.moChipGon"></span></div>'+
     (phuHTML||'')+'</div>';
 }
 /* dòng nhỏ dưới hàng nút CT vay: "HN · Cho vay hộ nghèo" — chạy cả trên iPhone (không cần rê chuột) */
@@ -285,8 +286,8 @@ var LQ_SUA = {id:'', ds:[]};
 function lqSuaHTML(){
   var ds = LQ_SUA.ds.map(timMuc).filter(Boolean).sort(function(a, b){ return (a.ngay||'').localeCompare(b.ngay||''); });
   return ds.length ? ds.map(function(v){ return '<span class="lq-chip'+(v.hetHieuLuc?' het':'')+'" title="'+coChuHTML((v.soHieu?v.soHieu+' — ':'')+(v.tenVB||v.trichYeu||v.tenMoi||'')+(v.ngay?' · '+ngayVN(v.ngay):''))+'">'+coChuHTML(v.soHieu || tenNganVB(v).slice(0, 24))+   /* 3.80: chip chỉ số hiệu — rê chuột thấy tên + ngày */
-    '<button type="button" tabindex="-1" title="Xem văn bản này ở khung bên cạnh (không đóng hộp)" onclick="lqXemBen(\''+v.id+'\')">↗</button>'+
-    '<button type="button" tabindex="-1" title="Gỡ liên kết" onclick="lqBoSua(\''+v.id+'\')">✕</button></span>'; }).join('') : '';
+    '<button type="button" tabindex="-1" title="Xem văn bản này ở khung bên cạnh (không đóng hộp)" data-lenh="f06.lqXemBen" data-a1="'+v.id+'">↗</button>'+
+    '<button type="button" tabindex="-1" title="Gỡ liên kết" data-lenh="f06.lqBoSua" data-a1="'+v.id+'">✕</button></span>'; }).join('') : '';
 }
 /* 3.70 (AM): xem văn bản liên quan ở khung cạnh hộp sửa — hộp giữ nguyên */
 function lqXemBen(vid){
@@ -295,7 +296,7 @@ function lqXemBen(vid){
   veVaoKhung(v, 'sua');
   var b = document.getElementById('sua-lq-bao');
   if(!b){ b = document.createElement('div'); b.id = 'sua-lq-bao'; b.className = 'sua-lq-bao'; x.insertBefore(b, x.firstChild.tagName==='SUMMARY' ? x.firstChild.nextSibling : x.firstChild); }
-  b.innerHTML = 'Đang xem văn bản liên quan: <b>'+coChuHTML(tenNganVB(v))+'</b> <a class="lk" onclick="lqVeVBSua()">↩ Về văn bản đang sửa</a>';
+  b.innerHTML = 'Đang xem văn bản liên quan: <b>'+coChuHTML(tenNganVB(v))+'</b> <a class="lk" data-lenh="f06.lqVeVBSua">↩ Về văn bản đang sửa</a>';
   if(x.tagName==='DETAILS') x.open = true;
 }
 function lqVeVBSua(){ var b = document.getElementById('sua-lq-bao'); if(b) b.remove(); if(mucDangSua) veVaoKhung(mucDangSua, 'sua'); }
@@ -540,14 +541,14 @@ function datChipTheo(idO, gtri){
 function lienQuanHTML(m){
   if(!m || m.nhom!=='vanBan' && m.huongDan===undefined && !m.soHieu) return '';
   function ten(v){ return coChuHTML(tenNganVB(v)); }
-  function lk(v){ return '<a class="lk" onclick="diToiVB(\''+v.id+'\')">'+ten(v)+'</a>'; }
+  function lk(v){ return '<a class="lk" data-lenh="f06.diToiVB" data-a1="'+v.id+'">'+ten(v)+'</a>'; }
   if(m.huongDan!==undefined){
     var vb = m.vbKem && timMuc(m.vbKem);
     return vb ? '<div class="lien-quan">Ban hành kèm: '+lk(vb)+'</div>' : '';
   }
   var h = '', mot = [];
   var truoc = XEM_LS.length && timMuc(XEM_LS[XEM_LS.length-1]);   /* 3.70 (AM) */
-  if(truoc && truoc.id!==m.id) mot.push('<a class="lk lq-lui" onclick="quayLaiVB()" title="Quay lại văn bản vừa xem">‹ '+coChuHTML(truoc.soHieu || tenNganVB(truoc))+'</a>');
+  if(truoc && truoc.id!==m.id) mot.push('<a class="lk lq-lui" data-lenh="f06.quayLaiVB" title="Quay lại văn bản vừa xem">‹ '+coChuHTML(truoc.soHieu || tenNganVB(truoc))+'</a>');
   var lq = lqCua(m);
   if(m.hetHieuLuc){
     var moi = lq.filter(function(v){ return !v.hetHieuLuc && (v.ngay||'') > (m.ngay||''); });
@@ -556,7 +557,7 @@ function lienQuanHTML(m){
   /* 3.78 (anh chốt): bỏ khối "Dòng thời gian" (tốn chỗ) — văn bản liên quan thành 1 dòng chip số hiệu dưới tên, xếp theo ngày;
      rê chuột thấy ngày + tên đầy đủ, bấm là đi tới */
   if(lq.length) mot.push('🔗 '+lq.sort(function(a, b){ return (a.ngay||'').localeCompare(b.ngay||''); }).map(function(v){
-    return '<a class="lk lq-c'+(v.hetHieuLuc?' het':'')+'" onclick="diToiVB(\''+v.id+'\')" title="'+coChuHTML((ngayVN(v.ngay||'')||'—')+' · '+tenNganVB(v)+(v.hetHieuLuc?' · hết hiệu lực':'')+' — bấm để đi tới')+'">'+
+    return '<a class="lk lq-c'+(v.hetHieuLuc?' het':'')+'" data-lenh="f06.diToiVB" data-a1="'+v.id+'" title="'+coChuHTML((ngayVN(v.ngay||'')||'—')+' · '+tenNganVB(v)+(v.hetHieuLuc?' · hết hiệu lực':'')+' — bấm để đi tới')+'">'+
       coChuHTML(v.soHieu || tenNganVB(v).slice(0, 28))+'</a>'; }).join(''));
   if(mot.length) h += '<div class="lq-mot">'+mot.join('')+'</div>';
   var bm = (D.bieuMau||[]).filter(function(x){ return x.vbKem===m.id; });
@@ -593,7 +594,7 @@ function suaCho(id){
 
   if(m.nhom==='duLieu'){
     nd += o('Kỳ báo cáo','s-ky',m.ky||'','Dạng 2026-09');
-    nd += '<div class="o"><label>Loại báo cáo</label><select id="s-loai" onchange="xemTenTruoc()">'+
+    nd += '<div class="o"><label>Loại báo cáo</label><select id="s-loai" data-lenh="f06.xemTenTruoc" data-su="change">'+
       (D.cauHinh.mauBaoCao||[]).map(function(x){
         return '<option value="'+x.ma+'"'+(m.maLoai===x.ma?' selected':'')+'>'+coChuHTML(x.ten)+'</option>';
       }).join('')+
@@ -626,13 +627,13 @@ function suaCho(id){
       '<div class="o"><label>Số, ký hiệu</label><input id="s-so" autocomplete="off" value="'+coChuHTML(m.soHieu||'')+
         '" placeholder="4339/NHCS-TDNN" oninput="soHieuGo(this);goiYLoaiTuSo();xemTenTruoc()"></div>'+
       '<div class="o"><label>Ngày ban hành</label><input id="s-ngay" inputmode="numeric" autocomplete="off" '+
-        'placeholder="25/09/2026" value="'+ngayVN(m.ngay||'')+'" oninput="gonNgay(this)"></div>'+
+        'placeholder="25/09/2026" value="'+ngayVN(m.ngay||'')+'" data-lenh="f06.gonNgay" data-su="input"></div>'+
       '<div class="o"><label>Loại</label><select id="s-loai" onchange="LOAI_TAY=true;xemTenTruoc()">'+
         loaiDS.map(function(x){ return '<option'+(m.loai===x?' selected':'')+'>'+coChuHTML(x)+'</option>'; }).join('')+
       '</select></div></div>';
     nd += '<div id="canh-trung"></div>';
-    nd += '<div class="o o-chu"><label for="s-ty">Tên văn bản <small>— vào tên file</small></label>'+chuDoiNut('s-ty')+'<input id="s-ty" autocomplete="off" value="'+
-      coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Triển khai thực hiện Quyết định 70/QĐ-HĐQT" oninput="xemTenTruoc()"></div>';
+    nd += '<div class="o o-chu"><div class="o-chu-dau"><label for="s-ty">Tên văn bản <small>— vào tên file</small></label>'+chuDoiNut('s-ty')+'</div><input id="s-ty" autocomplete="off" value="'+
+      coChuHTML(m.tenVB||m.trichYeu||'')+'" placeholder="Triển khai thực hiện Quyết định 70/QĐ-HĐQT" data-lenh="f06.xemTenTruoc" data-su="input"></div>';
     nd += '<div class="o"><label>Trích yếu <small>— không bắt buộc, chỉ ghi thêm ý chính để tìm (không lặp lại tên)</small></label>'+
       '<textarea id="s-tom" rows="1" placeholder="vd: thành lập, củng cố Tổ; bình xét cho vay">'+coChuHTML(m.tomTat||'')+'</textarea></div>';
 
@@ -642,14 +643,14 @@ function suaCho(id){
       '<div class="o"><label>Hiệu lực</label><select id="s-het"><option value="">Còn hiệu lực</option>'+
         '<option value="1"'+(m.hetHieuLuc?' selected':'')+'>Hết hiệu lực</option></select></div></div>';
     pl += '<div class="o"><label>Tag <small>— bấm chip để chọn / bỏ · ô ＋ gõ để lọc, Enter tạo tag mới · '+
-        '<span class="nhan-lk" onclick="suaTagTab(\'vanBan\')">Sửa danh sách tag</span></small></label>'+
+        '<span class="nhan-lk" data-lenh="f06.suaTagTab" data-a1="vanBan">Sửa danh sách tag</span></small></label>'+
       '<div class="tg-hang" id="s-nv">'+tgHangHTML(m.the||[], [m.tenVB||m.trichYeu||'', m.tomTat||'', m.soHieu||''].join(' '))+
-        '<input id="s-tag-go" autocomplete="off" placeholder="＋ tag / lọc" oninput="tgLoc()"></div></div>';
+        '<input id="s-tag-go" autocomplete="off" placeholder="＋ tag / lọc" data-lenh="f06.tgLoc" data-su="input"></div></div>';
 
     LQ_SUA = {id:m.id, ds:lqCua(m).map(function(v){ return v.id; })};
     qh += '<div class="sg-2"><div class="o"><label>🔗 Văn bản liên quan <small>— gõ số hiệu, Enter thêm</small></label>'+   /* 3.80: liên quan + ghi chú chung 1 hàng */
       '<div class="chip-o tvb" id="lq-o"><span class="lq-ds" id="lq-ds">'+lqSuaHTML()+'</span>'+
-        '<input id="s-lq-tim" autocomplete="off" placeholder="vd: 70/QĐ" oninput="tvbGoi(\'s-lq\',\''+m.id+'\')" onfocus="tvbGoi(\'s-lq\',\''+m.id+'\')" '+
+        '<input id="s-lq-tim" autocomplete="off" placeholder="vd: 70/QĐ" data-lenh="f06.tvbGoi" data-su="input" data-a1="s-lq" data-a2="'+m.id+'" onfocus="tvbGoi(\'s-lq\',\''+m.id+'\')" '+
           'onblur="setTimeout(function(){ var d = document.getElementById(\'s-lq-ds\'); if(d) d.innerHTML = \'\'; }, 150)">'+
         '<input type="hidden" id="s-lq"><div class="tvb-ds" id="s-lq-ds"></div></div></div>';
     qh += '<div class="o"><label>Ghi chú riêng <small>— chỉ trong app</small></label>'+
@@ -659,17 +660,17 @@ function suaCho(id){
   var duongHT = thuMucCua(m);   /* 3.69: 1 dòng, đủ 5 nút; ✎ mới cho sửa */
   lt += '<div class="sg-luu"><span>📁</span><input id="s-duong" readonly value="'+coChuHTML(duongHT)+'" data-dau="'+coChuHTML(duongHT)+'" '+
       'title="Đổi năm, đổi nhóm hoặc sửa dòng này thì bấm Lưu sẽ dời file trên Drive theo">'+
-    '<button class="nho sg-ico" type="button" onclick="sgSuaDuong()" title="Sửa nơi lưu trên Drive">✎</button>'+
-    '<button class="nho" type="button" onclick="traDuongMacDinh(\''+id+'\')" title="Trả về nơi lưu mặc định">Mặc định</button>'+
+    '<button class="nho sg-ico" type="button" data-lenh="f06.sgSuaDuong" title="Sửa nơi lưu trên Drive">✎</button>'+
+    '<button class="nho" type="button" data-lenh="f06.traDuongMacDinh" data-a1="'+id+'" title="Trả về nơi lưu mặc định">Mặc định</button>'+
     '<button class="nho sg-ico" type="button" onclick="chepDuongMay(gt(\'s-duong\'))" title="Chép đường dẫn ổ G — dán vào Explorer">📂</button>'+
-    '<button class="nho sg-ico" type="button" onclick="moThuMucMuc(\''+id+'\')" title="Mở thư mục trên Drive web">☁</button>'+
-    (m.driveId?'<button class="nho sg-ico" type="button" onclick="moTrenDrive(\''+id+'\')" title="Mở file trên Drive">↗</button>':'')+
+    '<button class="nho sg-ico" type="button" data-lenh="f06.moThuMucMuc" data-a1="'+id+'" title="Mở thư mục trên Drive web">☁</button>'+
+    (m.driveId?'<button class="nho sg-ico" type="button" data-lenh="f06.moTrenDrive" data-a1="'+id+'" title="Mở file trên Drive">↗</button>':'')+
     '</div>';
 
   var nhomHTML = '<div class="co-chu nhom-gon" id="s-nhom" title="Xếp vào nhóm">'+
     ['vanBan','duLieu','ghiChu','khac'].map(function(k){
       return '<button'+((m.nhom||'vanBan')===k?' class="bat"':'')+
-             ' onclick="doiNhom(\''+id+'\',\''+k+'\')">'+TEN_NHOM[k]+'</button>';
+             ' data-lenh="f06.doiNhom" data-a1="'+id+'" data-a2="'+k+'">'+TEN_NHOM[k]+'</button>';
     }).join('')+'</div>';
   var laVB = !m.nhom || m.nhom==='vanBan';
   var than = laVB
@@ -684,15 +685,15 @@ function suaCho(id){
         [m.co?kichCo(m.co):'', m.soTrang?m.soTrang+' trang':'', m.driveId?'☁ trên Drive':'chưa có trên Drive', m.choDB?'đang chờ cập nhật Drive':''].filter(Boolean).join(' · ')+'</small></div>'+
       '<div><span class="ic">Tên mới</span><b id="ten-truoc">'+coChuHTML(m.tenMoi||'')+'</b></div></div>'+
       ((m.nhom==='vanBan' && !laCho) ? saoSuaHTML(m, true) : '')+
-      (coTheDocLai(m) ? '<button class="nho sg-ico" type="button" onclick="docLaiGoiY(\''+id+'\', true)" title="Đọc lại &amp; gợi ý tên — đọc chữ trang 1 (lớp chữ của PDF, hoặc OCR nếu là PDF chụp / ảnh) để gợi ý số hiệu, ngày, tên văn bản">🔍</button>' : '')+
+      (coTheDocLai(m) ? '<button class="nho sg-ico" type="button" data-lenh="f06.docLaiGoiY" data-a1="'+id+'" data-a2="1" title="Đọc lại &amp; gợi ý tên — đọc chữ trang 1 (lớp chữ của PDF, hoặc OCR nếu là PDF chụp / ảnh) để gợi ý số hiệu, ngày, tên văn bản">🔍</button>' : '')+
     '</div>'+
     '<div class="dau-nhom sg-nhom"><span>Nhóm</span>'+nhomHTML+'</div>'+
     '<div class="sg-hd" id="sg-hd"><span class="sg-goi">💡 Bấm vào ô để xem hướng dẫn · <span class="sg-vd">⌨ Enter / Tab ô kế · Shift lùi · Ctrl+Enter Lưu · Esc đóng</span></span></div>'+
     than+
     '<div class="day-form">'+
-      (laCho?'':'<a class="xoa-nho" onclick="xoaMuc(\''+id+'\')">Xóa khỏi tủ</a>')+
+      (laCho?'':'<a class="xoa-nho" data-lenh="f06.xoaMuc" data-a1="'+id+'">Xóa khỏi tủ</a>')+
       '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="luuSua(\''+id+'\')">Lưu <small>(Ctrl+Enter)</small></button></div>';
+      '<button class="nho chinh" data-lenh="f06.luuSua" data-a1="'+id+'">Lưu <small>(Ctrl+Enter)</small></button></div>';
   moHop(h, true); nhapDat('sua:'+id);
   document.getElementById('hop-in').classList.add('sua-gon');   /* 3.69 (AJ) */
   ganXemBen(m);   /* 3.61 (việc R): văn bản hiện ngay cạnh để nhìn mà chuẩn hóa tên */
@@ -778,7 +779,7 @@ function oNgay(nhan, id, gtri){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
     '<div style="display:flex;gap:7px">'+
     '<input id="'+id+'" style="flex:1" inputmode="numeric" placeholder="dd/mm/yyyy" '+
-    'value="'+ngayVN(gtri)+'" oninput="gonNgay(this)">'+
+    'value="'+ngayVN(gtri)+'" data-lenh="f06.gonNgay" data-su="input">'+
     '<button class="nho" style="flex:0 0 auto;max-width:90px" '+
     'onclick="document.getElementById(\''+id+'\').value=ngayVN(ngayISO(nay()))">Hôm nay</button>'+
     '</div><div class="huong-dan">Gõ liền cũng được: 20092026 tự thành 20/09/2026</div></div>';
@@ -804,7 +805,7 @@ function ngayVao(t){
 
 function o(nhan,id,gt,hd){
   return '<div class="o"><label>'+coChuHTML(nhan)+'</label>'+
-    '<input id="'+id+'" value="'+coChuHTML(gt)+'" oninput="xemTenTruoc()">'+
+    '<input id="'+id+'" value="'+coChuHTML(gt)+'" data-lenh="f06.xemTenTruoc" data-su="input">'+
     (hd?'<div class="huong-dan">'+coChuHTML(hd)+'</div>':'')+'</div>';
 }
 /* 3.437 (anh 01/11, ảnh khai văn bản tên viết HOA hết): nút đổi chữ cho ô tên — thường · Hoa đầu câu · HOA hết · Hoa Đầu Từ.
@@ -825,7 +826,7 @@ function chuDoiNut(id){
 }
 function ta(nhan,id,gt){
   return '<div class="o">'+(nhan?'<label>'+coChuHTML(nhan)+'</label>':'')+
-    '<textarea id="'+id+'" oninput="xemTenTruoc()">'+coChuHTML(gt)+'</textarea></div>';
+    '<textarea id="'+id+'" data-lenh="f06.xemTenTruoc" data-su="input">'+coChuHTML(gt)+'</textarea></div>';
 }
 function theChon(nhan,id,ds,dangCo){
   return '<div class="o"><label>'+coChuHTML(nhan)+' — chọn được nhiều</label>'+
@@ -1049,66 +1050,71 @@ function moHuongDan(p){
   p = p || (typeof nganHienTai!=='undefined' && nganHienTai===0 ? 'homNay' : 'tong');   /* 3.52: đang ở Hôm nay thì mở đúng phần */
   if(p==='scan' || p==='the') p = 'scan';
   var h = '<div class="hop-tit">❓ Hướng dẫn</div>'+
-    '<div class="hd-nav">'+HD_PHAN.map(function(x){ return '<button class="'+(x[0]===p?'bat':'')+'" onclick="moHuongDan(\''+x[0]+'\')">'+x[1]+'</button>'; }).join('')+'</div>'+
+    '<div class="hd-nav">'+HD_PHAN.map(function(x){ return '<button class="'+(x[0]===p?'bat':'')+'" data-lenh="f06.moHuongDan" data-a1="'+x[0]+'">'+x[1]+'</button>'; }).join('')+'</div>'+
     '<div class="hd-than">'+noiDungHD(p)+'</div>'+
     '<div class="hang-nut" style="margin-top:12px"><button class="nho chinh" data-lenh="hop.dong">Đóng (Esc)</button></div>';
   moHop(h, true);
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.451', ds:[
-  ["🎯 Phân bổ KH › Thông báo giao / điều chỉnh KH dư nợ: giãn dòng tiêu đề, thu gọn chỗ trống \"Số: …/TB-UBND\"", ""],
-  ["📝 Mẫu 10A: dòng Chủ trì / III a-b không còn thụt gấp đôi, vừa 1 dòng; họ tên tự gõ in đúng", ""],
-  ["📝 Mẫu 10A: bảng hộ vay của tổ (Mã KH, dư nợ, TT / TP), họ tên ⇥ Chức vụ, mỗi dòng chọn tự động / ghi tay", ""],
-  ["📝 Mẫu 10A: Thành lập / Kiện toàn (VB 4336), chữ 14, Tổng số ở cột cuối, xã–ấp theo địa bàn, nút ⚙ Khai báo riêng", ""],
-  ["🌳 Cây lọc: tên xã không còn hiện \"Vay trực tiếp\"", ""],
-  ["📝 Mẫu 10A rà bố cục: ngày họp in đúng, thêm khoảng trắng sau xã / tỉnh / tháng, dòng Thư ký vừa 1 dòng", ""],
-  ["📝 Mẫu 10A: chữ 13 đều, tiêu đề 15; chữ điền liền như gõ tay; tên hoa đầu từ; ⚙ Khai báo riêng 10A (Về việc, họp tháng / quý…)", ""],
-  ["🔧 Scan: tổ trưởng nhận đúng người mà trống ấp → tự bổ sung ấp lúc lưu; bản cũ có nút Bổ sung ấp", ""],
-  ["📝 Mẫu 10A gọn 4 trang: khung 100 tổ viên trang 1–2, chừa chỗ ký rộng; tên dài tự thu chữ", ""],
-  ["📝 Mẫu 10A: khung cố định 100 tổ viên (3 cột) ở trang 1–2, phần II luôn sang trang 3", ""],
-  ["🪪 Quét CCCD: không khớp File Tổ trưởng → đối chiếu chủ TK 104 (Sao kê TK 104) cùng họ tên", ""],
-  ["🪪 Quét CCCD: rà mọi File Tổ trưởng (CCCD · CMND cũ · tên + ngày sinh) — tổ trưởng không vay vẫn nhận ra, lưu luôn", ""],
-  ["👑 Tra cứu › Tổ trưởng: cột CCCD tổ trưởng Đã lưu / Thiếu, lọc theo cây địa bàn", ""],
-  ["🎯 Phân bổ KH: 📥 Nạp QĐ từ Excel mẫu (Gemini điền từ QĐ scan) — xem trước, soát rồi Lưu", ""],
-  ["🏷 Văn bản: tự gắn tag nguồn theo số hiệu — VB Trung ương · NHCSXH Trung ương · Chỉ đạo của Tỉnh", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+var CO_GI_MOI = {ban:'3.544', ds:[
+  ["File danh sách món: ngày chuyển quá hạn lấy thêm cột \"Ngày CNQH gần nhất\" của Mẫu 31 khi không có Sao kê nợ quá hạn (kỳ giữa tháng)", ""],
+  ["File danh sách món: ngày chuyển quá hạn, ngày khoanh, ngày hết khoanh lấy theo Sao kê hệ thống (thống nhất với Giao ban)", ""],
+  ["iPhone: KTGS (Món / Kiểu / Số hộ) và Tổ TK&VV (Khách / Cần xử lý) — mỗi nhóm chip 1 dòng vuốt ngang", ""],
+  ["iPhone: vuốt ngang đổi tab (Hôm nay ⇄ Tra cứu ⇄ Văn bản ⇄ Scan), vuốt xuống đóng hộp / thẻ khách; lọc địa bàn gọn 1 dòng ở mọi màn; nút mẫu Giao dịch xã 1 dòng cuộn", ""],
+  ["Gia hạn tối đa theo QĐ 54 / VB 7442 (QT-C-20): HSSV ½ thời hạn trả nợ, Nhà ở xã hội 12 / 24 tháng, ngắn hạn 12 tháng; file đối chiếu ghi đủ mã điểm TXN…", ""],
+  ["📤 File đối chiếu xuất thêm File 2 — danh sách món (DOI_CHIEU_MON_APP): món quá hạn, khoanh, 3 tháng KHĐ, đến hạn tháng tới — theo khuôn chung 1.1, không ghi họ tên", ""],
+  ["File đối chiếu theo khuôn số liệu chung 1.0: mã điểm ghi 4 số cuối, dòng vay trực tiếp chỉ đếm khách còn dư nợ", ""],
+  ["Sửa: điện thoại không mở được Lọc địa bàn ở Tra cứu (máy báo cỡ màn muộn) — phần điện thoại tự khởi động lại, lọc không bao giờ kẹt gọn", ""],
+  ["Điện thoại: văn bản đã xem lưu trong máy trong ngày (mở lại ngay), sang ngày mới tự dọn — không tải sẵn", ""],
+  ["Điện thoại: Tra cứu KH gọn (1 ô tìm ở đầu, lọc địa bàn bấm mở, 📞 Gọi) · Văn bản thẻ gọn, xem VB có \"📤 Gửi trang này\" và \"📤 Gửi cả VB\"", ""],
+  ["Tinh gọn: bỏ ô trống \"Công cụ 6\" và nút 📦 Mini app ở Giao dịch xã", ""],
+  ["Lãi tồn: món có ngày GD sau ngày số liệu (Mẫu 31 xuất muộn) giữ nguyên lãi tồn — khớp giao ban cả 2 mốc", ""],
+  ["Lãi tồn: món không có lãi suất không bị bỏ hết lãi tồn trong hạn (khớp giao ban)", ""],
+  ["Lãi tồn + tiền gửi tính đúng như giao ban (TK 1 đối chiếu biểu TW BC0438): phiên theo Ngày GDXA từng món, lãi dồn /360, tiền gửi theo khóa sổ", ""],
+  ["Lãi tồn: nhận file có lãi dồn theo SỐ TIỀN từng món (TH ≤ lãi dồn tính từ ngày GD) — file 31/10 xuất lại bằng 3.528 chưa được bỏ lãi dồn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
-    "3.451 · Phân bổ KH › Biểu 07 / Thông báo → xem trước: \"THÔNG BÁO … KẾ HOẠCH DƯ NỢ\" và \"NĂM …\" cách nhau rõ hơn, cách thêm trước Kính gửi; \"Số:   /TB-UBND\" gọn",
-    "3.450 · 10A xem trước: dòng \"Chủ trì: Ông (Bà): … ⇥ Chức vụ: …\" thụt đầu dòng như các dòng khác, nằm 1 dòng; III a) / b) thẳng hàng cả khi tên dài",
-    "3.450 · ⚙ Khai báo riêng › ⌨ gõ họ tên chủ trì / tổ trưởng → mẫu in đúng chữ gõ",
-    "3.449 · Hồ sơ Tổ › chọn tổ › 10A → cột trái bảng \"👥 Hộ vay của tổ — số liệu …\": ☑ in · Mã KH · họ tên (TT / TP) · dư nợ · ghi chú; bấm tiêu đề Mã KH / Dư nợ để sắp; nút \"Bỏ tích hộ dư nợ = 0\"",
-    "3.449 · 10A xem trước: III a) / b) \"Ông (Bà): tên ⇥ Chức vụ: …\"; kẻ dưới tiêu đề; Hội không ghi xã / phường",
-    "3.449 · ⚙ Khai báo riêng 10A: mỗi dòng (III a / b, phê duyệt UBND, địa bàn, chủ trì, chữ ký) chọn 🤖 / ✍ riêng",
-    "3.448 · Hồ sơ Tổ › 10A › nút ⚙ Khai báo riêng (cạnh ⚙ Khai báo đơn vị) → mọi dòng theo thứ tự mẫu, tích Chọn nhanh",
-    "3.448 · Cột trái 10A › Chọn nhanh › Thành lập / Kiện toàn → tiêu đề + câu nội dung đổi theo VB 4336",
-    "3.448 · Bản mẫu 10A › Điền: Điền hết / Chừa phê duyệt UBND / Tùy chọn",
-    "3.448 · Cây lọc địa bàn (mọi tab) kỳ T10 → tên xã thật",
-    "3.447 · Hồ sơ Tổ › 10A › chọn Ngày họp → dòng \"Thời gian bắt đầu: … ngày dd/mm/yyyy\" đúng ngày; dòng \"cùng cư trú tại địa bàn thôn …, xã …, tỉnh …\" có khoảng trắng",
-    "3.446 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → cột trái cuối có ⚙ Khai báo riêng — Mẫu 10A/TD: Chọn nhanh có nút Thành lập / Củng cố (đổi dòng \"Về việc\"), Tháng / Quý (họp định kỳ), ô ngày, tiết kiệm",
-    "3.446 · Cùng chỗ › 🖼 Khai báo trực quan → bấm ô trên mẫu; ô chọn có ➕ Thêm lựa chọn khác",
-    "3.445 · Scan › quét CCCD tổ trưởng (nhất là tổ trưởng nhận qua TK 104 / File Tổ trưởng cũ) → bản lưu có Ấp",
-    "3.445 · Scan › thanh Chờ sắp xếp › nút 🔧 Bổ sung ấp (n) → bấm Bổ sung: bản tìm ra ấp hết ⚠ Thiếu ấp; bản không ra vẫn ⚠ (✎ khai tay)",
-    "3.444 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước đúng 4 trang; khung 1–100 ở trang 1–2, phần II nối ngay sau Tổng số; trang 4 dưới UBND CẤP XÃ còn chỗ ký, đóng dấu. Bấm Word → cũng 4 trang, sửa tên trong khung không xô trang",
-    "3.443 · Số liệu › 📝 Hồ sơ Tổ › chọn tổ › chip 10A/TD → xem trước: danh sách 1–100 (3 cột) nằm trang 1–2, \"II. QUY ƯỚC\" mở đầu trang 3; bấm Word → sửa tên trong khung, trang 3 trở đi không xê dịch",
-    "3.442 · Scan › quét CCCD tổ trưởng không vay, File Tổ trưởng không có số → nếu Sao kê TK 104 có đúng 1 chủ TK cùng họ tên → ✓ tổ trưởng, lưu theo mã KH của TK 104",
-    "3.441 · Scan › quét CCCD của 1 tổ trưởng không vay (File Tổ trưởng còn ghi CMND cũ hoặc không có số) → app báo ✓ Tổ trưởng (hiện tại / cũ) và lưu tên chuẩn CIF - Họ tên - CCCD",
-    "3.440 · Tra cứu › Tìm theo Tổ trưởng → chọn Xã / Điểm / Hội / Ấp ở LỌC ĐỊA BÀN → cột CCCD ghi Đã lưu / Thiếu (rê chuột: số CCCD, ngày lưu), lọc cột chọn Thiếu, dòng Cộng ghi đã lưu / tổng"],
+    "3.544 · 📤 File đối chiếu kỳ giữa tháng (không có Sao kê NQH): món chuyển QH lại có ngày như Mẫu 31",
+    "3.543 · 📤 File đối chiếu 31/10 → DOI_CHIEU_MON_APP 20 cột; ngày chuyển QH theo Sao kê nợ quá hạn",
+    "3.542 · KTGS › Kiểm tra tổ: Món / Kiểu / Số hộ mỗi nhóm 1 dòng",
+    "3.542 · Tổ TK&VV: Khách / Cần xử lý vuốt ngang",
+    "3.541 · iPhone: vuốt trái / phải giữa 4 tab chính",
+    "3.541 · Mở thẻ khách hoặc ☰ → vuốt xuống để đóng",
+    "3.541 · Tổ TK&VV / GD xã / KTGS: LỌC ĐỊA BÀN 1 dòng, bấm mở",
+    "3.540 · Sao kê nợ đến hạn › cột Còn GH: món ngắn hạn ≤ 12 tháng; NOXH 24 tháng; HSSV thiếu ngày ra trường hiện ≈",
+    "3.540 · 📤 File đối chiếu: ma_diem đủ TXN…; File 2 so_thang_lai dạng 3.0",
+    "3.539 · ⋯ Nạp & KT › 📤 File đối chiếu 31/10 → Drive Số liệu/2026-10 có thêm DOI_CHIEU_MON_APP_2026-10-31.csv (19 cột)",
+    "3.538 · ⋯ Nạp & KT › 📤 File đối chiếu 30/09 + 31/10 → cột ma_diem 4 số (3502…), dòng TT| so_tv = so_tv_du_no",
+    "3.537 · iPhone › Số liệu › Tra cứu KH › bấm LỌC ĐỊA BÀN → mở 3 ô chọn; thanh dưới Hôm nay · Tra cứu · Văn bản · Scan · Thêm",
+    "3.536 · Điện thoại: mở 1 VB, mở lại ngay; hôm sau mở app → báo đã dọn, VB vẫn mở được từ Drive",
+    "3.535 · Điện thoại › Tra cứu: ô tìm khách ở đầu, bấm LỌC ĐỊA BÀN mở / gọn",
+    "3.535 · Thẻ khách: 📞 Gọi",
+    "3.535 · Văn bản › mở 1 VB: mỗi trang có 📤 Gửi trang này → Zalo nhận 1 trang",
+    "3.534 · 🧰 Công cụ: còn 3 ô (HSSV, Địa bàn, CT vay)",
+    "3.534 · 🏢 Giao dịch xã › ⋯: không còn Mini app; bản điện thoại tab 🏢 vẫn chạy",
+    "3.533 · 📤 File đối chiếu 30/09 + 31/10: lãi tồn = giao ban mọi tổ",
+    "3.532 · 📤 File đối chiếu: tổ 0062097 (30/09), 0050383 (31/10) lãi tồn = giao ban"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
+    "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
+    "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
+    "3.514 · 🛡 KTGS: bỏ nút \"Tích tổ có lịch\" và hàng \"Theo kế hoạch\" ở chỗ chọn tổ — Kế hoạch năm để riêng (in theo tháng vẫn ở Kế hoạch năm)",
+    "3.513 · 🛡 KTGS: bỏ nút 📋 Mẫu 04 ở hàng 1 tổ (lập ở thẻ Báo cáo tổng hợp)",
+    "3.513 · 🛡 KTGS Định kỳ: bỏ 📋 Tóm tắt (từng dòng + n tổ) và 📄 15/TD — dùng ở hàng nút 1 tổ",
+    "3.513 · 🛡 KTGS Mẫu 04: bỏ ô 📅 Tháng kiểm tra (theo Kỳ đầu trang)",
+    "3.500 · 🛡 KTGS: nút 🏛 03/BB-CX ở cấp tổ (Đột xuất, Định kỳ, Mẫu 04) — dời lên khối riêng 🏛 Hội cấp xã; 📄 15/TD vẫn ở cấp tổ",
+    "3.471 · Phân bổ KH › Diễn biến: thẻ số, biểu đồ, ma trận, bảng theo mốc tháng không hiện sẵn nữa — bấm ▸ Xem thêm",
+    "3.461 · 06A/TD: 2 ô sổ xuống Người vay / Món vay ở cột trái → thay bằng bảng chọn món (bấm tên hộ để xem 1 hộ)",
+    "3.459 · 10A: ô \"Phê duyệt UBND: thôn · xã · tỉnh\" (1 ô) → 3 ô riêng (cách đã chọn giữ cho cả 3)",
+    "3.459 · 10A: nút \"Phê duyệt UBND — cả phần\" → \"Tên Tổ trưởng, Tổ phó, ngày\" (không còn đổi địa chỉ)",
+    "3.459 · 10A: tên dưới chữ ký Trưởng thôn / Chủ trì trước luôn tự lấy → nay theo dòng tương ứng ở trên",
+    "3.457 · 10B, 10C: ô số tổ viên dự họp trước chỉ tự lấy số tổng (số dự họp để chấm) → nay tự tính \"tham dự/tổng\"; ô biểu quyết trước ✍ / ✏ gõ trong lần làm → 🤖 tự tính / ⌨ tự gõ / ✍ chấm",
+    "3.456 · 10A: ô số tham dự và ô IV trước chỉ ✍ chấm / ✏ gõ trong lần làm → nay 🤖 tự tính / ⌨ tự gõ / ✍ chấm",
+    "3.455 · Mẫu nền ô (01/TD, 03/TD, 11, 09A…): khối thu gọn \"⚙ Khai báo riêng\" ở cột trái → nút ⚙ Khai báo riêng cạnh ⚙ Khai báo đơn vị (tóm tắt số ô, cỡ chữ, ↺ Về mặc định, 🖼 trực quan nằm trong hộp); cột trái chỉ còn Chọn nhanh",
+    "3.455 · 🖼 Trực quan: khung phải chỉ 1 ô → cả danh sách, ô đang chọn mở rộng (đủ chức năng cũ)",
+    "3.453 · 10C: 2 danh sách tích Kết nạp / Cho ra cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
+    "3.452 · 10B: danh sách tích Kết nạp cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun)",
     "3.449 · 10A: danh sách tích tổ viên cũ ở cột trái → bảng hộ vay của tổ (vẫn hiện nếu rút mô-đun 10A)",
-    "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)",
-    "3.448 · 10A: khối thu gọn ⚙ Khai báo riêng cuối cột trái (3.446) → nút riêng; cột trái chỉ còn Chọn nhanh",
-    "3.448 · 10A: dòng \"Tổng số\" dưới khung → dòng cuối cột 3 như gốc",
-    "3.446 · 10A: 2 ô cũ ở cột trái \"Ngày họp định kỳ\", \"Tiết kiệm tối thiểu\" — thay bằng dòng trong ⚙ Khai báo riêng (để sẵn ở Chọn nhanh, số đã gõ vẫn dùng)",
-    "3.444 · Ngắt trang cứng trước phần II của 10A (3.443) — bỏ vì khung dòng cao cố định đã giữ bố cục",
-    "3.439 · Phân bổ KH: bỏ nút 📥 Nhập từ bản WPF (file sao lưu json app cũ) → thay bằng 📥 Nạp QĐ (Excel mẫu); QĐ đã nhập trước đây giữ nguyên",
-    "3.435 · Tra cứu: bỏ luật \"luôn lấy số liệu mới nhất\" (3.347) → theo ô kỳ góc phải, chưa chọn thì vẫn mới nhất",
-    "3.434 · Thẻ tổ (Tra cứu): bỏ nút 👪 Lập hồ sơ hộ mới vào tổ (anh đã bỏ 29/10, 3.410 trả lại nhầm) — vẫn lập được ở 🏘 Tổ của điểm GD",
-    "3.434 · Khối Tổ & địa bàn: bỏ dòng \"Mã tổ\" riêng (lên dòng tiêu đề) và dòng ghi chú số liệu dài (thành ⓘ rê chuột)",
-    "3.416.4 · Thẻ tổ: bỏ chip \"n còn lãi tồn\" dưới bảng → ô Lưu ý ghi \"n không dư nợ · m hết gốc còn lãi\"",
-    "3.416.2 · Thẻ tổ: bỏ 3 hàng ô kẻ (17 ô) và ô CCCD ghi nhầm căn cứ → đầu thẻ gọn",
-    "3.416.1 · Danh sách tổ (Tra cứu): bỏ cột Xã (xã ghi ở đầu khung)",
-    "3.416.1 · 👑 Kiểm CCCD: tạm bỏ tổ phó (chỉ kiểm tổ trưởng)",
-    "3.410 · Tab Tổ: gỡ 📉 Diễn biến tổ, 📅 Biến động tổ viên cả năm, dòng \"Biến động +x vào · −y ra\", cột Mới vào / 105 tăng giảm, chip Mới vào tổ, ⚖ So cách cũ / mới (giữ chip Ra khỏi tổ) — làm lại đơn giản sau (C11)"]};
+    "3.448 · 10A: lựa chọn \"Củng cố\" (3.446) → \"Kiện toàn\" theo VB 4336 (giá trị cũ tự đọc như Kiện toàn)"]};
 function noiDungCoGiMoi(){
   return '<h3>Bản '+CO_GI_MOI.ban+' có gì mới</h3><div class="hd-moi">'+CO_GI_MOI.ds.map(function(x){
       return '<button class="hd-moi-dong" onclick="'+x[1]+'">'+coChuHTML(x[0])+' <span>›</span></button>'; }).join('')+'</div>'+
@@ -1200,8 +1206,13 @@ function datKieuTen(v, el){
   luu();
   bao('Đã đổi kiểu đặt tên. Dùng cho file thêm mới từ giờ.', 4);
 }
+/* 3.528 (anh 14/11): cỡ chữ TỰ ĐỘNG theo cỡ trang (px CSS): màn rộng ≥ 1800 (24\" 1920) → to hơn 10%; màn thấp < 760 mà rộng ≥ 1400 (laptop để 125%) → nhỏ hơn 5%;
+   còn lại (1600×900, 1366…) → chuẩn. Không ẩn / đổi nút. Bấm Nhỏ / Vừa / To → dùng cỡ chọn (tắt tự động) — lưu riêng từng máy. */
+function coTuDong(){ var w = window.innerWidth || 0, h = window.innerHeight || 0; return w>=1800 ? 1.1 : (h<760 && w>=1400) ? 0.95 : 1; }
+function coApDung(){ var v = D.cauHinh.coTu!==false ? coTuDong() : (D.cauHinh.coChu||1); document.documentElement.style.setProperty('--co', v); return v; }
+function datCoTu(el){ D.cauHinh.coTu = true; coApDung(); var b = el.parentNode.children; for(var i=0;i<b.length;i++) b[i].classList.toggle('bat', b[i]===el); luu(); }
 function datCo(v, el){
-  D.cauHinh.coChu = v;
+  D.cauHinh.coChu = v; D.cauHinh.coTu = false;
   document.documentElement.style.setProperty('--co', v);
   var b = el.parentNode.children;
   for(var i=0;i<b.length;i++) b[i].classList.toggle('bat', b[i]===el);
@@ -1325,3 +1336,27 @@ function napDL(){
   };
   i.click();
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f06', gdLenh({
+  diToiVB:function(el, ev){ diToiVB(gdA(el, 1)); },
+  docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1), !!gdA(el, 2)); },
+  doiNhom:function(el, ev){ doiNhom(gdA(el, 1), gdA(el, 2)); },
+  gonNgay:function(el, ev){ gonNgay(el); },
+  lqBoSua:function(el, ev){ lqBoSua(gdA(el, 1)); },
+  lqVeVBSua:function(el, ev){ lqVeVBSua(); },
+  lqXemBen:function(el, ev){ lqXemBen(gdA(el, 1)); },
+  luuSua:function(el, ev){ luuSua(gdA(el, 1)); },
+  moChipGon:function(el, ev){ moChipGon(el); },
+  moHuongDan:function(el, ev){ moHuongDan(gdA(el, 1)); },
+  moThuMucMuc:function(el, ev){ moThuMucMuc(gdA(el, 1)); },
+  moTrenDrive:function(el, ev){ moTrenDrive(gdA(el, 1)); },
+  quayLaiVB:function(el, ev){ quayLaiVB(); },
+  sgSuaDuong:function(el, ev){ sgSuaDuong(); },
+  suaTagTab:function(el, ev){ suaTagTab(gdA(el, 1)); },
+  tgLoc:function(el, ev){ tgLoc(); },
+  traDuongMacDinh:function(el, ev){ traDuongMacDinh(gdA(el, 1)); },
+  tvbGoi:function(el, ev){ tvbGoi(gdA(el, 1), gdA(el, 2)); },
+  xemTenTruoc:function(el, ev){ xemTenTruoc(); },
+  xoaMuc:function(el, ev){ xoaMuc(gdA(el, 1)); }
+}));

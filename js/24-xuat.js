@@ -116,12 +116,12 @@ function xuatChepAnh(h){
 function guiFileMenu(ev){
   var m = mucDangXem; if(!m) return bao('Chọn một file trước.', 3);
   var anh = /\.(jpe?g|png|webp)$/i.test(m.tenMoi||m.tenCu||'') || m.nhom==='ghiChu';
-  var h = '<div class="menu-nhan">Gửi file</div><button onclick="taiFile()">📤 '+(laMayBan() ? 'Tải file về (kéo vào Zalo)' : 'Gửi file (Zalo…)')+'</button>';
-  if(coCauNoi() && m.driveId && !laDT()) h += '<button onclick="cnHanh(\'chep\',\'muc\',\''+m.id+'\')">📋 Chép nguyên file — Ctrl+V vào Zalo</button>';
-  if(laMayBan() && navigator.canShare) h += '<button onclick="guiChiaSeFile()" title="Windows 11 (Chrome / Edge): hộp chia sẻ có nút Sao chép">🪟 Hộp chia sẻ Windows (Sao chép)</button>';   /* 3.166 (anh chốt) */
+  var h = '<div class="menu-nhan">Gửi file</div><button data-lenh="f24.taiFile">📤 '+(laMayBan() ? 'Tải file về (kéo vào Zalo)' : 'Gửi file (Zalo…)')+'</button>';
+  if(coCauNoi() && m.driveId && !laDT()) h += '<button data-lenh="f24.cnHanh" data-a1="chep" data-a2="muc" data-a3="'+m.id+'">📋 Chép nguyên file — Ctrl+V vào Zalo</button>';
+  if(laMayBan() && navigator.canShare) h += '<button data-lenh="f24.guiChiaSeFile" title="Windows 11 (Chrome / Edge): hộp chia sẻ có nút Sao chép">🪟 Hộp chia sẻ Windows (Sao chép)</button>';   /* 3.166 (anh chốt) */
   h += '<div class="vach"></div><div class="menu-nhan">Chép để dán</div>';
-  if(anh) h += '<button onclick="guiChepAnhFile()">📋 Copy ảnh</button>';
-  h += '<button onclick="guiChepTenFile()">📋 Copy '+(m.soHieu ? 'số hiệu + trích yếu' : 'tên file')+'</button>';
+  if(anh) h += '<button data-lenh="f24.guiChepAnhFile">📋 Copy ảnh</button>';
+  h += '<button data-lenh="f24.guiChepTenFile">📋 Copy '+(m.soHieu ? 'số hiệu + trích yếu' : 'tên file')+'</button>';
   h += '<div class="menu-ghi">'+(laMayBan() ? 'Máy tính: file tải về thư mục Tải xuống.' : 'Điện thoại: chọn Zalo trong bảng chia sẻ.')+'</div>';
   moMenuTL(ev, h);
 }
@@ -145,3 +145,12 @@ function guiChepAnhFile(){
   navigator.clipboard.write([new ClipboardItem({'image/png':p})]).then(function(){ bao('Đã chép ảnh — dán (Ctrl+V) vào Zalo.', 5); })
     .catch(function(){ baoLoi('Không chép được ảnh — dùng 📤 Gửi file.'); });
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f24.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f24', gdLenh({
+  cnHanh:function(el, ev){ cnHanh(gdA(el, 1), gdA(el, 2), gdA(el, 3)); },
+  guiChepAnhFile:function(el, ev){ guiChepAnhFile(); },
+  guiChepTenFile:function(el, ev){ guiChepTenFile(); },
+  guiChiaSeFile:function(el, ev){ guiChiaSeFile(); },
+  taiFile:function(el, ev){ taiFile(); }
+}));

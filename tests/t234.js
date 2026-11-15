@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    /* 3.316: form khai nhanh chuẩn 7 ô — còn lại tự tính */
    hsoLuu().tgTay = {}; hsoVe(); await w(300);
    const ks = [...document.querySelectorAll('#hso-tuy .tg-f')].map(e=>e.getAttribute('data-k')).join(',');
-   ok('form khai nhanh: Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT + chọn Xã, Ấp', ks==='ten,ns,cccd,ncap,sdt' && !!document.querySelector('#hso-tuy select[onchange*="xaMa"]') && !!document.querySelector('#hso-tuy select[onchange*="apMa"]'), ks);
+   ok('form khai nhanh: Họ tên · Ngày sinh · CCCD · Ngày cấp · SĐT + chọn Xã, Ấp', ks==='ten,ns,cccd,ncap,sdt' && !!document.querySelector('#hso-tuy select[onchange*="xaMa"], #hso-tuy select[data-a1="xaMa"]') && !!document.querySelector('#hso-tuy select[onchange*="apMa"], #hso-tuy select[data-a1="apMa"]'), ks);
    tgTayDat('ten', 'Trần Thị Giả'); tgTayDat('ns', '02/05/1985'); tgTayDat('cccd', '072185000002'); tgTayDat('ncap', '10/04/2021'); tgTayDat('sdt', '0900000002');
    const xm = Object.keys(hmDiaBan())[0]; tgTayDat('xaMa', xm); const am = Object.keys(hmDiaBan()[xm].ap)[0]; if(am) tgTayDat('apMa', am); hsoXem(); await w(300);
    h = chu(HSO.x.h); const T2 = hsoLuu().tgTay;

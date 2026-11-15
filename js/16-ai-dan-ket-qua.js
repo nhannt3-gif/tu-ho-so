@@ -27,7 +27,7 @@ function moDanAI(){
     'hay đoạn “Tên file cũ / Tên file mới”. Không cần sửa gì trước khi dán.</div></div>'+
     '<div class="hang-nut">'+
       '<button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="docDanAI()">Đọc và so sánh</button></div>', true);
+      '<button class="nho chinh" data-lenh="f16.docDanAI">Đọc và so sánh</button></div>', true);
   setTimeout(function(){
     var e = document.getElementById('dan-ai'); if(e) e.focus();
   }, 200);
@@ -180,13 +180,13 @@ function veSoSanh(){
   });
 
   if(khop) h += '<div class="hang-nut" style="margin-top:12px">'+
-    '<button class="nho" onclick="chonHetBen(\'app\')">Giữ app hết</button>'+
-    '<button class="nho" onclick="chonHetBen(\'ai\')">Lấy AI hết</button>'+
-    '<button class="nho" onclick="chonHetBen(\'tron\')">Trộn hết</button></div>';
+    '<button class="nho" data-lenh="f16.chonHetBen" data-a1="app">Giữ app hết</button>'+
+    '<button class="nho" data-lenh="f16.chonHetBen" data-a1="ai">Lấy AI hết</button>'+
+    '<button class="nho" data-lenh="f16.chonHetBen" data-a1="tron">Trộn hết</button></div>';
 
   h += '<div class="hang-nut" style="margin-top:14px">'+
-    '<button class="nho" onclick="moDanAI()">Dán lại</button>'+
-    (khop?'<button class="nho chinh" onclick="apSoSanh()">Áp dụng</button>':'')+
+    '<button class="nho" data-lenh="f16.moDanAI">Dán lại</button>'+
+    (khop?'<button class="nho chinh" data-lenh="f16.apSoSanh">Áp dụng</button>':'')+
     '</div>';
   moHop(h, true);
 }
@@ -220,3 +220,11 @@ function apSoSanh(){
   luu(); dongHop(); ve(); if(DR.sanSang && DR.online) chayDongBoCho();
   bao('Đã cập nhật '+xong+' mục theo lựa chọn của anh.', 6);
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f16.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f16', gdLenh({
+  apSoSanh:function(el, ev){ apSoSanh(); },
+  chonHetBen:function(el, ev){ chonHetBen(gdA(el, 1)); },
+  docDanAI:function(el, ev){ docDanAI(); },
+  moDanAI:function(el, ev){ moDanAI(); }
+}));

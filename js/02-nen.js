@@ -14,13 +14,18 @@
 /* ---------- 1. HẰNG SỐ ---------- */
 var PHIEN_BAN = '1.0';
 var KHOA = 'tuhoso_v1';
-var APP_BAN = '3.451', APP_LUC = '02/11/2026 17:35';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
+var APP_BAN = '3.544', APP_LUC = '15/11/2026 10:14';   /* số bản + giờ cập nhật, hiện ở Cài đặt và Hướng dẫn */
 
+var GD_CHO = [];   /* 3.474 (Đ4): lệnh data-lenh của file nạp TRƯỚC js/39-gd.js — gdDangKy xếp hàng, GD tự nhận khi nạp */
+function gdDangKy(khoi, ds){ if(typeof GD!=='undefined') GD.dangKy(khoi, ds); else GD_CHO.push([khoi, ds]); }
+function gdA(el, i){ return el.getAttribute('data-a'+i) || ''; }   /* 3.476: tham số thứ i của lệnh (tools/doi_onclick.py) */
+function gdLenh(ds){ var L = {}; Object.keys(ds).forEach(function(k){ L[k] = function(el, ev){ if(el.hasAttribute('data-dong')) dongHop(); ds[k](el, ev); }; }); return L; }   /* data-dong="1" = đóng hộp trước */
 var MO_APP_LAN = Math.floor(Math.random()*997);   /* đổi câu mỗi lần mở app */
 var MAC_DINH = {
   donvi: 'PGD NHCSXH Gò Dầu',
   thumuc: 'Tủ hồ sơ',
   coChu: 1,
+  coTu: true,   /* 3.528 (anh 14/11 "em nên tự nhận và tối ưu cỡ chữ"): cỡ chữ tự theo cỡ màn — bấm Nhỏ / Vừa / To thì tắt */
   tuTai: true,
   tuLenDrive: true,
   hsTuDrive: true,   /* 3.32: lưu hồ sơ CCCD là đưa PDF lên Drive */
@@ -33,7 +38,7 @@ var MAC_DINH = {
   chuongTrinh: ['HN','HCN','HMTN','NS&VSMT','GQVL','HSSV','NO-HN','NOXH','SXKD-VKK','XKLĐ','NCHXAPT'],
   ctTen: {'HN':'Cho vay hộ nghèo','HCN':'Cho vay hộ cận nghèo','HMTN':'Cho vay hộ mới thoát nghèo',
     'NS&VSMT':'Cho vay nước sạch và vệ sinh môi trường nông thôn',
-    'GQVL':'Cho vay giải quyết việc làm, duy trì và mở rộng việc làm',
+    'GQVL':'Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm',   /* 3.508 (anh 09/11) */
     'HSSV':'Cho vay học sinh, sinh viên có hoàn cảnh khó khăn','NO-HN':'Cho vay hộ nghèo về nhà ở',
     'NOXH':'Cho vay nhà ở xã hội','SXKD-VKK':'Cho vay hộ gia đình sản xuất, kinh doanh tại vùng khó khăn',
     'XKLĐ':'Cho vay người lao động đi làm việc ở nước ngoài theo hợp đồng',

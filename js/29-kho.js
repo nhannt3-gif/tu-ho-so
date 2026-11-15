@@ -33,6 +33,8 @@ var KHO = (function(){
     /* KHO.dongTo(maTo) → [dòng Mẫu 31 kỳ đang dựng của tổ] (kh, ten, cccd, tenThon, tenXa, món…) */
     dongTo: function(ma){ return co() && ma ? kcTo(TO_K, ma).dong : []; },   /* 3.384: qua kho chuẩn (theoTo = K.kh) */
     /* KHO.toVien(maTo | tổ) → [tổ viên + trạng thái: còn nợ / tất nợ còn TK 105 / vào / ra…] (bọc toTV) · QT-01…07 */
+    /* KHO.doiChieu(maTo | tổ) → tổ viên cần đối chiếu số dư tiền vay, tiền gửi: còn nợ / còn lãi tồn / còn tiền gửi 105 (QT-22 · 02/BG Hồ sơ Tổ · 15/TD KTGS) */
+    doiChieu: function(x){ return KHO.toVien(x).filter(function(k){ return k.conNo || k.lt>0 || k.t105>0; }); },
     toVien: function(x){ var t = typeof x==='string' ? toThat(x) : x; if(!t || !co()) return []; try { return toTV(t); } catch(e){ return []; } },
     /* KHO.bangTo(maTo) → dòng BẢNG TỔ DỰNG SẴN {kh tổ trưởng (Mã CIF TT), cccd, ncap, ccTu, ccLy, han, tk (104), tkTu, tkLy, tkDs, tkTrung, diem…, thieu} | null · QT-12, 13 */
     bangTo: function(ma){ if(!co() || typeof tkBangTo!=='function') return null; var T = tkBangTo(); return T && ma ? T[ma] || null : null; },
@@ -114,9 +116,7 @@ var KHO = (function(){
        Chưa có Mẫu 31 kỳ đó → null. Chỉ đọc. Dùng: 🎯 Phân bổ KH (QT-15 chế độ chính xác) — P1 KE_HOACH_PHAN_BO_KH (anh 20/10/2026) */
     duNoAp: function(ky){
       if(!ky || !this.coBang('hstd', ky)) return Promise.resolve(null);
-      function nguon(v){ var s = String(v==null ? '' : v).trim(); if(/^\d+$/.test(s)) return +s;
-        s = s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/[\s.]/g, '');
-        return s==='tw' || s.indexOf('trunguong')===0 ? 1 : s==='dp' || s.indexOf('diaphuong')===0 ? 2 : 0; }
+      var nguon = pbNguon;   /* 3.529: dùng chung pbNguon (js/47) — trước chép trùng thân hàm */
       return slBo(ky).then(function(B){
         var g = {}, ku = {}, ds = [];
         ((B && B.co && B.co.hstd) || []).forEach(function(o){
@@ -137,7 +137,7 @@ var KHO = (function(){
       Object.keys(SLM.bang).forEach(function(k){ var e = SLM.bang[k]; if(e.loai!=='hstd') return; var ky = String(e.ky), ng = ky.length>7 ? ky : tdnCuoiKy(ky);
         if(ng<=iso && (!tot || ng>tot.ngay || (ng===tot.ngay && ky.length===7))) tot = {ky:ky, ngay:ng}; });
       return tot ? {ky:tot.ky, ngay:tot.ngay, lui:tot.ngay!==iso} : null; },
-    /* BC0437 / BC0438 cùng kỳ (hoặc cùng tháng, không thì bản mới nhất — như ktChonBC) → Promise {e, rows, theoTo} / {e, rows} | null */
+    /* BC0437 / BC0438 cùng kỳ (hoặc cùng tháng, không thì bản mới nhất — luật KTGS 3.333) → Promise {e, rows, theoTo} / {e, rows} | null */
     bc37: function(ky){ return this._bc('k37', ky); },
     bc38: function(ky){ return this._bc('k38', ky); },
     _bc: function(L, ky){ var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ return e.loai===L; }).sort(function(a, b){ return slThuTu(a.ky)<slThuTu(b.ky) ? 1 : -1; });
@@ -148,8 +148,8 @@ var KHO = (function(){
       return slBo(tr).then(function(B){ var t = {}; (B.co.hstd||[]).concat(B.lap||[]).forEach(function(o){ if(o.kh) t[o.kh] = slT105Them(t, o, o.kh); });   /* 3.409 QT-C-01 cộng sổ */
         return {ky:tr, co:true, t105:t}; }).catch(function(){ return {ky:tr, co:false, t105:{}}; }); },
     /* món giải ngân trong tháng th — như 1 tháng của ktGNNap → Promise {ky, ngay, ds:{maTo:{t, mon}}} | null (chưa có Mẫu 31) */
-    monGN: function(th){ var co = this.chotThang(th); if(!co) return Promise.resolve(null); var nd = co.tam ? co.ky : '';
-      return slBo(co.ky).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};
+    monGN: function(th, ky){ var co = ky && String(ky).length>7 && slThang(ky)===String(th).slice(0, 7) && this.coBang('hstd', ky) ? {ky:String(ky), tam:true} : this.chotThang(th); if(!co) return Promise.resolve(null);   /* 3.513: ky = Mẫu 31 ngày trong tháng th (kỳ chọn) — không truyền thì như cũ */ var nd = co.tam ? co.ky : '';
+      return (typeof toNap==='function' ? toNap(co.ky).catch(function(){}) : Promise.resolve()).then(function(){ return slBo(co.ky); }).then(function(B){ var hs = B.co.hstd || [], gap = {}, D1 = {}, KH = {};   /* 3.522: qua toNap trước → lãi tồn đã trừ lãi dồn (QT-C-03) như thẻ tổ */
         hs.forEach(function(o){ if(!o.kh) return; var k = KH[o.kh] = KH[o.kh] || {lt:0, t105:0, loai:false}; k.lt += laiTon(o); k.t105 = slT105Them(k, o); if((o.qh||0)>0 || (o.kn||0)>0) k.loai = true; });   /* 3.333: như KT_GN.kh của KTGS 3.329 */
         hs.forEach(function(o){
           if(!o.ku || gap[o.ku] || !o.to || o.to===TO_GIA || !((o.gnT||0)>0)) return;

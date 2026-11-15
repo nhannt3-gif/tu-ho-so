@@ -24,7 +24,9 @@ const fs=require('fs'), path=require('path');
    const k = document.querySelector('#tc-cay .loc-khoi'), dau = k.querySelector('.pv-dau');
    ok('dải tiêu đề: nhãn LỌC ĐỊA BÀN + dòng số liệu + ▦ Chip · ⬆ · 📌 Về ghim (hàng lọc chỉ còn ô chọn)', !!dau && /LỌC ĐỊA BÀN/.test(dau.textContent) && !!dau.querySelector('.pv-dem') && !!dau.querySelector('.pv-gon') && !!dau.querySelector('.pv-len') && !!dau.querySelector('.pv-ghim-nut') && !k.querySelector('.pv-hang1 .pv-gon, .pv-hang1 .pv-dem'));
    const rD = dau.getBoundingClientRect(), rK = k.getBoundingClientRect(), rH = k.querySelector('.pv-hang1').getBoundingClientRect();
-   ok('dải tiêu đề nằm trên đường viền khung, không đè hàng lọc', Math.abs(rD.top+rD.height/2 - rK.top) < 6 && rD.bottom <= rH.top+1, [rD.top, rD.bottom, rK.top, rH.top].map(Math.round).join(','));
+   if(getComputedStyle(dau).display==='contents'){ const rN = dau.querySelector('.pv-dau-nhan').getBoundingClientRect();   /* 3.524: màn ≥ 1100px, chế độ gọn → nhãn + ô chọn + nút 1 hàng trong khung */
+     ok('3.524: nhãn LỌC ĐỊA BÀN nằm trong khung — cùng hàng ô chọn, hoặc (nhiều ô) ô chọn xuống hàng dưới, không đè', rN.top>=rK.top && rN.bottom<=rK.bottom && (Math.abs((rN.top+rN.bottom)/2-(rH.top+Math.min(rH.height, 40)/2))<12 || rN.bottom<=rH.top+1), [rN.top, rN.bottom, rK.top, rH.top].map(Math.round).join(',')); }
+   else ok('dải tiêu đề nằm trên đường viền khung, không đè hàng lọc', Math.abs(rD.top+rD.height/2 - rK.top) < 6 && rD.bottom <= rH.top+1, [rD.top, rD.bottom, rK.top, rH.top].map(Math.round).join(','));
    ok('mỗi ô lọc có 📌 nhỏ cạnh ↺', k.querySelectorAll('.pv-x + .pv-gh').length===k.querySelectorAll('select.pv-o').length);
    /* 3. dòng cộng danh sách tổ: cấp lọc cuối */
    const eD = document.createElement('div'); document.body.appendChild(eD); tcToTim('', eD);

@@ -58,25 +58,25 @@ function dhVe(){
   var n = document.getElementById('thanh-ben'); if(!n) return;
   var gon = dhGon(), dang = dhDang(), h = '';
   document.body.classList.toggle('tb-gon', gon);
-  h += '<div class="tb-dau"><div class="tb-logo" onclick="doiNgan(0)" title="Hôm nay">TH</div><div class="tb-ten">Tủ hồ sơ <span class="tb-ban" onclick="moCaiDat(\'hd\')" title="Số bản · hướng dẫn">v'+APP_BAN+'</span><small>'+coChuHTML((document.getElementById('donvi')||{}).textContent||'')+'</small><small class="tb-tg" title="Tác giả">NhanNT</small></div>'+
-    '<button class="tb-gon-nut" onclick="dhDoiGon()" title="'+(gon ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên')+'">'+(gon ? '»' : '«')+'</button></div><div class="tb-ds">';
+  h += '<div class="tb-dau"><div class="tb-logo" onclick="doiNgan(0)" title="Hôm nay">TH</div><div class="tb-ten">Tủ hồ sơ <span class="tb-ban" data-lenh="f23.moCaiDat" data-a1="hd" title="Số bản · hướng dẫn">v'+APP_BAN+'</span><small>'+coChuHTML((document.getElementById('donvi')||{}).textContent||'')+'</small><small class="tb-tg" title="Tác giả">NhanNT</small></div>'+
+    '<button class="tb-gon-nut" data-lenh="f23.dhDoiGon" title="'+(gon ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên')+'">'+(gon ? '»' : '«')+'</button></div><div class="tb-ds">';
   var dg = dhNhomCua(dang);
   var la = function(m, g){ var d = m.dem ? m.dem() : 0, bat = m.k===dang && (!g || g===dg);
-    return '<a class="tb-muc'+(g ? ' tb-con-muc' : '')+(bat ? ' bat' : '')+'" data-m="'+m.k+'"'+(g ? ' data-g="'+g+'"' : '')+' onclick="dhBam(\''+(g||'')+'\',\''+m.k+'\')" title="'+coChuHTML(m.ten)+(d ? ' · '+d+' '+m.demTit : '')+'"><span class="bt">'+m.bt+'</span><span class="chu">'+coChuHTML(m.ten)+'</span>'+
+    return '<a class="tb-muc'+(g ? ' tb-con-muc' : '')+(bat ? ' bat' : '')+'" data-m="'+m.k+'"'+(g ? ' data-g="'+g+'"' : '')+' data-lenh="f23.dhBam" data-a1="'+(g||'')+'" data-a2="'+m.k+'" title="'+coChuHTML(m.ten)+(d ? ' · '+d+' '+m.demTit : '')+'"><span class="bt">'+m.bt+'</span><span class="chu">'+coChuHTML(m.ten)+'</span>'+
       (d ? '<span class="so'+(m.do ? ' do' : '')+'">'+(m.do ? '⚠ ' : '')+d+'</span>' : '')+'</a>'; };
   DH_NHOM.forEach(function(n){
     if(n.k){ var m = dhMuc(n.k); if(m) h += la(m); return; }
     var mo = dhNhomMo(n.g), con = n.cc ? [] : n.con.map(dhMuc).filter(Boolean), tong = 0, doo = false;
     con.forEach(function(m){ var d = m.dem ? m.dem() : 0; if(d){ tong += d; if(m.do) doo = true; } });
-    h += '<a class="tb-muc tb-cha'+(mo ? ' mo' : '')+(dg===n.g ? ' co-bat' : '')+'" data-g="'+n.g+'" onclick="dhNhomDoi(\''+n.g+'\')" title="'+coChuHTML(n.ten)+(mo ? ' — bấm để gập' : ' — bấm để mở')+'"><span class="bt">'+n.bt+'</span><span class="chu">'+coChuHTML(n.ten)+'</span>'+
+    h += '<a class="tb-muc tb-cha'+(mo ? ' mo' : '')+(dg===n.g ? ' co-bat' : '')+'" data-g="'+n.g+'" data-lenh="f23.dhNhomDoi" data-a1="'+n.g+'" title="'+coChuHTML(n.ten)+(mo ? ' — bấm để gập' : ' — bấm để mở')+'"><span class="bt">'+n.bt+'</span><span class="chu">'+coChuHTML(n.ten)+'</span>'+
       (tong && !mo ? '<span class="so'+(doo ? ' do' : '')+'">'+tong+'</span>' : '')+'<span class="mui">'+(mo ? '▾' : '▸')+'</span></a>';
-    h += '<div class="tb-con'+(n.cc ? ' tb-cc' : '')+'" data-g="'+n.g+'"'+(mo ? '' : ' hidden')+'>'+(n.cc ? DH_CC.map(function(c){ return '<a class="tb-con-muc" onclick="dhCC(\''+c[0]+'\')" title="'+coChuHTML(c[3])+'"><span class="bt">'+c[1]+'</span><span class="chu">'+c[2]+'</span></a>'; }).join('') : con.map(function(m){ return la(m, n.g); }).join(''))+'</div>';
+    h += '<div class="tb-con'+(n.cc ? ' tb-cc' : '')+'" data-g="'+n.g+'"'+(mo ? '' : ' hidden')+'>'+(n.cc ? DH_CC.map(function(c){ return '<a class="tb-con-muc" data-lenh="f23.dhCC" data-a1="'+c[0]+'" title="'+coChuHTML(c[3])+'"><span class="bt">'+c[1]+'</span><span class="chu">'+c[2]+'</span></a>'; }).join('') : con.map(function(m){ return la(m, n.g); }).join(''))+'</div>';
   });
   h += '</div>';
   var rac = (D.rac||[]).length;
-  h += '<div id="tb-tt"></div><div class="tb-chan"><a onclick="moRac()" title="Thùng rác'+(rac ? ' · '+rac+' mục' : '')+'"><span class="bt">🗑</span>'+(rac ? '<span class="so">'+rac+'</span>' : '')+'</a>'+
-    '<a class="tb-gd" onclick="dhDoiGD()" title="'+dhGDTen()+' — bấm đổi (Theo máy → Sáng → Tối)"><span class="bt">'+({light:'☀', dark:'☾'}[D.cauHinh.giaoDien] || '◐')+'</span></a>'+
-    '<a onclick="moDonKho()" title="Dọn kho: thùng rác, lập chỉ mục, quét rác"><span class="bt">🧰</span></a><a onclick="moHuongDan()" title="Hướng dẫn"><span class="bt">❓</span></a><a onclick="moCaiDat()" title="Cài đặt"><span class="bt">⚙</span></a></div>';
+  h += '<div id="tb-tt"></div><div class="tb-chan"><a data-lenh="f23.moRac" title="Thùng rác'+(rac ? ' · '+rac+' mục' : '')+'"><span class="bt">🗑</span>'+(rac ? '<span class="so">'+rac+'</span>' : '')+'</a>'+
+    '<a class="tb-gd" data-lenh="f23.dhDoiGD" title="'+dhGDTen()+' — bấm đổi (Theo máy → Sáng → Tối)"><span class="bt">'+({light:'☀', dark:'☾'}[D.cauHinh.giaoDien] || '◐')+'</span></a>'+
+    '<a data-lenh="f23.moDonKho" title="Dọn kho: thùng rác, lập chỉ mục, quét rác"><span class="bt">🧰</span></a><a data-lenh="f23.moHuongDan" title="Hướng dẫn"><span class="bt">❓</span></a><a data-lenh="f23.moCaiDat_" title="Cài đặt"><span class="bt">⚙</span></a></div>';
   var giu = document.getElementById('tt-khoi'), giuSL = document.getElementById('so-lieu'), oCu = document.getElementById('tb-tt');
   if(oCu && giu && giu.parentNode===oCu) oCu.removeChild(giu);
   if(oCu && giuSL && giuSL.parentNode===oCu) oCu.removeChild(giuSL);
@@ -109,12 +109,12 @@ function dtVe(){
 }
 function dtThem(){
   var nhom = DH_NHOM.map(function(n){
-    if(n.k){ var m = dhMuc(n.k); return m && n.k!=='0' ? '<div class="dt-them-nhom"><div><button class="nho dt-them-muc" onclick="dongHop();dhBam(\'\',\''+m.k+'\')">'+m.bt+' '+coChuHTML(m.ten)+'</button></div></div>' : ''; }
-    var ds = n.cc ? DH_CC.map(function(c){ return '<button class="nho dt-them-muc" onclick="dongHop();dhCC(\''+c[0]+'\')">'+c[1]+' '+coChuHTML(c[2])+'</button>'; })
-      : n.con.map(dhMuc).filter(Boolean).map(function(m){ return '<button class="nho dt-them-muc" onclick="dongHop();dhBam(\''+n.g+'\',\''+m.k+'\')">'+m.bt+' '+coChuHTML(m.ten)+'</button>'; });
+    if(n.k){ var m = dhMuc(n.k); return m && n.k!=='0' ? '<div class="dt-them-nhom"><div><button class="nho dt-them-muc" data-lenh="f23.dhBam" data-dong="1" data-a1="" data-a2="'+m.k+'">'+m.bt+' '+coChuHTML(m.ten)+'</button></div></div>' : ''; }
+    var ds = n.cc ? DH_CC.map(function(c){ return '<button class="nho dt-them-muc" data-lenh="f23.dhCC" data-dong="1" data-a1="'+c[0]+'">'+c[1]+' '+coChuHTML(c[2])+'</button>'; })
+      : n.con.map(dhMuc).filter(Boolean).map(function(m){ return '<button class="nho dt-them-muc" data-lenh="f23.dhBam" data-dong="1" data-a1="'+n.g+'" data-a2="'+m.k+'">'+m.bt+' '+coChuHTML(m.ten)+'</button>'; });
     return '<div class="dt-them-nhom"><b>'+n.bt+' '+coChuHTML(n.ten)+'</b><div>'+ds.join('')+'</div></div>'; }).join('');
-  moHop('<div class="hop-tit">☰ Mọi mục</div><div class="dt-them">'+nhom+'<div class="dt-them-nhom"><b>⚙ Khác</b><div><button class="nho dt-them-muc" onclick="dongHop();moRac()">🗑 Thùng rác</button><button class="nho dt-them-muc" onclick="dongHop();moDonKho()">🧰 Dọn kho</button>'+
-    '<button class="nho dt-them-muc" onclick="dongHop();moHuongDan()">❓ Hướng dẫn</button><button class="nho dt-them-muc" onclick="dongHop();moCaiDat()">⚙ Cài đặt</button></div></div></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
+  moHop('<div class="hop-tit">☰ Mọi mục</div><div class="dt-them">'+nhom+'<div class="dt-them-nhom"><b>⚙ Khác</b><div><button class="nho dt-them-muc" data-lenh="f23.moRac" data-dong="1">🗑 Thùng rác</button><button class="nho dt-them-muc" data-lenh="f23.moDonKho" data-dong="1">🧰 Dọn kho</button>'+
+    '<button class="nho dt-them-muc" data-lenh="f23.moHuongDan" data-dong="1">❓ Hướng dẫn</button><button class="nho dt-them-muc" data-lenh="f23.moCaiDat_" data-dong="1">⚙ Cài đặt</button></div></div></div><div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 /* Alt+1…9: mở mục theo thứ tự trên thanh bên (bỏ qua tiêu đề nhóm) */
 document.addEventListener('keydown', function(e){
@@ -170,7 +170,7 @@ function ttDung(){
   var o = TTB.o || document.getElementById('tt-khoi');
   if(!o){
     o = document.createElement('div'); o.id = 'tt-khoi';
-    o.innerHTML = '<div class="tt-dong"><i class="tt-den xam" onclick="ttDenBam()"></i><span class="tt-chu" onclick="ttDs()"></span></div><div class="tt-thanh"><i></i></div>';
+    o.innerHTML = '<div class="tt-dong"><i class="tt-den xam" data-lenh="f23.ttDenBam"></i><span class="tt-chu" data-lenh="f23.ttDs"></span></div><div class="tt-thanh"><i></i></div>';
   }
   var ben = window.matchMedia && window.matchMedia('(min-width:1100px)').matches && document.body.classList.contains('co-tb');
   var noi = ben ? document.getElementById('tb-tt') : document.querySelector('.day');
@@ -184,3 +184,19 @@ window.addEventListener('resize', function(){ clearTimeout(TTB.rz); TTB.rz = set
 document.body.classList.add('co-tb');
 dhVe(); dtVe();
 setTimeout(function(){ if(typeof slNap==='function' && typeof SL_SAN!=='undefined'){ if(SL_SAN) kyChungVe(); else slNap(); } }, 2500);   /* 3.149: ô Kỳ chung có ngay ở đầu trang */
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f23.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f23', gdLenh({
+  dhBam:function(el, ev){ dhBam(gdA(el, 1), gdA(el, 2)); },
+  dhCC:function(el, ev){ dhCC(gdA(el, 1)); },
+  dhDoiGD:function(el, ev){ dhDoiGD(); },
+  dhDoiGon:function(el, ev){ dhDoiGon(); },
+  dhNhomDoi:function(el, ev){ dhNhomDoi(gdA(el, 1)); },
+  moCaiDat:function(el, ev){ moCaiDat(gdA(el, 1)); },
+  moCaiDat_:function(el, ev){ moCaiDat(); },
+  moDonKho:function(el, ev){ moDonKho(); },
+  moHuongDan:function(el, ev){ moHuongDan(); },
+  moRac:function(el, ev){ moRac(); },
+  ttDenBam:function(el, ev){ ttDenBam(); },
+  ttDs:function(el, ev){ ttDs(); }
+}));

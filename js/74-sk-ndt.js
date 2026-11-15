@@ -20,14 +20,14 @@ function ndtOHTML(){   /* dòng chọn NĐT dưới bộ lọc (chỉ khi đang 
   if(C.ndt && !ds.some(function(x){ return x.k===C.ndt; })) C.ndt = '';
   return '<div class="sk-ngay sk-ndt">Nhà đầu tư: <select id="sk-ndt" onchange="skCH().ndt=this.value;luu();skXemHen()"><option value="">— Tất cả nhà đầu tư ('+ds.length+') —</option>'+
     ds.map(function(x){ return '<option value="'+coChuHTML(x.k)+'"'+(x.k===C.ndt ? ' selected' : '')+'>'+coChuHTML(ndtTen(x.k)+(x.nguon ? ' · '+x.nguon : '')+' · '+x.mon+' món · '+tr(x.dn)+' tr')+'</option>'; }).join('')+
-    '</select> <button class="nho" onclick="ndtSuaTen()" title="Gõ tên cho mã nhà đầu tư (không bắt buộc)">✏ Tên NĐT</button></div>';
+    '</select> <button class="nho" data-lenh="f74.ndtSuaTen" title="Gõ tên cho mã nhà đầu tư (không bắt buộc)">✏ Tên NĐT</button></div>';
 }
 function ndtSuaTen(){
   var ds = ndtDs(SK_K).filter(function(x){ return x.k!=='-'; }), T = D.cauHinh.slNdtTen || {};
   if(!ds.length) return bao('Mẫu 31 kỳ này không có mã nhà đầu tư.', 3);
   moHop('<div class="hop-tit">✏ Tên nhà đầu tư</div><p class="ghi">Mẫu 31 chỉ ghi mã. Gõ tên để sao kê dễ đọc (để trống = ghi mã).</p>'+
     ds.map(function(x){ return '<label class="ndt-ten"><span>'+coChuHTML(x.k)+' <small>'+coChuHTML(x.nguon)+' · '+x.mon+' món</small></span><input data-ma="'+coChuHTML(x.k)+'" value="'+coChuHTML(T[x.k]||'')+'" placeholder="vd: UBND tỉnh …"></label>'; }).join('')+
-    '<div class="hang-nut"><button class="nho chinh" onclick="ndtLuuTen()">Lưu</button><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
+    '<div class="hang-nut"><button class="nho chinh" data-lenh="f74.ndtLuuTen">Lưu</button><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button></div>');
 }
 function ndtLuuTen(){ var T = {};
   Array.prototype.forEach.call(document.querySelectorAll('#hop-in .ndt-ten input'), function(i){ var v = i.value.trim(); if(v) T[i.getAttribute('data-ma')] = v; });
@@ -79,3 +79,9 @@ function skBCNDT(rows, ngay){
 SK_BC.push({k:'ndt', ten:'Sao kê theo nhà đầu tư — chia chương trình › tổ (Mẫu 31 · mã NĐT)', nhom:'tt', kho:'doc', ndt:1, tuyChon:ndtOHTML,
   lap:function(){ var M = skMau31(); if(!M) return skCan31('Sao kê theo nhà đầu tư'); var th = SK_K.thang, e31 = KHO.bang('hstd', th);
     return skBCNDT((kcGoc(M)||[]).filter(skTrongPV), 'Số liệu đến ngày '+ngayVNsl(e31.ngay)+' (Mẫu 31 '+kyVN(th)+')'); }});
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f74.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f74', gdLenh({
+  ndtLuuTen:function(el, ev){ ndtLuuTen(); },
+  ndtSuaTen:function(el, ev){ ndtSuaTen(); }
+}));

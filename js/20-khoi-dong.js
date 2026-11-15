@@ -20,7 +20,7 @@ function khoiDong(){
   apDongGon();   /* 3.73 */
   if(typeof HS!=='undefined') HS.ds = D.scan = D.scan || [];   /* 3.79.1: tab Scan và D.scan dùng chung 1 danh sách ngay từ khi mở app */
   if(chuyenLienQuan()) luu();   /* 3.68 (AF) */
-  document.documentElement.style.setProperty('--co', D.cauHinh.coChu||1);
+  coApDung(); window.addEventListener('resize', function(){ clearTimeout(coApDung.h); coApDung.h = setTimeout(coApDung, 200); });   /* 3.528: cỡ chữ tự động theo cỡ màn */
   apGiaoDien();
   capNhatDau(); capNhatGio();
   setInterval(capNhatGio, 20000);

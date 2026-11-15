@@ -4,7 +4,7 @@
    chBam (riêng máy) = dấu băm từng khóa lúc đồng bộ gần nhất: khóa máy này chưa sửa → lấy theo Drive (cả phần đã xóa);
    khóa máy này đã sửa → gộp, máy này ưu tiên, thêm phần chỉ Drive có; lần đầu (chưa có chBam) → gộp, Drive ưu tiên, giữ phần chỉ máy này có.
    Mỗi lần đồng bộ: hỏi Drive trước (kéo nếu file mới hơn lần trước), rồi mới đẩy phần máy này đổi — không đè bản mới của máy khác. */
-var CH_RIENG = ['chGhiLuc','chKeoLuc','chFileId','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','rong3304','coChu',
+var CH_RIENG = ['chGhiLuc','chKeoLuc','chFileId','chBam','chiMucDriveTG','chiMucThoi','saoLuuNgay','camId','camGiu','camTuDong','rongPV','rongPhai','rongTrai','rongTab','rong339','rong3304','coChu','coTu',
   'cayMo','khoiMo','xaMo','ktKBMo','ktNapMo','slMo','dongGon','moCXL','moGanDay','moLocDT','anBangDC','suaDM','slTQ','slTab','ktgs','kyBang','tcPV','thTK','toTK','skTK',
   'hsXaCuoi','hsApCuoi','hsToCuoi','hsDiemCuoi','scanXem'];
 var TEN_CH = 'cauhinh.json', CH_DANG = null, CH_CHU = null;
@@ -189,7 +189,7 @@ function xemSaoLuu(i){
     e.innerHTML = '<div class="sl-ct"><b>Bản '+(x.noi==='may'?'trong máy':'trên Drive')+' ngày '+lcDMY(x.ngay)+'</b> · '+demChiMuc(j)+' mục'+
       (n ? dong.map(function(k){ return '<div class="sl-kho"><b>'+k[1]+'</b> — thiếu '+th[k[0]].length+': <small>'+
           th[k[0]].slice(0, 8).map(function(m){ return coChuHTML(m.tenMoi||m.ten||m.tenCu||m.soHieu||m.id); }).join(' · ')+(th[k[0]].length>8?' …':'')+'</small></div>'; }).join('')+
-        '<div class="hang-nut"><button class="nho chinh" onclick="layLaiSaoLuu()">♻ Lấy lại '+n+' mục thiếu</button></div>'
+        '<div class="hang-nut"><button class="nho chinh" data-lenh="f17.layLaiSaoLuu">♻ Lấy lại '+n+' mục thiếu</button></div>'
       : '<div class="huong-dan">Máy này không thiếu mục nào so với bản này.</div>')+'</div>';
   }).catch(function(err){ e.innerHTML = '<div class="rong">Không đọc được bản sao lưu: '+coChuHTML(err&&err.message||String(err))+'</div>'; });
 }
@@ -429,3 +429,7 @@ function keoCauHinh(imLang){   /* 3.113: anh bấm "Lấy từ Drive" — Drive 
   });
 }
 
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f17.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f17', gdLenh({
+  layLaiSaoLuu:function(el, ev){ layLaiSaoLuu(); }
+}));

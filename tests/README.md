@@ -271,6 +271,110 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t358.js` | 3.443: Mẫu 10A khung 100 tổ viên 3 cột, phần II sang trang 3 (bản in + Word). |
 | `node tests/t359.js` | 3.445: Scan bổ sung ấp cho bản đã gắn mã KH mà trống ấp (tổ → File Tổ trưởng → Mẫu 31 → mã thôn). |
 | `node tests/t360.js` | 3.448: tên xã của tổ không hiện "Vay trực tiếp" (File Tổ trưởng → danh bạ → danh mục → Mã xã). |
+| `node tests/t361.js` | 3.452: Mẫu 10B theo quy chuẩn 10A (chọn nhiều Về việc, bảng hộ vay Kết nạp, bầu thay tab, tách ô). |
+| `node tests/t362.js` | 3.453: Mẫu 10C — Cho ra / Kết nạp, kết nạp từ tổ khác cùng ấp, nhớ chuyển, ＋ / − số dòng, Về việc chọn nhiều. |
+| `node tests/t363.js` | 3.455: Khai báo riêng dùng chung (không dồn chữ, vạch màu nguồn), trực quan liên kết 2 chiều, bấm chữ bản xem trước, nút ⚙ mọi mẫu nền ô. |
+| `node tests/t364.js` | 3.456: 10A số tham dự theo tỷ lệ (> 50%), IV tán thành (> 2/3), III gõ / chọn tên, UBND theo III, phê duyệt cả phần. |
+| `node tests/t365.js` | 3.457: 10B, 10C số tham dự / biểu quyết theo tỷ lệ (> 50%, > 2/3), nhớ riêng từng mẫu, vẫn 2 trang. |
+| `node tests/t378.js` | 3.489: Đ6 tab Tổ — ghi nhớ trong 1 lần vẽ (TO_KH_TAM) cho kết quả như không ghi nhớ; skNhomDH = công thức cũ. |
+| `node tests/t379.js` | 3.490: Word mẫu nền ô theo style bản in (canh, thụt, cỡ, giãn dòng cố định, khung Mẫu số, bảng không data-w); mẫu khác không đổi. |
+| `node tests/t380.js` | 3.493 Mẫu GDX theo VB 4368 (03, 06, 07, 09, 10, 11, 14, 15/GDX): chip mẫu, xem trước đúng Mẫu số + tiêu đề, dùng chung điểm / ngày GD / GDV · KSV · TT tổ GD với 12/GDX, ô trống để chấm, cảnh báo, nhật ký in, đếm trang khi in; mẫu cũ 04/TD · 12/GDX vẫn chạy. |
+| `node tests/t381.js` | 3.494 Phân bổ KH: 07/KH · 08/KH (QĐ 4686) cạnh Biểu 07 cũ — chọn mẫu, chữ mẫu, khớp QĐ, đủ các thôn, khai báo riêng tách Biểu 07, Word; 📤 Tờ trình 09/KH — cộng dồn QĐ, KH QĐ gần nhất, đề nghị lưu, số dư = KH + đề nghị, in 2 trang. |
+| `node tests/t380.js` (3.495) | 03/GDX: mặc định Phần II 1 + 8 dòng, vẫn 2 tờ. |
+| `node tests/t382.js` | 3.496 Giao dịch xã: 👥 Tổ giao dịch khai tay + chip vai, 1 Tổ trưởng / GDV chính, đồng bộ 12/GDX, quy tắc VB 4368, PA 1/2/3, tổ hay dùng; 03/GDX Phần I, II tự điền, 2 tờ; 📘 Nhiệm vụ 6 vai, tên, 1 mặt A4 ở 8,5 pt. |
+| `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+| t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
+| t243 (3.540) | Thanh dưới 5 nút kiểu cũ (GD xã · Số liệu · Hồ sơ) thử ở cỡ máy tính bảng 700 px — 390 px là thanh điện thoại mới (t311 / t401). |
+| t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). 3.536: + VB đã xem giữ trong ngày — dọn đúng bản trong máy (chỉ điện thoại). 3.537: + nạp màn rộng rồi thu về 390 tự khởi động; không JS thì lọc hiện đủ. 3.541: + lọc gọn Tổ / GDX / KTGS, chip GDX 1 dòng, vuốt đổi tab, vuốt đóng hộp. 3.542: + nhóm chip Tổ / KTGS 1 dòng. |
+| t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
+
+
+
+
+
+
+
+
+
+
+
+
+| (3.492) | `t358` Word 10A khóa trang (2 ngắt cứng, hàng Word − 0,5 mm). |
+| (3.491) | `t379` + 07b bảng theo cỡ chữ trên bảng, BBLV khối giữ liền. |
+| t366 (3.488) | + khung xem: .tr-nd không cắt mép trên (dấu chữ hoa dòng đầu), vẫn cắt mép dưới. |
+| t366 (3.487) | BBLV gạch tiêu ngữ = kẻ liền (hsoKe), vẫn 1 trang. |
+| t377 (3.486) | + Hồ sơ vay lọc tới Hội (chưa chọn tổ): bảng chọn món cả Hội, Tích hết → in gộp đủ hộ. |
+| t207 (3.485) | + scan BBLV / 06A → thư mục Hồ sơ vay, tên giữ chữ cũ. |
+| t377 (3.484) | + in 1 lần cả danh sách nhiều tổ: Hồ sơ vay chế độ nhiều tổ, bản in gộp đủ biên bản, Về từng tổ. |
+| t377 (3.483) | + nút 📄 BBLV / 06A ở tab Tổ: nhiều tổ → hộp chọn tổ; 1 tổ → mở thẳng; Hồ sơ vay tích sẵn đúng món theo loại nợ. |
+| t377 (3.482) | Tab Tổ: 3 chip Nợ quá hạn · Nợ khoanh · 3 tháng KHĐ riêng — số chip = số khách, lọc đúng ở toàn PGD và 1 tổ. |
+| (3.481) | t179 chuẩn khóa gdx_m04 / gdx_m12 ghi lại (bỏ nền tiêu đề). |
+| (3.480) | t366 BBLV mặc định 1 mặt, bấm ô In 2 mặt vẽ lại xem trước. |
+| (3.479) | t373 thêm tên xã hoa đầu từ khi File Tổ trưởng ghi chữ hoa. |
+| (3.478) | t376 đứt chuỗi QĐ (lõi + màn). |
+| (3.477) | không thêm phép — tab Tổ (t207, t335 …) giữ kết quả. |
+| (3.476) | t375 lưới an toàn data-lenh (16 tab); phép thử phát change / input lan lên. |
+| (3.475) | t374 nút đã chuyển data-lenh (menu chuột phải, Nạp & KT) gọi đúng hàm cũ. |
+| (3.474) | t127 / t129 chọn nút Nạp & KT theo `data-lenh`. |
+| (3.473) | không thêm phép — t179 (bản in chuẩn) + chụp 172 trạng thái trước / sau giống hệt. |
+| (3.472) | không thêm phép — t330 / t350 / t360 / t373 giữ kết quả với lõi chung `slXaTenTu`. |
+| (3.471) | t255 bảng cơ bản Diễn biến (khối nguồn, xếp, tách QĐ, chọn nhiều xã, Excel Bang KH). |
+| (3.470) | t373 tên xã theo mã xã khi Mẫu 31 ghi "… Vay trực tiếp" (gộp điểm GD). |
+| (3.469) | t372 QĐ 0 xã nhập ở ＋ QĐ mới, sửa thêm xã. |
+| (3.468) | t370 đối chiếu dòng PGD chỉ cột điều chỉnh. |
+| (3.467) | t372 dòng thời gian QĐ (lõi + giao diện), QĐ không giao cho PGD. |
+| (3.466) | t371 sửa QĐ linh động (sửa nhanh, đổi mã / thêm / bỏ khối, ghép xã, QĐ kế tiếp, so sánh đọc lại). |
+| (3.465) | t369 lõi đọc danh mục QĐ (node); t370 Đọc QĐ PDF / Excel DANH_MUC / nhập tay theo chương trình / xem 2 kiểu. |
+| (3.464) | `tests/rac.js` đo hàm không tới được / trùng (acorn) — `kiem.py` thước đo mã rác. |
+| (3.463) | t368 Mẫu 11 mới / cũ: chữ in sẵn = file gốc, chuẩn 10A, nguồn tổ trưởng; t181 11 / 11cu nhóm chữ liền; t179 ghi lại chuẩn 11. |
+| (3.462) | t367 cổng gắn mẫu hsoMauGan + rút file mẫu. |
+| (3.461.9) | t366 8 tình huống; t181 bỏ so bản mẫu BBLV. |
+| (3.461.8) | t366 câu tình huống mới. |
+| (3.461.7) | t366 ý tờ mẫu gọn. |
+| (3.461.6) | t366 thêm ý Cả 3 tình huống. |
+| (3.461.5) | t366 thêm ý bản mẫu 3 tình huống. |
+| (3.461.4) | t366 thêm ý STT theo hộ, câu thành viên Tổ. |
+| (3.461.3) | t366 thêm 5 ý bảng chọn (khung cuộn, 1 dòng, lọc, bấm dòng, ẩn Số KU). |
+| (3.461.2) | t366, t181, t179 chạy lại; hồi quy đủ (đổi bộ in chung). |
+| (3.461.1) | t366 thêm ý In 2 mặt. |
+| (3.461) | Mới `t366` (BBLV, HSN, 06A nhiều phiếu); t163 / t170 / t204 14 chip; t181 thêm 06a, bblv nhóm DUNG. |
+| (3.460) | t358 / t364 tên nút `hst.*` / `hstl.*`; t364 thêm ý chuyển tỷ lệ cũ. |
+| (3.459) | `t364` + địa chỉ phê duyệt 3 dòng, nút tên + ngày, III chấm thẳng cột, tiền dấu chấm, chấm kín dòng, tên dưới chữ ký theo dòng trên; `t358` ô tách mới. |
+| (3.458) | `t364` + Kiện toàn → phê duyệt "được kiện toàn", nút giữ "thành lập". |
+| (3.454) | `t358` + khóa trang 3 ("b) Tổ phó") / trang 4 ("III."), tên dài → bớt hàng khung / thu chiều cao hàng, vẫn 4 trang. |
 | (3.451) | `t253`, `t256` — Thông báo KH dư nợ giãn tiêu đề, gọn số. |
 | (3.450) | `t358` + khung tên không thụt gấp đôi, III a / b cùng tab, ⌨ họ tên. |
 | (3.449) | `t358` + bảng hộ vay TT / TP, tab chức vụ, tách ô, kẻ tiêu đề; `t163` Tổng số + TT / TP. |

@@ -43,7 +43,7 @@ function ndDung(K, B, d){
   var dongB = function(stt, ten, x, dam){ var td = function(v){ return '<td style="text-align:right;border:1px solid #000;padding:1pt 3pt">'+v+'</td>'; };
     return '<tr'+(dam ? ' style="font-weight:bold"' : '')+'><td style="text-align:center;border:1px solid #000">'+stt+'</td><td style="border:1px solid #000;padding:1pt 3pt">'+ten+'</td>'+
       td(ndO(x.so_to, 0))+td(ndO(x.so_kh_du_no, 0))+td(ndO(x.cho_vay))+td(ndO(x.thu_no))+td(ndO(x.du_no))+td(tongM.du_no ? ndO(x.du_no/tongM.du_no*100, 2) : '-')+td(ndO(x.nqh))+td(ndO(x.khoanh))+td(ndO(x.khd_mon, 0))+'</tr>'; };
-  var bang = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+th.map(function(c){ return '<th style="border:1px solid #000;background:#EEE;padding:1pt 2pt">'+c+'</th>'; }).join('')+'</tr>';
+  var bang = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+th.map(function(c){ return '<th style="border:1px solid #000;padding:1pt 2pt">'+c+'</th>'; }).join('')+'</tr>';
   if(coTT) bang += dongB('I', '<b>TRỰC TIẾP</b>', {so_to:0, so_kh_du_no:so.TT.so_ho, cho_vay:so.TT.cho_vay, thu_no:so.TT.thu_no, du_no:so.TT.du_no, nqh:so.TT.nqh, khoanh:so.TT.khoanh, khd_mon:0}, true);
   var uy = {}; ['so_to', 'so_kh_du_no', 'cho_vay', 'thu_no', 'du_no', 'nqh', 'khoanh', 'khd_mon'].forEach(function(k){ uy[k] = ds.reduce(function(a, h){ return a+(so[h][k]||0); }, 0); });
   bang += dongB(coTT ? 'II' : '', '<b>ỦY THÁC</b>', uy, true);
@@ -55,7 +55,7 @@ function ndDung(K, B, d){
   h += p('<b>2. Nợ quá hạn</b>');
   if(!qh.length) h += p('<b>Không phát sinh nợ quá hạn.</b>');
   else { h += p('<b>Nợ quá hạn '+ndSo(tongM.nqh)+' triệu đồng/'+qh.length+' món.</b>', 'text-align:justify');
-    var bq = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+['Hội', 'Tổ trưởng', 'Khách hàng', 'Số tiền', 'Ngày chuyển QH', 'Mức'].map(function(c){ return '<th style="border:1px solid #000;background:#EEE">'+c+'</th>'; }).join('')+'</tr>';
+    var bq = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+['Hội', 'Tổ trưởng', 'Khách hàng', 'Số tiền', 'Ngày chuyển QH', 'Mức'].map(function(c){ return '<th style="border:1px solid #000">'+c+'</th>'; }).join('')+'</tr>';
     qh.sort(function(a, b){ return (hoiCua(a)+a.to).localeCompare(hoiCua(b)+b.to); }).forEach(function(o){ var m = ndMuc(o, K.ngay), hv = hoiCua(o);
       bq += '<tr><td style="border:1px solid #000">'+(hv==='TT' ? 'Trực tiếp' : ND_HOI_VT[hv])+'</td><td style="border:1px solid #000">'+e(T[o.to] ? T[o.to].ten||'' : '')+'</td><td style="border:1px solid #000">'+e(tenHoaDau(o.ten||''))+'</td>'+
         '<td style="border:1px solid #000;text-align:right">'+ndSo((o.qh||0)/1e6)+'</td><td style="border:1px solid #000;text-align:center">'+(m.d ? ngayVNsl(m.d) : '')+'</td><td style="border:1px solid #000;text-align:center">'+m.m+'</td></tr>'; });
@@ -79,7 +79,7 @@ function ndDung(K, B, d){
   h += p('<b>III. NHIỆM VỤ THÁNG TIẾP THEO</b>')+p('<b>1. Kế hoạch thu nợ, giải ngân</b>');
   if(ndh.length){ var g = {}; ndh.forEach(function(o){ var k = hoiCua(o)+'|'+(o.to||''); g[k] = g[k] || {h:hoiCua(o), to:o.to, ct:{}, t:0}; g[k].t += o.dn||0; g[k].ct[ctNgan(o.ct, o)] = 1; });
     h += p('Nợ đến hạn tháng '+kyLui(K.thang, 1).slice(5, 7)+'/'+kyLui(K.thang, 1).slice(0, 4)+': '+ndSo(tongM.ndh)+' triệu đồng/'+ndh.length+' món — thu nợ đến hạn để giải ngân cho vay lại:', 'text-align:justify');
-    var b3 = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+['Stt', 'Đơn vị/Tổ', 'Chương trình', 'Số tiền thu nợ', 'Số tiền giải ngân'].map(function(c){ return '<th style="border:1px solid #000;background:#EEE">'+c+'</th>'; }).join('')+'</tr>', i = 0;
+    var b3 = '<table style="width:100%;border-collapse:collapse;font-size:11pt"><tr>'+['Stt', 'Đơn vị/Tổ', 'Chương trình', 'Số tiền thu nợ', 'Số tiền giải ngân'].map(function(c){ return '<th style="border:1px solid #000">'+c+'</th>'; }).join('')+'</tr>', i = 0;
     Object.keys(g).sort().forEach(function(k){ var x = g[k]; i++; b3 += '<tr><td style="border:1px solid #000;text-align:center">'+i+'</td><td style="border:1px solid #000">'+(x.h==='TT' ? 'Trực tiếp' : ND_HOI_VT[x.h]+' — '+e(x.to ? toTen(x.to) : ''))+'</td><td style="border:1px solid #000">'+e(Object.keys(x.ct).join(', '))+'</td>'+
       '<td style="border:1px solid #000;text-align:right">'+ndSo(x.t/1e6)+'</td><td style="border:1px solid #000;text-align:right">'+ndSo(x.t/1e6)+'</td></tr>'; });
     h += b3+'</table>'+p('<i>(Danh sách nợ đến hạn đính kèm.)</i>', 'font-size:11pt'); }

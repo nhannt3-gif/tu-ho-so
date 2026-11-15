@@ -58,9 +58,9 @@ const fs=require('fs'), path=require('path');
    const a2 = ktHoiKB(kA);
    ok('dán 1 dòng 3 cột từ Excel → điền Nhiệm kỳ · Số HĐUT · Ngày HĐ', a2.nk==='2025 – 2030' && a2.hd==='09/HĐUT' && a2.hdNgay==='01/02/2025', [a2.nk, a2.hd, a2.hdNgay].join(' | '));
    /* 5. ngày sai dạng tô đỏ */
-   const oN = document.getElementById('hkb-'+id+'-hdNgay'); oN.value = '2026/01/10'; oN.dispatchEvent(new Event('change'));
+   const oN = document.getElementById('hkb-'+id+'-hdNgay'); oN.value = '2026/01/10'; oN.dispatchEvent(new Event('change', {bubbles:true}));
    ok('ngày sai dạng → ô tô đỏ (không thêm chữ giải thích)', oN.classList.contains('sai') && getComputedStyle(oN).color!==getComputedStyle(document.getElementById('hkb-'+id+'-hd')).color);
-   oN.value = '01/02/2025'; oN.dispatchEvent(new Event('change')); ok('sửa đúng dạng → hết đỏ', !oN.classList.contains('sai'));
+   oN.value = '01/02/2025'; oN.dispatchEvent(new Event('change', {bubbles:true})); ok('sửa đúng dạng → hết đỏ', !oN.classList.contains('sai'));
    /* 6. Đoàn TN */
    const tD = ds.find(t=>String(t.dv)==='14' && t.xa===tA.xa);
    if(tD){ const kD = ktHoiKhoa(tD).replace(/[^0-9a-z]/gi, '_'); ok('Đoàn TN: ô ghi Bí thư / Phó Bí thư', /^Bí thư/.test(document.getElementById('hkb-'+kD+'-ct').placeholder) && /^Phó Bí thư/.test(document.getElementById('hkb-'+kD+'-pct').placeholder)); }

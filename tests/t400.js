@@ -1,0 +1,23 @@
+// 3.528 (anh 14/11 "em nên tự nhận và tối ưu cỡ chữ"): cỡ chữ Tự động theo cỡ màn (mặc định) — 24" 1920 → 1.1; laptop 125% (1536×730) → 0.95; 1600×900 → 1;
+// tự đổi khi kéo cửa sổ; bấm Nhỏ / Vừa / To → dùng cỡ chọn, không tự đổi nữa; nút "Tự động" bật lại. Không ẩn nút.
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
+const path=require('path');
+(async()=>{ const b=await chromium.launch(); const loi=[], o=[]; const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
+ const p=await b.newPage({viewport:{width:1920,height:950}}); p.on('pageerror',e=>loi.push(e.message));
+ await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
+ await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1200); await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} });
+ const co = () => p.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--co').trim());
+ ok('mặc định Tự động: 24" (1920×950) → 1.1', (await co())==='1.1', await co());
+ await p.setViewportSize({width:1536, height:730}); await p.waitForTimeout(400); ok('kéo về laptop 125% (1536×730) → 0.95 (tự đổi)', (await co())==='0.95', await co());
+ await p.setViewportSize({width:1600, height:780}); await p.waitForTimeout(400); ok('màn cơ quan 1600×900 (trang ~1600×780) → 1', (await co())==='1', await co());
+ await p.setViewportSize({width:1366, height:768}); await p.waitForTimeout(400); ok('1366×768 → 1 (không đổi)', (await co())==='1', await co());
+ await p.evaluate(() => { const d = document.createElement('div'); d.innerHTML = '<span><button>a</button></span>'; document.body.appendChild(d); datCo(.9, d.querySelector('button')); });
+ await p.setViewportSize({width:1920, height:950}); await p.waitForTimeout(400);
+ ok('bấm Nhỏ → 0.9, kéo màn rộng vẫn giữ 0.9 (tắt tự động)', (await co())==='0.9' && await p.evaluate(() => D.cauHinh.coTu===false), await co());
+ await p.evaluate(() => { const d = document.createElement('div'); d.innerHTML = '<span><button>a</button></span>'; document.body.appendChild(d); datCoTu(d.querySelector('button')); });
+ ok('bấm Tự động → lại 1.1 ở màn rộng', (await co())==='1.1', await co());
+ const ui = await p.evaluate(() => typeof datCoTu==='function' && CH_RIENG.indexOf('coTu')>=0);
+ ok('khóa coTu lưu riêng từng máy (CH_RIENG)', ui);
+ o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = o.filter(x=>x[0]==='✗').length+loi.length; console.log(sai ? '✗ '+sai+' sai' : '✓ t400 đạt'); await b.close(); process.exit(sai?1:0);
+})();

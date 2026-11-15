@@ -40,7 +40,7 @@ const fs=require('fs'), path=require('path');
      /* ô tháng có cả bản cuối tháng + bản theo ngày → xóa riêng bản ngày */
      await slGhi(await slDocFile(mk('23/05/2026', '31/08/2026', '004820_DU_NO_CHI_TIET_A.xlsx'))); await slGhi(await slDocFile(mk('23/05/2026', '15/08/2026', '004820_DU_NO_CHI_TIET_B.xlsx')));
      slMoO('dnct', '2026-08'); await w(100); const hop1 = document.getElementById('hop-in');
-     const dongNgay = [...hop1.querySelectorAll('.sl-ngay-dong')].find(x=>/15\/08\/2026/.test(x.getAttribute('onclick')+x.textContent) || /2026-08-15/.test(x.getAttribute('onclick')));
+     const dongNgay = [...hop1.querySelectorAll('.sl-ngay-dong')].find(x=>/15\/08\/2026/.test(x.textContent) || /2026-08-15/.test(x.getAttribute('data-b')));
      ok('3.135: hộp ô tháng (cuối tháng) liệt kê bản theo ngày trong tháng, bấm được', /Bản theo ngày trong tháng \(1\)/.test(hop1.textContent) && !!dongNgay, hop1.textContent.slice(0, 120));
      if(dongNgay){ dongNgay.click(); await w(100); const nx = [...document.querySelectorAll('#hop-in button')].find(b=>/Xóa bản ngày 15\/08\/2026/.test(b.textContent)); ok('3.135: hộp bản ngày có nút "🗑 Xóa bản ngày 15/08/2026"', !!nx);
        if(nx){ nx.click(); await w(100); const xn = [...document.querySelectorAll('#hop-in button')].find(b=>b.textContent.trim()==='Xóa'); if(xn) xn.click(); await w(400);

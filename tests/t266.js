@@ -30,7 +30,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('điện thoại mở index.html → ở lại bản chính (không tự chuyển dt.html), có nút 📱 bản gọn', /index\.html$/.test(d.url()) && !!(await d.$('#ve-dt')), d.url().split('/').pop());
  await d.evaluate(()=>{ try{ localStorage.setItem('tuhoso_ban', 'may'); }catch(e){} }); await d.reload(); await d.waitForTimeout(2000);
  ok('máy còn cờ cũ (tuhoso_ban = may) vẫn mở bản chính bình thường, có 📱', /index\.html$/.test(d.url()) && !!(await d.$('#ve-dt')));
- await d.click('#ve-dt'); await d.waitForTimeout(2500);
+ await d.evaluate(()=>{ const b = document.createElement('button'); b.setAttribute('data-lenh', 'dtm.banGon'); document.body.appendChild(b); b.click(); })   /* 3.535: nút 📱 nổi ẩn trên điện thoại — vào bản gọn qua ☰ Thêm › 📱 */; await d.waitForTimeout(2500);
  ok('bấm 📱 → dt.html; 🖥 ở dt.html về bản chính', /dt\.html$/.test(d.url()) && !!(await d.$('.navbar-current .dt-may')));
  await d.click('.navbar-current .dt-may'); await d.waitForTimeout(2500);
  ok('🖥 → index.html, ở lại', /index\.html$/.test(d.url()));

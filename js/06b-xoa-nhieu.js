@@ -46,21 +46,21 @@ function thanhBot(tab){
   setTimeout(capNhatBot, 0);   /* danh sách đang lọc tính xong sau khi vẽ đầu tab */
   if(BOT.muc==='chep') return '<div class="thanh-bot" id="thanh-bot">'+   /* 3.106: thanh chọn để chép */
     '<b class="bot-dem">Chưa chọn file nào — bấm vào file để chọn</b>'+
-    '<button onclick="botTatCa()" class="bot-tat">Chọn tất cả đang lọc</button>'+
-    '<button onclick="botBoChon()">Bỏ chọn</button>'+
-    '<button class="chinh bot-nut" onclick="botXacNhan()" disabled>📋 Chép 0 file</button>'+
-    '<button class="bot-tiep" onclick="chepTiep()" style="display:none">📋 Chép tiếp</button>'+
-    '<button onclick="thoiBot()">Thôi</button></div>';
+    '<button data-lenh="f06b.botTatCa" class="bot-tat">Chọn tất cả đang lọc</button>'+
+    '<button data-lenh="f06b.botBoChon">Bỏ chọn</button>'+
+    '<button class="chinh bot-nut" data-lenh="f06b.botXacNhan" disabled>📋 Chép 0 file</button>'+
+    '<button class="bot-tiep" data-lenh="f06b.chepTiep" style="display:none">📋 Chép tiếp</button>'+
+    '<button data-lenh="f06b.thoiBot">Thôi</button></div>';
   return '<div class="thanh-bot" id="thanh-bot">'+
     '<b class="bot-dem">Chưa chọn file nào — bấm vào file để chọn</b>'+
-    '<button onclick="botTatCa()" class="bot-tat">Chọn tất cả đang lọc</button>'+
-    '<span class="tb-nhom">Thêm vào tủ trước ngày <input class="bot-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" oninput="gonNgay(this)">'+
-      '<button onclick="botTruocNgay(this)">Chọn</button></span>'+
-    '<button onclick="botBoChon()">Bỏ chọn</button>'+
-    '<button class="chinh bot-chep" onclick="botChep()" disabled title="'+(laDT() ? 'Gửi các file đã chọn (Zalo…)' : 'Chép các file đã chọn — Ctrl+V vào Zalo / email / thư mục (cầu nối); chưa cài cầu nối: hộp chia sẻ Windows')+'">'+(laDT() ? '📤 Gửi 0 file' : '📋 Chép 0 file')+'</button>'+   /* 3.166 (anh chốt): chép + xóa chung 1 thanh chọn */
-    '<button class="bot-tiep" onclick="chepTiep()" style="display:none">📋 Chép tiếp</button>'+
-    '<button class="xau bot-nut" onclick="botXacNhan()" disabled>Xóa 0 file</button>'+
-    '<button onclick="thoiBot()">Thôi</button></div>';
+    '<button data-lenh="f06b.botTatCa" class="bot-tat">Chọn tất cả đang lọc</button>'+
+    '<span class="tb-nhom">Thêm vào tủ trước ngày <input class="bot-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" data-lenh="f06b.gonNgay" data-su="input">'+
+      '<button data-lenh="f06b.botTruocNgay">Chọn</button></span>'+
+    '<button data-lenh="f06b.botBoChon">Bỏ chọn</button>'+
+    '<button class="chinh bot-chep" data-lenh="f06b.botChep" disabled title="'+(laDT() ? 'Gửi các file đã chọn (Zalo…)' : 'Chép các file đã chọn — Ctrl+V vào Zalo / email / thư mục (cầu nối); chưa cài cầu nối: hộp chia sẻ Windows')+'">'+(laDT() ? '📤 Gửi 0 file' : '📋 Chép 0 file')+'</button>'+   /* 3.166 (anh chốt): chép + xóa chung 1 thanh chọn */
+    '<button class="bot-tiep" data-lenh="f06b.chepTiep" style="display:none">📋 Chép tiếp</button>'+
+    '<button class="xau bot-nut" data-lenh="f06b.botXacNhan" disabled>Xóa 0 file</button>'+
+    '<button data-lenh="f06b.thoiBot">Thôi</button></div>';
 }
 function capNhatBot(){
   var n = Object.keys(BOT.chon).length;
@@ -126,18 +126,18 @@ function moDonThu(){
   moHop('<div class="hop-tit">🔄 Reset dữ liệu thử</div>'+
     '<div class="hop-phu">Xóa hàng loạt dữ liệu nhập thử. <b>Cài đặt giữ nguyên</b> (địa bàn, danh mục, tag, mẫu báo cáo, Client ID…). Máy kia xóa theo khi đồng bộ.</div>'+
     '<div class="o"><label>Phạm vi</label>'+
-      '<label class="dt-dong"><input type="radio" name="dt-pv" value="tat" checked onchange="demDonThu()"> Tất cả</label>'+
-      '<label class="dt-dong"><input type="radio" name="dt-pv" value="ngay" onchange="demDonThu()"> Thêm vào tủ trước ngày '+
+      '<label class="dt-dong"><input type="radio" name="dt-pv" value="tat" checked data-lenh="f06b.demDonThu" data-su="change"> Tất cả</label>'+
+      '<label class="dt-dong"><input type="radio" name="dt-pv" value="ngay" data-lenh="f06b.demDonThu" data-su="change"> Thêm vào tủ trước ngày '+
         '<input id="dt-ngay" inputmode="numeric" placeholder="dd/mm/yyyy" value="'+ngayVN(ngayISO(nay()))+'" oninput="gonNgay(this);demDonThu()" style="width:120px"></label></div>'+
     '<div class="o"><label>Nhóm cần xóa</label><div class="dt-2cot">'+
-      NHOM_RESET.map(function(x){ return '<label class="dt-dong"><input type="checkbox" class="dt-tab" value="'+x[0]+'" checked onchange="demDonThu()"> '+x[1]+' ('+(D[x[0]]||[]).length+')</label>'; }).join('')+
-      '<label class="dt-dong"><input type="checkbox" id="dt-lich" onchange="demDonThu()"> Lịch ('+lcData().viec.length+' việc + nhật ký)</label></div></div>'+
+      NHOM_RESET.map(function(x){ return '<label class="dt-dong"><input type="checkbox" class="dt-tab" value="'+x[0]+'" checked data-lenh="f06b.demDonThu" data-su="change"> '+x[1]+' ('+(D[x[0]]||[]).length+')</label>'; }).join('')+
+      '<label class="dt-dong"><input type="checkbox" id="dt-lich" data-lenh="f06b.demDonThu" data-su="change"> Lịch ('+lcData().viec.length+' việc + nhật ký)</label></div></div>'+
     '<div class="o"><label>Mức</label>'+
-      '<label class="dt-dong"><input type="radio" name="dt-muc" value="rac" checked onchange="demDonThu()"> Vào thùng rác — còn khôi phục được</label>'+
-      '<label class="dt-dong"><input type="radio" name="dt-muc" value="han" onchange="demDonThu()"> <b>Xóa hẳn luôn</b> — file Drive vào thùng rác Google Drive (30 ngày); cần nối Drive</label></div>'+
+      '<label class="dt-dong"><input type="radio" name="dt-muc" value="rac" checked data-lenh="f06b.demDonThu" data-su="change"> Vào thùng rác — còn khôi phục được</label>'+
+      '<label class="dt-dong"><input type="radio" name="dt-muc" value="han" data-lenh="f06b.demDonThu" data-su="change"> <b>Xóa hẳn luôn</b> — file Drive vào thùng rác Google Drive (30 ngày); cần nối Drive</label></div>'+
     '<div class="dt-kq" id="dt-kq"></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho xau" onclick="thucHienDonThu()">🔄 Reset</button></div>');
+    '<button class="nho xau" data-lenh="f06b.thucHienDonThu">🔄 Reset</button></div>');
   demDonThu();
 }
 function idDonThu(){
@@ -193,7 +193,7 @@ function moXoaSachMay(){
     'bản sao file và <b>ảnh CCCD</b>. <b>Drive giữ nguyên</b>. App tự tải một bản dự phòng đầy đủ trước khi xóa.</div>'+
     '<div class="o"><label>Gõ chữ <b>XOA</b> để xác nhận</label><input id="xs-go" autocomplete="off"></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho xau" onclick="xoaSachMay()">Xóa sạch</button></div>');
+    '<button class="nho xau" data-lenh="f06b.xoaSachMay">Xóa sạch</button></div>');
 }
 function xoaSachMay(){
   if((gt('xs-go')||'').trim().toUpperCase()!=='XOA') return baoLoi('Gõ đúng chữ XOA để xác nhận.');
@@ -209,3 +209,18 @@ function xoaSachMay(){
   });
 }
 function xoaHet(){ return moXoaSachMay(); }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f06b', gdLenh({
+  botBoChon:function(el, ev){ botBoChon(); },
+  botChep:function(el, ev){ botChep(); },
+  botTatCa:function(el, ev){ botTatCa(); },
+  botTruocNgay:function(el, ev){ botTruocNgay(el); },
+  botXacNhan:function(el, ev){ botXacNhan(); },
+  chepTiep:function(el, ev){ chepTiep(); },
+  demDonThu:function(el, ev){ demDonThu(); },
+  gonNgay:function(el, ev){ gonNgay(el); },
+  thoiBot:function(el, ev){ thoiBot(); },
+  thucHienDonThu:function(el, ev){ thucHienDonThu(); },
+  xoaSachMay:function(el, ev){ xoaSachMay(); }
+}));

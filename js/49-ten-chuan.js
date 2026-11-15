@@ -9,7 +9,8 @@
 var TC = {
   thuMuc:{cccd:'CCCD', ka:'Chữ ký - Ảnh khách', tl:'Hồ sơ scan', hsv:'Hồ sơ vay', cho:'Scan chờ sắp xếp'},
   /* mã mẫu hồ sơ vay → loại trong tên file (đề xuất (c) anh đồng ý) */
-  loaiMau:{'01td':'01TD', '03td':'03TD', '06td':'06TD', '01uq':'01UQ', 'uq':'01UQ', '10c':'10C', '01tgtv':'01TGTV', '01gqvl':'01GQVL', '07bgqvl':'07BGQVL'}
+  loaiMau:{'01td':'01TD', '03td':'03TD', '06td':'06TD', '01uq':'01UQ', 'uq':'01UQ', '10c':'10C', '01tgtv':'01TGTV', '01gqvl':'01GQVL', '07bgqvl':'07BGQVL',
+    '06a':'06A', '06atd':'06ATD', 'bblv':'BBLV'}   /* 3.485 (anh 05/11 "ok theo em"): thêm 06A, BBLV — chữ trong tên file GIỮ NHƯ CŨ (trước đây tự suy ra đúng chữ này), nay được nhận là mẫu hồ sơ vay (scan đã ký → thư mục Hồ sơ vay) */
 };
 /* thư mục cũ của Scan đọc từ đây (một nguồn) */
 if(typeof SXT!=='undefined'){ SXT.cccd = TC.thuMuc.cccd; SXT.ka = TC.thuMuc.ka; SXT.tl = TC.thuMuc.tl; SXT.cho = TC.thuMuc.cho; }

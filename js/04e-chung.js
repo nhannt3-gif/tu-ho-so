@@ -6,7 +6,8 @@
 var TDN_DVUT = {'11':'Hội Nông dân','12':'Hội Phụ nữ','13':'Hội Cựu chiến binh','14':'Đoàn Thanh niên'};
 /* 3.71: đủ danh mục mã chương trình theo hệ thống (MACT · TENVT · TENCT) — nguồn: Danh mục chương trình vay (xls) anh gửi */
 var TDN_CT = {'01':['HONGHEO','Cho vay ưu đãi hộ nghèo'],'02':['HSSV','Cho vay học sinh, sinh viên có hoàn cảnh khó khăn'],
-  '03':['GQVL','Cho vay giải quyết việc làm'],'04':['XKLD','Cho vay ĐTCS đi lao động có thời hạn ở nước ngoài'],
+  '03':['GQVL','Cho vay hỗ trợ tạo việc làm, duy trì và mở rộng việc làm'],   /* 3.508 (anh 09/11 "cho tên mới, sửa hết") */
+ '04':['XKLD','Cho vay ĐTCS đi lao động có thời hạn ở nước ngoài'],
   '05':['NVLSCL','Cho vay trả chậm nhà ở cho hộ dân ĐB sông Cửu Long và Tây Nguyên'],'06':['NSVSMT','Cho vay nước sạch và vệ sinh môi trường nông thôn'],
   '07':['HN_QD167','Cho vay hộ nghèo về nhà ở'],'08':['KFW','Cho vay doanh nghiệp vừa và nhỏ (KFW)'],'09':['MOI_TNGHEO','Cho vay hộ mới thoát nghèo theo QĐ 28'],
   '10':['HSXVKK','Cho vay hộ gia đình SXKD tại vùng khó khăn'],'11':['DTTS_DBKK','Cho vay hộ dân tộc thiểu số đặc biệt khó khăn theo QĐ 32, QĐ 54'],
@@ -93,7 +94,7 @@ function anhHTML(m, q){
     var g = timMuc(m.gocVB);
     if(g) gan = ' <span class="mini ct">gắn vào '+coChuHTML(g.soHieu||'văn bản')+'</span>';
   }
-  return '<div class="anh"'+botAt(m.id)+' onclick="moXem(\''+m.id+'\')">'+
+  return '<div class="anh"'+botAt(m.id)+' data-lenh="f04e.moXem" data-a1="'+m.id+'">'+
     '<img id="anh-'+m.id+'" alt="">'+
     '<div class="duoi"><div class="mo-ta">'+toSang(m.moTa||'(chưa ghi chú)', q)+'</div>'+
     (m.the||[]).map(function(t){ return '<span class="mini">'+coChuHTML(t)+'</span>'; }).join(' ')+
@@ -156,10 +157,10 @@ function veDay(){
   var cpx = document.getElementById('cotphai'); if(cpx) cpx.classList.toggle('pv-trong', !mucDangXem);
   var s = document.getElementById('so-lieu');
   /* 3.53 (anh chốt): thanh đáy chỉ còn thông báo HỆ THỐNG, một dòng: Drive · chưa lên Drive · lỗi đẩy · bộ nhớ máy */
-  var chip = '<span class="chip" id="chip-drive" onclick="bamChip()">● Trong máy</span>'+
-    '<span class="chip vang an" id="chip-chua" onclick="bamChipChua()"></span>'+
-    '<span class="chip do an" id="chip-loi" onclick="moHangDoiDrive()"></span>'+
-    '<span class="chip" id="chip-bn" onclick="moBoNho()">💾 …</span>';
+  var chip = '<span class="chip" id="chip-drive" data-lenh="f04e.bamChip">● Trong máy</span>'+
+    '<span class="chip vang an" id="chip-chua" data-lenh="f04e.bamChipChua"></span>'+
+    '<span class="chip do an" id="chip-loi" data-lenh="f04e.moHangDoiDrive"></span>'+
+    '<span class="chip" id="chip-bn" data-lenh="f04e.moBoNho">💾 …</span>';
   var btnPV = document.getElementById('btn-mo-preview');
   if(btnPV) btnPV.style.display = (anPV && nganHienTai!==0) ? '' : 'none';
   if(typeof dhDay==='function') dhDay();
@@ -182,11 +183,11 @@ function veDay(){
   nc.style.display = (nganHienTai===6) ? '' : 'none';
   var ph = document.getElementById('nut-phu-cho');
   if(nganHienTai===6 && D.cho.length)
-    ph.innerHTML = '<button class="nut-phu" onclick="moDanAI()">Dán từ AI</button>'+
-                   '<button class="nut-phu" onclick="duyetTatCa()">Duyệt tất cả</button>'+
-                   '<button class="nut-phu" onclick="dongKhai()" title="Về tab trước (phím Esc)">✕ Đóng</button>';
+    ph.innerHTML = '<button class="nut-phu" data-lenh="f04e.moDanAI">Dán từ AI</button>'+
+                   '<button class="nut-phu" data-lenh="f04e.duyetTatCa">Duyệt tất cả</button>'+
+                   '<button class="nut-phu" data-lenh="f04e.dongKhai" title="Về tab trước (phím Esc)">✕ Đóng</button>';
   else if(nganHienTai===6 && coTheNoiDrive())
-    ph.innerHTML = '<button class="nut-phu" onclick="napKhayCho()">Nạp khay chờ</button>';
+    ph.innerHTML = '<button class="nut-phu" data-lenh="f04e.napKhayCho">Nạp khay chờ</button>';
   else ph.innerHTML = '';
 }
 /* ghép toàn bộ PDF của một kỳ thành 1 bản tạm để đọc liền mạch */
@@ -204,7 +205,18 @@ function ghepKy(){
         return '<option value="'+k+'">'+kyVN(k)+' — '+n+' file</option>';
       }).join('')+'</select></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho chinh" onclick="lamGhep()">Ghép</button></div>');
+    '<button class="nho chinh" data-lenh="f04e.lamGhep">Ghép</button></div>');
+}
+/* 3.529 (dọn hàm trùng — kiem.py): ghép trang các file PDF (mục có tệp) vào tài liệu PDFLib `moi` theo thứ tự — dùng chung Ghép kỳ (lamGhep) + Ghép bộ biểu mẫu (js/09) */
+function ghepPDFVao(moi, ds){
+  return ds.reduce(function(p, m){
+    return p.then(function(){
+      return layNoiDung(m).then(function(b){
+        if(!b) return;
+        return b.arrayBuffer().then(function(buf){ return PDFLib.PDFDocument.load(buf).then(function(g){ return moi.copyPages(g, g.getPageIndices()).then(function(tr){ tr.forEach(function(t){ moi.addPage(t); }); }); }); });
+      }).catch(function(e){ console.warn('bỏ qua', m.tenCu || m.ten, e); });
+    });
+  }, Promise.resolve());
 }
 function lamGhep(){
   var ky = gt('gk-ky'); dongHop();
@@ -214,20 +226,7 @@ function lamGhep(){
   ds.sort(function(a,b){ return (a.tenLoai||'').localeCompare(b.tenLoai||''); });
   bao('Đang ghép '+ds.length+' file…', 4);
   PDFLib.PDFDocument.create().then(function(moi){
-    return ds.reduce(function(p, m){
-      return p.then(function(){
-        return layNoiDung(m).then(function(b){
-          if(!b) return;
-          return b.arrayBuffer().then(function(buf){
-            return PDFLib.PDFDocument.load(buf).then(function(g){
-              return moi.copyPages(g, g.getPageIndices()).then(function(tr){
-                tr.forEach(function(t){ moi.addPage(t); });
-              });
-            });
-          });
-        }).catch(function(e){ console.warn('bỏ qua', m.tenCu, e); });
-      });
-    }, Promise.resolve()).then(function(){
+    return ghepPDFVao(moi, ds).then(function(){
       if(moi.getPageCount()===0) throw new Error('rong');
       return moi.save();
     });
@@ -275,3 +274,17 @@ function nutChinh(){
   THEM_TU = tu;   /* 3.40: nhớ tab vừa bấm Thêm file (sau doiNgan vì doiNgan xóa cờ) */
   document.getElementById('chon-file').click();
 }
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04e.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04e', gdLenh({
+  bamChip:function(el, ev){ bamChip(); },
+  bamChipChua:function(el, ev){ bamChipChua(); },
+  dongKhai:function(el, ev){ dongKhai(); },
+  duyetTatCa:function(el, ev){ duyetTatCa(); },
+  lamGhep:function(el, ev){ lamGhep(); },
+  moBoNho:function(el, ev){ moBoNho(); },
+  moDanAI:function(el, ev){ moDanAI(); },
+  moHangDoiDrive:function(el, ev){ moHangDoiDrive(); },
+  moXem:function(el, ev){ moXem(gdA(el, 1)); },
+  napKhayCho:function(el, ev){ napKhayCho(); }
+}));

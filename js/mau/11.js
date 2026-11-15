@@ -1,19 +1,11 @@
 /* ===== 3.223 M6 — MẪU 11/TD MỚI (QĐ 70, từ 01/10/2026) Hợp đồng ủy nhiệm — trên nền ô, dựng theo file gốc tests/mau_goc/11_moi.docx =====
    Anh chốt 16/10: 11 cũ / 11 mới là 2 mẫu độc lập (mỗi mẫu 1 chip). Ngày mặc định chấm.
    Lề 20 / 20 / 20 / 30 mm · Times New Roman 14 · đoạn dòng cố định 16 pt, cách 6 pt, thụt 12,7 mm · công thức hoa hồng dạng bảng như gốc · 2 chú thích chân trang 2.
-   Bỏ file này → app dùng lại hsoLap11 cũ. */
+   Bỏ file này → mất chip 11/TD mới (gắn qua hsoMauGan — 3.463). 3.463 (anh 04/11): chuẩn 10A trên phần chung HST — đúng mẫu gốc TỪNG CHỮ (anh: "không được bỏ hay sửa"), chỉ chữ điền: liền, in thường, tên hoa đầu từ, Hội bỏ xã, tách ô, Nhập liệu riêng; tổ trưởng theo Danh sách tổ mới nhất / chọn bản cũ. */
 (function(){
   var MK = '11';
-  function mm(s, k){ var m = new RegExp(k+':(-?[\\d.]+)mm').exec(s); return m ? +m[1] : 0; }
-  function P(noi, s){ s = s || ''; if(s && !/;$/.test(s)) s += ';';
-    if(/nowrap/.test(s) && noi.indexOf('<br>')<0){
-      var w = 0, h = noi.replace(/<span[^>]*display:inline-block;width:([\d.]+)mm[^>]*>[\s\S]*?<\/span>/g, function(_, x){ w += +x; return ''; }), tx = h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
-      var R = 159.5 - mm(s, 'text-indent') - mm(s, 'margin-left'), n = (tx.match(/ /g) || []).length; w += omRong(tx, 14, /^<b>/.test(noi));
-      if(w > R){ if(n && (w-R)/n <= 0.8) s += 'word-spacing:'+(-(w-R)/n).toFixed(2)+'mm;';
-        else { s += 'letter-spacing:'+(-(w-R)/tx.length).toFixed(3)+'mm;'; noi = noi.replace(/display:inline-block;/g, 'display:inline-block;letter-spacing:normal;'); } } }
-    else if(/justify/.test(s) && !/word-spacing/.test(s)) s += 'word-spacing:-0.25mm;';
-    if(/text-align-last:justify/.test(s)) noi = noi.replace(/display:inline-block;/g, 'display:inline-block;text-align-last:auto;word-spacing:normal;');
-    return '<p style="margin:0;'+s+'">'+noi+'</p>'; }
+  hsoMauGan('hst', {k:MK, ma:'11/TD mới', ten:'Hợp đồng ủy nhiệm — mẫu mới QĐ 70 (từ 01/10/2026)', mg:[20, 20, 20, 30], sau:'10d'});   /* 3.463: tự gắn chip (cổng js/25) */
+  var P = HST.P, sp = HST.sp;   /* 3.463: đoạn văn chung Hồ sơ Tổ (js/mau/0hst.js) */
   var J = 'text-align:justify;', W = 'white-space:nowrap;', TL = 'text-align-last:justify;', F = 'text-indent:12.7mm;';
   var B = 'margin:0 0 6pt;line-height:16pt;', BT = 'margin:0 0 6pt;line-height:16pt;'   /* cách 6 pt dồn sau đoạn: đầu trang không thêm khoảng (như Word) */, B4 = 'margin:4pt 0;line-height:16pt;';
   function sup(x){ return '<span style="font-size:58%;vertical-align:33%;line-height:0">'+x+'</span>'; }
@@ -21,31 +13,41 @@
   function bang(w, noi, st){ return '<table class="khung0" style="'+(st||'')+'table-layout:fixed;width:'+w.reduce(function(a, b){ return a+b; }, 0).toFixed(1)+'mm"><colgroup>'+w.map(function(x){ return '<col style="width:'+x+'mm">'; }).join('')+'</colgroup>'+noi+'</table>'; }
   function o1(x, st){ return '<td style="padding:0 1.9mm;vertical-align:middle;'+(st||'')+'">'+x+'</td>'; }
   omDangKy({k:MK, ma:'11/TD', phan:['nhs', 'to', 'ky'], co:14,
+    dien:[['het', 'Điền hết'], ['tuy', 'Tùy chọn']], phanTen:{nhs:'Bên A (Ngân hàng)', to:'Bên B (Tổ), căn cứ, ngày ký', ky:'Họ tên dưới chữ ký'},   /* 3.463: khối Nhập liệu riêng (chuẩn 10A) */
     o:[{k:'bbTL', n:'Căn cứ biên bản thành lập Tổ: ngày … · UBND xã …', p:'to', l:'go', md:'cham', ngay:1},
       {k:'bbBQL', n:'Căn cứ biên bản thay đổi Ban quản lý: ngày … · UBND xã …', p:'to', l:'go', md:'cham', ngay:1},
       {k:'xa', n:'UBND xã … (chấp thuận)', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
       {k:'ngayHD', n:'Hôm nay, ngày … (ký hợp đồng)', p:'to', l:'go', md:'cham', ngay:1, nhanh:1},
       {k:'noiKy', n:'… tại … (nơi ký)', p:'to', l:'kb', md:'cham', cmau:'PGD NHCSXH'},
       {k:'ngan', n:'Bên A: Chi nhánh/PGD NHCSXH …', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD'},
-      {k:'daiDien', n:'Bên A: Đại diện · chức vụ', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › đại diện'},
+      {k:'daiDien', n:'Bên A: Đại diện Ông (Bà)', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › đại diện'},
+      {k:'daiDienCv', n:'Bên A: Chức vụ', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › chức vụ'},
       {k:'diaChi', n:'Bên A: địa chỉ', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › địa chỉ'},
       {k:'dt', n:'Bên A: số điện thoại', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › điện thoại'},
-      {k:'tt', n:'Bên B: Ban quản lý Tổ · đại diện (tổ trưởng)', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
+      {k:'tt', n:'Bên B: Ban quản lý Tổ TK&VV (tên tổ)', p:'to', l:'tu', md:'tu', ng:'tổ trưởng — Danh sách tổ mới nhất (chọn ở cột trái)'},
       {k:'hoi', n:'Bên B: thuộc Hội', p:'to', l:'tu', md:'tu', ng:'tổ — Hội nhận ủy thác'},
-      {k:'cccd', n:'Bên B: Số thẻ căn cước · ngày cấp · nơi cấp', p:'to', l:'tu', md:'tu', ng:'tổ trưởng — Mẫu 31'},
-      {k:'diaDiem', n:'Bên B: địa chỉ thôn · xã · tỉnh', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
+      {k:'ttTen', n:'Bên B: Đại diện Ông (Bà) — tổ trưởng', p:'to', l:'tu', md:'tu', ng:'tổ trưởng — Danh sách tổ mới nhất (chọn ở cột trái)'},
+      {k:'cccd', n:'Bên B: Số Thẻ căn cước', p:'to', l:'tu', md:'tu', ng:'tổ trưởng — Danh sách tổ (QT-C-18)'},
+      {k:'cccdNgay', n:'Bên B: Ngày cấp', p:'to', l:'tu', md:'tu', ng:'tổ trưởng — Danh sách tổ (QT-C-18)'},
+      {k:'cccdNoi', n:'Bên B: Nơi cấp', p:'to', l:'tu', md:'tu', ng:'danh bạ khách (cùng số thẻ)'},
+      {k:'diaDiem', n:'Bên B: Địa chỉ — Thôn', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
+      {k:'diaXa', n:'Bên B: Địa chỉ — xã', p:'to', l:'tu', md:'tu', ng:'tổ — Mẫu 31'},
+      {k:'diaTinh', n:'Bên B: Địa chỉ — tỉnh', p:'to', l:'tu', md:'tu', ng:'⚙ Khai báo đơn vị › tỉnh'},
       {k:'tkNH', n:'Điều 2.2c: mở tại NHCSXH … (tên PGD)', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD'},
       {k:'stk', n:'Điều 2.2c: số tài khoản tổ trưởng', p:'to', l:'go', md:'cham'},
-      {k:'ky', n:'Họ tên dưới chữ ký (Bên B, Bên A)', p:'ky', l:'tu', md:'tu', ng:'tổ trưởng / ⚙ đại diện PGD'}],
+      {k:'ky', n:'Họ tên dưới chữ ký Bên B (tổ trưởng)', p:'ky', l:'tu', md:'tu', ng:'tổ trưởng (cột trái)'},
+      {k:'kyA', n:'Họ tên dưới chữ ký Bên A', p:'ky', l:'tu', md:'tu', ng:'⚙ đại diện PGD'}],
     V:function(t){
-      var T = hsoTo(t), K = t ? hsoTTKH(t) : {kh:''}, c = K.kh ? hsoKhach(K.kh, t) : {}, dd = hsoPGD('daiDien');
-      return {K:K, T:T, bbTL:HSO.o.bbTL, bbBQL:HSO.o.bbBQL, xa:T.xa, ngayHD:HSO.o.ngay, ngan:hsoPGD('ngan'), daiDien:dd, chucVu:dd ? hsoPGD('chucVu') : '', diaChi:hsoPGD('diaChi'), dt:hsoPGD('dt'),
-        tt:T.tt, hoi:T.hoi, cccd:c.cccd, ncap:c.ncap, noiCap:c.noiCap, ap:T.ap, tinh:T.tinh, tkNH:hsoPGD('ngan'), stk:HSO.o.stk};
+      HST.tach(MK, {daiDien:['daiDienCv'], tt:['ttTen'], cccd:['cccdNgay', 'cccdNoi'], diaDiem:['diaXa', 'diaTinh'], ky:['kyA']});   /* 3.463: tách ô gộp — cách đã chọn giữ sang ô con */
+      var T = hsoTo(t), X = t ? HST.tt(t) : {}, dd = hsoPGD('daiDien'), ten = X.ten ? tenHoaDau(X.ten) : '', hoi = HST.hoi(T.hoi || '');
+      return {X:X, bbTL:HSO.o.bbTL, bbBQL:HSO.o.bbBQL, xa:T.xa, ngayHD:HSO.o.ngay, ngan:hsoPGD('ngan'), daiDien:dd ? tenHoaDau(dd) : '', daiDienCv:dd ? hsoPGD('chucVu') : '', diaChi:hsoPGD('diaChi'), dt:hsoPGD('dt'),
+        tt:ten, ttTen:ten, hoi:/^Hội\s/i.test(hoi) ? hsoBoHoi(hoi) : hoi, cccd:X.cccd, cccdNgay:X.ncap, cccdNoi:X.noiCap, diaDiem:T.ap, diaXa:T.xa, diaTinh:T.tinh, ap:T.ap, tinh:T.tinh, capAp:T.capAp || 'thôn', capXa:'xã',
+        tkNH:hsoPGD('ngan'), stk:HSO.o.stk, ky:ten, kyA:dd ? tenHoaDau(dd) : ''};
     },
     lap:function(t){
-      var V = this.V(t), G = omG(MK, V, 14), o = G.o, C = function(k){ return omCach(MK, k)!=='cham'; }, g = function(k, v){ return C(k) && v!=null ? String(v) : ''; };
+      var V = this.V(t), G = omG(MK, V, 14), S = HST.bo(MK, V, G, P), o = S.o, C = S.C, g = S.g;   /* 3.463: chuẩn 10A — chữ liền, in thường; trống giữ chấm y gốc */
       var ngd = function(k, iso, ds){ var x = hsoNg(iso), p = x ? [x.d, x.m, x.y] : ['', '', '']; return ds.map(function(ch, i){ return o(k, ch, {gt:C(k) ? p[i] : '', canh:'c'}); }); };
-      var tl = ngd('bbTL', V.bbTL, ['...', '...', '.....']), bq = ngd('bbBQL', V.bbBQL, ['...', '....', '.....']), hn = ngd('ngayHD', V.ngayHD, ['….', '……', '…….']), nc = ngd('cccd', V.ncap, ['….', '…', '…']);
+      var tl = ngd('bbTL', V.bbTL, ['...', '...', '.....']), bq = ngd('bbBQL', V.bbBQL, ['...', '....', '.....']), hn = ngd('ngayHD', V.ngayHD, ['….', '……', '…….']), nc = ngd('cccdNgay', V.cccdNgay, ['….', '…', '…']), co = function(a){ return a.some(function(x){ return !/om-cham/.test(x); }) ? ' ' : ''; };
       var d1 = [
         ['1. Quản lý toàn bộ hoạt động của Tổ TK&amp;VV (sau đây viết tắt là Tổ) theo Quy chế hoạt động của Tổ được Hội đồng quản trị NHCSXH ban hành và triển khai thực hiện Quy ước hoạt động của Tổ.'],
         ['2. Thực hiện tiếp nhận đề nghị vay vốn của tổ viên, tổ chức họp Tổ để bình xét cho vay, hoàn thiện và chuyển hồ sơ đề nghị vay vốn cho Bên A; phối hợp với Bên A thông báo kết quả phê duyệt cho vay và phối hợp giải ngân cho vay đến tổ viên vay vốn. '],
@@ -65,19 +67,19 @@
         P('&nbsp;')+P('<b>HỢP ĐỒNG UỶ NHIỆM </b>', 'text-align:center;line-height:17pt')+P('<b>Về việc thực hiện một số nội dung công việc </b>', 'text-align:center')+P('<b>trong quy trình cho vay của Ngân hàng Chính sách xã hội</b>', 'text-align:center')+P('&nbsp;', 'margin-bottom:6pt')+
         P('Căn cứ Nghị định số 06/2026/NĐ-CP ngày 10/01/2026 của Chính phủ quy định về tổ chức và hoạt động của Ngân hàng Chính sách xã hội (NHCSXH);', J+F+B)+
         P('Căn cứ Quyết định số 70/QĐ-HĐQT ngày 27/8/2026 của Hội đồng quản trị NHCSXH về quy chế hoạt động của Tổ Tiết kiệm và vay vốn (TK&amp;VV);', J+F+BT)+
-        P('Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+tl.join('/')+' về việc thành lập Tổ TK&amp;VV đã được UBND xã'+o('xa', '.......................................')+' chấp thuận cho phép hoạt động;', J+F+BT+'letter-spacing:-0.2pt')+
-        P('Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+bq.join('/')+' về việc thay đổi Ban quản lý Tổ TK&amp;VV đã được UBND xã '+o('xa', '..................................')+'chấp thuận (nếu có).', J+F+BT)+
-        P('Hôm nay, ngày'+hn.join('/')+', tại'+o('noiKy', '…………………………………….....'), J+F+BT+W)+
+        P('Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+tl.join('/')+' về việc thành lập Tổ TK&amp;VV đã được UBND xã'+sp(o('xa', '.......................................'))+' chấp thuận cho phép hoạt động;', J+F+BT+'letter-spacing:-0.2pt')+
+        P('Căn cứ Biên bản họp Tổ TK&amp;VV ngày '+bq.join('/')+' về việc thay đổi Ban quản lý Tổ TK&amp;VV đã được UBND xã '+sp(o('xa', '..................................'), 1)+'chấp thuận (nếu có).', J+F+BT)+
+        P('Hôm nay, ngày'+co(hn)+hn.join('/')+', tại'+sp(o('noiKy', '…………………………………….....')), J+F+BT+W)+
         P('Chúng tôi gồm có:', J+F+B)+P('<b><span style="font-size:13pt">I. BÊN ỦY NHIỆM (</span>Bên A<span style="font-size:13pt">)</span></b>', J+F+B)+
-        P('- Chi nhánh/Phòng giao dịch Ngân hàng Chính sách xã hội'+o('ngan', '……….….…...'), J+F+B+W)+
-        P('- Đại diện Ông (Bà):'+o('daiDien', '……………………….')+'Chức vụ:'+o('daiDien', '……..…….…………', {gt:g('daiDien', V.chucVu)}), J+F+B+W)+
-        P('- Địa chỉ:'+o('diaChi', '…………………………………………….………...……………'), J+F+B+W)+
-        P('- Số điện thoại:'+o('dt', '………………………….......................................................'), J+F+B+W)+
+        P('- Chi nhánh/Phòng giao dịch Ngân hàng Chính sách xã hội'+sp(o('ngan', '……….….…...')), J+F+B+W)+
+        (S.coTen('daiDien', V.daiDien) ? S.tabP('- Đại diện Ông (Bà): '+o('daiDien', ''), 'Chức vụ:'+sp(o('daiDienCv', '……..…….…………')), B) : P('- Đại diện Ông (Bà):'+o('daiDien', '……………………….')+'Chức vụ:'+sp(o('daiDienCv', '……..…….…………')), J+F+B+W))+
+        P('- Địa chỉ:'+sp(o('diaChi', '…………………………………………….………...……………')), J+F+B+W)+
+        P('- Số điện thoại:'+sp(o('dt', '………………………….......................................................')), J+F+B+W)+
         P('<b><span style="font-size:13pt">II. BÊN NHẬN ỦY NHIỆM (</span>Bên B<span style="font-size:13pt">)</span></b>', J+F+B)+
-        P('- Ban quản lý Tổ TK&amp;VV: '+o('tt', '........................................')+'thuộc Hội:'+o('hoi', '…..............', {gt:g('hoi', /^Hội\s/i.test(V.hoi||'') ? hsoBoHoi(V.hoi) : V.hoi)}), J+F+B+W)+
-        P('- Đại diện Ông (Bà): '+o('tt', '………………………………….')+'Chức vụ: Tổ trưởng', J+F+B+W)+
-        P('- Số Thẻ căn cước:'+o('cccd', '…………..............')+'; Ngày cấp'+nc.join('/')+'; Nơi cấp:'+o('cccd', '…...…', {gt:g('cccd', V.noiCap)}), J+F+B+W)+
-        P('- Địa chỉ: Thôn '+o('diaDiem', '………………', {gt:g('diaDiem', V.ap)})+', xã'+o('diaDiem', '………………', {gt:g('diaDiem', V.xa)})+', tỉnh '+o('diaDiem', '………….……….', {gt:g('diaDiem', V.tinh)}), J+F+B+W)+
+        P('- Ban quản lý Tổ TK&amp;VV: '+sp(o('tt', '........................................'), 1)+'thuộc Hội:'+sp(o('hoi', '…..............')), J+F+B+W)+
+        (S.coTen('ttTen', V.ttTen) ? S.tabP('- Đại diện Ông (Bà): '+o('ttTen', ''), 'Chức vụ: Tổ trưởng', B) : P('- Đại diện Ông (Bà): '+o('ttTen', '………………………………….')+'Chức vụ: Tổ trưởng', J+F+B+W))+
+        P('- Số Thẻ căn cước:'+sp(o('cccd', '…………..............'))+'; Ngày cấp'+co(nc)+nc.join('/')+'; Nơi cấp:'+sp(o('cccdNoi', '…...…')), J+F+B+W)+
+        P('- Địa chỉ: Thôn '+o('diaDiem', '………………')+', xã'+sp(o('diaXa', '………………'))+', tỉnh '+o('diaTinh', '………….……….'), J+F+B+W)+
         P('Hai bên nhất trí thỏa thuận các nội dung sau: ', J+F+B)+
         P('<b>Điều 1. Bên A ủy nhiệm cho Bên B thực hiện các công việc sau</b>', J+F+B)+d1.map(function(x){ return P(x[0], J+F+B+(x[1]||'')); }).join('')+
         P('<b>Điều 2. Trách nhiệm và quyền hạn của Bên A</b>', J+F+B)+
@@ -114,7 +116,7 @@
           ['đ) Trường hợp được ủy nhiệm thu tiền, hằng tháng, Bên B thực hiện thu tiền lãi, tiền gửi của tổ viên và nộp đầy đủ cho NHCSXH theo quy định.', BT],
           ['e) Hướng dẫn tổ viên đối chiếu kết quả giao dịch, nợ đến hạn kỳ tiếp theo với thông báo do NHCSXH gửi đến thông qua Ban quản lý Tổ hoặc thông qua ứng dụng do NHCSXH cung cấp.', BT],
           ['g) Không được thu phí, thu nợ gốc của tổ viên.', BT],
-          ['h) Thông báo kịp thời và phối hợp với tổ chức chính trị - xã hội nhận ủy thác, chính quyền địa phương, NHCSXH để xử lý nợ đối với các trường hợp sử dụng vốn vay sai mục đích, nợ bị rủi ro và các trường hợp khác ảnh hưởng đến hoạt động của Tổ và chất lượng tín dụng. Phối hợp với Trưởng thôn, Tổ trưởng tổ dân phố, tổ chức CT-XH nhận ủy thác thực hiện kiểm tra, xác minh và có ý kiến về việc tổ viên đề nghị gia hạn nợ, điều chỉnh kỳ hạn nợ, xử lý nợ bị rủi ro gửi cấp có thẩm quyền xem xét, quyết định; thu thập thông tin của tổ viên đi khỏi nơi cư trú.', B+'word-spacing:0'],
+          ['h) Thông báo kịp thời và phối hợp với tổ chức chính trị - xã hội nhận ủy thác, chính quyền địa phương, NHCSXH để xử lý nợ đối với các trường hợp sử dụng vốn vay sai mục đích, nợ bị rủi ro và các trường hợp khác ảnh hưởng đến hoạt động của Tổ và chất lượng tín dụng. Phối hợp với Trưởng thôn, Tổ trưởng tổ dân phố, tổ chức CT-XH nhận ủy thác thực hiện kiểm tra, xác minh và có ý kiến về việc tổ viên đề nghị gia hạn nợ, điều chỉnh kỳ hạn nợ, xử lý nợ bị rủi ro để trình cấp có thẩm quyền xem xét, quyết định; thu thập thông tin của tổ viên đi khỏi nơi cư trú.', B+'word-spacing:0'],
           ['i) Chịu sự kiểm tra, giám sát của Trưởng thôn, Tổ trưởng tổ dân phố, tổ chức chính trị - xã hội nhận uỷ thác, UBND cấp xã và Bên A.', B],
           ['k) Lưu giữ đầy đủ hồ sơ của Tổ và các giấy tờ khác liên quan đến hoạt động của Tổ do Bên A quy định. Tham gia đầy đủ các phiên giao dịch, các buổi họp giao ban với Bên A, các lớp tập huấn nghiệp vụ, lĩnh hội và phổ biến đầy đủ các thông tin đến tổ viên. Sử dụng các ứng dụng của NHCSXH để nâng cao hiệu quả thực hiện các nội dung công việc được ủy nhiệm.', B],
           ['l) Vận động tổ viên tham dự các lớp tập huấn chuyển giao công nghệ, khuyến nông, khuyến lâm, khuyến ngư, tiêu thụ sản phẩm… để nâng cao trình độ sản xuất, kinh doanh, sử dụng vốn vay đúng mục đích, có hiệu quả.', B],
@@ -131,11 +133,12 @@
           ['Hợp đồng này có hiệu lực kể từ ngày ký, thay thế các Hợp đồng, Phụ lục Hợp đồng đã ký trước đây (nếu có); được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ 01 bản để tổ chức thực hiện./.', BT]
         ].map(function(x){ return P(x[0], J+F+x[1]); }).join('')+
         '<table class="khung0" style="width:156.4mm;table-layout:fixed;margin-top:2mm"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><tr><td style="padding:0 1.9mm;vertical-align:top">'+P('<b>ĐẠI DIỆN BÊN B</b>', 'text-align:center;font-size:13pt')+P('<i>(Ký, ghi rõ họ tên)</i>', 'text-align:center;font-size:12pt')+
-          P('&nbsp;')+P('&nbsp;')+P('&nbsp;')+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.tt), rong:70, canh:'c'})+'</b>', 'text-align:center')+'</td>'+
-          '<td style="padding:0 1.9mm;vertical-align:top">'+P('<b>ĐẠI DIỆN BÊN A</b>', 'text-align:center;font-size:13pt')+P('<i>(Ký tên, đóng dấu )</i>', 'text-align:center;font-size:12pt')+
-          P('&nbsp;')+P('&nbsp;')+P('&nbsp;')+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.daiDien), rong:70, canh:'c'})+'</b>', 'text-align:center')+'</td></tr></table>';
-      return {ma:'11/TD', h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>', cc:V.K.cc};
+          P('&nbsp;')+P('&nbsp;')+P('&nbsp;')+P('<b>'+G.o('ky', '&nbsp;', {gt:g('ky', V.ky), rong:70, canh:'c'})+'</b>', 'text-align:center')+'</td>'+
+          '<td style="padding:0 1.9mm;vertical-align:top">'+P('<b>ĐẠI DIỆN BÊN A</b>', 'text-align:center;font-size:13pt')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center;font-size:12pt')+
+          P('&nbsp;')+P('&nbsp;')+P('&nbsp;')+P('<b>'+G.o('kyA', '&nbsp;', {gt:g('kyA', V.kyA), rong:70, canh:'c'})+'</b>', 'text-align:center')+'</td></tr></table>';
+      return {ma:'11/TD', h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>', cc:(V.X || {}).nguon || ''};
     }});
-  hsoLap11 = function(t){ return omLap(MK, t); };
-  var M = hsoMauK(MK); if(M){ M.mg = omMg([20, 20, 20, 30]); M.so = 'so'; }   /* số trang từ trang 2 (gốc: đầu trang giữa) */
+  window.hsoLap11 = function(t){ return omLap(MK, t); };
+  hsoMauGan('hst', {k:MK, mg:omMg([20, 20, 20, 30]), so:'so',   /* số trang từ trang 2 (gốc: đầu trang giữa) */
+    lap:function(t){ return hsoLap11(t); }, trai:function(t){ return HST.hdTrai(t, MK); }});   /* 3.463: cột trái chung HĐUN — ngày ký, Bên A, tổ trưởng theo Danh sách tổ (chọn được bản cũ) */
 })();

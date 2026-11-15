@@ -31,7 +31,7 @@ function nap(){
   ctx.window = ctx; ctx.self = ctx; ctx.globalThis = ctx; ctx.top = ctx; ctx.parent = ctx;
   vm.createContext(ctx);
   const html = fs.readFileSync(path.join(GOC, 'index.html'), 'utf8'), loi = [], tep = [];
-  html.split('\n').forEach(function(x){ const m = /^<script src="([^"?]+)(?:\?v=[^"]*)?"><\/script>$/.exec(x); if(m) tep.push(m[1]); });
+  html.split('\n').forEach(function(x){ const m = /^<script src="([^"?]+)(?:\?v=[^"]*)?"><\/script>\s*(?:<!--.*-->\s*)?$/.exec(x);   /* 3.463: nhận cả dòng có chú thích sau thẻ (trước bỏ sót 0hst, 0hsn, bblv) */ if(m) tep.push(m[1]); });
   tep.forEach(function(t){ try { vm.runInContext(fs.readFileSync(path.join(GOC, t), 'utf8'), ctx, {filename:t}); } catch(e){ loi.push(t+': '+(e && e.message)); } });
   return {ctx, loi, tep};
 }

@@ -23,7 +23,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  const d = await ctx.newPage(); d.on('pageerror',e=>loi.push('điện thoại: '+e.message)); await d.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(d);
  await d.goto('file://'+G+'/index.html'); await d.waitForTimeout(2500);
  ok('3.367: điện thoại mở index.html → ở lại bản chính, có nút 📱 sang bản gọn', /index\.html$/.test(d.url()) && !!(await d.$('#ve-dt')), d.url().split('/').pop());
- await d.click('#ve-dt'); await d.waitForTimeout(2500);
+ await d.evaluate(()=>{ const b = document.createElement('button'); b.setAttribute('data-lenh', 'dtm.banGon'); document.body.appendChild(b); b.click(); })   /* 3.535: nút 📱 nổi ẩn trên điện thoại — vào bản gọn qua ☰ Thêm › 📱 */; await d.waitForTimeout(2500);
  const w = t=>d.waitForTimeout(t), phim = async s=>{ for(const k of s){ await d.click('#khoa [data-k="'+k+'"]'); } };
  ok('lần đầu: màn đặt PIN', /đặt mã PIN/i.test(await d.textContent('#khoa')));
  await phim('1357'); await d.click('#khoa [data-k="ok"]'); await phim('1357'); await d.click('#khoa [data-k="ok"]'); await w(1500);

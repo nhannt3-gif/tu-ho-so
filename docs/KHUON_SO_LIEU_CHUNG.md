@@ -1,0 +1,78 @@
+# KHUÔN SỐ LIỆU CHUẨN CHUNG App ↔ Giao ban — bản 1.0 (14/11/2026)
+
+> Anh chốt 14/11: nguyên tắc ở mục 1; phần kỹ thuật TK 1 quyết (anh: *"phần kỹ thuật em tự quyết"*). Luật tính vẫn ở `QUY_TAC_SO_LIEU.md` (QT-C-xx); file này chỉ quy định **khuôn file** hai bên cùng xuất để so. Repo công khai: không ghi mã tổ, tên khách.
+
+## 1. Nguyên tắc (anh chốt 14/11/2026)
+- **App cố định, Giao ban linh hoạt.** Khi làm văn bản, **Giao ban là bên chính**. **Hai bên đều làm được** cùng một việc, bên này trục trặc thì bên kia làm thay.
+- Hai bộ tính **độc lập**, dùng **chung luật** ghi trong sổ `docs/QUY_TAC_SO_LIEU.md` (QT-C-xx), xuất **chung khuôn file** theo bản này.
+- Mỗi kỳ (cuối tháng và mỗi phiên) so hai file. Lệch thì lấy **biểu TW cuối tháng** làm trọng tài: BC0438 theo Hội, Mẫu 01/TV cho tổ viên, BCDHTD 01.1 cho cho vay và thu nợ, danh sách TW cho món 3 tháng KHĐ. Bên khớp TW là bên đúng, TK tự kết luận.
+- Đổi luật thì ghi sổ QT-C trước, hai bên cùng sửa theo. Đổi khuôn file thì tăng số phiên bản ở mục 6.
+
+## 2. File 1 — Số liệu theo tổ (ĐÃ CÓ, giữ nguyên)
+Tên file: `DOI_CHIEU_GB_<YYYY-MM-DD>.csv` (Giao ban) và `DOI_CHIEU_APP_<YYYY-MM-DD>.csv` (App). UTF-8 có BOM.
+- **Dòng 1:** dòng chú thích, bắt đầu bằng `#`. Ghi bên xuất, phiên bản, ngày số liệu, nguồn và cách tính.
+- **Dòng 2:** tên cột. Từ dòng 3: mỗi tổ một dòng, nhóm vay trực tiếp mỗi ấp một dòng (`TT|<mã ấp>`). Tiền tính bằng đồng.
+
+| Cột | Ý nghĩa | Luật |
+|---|---|---|
+| khoa | Mã tổ; vay trực tiếp `TT|<mã ấp>` | QT-C-10, 11 |
+| ma_xa, ma_ap | Mã xã, mã ấp/khu phố của tổ | File Tổ trưởng cùng ngày |
+| ma_diem | Mã điểm giao dịch | **Ghi đầy đủ mã hệ thống** `TXN054` + 4 số (vd `TXN0543405`) — anh chốt 15/11, xem mục 5 |
+| hoi | HND, HPN, HCCB, ĐTN, TT | ĐVUT 11–14 |
+| so_tv | Tổ viên: tổ theo Mẫu 01/TV cùng ngày; nhóm trực tiếp là số KH còn dư nợ | QT-18 app, bang_so_lieu 1.9 |
+| so_tv_du_no | Tổ viên còn dư nợ (= "khách hàng còn dư nợ" trong văn bản) | QT-C-14 |
+| du_no, nqh, khoanh | Dư nợ, nợ quá hạn, nợ khoanh; mỗi khế ước tính 1 lần | 5.1 Quy chuẩn |
+| lai_ton | Lãi tồn TH + QH, đã trừ lãi dồn của món giao dịch ở phiên; món giao dịch sau ngày số liệu thì giữ nguyên lãi | QT-C-03 (14/11) |
+| tien_gui | Số dư TK 105: mỗi sổ tính 1 lần (dòng đầu tiên của sổ), tổ theo dòng có Hội | khóa sổ (14/11) |
+| cho_vay, thu_no | Giải ngân (trừ đảo khoản), thu nợ TH + QH + khoanh trong tháng | 5.1 |
+| so_mon_khd | Món 3 tháng KHĐ: cuối tháng theo danh sách TW, giữa tháng dựng từ Mẫu 31 | 5.3 |
+| so_mon_lech_ap | Món ở ấp khác ấp của tổ | QT-C-10 |
+| so_mon_den_han_thang_toi | Món còn dư nợ, chưa quá hạn, đến hạn tháng tới | QT-C-17 |
+
+Kết quả 14/11: App 3.533 = Giao ban toàn bộ ở cả 2 mốc 30/09 và 31/10 (lãi tồn lệch làm tròn 4–6 đồng); còn đúng các điểm ở mục 5.1–5.3, nay đã quyết.
+
+## 3. File 2 — Danh sách món (bản 1.1)
+Mục đích: hai bên ra **cùng danh sách hộ** cho nợ quá hạn, nợ khoanh, món 3 tháng KHĐ, nợ đến hạn tháng tới. Đây là phần phụ lục và phần nêu tên trong văn bản. Hiện chỉ so được số món, chưa so được từng món.
+Tên file: `DOI_CHIEU_MON_GB_<YYYY-MM-DD>.csv` và `DOI_CHIEU_MON_APP_<YYYY-MM-DD>.csv`, đặt cùng thư mục với file tổ cùng ngày. UTF-8 có BOM; dòng 1 chú thích `#`, dòng 2 tên cột **đúng thứ tự bảng dưới**. Mỗi khế ước thuộc ít nhất 1 nhóm là một dòng; khế ước tính 1 lần (dòng đầu theo số KU). Ngày ghi dd/mm/yyyy, ô không có để trống. `so_thang_lai` (TK 1 chốt 15/11, theo `bang_so_lieu.py`): lãi tồn (sau khi bỏ lãi dồn QT-C-03) ≤ 0 → `0`; dư nợ > 0 và lãi suất > 0 → lãi tồn ÷ (dư nợ × lãi suất ÷ 1200), làm tròn 1 chữ số; còn lại → **số tháng lịch** từ Ngày giao dịch gần nhất đến ngày số liệu (hiệu tháng, trừ 1 nếu ngày-trong-tháng của ngày số liệu nhỏ hơn của ngày GD; không âm), ghi dạng `n.0`; không có ngày GD → để trống. Lãi suất Mẫu 31 là %/năm (số liệu thật 31/10: thấp nhất 3,0 — không có giá trị ≤ 2), không quy đổi. Cột `ma_ap`, `ma_diem`, `hoi` lấy theo dòng tổ ở File 1 (vay trực tiếp: theo nhóm `TT|<mã ấp>`). Giao ban đã xuất từ `bang_so_lieu.py` 1.10, mã điểm đầy đủ từ 1.11 (15/11).
+
+| Cột | Ý nghĩa |
+|---|---|
+| so_ku | Số khế ước (khóa) |
+| ma_kh | Mã khách hàng |
+| khoa | Mã tổ hoặc `TT|<mã ấp>` (như File 1) |
+| hoi, ma_ap, ma_diem | Như File 1 |
+| chuong_trinh | Mã chương trình |
+| du_no, nqh, khoanh, lai_ton | Đồng; lãi tồn theo luật QT-C-03 |
+| la_nqh, la_khoanh, la_khd, la_den_han | 1 hoặc 0, cho biết món thuộc nhóm nào |
+| ngay_chuyen_qh | Ngày chuyển quá hạn theo QT-C-12 (dd/mm/yyyy, trống nếu không có) |
+| ngay_den_han | Ngày đến hạn tháng tới (QT-C-17) |
+| ngay_het_khoanh | Ngày hết hạn khoanh (nếu nguồn có) |
+| so_thang_lai | Lãi tồn ÷ (dư nợ × lãi suất năm ÷ 12), 1 chữ số thập phân |
+| ngay_khoanh | **Cột 20 (thêm cuối, 15/11):** ngày khoanh nợ (ngày hiệu lực khoanh) theo Sao kê nợ khoanh; trống nếu không có |
+
+**Ngày lấy theo file hệ thống, thống nhất 2 bên** (anh chốt 15/11 "ngày khoanh và hết hạn khoanh, ngày chuyển nợ quá hạn nếu có thống nhất 2 bên"): `ngay_chuyen_qh` = cột "Ngày chuyển quá hạn" của **Sao kê nợ quá hạn** (không có thì QT-C-12); `ngay_khoanh`, `ngay_het_khoanh` = **Sao kê nợ khoanh**. Cột 20 `ngay_khoanh` thêm ở cuối nên script đọc 19 cột đầu vẫn chạy.
+
+Không ghi họ tên khách hàng (mục 5.4).
+
+## 4. So sánh hai bên
+- Công cụ: `doi_chieu_app.py` 1.2 (Giao ban, 15/11) so File 1 và — khi có cả 2 file món cùng ngày — so File 2 (sheet 5_Mon): món chỉ có ở 1 bên, khác nhóm, khác tiền > 2 đồng, khác ngày, khác tổ / mã KH.
+- Ngưỡng: tiền lệch ≤ 2 đồng một dòng coi là làm tròn. Số món, số tổ viên phải bằng nhau.
+- Kết quả ghi `KQ_DOI_CHIEU_APP_<dd-mm-yyyy>.xlsx`. Lệch thì xếp loại A–D theo `docs/KE_HOACH_KY_DOI_CHIEU.md`, kèm kết luận theo TW.
+- Thời điểm: cuối tháng (bắt buộc) và sau mỗi phiên khi làm Thông báo KL.
+
+## 5. Đã quyết (TK 1, 14/11/2026)
+1. **Mã điểm ghi đầy đủ** (vd `TXN0543405`) — anh chốt 15/11 "mã điểm phải ghi đầy đủ TXN", thay quyết định 14/11 (4 số cuối). → Giao ban đã sửa (`bang_so_lieu.py` 1.11); App trả về cách ghi đủ mã như bản 3.533 trở về trước.
+2. **Nhóm vay trực tiếp (`TT|<mã ấp>`) chỉ đếm khách còn dư nợ** ở cột `so_tv`; TW không có số tổ viên cho vay trực tiếp. → App sửa (2 nhóm hết dư nợ ở kỳ 30/09, 31/10 app đang đếm khách tất nợ).
+3. **Tổ có trên Mẫu 01/TV mà không có trong Mẫu 31:** vẫn ghi 1 dòng, ấp / điểm / Hội lấy theo File Tổ trưởng cùng ngày. → Giao ban đã áp (`bang_so_lieu.py` 1.9, chạy lại 30/09: khớp dòng app).
+4. **File 2 chỉ ghi mã KH và số khế ước, không ghi họ tên** (file trên Drive dùng chung; khi làm văn bản mỗi bên tự tra tên từ Mẫu 31).
+
+## 6. Lộ trình và phiên bản
+| Phiên bản | Nội dung | Thời điểm |
+|---|---|---|
+| 1.0 | File 1 như hiện nay + 3 điểm ở mục 5 | Kỳ 30/11/2026 |
+| 1.1 | Thêm File 2 (danh sách món), nâng `doi_chieu_app.py` — phía Giao ban xong 15/11, chờ App xuất | Kỳ 30/11/2026, chạy song song 2 kỳ |
+| 1.2 | Khung văn bản và file cấu hình kỳ dùng chung, để App dựng được văn bản khi cần | Sau 1.1 ổn định |
+
+## 7. Việc của từng bên
+- **TK 1 (Giao ban):** ✓ ghi khuôn (file này) · ✓ `bang_so_lieu.py` theo mục 5.3 · ✓ File 2 (`bang_so_lieu.py` 1.10) và `doi_chieu_app.py` 1.2 (15/11).
+- **TK 2 (App):** sửa theo mục 5.1, 5.2 (bản 1.0, kịp kỳ 30/11) · xuất File 2 cùng khuôn (bản 1.1).

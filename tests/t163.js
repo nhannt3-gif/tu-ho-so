@@ -31,7 +31,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    ok('chip 10C cũ → mẫu cũ (kết nạp bổ sung, Ấp (kp))', /kết nạp bổ sung tổ viên/.test(chu()) && /Ấp \(kp\)/.test(chu()) && HSO.x.ma.indexOf('cũ')>0);
    HSO.o.ngay = '2026-10-05'; hsoChonMau('10c'); await w(300);
    ok('chip 10C mới → mẫu mới QĐ 70 (Hình thức họp, bảng I │ II, đề nghị vay); ngày họp mặc định chấm', /Hình thức họp/.test(chu()) && /Tổ viên được kết nạp/.test(chu()) && /đề nghị vay vốn NHCSXH/.test(chu()) && !/05\/10\/2026/.test(chu()));
-   ok('10C điền tổ trưởng, thôn, xã từ số liệu', (chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 || chu().indexOf('Ông(bà)'+t.ten+' Chức vụ: Tổ')>=0) && (chu().indexOf('Thôn '+hsoApTen(t))>=0 || chu().indexOf('Thôn'+hsoApTen(t))>=0), t.ten+' · '+hsoApTen(t));
+   ok('10C điền tổ trưởng, thôn, xã từ số liệu', (chu().indexOf('Ông (bà) '+t.ten+'. Chức vụ: Tổ trưởng')>=0 || chu().indexOf('Ông(bà)'+t.ten+' Chức vụ: Tổ')>=0 || chu().indexOf('Chủ trì: Ông (bà): '+tenHoaDau(t.ten))>=0) && (chu().indexOf('Thôn '+hsoApTen(t))>=0 || chu().indexOf('Thôn'+hsoApTen(t))>=0 || new RegExp('(Ấp|Khu phố|Thôn) '+hsoApTen(t)).test(chu())), t.ten+' · '+hsoApTen(t));
    /* tích kết nạp 1 người, cho ra 1 người → bảng + tổng sau họp */
    HSO.kn = {}; HSO.ra = {}; HSO.kn['KH_GIA_MOI'] = true; HSO.ra[tv[0].kh] = true; hsoXem(); await w(200);
    const L = hsoKNRa(t, tv);
@@ -58,7 +58,7 @@ const fs=require('fs'), path=require('path'), os=require('os'), cp=require('chil
    hsoChonMau('11'); await w(300); const w11 = await b64(await hsoDocx(HSO.x));
    /* Hồ sơ vay */
    slDoiTab('hsv'); for(let i=0;i<30 && !document.querySelector('#hsv-cay .loc-khoi');i++) await w(200); await w(600);
-   ok('tab Hồ sơ vay: 13 chip (3.430: + 06A/TD; 3.310: + Phê duyệt NH; 3.258: 01/TD tách HSSV · NSVSMT; 3.253: + 06/TD; 3.214: + 📒 Sổ hộ vay; 3.172: 04/TD dời sang GDX; 3.206: + 01/TĐCK; 3.209: Bộ HS ẩn; 3.211: + 01/GQVL, 07b; 3.227: gộp 👪 Hộ vay vào Sổ hộ vay)', document.querySelectorAll('#hso-tabm .hso-tm').length===13);
+   ok('tab Hồ sơ vay: 14 chip (3.461: + BBLV; 3.430: + 06A/TD; 3.310: + Phê duyệt NH; 3.258: 01/TD tách HSSV · NSVSMT; 3.253: + 06/TD; 3.214: + 📒 Sổ hộ vay; 3.172: 04/TD dời sang GDX; 3.206: + 01/TĐCK; 3.209: Bộ HS ẩn; 3.211: + 01/GQVL, 07b; 3.227: gộp 👪 Hộ vay vào Sổ hộ vay)', document.querySelectorAll('#hso-tabm .hso-tm').length===14);
    const kv = tv.find(k=>k.mon.some(m=>(m.dn||0)>0)), c = hsoKhach(kv.kh, t);
    const oK = hmTuM31(kv.kh); hmLamHS(oK.id, '01td'); await w(300); const B0 = hsoBo(); B0.ct = 'HSSV'; B0.tien = '80000000'; B0.tuCo = '20.000.000'; B0.pa = {sv:'SV Giả'}; hsoChonMau('01td'); await w(300);   /* 3.171: đơn vay lấy theo bộ hồ sơ */
    ok('01/TD: người vay từ Mẫu 31 (tên, CCCD), tổ trưởng, số tiền + bằng chữ, tổng nhu cầu', chu().indexOf(c.ten)>=0 && (!c.cccd || chu().indexOf(c.cccd)>=0) && /Tám mươi triệu đồng/.test(chu()) && /Tổng nhu cầu vốn: 100\.000\.000/.test(chu()) && (chu().indexOf('do ông (bà): '+t.ten)>=0 || chu().indexOf('do ông (bà) '+t.ten)>=0));   /* 3.223: chữ đúng file gốc 01/TD (không có dấu ":") */

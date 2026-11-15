@@ -39,7 +39,7 @@ const fs=require('fs'), path=require('path');
    pvChon('to', 'hoi', '11', 1); await w(1500);
    ok('lọc 1 Hội → bỏ cột Hội (đã ghi trên tiêu đề)', !th().includes('Hội'), th().join('|'));
    /* ⚙ Cột */
-   toCotHop(); await w(100); const cb = [...document.querySelectorAll('#hop-in .to-cot-ds label')].find(x=>/Số món vay/.test(x.textContent)).querySelector('select'); cb.value = 'hien'; cb.dispatchEvent(new Event('change')); dongHop(); toVeThe(); await w(300);
+   toCotHop(); await w(100); const cb = [...document.querySelectorAll('#hop-in .to-cot-ds label')].find(x=>/Số món vay/.test(x.textContent)).querySelector('select'); cb.value = 'hien'; cb.dispatchEvent(new Event('change', {bubbles:true})); dongHop(); toVeThe(); await w(300);
    ok('⚙ Cột (3.163 — Tự động / Luôn hiện / Ẩn): "Số món vay" Luôn hiện → bảng có cột, app nhớ', th().includes('Số món vay') && D.cauHinh.toCot.mon==='hien' && toCotChe(['x','x',1])==='hien' && toCotChe(['x','x',0])==='tu');
    /* In / Excel */
    let html = ''; const ib = inBlob; window.inBlob = async bl => { html = await bl.text(); };

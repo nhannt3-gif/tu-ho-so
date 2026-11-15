@@ -10,7 +10,7 @@
   function uiLyDo(){   /* chọn lý do có sẵn / gõ lý do khác / thêm – bỏ khỏi danh sách (như 3.206) */
     var ds = hsoLyDoDs(); if(HSO.vay.lyDo===undefined) HSO.vay.lyDo = ds[0];
     return '<select onchange="if(this.value){HSO.vay.lyDo=this.value;hsoVe();}"><option value="">— chọn lý do có sẵn —</option>'+ds.map(function(l){ return '<option value="'+coChuHTML(l)+'"'+(l===HSO.vay.lyDo ? ' selected' : '')+'>'+coChuHTML(l)+'</option>'; }).join('')+'</select>'+
-      '<span class="hso-cham-ly">'+hsoIn('HSO.vay.lyDo=this.value;hsoHen()', HSO.vay.lyDo, 'gõ lý do khác')+'<button class="nho" onclick="hsoLyDoThem()" title="Thêm lý do đang gõ vào danh sách">＋</button>'+
+      '<span class="hso-cham-ly">'+hsoIn('HSO.vay.lyDo=this.value;hsoHen()', HSO.vay.lyDo, 'gõ lý do khác')+'<button class="nho" data-lenh="m09a.hsoLyDoThem" title="Thêm lý do đang gõ vào danh sách">＋</button>'+
       (ds.indexOf(HSO.vay.lyDo)>=0 && ds.length>1 ? '<button class="nho" onclick="hsoLyDoBo('+ds.indexOf(HSO.vay.lyDo)+')" title="Bỏ lý do này khỏi danh sách">✕</button>' : '')+'</span>'; }
   omDangKy({k:MK, ma:'09A/TD', phan:['nhs', 'kh', 'hoi', 'ub', 'nh'], co:14,
     o:[{k:'kinhGui', n:'Kính gửi (tên Ngân hàng)', p:'nhs', l:'tukb', md:'tu', ng:'⚙ Khai báo đơn vị › PGD › Kính gửi'},
@@ -82,3 +82,8 @@
   hsoLap09a = function(t){ return omLap(MK, t); };
   var M = hsoMauK(MK); if(M) M.mg = omMg([8, 17.8, 6.1, 25.4]);   /* lề theo file gốc */
 })();
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="m09a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('m09a', gdLenh({
+  hsoLyDoThem:function(el, ev){ hsoLyDoThem(); }
+}));
