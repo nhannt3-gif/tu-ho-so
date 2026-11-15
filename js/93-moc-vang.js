@@ -81,10 +81,10 @@ var MVG = (function(){
       h += '<div class="sl-bao '+(ok ? 'xanh' : 'do')+'" data-moc="'+x(o.ngay)+'">'+(ok ? '✅ Mốc '+x(ngayVNsl(o.ngay))+': khớp' : '❌ Mốc '+x(ngayVNsl(o.ngay))+': '+o.lech.length+' chỗ lệch — báo TK 2')+'</div>';
       if(ok) return;
       var dong = o.lech.slice(0, 200).map(function(l){ return '<tr><td>'+[l.bang, l.khoa, l.cot, l.vang, l.nay].map(x).join('</td><td>')+'</td></tr>'; }).join('');
-      h += '<details><summary>Xem chỗ lệch</summary><div class="cuon"><table class="bang-nho"><tr><th>Bảng</th><th>Khóa</th><th>Cột</th><th>Vàng</th><th>Nay</th></tr>'+dong+'</table>'+
+      h += '<details><summary>Xem chỗ lệch</summary><div class="cuon"><table class="tc-to-tvb"><tr><th>Bảng</th><th>Khóa</th><th>Cột</th><th>Vàng</th><th>Nay</th></tr>'+dong+'</table>'+
         (o.lech.length>200 ? '<p>… còn '+(o.lech.length-200)+' chỗ</p>' : '')+'</div></details>';
     });
-    moHop(h+'<div class="hop-nut"><button data-lenh="mvg.dong">Đóng</button></div>');
+    moHop(h+'<div class="hang-nut"><button class="nho" data-lenh="mvg.dong">Đóng</button></div>');
   };
   if(typeof gdDangKy==='function') gdDangKy('mvg', {mo:function(){ dongHop(); M.mo(); }, dong:function(){ dongHop(); }});
   if(typeof slDCNut==='function'){ var cu = slDCNut;   /* nút 🧪 cạnh 📤 File đối chiếu giao ban (⋯ Nạp & KT) */

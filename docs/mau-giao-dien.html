@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mẫu giao diện — Tủ hồ sơ</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+body{background:var(--nen,#f5f7fa);padding:16px;max-width:1100px;margin:0 auto}
+.mgd-dong{display:grid;grid-template-columns:minmax(220px,34%) 1fr;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--vien)}
+.mgd-ten code{display:block;font-size:12px;color:var(--chu-phu);white-space:pre-wrap;margin-top:2px}
+@media(max-width:600px){.mgd-dong{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- 3.550 F2 (docs/DANH_GIA_CHUYEN_GIA_1511.md mục 4b / 4d): TRANG MẪU GIAO DIỆN — mảnh chuẩn của app (sinh từ GD.* thật) + lớp CSS dùng nhiều.
+     AI / người làm màn mới: lấy đúng mảnh ở đây (JS: GD.nut / GD.hang / GD.o / GD.chip / GD.kv — js/39-gd.js), không tự chế kiểu mới (QUY_CHUAN mục 10).
+     Sinh lại khi đổi mảnh: xem tests/README.md (t406). Mở: https://nhannt3-gif.github.io/tu-ho-so/docs/mau-giao-dien.html -->
+<h1>Mẫu giao diện — Tủ hồ sơ</h1>
+<p class="sl-phu">Mảnh chuẩn cho màn mới. Cột trái: tên + cách gọi; cột phải: hiển thị thật bằng <code>css/app.css</code>.</p>
+<h2>Nút</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Nút thường</b><code>GD.nut({chu:&#x27;🔍 Kiểm lại&#x27;, lenh:&#x27;khoi.lenh&#x27;})</code></div><div class="mgd-xem"><button type="button" class="nho gd-nut" data-lenh="khoi.lenh">🔍 Kiểm lại</button></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Nút chính</b><code>GD.nut({chu:&#x27;📤 Xuất&#x27;, lenh:&#x27;khoi.lenh&#x27;, chinh:true})</code></div><div class="mgd-xem"><button type="button" class="nho gd-nut chinh" data-lenh="khoi.lenh">📤 Xuất</button></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Nút tắt</b><code>GD.nut({chu:&#x27;🗑 Xóa&#x27;, lenh:&#x27;khoi.lenh&#x27;, tat:true})</code></div><div class="mgd-xem"><button type="button" class="nho gd-nut" data-lenh="khoi.lenh" disabled>🗑 Xóa</button></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Hàng nút</b><code>GD.hang([GD.nut(…), GD.nut(…)])</code></div><div class="mgd-xem"><div class="gd-hang"><button type="button" class="nho gd-nut chinh" data-lenh="a.b">📋 Chép</button><button type="button" class="nho gd-nut" data-lenh="hop.dong">Đóng (Esc)</button></div></div></div>
+<h2>Ô nhập</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Ô ngày</b><code>GD.o({loai:&#x27;ngay&#x27;, id:&#x27;x&#x27;})</code></div><div class="mgd-xem"><input id="mau-ngay" class="gd-o gd-o-ngay" type="text" value="" placeholder="" autocomplete="off"></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Ô số</b><code>GD.o({loai:&#x27;so&#x27;, id:&#x27;x&#x27;})</code></div><div class="mgd-xem"><input id="mau-so" class="gd-o gd-o-so" type="text" value="" placeholder="" autocomplete="off"></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Ô tên</b><code>GD.o({loai:&#x27;ten&#x27;, id:&#x27;x&#x27;})</code></div><div class="mgd-xem"><input id="mau-ten" class="gd-o gd-o-ten" type="text" value="" placeholder="" autocomplete="off"></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Ô tìm</b><code>GD.o({loai:&#x27;tim&#x27;, id:&#x27;x&#x27;})</code></div><div class="mgd-xem"><input id="mau-tim" class="gd-o gd-o-tim" type="search" value="" placeholder="" autocomplete="off"></div></div>
+<h2>Chip</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Chip / chip bật</b><code>GD.chip({chu:&#x27;Tất cả&#x27;, lenh:&#x27;a.b&#x27;}) · bat:true</code></div><div class="mgd-xem"><button type="button" class="gdx-c gd-chip" data-lenh="undefined">[object Object]</button> <button type="button" class="gdx-c gd-chip" data-lenh="undefined">[object Object]</button></div></div>
+<h2>Chữ</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Nhãn – giá trị</b><code>GD.kv(&#x27;Dư nợ&#x27;, &#x27;12,91 tỷ&#x27;)</code></div><div class="mgd-xem"><label class="gd-kv"><span>Dư nợ</span>12,91 tỷ</label></div></div>
+<h2>Báo</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Hộp báo xanh / vàng / đỏ</b><code>&lt;div class=&quot;sl-bao xanh|vang|do&quot;&gt;…&lt;/div&gt;</code></div><div class="mgd-xem"><div class="sl-bao xanh">✅ Mốc 31/10/2026: khớp</div><div class="sl-bao vang">⟳ Dữ liệu đã đổi — bấm Kiểm lại</div><div class="sl-bao do">❌ 2 chỗ lệch — báo TK 2</div></div></div>
+<div class="mgd-dong"><div class="mgd-ten"><b>Chữ phụ / trống</b><code>&lt;span class=&quot;sl-phu&quot;&gt;…&lt;/span&gt; · &lt;div class=&quot;rong&quot;&gt;…&lt;/div&gt;</code></div><div class="mgd-xem"><span class="sl-phu">Chữ phụ, giải thích ngắn.</span><div class="rong">Chưa có mục nào.</div></div></div>
+<h2>Bảng</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Bảng thường</b><code>&lt;table class=&quot;tc-to-tvb&quot;&gt;</code></div><div class="mgd-xem"><table class="tc-to-tvb"><thead><tr><th>Tổ</th><th>Dư nợ</th><th>Xếp loại</th></tr></thead><tbody><tr><td class="ten">Tổ mẫu 1</td><td>1.250.000.000</td><td>Tốt</td></tr><tr><td class="ten">Tổ mẫu 2</td><td>830.000.000</td><td>Khá</td></tr></tbody></table></div></div>
+<h2>Hộp</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Tiêu đề + chữ phụ hộp thoại</b><code>&lt;div class=&quot;hop-tit&quot;&gt;…&lt;/div&gt;&lt;div class=&quot;hop-phu&quot;&gt;…&lt;/div&gt;</code></div><div class="mgd-xem"><div class="hop-tit">⚠ Tiêu đề hộp</div><div class="hop-phu">Một câu giải thích ngắn.</div></div></div>
+<h2>Gập</h2>
+<div class="mgd-dong"><div class="mgd-ten"><b>Khối gập</b><code>&lt;details&gt;&lt;summary&gt;…&lt;/summary&gt;…&lt;/details&gt;</code></div><div class="mgd-xem"><details open><summary>Xem chỗ lệch</summary><p>Nội dung chi tiết.</p></details></div></div>
+
+</body>
+</html>

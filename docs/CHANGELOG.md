@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.550 — 15/11/2026 — Đợt 3 phần 1: E6 cài như phần mềm · F5 dvh · F2 trang mẫu giao diện (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4d (kế hoạch đợt 3 TK 2); anh 15/11 "code tiếp".
+- **E6:** `manifest.webmanifest` (Tủ hồ sơ, standalone, start `index.html`) + `img/tuhoso-192.png` / `-512.png` / `-180.png` (chữ TH màu logo) + `<link rel=manifest|icon|apple-touch-icon>` + theme-color.
+- **F5:** `css/app.css` 25 chỗ `100vh` → `var(--vh,100vh)`; `:root{--vh:100vh}` + `@supports(height:100dvh){--vh:100dvh}`. Máy tính không đổi (dvh = vh); điện thoại khung cao tính theo phần nhìn thấy.
+- **F2:** `docs/mau-giao-dien.html` — 15 mảnh chuẩn (nút / hàng nút / ô ngày, số, tên, tìm / chip / nhãn – giá trị sinh từ `GD.*` thật + báo, bảng, hộp, khối gập) hiển thị bằng `css/app.css`; QUY_CHUAN mục 10 trỏ tới trang này.
+- **Sửa nhỏ 3.546:** hộp 🧪 Kiểm mốc dùng lớp không có CSS (`bang-nho`, `hop-nut`) → `tc-to-tvb`, `hang-nut` (phát hiện khi lập trang mẫu).
+- Phép thử mới t406 (7 ý).
+
 ## 3.549 — 15/11/2026 — C5 nạp CLT02 xếp loại tổ (TK 2)
 - **Nguồn:** hộp thư TK 1 02/11 (chỗ nạp CLT02 — file mẫu 31/10); anh 15/11 "code cả 2 và gộp" · "CLT sẽ nạp theo xã và 2 loại tháng và định kỳ".
 - **Gói mới `js/95-clt02.js` (`CLT`, cắm rút):** đọc "Mẫu số 02/CLT" (sheet `CLT02_VB3986`) theo NỘI DUNG — tên xã ở dòng "TẠI XÃ/PHƯỜNG …", loại theo dòng kỳ (Tháng MM/YYYY = tháng · Từ … đến … = định kỳ), ngày số liệu = ngày cuối kỳ; vị trí cột theo dòng đánh số 1…16; Hội (La Mã) → tổ: tên tổ trưởng, xếp loại Tốt / Khá / TB / Yếu (dấu x), tổng điểm, 5 tiêu chí (số có dấu phẩy); dừng ở Tổng cộng.
