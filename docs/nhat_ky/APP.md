@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.552 F7 + F8)
+- Anh "gộp và tiếp": gộp #573 (3.551). B1 chờ TK 1 chốt khuôn gói → làm phần đợt 2 còn sót: F7 (`:focus-visible`, accent-color), F8 (ô số tabular-nums). t408 3/3. Còn lại đợt 3: B1 (chờ TK 1), B3 (TK 1); A5 hoãn.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.551 E3 CSP + dấu vân tay)
 - Anh "gộp và tiếp tục, không cần kiểm liên tục tốn token" → gộp #572, **bỏ lịch kiểm định kỳ**. 3.551: thẻ CSP `index.html`; `js/01` TV_DAU + tvKiemDau (SHA-384); thư viện chính cdnjs → jsDelivr npm cùng bản (máy làm việc không tải được cdnjs để đối byte). t407 5/5.
 - Bẫy: thêm nguồn ngoài (CDN / API mới) phải sửa thẻ CSP; nâng thư viện phải tính lại dấu — không thì app không nạp thư viện đó.

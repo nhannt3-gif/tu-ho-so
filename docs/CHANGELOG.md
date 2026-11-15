@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.552 — 15/11/2026 — F7 + F8 (đợt 2 còn lại, TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4c (đợt 2: F7, F8); anh 15/11 "gộp và tiếp".
+- **F7:** `:focus-visible` viền 2px màu app (chỉ khi đi phím, bấm chuột không hiện; chỗ đã tự đặt `outline:none` giữ nguyên) + `accent-color` cho ô tích / chọn / thanh trượt.
+- **F8:** `td.s`, `td.so`, `td.r`, `.tien` → `font-variant-numeric:tabular-nums` (số thẳng cột; trước chỉ 13 khối có).
+- Phép thử mới t408 (3 ý).
+
 ## 3.551 — 15/11/2026 — Đợt 3 phần 2: E3 CSP + dấu vân tay thư viện (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` mục 4b E3 / 4d; anh 15/11 "gộp và tiếp tục".
 - **CSP** (`<meta http-equiv="Content-Security-Policy">` trong `index.html`): script chỉ từ app + jsDelivr + Google đăng nhập / API (`'unsafe-inline'` vì còn onclick viết thẳng; `'wasm-unsafe-eval'` cho Tesseract; `blob:` cho luồng nền); kết nối chỉ `*.googleapis.com`, `accounts.google.com`, jsDelivr; khung chỉ Google; `object-src 'none'`, `base-uri 'self'`. Ảnh `https:` (ảnh Drive).
