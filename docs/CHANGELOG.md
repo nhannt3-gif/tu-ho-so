@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.547 — 15/11/2026 — Nạp & KT báo gọn (TK 2)
+- **Nguồn:** anh 15/11 "các phần đối chiếu, kiểm tra nay đã chuẩn dần nên không cần ghi quá chi tiết ra chỗ nạp và kiểm tra" · "có thể báo nhưng đơn giản lại" · "code gọn nạp và gộp".
+- **Kết quả kiểm tra (js/22k):** mục so 2 file chỉ hiện 1 lần ở file đứng trước — bỏ dòng "↗ xem ở …" lặp; file không còn mục riêng thì không hiện; bỏ dòng "Ghi nhận chênh lệch…" (vào chữ rê chuột dòng Đã kiểm); "Chưa kiểm" 1 dòng (giải thích rê chuột). Bảng số đối chiếu (`slDCHTML`) gập trong `<details>`, có ô lệch thì tự mở; chú giải màu vào chữ rê chuột.
+- **Khối 🏦 Tổ trưởng (`tkKhoiHTML`, js/28 — Nạp & KT + ⚙ Khai báo chung):** 1 dòng trạng thái (Danh sách tổ · Sao kê TK 104 · 105 · Mẫu 01/TV), 2 dòng chữ xám vào chữ rê chuột ở tiêu đề ⓘ. 4 nút giữ nguyên.
+- Không bỏ chức năng, không đổi cách kiểm. t160 sửa theo (không còn dòng ↗ lặp).
+
 ## 3.546 — 15/11/2026 — A1 🧪 Kiểm mốc vàng + B4 kiểm tự động PR (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` đợt 1; anh 15/11 "code cả 2 và gộp"; anh 15/11 "đối chiếu, kiểm tra đã chuẩn dần nên không cần ghi quá chi tiết ở Nạp & KT — có thể báo nhưng đơn giản lại".
 - **A1 — gói mới `js/93-moc-vang.js` (`MVG`, cắm rút):** nút 🧪 Kiểm mốc cạnh 📤 File đối chiếu. Đáp án = file đối chiếu đã khớp giao ban, để trên Drive của anh `<thư mục app>/Mốc vàng/VANG_DOI_CHIEU_APP_<ngày>.csv` + `VANG_DOI_CHIEU_MON_APP_<ngày>.csv` (không vào repo); chưa nối Drive → chọn file trên máy. Tính lại File 1 + File 2 đúng ngày mốc từ kho (`slDCGBTinh` / `slDCCsv` / `slDCMonCsv`) → so từng ô (khóa tổ `khoa`, món `so_ku`; bỏ dòng `#`) → 1 dòng / mốc ✅ khớp / ❌ N chỗ lệch, chi tiết gập. Chỉ đọc.

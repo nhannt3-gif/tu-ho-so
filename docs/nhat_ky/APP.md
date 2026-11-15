@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 15/11/2026 — TK 2 · PHIÊN (3.547 Nạp & KT báo gọn)
+- Anh "code gọn nạp và gộp": bỏ dòng ↗ lặp, bảng số đối chiếu gập (lệch thì mở), khối 🏦 Tổ trưởng 1 dòng; giải thích vào chữ rê chuột. Không bỏ chức năng. Màn mẫu dữ liệu giả 2.600 → 900 px.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.546 A1 + B4 — xong đợt 1 đánh giá)
 - Anh "code cả 2 và gộp": A1 `js/93-moc-vang.js` (`MVG`) 🧪 Kiểm mốc — đáp án Drive `Tủ hồ sơ/Mốc vàng/VANG_DOI_CHIEU_(MON_)APP_2026-10-31.csv` (TK 2 chép từ App_that); B4 `.github/workflows/kiem-pr.yml` + `tools/kiem_pr.sh` (mốc của main, 4 phần, trượt chạy lại 1 lần). t403 6/6.
 - Anh 15/11: "đối chiếu, kiểm tra đã chuẩn dần — không cần ghi quá chi tiết ở Nạp & KT, có thể báo nhưng đơn giản lại" → kết quả 🧪 1 dòng / mốc, chi tiết gập. Phần cũ dài ở Nạp & KT (khối 🏦 Tổ trưởng 3 dòng + 2 dòng chữ xám; Kết quả kiểm tra mở ra) → trình phương án gọn, chờ anh duyệt.

@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.547)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp & KT › Kết quả kiểm tra | gọn, không dòng ↗ lặp; bảng số gập (lệch thì mở) | |
+| 2 | Khối 🏦 Tổ trưởng | 1 dòng trạng thái + 4 nút | |
+
 ### Danh sách thử trên máy thật (3.546)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
