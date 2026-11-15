@@ -60,7 +60,13 @@ jobs:
         run: |
           npm i -g playwright@1.63.0
           npx -y playwright@1.63.0 install --with-deps chromium
-          sudo apt-get install -y -q fonts-liberation fonts-noto-color-emoji
+          sudo apt-get install -y -q fonts-liberation fonts-noto-color-emoji fonts-inter
+          # phép đo bố cục chốt mốc trên Inter (thay "Segoe UI" / system-ui như máy làm việc) — DejaVu rộng hơn làm trượt t244 / t260 / t395
+          printf '%s\n' '<?xml version="1.0"?>' '<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">' '<fontconfig>' \
+            '<alias><family>system-ui</family><prefer><family>Inter</family></prefer></alias>' '<alias><family>-apple-system</family><prefer><family>Inter</family></prefer></alias>' \
+            '<alias><family>Segoe UI</family><prefer><family>Inter</family></prefer></alias>' '<alias><family>Helvetica Neue</family><prefer><family>Inter</family></prefer></alias>' \
+            '<alias><family>sans-serif</family><prefer><family>Inter</family></prefer></alias>' '</fontconfig>' | sudo tee /etc/fonts/conf.d/56-prefer-inter.conf > /dev/null
+          fc-cache -f > /dev/null; fc-match "Segoe UI"
       - name: Dữ liệu giả
         run: |
           python3 -m pip install -q openpyxl
