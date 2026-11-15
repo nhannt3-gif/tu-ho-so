@@ -63,6 +63,7 @@ jobs:
           sudo apt-get install -y -q fonts-liberation fonts-noto-color-emoji
       - name: Dữ liệu giả
         run: |
+          python3 -m pip install -q openpyxl
           python3 tests/taogia.py 25000 tests/gia
           python3 tests/taogia.py 300 tests/gianho
           python3 tests/taogia.py 300 tests/gianho31 m31
