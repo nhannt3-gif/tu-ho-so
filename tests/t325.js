@@ -44,6 +44,9 @@ const fs=require('fs'), path=require('path');
    qm.qh = qm.qh || 1000; qm.kn = qm.kn || 2000; K.B.nqh = Object.assign({}, nqhCu||{}, {[qku]:{ncqh:'2026-03-09'}}); K.B.nk = Object.assign({}, nkCu||{}, {[qku]:{nhh:'2027-04-29', nhl:'2025-04-30'}});
    const r43 = slDCMonTinh(K).dong.find(r=>r[0]===qku); K.B.nqh = nqhCu; K.B.nk = nkCu; qm.qh = qhCu; qm.kn = knCu;
    ok('3.543 File 2: ngày chuyển QH = Sao kê NQH (09/03/2026), ngày hết khoanh 29/04/2027 + ngày khoanh 30/04/2025 = Sao kê nợ khoanh', !!r43 && r43[15]==='09/03/2026' && r43[17]==='29/04/2027' && r43[19]==='30/04/2025', JSON.stringify(r43));
+   ok('3.544 slDCNgayCQH: Sao kê NQH trước → Mẫu 31 "Ngày CNQH gần nhất" (dd/mm/yyyy hoặc số Excel) → QT-C-12',
+     slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:'05/06/2026'}, {x:{ncqh:'2026-03-09'}})==='2026-03-09' && slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:'05/06/2026'}, {})==='2026-06-05'
+     && slDCNgayCQH({ku:'x', c_ngay_cnqh_gan_nhat:46178}, {})==='2026-06-05' && slDCNgayCQH({ku:'x', to:'', dhg:'2026-01-10'}, {})===skCQH({ku:'x', to:'', dhg:'2026-01-10'}).d);
    const f1m = {}; rows.forEach(r=>f1m[r[0]] = r);
    ok('3.539 File 2: hoi / ma_ap / ma_diem theo dòng tổ ở File 1', mr.every(r=>!f1m[r[2]] || (r[3]===f1m[r[2]][4] && r[4]===f1m[r[2]][2] && r[5]===f1m[r[2]][3])), JSON.stringify(mr.find(r=>f1m[r[2]] && r[3]!==f1m[r[2]][4])||''));
    ok('3.540 slDCMonThangLai (khuôn 1.1, như giao ban): 30 tr × 6% → 450.000 = "3.0"; lãi suất 0 → tháng lịch từ ngày GD (02/07 → 31/08 = "1.0"; 31/07 → 31/08 = "1.0"; 15/06 → 10/08 = "1.0"); không ngày GD → trống; không lãi → 0',

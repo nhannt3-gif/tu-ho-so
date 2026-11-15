@@ -1094,6 +1094,9 @@ function slDCMonThangLai(o, nd){   /* 3.540 (TK 1 chốt 15/11, khuôn 1.1 mục
   if(dn>0 && ls>0) return (Math.round(lt/(dn*ls/1200)*10)/10).toFixed(1);
   var x = String(o.ngdg||'').match(/^(\d{4})-(\d{2})-(\d{2})/), y = String(nd||'').match(/^(\d{4})-(\d{2})-(\d{2})/); if(!x || !y) return '';
   var t = (+y[1] - +x[1])*12 + (+y[2] - +x[2]) - (+y[3] < +x[3] ? 1 : 0); return Math.max(0, t).toFixed(1); }
+/* 3.544 (TK 1 hộp thư 15/11, PR #565 — trọng tài TW): ngày chuyển QH = Sao kê nợ quá hạn "Ngày chuyển quá hạn" → Mẫu 31 "Ngày CNQH gần nhất" (cột c_ngay_cnqh_gan_nhat, kỳ giữa tháng
+   không có sao kê) → QT-C-12 (skCQH) khi cả hai trống. Món chuyển QH lại khi hết khoanh / sau điều chỉnh: ngày hệ thống đúng, ngày tính theo đến hạn sai. */
+function slDCNgayCQH(o, nqhB){ var a = nqhB && nqhB[o.ku] && nqhB[o.ku].ncqh; if(a) return a; var b = typeof tdnNgay==='function' ? tdnNgay(o.c_ngay_cnqh_gan_nhat) : ''; return b || skCQH(o).d; }
 function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_diem theo khoa */
   f1 = f1 || slDCGBTinh(K); var theo = {}, khd = {}, nk = (K.B && K.B.nk) || {}, nqhB = (K.B && K.B.nqh) || {}, da = {}, dong = [], R = function(v){ return Math.round(v||0); }, nd = String(K.ngay||'');
   f1.dong.forEach(function(r){ theo[r[0]] = r; });
@@ -1104,13 +1107,13 @@ function slDCMonTinh(K, f1){   /* f1 = slDCGBTinh(K) — lấy hoi / ma_ap / ma_
     var q = (o.qh||0)>0 ? 1 : 0, k = (o.kn||0)>0 ? 1 : 0, h = khd[o.ku] ? 1 : 0, d = dh(o) ? 1 : 0; if(!(q || k || h || d)) return;
     var khoa = o.to ? o.to : 'TT|'+String(o.thon||''), f = theo[khoa] || [];
     dong.push([o.ku, o.kh||'', khoa, f[4]||'', f[2] || String(o.thon||''), f[3]||'', o.ct||'', R(o.dn), R(o.qh), R(o.kn), R(laiTon(o)), q, k, h, d,
-      q ? vn((nqhB[o.ku] && nqhB[o.ku].ncqh) || skCQH(o).d) : '', d ? vn(skHL(o)) : '', k && nk[o.ku] && nk[o.ku].nhh ? vn(nk[o.ku].nhh) : '', slDCMonThangLai(o, nd), k && nk[o.ku] && nk[o.ku].nhl ? vn(nk[o.ku].nhl) : '']); });
+      q ? vn(slDCNgayCQH(o, nqhB)) : '', d ? vn(skHL(o)) : '', k && nk[o.ku] && nk[o.ku].nhh ? vn(nk[o.ku].nhh) : '', slDCMonThangLai(o, nd), k && nk[o.ku] && nk[o.ku].nhl ? vn(nk[o.ku].nhl) : '']); });
   return {ngay:K.ngay, dong:dong};
 }
 function slDCMonCsv(K, f1){
   var r = slDCMonTinh(K, f1), dem = function(c){ return r.dong.filter(function(x){ return x[c]===1; }).length; };
   var ghi = '# bên=APP Tủ hồ sơ · khuôn=1.1 File 2 danh sách món · bản='+APP_BAN+' · xuất lúc='+slDCLuc()+' · ngày số liệu='+r.ngay+' · '+r.dong.length+' món (quá hạn '+dem(11)+' · khoanh '+dem(12)+' · 3T KHĐ '+dem(13)+' · đến hạn tháng tới '+dem(14)+')'+
-    ' · lãi tồn='+slDCLT(K)+' · ngày chuyển QH=Sao kê NQH (không có → QT-C-12) · ngày khoanh / hết khoanh=Sao kê nợ khoanh · cột 20 ngay_khoanh · số tháng lãi=QT-C-23 · không ghi họ tên · tiền: đồng';
+    ' · lãi tồn='+slDCLT(K)+' · ngày chuyển QH=Sao kê NQH → Mẫu 31 Ngày CNQH gần nhất → QT-C-12 · ngày khoanh / hết khoanh=Sao kê nợ khoanh · cột 20 ngay_khoanh · số tháng lãi=QT-C-23 · không ghi họ tên · tiền: đồng';
   return '\ufeff'+ghi.replace(/[,\r\n]/g, ' ')+'\r\n'+[SL_DCM_COT].concat(r.dong).map(function(h){ return h.map(slCsvO).join(','); }).join('\r\n')+'\r\n';
 }
 /* 3.525 (TK 1 nhờ 14/11, anh "làm thêm ý này"): dòng đầu file đối chiếu ghi giờ xuất + File Tổ trưởng đã dùng (tên file, ngày) — để so 2 mốc biết nguồn tổ */
