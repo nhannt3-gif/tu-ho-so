@@ -59,7 +59,7 @@ function veSoLieu(){
     var oCot = function(c, html){ return html.replace('<td class="', '<td class="'+lop(c)+' '); };
     h += '<div class="bdc-cuon sl-mt-cuon'+(mt==='tq' ? ' tq' : '')+'"><table class="bdc-bang sl-bang sl-luoi"><thead><tr><th class="bdc-goc">Loại file</th>'+
       cots.map(function(c){
-        if(!c.chot) return '<th class="'+lop(c)+'" title="Số liệu ngày '+ngayVNsl(c.ky)+'">'+ngayVNsl(c.ky)+'</th>';
+        if(!c.chot) return '<th class="'+lop(c)+'" title="Số liệu ngày '+ngayVNsl(c.ky)+'">'+ngayVNsl(c.ky)+(slDsXoaNgay('', c.ky).length ? ' <button class="sl-xoa-cot" data-lenh="nkt.xoaCot" data-a="'+c.ky+'" title="Xóa bản thừa của ngày '+ngayVNsl(c.ky)+' (đã có bản mới hơn — vào 🗑 Thùng rác, khôi phục được)">🗑</button>' : '')+'</th>';   /* 3.555 anh 16/11 "cho dễ nhìn" */
         var g = slDanhGia(c.ky);
         return '<th class="'+lop(c)+(c.ky===kyXem ? ' sl-chon' : '')+(g.dat ? ' dat' : '')+'" data-lenh="nkt.chonThang" data-a="'+c.ky+'" title="Chốt tháng '+kyVN(c.ky)+' — bấm để chọn tháng"><b>'+ngayVNsl(tdnCuoiKy(c.ky))+
           '</b><small>T'+(+c.ky.slice(5))+(c.ky.slice(0, 4)!==String(nay().getFullYear()) ? '/'+c.ky.slice(2, 4) : '')+' · chốt'+(SLM.kt[c.ky] ? (slKTCu(c.ky) ? ' ⟳' : (g.dat ? ' ✓' : '')) : '')+'</small></th>'; }).join('')+'</tr></thead><tbody>';
@@ -177,8 +177,11 @@ function slDsSkCu(){
   return ds.filter(function(e){ return e.ky!==tdnCuoiKy(slThang(e.ky)) && ds.some(function(x){ return x.loai===e.loai && x.ky>e.ky; }); })
     .sort(function(a, b){ return a.ky<b.ky ? -1 : a.ky>b.ky ? 1 : 0; });
 }
-function slXoaNgayCu(giu){
-  var moi = giu || slNgayMoi(), ds = slDsNgay().filter(function(e){ return e.ky!==moi ; }).concat(slDsSkCu());   /* 3.554: + sao kê theo ngày cũ đã có bản mới */
+function slDsXoaNgay(giu, chiNgay){   /* 3.555: bản thừa theo ngày (chiNgay: chỉ 1 cột ngày — nút 🗑 trên tiêu đề cột) */
+  var moi = giu || slNgayMoi(); return slDsNgay().filter(function(e){ return e.ky!==moi ; }).concat(slDsSkCu()).filter(function(e){ return !chiNgay || e.ky===chiNgay; });
+}
+function slXoaNgayCu(giu, chiNgay){
+  var moi = giu || slNgayMoi(), ds = slDsXoaNgay(giu, chiNgay);   /* 3.554: + sao kê theo ngày cũ đã có bản mới */
   if(!ds.length) return bao('Không còn bản theo ngày cũ.', 3);
   hoi('Xóa '+ds.length+' bản theo ngày cũ'+(moi ? ', giữ ngày '+ngayVNsl(moi) : '')+'?', ds.map(function(e){ return slLoai(e.loai).ten.split(' · ')[0]+' '+ngayVNsl(e.ky); }).join(' · ')+'. Bản cuối tháng không bị đụng. Các bản xóa vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày.', 'Xóa', function(){
     batChay(true, 'Đang xóa '+ds.length+' bản theo ngày cũ…'); var ids = [];
@@ -1152,7 +1155,7 @@ gdDangKy('nkt', (function(){
     chonThang:function(el){ slChonThang(0, a(el)); }, moNhom:function(el){ slMoNhom(a(el)); }, datMt:function(el){ slDatMt(a(el)); },
     napBo:function(){ slNapBo(); }, kiem:function(el){ slKiemTra(a(el)); }, fileXuat:function(el){ slFileXuat(a(el)); }, tongQuan:function(){ slTongQuan(); }, thuGon:function(){ slThuGon(); },
     napThem:function(el){ slNapThem(a(el)); }, napHoi:function(){ slNapHoi(); }, ktToi:function(el){ slKTToi(a(el)); },
-    taiGocThang:function(el){ slTaiGocThang(a(el)); }, xoaThang:function(el){ slXoaThang(a(el)); }, xoaNgayCu:function(){ slXoaNgayCu(); }, tomTat:function(el){ slTomTatXem(a(el)); },
+    taiGocThang:function(el){ slTaiGocThang(a(el)); }, xoaThang:function(el){ slXoaThang(a(el)); }, xoaNgayCu:function(){ slXoaNgayCu(); }, xoaCot:function(el){ slXoaNgayCu('', a(el)); }, tomTat:function(el){ slTomTatXem(a(el)); },
     napLai:function(){ slNapLai(); }, giu:function(el){ D.cauHinh.slGiu = el.value; luu(); slNapSan(); }, timRac:function(){ slTimRac(); }, lamMoi:function(){ slLamMoi(); },
     napMot:function(el){ slNapMot(a(el), a(el, 'b')); }, moO:function(el){ slMoO(a(el), a(el, 'b')); }, moNgay:function(el){ slMoNgay(a(el), a(el, 'b')); }, oBam:function(el){ slOBam(a(el), a(el, 'b')); },
     docMucCu:function(el){ slDocMucCu(a(el), a(el, 'b'), a(el, 'c')); }, thayO:function(el){ slThayO(a(el), a(el, 'b')); }, taiGoc:function(el){ slTaiGoc(a(el), a(el, 'b')); }, xoa:function(el){ slXoa(a(el), a(el, 'b')); },

@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 16/11/2026 — TK 2 · PHIÊN (3.555 nút 🗑 trên cột ngày cũ)
+- Anh "cho dễ nhìn": nút 🗑 trên tiêu đề cột ngày có bản thừa (`nkt.xoaCot` → `slXoaNgayCu('', ngày)`). t409 4/4.
+
 ### 16/11/2026 — TK 2 · PHIÊN (3.554 xóa sao kê theo ngày cũ)
 - Anh "25/10 đã xóa vẫn hiện" → tra meta.json Drive: còn Sao kê TK 104 / 105 25/10 (nút xóa ngày cũ bỏ qua loại theo ngày). `slDsSkCu` + t409. Anh đã ok iPhone sau 3.553.
 

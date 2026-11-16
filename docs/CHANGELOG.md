@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.555 — 16/11/2026 — Nút 🗑 trên tiêu đề cột ngày cũ (TK 2)
+- **Nguồn:** anh 16/11 "nút xóa ngày cũ ở chỗ nào cho dễ thấy" → "ok vậy đi cho dễ nhìn".
+- `slDsXoaNgay(giu, chiNgay)` (js/22k) gom danh sách bản thừa (bản theo ngày cũ + sao kê theo ngày cũ 3.554), lọc theo 1 ngày; `slXoaNgayCu(giu, chiNgay)`; tiêu đề cột ngày (không phải chốt tháng) có bản thừa → nút 🗑 `nkt.xoaCot` (hỏi xác nhận, vào 🗑 Thùng rác). Nút cũ trong ⋯ giữ nguyên.
+- t409 thêm 1 ý.
+
 ## 3.554 — 16/11/2026 — Xóa sao kê theo ngày cũ (TK 2)
 - **Nguồn:** anh 16/11 "ngày 25/10 đã xóa rồi vẫn hiện lại" → tra `meta.json` Drive: Mẫu 31 + DSTO 25/10 đã xóa (14/11); "2 file" còn lại là Sao kê TK 104 / 105 ngày 25/10 — nút "Xóa bản theo ngày cũ" (`slDsNgay`) bỏ qua loại lưu theo ngày nên không bao giờ xóa. Anh "code xóa dữ liệu cũ không phải cuối tháng và có sao kê mới".
 - `slDsSkCu()` (js/22k): sao kê loại theo ngày (TK 104, TK 105, phân kỳ) có ngày **không phải cuối tháng** và đã có **bản mới hơn cùng loại** → vào danh sách `slXoaNgayCu` (vào 🗑, khôi phục được). Nút hiện cả khi chỉ còn sao kê cũ; nạp sao kê ngày mới → tự hỏi xóa bản cũ. Bản cuối tháng + bản mới nhất mỗi loại giữ nguyên.

@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.554', ds:[
+var CO_GI_MOI = {ban:'3.555', ds:[
+  ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
   ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""],
   ["Sửa lỗi 3.551: dán ảnh HEIC iPhone ở tab Scan lại đọc được; gỡ lớp chặn mã (CSP) nghi làm trống app trên iPhone", ""],
   ["Nhập liệu bằng phím Tab: ô đang ở có viền xanh rõ (bấm chuột không hiện)", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.554', ds:[
   ["Có gì mới: mỗi việc thử có nút ✓ Đạt / ✗ Chưa — kết quả lưu lên Drive, em đọc được, anh không phải gõ lại", ""],
   ["Lỗi app tự lưu lên Drive (đã che số dài) — em sửa được trước khi anh báo", ""],
   ["Mở app ở tab thứ 2 → tab đó chỉ xem, tránh 2 tab ghi đè mất dữ liệu", ""],
-  ["App tự xin trình duyệt giữ dữ liệu lâu dài (không tự xóa khi máy đầy)", ""],
-  ["Nạp & KT gọn: kết quả kiểm tra không lặp dòng \"↗ xem ở…\", bảng số đối chiếu gập (có lệch thì tự mở), khối Tổ trưởng 1 dòng — giải thích để ở chữ rê chuột", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["App tự xin trình duyệt giữ dữ liệu lâu dài (không tự xóa khi máy đầy)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.555 · 📥 Nạp & KT: tiêu đề cột 25/10/2026 có 🗑 → bấm → xác nhận → cột 25/10 biến mất",
     "3.554 · ⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ → danh sách có Sao kê TK 104 / 105 ngày 25/10 → xóa → cột 25/10 biến mất",
     "3.553 · iPhone Safari: mở app → Hôm nay có lịch, không báo lỗi lưu",
     "3.553 · Tab Scan: dán ảnh HEIC chụp từ iPhone → vào hàng quét",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.554', ds:[
     "3.545 · Bấm 📤 File đối chiếu trên máy bản cũ → báo chưa lập, nhắc cập nhật",
     "3.544 · 📤 File đối chiếu kỳ giữa tháng (không có Sao kê NQH): món chuyển QH lại có ngày như Mẫu 31",
     "3.543 · 📤 File đối chiếu 31/10 → DOI_CHIEU_MON_APP 20 cột; ngày chuyển QH theo Sao kê nợ quá hạn",
-    "3.542 · KTGS › Kiểm tra tổ: Món / Kiểu / Số hộ mỗi nhóm 1 dòng",
-    "3.542 · Tổ TK&VV: Khách / Cần xử lý vuốt ngang"],
+    "3.542 · KTGS › Kiểm tra tổ: Món / Kiểu / Số hộ mỗi nhóm 1 dòng"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
