@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 16/11/2026 — TK 2 · PHIÊN (3.554 xóa sao kê theo ngày cũ)
+- Anh "25/10 đã xóa vẫn hiện" → tra meta.json Drive: còn Sao kê TK 104 / 105 25/10 (nút xóa ngày cũ bỏ qua loại theo ngày). `slDsSkCu` + t409. Anh đã ok iPhone sau 3.553.
+
 ### 15/11/2026 — TK 2 · PHIÊN (3.553 gỡ CSP)
 - Hồi quy đủ 3.551: 5 trượt (heic-to + phép thử cần eval, CSP chặn) + anh báo iPhone trắng màn / "không lưu được" (app cài MH chính) → gỡ thẻ CSP, giữ dấu vân tay. 6 phép đạt lại.
 - **Bẫy lớn:** CSP phải thử trên Safari iPhone thật trước khi bật lại; heic-to cần `'unsafe-eval'`. App cài ra MH chính trên iOS có kho riêng (trống, nối Drive lại). Chưa rõ nguyên nhân "không lưu được" trên iPhone — chờ anh gửi nhật ký lỗi (⚠ chip → 📋 Chép).
