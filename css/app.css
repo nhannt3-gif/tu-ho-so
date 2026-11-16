@@ -4172,3 +4172,6 @@ details.sl-dc > summary{cursor:pointer;font-weight:600;color:var(--xanh-dam);mar
 :focus-visible{outline:2px solid var(--xanh);outline-offset:2px}
 input[type=checkbox],input[type=radio],input[type=range],progress{accent-color:var(--xanh)}
 td.s,td.so,td.r,.tien{font-variant-numeric:tabular-nums}
+/* 3.555: nút 🗑 trên tiêu đề cột ngày cũ (Nạp & KT) */
+.sl-xoa-cot{border:1px solid var(--vien);background:var(--the,#fff);border-radius:6px;padding:0 4px;margin-left:4px;font-size:12px;line-height:18px;cursor:pointer}
+.sl-xoa-cot:hover{background:var(--do-nen);border-color:var(--do)}

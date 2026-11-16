@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.554 · 16/11/2026 08:07 · 157 file · 47811 dòng · 3768 hàm cấp ngoài · 654 biến toàn cục.
+Bản 3.555 · 16/11/2026 08:19 · 157 file · 47817 dòng · 3769 hàm cấp ngoài · 654 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -10,7 +10,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
 | `index.html` | 346 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
-| `css/app.css` | 4174 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
+| `css/app.css` | 4177 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 177 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
 | `js/01-thu-vien.js` | 87 | 5 | /*   BỘ NẠP THƯ VIỆN — có bộ nhớ đệm để offline vẫn dùng được Lần đầu có mạng: tải về và cất vào máy. |
@@ -59,7 +59,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/22h-cap-hoi-sao-ke.js` | 693 | 90 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 5437–6227 của bản 3.234), không  |
 | `js/22i-tong-hop.js` | 604 | 43 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 6228–6963 của bản 3.234), không  |
 | `js/22j-thong-tin-to.js` | 298 | 39 | /*   3.259 → 3.263 (anh chốt 18–19/10) — 📒 Sao kê › nhóm "Thông tin tổ" (theo file tổng hợp anh dùng hằng thán |
-| `js/22k-nap-kt.js` | 1166 | 107 | /* Tủ hồ sơ — tab 📥 Nạp & KT (tách khỏi 22f-tra-cuu.js ở 3.346, nguyên văn): tóm tắt kỳ, ma trận file, kiểm tr |
+| `js/22k-nap-kt.js` | 1169 | 108 | /* Tủ hồ sơ — tab 📥 Nạp & KT (tách khỏi 22f-tra-cuu.js ở 3.346, nguyên văn): tóm tắt kỳ, ma trận file, kiểm tr |
 | `js/23-dieu-huong.js` | 202 | 27 | /*   3.147 (đợt F, anh duyệt 10/10/2026): THANH BÊN ĐIỀU HƯỚNG — máy tính màn ≥ 1100 px   - Chỉ đổi cách đi gi |
 | `js/24-xuat.js` | 156 | 14 | /*   3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG Mọi mẫu / báo cáo: 👁 Xem → hàng nút  |
 | `js/25-ho-so.js` | 460 | 56 | /*   3.170 (anh chốt 11/10/2026 — docs/KE_HOACH_HO_SO_TO.md): 📝 HỒ SƠ TỔ · 📄 HỒ SƠ VAY Hai tab con của Số liệu |
@@ -353,18 +353,18 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22j-thong-tin-to.js:228` · 3 sao kê chia Điểm GD › Hội › Tổ (dòng nhóm mang số cộng)
 - `js/22j-thong-tin-to.js:289` · vào từ skBaoCao
 - `js/22k-nap-kt.js:88` · 3.150: tab Nạp & KT gọn
-- `js/22k-nap-kt.js:259` · 3.88: ① FILE THÁNG · ② KIỂM TRA (kết quả lưu theo tháng, dữ liệu đổi thì báo kiểm lại)
-- `js/22k-nap-kt.js:366` · 3.146 (anh chốt 10/10): KIỂM TRA KỲ — không chốt / khóa tháng; Đạt = đủ 9 file · đúng kỳ · đúng cấu trúc (đã bấm kiểm, s
-- `js/22k-nap-kt.js:407` · 3.90.1: BẢNG ĐỐI CHIẾU CHÉO — chỉ tiêu × nguồn (BCDHTD chuẩn · LEN_31 · Mẫu 31 · Dư nợ chi tiết), toàn PGD và từng xã
-- `js/22k-nap-kt.js:651` · 12. NẠP: cả bộ / từng file
-- `js/22k-nap-kt.js:810` · 3.90: XÓA cả bộ tháng / LÀM MỚI toàn bộ số liệu (chỉ phần Số liệu; Drive vào thùng rác, lấy lại được 30 ngày)
-- `js/22k-nap-kt.js:856` · 3.90: THAY FILE 1 ô — file mới phải đúng loại, đúng kỳ của ô; khác thì báo, không thay
-- `js/22k-nap-kt.js:874` · 3.90.1: TẢI FILE GỐC (bản sao để dùng việc khác) — trong máy nếu còn, không thì tải từ Drive
-- `js/22k-nap-kt.js:892` · 3.90.1: TÌM FILE RÁC CỦA SỐ LIỆU (riêng phần Số liệu: trong máy sl_… + Drive Số liệu/ và _Hệ thống/so_lieu/; không đụng 
-- `js/22k-nap-kt.js:953` · 3.400 (anh chốt 28/10 — Tèo, docs/PHOI_HOP_CHUNG.md mục 4): TÊN CHUẨN file gốc + SỔ NẠP + CHUẨN HÓA TÊN THÁNG CŨ
-- `js/22k-nap-kt.js:1032` · 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11): KIỂM ẤP / ĐIỂM GD — nhóm 6 Bất thường dữ liệu, chỉ báo để anh sửa trên hệ thố
-- `js/22k-nap-kt.js:1046` · 3.405 (Tèo — docs/KE_HOACH_KY_DOI_CHIEU.md mục 3, bước 2): FILE ĐỐI CHIẾU APP DOI_CHIEU_APP_<YYYY-MM-DD>.csv
-- `js/22k-nap-kt.js:1148` · 3.474 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH NẠP & KT — data-lenh="nkt.*", tham số ở data-a / data-b / data-c, 
+- `js/22k-nap-kt.js:262` · 3.88: ① FILE THÁNG · ② KIỂM TRA (kết quả lưu theo tháng, dữ liệu đổi thì báo kiểm lại)
+- `js/22k-nap-kt.js:369` · 3.146 (anh chốt 10/10): KIỂM TRA KỲ — không chốt / khóa tháng; Đạt = đủ 9 file · đúng kỳ · đúng cấu trúc (đã bấm kiểm, s
+- `js/22k-nap-kt.js:410` · 3.90.1: BẢNG ĐỐI CHIẾU CHÉO — chỉ tiêu × nguồn (BCDHTD chuẩn · LEN_31 · Mẫu 31 · Dư nợ chi tiết), toàn PGD và từng xã
+- `js/22k-nap-kt.js:654` · 12. NẠP: cả bộ / từng file
+- `js/22k-nap-kt.js:813` · 3.90: XÓA cả bộ tháng / LÀM MỚI toàn bộ số liệu (chỉ phần Số liệu; Drive vào thùng rác, lấy lại được 30 ngày)
+- `js/22k-nap-kt.js:859` · 3.90: THAY FILE 1 ô — file mới phải đúng loại, đúng kỳ của ô; khác thì báo, không thay
+- `js/22k-nap-kt.js:877` · 3.90.1: TẢI FILE GỐC (bản sao để dùng việc khác) — trong máy nếu còn, không thì tải từ Drive
+- `js/22k-nap-kt.js:895` · 3.90.1: TÌM FILE RÁC CỦA SỐ LIỆU (riêng phần Số liệu: trong máy sl_… + Drive Số liệu/ và _Hệ thống/so_lieu/; không đụng 
+- `js/22k-nap-kt.js:956` · 3.400 (anh chốt 28/10 — Tèo, docs/PHOI_HOP_CHUNG.md mục 4): TÊN CHUẨN file gốc + SỔ NẠP + CHUẨN HÓA TÊN THÁNG CŨ
+- `js/22k-nap-kt.js:1035` · 3.401 (anh chốt 28/10 — Tèo QT-C-10 / 11): KIỂM ẤP / ĐIỂM GD — nhóm 6 Bất thường dữ liệu, chỉ báo để anh sửa trên hệ thố
+- `js/22k-nap-kt.js:1049` · 3.405 (Tèo — docs/KE_HOACH_KY_DOI_CHIEU.md mục 3, bước 2): FILE ĐỐI CHIẾU APP DOI_CHIEU_APP_<YYYY-MM-DD>.csv
+- `js/22k-nap-kt.js:1151` · 3.474 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH NẠP & KT — data-lenh="nkt.*", tham số ở data-a / data-b / data-c, 
 - `js/23-dieu-huong.js:188` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f23.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/24-xuat.js:1` · 3.152 (anh chốt ý 2, 4 — docs/KE_HOACH_GON_GIAO_DIEN.md): XUẤT CHUNG
 - `js/24-xuat.js:149` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f24.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
@@ -559,7 +559,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | Tiền tố | Số hàm | File | Ví dụ |
 |---|---|---|---|
 | `kt` KTGS Hội (Mẫu 06/16/04, KH…) | 367 | `22b-ktgs.js` 96, `22d-ktgs-04.js` 93, `22e-ktgs-kh.js` 78 | ktXepLoai, ktNgayDau, ktDocBC, ktPhanTich |
-| `sl` Số liệu (nạp, kho kỳ, ma trận) | 257 | `22-so-lieu.js` 124, `22k-nap-kt.js` 106, `22f-tra-cuu.js` 7 | slLoai, slChuan, slLaNgay, slLaHS |
+| `sl` Số liệu (nạp, kho kỳ, ma trận) | 258 | `22-so-lieu.js` 124, `22k-nap-kt.js` 107, `22f-tra-cuu.js` 7 | slLoai, slChuan, slLaNgay, slLaHS |
 | `to` Tổ TK&VV | 126 | `22gb-to-giao-dien.js` 53, `22g-to.js` 38, `22h-cap-hoi-sao-ke.js` 30 | toSang, toNutSL, toTruongScan, toStkChu |
 | `tc` Tra cứu KH | 65 | `22f-tra-cuu.js` 33, `58-tc-to.js` 22, `22h-cap-hoi-sao-ke.js` 5 | tcChep, tcC, tcDiaChi, tcSdtDat |
 | `sk` Sao kê | 62 | `22h-cap-hoi-sao-ke.js` 47, `59-suc-khoe.js` 7, `76-sk-danh-sach.js` 7 | skChon, skKhoCua, skChonBC, skVeDS |
