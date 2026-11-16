@@ -144,7 +144,7 @@ function slNapThem(ky){   /* ⋯ việc phụ của tab Nạp & KT */
   var coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; }), soBang = Object.keys(SLM.bang).length;
   moHop('<div class="hop-tit">⋯ Nạp &amp; KT · '+kyVN(ky)+'</div><div class="sl-them-ds">'+
     (coFile ? '<button class="nho" data-lenh="nkt.taiGocThang" data-dong="1" data-a="'+ky+'">⬇ Tải file gốc cả tháng</button><button class="nho" data-lenh="nkt.xoaThang" data-dong="1" data-a="'+ky+'">🗑 Xóa cả bộ tháng '+kyVN(ky)+'</button>' : '')+
-    (slDsNgay().length>1 ? '<button class="nho" data-lenh="nkt.xoaNgayCu" data-dong="1">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
+    (slDsNgay().length>1 || slDsSkCu().length ? '<button class="nho" data-lenh="nkt.xoaNgayCu" data-dong="1">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
     (soBang ? '<button class="nho" data-lenh="nkt.tomTat" data-dong="1" data-a="'+ky+'">📄 Tóm tắt chi tiết các file '+kyVN(ky)+'</button>' : '')+
     '<button class="nho" data-lenh="nkt.napLai" data-dong="1">🧹 Làm sạch &amp; nạp lại (dựng lại từ file đã lưu)</button>'+
     (laDT() ? '' : '<label class="sl-giu">⚡ Giữ sẵn <select data-lenh="nkt.giu" data-su="change"><option value="12"'+(D.cauHinh.slGiu==='all' ? '' : ' selected')+'>12 tháng</option><option value="all"'+(D.cauHinh.slGiu==='all' ? ' selected' : '')+'>tất cả</option></select> <small id="sl-giu-ds">'+coChuHTML(slGiuChu())+'</small></label>')+
@@ -170,20 +170,28 @@ function slNapHoi(){
 function slDsNgay(loai){ return Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ var L = slLoai(e.loai); return L && L.tuy && !L.ngay && String(e.ky).length>7 && (!loai || e.loai===loai); })
   .sort(function(a, b){ return a.ky<b.ky ? -1 : a.ky>b.ky ? 1 : 0; }); }
 function slNgayMoi(){ var ds = slDsNgay(); return ds.length ? ds[ds.length-1].ky : ''; }
+/* 3.554 (anh 16/11 "xóa dữ liệu cũ không phải cuối tháng và có sao kê mới"): sao kê lưu theo ngày (TK 104, TK 105, phân kỳ) — bản KHÔNG phải cuối tháng mà đã có bản mới hơn cùng loại
+   → thừa (app luôn dùng bản mới nhất) → vào danh sách "Xóa bản theo ngày cũ". Bản cuối tháng giữ nguyên. Trước đây nút này bỏ qua loại theo ngày → cột ngày cũ (vd 25/10) còn mãi "2 file". */
+function slDsSkCu(){
+  var ds = Object.keys(SLM.bang).map(function(k){ return SLM.bang[k]; }).filter(function(e){ var L = slLoai(e.loai); return L && L.ngay && !L.bo && String(e.ky).length>7; });
+  return ds.filter(function(e){ return e.ky!==tdnCuoiKy(slThang(e.ky)) && ds.some(function(x){ return x.loai===e.loai && x.ky>e.ky; }); })
+    .sort(function(a, b){ return a.ky<b.ky ? -1 : a.ky>b.ky ? 1 : 0; });
+}
 function slXoaNgayCu(giu){
-  var moi = giu || slNgayMoi(), ds = slDsNgay().filter(function(e){ return e.ky!==moi ; });
+  var moi = giu || slNgayMoi(), ds = slDsNgay().filter(function(e){ return e.ky!==moi ; }).concat(slDsSkCu());   /* 3.554: + sao kê theo ngày cũ đã có bản mới */
   if(!ds.length) return bao('Không còn bản theo ngày cũ.', 3);
-  hoi('Xóa '+ds.length+' bản theo ngày cũ, giữ ngày '+ngayVNsl(moi)+'?', ds.map(function(e){ return slLoai(e.loai).ten.split(' · ')[0]+' '+ngayVNsl(e.ky); }).join(' · ')+'. Bản cuối tháng không bị đụng. Các bản xóa vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày.', 'Xóa', function(){
+  hoi('Xóa '+ds.length+' bản theo ngày cũ'+(moi ? ', giữ ngày '+ngayVNsl(moi) : '')+'?', ds.map(function(e){ return slLoai(e.loai).ten.split(' · ')[0]+' '+ngayVNsl(e.ky); }).join(' · ')+'. Bản cuối tháng không bị đụng. Các bản xóa vào 🗑 Thùng rác (ngăn Số liệu) — khôi phục được trong 30 ngày.', 'Xóa', function(){
     batChay(true, 'Đang xóa '+ds.length+' bản theo ngày cũ…'); var ids = [];
     slXoaVaoRac(ds.map(function(e){ return slKhoa(e.loai, e.ky); }), 'Xóa bản theo ngày cũ').then(function(r){ ids = r; return slDungDanhBa(); }).then(slLuuMeta).then(function(){
       tatChay(); if(coTheNoiDrive() && DR.sanSang) ids.forEach(function(id){ xoaFileDrive(id).catch(function(){}); });
-      bao('Đã xóa '+ds.length+' bản theo ngày cũ — còn ngày '+ngayVNsl(moi)+'.', 4); if(nganHienTai===7) veSoLieu();
+      bao('Đã xóa '+ds.length+' bản theo ngày cũ'+(moi ? ' — còn ngày '+ngayVNsl(moi) : '')+'.', 4); if(nganHienTai===7) veSoLieu();
     }).catch(function(er){ tatChay(); baoLoi('Xóa lỗi: '+(er && er.message || er)); });
   });
 }
 function slSauNap(ds){   /* sau khi ghi nhận: nạp ngày mới mà còn ngày cũ → hỏi xóa; dựng sẵn bộ số liệu mới nhất */
   var moiNgay = ds.filter(function(kq){ return String(kq.ky).length>7 && slTuy(kq.loai) && !slLoai(kq.loai).ngay; }).map(function(kq){ return kq.ky; }).sort().pop();
   if(moiNgay && moiNgay===slNgayMoi() && slDsNgay().some(function(e){ return e.ky<moiNgay; })) setTimeout(function(){ slXoaNgayCu(moiNgay); }, 300);
+  else if(!moiNgay && ds.some(function(kq){ return slLaNgay(kq.loai); }) && slDsSkCu().length) setTimeout(function(){ slXoaNgayCu(); }, 300);   /* 3.554: nạp sao kê ngày mới → hỏi xóa sao kê cũ (không phải cuối tháng) */
   setTimeout(function(){ slNapSan(true); }, 600);
 }
 /* 3.163: ô / chip của cột ngày */

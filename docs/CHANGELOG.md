@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.554 — 16/11/2026 — Xóa sao kê theo ngày cũ (TK 2)
+- **Nguồn:** anh 16/11 "ngày 25/10 đã xóa rồi vẫn hiện lại" → tra `meta.json` Drive: Mẫu 31 + DSTO 25/10 đã xóa (14/11); "2 file" còn lại là Sao kê TK 104 / 105 ngày 25/10 — nút "Xóa bản theo ngày cũ" (`slDsNgay`) bỏ qua loại lưu theo ngày nên không bao giờ xóa. Anh "code xóa dữ liệu cũ không phải cuối tháng và có sao kê mới".
+- `slDsSkCu()` (js/22k): sao kê loại theo ngày (TK 104, TK 105, phân kỳ) có ngày **không phải cuối tháng** và đã có **bản mới hơn cùng loại** → vào danh sách `slXoaNgayCu` (vào 🗑, khôi phục được). Nút hiện cả khi chỉ còn sao kê cũ; nạp sao kê ngày mới → tự hỏi xóa bản cũ. Bản cuối tháng + bản mới nhất mỗi loại giữ nguyên.
+- Phép thử mới t409 (3 ý).
+
 ## 3.553 — 15/11/2026 — Gỡ thẻ CSP của 3.551 (TK 2)
 - **Nguồn:** hồi quy đủ 3.551 trượt 5 phép (t207 / t208 / t209 / t212 / t219 — thư viện `heic-to` đổi ảnh HEIC và phép thử cần `eval`, CSP chặn); anh gửi ảnh iPhone 21:46 (3.551, app cài ra MH chính): Hôm nay trắng + "Không lưu được — bộ nhớ trình duyệt đã đầy".
 - Gỡ `<meta http-equiv="Content-Security-Policy">` khỏi `index.html` (chuỗi ghi lại ở `DANH_GIA_CHUYEN_GIA_1511.md` mục 4d để làm lại khi thử được Safari thật + cho `'unsafe-eval'`). **Giữ** dấu vân tay thư viện (`js/01`) + jsDelivr. t407 sửa theo (kiểm không còn thẻ CSP, vẫn kiểm dấu).
