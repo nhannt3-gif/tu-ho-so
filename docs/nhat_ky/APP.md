@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 17/11/2026 — TK 2 · PHIÊN (3.556 Bản photo CCCD / CCCD nhận PDF)
+- Anh "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc pdf" → duyệt "code mở pdf luôn" (cả 🪪 CCCD). File mới `js/82-scan-pdf-photo.js` (gói `SCPP`): hộp chọn Ảnh có sẵn chế độ Thẻ nhận PDF; Bản photo + PDF → ảnh nguyên tờ → luồng tách tờ photo cũ. t410 10/10.
+- Chờ anh: thử máy thật với PDF scan tờ photo thật (bảng thử 3.556); gộp PR khi anh nhắn "gộp".
+- Bẫy: js/82 phải nạp SAU js/81 (bọc ngoài cùng `nhanVaoScan`); `tests/kiem.py` "Thiếu hàm: sectPr" có sẵn từ 3.555, không do bản này.
+
 ### 16/11/2026 — TK 2 · PHIÊN (3.555 nút 🗑 trên cột ngày cũ)
 - Anh "cho dễ nhìn": nút 🗑 trên tiêu đề cột ngày có bản thừa (`nkt.xoaCot` → `slXoaNgayCu('', ngày)`). t409 4/4.
 
