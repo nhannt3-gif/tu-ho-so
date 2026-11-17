@@ -7,7 +7,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 ## 3.556 — 17/11/2026 — Bản photo CCCD / CCCD nhận file PDF
 - **Nguồn:** anh 17/11 "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf" → duyệt "code mở pdf luôn" (cả 🪪 CCCD).
 - **Nguyên nhân:** 🖼 Ảnh có sẵn mở hộp chọn file `image/*,.heic,.heif` (js/12 `chonNguon`) → PDF mờ, không chọn được; lối PDF chế độ Thẻ của js/81 (3.403) chỉ dò thẻ trên nền trắng, không qua bước tách tờ photo.
-- **File mới `js/82-scan-pdf-photo.js`** (gói `SCPP`, cắm rút): chế độ Thẻ + 🖼 Ảnh có sẵn → hộp chọn nhận thêm `.pdf`; chữ dưới nút "Ảnh hoặc PDF trong máy" (CCCD / Bản photo). Bản photo + PDF: mỗi trang (≤ 40) → 1 ảnh JPG nguyên tờ (~2480 điểm) rồi đi luồng tờ photo cũ (js/41 + js/51: dò 2 khung thẻ / chia đôi → nắn, 📠 Photo rõ, ghép mặt, đọc số). PDF hỏng / mật khẩu → báo tên, ảnh kèm vẫn xử lý. 🪪 CCCD + PDF giữ lối js/81. 📄 Tài liệu, Camera, ✍ Chữ ký không đổi.
+- **File mới `js/81b-scan-pdf-photo.js`** (gói `SCPP`, cắm rút): chế độ Thẻ + 🖼 Ảnh có sẵn → hộp chọn nhận thêm `.pdf`; chữ dưới nút "Ảnh hoặc PDF trong máy" (CCCD / Bản photo). Bản photo + PDF: mỗi trang (≤ 40) → 1 ảnh JPG nguyên tờ (~2480 điểm) rồi đi luồng tờ photo cũ (js/41 + js/51: dò 2 khung thẻ / chia đôi → nắn, 📠 Photo rõ, ghép mặt, đọc số). PDF hỏng / mật khẩu → báo tên, ảnh kèm vẫn xử lý. 🪪 CCCD + PDF giữ lối js/81. 📄 Tài liệu, Camera, ✍ Chữ ký không đổi.
 - Phép thử mới t410 (10 ý).
 
 ## 3.555 — 16/11/2026 — Nút 🗑 trên tiêu đề cột ngày cũ (TK 2)

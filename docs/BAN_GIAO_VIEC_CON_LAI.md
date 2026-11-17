@@ -275,7 +275,7 @@ _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` 
 | 4 | 🪪 CCCD › 🖼 Ảnh có sẵn → chọn PDF CCCD đã lưu | Cắt ra mặt thẻ như 3.403 | |
 | 5 | 📄 Tài liệu › Ảnh có sẵn | Như cũ (PDF chọn ở nút 📄 File) | |
 
-**Ghi chú kỹ thuật 3.556:** js/82 bọc `chonNguon` (chỉ nhánh `photo` khi `SC.che==='the'`), `batDauScan` (đổi chữ), `nhanVaoScan` (chỉ khi `SC.photo2` + có PDF → ảnh nguyên tờ rồi gọi chuỗi cũ js/81 → js/41). Trang PDF dựng ~2480 điểm cạnh dài; tờ photo scan quá mờ vẫn rơi về chia đôi tờ như ảnh chụp.
+**Ghi chú kỹ thuật 3.556:** js/81b bọc `chonNguon` (chỉ nhánh `photo` khi `SC.che==='the'`), `batDauScan` (đổi chữ), `nhanVaoScan` (chỉ khi `SC.photo2` + có PDF → ảnh nguyên tờ rồi gọi chuỗi cũ js/81 → js/41). Trang PDF dựng ~2480 điểm cạnh dài; tờ photo scan quá mờ vẫn rơi về chia đôi tờ như ảnh chụp.
 
 ### Danh sách thử trên máy thật (3.555)
 | # | Việc thử | Kết quả mong đợi | Đạt? |

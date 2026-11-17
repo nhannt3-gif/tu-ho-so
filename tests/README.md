@@ -236,7 +236,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t323.js` | 3.403 CCCD dạng PDF (js/81): `scDoThe` 1 thẻ / trang, mặt sau sáng, 2 thẻ / trang, trang tài liệu không cắt; `scPDFThe`; chế độ Thẻ nhận PDF → 2 ảnh + nút + Thêm PDF; chế độ Tài liệu nhắc chuyển → bấm thành ảnh thẻ; PDF tài liệu không nhắc — PDF giả. |
 | `node tests/t324.js` | 3.404 (Tèo QT-C-12): `skPhienTu` (ĐH 10 điểm 05 → 05 tháng sau, gộp điểm 23, trùng ngày, tháng 2), gia hạn, ưu tiên cột hệ thống, ⚠ lệch lịch điểm, món trực tiếp ngay sau ĐH, chưa có, chia khung ③, `toNap` gắn `o._ngGD` — bộ `gianho31`. |
 | `node tests/t325.js` | 3.405 (Tèo): DOI_CHIEU_APP csv — BOM, dòng # ghi chú, 17 cột hợp đồng, 1 dòng 1 tổ + TT|thôn, tổng dư nợ / quá hạn = Mẫu 31, tiền nguyên, lưu Drive Số liệu/<tháng>/ (Drive giả), nút ⋯ Nạp & KT — bộ `gianho31`. |
-| `node tests/t326.js` | 3.406 🗺 Địa bàn theo số liệu (js/82): so ấp trước 07/2026 theo mã tổ, cây xã → điểm → ấp → tổ, lệch danh mục (đổi điểm / mới / không còn), tổ còn dư nợ không chuẩn (điểm khác, chưa rõ, ngoài DS tổ, điểm suy), dựng thật trên `gianho31`, ⟳ cập nhật / ↶ khôi phục, 📝 ghi chú + gợi ý, Kiểm tra kỳ mục mới. |
+| `node tests/t326.js` | 3.406 🗺 Địa bàn theo số liệu (js/81b): so ấp trước 07/2026 theo mã tổ, cây xã → điểm → ấp → tổ, lệch danh mục (đổi điểm / mới / không còn), tổ còn dư nợ không chuẩn (điểm khác, chưa rõ, ngoài DS tổ, điểm suy), dựng thật trên `gianho31`, ⟳ cập nhật / ↶ khôi phục, 📝 ghi chú + gợi ý, Kiểm tra kỳ mục mới. |
 | `node tests/t327.js` | 3.407 ghi chú ấp / KP cũ (js/83): bảng 19 ấp theo mã, dòng Gia Lộc khi toàn PGD / Gia Lộc, nút 🏷 mặc định tắt → bật hiện ghi chú, chọn xã khác ẩn dòng, cờ gỡ, 🗺 Địa bàn 🏷 + gợi ý — bộ `gianho31`. |
 | `node tests/t328.js [mã,…]` | 3.407 **phép thử chung** `tests/chung/truong_hop_mau.json` (TK 1; tên cũ `tests/teo/teo_ca.json`): mỗi trường hợp 1 trang sạch, nạp Mẫu 31 + File Tổ trưởng giả qua slDocFile → toNap → so đáp án (dòng file đối chiếu, ngày QH, lệch ấp, ấp nhiều điểm, không ghép DS tổ khác ngày, hàm). `CHO` = lệch chờ chốt (⏳). Kết quả ghi `QUY_TAC_SO_LIEU.md` mục 3. |
 | `node tests/t329.js` | 3.408 Tra cứu: khách nhiều TK 105 — gộp danh bạ + Sao kê (số dư từng sổ, ngày mở), nhãn đỏ N TK 105, liệt kê + nhắc đóng, 1 TK không cảnh báo — `gianho31` + Sao kê giả. |
@@ -283,7 +283,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t380.js` (3.495) | 03/GDX: mặc định Phần II 1 + 8 dòng, vẫn 2 tờ. |
 | `node tests/t382.js` | 3.496 Giao dịch xã: 👥 Tổ giao dịch khai tay + chip vai, 1 Tổ trưởng / GDV chính, đồng bộ 12/GDX, quy tắc VB 4368, PA 1/2/3, tổ hay dùng; 03/GDX Phần I, II tự điền, 2 tờ; 📘 Nhiệm vụ 6 vai, tên, 1 mặt A4 ở 8,5 pt. |
 | `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
-| `node tests/t410.js` | 3.556 Bản photo CCCD / CCCD nhận PDF (js/82): hộp chọn file có PDF + chữ nút (Tài liệu như cũ); PDF tờ photo nền xám 1 trang → 2 mặt thẻ đúng tỉ lệ, 2 trang → 4; PDF hỏng báo tên, ảnh kèm vẫn vào; 🪪 CCCD + PDF vẫn lối js/81 — PDF giả. |
+| `node tests/t410.js` | 3.556 Bản photo CCCD / CCCD nhận PDF (js/81b): hộp chọn file có PDF + chữ nút (Tài liệu như cũ); PDF tờ photo nền xám 1 trang → 2 mặt thẻ đúng tỉ lệ, 2 trang → 4; PDF hỏng báo tên, ảnh kèm vẫn vào; 🪪 CCCD + PDF vẫn lối js/81 — PDF giả. |
 
 
 

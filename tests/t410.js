@@ -1,4 +1,4 @@
-// 3.556 (anh 17/11: "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf" — "mở pdf luôn"): js/82 (cắm rút).
+// 3.556 (anh 17/11: "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf" — "mở pdf luôn"): js/81b (cắm rút).
 //   ① 🗎 Bản photo CCCD / 🪪 CCCD › 🖼 Ảnh có sẵn: hộp chọn file nhận PDF, chữ "Ảnh hoặc PDF trong máy"; 📄 Tài liệu không đổi
 //   ② Bản photo + PDF tờ photo (nền xám, 2 thẻ trên 1 tờ) → 2 ảnh mặt thẻ; PDF 2 trang → 4 ảnh; PDF hỏng → báo tên, ảnh kèm vẫn vào
 //   ③ 🪪 CCCD + PDF thẻ trên nền trắng → vẫn lối js/81. PDF GIẢ (thẻ vẽ giả, không dữ liệu thật).
