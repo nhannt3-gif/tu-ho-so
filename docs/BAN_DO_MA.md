@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.555 · 16/11/2026 08:19 · 157 file · 47817 dòng · 3769 hàm cấp ngoài · 654 biến toàn cục.
+Bản 3.556 · 18/11/2026 01:51 · 158 file · 47879 dòng · 3769 hàm cấp ngoài · 655 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 346 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 347 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4177 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 177 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -144,6 +144,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/80-ktgs-to.js` | 173 | 0 | /*   js/80-ktgs-to.js — 3.514 (anh 11/11/2026): 🎯 KIỂM TRA TỔ — 1 hay nhiều tổ (gộp Kiểm tra định kỳ 06 + 16 v |
 | `js/80b-ktgs-kh-sl.js` | 90 | 0 | /*   js/80b-ktgs-kh-sl.js — 3.516 (anh 11/11/2026): KẾ HOẠCH NĂM CHẠY THEO MẪU 31 HÀNG THÁNG + 🔎 KẾ HOẠCH ĐÃ L |
 | `js/81-scan-pdf-the.js` | 120 | 7 | /*   3.403 (anh 29/10/2026, ảnh CCCD lưu dạng PDF — thẻ nhỏ giữa trang trắng: "khi cccd đã lưu dưới dạng pdf a |
+| `js/81b-scan-pdf-photo.js` | 61 | 0 | /*   3.556 (anh 17/11/2026: "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf"; d |
 | `js/82-dia-ban-so-lieu.js` | 160 | 23 | /*   3.406 (anh 29/10/2026): 🗺 ĐỊA BÀN (Hôm nay › 🧰) THEO SỐ LIỆU MỚI NHẤT — cắm rút (bỏ dòng nạp file này là  |
 | `js/83-ap-cu.js` | 35 | 3 | /*   3.407 (anh 30/10 qua TK 1 — docs/AP_KP_CU.md 1.0): GHI CHÚ ẤP / KHU PHỐ CŨ — chỉ để tham khảo, nhớ dần; K |
 | `js/84-cccd-to-truong.js` | 117 | 11 | /*   3.416 (anh 31/10: "gặp CCCD tổ trưởng dù cũ hay mới cũng lưu trữ, sau này có 1 chỗ lọc ra CCCD của tổ trư |
@@ -550,6 +551,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/74-sk-ndt.js:83` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f74.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/79-ktgs-khoa.js:59` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f79.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/81-scan-pdf-the.js:1` · 3.403 (anh 29/10/2026, ảnh CCCD lưu dạng PDF — thẻ nhỏ giữa trang trắng: "khi cccd đã lưu dưới dạng pdf anh cũng cần nhậ
+- `js/81b-scan-pdf-photo.js:1` · 3.556 (anh 17/11/2026: "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf"; duyệt "mở pdf lu
 - `js/82-dia-ban-so-lieu.js:1` · 3.406 (anh 29/10/2026): 🗺 ĐỊA BÀN (Hôm nay › 🧰) THEO SỐ LIỆU MỚI NHẤT — cắm rút (bỏ dòng nạp file này là quay về danh mụ
 - `js/83-ap-cu.js:1` · 3.407 (anh 30/10 qua TK 1 — docs/AP_KP_CU.md 1.0): GHI CHÚ ẤP / KHU PHỐ CŨ — chỉ để tham khảo, nhớ dần; KHÔNG dùng tính 
 - `js/84-cccd-to-truong.js:15` · ② màn kiểm

@@ -142,7 +142,7 @@
 | `scanChe` | 12-scan.js | 4 | 12-scan.js · 35-scan.js · 51-chu-ky.js | loại quyết định cách xử lý — không theo chế độ nhớ cũ |
 | `scanLoai` | 35-scan.js | 3 | 35-scan.js · 51-chu-ky.js |  |
 | `scanLoc` | 19-danh-muc.js | 2 | 19-danh-muc.js · 35-scan.js |  |
-| `scanNguon` | 12-scan.js | 5 | 12-scan.js · 35-scan.js · 51-chu-ky.js |  |
+| `scanNguon` | 12-scan.js | 6 | 12-scan.js · 35-scan.js · 51-chu-ky.js · 81b-scan-pdf-photo.js |  |
 | `scanNhom` | 11-khung-tab.js | 3 | 11-khung-tab.js · 12-scan.js |  |
 | `scanXem` | 11-khung-tab.js | 3 | 11-khung-tab.js · 12-scan.js |  |
 | `skTK` | 22h-cap-hoi-sao-ke.js | 2 | 22h-cap-hoi-sao-ke.js |  |
