@@ -56,9 +56,7 @@ function qcFile(chup){
 }
 function qcTrangPDF(f){
   return xongTV.then(function(){ if(!sanSangPDF()) return null; return f.arrayBuffer(); }).then(function(ab){ if(!ab) return null;
-    return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(d){ return d.getPage(1); }).then(function(pg){
-      var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
-      return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return canvasRaBlob(c, 0.92); }); }); }).catch(function(){ return null; });
+    return PDFA.mo(ab).then(function(d){ return PDFA.veTrang(d, 1, {rong:2000, toiDa:4}); }).then(function(c){ return canvasRaBlob(c, 0.92); }); }).catch(function(){ return null; });
 }
 function qcTu(){
   var ds = qcTuDs(), e = document.getElementById('qc-cam'); if(!e) return;

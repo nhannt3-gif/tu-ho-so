@@ -284,6 +284,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | `node tests/t382.js` | 3.496 Giao dịch xã: 👥 Tổ giao dịch khai tay + chip vai, 1 Tổ trưởng / GDV chính, đồng bộ 12/GDX, quy tắc VB 4368, PA 1/2/3, tổ hay dùng; 03/GDX Phần I, II tự điền, 2 tờ; 📘 Nhiệm vụ 6 vai, tên, 1 mặt A4 ở 8,5 pt. |
 | `node tests/t381.js` · `t382.js` (3.497) | + bàn phím Enter / Tab (Tổ giao dịch, đề nghị 09/KH) · `pbToTrinh` (QT-20), `g4KiemTo` / `g4PaGan` (QT-19) thuần. Biến môi trường `T380_SNAP` / `T381_SNAP` / `T382_SNAP` = thư mục ghi bản in để so trước / sau khi dọn. |
 | `node tests/t410.js` | 3.556 Bản photo CCCD / CCCD nhận PDF (js/81b): hộp chọn file có PDF + chữ nút (Tài liệu như cũ); PDF tờ photo nền xám 1 trang → 2 mặt thẻ đúng tỉ lệ, 2 trang → 4; PDF hỏng báo tên, ảnh kèm vẫn vào; 🪪 CCCD + PDF vẫn lối js/81 — PDF giả. |
+| `node tests/t411.js` | 3.557 Rà soát gọn code: `PDFA` (mở File / ArrayBuffer, vẽ theo rong / canh / toiDa / xoay, PDF hỏng báo lỗi, `docChuPDF`); nút data-lenh mới gọi đúng hàm + tham số (số, chữ, đúng / sai, bật tắt, ô tích); hàm thay hẳn đã xóa — bản thay vẫn chạy, Quét gì? mở được. |
 
 
 

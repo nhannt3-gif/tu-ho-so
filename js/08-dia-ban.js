@@ -426,18 +426,6 @@ function pdf0(ds){
 }
 function lenDriveThe(dsId){ return dungTrangThe(dsId, 'drive'); }   /* 3.32: Drive của anh là nơi lưu bảo mật — không hỏi lại */
 
-/* tên chuẩn và nơi lưu cho hồ sơ CCCD */
-function tenTheCCCD(k){
-  if(k.maKH) return tenScanDrive(k);   /* 3.155 */
-  return 'CCCD_'+slug(k.ten,5)+
-    (k.to?('_To-'+slug(k.to,2)):'')+
-    (k.ap?('_'+slug(k.ap,3)):'')+'.pdf';
-}
-function duongTheCCCD(k){
-  return [D.cauHinh.thumuc, 'CCCD', k.xa||'Chưa rõ xã',
-          k.diem||'Chưa rõ điểm', k.ap||'Chưa rõ ấp',
-          k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
-}
 function luuTheRaMay(dsId){ return dungTrangThe(dsId, 'luu'); }
 
 function dungTrangThe(dsId, viec){
@@ -496,20 +484,6 @@ function dungTrangThe(dsId, viec){
    - Đã có trên Drive (driveId) thì CẬP NHẬT ĐÈ file cũ (không sinh file trùng); đổi địa bàn thì dời file theo
    - File Drive đã bị xóa tay (404) thì tải lên file mới
    ========================================================== */
-function duongScan(k){
-  if(k.maKH) return [D.cauHinh.thumuc, k.che==='tailieu' ? 'Hồ sơ scan' : 'CCCD', k.xa||'Chưa rõ xã', k.ap||'Chưa rõ ấp'].join(' / ');   /* 3.155: <Xã>/<Ấp>/<Mã KH> <Tên>.pdf */
-  /* 3.46: bản lưu tạm (chưa khai) cũng lên Drive cho an toàn — thư mục chờ theo tháng; khai đầy đủ thì app dời về đúng xã, ấp, tổ */
-  if(k.chuaKhai) return [D.cauHinh.thumuc, 'Hồ sơ scan', 'Chưa khai', String(k.ngay||ngayISO(nay())).slice(0,7)].join(' / ');
-  if(k.che!=='tailieu') return duongTheCCCD(k);
-  return [D.cauHinh.thumuc, 'Hồ sơ scan', k.xa||'Chưa rõ xã', k.diem||'Chưa rõ điểm', k.ap||'Chưa rõ ấp',
-          k.to?('Tổ '+k.to):'Chưa rõ tổ'].join(' / ');
-}
-function tenScanDrive(k){
-  if(k.maKH) return sachTen(k.maKH+' '+(k.ten||'')+(k.che==='tailieu' && (k.tag||[])[0] ? ' - '+k.tag[0] : ''))+'.pdf';   /* 3.155 */
-  if(k.chuaKhai) return sachTen(k.ten||'Scan')+'.pdf';
-  if(k.che!=='tailieu') return tenTheCCCD(k);
-  return 'HS_'+slug(k.ten||'Tai-lieu',7)+(k.to?('_To-'+slug(k.to,2)):'')+(k.ap?('_'+slug(k.ap,3)):'')+'.pdf';
-}
 function taoPDFScan(k){ return k.che==='tailieu' ? dungTaiLieu([k], 'blob') : dungTrangThe([k.id], 'blob'); }
 /* 3.47: ảnh của bản scan có nằm trong MÁY NÀY không (bản quét ở máy khác chỉ có dòng chỉ mục, không có ảnh) */
 var CO_ANH = {};

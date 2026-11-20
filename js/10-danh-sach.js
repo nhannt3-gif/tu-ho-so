@@ -379,7 +379,7 @@ function kiemMotFileQD(ten, b){
   if(!b || !b.size) return Promise.resolve('0 byte — file rỗng');
   if(/\.pdf$/i.test(ten)){
     if(!sanSangPDF()) return Promise.resolve('');
-    return b.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; })
+    return PDFA.mo(b)
       .then(function(pdf){ return pdf.numPages ? '' : 'PDF không có trang nào'; }, function(){ return 'PDF hỏng — không mở được'; });
   }
   if(/\.xlsx?$/i.test(ten)){
@@ -429,7 +429,7 @@ function veQuetRacHTML(){
   }
   function dongF(ma){ return function(x, i){
     var m = x.m && x.m.id ? x.m : null;
-    return '<div class="dk-ten" onclick="xemThu(\'qd\',\''+ma+'\','+i+')"><b>'+(m ? ten(m) : coChuHTML(x.name||''))+'</b>'+
+    return '<div class="dk-ten" data-lenh="f10.xemThuQD" data-a1="'+ma+'" data-a2="'+i+'"><b>'+(m ? ten(m) : coChuHTML(x.name||''))+'</b>'+
       '<small>'+coChuHTML(m ? duongThat(m, x.loai==='ka'?'ka':(x.loai==='cho'?'cho':'')) : duongThat(x, 'drive'))+'</small>'+
       (x.ly ? '<small class="ck-thieu">'+coChuHTML(Array.isArray(x.ly) ? 'thiếu '+x.ly.join(', ') : x.ly)+'</small>' : '')+'</div>';
   }; }
@@ -437,7 +437,7 @@ function veQuetRacHTML(){
       : '<b>Chưa nối Drive</b> — mới quét phần trong app. ')+(tong ? '<b>'+tong+'</b> mục cần xem.' : '<b>Không thấy gì bất thường.</b>')+'</div>';
   var chuaCM = k.thua.length + k.lac.length;
   if(chuaCM) h += '<div class="bot-canh" style="background:var(--vang-nen);border-color:var(--vang);color:var(--vang)">Có <b>'+chuaCM+'</b> file trên Drive chưa có chỉ mục — không phải rác. '+
-    '<button class="nho" onclick="doiPhanDK(\'lcm\');lapChiMuc()">🗂 Lập chỉ mục ngay</button></div>';
+    '<button class="nho" data-lenh="f10.lapChiMuc">🗂 Lập chỉ mục ngay</button></div>';
   if(k.rong.length || k.gay.length || k.scanRong.length) h += '<div class="nhan-nhom">B. Không có dữ liệu</div>';
   h += nhom('rong','File rỗng / hỏng','0 byte, PDF không mở được, Excel trống, ảnh hỏng', k.rong, dongF('rong'));
   h += nhom('gay','Mục mất file','có trong tủ nhưng file trên Drive đã mất', k.gay, function(m, i){
@@ -617,10 +617,6 @@ function duongThat(m, loai){
   return '☁ '+duong+((m.choDB||m.canDay) ? ' · đang chờ dời / cập nhật' : '');
 }
 /* 3.50b: dòng "đang nằm ở đâu" dưới mỗi file (tab Scan, 📁 Chữ ký·CCCD) — bấm là mở thư mục trên Drive */
-function duongDongHTML(k, loai){
-  return '<div class="duong-dong" onclick="event.stopPropagation();moNoiLuu(\''+loai+'\',\''+k.id+'\')" title="Bấm để mở thư mục này trên Drive">'+
-    coChuHTML(duongThat(k, loai==='ka'?'ka':''))+'</div>';
-}
 function moNoiLuu(loai, id){
   var k = loai==='ka' ? (D.kyAnh||[]).find(function(x){ return x.id===id; }) : timScan(id);
   if(!k) return;
@@ -659,7 +655,7 @@ function veRacHTML(){
   });
   h += '</div><div class="rac-chan"><span id="rac-chon">Chưa chọn mục nào</span>'+
     '<button class="nho" onclick="var i=idChonRac();if(!i.length)return bao(\'Chưa chọn mục nào.\',3);khoiPhucRac(i);ve();capNhatDemRac();bao(\'Đã khôi phục \'+i.length+\' mục về đúng chỗ cũ.\',4)">Khôi phục đã chọn</button>'+
-    '<button class="nho xau" onclick="xoaHanRac(idChonRac())">Xóa hẳn đã chọn</button></div>';
+    '<button class="nho xau" data-lenh="f10.xoaHanRac">Xóa hẳn đã chọn</button></div>';
   return h;
 }
 function chonNganRac(k){ Array.prototype.forEach.call(document.querySelectorAll('.rac-o[data-ngan="'+k+'"]'), function(c){ c.checked = true; }); demChonRac(); }
@@ -717,12 +713,12 @@ function moGopTrung(id){
     '<div class="hop-phu">'+ds.length+' bản cùng số hiệu, cùng năm. Chọn <b>bản giữ lại</b> — các bản kia gộp hết <b>văn bản liên quan, tag, CT vay, mảng, ⭐, ghi chú</b> sang bản giữ, rồi vào <b>Thùng rác</b> (lấy lại được 30 ngày).</div>'+
     '<div class="gop-ds">'+ds.map(function(m){
       var lq = lqCua(m);
-      return '<label class="gop-dong"><input type="radio" name="gop-giu" value="'+m.id+'"'+(m.id===giu.id?' checked':'')+' onchange="GOP_TRUNG.giu=this.value">'+
+      return '<label class="gop-dong"><input type="radio" name="gop-giu" value="'+m.id+'"'+(m.id===giu.id?' checked':'')+' data-lenh="f10.gopGiu" data-su="change">'+
         '<span class="gop-nd"><b>'+coChuHTML(m.tenMoi||m.tenCu||'')+'</b>'+
         '<small>'+[m.themLuc||m.taoLuc ? 'thêm '+ngayVN(String(m.themLuc||m.taoLuc).slice(0,10)) : '', m.co ? kichCo(m.co) : '', m.driveId ? '☁ có trên Drive' : '💻 chỉ trong máy',
           lq.length ? '🔗 '+lq.map(function(v){ return v.soHieu || tenNganVB(v); }).join(', ') : 'chưa có liên quan',
           (m.tag||m.the||[]).length ? '🏷 '+(m.tag||m.the).join(', ') : '', laSao(m) ? '⭐' : ''].filter(Boolean).map(coChuHTML).join(' · ')+'</small></span>'+
-        '<button type="button" class="nho sg-ico" onclick="event.preventDefault();xemBanTrung(\''+m.id+'\')" title="Xem bản này ở khung bên phải">↗ Xem</button></label>';
+        '<button type="button" class="nho sg-ico" data-lenh="f10.xemBanTrung" data-a1="'+m.id+'" title="Xem bản này ở khung bên phải">↗ Xem</button></label>';
     }).join('')+'</div>'+
     '<div class="day-form"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
     '<button class="nho chinh" data-lenh="f10.gopTrung">Gộp, giữ bản đã chọn</button></div>');
@@ -758,7 +754,7 @@ function hoiTrungVB(m0, tr){
       coChuHTML([v.driveId?'☁ có trên Drive':'💻 chỉ trong máy', lqCua(v).length ? '🔗 '+lqCua(v).length+' văn bản liên quan' : ''].filter(Boolean).join(' · '))+'</small></span></div>'; }).join('')+'</div>'+
     '<div class="day-form">'+
       '<button class="nho" data-lenh="f10.boCho" data-dong="1" data-a1="'+m0.id+'" title="Không đưa file mới vào tủ">Bỏ file mới</button>'+
-      '<button class="nho" onclick="dongHop();var c=(D.cho||[]).find(function(x){return x.id===\''+m0.id+'\'});if(c){c.xacNhanTrung=true;duyet(c.id);}" title="Lưu cả 2 bản (ví dụ 2 bản khác nhau thật)">Giữ cả 2</button>'+
+      '<button class="nho" data-lenh="f10.xacNhanTrung" data-a1="'+m0.id+'" title="Lưu cả 2 bản (ví dụ 2 bản khác nhau thật)">Giữ cả 2</button>'+
       '<button class="nho chinh" data-lenh="f10.luuRoiGop" data-dong="1" data-a1="'+m0.id+'" title="Lưu file mới rồi mở hộp gộp để chọn bản giữ lại">Lưu rồi gộp</button></div>');
 }
 function luuRoiGop(id){
@@ -938,7 +934,7 @@ function kiemTraKhungXem(){
     else if(!an) kq += ' Mọi thứ bình thường.';
     moHop('<div class="hop-tit">Kiểm tra khung xem</div><div class="hop-phu">'+coChuHTML(kq)+'</div>'+
       '<div class="huong-dan">Khung xem chỉ hiện khi cửa sổ rộng từ 900px. Bấm nút <b>▣</b> trên thanh danh sách để bật/tắt cho từng tab.</div>'+
-      '<div class="hang-nut"><button class="nho" onclick="datLaiBoCuc();dongHop()">Đặt lại toàn bộ bố cục</button>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="f10.datLaiBoCuc">Đặt lại toàn bộ bố cục</button>'+
       '<button class="nho chinh" data-lenh="hop.dong">Xong</button></div>');
   }, 80);
 }
@@ -1207,7 +1203,7 @@ function nhomTheoThang(ds, khoaNgay){
     if(moNhom[idN]===undefined) moNhom[idN] = (n===dsNam[0]);
     var demN = Object.keys(nam[n]).reduce(function(a,t){ return a+nam[n][t].length; },0);
     h += '<div class="g g1'+(moNhom[idN]?' mo':'')+'" id="g-'+idN+'">'+
-      '<div class="g-dau" onclick="batNhom(\'' +idN+ '\')">'+
+      '<div class="g-dau" data-lenh="f10.batNhom" data-a1="' +idN+ '">'+
         '<span class="mui">›</span><span class="ten">Năm '+n+'</span>'+
         '<span class="dem">'+demN+' mục</span></div><div class="g-than">';
     var dsT = Object.keys(nam[n]).sort().reverse();
@@ -1216,7 +1212,7 @@ function nhomTheoThang(ds, khoaNgay){
       if(moNhom[idT]===undefined) moNhom[idT] = (n===dsNam[0] && t===dsT[0]);
       var nhan = t ? ('Tháng '+parseInt(t,10)) : 'Chưa rõ tháng';
       h += '<div class="g'+(moNhom[idT]?' mo':'')+'" id="g-'+idT+'">'+
-        '<div class="g-dau" onclick="batNhom(\'' +idT+ '\')">'+
+        '<div class="g-dau" data-lenh="f10.batNhom" data-a1="' +idT+ '">'+
           '<span class="mui">›</span><span class="ten">'+nhan+'</span>'+
           '<span class="dem">'+nam[n][t].length+'</span></div><div class="g-than">'+
         nam[n][t].sort(function(a,b){
@@ -1248,6 +1244,14 @@ gdDangKy('menu', (function(){
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f10.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('f10', gdLenh({
+  xemThuQD:function(el, ev){ xemThu('qd', gdA(el, 1), +gdA(el, 2)); },
+  lapChiMuc:function(el, ev){ doiPhanDK('lcm'); lapChiMuc(); },
+  xoaHanRac:function(el, ev){ xoaHanRac(idChonRac()); },
+  gopGiu:function(el, ev){ GOP_TRUNG.giu = el.value; },
+  xemBanTrung:function(el, ev){ ev.preventDefault(); xemBanTrung(gdA(el, 1)); },
+  xacNhanTrung:function(el, ev){ dongHop(); var id = gdA(el, 1), c = (D.cho||[]).find(function(x){ return x.id===id; }); if(c){ c.xacNhanTrung = true; duyet(c.id); } },
+  datLaiBoCuc:function(el, ev){ datLaiBoCuc(); dongHop(); },
+  batNhom:function(el, ev){ batNhom(gdA(el, 1)); },
   boCho:function(el, ev){ boCho(gdA(el, 1)); },
   chonNganRac:function(el, ev){ chonNganRac(gdA(el, 1)); },
   chonNhomQD:function(el, ev){ chonNhomQD(el, gdA(el, 1)); },

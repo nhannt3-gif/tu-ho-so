@@ -19,15 +19,13 @@ function docLaiGoiY(id, cheSua, epOCR){
     if(!b) throw new Error('Không còn file trong máy');
     if(!laPDF) return anhTuBlob(b).then(function(im){ return docDongOCR(quaKhung(im)); });
     if(!window.pdfjsLib) throw new Error('Chưa tải được bộ đọc PDF');
-    return b.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; })
+    return PDFA.mo(b)
       .then(function(pdf){ return pdf.getPage(1); }).then(function(pg){
         return (epOCR ? Promise.resolve(null) : dongTuPDF(pg)).then(function(r){
           if(r && r.chu.replace(/\s+/g,'').length >= 40) return r;
           /* PDF chụp không có chữ → vẽ trang 1 ra ảnh rồi OCR */
           dangLamChu('Đang dựng ảnh trang 1…');
-          var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(3, 2200/Math.max(vp0.width, vp0.height))});
-          var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
-          return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return docDongOCR(c); });
+          return PDFA.ve(pg, {canh:2200, toiDa:3}).then(docDongOCR);
         });
       });
   }).then(function(r){
@@ -469,14 +467,6 @@ function luuSauHang(){
     k.trang = HANG.filter(function(x){ return x.kieu==='anh' || x.kieu==='trang'; }).map(hangRaTrang);
   }
   ghiLuuTam([k], 'Đã lưu tạm. Vào tab Scan khai và lưu hàng loạt khi rảnh.');
-}
-function ghiLuuTam(ds, loiBao){
-  var bay = new Date().toISOString();
-  D.scan = D.scan || []; ds.forEach(function(k){ k.may = maMayCua(); k.suaLuc = bay; D.scan.push(k); }); HS.ds = D.scan;
-  donGocHang(); HANG = []; luu(); dongHop(); veScan();
-  if(D.cauHinh.dbSauLuu!==false) henDongBoScan();   /* 3.46: lưu tạm xong đưa lên Drive liền (có mạng) */
-  if(SAU_LUU_TAM){ var f = SAU_LUU_TAM; SAU_LUU_TAM = null; return f(ds); }
-  bao(loiBao, 7);
 }
 function luuNhieuThe(anh){
   var d = nay(), ds = [], ch = Promise.resolve();

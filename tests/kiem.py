@@ -44,6 +44,15 @@ def boChuoi(t):
         out.append(c); i+=1
     return ''.join(out)
 js2=boChuoi(js)
+# 3.557: hàm bị thay hẳn (xem thước đo thay_han) — bỏ qua tên làm khóa trong bảng lệnh ({ten:function…})
+def thay_han(t):
+    ra=[]
+    for m in re.finditer(r'^function ([\w$]+)\s*\(',t,re.M):
+        n=m.group(1); o=re.search(r'^'+re.escape(n)+r'\s*=\s*function\b',t[m.end():],re.M)
+        if not o: continue
+        doan=t[m.end():m.end()+o.start()]
+        if not [x for x in re.finditer(r'(?<![\w$.])'+re.escape(n)+r'(?![\w$])(?!\s*\()',doan) if not (re.search(r'[{,]\s*$',doan[:x.start()]) and re.match(r'\s*:',doan[x.end():]))]: ra.append(n)
+    return ra
 goi=set(re.findall(r'(?<![\w$.\\])([A-Za-z_$][\w$]*)\s*\(',js2))
 thieu=sorted(x for x in goi if x not in defs and x not in toan_cuc and x not in kw)
 onc=set(re.findall(r'on(?:click|change|input|keydown|blur|drop|dragstart|dragover)=\\?["\'](?:[^"\']*?;)?\s*([A-Za-z_$][\w$]*)\(',s))
@@ -128,8 +137,10 @@ if len(sys.argv)<2:
         # 3.502 (rà soát 08/11 — Đợt 1, QUY_CHUAN mục 13): file JS MỚI (không có trong tests/js_cu.json) không khai hàm rời toàn cục — gói mới = 1 đối tượng (tên gói); mốc 0
         'goi_moi':sum(len(re.findall(r'^function\s', t, re.M)) for p,t in nd.items() if os.path.exists(os.path.join(G,'tests','js_cu.json')) and p.replace('\\','/') not in set(json.load(open(os.path.join(G,'tests','js_cu.json'),encoding='utf-8'))['cu'])),
         # 3.502: khóa D.cauHinh dùng trong code mà chưa ghi sổ tests/cau_hinh.json (tools/so_cau_hinh.py --them) — mốc 0
+        # 3.557 (anh 20/11 "rà soát chuẩn hóa code cho gọn"): hàm bị THAY HẲN — `function x(){…}` rồi file sau gán `x = function…` mà không giữ bản cũ (bọc) → thân cũ là mã chết; mốc 0
+        'thay_han':len(thay_han(js2)),
         'cau_hinh_la':len(set(k for t in nd.values() for k in re.findall(r'\bcauHinh\.([A-Za-z_$][\w$]*)', t)) - set(json.load(open(os.path.join(G,'tests','cau_hinh.json'),encoding='utf-8'))['khoa']) if os.path.exists(os.path.join(G,'tests','cau_hinh.json')) else set())}
-    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc','nhanh_mau':'nhánh mẫu riêng (js/25*)','ham_chet':'hàm không tới được','ham_trung':'hàm trùng','css_chet':'lớp CSS chết','goi_moi':'hàm rời ở gói mới','cau_hinh_la':'khóa cấu hình chưa ghi sổ'}
+    ten={'js_kb':'JS KB','css_kb':'CSS KB','ham':'hàm chung','bien':'biến chung','mo_coi':'mồ côi','dong_dai':'dòng >400','onclick':'onclick','file_lon':'file >150 KB','kho_thang':'đọc thẳng biến kho','bang_goc':'đọc thẳng bảng gốc','nhanh_mau':'nhánh mẫu riêng (js/25*)','ham_chet':'hàm không tới được','ham_trung':'hàm trùng','css_chet':'lớp CSS chết','goi_moi':'hàm rời ở gói mới','cau_hinh_la':'khóa cấu hình chưa ghi sổ','thay_han':'hàm bị thay hẳn'}
     pm=os.path.join(G,'tests','do_moc.json'); moc=json.load(open(pm,encoding='utf-8')) if os.path.exists(pm) else {}
     if MOC or not moc: json.dump(do,open(pm,'w',encoding='utf-8'),ensure_ascii=False,indent=1); moc=do
     vuot=[k for k in do if k in moc and do[k]>moc[k] and k not in ('js_kb','css_kb','ham','bien')]

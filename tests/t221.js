@@ -24,7 +24,7 @@ const path=require('path');
    chamHang(1); await w(100); const ph = k => document.dispatchEvent(new KeyboardEvent('keydown', {key:k, bubbles:true, cancelable:true}));
    ph('ArrowDown'); await w(100); ph('ArrowDown'); await w(100); ph('ArrowLeft'); await w(100);
    ok('chọn ảnh rồi ↓ ↓ ← → ảnh đi theo, vẫn đang chọn', ten()==='a2,a1,a0,a4,a3,a5' && HC_CHON===4 && HANG[HC_CHON].ten==='a3', ten()+' chọn '+HC_CHON);
-   ok('nút 🔄 Lật (180°) hiện rõ ở mỗi mặt thẻ', document.querySelectorAll('#hc-anh button[onclick^="xoayHang"]').length===6 && /🔄 Lật/.test(document.querySelector('#hc-anh button[onclick^="xoayHang"]').textContent));
+   ok('nút 🔄 Lật (180°) hiện rõ ở mỗi mặt thẻ', document.querySelectorAll('#hc-anh button[data-lenh="f12.xoayHang"]').length===6 && /🔄 Lật/.test(document.querySelector('#hc-anh button[data-lenh="f12.xoayHang"]').textContent));
    dongHop(); HANG = []; HC_CHON = -1;
    return o; });
  R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5).join(' | '));

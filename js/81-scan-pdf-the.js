@@ -39,15 +39,11 @@ function scDoThe(c){
     rg.drawImage(c, x0, y0, cw, ch, le, le, cw, ch); return r; });
 }
 /* 1 trang pdf.js → canvas (rộng ~1800 điểm) */
-function scVeTrang(doc, so){
-  return doc.getPage(so).then(function(pg){
-    var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 1800/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
-    return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return c; }); });
-}
+function scVeTrang(doc, so){ return PDFA.veTrang(doc, so, {rong:1800, toiDa:4}); }
 /* file PDF → {anh:[File ảnh thẻ], moiTrang:bool (mọi trang đều chỉ là thẻ)} */
 function scPDFThe(f){
   if(!sanSangPDF()) return Promise.resolve({anh:[], moiTrang:false});
-  return f.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; }).then(function(doc){
+  return PDFA.mo(f).then(function(doc){
     var n = Math.min(doc.numPages, 40), anh = [], du = true, goc = String(f.name||'the.pdf').replace(/\.pdf$/i, '');
     var lam = function(so){ return scVeTrang(doc, so).then(function(c){ var ds = scDoThe(c); if(!ds){ du = false; return; }
       return ds.reduce(function(p, x, k){ return p.then(function(){ return canvasRaBlob(x, 0.92).then(function(b){ anh.push(new File([b], goc+' tr'+so+(ds.length>1 ? '-'+(k+1) : '')+'.jpg', {type:'image/jpeg'})); }); }); }, Promise.resolve()); }); };
@@ -83,7 +79,7 @@ function scDK(){ if(scDK.xong || typeof GD==='undefined') return; scDK.xong = 1;
   GD.dangKy('scpdf', {the:function(){ scSangThe(); }, them:function(){ chonTepPDF(function(fs){ nhanVaoScan(fs, 'file', 1); }); }}); }
 function scNutPDFThe(){   /* ① hàng chờ thẻ: hiện lại "+ Thêm PDF" */
   if(SC.che!=='the') return; var h = document.getElementById('hop-in'); if(!h || h.querySelector('.sc-them-pdf')) return;
-  var q = h.querySelector('button[onclick^="quetThemHang"]'); if(!q) return; scDK();
+  var q = h.querySelector('button[data-lenh="f12.quetThemHang"]'); if(!q) return; scDK();
   q.insertAdjacentHTML('afterend', '<button class="nho sc-them-pdf" data-lenh="scpdf.them" title="CCCD đã lưu dạng PDF — app tìm thẻ trong từng trang, cắt sát như ảnh chụp">+ Thêm PDF</button>');
 }
 function scNhacThe(){   /* ② dòng nhắc ở hàng chờ Tài liệu */
@@ -104,7 +100,7 @@ var SC81_CAT = typeof sxCatTuPDF==='function' ? sxCatTuPDF : null;
 if(SC81_CAT) sxCatTuPDF = function(k, lan){
   if(k.catBo || !k.driveId || !coTheNoiDrive() || typeof taiPDFDrive!=='function') return SC81_CAT(k, lan);
   return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null; return taiPDFDrive(k.driveId).then(function(b){ return b.arrayBuffer(); }); })
-    .then(function(ab){ if(!ab) return null; return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; })
+    .then(function(ab){ if(!ab) return null; return PDFA.mo(ab); })
     .then(function(doc){ if(!doc || doc.numPages<2) return null;
       return scVeTrang(doc, 1).then(function(c1){ if(sxCatThe(c1, lan) || sxCatThe2(c1)) return null;   /* trang 1 đủ 2 mặt → cách cũ */
         return scVeTrang(doc, 2).then(function(c2){ var a = scDoThe(c1), b = scDoThe(c2); return a && b && a.length===1 && b.length===1 ? [a[0], b[0]] : null; }); }); })

@@ -10,16 +10,11 @@ var SCPP = {
   laPDF: function(f){ return !!f && (f.type==='application/pdf' || /\.pdf$/i.test(f.name||'')); },
   /* 1 file PDF → [File JPG nguyên tờ] (tối đa 40 trang, rộng ~2480 điểm ≈ A4 300 dpi để đọc số rõ) */
   trangRaAnh: function(f){
-    return xongTV.then(function(){ if(!sanSangPDF()) throw new Error('Chưa tải được bộ đọc PDF'); return f.arrayBuffer(); })
-      .then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; })
+    return xongTV.then(function(){ return PDFA.mo(f); })
       .then(function(doc){
         var n = Math.min(doc.numPages, 40), ra = [], goc = String(f.name||'photo.pdf').replace(/\.pdf$/i, ''), p = Promise.resolve();
-        var lam = function(so){ return doc.getPage(so).then(function(pg){
-          var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(5, 2480/Math.max(v0.width, v0.height))});
-          var c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
-          var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
-          return pg.render({canvasContext:g, viewport:vp}).promise.then(function(){ return canvasRaBlob(c, 0.92); })
-            .then(function(b){ ra.push(new File([b], goc+(n>1 ? ' tr'+so : '')+'.jpg', {type:'image/jpeg'})); }); }); };
+        var lam = function(so){ return PDFA.veTrang(doc, so, {canh:2480, toiDa:5}).then(function(c){ return canvasRaBlob(c, 0.92); })
+          .then(function(b){ ra.push(new File([b], goc+(n>1 ? ' tr'+so : '')+'.jpg', {type:'image/jpeg'})); }); };
         for(var so=1; so<=n; so++) p = p.then(lam.bind(null, so));
         return p.then(function(){ return ra; });
       });

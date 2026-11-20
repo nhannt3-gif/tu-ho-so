@@ -65,24 +65,35 @@ function nenChu(t){
   }).join('\n');
 }
 
+/* 3.557 (rà soát gọn code): BỘ ĐỌC PDF CHUNG — mở file + vẽ 1 trang thành ảnh; trước viết lặp ở 9 file (03, 05, 10, 12, 12b, 12d, 43, 44, 81, 81b)
+   PDFA.mo(Blob | File | ArrayBuffer) → tài liệu pdf.js · PDFA.ve(trang, o) → canvas · PDFA.veTrang(tài liệu, số trang từ 1, o) → canvas
+   o: rong = bề rộng ảnh (điểm) · canh = cạnh dài ảnh · toiDa = tỉ lệ phóng tối đa · xoay = độ xoay (0/90/180/270); không có rong / canh → tỉ lệ 1 */
+var PDFA = {
+  mo: function(b){
+    if(!sanSangPDF()) return Promise.reject(new Error('Chưa tải được bộ đọc PDF'));
+    return Promise.resolve(b && b.arrayBuffer ? b.arrayBuffer() : b).then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; });
+  },
+  ve: function(pg, o){
+    o = o || {}; var q = o.xoay, vp = function(s){ return pg.getViewport(q==null ? {scale:s} : {scale:s, rotation:q}); }, v0 = vp(1);
+    var s = o.rong ? o.rong/v0.width : (o.canh ? o.canh/Math.max(v0.width, v0.height) : 1); if(o.toiDa) s = Math.min(o.toiDa, s);
+    var v = vp(s), c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height);
+    return pg.render({canvasContext:c.getContext('2d'), viewport:v}).promise.then(function(){ return c; });
+  },
+  veTrang: function(doc, so, o){ return doc.getPage(so).then(function(pg){ return PDFA.ve(pg, o); }); }
+};
 /* Đọc chữ của n trang đầu. Trả về chuỗi, hoặc '' nếu không đọc được */
 function docChuPDF(file, soTrang, moiTrang){   /* 3.416.1: moiTrang(i, n) — báo tiến độ từng trang (Thêm file) */
   return new Promise(function(ok){
     if(!sanSangPDF()){ return ok({chu:'', trang:0}); }
-    var fr = new FileReader();
-    fr.onload = function(){
-      pdfjsLib.getDocument({data:new Uint8Array(fr.result)}).promise.then(function(pdf){
-        var n = Math.min(soTrang||2, pdf.numPages), ds = [], da = 0;
-        for(var i=1;i<=n;i++) ds.push(pdf.getPage(i).then(function(p){
-          return p.getTextContent().then(function(tc){ da++; if(moiTrang) try{ moiTrang(da, n); }catch(e){} return ghepDong(tc.items); });
-        }));
-        Promise.all(ds).then(function(a){
-          ok({chu:nenChu(a.join('\n')), trang:pdf.numPages});
-        }).catch(function(){ ok({chu:'', trang:pdf.numPages}); });   /* 3.31: trang lỗi không làm treo cả file */
-      }).catch(function(){ ok({chu:'', trang:0}); });
-    };
-    fr.onerror = function(){ ok({chu:'', trang:0}); };
-    fr.readAsArrayBuffer(file);
+    PDFA.mo(file).then(function(pdf){
+      var n = Math.min(soTrang||2, pdf.numPages), ds = [], da = 0;
+      for(var i=1;i<=n;i++) ds.push(pdf.getPage(i).then(function(p){
+        return p.getTextContent().then(function(tc){ da++; if(moiTrang) try{ moiTrang(da, n); }catch(e){} return ghepDong(tc.items); });
+      }));
+      Promise.all(ds).then(function(a){
+        ok({chu:nenChu(a.join('\n')), trang:pdf.numPages});
+      }).catch(function(){ ok({chu:'', trang:pdf.numPages}); });   /* 3.31: trang lỗi không làm treo cả file */
+    }).catch(function(){ ok({chu:'', trang:0}); });
   });
 }
 

@@ -173,7 +173,7 @@ const fs=require('fs'), path=require('path');
    bao = bao0;
    window.documentPictureInPicture = {requestWindow: () => Promise.resolve(window.open('', 'hsnoi', 'width=460,height=620'))};
    CC.mo = ''; ccMo('hssv'); await w(100);
-   ok('📌 nút Nổi có trên ô HSSV', !!document.querySelector('#cc-o button[onclick="hsNoi()"]'));
+   ok('📌 nút Nổi có trên ô HSSV', !!document.querySelector('#cc-o button[data-lenh="f04b.hsNoi"]'));
    /* 3.142: CSS ở file riêng; mở bằng file:// trình duyệt chặn cửa sổ nổi tải css/app.css → thay link bằng <style> cùng nội dung
       (giống khi chạy web: app chép luật CSS sang cửa sổ nổi). Đường web thật kiểm ở t138. */
    (function(){ const l = document.querySelector('link[rel=stylesheet]'); if(!l) return; const st = document.createElement('style'); st.textContent = NGUON_APP.split('<style>\n')[1].split('</style>')[0]; l.replaceWith(st); })();
