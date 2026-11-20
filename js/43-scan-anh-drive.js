@@ -139,9 +139,7 @@ function sxTrangPDF(k){
   return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null;
     return taiPDFDrive(k.driveId).then(function(b){ return b.arrayBuffer(); }); })   /* 3.300: qua bộ nhớ tạm PDF (xem rồi cắt không tải 2 lần) */
     .then(function(ab){ if(!ab) return null;
-      return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(doc){ return doc.getPage(1); }).then(function(pg){
-        var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
-        return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return c; }); }); })
+      return PDFA.mo(ab).then(function(doc){ return PDFA.veTrang(doc, 1, {rong:2000, toiDa:4}); }); })
     .catch(function(){ return null; });
 }
 /* cắt 2 ảnh từ PDF → lưu trong máy (đánh dấu cắt từ PDF) → đưa lên Drive → [trước, sau] */

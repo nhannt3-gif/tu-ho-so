@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.557 — 20/11/2026 — Rà soát chuẩn hóa code cho gọn (không đổi chức năng)
+- **Nguồn:** anh 20/11 "tiếp tục rà soát chuẩn hóa code cho gọn" → duyệt kế hoạch 4 việc, "code 1 lần theo em đề xuất" (không gộp lớp bọc Scan — giữ cắm rút).
+- **① Hàm bị thay hẳn:** thước đo mới `thay_han` trong `tests/kiem.py` (mốc 0) — `function x(){…}` mà file sau gán `x = function…` không giữ bản cũ → thân cũ là mã chết (`kiem.py` cũ không bắt được). Xóa 17 thân cũ: js/08 `tenTheCCCD`, `duongTheCCCD`, `duongScan`, `tenScanDrive`; js/12 `batDauScan`, `scanXongHop`, `scanLuuMay`, `scanGui`, `scanLuuTu`; js/12b `quetNhanh`, `moThuMucKA`, `moKyAnh`, `dayKAMot`; js/12d `ghiLuuTam`; js/35 `scanLuuApp`; js/41 `sxAnhDoc`, `sxAnhTuCCCD` + `duongDongHTML` (js/10, chỉ hàm chết gọi). Bản thay (js/35, 41, 43, 46, 51) giữ nguyên.
+- **② Bộ đọc PDF chung `PDFA`** (js/03): `PDFA.mo(Blob | ArrayBuffer)`, `PDFA.ve(trang, {rong | canh, toiDa, xoay})`, `PDFA.veTrang(tài liệu, số, o)` — thay 12 chỗ viết lặp ở js/03 (`docChuPDF`), 05 (`moPDFNho`, `ocrTrang`), 10 (`kiemMotFileQD`), 12 (`moPDFNguon`, `anhTrangPDF`), 12b (`veTrangXP`), 12d, 43, 44 (`qcTrangPDF`), 81 (`scVeTrang`, `scPDFThe`, `sxCatTuPDF`), 81b. Giữ riêng khung xem PDF js/05 (vẽ theo độ nét màn hình).
+- **③ Đ4 onclick → data-lenh:** js/04b (32), js/12 (21), js/06a (16), js/10 (9), js/11 (8) — thước đo onclick 458 → 368. Chỗ tìm nút theo `onclick` sửa theo: js/46 (`boChonHS`), js/81 (`quetThemHang`), t111, t221. Để nguyên có chủ ý: hàng danh sách văn bản js/10 + js/11 (nút con dùng chung ★ / ⋯ / ✎ chặn lan sự kiện — phải đổi cả cụm), nút trên thông báo nổi (`#bao` có bộ nghe riêng), khôi phục thùng rác (gọi `ve()` vùng riêng), lệnh tên động (`'+fn+'(…)`).
+- **④ Đ7 dòng dài:** js/25, 25b, 25c 85 → 1 dòng > 400 ký tự (cả app 159 → 108): chỉ xuống dòng sau `+` / `,`, ghi chú cuối dòng lên dòng riêng, chuỗi dài tách `'…'+'…'` ở ngữ cảnh an toàn — kiểm bằng so dãy token trước / sau (gộp lại chuỗi) giống hệt → mẫu in không đổi chữ nào.
+- Phép thử mới t411 (12 ý).
+
 ## 3.556 — 17/11/2026 — Bản photo CCCD / CCCD nhận file PDF
 - **Nguồn:** anh 17/11 "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf" → duyệt "code mở pdf luôn" (cả 🪪 CCCD).
 - **Nguyên nhân:** 🖼 Ảnh có sẵn mở hộp chọn file `image/*,.heic,.heif` (js/12 `chonNguon`) → PDF mờ, không chọn được; lối PDF chế độ Thẻ của js/81 (3.403) chỉ dò thẻ trên nền trắng, không qua bước tách tờ photo.

@@ -302,7 +302,7 @@ function xoaHanRac(ids, tieuDe){
     (canDrive?'File trên Drive chuyển vào <b>thùng rác Google Drive</b> — Google giữ 30 ngày rồi tự xóa, trong thời gian đó vẫn lấy lại được ở drive.google.com › Thùng rác. ':'')+
     'Máy kia cũng bỏ theo khi đồng bộ.</div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-    '<button class="nho xau" onclick="thucHienXoaHan(['+ds.map(function(m){ return '\''+m.id+'\''; }).join(',')+'])">Xóa hẳn '+ds.length+' file</button></div>');
+    '<button class="nho xau" data-lenh="f06a.thucHienXoaHan" data-a1="'+ds.map(function(m){ return m.id; }).join(',')+'">Xóa hẳn '+ds.length+' file</button></div>');
 }
 function thucHienXoaHan(ids, imLang){
   var ds = (D.rac||[]).filter(function(m){ return ids.indexOf(m.id)>=0; });
@@ -522,7 +522,7 @@ function moCaiDat(mucMo){
 }
 function veMenuCD(){
   var nhom1 = TAB_CD.map(function(t){
-    return '<button'+(CD_MO===t.ma?' class="bat"':'')+' onclick="doiCD(\''+t.ma+'\')">'+
+    return '<button'+(CD_MO===t.ma?' class="bat"':'')+' data-lenh="f06a.doiCD" data-a1="'+t.ma+'">'+
       '<span class="ic">'+t.ico+'</span>'+t.ten+'</button>';
   }).join('');
   var nhom2 = [
@@ -530,7 +530,7 @@ function veMenuCD(){
     ['diaban','🗺','Địa bàn'], ['chimuc','🧰','Bảo trì kho'],
     ['lich','📅','Lịch & ngày chay'], ['dulieu','💾','Dữ liệu app'], ['hd','❓','Hướng dẫn']
   ].map(function(x){
-    return '<button'+(CD_MO===x[0]?' class="bat"':'')+' onclick="doiCD(\''+x[0]+'\')">'+
+    return '<button'+(CD_MO===x[0]?' class="bat"':'')+' data-lenh="f06a.doiCD" data-a1="'+x[0]+'">'+
       '<span class="ic">'+x[1]+'</span>'+x[2]+'</button>';
   }).join('');
   return '<div class="cd-nhan">Từng tab</div>'+nhom1+
@@ -555,10 +555,10 @@ function veNoiCD(k){
   if(k==='chung'){
     return '<h3>Hiển thị</h3>'+
       '<div class="o"><label>Cỡ chữ</label><div class="co-chu" id="cd-co">'+
-      '<button'+(c.coTu!==false?' class="bat"':'')+' onclick="datCoTu(this)" title="Tự chọn theo cỡ màn: màn rộng (24 inch) chữ to hơn, laptop để 125% chữ nhỏ hơn chút — tự đổi khi kéo cửa sổ">Tự động</button>'+
+      '<button'+(c.coTu!==false?' class="bat"':'')+' data-lenh="f06a.datCoTu" title="Tự chọn theo cỡ màn: màn rộng (24 inch) chữ to hơn, laptop để 125% chữ nhỏ hơn chút — tự đổi khi kéo cửa sổ">Tự động</button>'+
       [['Nhỏ',.9],['Vừa',1],['To',1.12]].map(function(x){
         return '<button'+(c.coTu===false&&Math.abs(c.coChu-x[1])<.01?' class="bat"':'')+
-          ' onclick="datCo('+x[1]+',this)">'+x[0]+'</button>';
+          ' data-lenh="f06a.datCo" data-a1="'+x[1]+'">'+x[0]+'</button>';
       }).join('')+'</div></div>'+
       '<div class="o"><label>Giao diện</label><div class="co-chu" id="cd-gd">'+
       [['Theo máy','auto'],['Sáng','light'],['Tối','dark']].map(function(x){
@@ -631,13 +631,13 @@ function veNoiCD(k){
       [['dbMoApp','Khi mở app',true],['dbRoiApp','Khi rời app (chuyển app khác, khóa máy, đóng)',true],
        ['dbSauLuu','Ngay sau khi lưu',true],['db5p','Mỗi 5 phút khi app đang mở',false]].map(function(x){
         var bat = x[2] ? c[x[0]]!==false : c[x[0]]===true;
-        return '<label class="tl-chon"><input type="checkbox"'+(bat?' checked':'')+' onchange="D.cauHinh.'+x[0]+'=this.checked;luu()"> '+x[1]+'</label>';
+        return '<label class="tl-chon"><input type="checkbox"'+(bat?' checked':'')+' data-lenh="f06a.datBat" data-su="change" data-a1="'+x[0]+'"> '+x[1]+'</label>';
       }).join('')+
       '<div class="hang-nut" style="margin:6px 0 10px"><button class="nho chinh" data-lenh="f06a.dongBoNgay">☁ Đồng bộ ngay</button></div>'+
       /* 3.31 (mục 10 bàn giao): Google Picker — quét kho Drive cũ (quyền drive.file chỉ thấy file app tạo) */
       '<h3>Quét kho Drive cũ (Google Picker)</h3>'+
       o('API key của Google Picker','cd-apikey',c.apiKey||'','Tạo trong Google Cloud (cùng dự án với Client ID), bật Google Picker API, giới hạn key cho trang app. Chỉ lưu trong máy này.')+
-      '<div class="hang-nut" style="margin:-4px 0 6px"><button class="nho chinh" onclick="luuCaiDat();moPicker()">Chọn thư mục / file cũ trên Drive…</button></div>'+
+      '<div class="hang-nut" style="margin:-4px 0 6px"><button class="nho chinh" data-lenh="f06a.luuMoPicker">Chọn thư mục / file cũ trên Drive…</button></div>'+
       '<div class="huong-dan">Anh tự chọn thư mục hoặc file trong kho cũ. App đọc nội dung, đề xuất tên chuẩn và đưa cả xấp vào <b>khay chờ</b>. '+
       '<b>Không đổi tên, không dời file</b> nào cho tới khi anh bấm Duyệt. Nếu chọn thư mục mà app không đọc được bên trong, '+
       'mở lại và chọn trực tiếp các file (giữ Ctrl/Shift để chọn nhiều).</div>'+
@@ -645,7 +645,7 @@ function veNoiCD(k){
       '<div class="o"><div class="co-chu" id="cd-len">'+
       [['Đưa thẳng lên Drive',true],['Chỉ lưu vào máy',false]].map(function(x){
         return '<button'+((c.tuLenDrive!==false)===x[1]?' class="bat"':'')+
-          ' onclick="datLenDrive('+x[1]+',this)">'+x[0]+'</button>';
+          ' data-lenh="f06a.datLenDrive" data-a1="'+x[1]+'">'+x[0]+'</button>';
       }).join('')+'</div></div>'+
       '<h3>Cài đặt trên Drive</h3>'+
       '<div class="hang-nut">'+
@@ -711,7 +711,7 @@ function veNoiCD(k){
       '<div class="huong-dan">“Ngày này năm xưa” chạy riêng, luôn hiện nếu ngày đó có sự kiện. '+
       'App gói sẵn '+CAU_GOI.length+' câu và '+Object.keys(NGAY_XUA).length+' ngày có sự kiện'+
       ((nguonCau().cauChu||[]).length?', cộng '+nguonCau().cauChu.length+' câu của anh trên Drive':'')+'.</div></div>'+
-      '<div class="hang-nut"><button class="nho" onclick="taiNguonCauTuDrive().then(function(n){ bao(n?(\'Đã nạp \'+n+\' câu từ Drive.\'):\'Chưa thấy file nguon-cau.json trên Drive.\',5); })">Nạp nguồn của anh từ Drive</button></div>'+
+      '<div class="hang-nut"><button class="nho" data-lenh="f06a.taiNguonCau">Nạp nguồn của anh từ Drive</button></div>'+
       '<div class="huong-dan">Bỏ file <b>nguon-cau.json</b> vào <b>Tủ hồ sơ/_Hệ thống/</b> trên Drive (xem mẫu trong Hướng dẫn).</div>'+
       '<h3>Ngày lễ âm</h3><div class="huong-dan">App tự ghi: Tết, Rằm tháng Giêng, Giỗ Tổ, Phật đản, Đoan ngọ, Vu lan, Trung thu, Trùng cửu, Ông Táo, Giao thừa.</div>';
   }
@@ -721,7 +721,7 @@ function veNoiCD(k){
     /* 3.50 (anh chốt): Bảo trì kho gộp vào 🧰 Dọn kho — ở đây chỉ còn lối dẫn, không còn bản thứ hai */
     var loi = function(ic, ten, lam, phan){
       return '<div class="bt-the"><div class="bt-dau"><span class="bt-ic">'+ic+'</span><b>'+ten+'</b></div><div class="bt-lam">'+lam+'</div>'+
-        '<div class="hang-nut"><button class="nho chinh" onclick="dongCaiDat();moDonKho(\''+phan+'\')">Mở</button></div></div>';
+        '<div class="hang-nut"><button class="nho chinh" data-lenh="f06a.moDonKho" data-a1="'+phan+'">Mở</button></div></div>';
     };
     return '<h3>🧰 Dọn kho</h3>'+
       '<div class="huong-dan" style="margin-bottom:10px">Bảo trì kho đã gộp vào <b>🧰 Dọn kho</b> (nút trên thanh trên cùng, cạnh 🗑). Mọi việc xóa, rác, lập chỉ mục nằm một chỗ.</div>'+
@@ -741,9 +741,9 @@ function veNoiCD(k){
       (D.vanBan.length+D.duLieu.length+D.ghiChu.length+(D.scan||[]).length+
        (D.bieuMau||[]).length)+'</b> mục. Nạp sẽ gộp thêm, không xóa cái đang có.</div>'+
       '<h3>Thùng rác · Dọn kho</h3>'+
-      '<div class="hang-nut"><button class="nho" onclick="dongCaiDat();moRac()">🗑 Mở thùng rác'+
+      '<div class="hang-nut"><button class="nho" data-lenh="f06a.moRac">🗑 Mở thùng rác'+
       ((D.rac||[]).length?(' ('+D.rac.length+')'):'')+'</button>'+
-      '<button class="nho" onclick="dongCaiDat();moDonKho()">🧰 Mở Dọn kho</button></div>'+
+      '<button class="nho" data-lenh="f06a.moDonKho">🧰 Mở Dọn kho</button></div>'+
       '<h3>🔄 Reset dữ liệu thử (giữ cài đặt)</h3>'+
       '<div class="huong-dan">Xóa hàng loạt dữ liệu nhập thử để bắt đầu dùng chính thức. <b>Giữ nguyên toàn bộ cài đặt</b>: địa bàn, danh mục, tag, mẫu báo cáo, Client ID, cách đặt tên, giao diện. '+
         'Máy kia xóa theo khi đồng bộ. Xóa vài file thì dùng <b>🗑 Xóa file</b> ở đầu mỗi tab.</div>'+
@@ -777,7 +777,7 @@ function veCDTab(t){
     '</b> mục. Sửa là lưu và dùng được ngay bên tab.</div>';
 
   if(k==='vanBan') h += '<div class="huong-dan">Mảng nghiệp vụ, Chương trình vay, Loại văn bản (kèm từ khóa, viết tắt) nằm ở '+
-    '<a class="lk" onclick="doiCD(\'chung\')">Cài đặt › Chung</a> vì dùng chung cho nhiều tab.</div>';
+    '<a class="lk" data-lenh="f06a.doiCD" data-a1="chung">Cài đặt › Chung</a> vì dùng chung cho nhiều tab.</div>';
 
   h += '<h3>'+(k==='ghiChu' ? 'Nhãn ghi chú' : 'Tag của tab này')+'</h3>'+dmHTML('tag:'+k);
   if(k==='vanBan') h += '<div class="huong-dan">Từ khóa của tag để app gợi ý tag khi đọc văn bản mới.</div>';
@@ -798,7 +798,7 @@ function veCDTab(t){
       '<div class="huong-dan" style="margin-bottom:6px">Bấm <b>⚙</b> để sửa tên, từ khóa nhận dạng, cấp tính thiếu, dạng hiển thị, chu kỳ. '+
       'Thêm, bỏ, đổi thứ tự báo cáo: bật <b>✎ Danh mục</b> trên ma trận tab Tháng.</div>'+
       dsMauCDHTML()+
-      '<div class="hang-nut"><button class="nho" onclick="dongCaiDat();D.cauHinh.suaDM=true;luu();doiNgan(2)">Mở ✎ Danh mục trên ma trận</button></div>';
+      '<div class="hang-nut"><button class="nho" data-lenh="f06a.suaDanhMuc">Mở ✎ Danh mục trên ma trận</button></div>';
     h += '<h3>Hội đoàn thể</h3>'+dmHTML('hoi')+
       '<div class="huong-dan">Phạm vi (PGD / xã / điểm GD) lấy từ Cài đặt › Địa bàn.</div>';
     h += '<h3>Nhắc giao ban (tab Hôm nay)</h3>'+
@@ -820,12 +820,12 @@ function veCDTab(t){
       '<div class="o"><label>Khe giữa 2 mặt (mm)</label><input id="cd-in-khe" type="number" step="0.5" min="2" max="15" value="'+inT.khe+'"></div></div>'+
       '<div class="huong-dan" id="cd-in-kq">Thẻ <b>'+inT.rong+' × '+inT.cao+' mm</b> (thẻ thật 85,6 × 54) · khe giữa 2 mặt '+inT.khe+' mm · '+
       'khe giữa các người ≈ '+inT.kheNguoi+' mm để cắt, ghi tên. Bề ngang tối đa '+inT.toiDa+' mm để 2 mặt vừa khổ A4. '+
-      '<a class="lk" onclick="D.cauHinh.inThe=null;luu();doiCD(\'scan\')">Về mặc định (92 × 6)</a></div>';
+      '<a class="lk" data-lenh="f06a.boInThe">Về mặc định (92 × 6)</a></div>';
     h += '<h3>Sau khi lưu hồ sơ</h3>'+
       '<div class="o"><div class="co-chu" id="cd-hsdr">'+
       [['Tự đưa PDF lên Drive',true],['Chỉ giữ trong máy',false]].map(function(x){
         return '<button'+((!!c.hsTuDrive)===x[1]?' class="bat"':'')+
-          ' onclick="datHSDrive('+x[1]+',this)">'+x[0]+'</button>';
+          ' data-lenh="f06a.datHSDrive" data-a1="'+x[1]+'">'+x[0]+'</button>';
       }).join('')+'</div>'+
       '<div class="huong-dan">Hồ sơ lưu trong máy và bản PDF đưa lên Drive của anh (Tủ hồ sơ/CCCD/xã/điểm/ấp/tổ). '+
       'Ảnh CCCD không bao giờ gửi tới AI.</div></div>';
@@ -881,7 +881,7 @@ function luuCDTab(k, ngam){
     if(kq){ document.getElementById('cd-in-rong').value = it.rong; document.getElementById('cd-in-khe').value = it.khe;
       kq.innerHTML = 'Thẻ <b>'+it.rong+' × '+it.cao+' mm</b> (thẻ thật 85,6 × 54) · khe giữa 2 mặt '+it.khe+' mm · khe giữa các người ≈ '+
         it.kheNguoi+' mm để cắt, ghi tên. Bề ngang tối đa '+it.toiDa+' mm để 2 mặt vừa khổ A4. '+
-        '<a class="lk" onclick="D.cauHinh.inThe=null;luu();doiCD(\'scan\')">Về mặc định (92 × 6)</a>'; }
+        '<a class="lk" data-lenh="f06a.boInThe">Về mặc định (92 × 6)</a>'; }
   }
   /* áp ngay cho tab đang mở */
   if(ct.kieu && ((k==='vanBan' && nganHienTai===1))) kieuXem = ct.kieu;
@@ -926,6 +926,19 @@ function soDoLuuTru(){
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06a.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
 gdDangKy('f06a', gdLenh({
+  thucHienXoaHan:function(el, ev){ thucHienXoaHan(gdA(el, 1).split(',').filter(Boolean)); },
+  doiCD:function(el, ev){ doiCD(gdA(el, 1)); },
+  datCoTu:function(el, ev){ datCoTu(el); },
+  datCo:function(el, ev){ datCo(+gdA(el, 1), el); },
+  datBat:function(el, ev){ D.cauHinh[gdA(el, 1)] = el.checked; luu(); },
+  luuMoPicker:function(el, ev){ luuCaiDat(); moPicker(); },
+  datLenDrive:function(el, ev){ datLenDrive(gdA(el, 1)==='true', el); },
+  taiNguonCau:function(el, ev){ taiNguonCauTuDrive().then(function(n){ bao(n ? ('Đã nạp '+n+' câu từ Drive.') : 'Chưa thấy file nguon-cau.json trên Drive.', 5); }); },
+  moDonKho:function(el, ev){ dongCaiDat(); moDonKho(gdA(el, 1) || undefined); },
+  moRac:function(el, ev){ dongCaiDat(); moRac(); },
+  suaDanhMuc:function(el, ev){ dongCaiDat(); D.cauHinh.suaDM = true; luu(); doiNgan(2); },
+  boInThe:function(el, ev){ D.cauHinh.inThe = null; luu(); doiCD('scan'); },
+  datHSDrive:function(el, ev){ datHSDrive(gdA(el, 1)==='true', el); },
   chepClientId:function(el, ev){ chepClientId(); },
   chonMotNut:function(el, ev){ chonMotNut(el); },
   datCauNoi:function(el, ev){ datCauNoi(el.checked); },

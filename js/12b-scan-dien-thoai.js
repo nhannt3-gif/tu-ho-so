@@ -17,12 +17,6 @@ function dauScanDT(){
     '<button class="sc-nho'+(so?' co':'')+'" data-lenh="f12b.moBoLoc" data-a1="scan" title="Bộ lọc">☰'+(so?'<i>'+so+'</i>':'')+'</button>'+
   '</div><div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+dongDangLoc('scan')+thanhBot('scan');
 }
-/* vào thẳng camera như Lens — không hỏi nguồn mỗi lần */
-function quetNhanh(nguon){
-  if(!HS.mo) return moHoSo();
-  if(!nguon && camTuDong() && coCamera()) return moCamera({muc:'scan'});
-  chonNguon(nguon||'camera');
-}
 /* màn xem trước PDF thật (dựng bằng đúng bộ tạo PDF khi gửi/in) + đổi tên + gửi */
 function moXemPDF(ids, moi, blSan){
   HS.ds = D.scan || [];
@@ -102,17 +96,12 @@ function nutNetPDF(veLai){
 function veTrangXP(bl){
   var e = document.getElementById('xp-trang'); if(!e) return;
   if(!window.pdfjsLib){ e.innerHTML = '<div class="huong-dan">Chưa tải được bộ xem PDF — vẫn gửi, in được bình thường.</div>'; return; }
-  bl.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; }).then(function(pdf){
+  PDFA.mo(bl).then(function(pdf){
     e.innerHTML = '';
     var rong = Math.max(240, e.clientWidth || 320), tile = Math.min(2, window.devicePixelRatio||1), N = pdf.numPages;
     var ve = function(n, o){
       if(o.daVe) return; o.daVe = true;
-      return pdf.getPage(n).then(function(pg){
-        var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:rong/vp0.width*tile});
-        var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
-        o.querySelector('.xp-cho').replaceWith(c);
-        return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
-      });
+      return PDFA.veTrang(pdf, n, {rong:rong*tile}).then(function(c){ o.querySelector('.xp-cho').replaceWith(c); });
     };
     var ob = ('IntersectionObserver' in window) ? new IntersectionObserver(function(ds){
       ds.forEach(function(d){ if(d.isIntersecting){ ob.unobserve(d.target); ve(+d.target.dataset.n, d.target); } });
@@ -305,50 +294,6 @@ function tenFileKA(loai, ten, ngay){
 }
 /* mỗi tháng một thư mục cho dễ tìm: Tủ hồ sơ / Chữ ký - CCCD / 2026-09 */
 function duongKA(thang){ return [D.cauHinh.thumuc, 'Chữ ký - CCCD', thang].join(' / '); }
-function moThuMucKA(thang){
-  thang = thang || ngayISO(nay()).slice(0,7);
-  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
-  var tm = (D.cauHinh.kaTM||{})[thang], mo = function(id){ return 'https://drive.google.com/drive/folders/'+id; };
-  if(tm) return window.open(mo(tm), '_blank');
-  var w = window.open('about:blank', '_blank');   /* mở cửa sổ ngay lúc bấm, tránh bị chặn popup */
-  baoDamDuong(duongKA(thang)).then(function(id){
-    D.cauHinh.kaTM = D.cauHinh.kaTM || {}; D.cauHinh.kaTM[thang] = id; luu();
-    if(w) w.location = mo(id); else window.open(mo(id), '_blank');
-  }).catch(function(e){ if(w) w.close(); baoLoi('Chưa mở được thư mục: '+(e&&e.message||e)); });
-}
-function moKyAnh(){
-  if(!HS.mo) return moHoSo();
-  D.kyAnh = D.kyAnh || [];
-  var ds = D.kyAnh.slice().sort(function(a,b){ return (b.luc||'').localeCompare(a.luc||''); });
-  if(BOT.tab!=='kyAnh') ds = ds.slice(0,30);   /* đang bớt thì hiện đủ để chọn */
-  var thang = ngayISO(nay()).slice(0,7), thangTruoc = '';
-  moHop('<div class="hop-tit">📁 Chữ ký · CCCD</div>'+
-    '<div class="hop-phu">JPG dưới 200 KB để nhập hệ thống khi tạo hồ sơ. Lưu xong tự đưa lên Drive: đã rõ khách → <b>'+   /* 3.277: chữ theo cách lưu mới (3.264) */
-      coChuHTML(D.cauHinh.thumuc||'Tủ hồ sơ')+' / Chữ ký - Ảnh khách</b> (tên <i>MãKH - Họ tên - Chữ ký</i>), chưa rõ → <b>Scan chờ sắp xếp</b>. Gõ tên / số CCCD / mã KH rồi 🔎 Tra Mẫu 31.</div>'+
-    '<div class="hang-nut" style="margin:0 0 8px"><button class="nho" data-lenh="f12b.moThuMucKA">☁ Mở thư mục Chữ ký - Ảnh khách trên Drive</button>'+
-      (D.kyAnh.length ? nutBot('kyAnh') : '')+'<button class="nho" data-lenh="f12b.moHuongDan" data-a1="kyAnh">❓</button></div>'+thanhBot('kyAnh')+
-    '<div class="cam-kieu">Chụp: '+nutKieuCam()+'</div>'+
-    '<div class="o"><label>Tên khách</label><input id="ka-ten" value="'+coChuHTML(tenKhachKA())+'" placeholder="Ví dụ: Nguyễn Văn A" '+
-      'oninput="KA.ten=this.value;KA.tenLuc=Date.now()"></div>'+
-    '<div class="ka-nut">'+
-      '<button class="nho chinh" data-lenh="f12b.chupKA" data-a1="ky" data-a2="camera">✍ Chụp chữ ký</button>'+
-      '</div>'+   /* 3.306 (anh): bỏ chụp ảnh khách / CCCD mặt trước — ảnh xuất khi cần từ mặt trước CCCD */
-    '<div class="hang-nut" style="margin-top:6px"><button class="nho" data-lenh="f12b.chupKA" data-a1="ky" data-a2="photo">🖼 Chữ ký từ ảnh có sẵn</button>'+
-      '</div>'+
-    (ds.length ? ds.map(function(k){
-      var th = (k.ngay||'').slice(0,7), dau = '';
-      if(th!==thangTruoc){ thangTruoc = th; dau = '<div class="nhan-nhom">Tháng '+th.slice(5)+'/'+th.slice(0,4)+
-        ' <span class="xoa-loc" data-lenh="f12b.moThuMucKA_s" data-a1="'+th+'">☁ mở thư mục</span></div>'; }
-      return dau+'<div class="ka-dong"'+botAt(k.id)+'><span class="ka-ic">'+(k.loai==='ky'?'✍':'🪪')+'</span>'+
-        '<span class="ka-ten">'+coChuHTML(k.ten)+'<small>'+Math.round((k.co||0)/1024)+' KB · '+ngayVN(k.ngay)+' · '+
-          (k.driveId?'☁ đã lên Drive':'chưa lên Drive')+'</small>'+duongDongHTML(k, 'ka')+'</span>'+
-        (k.driveId?'':'<button data-lenh="f12b.dayKAMot" data-a1="'+k.id+'" title="Đưa lên Drive">☁</button>')+
-        (!laMayBan() && coChiaSeFile() ? '<button data-lenh="f12b.guiKA" data-a1="'+k.id+'" title="Gửi">📤</button>'
-          : '<button data-lenh="f12b.lnKA" data-a1="'+k.id+'" title="Lưu nhanh xuống máy">💾</button><button data-lenh="f12b.copyKA" data-a1="'+k.id+'" title="Copy — Ctrl+V vào Zalo">📋</button>')+
-        '<button class="xau" data-lenh="f12b.xoaKA" data-a1="'+k.id+'" title="Xóa hẳn">🗑</button></div>';
-    }).join('') : '')+
-    '<div class="hang-nut" style="margin-top:12px"><button class="nho" onclick="if(BOT.tab===\'kyAnh\'){BOT={tab:\'\',chon:{}};document.body.classList.remove(\'dang-bot\');}dongHop();veScan()">Đóng</button></div>', true);
-}
 function chupKA(loai, nguon){
   var e = document.getElementById('ka-ten'); if(e){ KA.ten = e.value; KA.tenLuc = Date.now(); }
   if(nguon==='camera' && coCamera() && (camTuDong() || !laDT())) return moCamera({muc:loai==='ky'?'ky':'cccd'});
@@ -538,28 +483,6 @@ function luuKA(cach){
       if(coTheNoiDrive()) return dayKAMot(k.id, true);
     });
   }).catch(function(e){ baoLoi('Chưa lưu được: '+(e&&e.message||e)); });
-}
-function dayKAMot(id, im){
-  var k = (D.kyAnh||[]).find(function(x){ return x.id===id; }); if(!k) return;
-  if(!coTheNoiDrive()) return baoLoi(drChuaNoi());
-  var thang = (k.ngay||ngayISO(nay())).slice(0,7), duong = duongKA(thang);
-  return Promise.all([docAnhHS(k.id), baoDamDuong(duong)]).then(function(r){
-    var bl = r[0], idTM = r[1]; if(!bl) throw new Error('Ảnh trong máy không còn');
-    D.cauHinh.kaTM = D.cauHinh.kaTM || {}; D.cauHinh.kaTM[thang] = idTM;
-    var bien = '----tuhoso'+Date.now();
-    var dau = '--'+bien+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify({name:k.ten, parents:[idTM]})+
-      '\r\n--'+bien+'\r\nContent-Type: image/jpeg\r\n\r\n';
-    return goiDrive('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
-      {method:'POST', headers:{'Content-Type':'multipart/related; boundary='+bien}, body:new Blob([dau, bl, '\r\n--'+bien+'--'])});
-  }).then(function(r){
-    k.driveId = r && r.id; k.suaLuc = new Date().toISOString(); luu(); ghiDongBo();
-    var e = document.getElementById('ka-drive'); if(e) e.textContent = '☁ Đã lên Drive: '+duong.replace(D.cauHinh.thumuc+' / ','')+' / '+k.ten;
-    else if(!im) bao('☁ Đã lên Drive: '+k.ten, 5);
-    if(document.getElementById('ka-ten')) moKyAnh();
-  }).catch(function(e){
-    var el = document.getElementById('ka-drive'); if(el) el.textContent = 'Chưa lên Drive được ('+(e&&e.message||e)+') — app tự thử lại khi mở / rời app, hoặc bấm ☁ Đồng bộ.';
-    else if(!im) baoLoi('Chưa đưa lên Drive được: '+(e&&e.message||e)+' — bấm ☁ để thử lại.');
-  });
 }
 function chiaSeAnh(b, ten){
   var f = new File([b], ten, {type:'image/jpeg'});

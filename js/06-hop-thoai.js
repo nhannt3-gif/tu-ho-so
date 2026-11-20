@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.556', ds:[
+var CO_GI_MOI = {ban:'3.557', ds:[
+  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 90 nút chuyển sang cách gọi lệnh chuẩn", ""],
   ["Scan › 🗎 Bản photo CCCD và 🪪 CCCD › 🖼 Ảnh có sẵn: chọn được cả file PDF (bản photo scan ra PDF) — app tự tách 2 mặt thẻ như ảnh chụp", ""],
   ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
   ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""],
@@ -1071,8 +1072,7 @@ var CO_GI_MOI = {ban:'3.556', ds:[
   ["Nạp & KT nhận file CLT02 (xếp loại tổ) — theo từng xã, 2 loại tháng và định kỳ; thả file là app tự nhận xã + loại", ""],
   ["Thẻ tổ (tab Tổ) hiện xếp loại CLT02 tháng / định kỳ + tổng điểm", ""],
   ["Có gì mới: mỗi việc thử có nút ✓ Đạt / ✗ Chưa — kết quả lưu lên Drive, em đọc được, anh không phải gõ lại", ""],
-  ["Lỗi app tự lưu lên Drive (đã che số dài) — em sửa được trước khi anh báo", ""],
-  ["Mở app ở tab thứ 2 → tab đó chỉ xem, tránh 2 tab ghi đè mất dữ liệu", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Lỗi app tự lưu lên Drive (đã che số dài) — em sửa được trước khi anh báo", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
     "3.556 · Scan › Quét gì? 🗎 Bản photo CCCD › 🖼 Ảnh có sẵn → chọn file PDF scan tờ photo → hàng chờ ra 2 mặt thẻ",
     "3.556 · Scan › Quét gì? 🪪 CCCD › 🖼 Ảnh có sẵn → chọn được file PDF",

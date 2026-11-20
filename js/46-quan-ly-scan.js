@@ -30,7 +30,7 @@ var QL_VE_SCAN2 = veScan;
 veScan = function(){
   QL_VE_SCAN2.apply(this, arguments);
   var t = document.querySelector('#tr4 .thanh-in'), n = Object.keys(HS.chon||{}).length; if(!t || !n || t.querySelector('[data-lenh="ql.xoaChon"]')) return;
-  var bo = t.querySelector('button[onclick^="boChonHS"]'), h = '<button class="xau" data-lenh="ql.xoaChon" title="Xóa các bản đã chọn — vào 🗑 Thùng rác, khôi phục được">🗑 Xóa '+n+' bản</button>';
+  var bo = t.querySelector('button[data-lenh="f12.boChonHS"]'), h = '<button class="xau" data-lenh="ql.xoaChon" title="Xóa các bản đã chọn — vào 🗑 Thùng rác, khôi phục được">🗑 Xóa '+n+' bản</button>';
   if(bo) bo.insertAdjacentHTML('beforebegin', h); else t.insertAdjacentHTML('beforeend', h);
 };
 function qlXoaChon(){

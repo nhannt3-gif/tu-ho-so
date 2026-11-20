@@ -718,7 +718,7 @@ function moPDFNho(khoa, b){
   if(PDF_MO[khoa]){ PDF_MO_THU = PDF_MO_THU.filter(function(k){ return k!==khoa; }).concat([khoa]); return PDF_MO[khoa]; }
   if(!sanSangPDF()) return Promise.reject(new Error('Chưa tải được bộ đọc PDF'));
   hamNongPDF();
-  var p = b.arrayBuffer().then(function(ab){ return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise; });
+  var p = PDFA.mo(b);
   PDF_MO[khoa] = p; PDF_MO_THU.push(khoa);
   p.catch(function(){ delete PDF_MO[khoa]; });
   while(PDF_MO_THU.length>6){
@@ -924,11 +924,7 @@ function ocrTrang(n, t){
   var S = XEM[n]; if(!S || !S.pdf) return;
   QUET.dung = false;
   batChay(true, 'Đang dựng ảnh trang '+t+'…', true);
-  S.pdf.getPage(t).then(function(pg){
-    var vp0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(3, 2200/Math.max(vp0.width, vp0.height))});
-    var c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
-    return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return docDongOCR(c); });
-  }).then(function(r){
+  PDFA.veTrang(S.pdf, t, {canh:2200, toiDa:3}).then(docDongOCR).then(function(r){
     tatChay();
     var chu = String(r && r.chu || '').trim();
     if(!chu) return bao('Không nhận ra chữ nào trên trang '+t+'.', 4);

@@ -266,6 +266,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.557) — anh ghi Đạt / Chưa
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tab Scan: quét CCCD 2 mặt → hàng chờ → ▲▼ dời, ✂, 🔄 Lật, bỏ ảnh → Xem → 🗄 Lưu vào tủ | Như trước | |
+| 2 | Tab Scan: mở PDF (Tài liệu) → xem trước trang; Thêm file PDF → 🔍 Đọc chữ | Như trước | |
+| 3 | Cài đặt: đổi mục bên trái, cỡ chữ Nhỏ / Vừa / To, "Đưa thẳng lên Drive / Chỉ lưu vào máy" | Như trước, nút sáng đúng | |
+| 4 | Hôm nay: Chương trình vay (chọn nhóm, gõ tìm, mở thẻ, 📋 Chép) · câu chốt | Như trước | |
+| 5 | Hồ sơ vay: in vài mẫu (01/TD, 03/TD, Hồ sơ Tổ) | Bản in giống hệt bản 3.556 | |
+
+**Ghi chú kỹ thuật 3.557:** thước đo `thay_han` (`kiem.py`) bỏ qua tên làm khóa bảng lệnh (`{ten:function…}`); `PDFA.ve` làm tròn kích thước canvas (trước vài chỗ cắt phần lẻ — lệch ≤ 1 điểm ảnh). Công cụ tách dòng dài an toàn: so dãy token (acorn) — dùng lại được cho js/26, 22d, 22c, mẫu in khi anh duyệt. `scanCopyAnh` (📋 Copy ảnh) không còn nút từ 3.224, chỉ t151 gọi — giữ, chờ anh quyết bỏ.
+
 ### Danh sách thử trên máy thật (3.556) — anh ghi Đạt / Chưa
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

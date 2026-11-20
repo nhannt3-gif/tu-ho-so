@@ -52,7 +52,6 @@ scanLuuMay = function(){ if(!SX) return; var ten = scanTenFile(), bl = SX.bl;
   if(laMayBan()){ taiXuongBlob(bl, ten); bao('Đã lưu vào máy: '+ten+' (thư mục Tải xuống).', 5); } else chiaSePDF(bl, ten);
   scanDa('may'); };
 scanGui = function(){ if(!SX) return; chiaSePDF(SX.bl, scanTenFile()); scanDa('gui'); };
-function scanLuuApp(){ if(!SX) return; scanTenFile(); SAU_LUU_TAM = function(ds){ if(ds.length===1 && SX && SX.ten) { ds[0].ten = SX.ten; luu(); veScan(); } SX = null; bao('Đã lưu vào app — ⏳ Chờ sắp xếp (chưa gắn khách), lên Drive thư mục Scan chờ sắp xếp. Gắn khách: 🔎 Tra Mẫu 31 ở hộp Sửa, hoặc 🧹 Sắp xếp.', 7); }; luuSauHang(); }
 /* lưu tạm (Chờ khai báo): KHÔNG tự đưa lên Drive */
 ghiLuuTam = function(ds, loiBao){
   var bay = new Date().toISOString();

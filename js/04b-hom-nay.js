@@ -165,14 +165,14 @@ function veLich(){
   var homNay = lcISO(nay()), dau = new Date(LICH.nam, LICH.thang, 1);
   var bd = new Date(dau); bd.setDate(1-((dau.getDay()+6)%7));
   var h = '<div class="lc-dau">'+
-    '<button class="lc-mui" onclick="lcThang(-1)" title="Tháng trước">‹</button>'+
+    '<button class="lc-mui" data-lenh="f04b.lcThang" data-a1="-1" title="Tháng trước">‹</button>'+
     '<b class="lc-ten">Tháng '+(LICH.thang+1)+', '+LICH.nam+'</b>'+
-    '<button class="lc-mui" onclick="lcThang(1)" title="Tháng sau">›</button>'+
+    '<button class="lc-mui" data-lenh="f04b.lcThang" data-a1="1" title="Tháng sau">›</button>'+
     '<span class="lc-gian"></span>'+
     (function(){ var d = nay(), dangHN = (!LICH.chon || LICH.chon===homNay) && LICH.nam===d.getFullYear() && LICH.thang===d.getMonth();   /* 3.68 (AG) */
-      return '<button class="lc-nut'+(dangHN?'':' hn-noi')+'" onclick="lcHomNay()"'+(dangHN?' disabled title="Đang xem hôm nay"':' title="Quay về hôm nay"')+'>Hôm nay</button>'; })()+
-    '<button class="lc-nut" onclick="lcDanhSach()">Danh sách</button>'+
-    '<button class="lc-nut chinh" onclick="lcTinhNgay()">Tính ngày</button></div>';
+      return '<button class="lc-nut'+(dangHN?'':' hn-noi')+'" data-lenh="f04b.lcHomNay"'+(dangHN?' disabled title="Đang xem hôm nay"':' title="Quay về hôm nay"')+'>Hôm nay</button>'; })()+
+    '<button class="lc-nut" data-lenh="f04b.lcDanhSach">Danh sách</button>'+
+    '<button class="lc-nut chinh" data-lenh="f04b.lcTinhNgay">Tính ngày</button></div>';
   h += '<div class="lc-ben"><div class="lc-luoi"><div class="lc-th tuan">Tuần</div>'+
     ['T2','T3','T4','T5','T6','T7','CN'].map(function(t,i){ return '<div class="lc-th'+(i>4?' cuoi':'')+'">'+t+'</div>'; }).join('');
   for(var w=0; w<6; w++){
@@ -185,7 +185,7 @@ function veLich(){
       if(!cham && ntData().note.some(function(x){ return x.ngay===iso && (x.nd||'').trim(); })) cham = 'nau';
       var lop = 'lc-o'+(d.getMonth()!==LICH.thang?' ngoai':'')+(i>4?' cuoi':'')+
         (iso===homNay?' hom':'')+(iso===LICH.chon?' chon':'');
-      h += '<button class="'+lop+(chay?' chay':'')+(leAm?' le':'')+'" data-iso="'+iso+'" onclick="lcChonNgay(\''+iso+'\')" title="'+
+      h += '<button class="'+lop+(chay?' chay':'')+(leAm?' le':'')+'" data-iso="'+iso+'" data-lenh="f04b.lcChonNgay" data-a1="'+iso+'" title="'+
         coChuHTML(LC_THU[d.getDay()]+' '+lcDMY(iso)+' · âm '+lcAmChu(iso)+
           (nhanNgayAm(iso).length?' · '+nhanNgayAm(iso).join(' · '):''))+'">'+
         '<span class="dl">'+d.getDate()+'</span>'+
@@ -207,7 +207,7 @@ var CC = {mo:'', hop:'', hs:null, db:{tim:''}};
 var CONG_CU = [
   {id:'hssv',   ico:'🎓', ten:'Hạn trả HSSV', tit:'Hạn trả HSSV', ve:function(){ return ccHSSVHTML(); },
     dau:function(){ return hsChonLoaiHTML(); },
-    nut:'<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" onclick="hsGhiTodo()" title="Ghi câu chốt vào to-do hôm nay">📝</button><button class="nho" onclick="hsNoi()" title="Nổi — cửa sổ luôn nằm trên trình duyệt / chương trình khác (Chrome, Edge)">📌</button>'},
+    nut:'<button class="nho chinh" data-lenh="f04b.hsChep" title="Chép câu chốt để dán vào hồ sơ">📋 Chép</button><button class="nho" data-lenh="f04b.hsGhiTodo" title="Ghi câu chốt vào to-do hôm nay">📝</button><button class="nho" data-lenh="f04b.hsNoi" title="Nổi — cửa sổ luôn nằm trên trình duyệt / chương trình khác (Chrome, Edge)">📌</button>'},
     /* 3.276 (anh: "nút nổi lên và Esc bố trí gọn tiết kiệm 1 dòng"): 📌 Nổi, ✕ Đóng chỉ biểu tượng — tiêu đề công cụ 1 dòng */
   {id:'diaban', ico:'🗺', ten:'Địa bàn',      tit:'Cây địa bàn — mã xã, điểm GD, ấp/KP', ve:function(){ return ccDiaBanHTML(); }},
   {id:'ctvay',  ico:'📋', ten:'CT vay', tit:'Chương trình vay — tóm tắt đang cho vay · danh mục mã', ve:function(){ return ccCTVHTML(); },
@@ -252,13 +252,13 @@ var CTV_DS = [
 var CTV = {xem:'dang', tim:'', mo:-1};
 function ctvChonHTML(){
   return '<span class="tdn-seg ctv-seg">'+[['dang','Đang cho vay ('+CTV_DS.length+')'],['ma','Danh mục mã ('+Object.keys(TDN_CT).length+')']].map(function(x){
-    return '<button class="'+(CTV.xem===x[0]?'bat':'')+'" onclick="CTV.xem=\''+x[0]+'\';veCC()">'+x[1]+'</button>'; }).join('')+'</span>';
+    return '<button class="'+(CTV.xem===x[0]?'bat':'')+'" data-lenh="f04b.ctvXem" data-a1="'+x[0]+'">'+x[1]+'</button>'; }).join('')+'</span>';
 }
 function ctvLS(c){ return c.nhom ? c.nhom.map(function(n){ return n.ls; }).filter(function(x, i, a){ return a.indexOf(x)===i; }).join(' · ') : c.ls; }
 function ctvMucGon(c){ return c.nhom ? (c.nhom.length+' nhóm đối tượng') : c.muc.split('. ')[0]; }
 function ccCTVHTML(){
   var q = boDau(CTV.tim||'').trim(), e = coChuHTML;
-  var h = '<div class="ctv"><input class="ctv-tim" placeholder="Gõ để tìm: tên, viết tắt, mã, đối tượng…" value="'+e(CTV.tim)+'" oninput="CTV.tim=this.value;ctvVeDS()">'+
+  var h = '<div class="ctv"><input class="ctv-tim" placeholder="Gõ để tìm: tên, viết tắt, mã, đối tượng…" value="'+e(CTV.tim)+'" data-lenh="f04b.ctvTim" data-su="input">'+
     '<div id="ctv-ds">'+ctvDSHTML(q)+'</div>'+
     '<div class="ctv-nguon">Nguồn: '+(CTV.xem==='dang' ? 'Tóm tắt các chương trình tín dụng chính sách tại PGD Gò Dầu (2025); kỳ hạn trả nợ theo VB 2174. Lãi suất, mức cho vay thay đổi theo văn bản mới — đối chiếu văn bản gốc khi tư vấn.' : 'Danh mục chương trình vay của hệ thống (MACT · TENVT · TENCT). Cột "App" là viết tắt dùng để phân loại văn bản, biểu mẫu trong app.')+'</div></div>';
   return h;
@@ -270,7 +270,7 @@ function ctvDSHTML(q){
     var ds = Object.keys(TDN_CT).sort().map(function(ma){ var vt = ctVTAppCua(ma); return {ma:ma, ht:TDN_CT[ma][0], ten:TDN_CT[ma][1], app:vt, dang:CTV_DS.some(function(c){ return c.vt===vt; })}; })
       .filter(function(x){ return !q || boDau([x.ma, x.ht, x.ten, x.app].join(' ')).indexOf(q)>=0; });
     return '<table class="ctv-bang"><tr><th>Mã</th><th>Viết tắt hệ thống</th><th>App</th><th>Tên chương trình</th></tr>'+ds.map(function(x){
-      return '<tr class="'+(x.dang?'dang':'')+'"><td><span class="ctv-ma" title="Bấm để chép mã" onclick="ctvChep(\''+x.ma+'\')">'+x.ma+'</span></td><td>'+e(x.ht)+'</td><td>'+e(x.app)+'</td><td>'+e(x.ten)+(x.dang?' <span class="ctv-nhan">đang cho vay</span>':'')+'</td></tr>'; }).join('')+
+      return '<tr class="'+(x.dang?'dang':'')+'"><td><span class="ctv-ma" title="Bấm để chép mã" data-lenh="f04b.ctvChep" data-a1="'+x.ma+'">'+x.ma+'</span></td><td>'+e(x.ht)+'</td><td>'+e(x.app)+'</td><td>'+e(x.ten)+(x.dang?' <span class="ctv-nhan">đang cho vay</span>':'')+'</td></tr>'; }).join('')+
       (ds.length?'':'<tr><td colspan="4">Không có mã nào khớp.</td></tr>')+'</table>';
   }
   var ds2 = CTV_DS.map(function(c, i){ return {c:c, i:i}; }).filter(function(x){ var c = x.c;
@@ -278,14 +278,14 @@ function ctvDSHTML(q){
   if(!ds2.length) return '<div class="rong">Không có chương trình nào khớp.</div>';
   return ds2.map(function(x){
     var c = x.c, mo = CTV.mo===x.i || !!q, ma = ctMaCua(c.vt);
-    var h = '<div class="ctv-the'+(mo?' mo':'')+'"><div class="ctv-dau" onclick="CTV.mo=(CTV.mo==='+x.i+'?-1:'+x.i+');ctvVeDS()">'+
+    var h = '<div class="ctv-the'+(mo?' mo':'')+'"><div class="ctv-dau" data-lenh="f04b.ctvMo" data-a1="'+x.i+'">'+
       '<b>'+(x.i+1)+'. '+e(c.ten)+'</b><span class="ctv-vt">'+e(c.vt)+(ma?' · mã '+ma:'')+'</span>'+
       '<span class="ctv-so"><span title="Lãi suất %/năm">'+e(ctvLS(c))+'%</span><span title="Thời hạn tối đa">'+e(c.thGon||c.th)+'</span><span title="Mức cho vay tối đa">'+e(ctvMucGon(c))+'</span></span></div>';
     if(mo){
       h += '<table class="ctv-ct">'+(c.nhom ? '<tr><td>Đối tượng · lãi suất · mức cho vay</td><td>'+c.nhom.map(function(n){ return '<div class="ctv-nhom"><b>'+e(n.ls)+'%/năm</b> — '+e(n.dt)+'<br><i>Mức: '+e(n.muc)+'</i></div>'; }).join('')+'</td></tr>'
           : '<tr><td>Đối tượng</td><td>'+(c.dt.length>1 ? '<ol>'+c.dt.map(function(d){ return '<li>'+e(d)+'</li>'; }).join('')+'</ol>' : e(c.dt[0]))+'</td></tr><tr><td>Lãi suất</td><td><b>'+e(c.ls)+'%/năm</b></td></tr><tr><td>Mức cho vay tối đa</td><td>'+e(c.muc)+'</td></tr>')+
         '<tr><td>Thời hạn tối đa</td><td>'+e(c.th)+'</td></tr><tr><td>Kỳ hạn trả nợ (VB 2174)</td><td>'+e(c.ky)+'</td></tr></table>'+
-        '<div class="hang-nut"><button class="nho" onclick="ctvChepCT('+x.i+')">📋 Chép tóm tắt</button></div>';
+        '<div class="hang-nut"><button class="nho" data-lenh="f04b.ctvChepCT" data-a1="'+x.i+'">📋 Chép tóm tắt</button></div>';
     }
     return h+'</div>';
   }).join('');
@@ -299,7 +299,7 @@ function ctvChepCT(i){ chepChu(ctvChuCT(CTV_DS[i]), 'Đã chép tóm tắt chư�
 function ctvChep(ma){ chepChu(ma, 'Đã chép mã '+ma+'.'); }
 function ccCotHTML(){
   return '<div class="cc-cot" title="🧰 Công cụ">'+CONG_CU.filter(function(c){ return !c.an; }).map(function(c){   /* 3.144: an = đã bỏ (Giao ban, Buổi GD) */
-    return '<button class="cc-nut'+(CC.mo===c.id?' bat':'')+(c.ve?'':' cho')+'" onclick="ccMo(\''+c.id+'\')" title="'+coChuHTML(c.tit||c.ten)+'">'+
+    return '<button class="cc-nut'+(CC.mo===c.id?' bat':'')+(c.ve?'':' cho')+'" data-lenh="f04b.ccMo" data-a1="'+c.id+'" title="'+coChuHTML(c.tit||c.ten)+'">'+
       '<i>'+c.ico+'</i><span>'+coChuHTML(c.ten)+'</span></button>';
   }).join('')+'</div>';
 }
@@ -317,7 +317,7 @@ function ccDong(){ CC.mo = ''; Array.prototype.forEach.call(document.querySelect
 function ccHopHTML(c){
   return '<div class="cc-hop" data-cc="'+c.id+'"><div class="cc-dau"><b>'+c.ico+' '+coChuHTML(c.tit||c.ten)+'</b>'+
     (c.dau ? c.dau() : '')+'<span class="cc-gian"></span>'+
-    (c.nut||'')+'<button class="nho cc-dong" onclick="ccDong()" title="Đóng (Esc)">✕</button></div>'+
+    (c.nut||'')+'<button class="nho cc-dong" data-lenh="f04b.ccDong" title="Đóng (Esc)">✕</button></div>'+
     '<div class="cc-than" id="cc-than">'+(c.ve ? c.ve() : '<div class="huong-dan">Công cụ này <b>đang chuẩn bị</b> — anh gửi nghiệp vụ là em làm tiếp.</div>')+'</div></div>';
 }
 function veCC(){
@@ -484,7 +484,7 @@ function hsLoai(l){
 function hsChonLoaiHTML(){
   if(HS_PIP && !HS_VE_NOI) return '';   /* 3.98 (anh chốt): dòng trên = các ô giữ nguyên trong 1 đợt nhập (loại khóa học, ngày GDX, ngày vay) */
   var d = hsGT().loai==='duoi';
-  return '<span class="hs-dau"><select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" onchange="hsLoai(this.value)" title="Phân loại theo thời gian khóa đào tạo">'+
+  return '<span class="hs-dau"><select id="hs-loai" class="hs-loai'+(d?' cam':'')+'" data-lenh="f04b.hsLoai" data-su="change" title="Phân loại theo thời gian khóa đào tạo">'+
     '<option value="tren"'+(d?'':' selected')+'>Trên 12 tháng</option><option value="duoi"'+(d?' selected':'')+' title="Đến 12 tháng · SV Y khoa">Đến 12 th · Y khoa</option></select>'+
     hsO('gdx', 'GDX', '1–31', 1)+'</span>';
 }
@@ -492,7 +492,7 @@ var HS_THU = ['gdx', 'vay', 'rt', 'tien'];
 function hsO(k, nhan, goiY, gon){   /* ô nhập: bấm vào là bôi đen số cũ (gõ là thay), Enter / → sang ô sau, Shift+Enter / ← về ô trước */
   var v = hsGT();
   return (gon ? '<label class="hs-o-gon">'+nhan+' ' : '<div class="hs-o"><label>'+nhan+'</label>')+
-    '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" oninput="hsDat(\''+k+'\',this)" onfocus="this.select()" onmouseup="event.preventDefault()" onkeydown="hsPhim(event,\''+k+'\',this)">'+(gon ? '</label>' : '</div>');
+    '<input id="hs-'+k+'" value="'+coChuHTML(v[k]||'')+'" inputmode="numeric" placeholder="'+goiY+'" data-lenh="f04b.hsDat" data-su="input" data-a1="'+k+'" onfocus="this.select()" onmouseup="event.preventDefault()" onkeydown="hsPhim(event,\''+k+'\',this)">'+(gon ? '</label>' : '</div>');
 }
 function hsPhim(e, k, el){
   var i = HS_THU.indexOf(k), di = 0, het = el.selectionStart===el.value.length && el.selectionEnd===el.value.length, dau = el.selectionStart===0 && el.selectionEnd===0;
@@ -514,7 +514,7 @@ function hsLuuYHTML(){
 }
 function ccHSSVHTML(){
   var v = hsGT();
-  if(HS_PIP && !HS_VE_NOI) return '<div class="huong-dan">📌 Đang mở ở <b>cửa sổ nổi</b> (luôn nằm trên các cửa sổ khác). <button class="nho" onclick="hsNoiDong()">Đưa về đây</button></div>';
+  if(HS_PIP && !HS_VE_NOI) return '<div class="huong-dan">📌 Đang mở ở <b>cửa sổ nổi</b> (luôn nằm trên các cửa sổ khác). <button class="nho" data-lenh="f04b.hsNoiDong">Đưa về đây</button></div>';
   return '<div class="hs-luuy" id="hs-luuy">'+hsLuuYHTML()+'</div><div class="hs-nhap hs-nhap2">'+hsO('vay','Ngày vay<span id="hs-vgy">'+hsVayNhan()+'</span>','dd/mm/yyyy')+hsO('rt','Ngày ra trường','dd/mm/yyyy')+hsO('tien','Tiền vay (triệu)<span id="hs-goiy">'+hsGoiYNhan()+'</span>','vd 40')+
     '</div>'+
     '<div id="hs-kq">'+hsKetQuaHTML()+'</div>';
@@ -525,7 +525,7 @@ function hsKetQuaHTML(){
   var kq = hsTinh(v);
   if(kq.loi.length) return '<div class="hs-loi">⚠ '+kq.loi.join(' · ')+'</div>';
   var mo = window.innerHeight>=950 ? ' open' : '';
-  var khoi = function(nhan, so, phu, chep, lop){ return '<div class="hs-k'+(lop ? ' '+lop : '')+'" onclick="ccChep(\''+chep+'\')" title="Bấm để chép"><small>'+nhan+'</small><b>'+so+'</b>'+(phu ? '<i>'+phu+'</i>' : '')+'</div>'; };
+  var khoi = function(nhan, so, phu, chep, lop){ return '<div class="hs-k'+(lop ? ' '+lop : '')+'" data-lenh="f04b.ccChep" data-a1="'+chep+'" title="Bấm để chép"><small>'+nhan+'</small><b>'+so+'</b>'+(phu ? '<i>'+phu+'</i>' : '')+'</div>'; };
   var gy = kq.goiY, gyChu = gy ? gy.thang+' tháng vay ('+gy.nam+') × 4 tr' : '';
   var tienPhu = !kq.T ? (gy ? 'Gợi ý: '+gy.thang+' tháng = '+gy.trieu+' tr' : 'gõ tiền vay') : (gy && kq.T!==gy.trieu*1e6 ? 'Gợi ý: '+gy.thang+' tháng = '+gy.trieu+' tr' : '<b>'+gyChu+'</b>');
   /* 3.99 (anh chốt): hàng 1 — 3 khối lớn (tiền vay, thời hạn, hạn cuối); hàng 2 — 2 khối phụ nhỏ (trả mỗi lần, lần đầu) */
@@ -536,9 +536,9 @@ function hsKetQuaHTML(){
     khoi('Lần đầu', hsNgay(kq.ky[0].ngay), '', hsNgay(kq.ky[0].ngay), 'phu')+'</div>'+
     '<table class="hs-bang"><tr><th>Phát tiền vay</th><th>Ân hạn</th><th>Trả nợ tối đa</th><th>Thời hạn cho vay</th><th>Hạn cuối</th><th>Hạn cuối theo GDX</th></tr>'+
     '<tr><td>'+kq.tp+' tháng<small>'+kq.soNgay+' ngày</small></td><td>12 tháng</td><td>'+kq.ttn+' tháng</td><td><b>'+kq.thoiHan+' tháng</b></td><td>'+hsNgay(kq.hc)+'</td>'+
-    '<td class="dam" onclick="ccChep(\''+hsNgay(kq.hcGD)+'\')" title="Bấm để chép">'+hsNgay(kq.hcGD)+'</td></tr></table>';
+    '<td class="dam" data-lenh="f04b.ccChep" data-a1="'+hsNgay(kq.hcGD)+'" title="Bấm để chép">'+hsNgay(kq.hcGD)+'</td></tr></table>';
   if(kq.loai==='tren' && kq.tp<=12) h += '<div class="hs-luuy">⚠ Phát tiền vay chỉ '+kq.tp+' tháng — nếu <b>khóa học</b> dài trên 1 năm (vay năm cuối) thì giữ nguyên; khóa học đến 1 năm / Y khoa thì đổi ô chọn trên tiêu đề.</div>';
-  h += '<div class="hs-cau" onclick="ccChep(this.textContent,\'📋 Đã chép câu chốt — dán vào hồ sơ.\')" title="Bấm để chép">'+coChuHTML(kq.cau)+'</div>';
+  h += '<div class="hs-cau" data-lenh="f04b.ccChepCau" title="Bấm để chép">'+coChuHTML(kq.cau)+'</div>';
   h += '<details class="hs-ct"'+mo+'><summary>Các kỳ trả ('+kq.ky.length+' kỳ · 12 tháng/lần)</summary><table class="hs-ky"><tr><th>Kỳ</th><th>Ngày trả (theo GDX)</th><th>Gốc phải trả</th></tr>'+
     kq.ky.map(function(x, i){ return '<tr'+(i===0?' class="dau"':'')+'><td>'+(i+1)+(i===0?' · đầu tiên':(x.cuoi?' · cuối':''))+'</td><td>'+hsNgay(x.ngay)+'</td><td>'+(x.tien!==undefined?hsTien(x.tien):'—')+'</td></tr>'; }).join('')+
     '</table></details>';
@@ -571,13 +571,13 @@ function hsNoiHTML(){
   HS_VE_NOI = true;
   try{
     return '<div class="cc-hop hs-noi"><div class="cc-dau"><b>🎓 HSSV</b>'+hsChonLoaiHTML()+'<span class="cc-gian"></span>'+
-      '<button class="nho chinh" onclick="hsChep()" title="Chép câu chốt">📋 Chép</button><button class="nho hs-noi-todo" onclick="hsGhiTodo()" title="Ghi vào to-do hôm nay">📝</button>'+
-      '<button class="nho" id="hs-noi-mau" onclick="hsNoiMau()" title="Đổi nền sáng / tối (riêng cửa sổ nổi)"></button>'+
-      '<button class="nho" id="hs-noi-nho" onclick="hsNoiMuc()" title="Thu nhỏ còn 1 dải / mở ra"></button>'+
-      '<button class="nho" onclick="hsNoiDong()" title="Đưa về ô trong app">↩</button></div>'+
+      '<button class="nho chinh" data-lenh="f04b.hsChep" title="Chép câu chốt">📋 Chép</button><button class="nho hs-noi-todo" data-lenh="f04b.hsGhiTodo" title="Ghi vào to-do hôm nay">📝</button>'+
+      '<button class="nho" id="hs-noi-mau" data-lenh="f04b.hsNoiMau" title="Đổi nền sáng / tối (riêng cửa sổ nổi)"></button>'+
+      '<button class="nho" id="hs-noi-nho" data-lenh="f04b.hsNoiMuc" title="Thu nhỏ còn 1 dải / mở ra"></button>'+
+      '<button class="nho" data-lenh="f04b.hsNoiDong" title="Đưa về ô trong app">↩</button></div>'+
       '<div class="cc-than">'+ccHSSVHTML()+'</div>'+
-      '<div id="hs-mini" class="hs-mini" onclick="hsChep()" title="Bấm để chép câu chốt">'+hsMiniHTML()+'</div>'+
-      '<button class="nho hs-chi-nut" id="hs-chi-nut" onclick="hsNoiChi()"></button>'+
+      '<div id="hs-mini" class="hs-mini" data-lenh="f04b.hsChep" title="Bấm để chép câu chốt">'+hsMiniHTML()+'</div>'+
+      '<button class="nho hs-chi-nut" id="hs-chi-nut" data-lenh="f04b.hsNoiChi"></button>'+
       '<div class="tac-gia hs-tac-gia">NhanNT</div><div id="hs-noi-bao" class="hs-noi-bao"></div></div>';
   } finally { HS_VE_NOI = false; }
 }
@@ -682,9 +682,9 @@ function dbCayHTML(){
   return h + (q ? '<div class="huong-dan">'+n+' ấp/KP khớp.</div>' : '');
 }
 function ccDiaBanHTML(){
-  return '<div class="db-tren"><input id="db-tim" value="'+coChuHTML(CC.db.tim||'')+'" placeholder="Tìm tên / mã ấp, KP, điểm, xã (không dấu cũng được)" oninput="dbTim(this)">'+
-    '<button class="nho" onclick="dbChepBang()" title="Chép cả danh mục dạng bảng — dán vào Excel">📋 Chép bảng</button>'+
-    '<button class="nho" onclick="ccDong();moCaiDat(\'diaban\')" title="Ấp/KP gộp, tách: sửa ở Cài đặt, cây tự cập nhật">✎ Sửa danh mục</button></div>'+
+  return '<div class="db-tren"><input id="db-tim" value="'+coChuHTML(CC.db.tim||'')+'" placeholder="Tìm tên / mã ấp, KP, điểm, xã (không dấu cũng được)" data-lenh="f04b.dbTim" data-su="input">'+
+    '<button class="nho" data-lenh="f04b.dbChepBang" title="Chép cả danh mục dạng bảng — dán vào Excel">📋 Chép bảng</button>'+
+    '<button class="nho" data-lenh="f04b.moDiaBan" title="Ấp/KP gộp, tách: sửa ở Cài đặt, cây tự cập nhật">✎ Sửa danh mục</button></div>'+
     '<div class="db-cay" id="db-cay">'+dbCayHTML()+'</div>';
 }
 function dbChepBang(){
@@ -699,3 +699,33 @@ function dbChepBang(){
   chepChu(dong.join('\n'), '📋 Đã chép bảng địa bàn ('+(dong.length-1)+' dòng) — dán vào Excel.');
 }
 /* ---------- trang NHẬT KÝ CÔNG VIỆC (giấy vàng) của ngày đang chọn ---------- */
+
+/* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
+gdDangKy('f04b', gdLenh({
+  ctvXem:function(el, ev){ CTV.xem = gdA(el, 1); veCC(); },
+  ctvTim:function(el, ev){ CTV.tim = el.value; ctvVeDS(); },
+  ctvMo:function(el, ev){ var i = +gdA(el, 1); CTV.mo = CTV.mo===i ? -1 : i; ctvVeDS(); },
+  ctvChepCT:function(el, ev){ ctvChepCT(+gdA(el, 1)); },
+  ccMo:function(el, ev){ ccMo(gdA(el, 1)); },
+  ccChepCau:function(el, ev){ ccChep(el.textContent, '📋 Đã chép câu chốt — dán vào hồ sơ.'); },
+  moDiaBan:function(el, ev){ ccDong(); moCaiDat('diaban'); },
+  ccChep:function(el, ev){ ccChep(gdA(el, 1)); },
+  ccDong:function(el, ev){ ccDong(); },
+  ctvChep:function(el, ev){ ctvChep(gdA(el, 1)); },
+  dbChepBang:function(el, ev){ dbChepBang(); },
+  dbTim:function(el, ev){ dbTim(el); },
+  hsChep:function(el, ev){ hsChep(); },
+  hsDat:function(el, ev){ hsDat(gdA(el, 1), el); },
+  hsGhiTodo:function(el, ev){ hsGhiTodo(); },
+  hsLoai:function(el, ev){ hsLoai(el.value); },
+  hsNoi:function(el, ev){ hsNoi(); },
+  hsNoiChi:function(el, ev){ hsNoiChi(); },
+  hsNoiDong:function(el, ev){ hsNoiDong(); },
+  hsNoiMau:function(el, ev){ hsNoiMau(); },
+  hsNoiMuc:function(el, ev){ hsNoiMuc(); },
+  lcChonNgay:function(el, ev){ lcChonNgay(gdA(el, 1)); },
+  lcDanhSach:function(el, ev){ lcDanhSach(); },
+  lcHomNay:function(el, ev){ lcHomNay(); },
+  lcThang:function(el, ev){ lcThang(+gdA(el, 1)); },
+  lcTinhNgay:function(el, ev){ lcTinhNgay(); }
+}));

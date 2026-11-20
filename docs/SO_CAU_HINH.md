@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**178 khóa** trong code · 178 khóa trong sổ.
+**177 khóa** trong code · 178 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -43,7 +43,7 @@
 | `dbGhi` | 82-dia-ban-so-lieu.js | 3 | 82-dia-ban-so-lieu.js |  |
 | `dbMoApp` | 06c-drive.js | 1 | 06c-drive.js | 3.46: mở app → đẩy bản còn chờ |
 | `dbRoiApp` | 12c-scan-camera-drive.js | 1 | 12c-scan-camera-drive.js |  |
-| `dbSauLuu` | 12-scan.js | 5 | 12-scan.js · 12b-scan-dien-thoai.js · 12d-scan-ocr-cau-noi.js · 41-scan-sap-xep.js · 44-quet-cccd-form.js | 3.46: lưu tạm xong đưa lên Drive liền (có mạng) |
+| `dbSauLuu` | 12b-scan-dien-thoai.js | 3 | 12b-scan-dien-thoai.js · 41-scan-sap-xep.js · 44-quet-cccd-form.js | 3.46: lưu tạm xong đưa lên Drive liền (có mạng) |
 | `demDung` | 06-hop-thoai.js | 3 | 06-hop-thoai.js |  |
 | `diaBan` | 04b-hom-nay.js | 41 | 04b-hom-nay.js · 04b3-hom-nay-lich-viec.js · 04c-van-ban-thang.js · 04d-bo-ho-so.js · 08-dia-ban.js · 11-khung-tab.js …+6 | số liệu hệ thống trước, danh mục Cài đặt sau (QT-C-10) |
 | `diaBanCu` | 82-dia-ban-so-lieu.js | 5 | 82-dia-ban-so-lieu.js |  |
@@ -75,9 +75,9 @@
 | `hsToCuoi` | 08-dia-ban.js | 6 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js |  |
 | `hsTuDrive` | 08-dia-ban.js | 4 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js · 18-cai-dat.js | 3.33: tài liệu cũng tự lên Drive |
 | `hsXaCuoi` | 08-dia-ban.js | 6 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js |  |
-| `inThe` | 06a-dong-bo-cai-dat.js | 3 | 06a-dong-bo-cai-dat.js · 19-danh-muc.js |  |
+| `inThe` | 06a-dong-bo-cai-dat.js | 2 | 06a-dong-bo-cai-dat.js · 19-danh-muc.js |  |
 | `kaMuc` | 12b-scan-dien-thoai.js | 2 | 12b-scan-dien-thoai.js |  |
-| `kaTM` | 12b-scan-dien-thoai.js | 7 | 12b-scan-dien-thoai.js |  |
+| `kaTM` | — | 0 |  |  |
 | `kdBoCu` | 36-dong-bo-khoi.js | 6 | 36-dong-bo-khoi.js |  |
 | `khoiMo` | 04b3-hom-nay-lich-viec.js | 4 | 04b3-hom-nay-lich-viec.js |  |
 | `kieuTen` | 03-doc-pdf.js | 5 | 03-doc-pdf.js · 06-hop-thoai.js |  |
@@ -142,7 +142,7 @@
 | `scanChe` | 12-scan.js | 4 | 12-scan.js · 35-scan.js · 51-chu-ky.js | loại quyết định cách xử lý — không theo chế độ nhớ cũ |
 | `scanLoai` | 35-scan.js | 3 | 35-scan.js · 51-chu-ky.js |  |
 | `scanLoc` | 19-danh-muc.js | 2 | 19-danh-muc.js · 35-scan.js |  |
-| `scanNguon` | 12-scan.js | 6 | 12-scan.js · 35-scan.js · 51-chu-ky.js · 81b-scan-pdf-photo.js |  |
+| `scanNguon` | 12-scan.js | 5 | 12-scan.js · 35-scan.js · 51-chu-ky.js · 81b-scan-pdf-photo.js |  |
 | `scanNhom` | 11-khung-tab.js | 3 | 11-khung-tab.js · 12-scan.js |  |
 | `scanXem` | 11-khung-tab.js | 3 | 11-khung-tab.js · 12-scan.js |  |
 | `skTK` | 22h-cap-hoi-sao-ke.js | 2 | 22h-cap-hoi-sao-ke.js |  |
@@ -169,7 +169,7 @@
 | `tcTim` | 22f-tra-cuu.js | 2 | 22f-tra-cuu.js |  |
 | `tenCauTruc` | 03-doc-pdf.js | 1 | 03-doc-pdf.js |  |
 | `thTK` | 22i-tong-hop.js | 2 | 22i-tong-hop.js |  |
-| `thumuc` | 03-doc-pdf.js | 74 | 03-doc-pdf.js · 04b2-hom-nay-ghi-chu.js · 04b3-hom-nay-lich-viec.js · 04d-bo-ho-so.js · 06-hop-thoai.js · 06a-dong-bo-cai-dat.js …+18 | mục trong thùng rác → file nằm ở _ThungRac |
+| `thumuc` | 03-doc-pdf.js | 68 | 03-doc-pdf.js · 04b2-hom-nay-ghi-chu.js · 04b3-hom-nay-lich-viec.js · 04d-bo-ho-so.js · 06-hop-thoai.js · 06a-dong-bo-cai-dat.js …+17 | mục trong thùng rác → file nằm ở _ThungRac |
 | `tk104Tay` | 28-tv-tk.js | 3 | 28-tv-tk.js |  |
 | `tkChon` | 28-tv-tk.js | 5 | 28-tv-tk.js · 72-ho-vay.js | TK chính: anh đã chọn (js/28) → số dư lớn nhất |
 | `toCot` | 22gb-to-giao-dien.js | 1 | 22gb-to-giao-dien.js |  |

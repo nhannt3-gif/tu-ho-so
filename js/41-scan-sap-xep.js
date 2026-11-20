@@ -204,20 +204,6 @@ function sxManh(c){
     o.width = Math.round(w*k); o.height = Math.round(h*k); var x = o.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c, Math.round(c.width*g[0]), Math.round(c.height*g[1]), w, h, 0, 0, o.width, o.height); ra.push(o); });
   return ra;
 }
-/* 3.269: ảnh để đọc số — ảnh 2 mặt trong máy; máy này không có (quét ở máy khác) → tải PDF bản lưu trên Drive, dựng trang 1 thành ảnh */
-function sxAnhDoc(k){
-  return Promise.all([docAnhHS(k.id+'_matTruoc'), k.matSau ? docAnhHS(k.id+'_matSau') : null]).then(function(b){
-    if(b[0] || b[1]) return b;
-    if(!k.driveId || !coTheNoiDrive()) return [null, null];
-    return xongTV.then(function(){ if(!sanSangPDF()) return null; return canToken(); }).then(function(co){ if(!co) return null;
-      return fetch('https://www.googleapis.com/drive/v3/files/'+k.driveId+'?alt=media', {headers:{'Authorization':'Bearer '+DR.token}}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.arrayBuffer(); }); })
-      .then(function(ab){ if(!ab) return [null, null];
-        return pdfjsLib.getDocument({data:new Uint8Array(ab)}).promise.then(function(doc){ return doc.getPage(1); }).then(function(pg){
-          var v0 = pg.getViewport({scale:1}), vp = pg.getViewport({scale:Math.min(4, 2000/v0.width)}), c = document.createElement('canvas'); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
-          return pg.render({canvasContext:c.getContext('2d'), viewport:vp}).promise.then(function(){ return canvasRaBlob(c, 0.92); }).then(function(bl){ return [bl, null]; }); }); })
-      .catch(function(){ return [null, null]; });
-  });
-}
 var SX_DOC_BAN = 2;   /* phiên bản bộ đọc — bản đọc không được ở phiên cũ được đọc lại 1 lần */
 /* đọc 1 người: truoc, sau = blob ảnh 2 mặt (đã cắt thẻ, hoặc cả tờ có 2 thẻ) → {cccd, ten, ns, …, nguon} | null; không tải được bộ đọc chữ (mất mạng) → lỗi (không đánh dấu "không đọc được") */
 function docCCCD(truoc, sau){
@@ -326,13 +312,6 @@ function sxNen200(b){
     var c = document.createElement('canvas'); c.width = Math.round(W*k); c.height = Math.round(H*k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
     var thu = function(q){ return canvasRaBlob(c, q).then(function(x){ return x.size<=195*1024 || q<=0.5 ? x : thu(Math.round((q-0.1)*10)/10); }); };
     return thu(0.85); });
-}
-function sxAnhTuCCCD(k){
-  if(!k.maKH || (D.kyAnh||[]).some(function(x){ return x.loai==='anh' && x.maKH===k.maKH; })) return Promise.resolve(null);
-  return docAnhHS(k.id+'_matTruoc').then(function(b){ if(!b) return null;
-    return sxNen200(b).then(function(nen){ var d = nay(), a = {id:'ka'+idMoi(), loai:'anh', khach:k.ten, maKH:k.maKH, co:nen.size, ngay:ngayISO(d), luc:d.toISOString(), suaLuc:d.toISOString(), may:maMayCua(), tuCCCD:k.id};
-      a.ten = sxTenKA(a);
-      return luuAnhHS(a.id, nen).then(function(){ D.kyAnh = D.kyAnh || []; D.kyAnh.push(a); luu(); return a; }); }); }).catch(function(){ return null; });
 }
 /* chữ ký / ảnh chụp riêng: tên anh gõ ("ck-Võ Văn Hoàng" hoặc chỉ tên) — có trên Mẫu 31 thì gắn mã KH ngay */
 var SX_KA_XONG_CU = kaXong;
