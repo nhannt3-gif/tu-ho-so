@@ -1058,7 +1058,7 @@ function moHuongDan(p){
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
 var CO_GI_MOI = {ban:'3.557', ds:[
-  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 90 nút chuyển sang cách gọi lệnh chuẩn", ""],
+  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""],
   ["Scan › 🗎 Bản photo CCCD và 🪪 CCCD › 🖼 Ảnh có sẵn: chọn được cả file PDF (bản photo scan ra PDF) — app tự tách 2 mặt thẻ như ảnh chụp", ""],
   ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
   ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""],

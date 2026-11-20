@@ -13,9 +13,9 @@
 > ```
 
 ### 20/11/2026 — TK 2 · PHIÊN (3.557 rà soát gọn code)
-- Anh "rà soát chuẩn hóa code cho gọn" → duyệt 4 việc, "code 1 lần": ① thước đo `thay_han` + xóa 18 hàm chết · ② `PDFA` (js/03) thay 12 chỗ đọc PDF · ③ onclick 458 → 368 · ④ dòng dài js/25* 85 → 1 (cả app 159 → 108). t411 12/12. Không gộp lớp bọc Scan (anh chọn giữ cắm rút).
+- Anh "rà soát chuẩn hóa code cho gọn" → duyệt 4 việc, "code 1 lần": ① thước đo `thay_han` + xóa 18 hàm chết · ② `PDFA` (js/03) thay 12 chỗ đọc PDF · ③ onclick 458 → 381 · ④ dòng dài js/25* 85 → 1 (cả app 159 → 108). t411 12/12. Không gộp lớp bọc Scan (anh chọn giữ cắm rút).
 - Chờ anh: thử máy thật bảng 3.557; "gộp". Đề xuất tiếp: tách dòng dài js/26, 22d, 22c, mẫu in (cùng công cụ); đổi cả cụm hàng danh sách văn bản js/10 + 11; bỏ `scanCopyAnh` (không còn nút từ 3.224).
-- Bẫy: đổi onclick phải grep chỗ tìm nút theo `[onclick^=…]` (js + tests); nút con có `event.stopPropagation()` trong hàng có onclick thì phải đổi cả hàng.
+- Bẫy: nội dung cửa sổ nổi 📌 HSSV (js/04b hsNoiHTML) phải giữ onclick (cửa sổ PiP riêng, gọi qua HS_NOI_HAM) — hồi quy t111 / t138 bắt được. Đổi onclick phải grep chỗ tìm nút theo `[onclick^=…]` (js + tests); nút con có `event.stopPropagation()` trong hàng có onclick thì phải đổi cả hàng.
 
 ### 17/11/2026 — TK 2 · PHIÊN (3.556 Bản photo CCCD / CCCD nhận PDF)
 - Anh "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc pdf" → duyệt "code mở pdf luôn" (cả 🪪 CCCD). File mới `js/81b-scan-pdf-photo.js` (gói `SCPP`): hộp chọn Ảnh có sẵn chế độ Thẻ nhận PDF; Bản photo + PDF → ảnh nguyên tờ → luồng tách tờ photo cũ. t410 10/10.
