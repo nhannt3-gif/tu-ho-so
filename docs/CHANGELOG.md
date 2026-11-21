@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.558 — 21/11/2026 — C2 Phiếu chuẩn bị phiên GD + chuẩn hóa (TK 2)
+- **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` nhóm C (C2); anh 21/11 "làm C2 và kết hợp chuẩn hóa theo kế hoạch" · "code và gộp".
+- **Gói mới `js/96-phieu-phien.js` (`PPH`, cắm rút):** báo cáo Sao kê `pph` (nhóm Nợ đến hạn, A4 dọc), mỗi điểm GD trong phạm vi 1 trang: I tóm tắt (tổ, hộ, dư nợ, QH, khoanh, lãi tồn) · II–III **gọi lại `skBCDH`** (nhóm ① ② ③ QT-C-12, Còn GH QT-C-20) chỉ món của tổ thuộc điểm, từ ngày sau ngày số liệu đến **phiên kế tiếp** (ngày GDXA của điểm) → khớp Sao kê nợ đến hạn · IV tổ cần chú ý: món lãi tồn ≥ 3 tháng (QT-C-23, HSN.thangLai) · CLT02 TB / Yếu (js/95) · tổ viên đề xuất cho ra (tvChuan) · dòng ghi chú + ký CBTD. Không đổi khoảng ngày anh đang chọn.
+- **Chuẩn hóa (đề xuất 3.557):** công cụ mới `tools/tach_dong.py` (xuống dòng chỉ sau `+` / `,` ngoài chuỗi, so không khoảng trắng + `node --check`) → dòng > 400 ở js/22c 13 → 4, js/22d 17 → 4; bỏ hàm chết `scanCopyAnh` (không nút gọi từ 3.224; t151 bỏ ý đó).
+- Phép thử mới t410 (5 ý — khớp sao kê gốc với 3 món đến hạn giả).
+
 ## 3.557 — 20/11/2026 — Rà soát chuẩn hóa code cho gọn (không đổi chức năng)
 - **Nguồn:** anh 20/11 "tiếp tục rà soát chuẩn hóa code cho gọn" → duyệt kế hoạch 4 việc, "code 1 lần theo em đề xuất" (không gộp lớp bọc Scan — giữ cắm rút).
 - **① Hàm bị thay hẳn:** thước đo mới `thay_han` trong `tests/kiem.py` (mốc 0) — `function x(){…}` mà file sau gán `x = function…` không giữ bản cũ → thân cũ là mã chết (`kiem.py` cũ không bắt được). Xóa 17 thân cũ: js/08 `tenTheCCCD`, `duongTheCCCD`, `duongScan`, `tenScanDrive`; js/12 `batDauScan`, `scanXongHop`, `scanLuuMay`, `scanGui`, `scanLuuTu`; js/12b `quetNhanh`, `moThuMucKA`, `moKyAnh`, `dayKAMot`; js/12d `ghiLuuTam`; js/35 `scanLuuApp`; js/41 `sxAnhDoc`, `sxAnhTuCCCD` + `duongDongHTML` (js/10, chỉ hàm chết gọi). Bản thay (js/35, 41, 43, 46, 51) giữ nguyên.
