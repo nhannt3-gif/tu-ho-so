@@ -22,7 +22,9 @@ function ktHoiTenTD(t){ var h = ktChuan(t).ten; return (h ? h+' ' : '')+ktXaChu(
    Mặc định theo cách viết thông dụng của các tổ chức CT-XH (Đoàn: hướng dẫn thể thức 29-HD/TWĐTN-VP); anh sửa trong app → D.cauHinh.ktChuan[mã ĐVUT][trường].
    Riêng từng Hội – xã (⚙ Khai báo Hội): tên đơn vị in đầu trang. Hội cấp xã đều có Ban Thường vụ (anh chốt) → luôn "TM. BAN THƯỜNG VỤ".
    Quy tắc chung (không sửa): xã → ấp, phường → khu phố; trong câu viết thường; luôn "tỉnh Tây Ninh". */
-var KT_CHUAN_O = [['ten','Tên trong câu'], ['gon','Tên gọn (khi thiếu chỗ)'], ['ngan','Gọi tắt trong câu'], ['tinh','Đầu trang cấp tỉnh'], ['nnTinh','Nơi nhận cấp tỉnh'], ['dauXa','Đầu trang cấp xã ({xa} = xã / phường …)'], ['tm','Ký thay mặt — dòng TM. ({xa} = XÃ / PHƯỜNG)'], ['ky','Chức danh người ký'], ['pho','Cấp phó'], ['uv','Chức danh ủy viên'], ['cap','Cấp trên (trong câu)'], ['vt','Viết tắt số văn bản'], ['kh','Số KH Hội tỉnh (chung các xã)'], ['khNgay','Ngày KH Hội tỉnh']];   /* 3.158: KH Hội tỉnh khai 1 lần / Hội */
+var KT_CHUAN_O = [['ten','Tên trong câu'], ['gon','Tên gọn (khi thiếu chỗ)'], ['ngan','Gọi tắt trong câu'], ['tinh','Đầu trang cấp tỉnh'], ['nnTinh','Nơi nhận cấp tỉnh'], ['dauXa','Đầu trang cấp xã ({xa} = xã / phường …)'],
+  ['tm','Ký thay mặt — dòng TM. ({xa} = XÃ / PHƯỜNG)'], ['ky','Chức danh người ký'], ['pho','Cấp phó'], ['uv','Chức danh ủy viên'], ['cap','Cấp trên (trong câu)'], ['vt','Viết tắt số văn bản'], ['kh','Số KH Hội tỉnh (chung các xã)'],
+  ['khNgay','Ngày KH Hội tỉnh']];   /* 3.158: KH Hội tỉnh khai 1 lần / Hội */
 var KT_CHUAN_PH = {kh:'vd: 06-KH/HNDT', khNgay:'dd/mm/yyyy'};
 var KT_CHUAN = {
   '11':{ten:'Hội Nông dân', gon:'Hội Nông dân', ngan:'Hội', tinh:'HỘI NÔNG DÂN TỈNH TÂY NINH', nnTinh:'Hội ND tỉnh', dauXa:'HỘI NÔNG DÂN {xa}', tm:'BAN THƯỜNG VỤ', ky:'Chủ tịch', pho:'Phó Chủ tịch', uv:'Ủy viên Ban Thường vụ', cap:'Hội cấp trên', vt:'HND'},
@@ -268,7 +270,8 @@ function ktHTML04Goc(gt){
     '<td class="kt-c"><p class="kt-b">CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM</p><p class="kt-b">Độc lập - Tự do - Hạnh phúc</p><div class="kt-gach" style="width:57mm"></div></td></tr></table>'+
     '<p class="kt-i" style="text-align:right;margin:8pt 0">'+(f.NOI04 ? coChuHTML(f.NOI04) : '......')+', ngày ....... tháng '+(f.TH04 || '.......')+' năm '+(f.NAM04 || '20............')+'</p>'+
     '<p class="kt-c kt-b">BÁO CÁO TỔNG HỢP</p><p class="kt-c kt-b">Kết quả kiểm tra hoạt động nhận ủy thác cho vay</p><div class="kt-gach" style="width:45mm;margin-bottom:6pt"></div>'+
-    '<p class="kt-p kt-h">I. THÀNH PHẦN</p><p class="kt-p">1. Đoàn kiểm tra</p>'+(gt.doan||[]).map(function(x){ return (x.cb ? '<div class="kt-ob"><span class="a">- Ông (bà): '+coChuHTML(x.cb)+'</span><span>Chức vụ: '+coChuHTML(x.cv||'')+'</span></div>' : '<div class="kt-ob trong"><span class="a">- Ông (bà):<i></i></span><span>Chức vụ: '+coChuHTML(x.cv||'')+(x.cv ? '' : '<i></i>')+'</span></div>'); }).join('')+
+    '<p class="kt-p kt-h">I. THÀNH PHẦN</p><p class="kt-p">1. Đoàn kiểm tra</p>'+(gt.doan||[]).map(function(x){ return (x.cb ? '<div class="kt-ob"><span class="a">- Ông (bà): '+coChuHTML(x.cb)+'</span><span>Chức vụ: '+
+      coChuHTML(x.cv||'')+'</span></div>' : '<div class="kt-ob trong"><span class="a">- Ông (bà):<i></i></span><span>Chức vụ: '+coChuHTML(x.cv||'')+(x.cv ? '' : '<i></i>')+'</span></div>'); }).join('')+
     Array(3).join('<div class="kt-ob trong"><span class="a">- Ông (bà): <i></i></span><span>Chức vụ: <i></i></span></div>')+
     muc('2. Cấp ủy, chính quyền địa phương (nếu có)', 2)+
     '<p class="kt-p kt-h">II. THỜI GIAN, ĐỊA ĐIỂM, ĐƠN VỊ ĐƯỢC KIỂM TRA</p>'+
@@ -453,10 +456,12 @@ function ktPCKy(k, ng, c){   /* 3.123 (anh chốt): mặc định ghi chung CH�
   return {tm:'TM. BAN THƯỜNG VỤ', cv:(n && n.vt!=='ct' ? c.pho : c.ky).toUpperCase(), ten:n ? n.ten : ''};
 }
 function ktBungPC(g){   /* Word: A4 dọc, Times New Roman 14 */
-  var E = xmlEsc, rr = function(s, o){ o = o||{}; return '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'+(o.b ? '<w:b/>' : '')+(o.i ? '<w:i/>' : '')+(o.u ? '<w:u w:val="single"/>' : '')+'<w:sz w:val="'+(o.sz||28)+'"/><w:szCs w:val="'+(o.sz||28)+'"/></w:rPr><w:t xml:space="preserve">'+E(s).replace(/\n/g, '</w:t><w:br/><w:t xml:space="preserve">')+'</w:t></w:r>'; };
+  var E = xmlEsc, rr = function(s, o){ o = o||{}; return '<w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'+(o.b ? '<w:b/>' : '')+(o.i ? '<w:i/>' : '')+
+    (o.u ? '<w:u w:val="single"/>' : '')+'<w:sz w:val="'+(o.sz||28)+'"/><w:szCs w:val="'+(o.sz||28)+'"/></w:rPr><w:t xml:space="preserve">'+E(s).replace(/\n/g, '</w:t><w:br/><w:t xml:space="preserve">')+'</w:t></w:r>'; };
   var pp = function(s, o){ o = o||{}; return '<w:p><w:pPr><w:spacing w:before="'+(o.tr||0)+'" w:after="'+(o.sau!==undefined ? o.sau : 60)+'" w:line="'+(o.line||300)+'" w:lineRule="'+(o.line ? 'exact' : 'auto')+'"/>'+(o.ind ? '<w:ind w:firstLine="'+o.ind+'"/>' : '')+'<w:jc w:val="'+(o.jc||'both')+'"/></w:pPr>'+(s ? rr(s, o) : '')+'</w:p>'; };
   var tc = function(w, ps){ return '<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/></w:tcPr>'+ps+'</w:tc>'; };
-  var bang = function(w1, w2, c1, c2){ return '<w:tbl><w:tblPr><w:tblW w:w="'+(w1+w2)+'" w:type="dxa"/><w:tblInd w:w="-612" w:type="dxa"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="'+w1+'"/><w:gridCol w:w="'+w2+'"/></w:tblGrid><w:tr>'+tc(w1, c1)+tc(w2, c2)+'</w:tr></w:tbl>'; };
+  var bang = function(w1, w2, c1, c2){ return '<w:tbl><w:tblPr><w:tblW w:w="'+(w1+w2)+'" w:type="dxa"/><w:tblInd w:w="-612" w:type="dxa"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="'+
+    w1+'"/><w:gridCol w:w="'+w2+'"/></w:tblGrid><w:tr>'+tc(w1, c1)+tc(w2, c2)+'</w:tr></w:tbl>'; };
   var d = g.dau, ca = {jc:'center', sau:0};
   var dau = bang(4560, 5701,
     pp(d.a1, Object.assign({sz:+d.a1z || 26}, ca))   /* 3.119: tên dài → cỡ 12, xuống dòng trước XÃ / PHƯỜNG (như Kế hoạch) */+pp(d.a2, Object.assign({sz:26, b:1}, ca))+(d.a3 ? pp(d.a3, Object.assign({sz:26}, ca)) : pp('', Object.assign({line:120}, ca)))+pp(d.so, Object.assign({sz:26}, ca)),
@@ -485,14 +490,20 @@ function ktPCHop(k){
   var x = ktPCLay(k), ng = ktPCNguoi(k, g.t), tc = ktPCNguoi(k, g.t, 1), ap = ktPCAp(k), id = k.replace(/[^0-9a-z]/gi, '_'), c = g.c;
   var dauNg = ng[0] && (ng[0].loai==='ct' || ng[0].loai==='pt') ? ng[0] : null, pho = ng.filter(function(n){ return n.loai==='pho' || n.loai==='pt'; });
   var dong = tc.map(function(n){ var q = x.p[n.vt] || {}, co = q.ap || [], tat = n.chon ? '' : ' disabled', cv = dauNg && dauNg.vt===n.vt ? dauNg.cv : n.cv;   /* 3.123: cột tích "Phân công" — bỏ tích = không phân công (bỏ Chủ tịch = khuyết) */
-    return '<tr class="'+(n.chon ? '' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(n.chon ? ' checked' : '')+' data-lenh="f22d.ktPCChon" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" aria-label="Phân công '+coChuHTML(n.ten)+'"></td><td><b>'+coChuHTML(n.ten)+'</b><div><small>'+coChuHTML(cv)+'</small></div></td><td class="kt-pc-ap">'+ap.map(function(a){ return '<label class="kt-pc-chip"><input type="checkbox"'+(co.indexOf(a)>=0 ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'ap\','+JSON.stringify(a).replace(/"/g, '&quot;')+',this.checked)"> '+coChuHTML(a)+'</label>'; }).join('')+'</td>'+
+    return '<tr class="'+(n.chon ? '' : 'kt-loai')+'"><td class="c"><input type="checkbox"'+(n.chon ? ' checked' : '')+' data-lenh="f22d.ktPCChon" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" aria-label="Phân công '+
+      coChuHTML(n.ten)+'"></td><td><b>'+coChuHTML(n.ten)+'</b><div><small>'+coChuHTML(cv)+'</small></div></td><td class="kt-pc-ap">'+ap.map(function(a){ return '<label class="kt-pc-chip"><input type="checkbox"'+
+      (co.indexOf(a)>=0 ? ' checked' : '')+tat+' onchange="ktPCDoi(\''+k+'\',\''+n.vt+'\',\'ap\','+JSON.stringify(a).replace(/"/g, '&quot;')+',this.checked)"> '+coChuHTML(a)+'</label>'; }).join('')+'</td>'+
       '<td class="c"><input type="checkbox"'+(q.kt ? ' checked' : '')+tat+' data-lenh="f22d.ktPCDoi" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" data-a3="kt" data-a4="0" aria-label="Kế toán"></td>'+
         '<td class="c"><input type="checkbox"'+(q.tq ? ' checked' : '')+tat+' data-lenh="f22d.ktPCDoi" data-su="change" data-a1="'+k+'" data-a2="'+n.vt+'" data-a3="tq" data-a4="0" aria-label="Thủ quỹ"></td></tr>'; }).join('');
   var ctCo = ng.some(function(n){ return n.loai==='ct'; }), vt = '';
-  if(tc.length && !ctCo) vt += '<div class="kt-pc-vt">Khuyết <b>'+coChuHTML(c.ky)+'</b> → '+(pho.length ? '<label>Đôn lên phụ trách: <select data-lenh="f22d.ktPCDoiPT" data-su="change" data-a1="'+k+'">'+pho.map(function(n){ return '<option value="'+n.vt+'"'+(dauNg && dauNg.vt===n.vt ? ' selected' : '')+'>'+coChuHTML(n.ten)+'</option>'; }).join('')+'</select></label> <small>(nhận đủ nhiệm vụ '+coChuHTML(c.ky)+')</small>' : '<b class="do-chu">chưa tích '+coChuHTML(c.pho)+' nào để đôn lên</b>')+'</div>';
+  if(tc.length && !ctCo) vt += '<div class="kt-pc-vt">Khuyết <b>'+coChuHTML(c.ky)+'</b> → '+(pho.length ? '<label>Đôn lên phụ trách: <select data-lenh="f22d.ktPCDoiPT" data-su="change" data-a1="'+k+'">'+
+    pho.map(function(n){ return '<option value="'+n.vt+'"'+(dauNg && dauNg.vt===n.vt ? ' selected' : '')+'>'+coChuHTML(n.ten)+'</option>'; }).join('')+'</select></label> <small>(nhận đủ nhiệm vụ '+coChuHTML(c.ky)+
+    ')</small>' : '<b class="do-chu">chưa tích '+coChuHTML(c.pho)+' nào để đôn lên</b>')+'</div>';
   if(tc.length && dauNg && !ng.some(function(n){ return n.loai==='pho'; })) vt += '<div class="kt-pc-vt">Không có '+coChuHTML(c.pho)+' phân công → <b>'+coChuHTML(dauNg.ten)+'</b> kiêm nhiệm vụ riêng của '+coChuHTML(c.pho)+'</div>';
   var kyCo = ng.filter(function(n){ return n.loai!=='uv'; });
-  if(tc.length) vt += '<div class="kt-pc-vt"><label>Người ký: <select data-lenh="f22d.ktPCDoiKy" data-su="change" data-a1="'+k+'"><option value="">Để trống — ghi chung "'+coChuHTML(c.ky.toUpperCase())+'"</option>'+kyCo.map(function(n){ return '<option value="'+n.vt+'"'+(x.ky===n.vt ? ' selected' : '')+'>'+coChuHTML((n.vt==='ct' ? c.ky : c.pho)+' — '+n.ten)+'</option>'; }).join('')+'</select></label> <small>để trống: ai ký đóng dấu, '+coChuHTML(c.pho)+' ký ghi thêm "P"</small></div>';
+  if(tc.length) vt += '<div class="kt-pc-vt"><label>Người ký: <select data-lenh="f22d.ktPCDoiKy" data-su="change" data-a1="'+k+'"><option value="">Để trống — ghi chung "'+coChuHTML(c.ky.toUpperCase())+
+    '"</option>'+kyCo.map(function(n){ return '<option value="'+n.vt+'"'+(x.ky===n.vt ? ' selected' : '')+'>'+coChuHTML((n.vt==='ct' ? c.ky : c.pho)+' — '+n.ten)+'</option>'; }).join('')+'</select></label> <small>để trống: ai ký đóng dấu, '+
+    coChuHTML(c.pho)+' ký ghi thêm "P"</small></div>';
   moHop('<div class="hop-tit">📄 Phân công nhiệm vụ Ban Thường vụ — '+coChuHTML(g.ten)+'</div>'+
     '<div class="hop-phu">Người lấy theo 🏛 Khai báo Hội đoàn thể (Chủ tịch, tối đa 3 Phó, 5 ủy viên). Ấp đã chia sẵn theo thứ tự cây ('+coChuHTML(g.c.ky)+' ít hơn) — tích để chỉnh; Phó / ủy viên để trống = "các '+coChuHTML(g.c.ap)+' do Hội quản lý". Nhiệm vụ ghi sẵn theo mẫu tham khảo; xuất Word để sửa thêm.</div>'+
     '<div class="kt-pc-kb">'+[['nk', 'Nhiệm kỳ Ban Chấp hành', 'vd: 2025 – 2030'], ['hd', 'Số HĐ ủy thác', '…/HĐUT'], ['hdNgay', 'Ngày ký HĐ', 'dd/mm/yyyy']].map(function(o){ var hid = 'hkb-'+k.replace(/[^0-9a-z]/gi, '_')+'-'+o[0];
@@ -509,7 +520,8 @@ function ktPCXuat(k, cach, ok){
   if(cach!=='xem' && !ok){ var sai = ktPCKiem(k).filter(function(r){ return !r.ok; });   /* 3.123: còn mục ⚠ → nhắc trước khi xuất, vẫn cho xuất */
     if(sai.length) return hoi('Còn '+sai.length+' mục chưa đủ', sai.map(function(r){ return '⚠ '+r.chu; }).join(' · '), cach==='word' ? 'Vẫn xuất Word' : 'Vẫn in', function(){ ktPCXuat(k, cach, 1); }); }
   var ten = 'Thong bao phan cong nhiem vu BTV - '+boDauTen(g.ten).slice(0, 60);
-  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe>'+xuatHang({truoc:'<button class="nho" data-lenh="f22d.ktPCHop" data-a1="'+k+'">‹ Sửa phân công</button>', html:function(){ return ktHTMLPC(g); }, in:'ktPCXuat(\''+k+'\',\'in\')', pdf:'ktPCXuat(\''+k+'\',\'pdf\')', word:'ktPCXuat(\''+k+'\',\'word\')'}), true);   /* 3.152 */
+  if(cach==='xem'){ moHop('<div class="hop-tit">👁 Thông báo phân công — '+coChuHTML(g.ten)+'</div><iframe id="kt-pc-khung" class="to-khung" title="Xem trước"></iframe>'+xuatHang({truoc:'<button class="nho" data-lenh="f22d.ktPCHop" data-a1="'+
+    k+'">‹ Sửa phân công</button>', html:function(){ return ktHTMLPC(g); }, in:'ktPCXuat(\''+k+'\',\'in\')', pdf:'ktPCXuat(\''+k+'\',\'pdf\')', word:'ktPCXuat(\''+k+'\',\'word\')'}), true);   /* 3.152 */
     var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong'); var f = document.getElementById('kt-pc-khung'); xemChuan(f, ktHTMLPC(g)); return; }
   if(cach==='word') return ktDocx('pc', g).then(function(bl){ giaoFile(bl, ten+'.docx'); bao('Đã tạo '+ten+'.docx — chỉ lưu trên máy / Drive của anh.', 6); }).catch(function(er){ baoLoi('Tạo Word lỗi: '+(er && er.message || er)); });
   if(cach==='pdf') return inPDF(ktHTMLPC(g), ten);   /* 3.152 */
@@ -595,7 +607,8 @@ function ktHdtBang(ds){
     var kb = ktHoiKB(x.k), c = ktChuan(x.t), id = x.k.replace(/[^0-9a-z]/gi, '_');
     var ph = {ct:c.ky, pct:c.pho, uv1:c.uv+' 1', uv2:c.uv+' 2', uv3:c.uv+' 3', nk:'2025 – 2030', hd:'…/HĐUT', hdNgay:'dd/mm/yyyy', kh:'06-KH/…', khNgay:'dd/mm/yyyy'};
     var du = (kb.du || []).map(function(d){ return ktTenNhan(d.vt, c)+': '+d.ten; });
-    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" data-lenh="f22d.ktPCHop" data-a1="'+x.k+'" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋 Phân công</button> '+coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
+    return nhom+'<tr data-k="'+coChuHTML(x.k)+'"><td class="hkb-hoi"><button class="nho hkb-pc" data-lenh="f22d.ktPCHop" data-a1="'+x.k+'" title="Thông báo phân công nhiệm vụ Ban Thường vụ (Word / In)">📋 Phân công</button> '+
+      coChuHTML(ktChuan(x.t).ten)+' <small>('+x.n+')</small>'+(du.length ? ' <span class="hkb-du" title="'+coChuHTML('Còn giữ (bản cũ có nhiều hơn 1 PCT / 3 BTV):\n'+du.join('\n'))+'">ⓘ</span>' : '')+'</td>'+
       KT_HKB_COT.map(function(o, cI){ var v = kb[o] || '', loi = KT_PC_VT.indexOf(o)>=0 && v ? ktTenLoiO(kb, o, c) : {loi:[]};
         return '<td><input id="hkb-'+id+'-'+o+'" class="hkb-o'+(ktHkbNgaySai(o, v) ? ' sai' : '')+(loi.loi.length ? ' canh' : '')+'" data-r="'+r+'" data-c="'+cI+'" value="'+coChuHTML(v)+'" placeholder="'+coChuHTML(ph[o]||'')+'" aria-label="'+coChuHTML(ph[o]||o)+'"'+
           (loi.loi.length ? ' title="'+coChuHTML('⚠ '+loi.loi.join('; ')+(loi.goiY ? ' → '+loi.goiY+' (bấm đúp để sửa theo gợi ý)' : ''))+'" ondblclick="ktTenSua(\''+x.k+'\',\''+o+'\',\''+id+'\')"' : '')+

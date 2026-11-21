@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 21/11/2026 — TK 2 · PHIÊN (3.558 C2 Phiếu chuẩn bị phiên + chuẩn hóa)
+- Anh "làm C2 và kết hợp chuẩn hóa theo kế hoạch" → `js/96-phieu-phien.js` (`PPH`, báo cáo Sao kê `pph`, gọi lại `skBCDH` để khớp sao kê gốc). `tools/tach_dong.py` (js/22c, 22d); bỏ `scanCopyAnh`. t410 5/5.
+- Còn chuẩn hóa: tách dòng js/26 + mẫu in (dùng tools/tach_dong.py), cụm danh sách văn bản js/10 + 11 (bản riêng). Đợt 4 còn C1 (cần Giao ban).
+- Bẫy: dữ liệu giả gianho31 không có món đến hạn sau 08/2026 — t410 tự đặt 3 món đến hạn trước phiên để phép khớp có nghĩa.
+
 ### 20/11/2026 — TK 2 · PHIÊN (3.557 rà soát gọn code)
 - Anh "rà soát chuẩn hóa code cho gọn" → duyệt 4 việc, "code 1 lần": ① thước đo `thay_han` + xóa 18 hàm chết · ② `PDFA` (js/03) thay 12 chỗ đọc PDF · ③ onclick 458 → 381 · ④ dòng dài js/25* 85 → 1 (cả app 159 → 108). t411 12/12. Không gộp lớp bọc Scan (anh chọn giữ cắm rút).
 - Chờ anh: thử máy thật bảng 3.557; "gộp". Đề xuất tiếp: tách dòng dài js/26, 22d, 22c, mẫu in (cùng công cụ); đổi cả cụm hàng danh sách văn bản js/10 + 11; bỏ `scanCopyAnh` (không còn nút từ 3.224).
