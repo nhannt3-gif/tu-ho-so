@@ -25,10 +25,7 @@ const path=require('path');
    window.showSaveFilePicker = undefined; let tai = null; const tx0 = taiXuongBlob; window.taiXuongBlob = (bl, ten) => { tai = ten; };
    scanLuuMay(); window.taiXuongBlob = tx0;
    ok('💾 Lưu vào máy: tải PDF, nút có ✓', /^CCCD \d\d-\d\d-\d\d \d\dh\d\d\.pdf$/.test(tai||'') && document.querySelector('.sx-o.da'), tai);
-   /* Copy ảnh */
-   scanCopyAnh(); await w(800);
-   let kieu = ''; try{ const it = await navigator.clipboard.read(); kieu = it[0].types.join(','); }catch(e){ kieu = 'lỗi '+e.message; }
-   ok('📋 Copy ảnh: bộ nhớ tạm có ảnh PNG (2 mặt ghép)', /image\/png/.test(kieu), kieu);
+   /* 3.558: bỏ scanCopyAnh (không còn nút gọi từ 3.224) — giữ kiểm ảnh ghép dưới */
    const g = await scanAnhGhep(); ok('ảnh ghép đủ lớn', g && g.size>1000, g && g.size);
    /* Lưu vào tủ: chọn khách */
    SL_SAN = true; SL_DB = {luc:'', kh:{'KHGIA01':{ten:'Nguyễn Văn Giả', tenThon:'Ấp Giả Một', tenXa:'Xã Giả', xa:'901', thon:'902', cccd:'012345678901', ky:'2026-08'}}, to:{}}; slDungTim();

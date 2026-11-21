@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.557', ds:[
+var CO_GI_MOI = {ban:'3.558', ds:[
+  ["📑 Sao kê › nhóm Nợ đến hạn: 📋 Phiếu chuẩn bị phiên GD — mỗi điểm 1 trang (tóm tắt · món đến hạn / sắp chuyển quá hạn tới phiên kế tiếp · tổ cần chú ý: lãi tồn cao, CLT02 TB/Yếu, tổ viên cần cho ra)", ""],
   ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""],
   ["Scan › 🗎 Bản photo CCCD và 🪪 CCCD › 🖼 Ảnh có sẵn: chọn được cả file PDF (bản photo scan ra PDF) — app tự tách 2 mặt thẻ như ảnh chụp", ""],
   ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
@@ -1071,9 +1072,10 @@ var CO_GI_MOI = {ban:'3.557', ds:[
   ["Hộp 🧪 Kiểm mốc: bảng chỗ lệch + nút Đóng đúng kiểu chung", ""],
   ["Nạp & KT nhận file CLT02 (xếp loại tổ) — theo từng xã, 2 loại tháng và định kỳ; thả file là app tự nhận xã + loại", ""],
   ["Thẻ tổ (tab Tổ) hiện xếp loại CLT02 tháng / định kỳ + tổng điểm", ""],
-  ["Có gì mới: mỗi việc thử có nút ✓ Đạt / ✗ Chưa — kết quả lưu lên Drive, em đọc được, anh không phải gõ lại", ""],
-  ["Lỗi app tự lưu lên Drive (đã che số dài) — em sửa được trước khi anh báo", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Có gì mới: mỗi việc thử có nút ✓ Đạt / ✗ Chưa — kết quả lưu lên Drive, em đọc được, anh không phải gõ lại", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.558 · 📑 Sao kê › Phiếu chuẩn bị phiên GD, chọn 1 điểm → 1 trang; số món đến hạn khớp Sao kê nợ đến hạn cùng khoảng ngày",
+    "3.558 · In thử 1 phiếu A4 dọc mang đi phiên",
     "3.556 · Scan › Quét gì? 🗎 Bản photo CCCD › 🖼 Ảnh có sẵn → chọn file PDF scan tờ photo → hàng chờ ra 2 mặt thẻ",
     "3.556 · Scan › Quét gì? 🪪 CCCD › 🖼 Ảnh có sẵn → chọn được file PDF",
     "3.555 · 📥 Nạp & KT: tiêu đề cột 25/10/2026 có 🗑 → bấm → xác nhận → cột 25/10 biến mất",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.557', ds:[
     "3.548 · Mở app ở 2 tab cùng lúc → tab sau có dải đỏ \"chỉ xem\"",
     "3.547 · 📥 Nạp & KT: mở Kết quả kiểm tra — chỉ thấy các mục ⚠ / ⓘ, không còn dòng lặp; khối 🏦 Tổ trưởng 1 dòng",
     "3.546 · Laptop (đã nối Drive, có số liệu 31/10): ⋯ Nạp & KT › 🧪 Kiểm mốc → ✅ Mốc 31/10/2026: khớp",
-    "3.545 · Laptop: mở app khi đã có bản mới → thấy dải vàng trên cùng, bấm ⟳ Cập nhật ngay → góc trên ghi bản mới",
-    "3.545 · Bấm 📤 File đối chiếu trên máy bản cũ → báo chưa lập, nhắc cập nhật",
-    "3.544 · 📤 File đối chiếu kỳ giữa tháng (không có Sao kê NQH): món chuyển QH lại có ngày như Mẫu 31"],
+    "3.545 · Laptop: mở app khi đã có bản mới → thấy dải vàng trên cùng, bấm ⟳ Cập nhật ngay → góc trên ghi bản mới"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

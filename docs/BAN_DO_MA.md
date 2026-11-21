@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.557 · 21/11/2026 02:32 · 158 file · 47946 dòng · 3751 hàm cấp ngoài · 656 biến toàn cục.
+Bản 3.558 · 21/11/2026 20:39 · 159 file · 48017 dòng · 3750 hàm cấp ngoài · 657 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 347 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 348 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4177 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 177 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -17,7 +17,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/02-nen.js` | 380 | 29 | /*   TỦ HỒ SƠ — bản 1.0  (giai đoạn 1) Cấu trúc file: |
 | `js/03-doc-pdf.js` | 649 | 46 | /*   4. ĐỌC PDF & RÚT THÔNG TIN   */  function sanSangPDF(){ |
 | `js/04-giao-dien.js` | 115 | 12 | /*   6. VẼ GIAO DIỆN   */ var nganHienTai = 0, tuKhoa = '', locNV = '', locGC = '', locNam = '', locCT = '', l |
-| `js/04b-hom-nay.js` | 731 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
+| `js/04b-hom-nay.js` | 723 | 91 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 117–2633 của bản 3.33 |
 | `js/04b2-hom-nay-ghi-chu.js` | 771 | 77 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HÔM NAY — ghi chú 2 chế độ · sổ gạch dòng (to-do) · ho |
 | `js/04b3-hom-nay-lich-viec.js` | 951 | 69 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): HÔM NAY — câu chữ & ngày này năm xưa · can chi, giờ ho |
 | `js/04c-van-ban-thang.js` | 1005 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
@@ -33,7 +33,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/09-bieu-mau.js` | 560 | 45 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
 | `js/10-danh-sach.js` | 1273 | 92 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
 | `js/11-khung-tab.js` | 624 | 54 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
-| `js/12-scan.js` | 929 | 74 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
+| `js/12-scan.js` | 924 | 73 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
 | `js/12b-scan-dien-thoai.js` | 540 | 50 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): SCAN — điện thoại kiểu Lens · máy bàn 💾 Lưu nhanh / 📋  |
 | `js/12c-scan-camera-drive.js` | 385 | 36 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): SCAN — camera trong app · đồng bộ Drive (mở app, rời a |
 | `js/12d-scan-ocr-cau-noi.js` | 690 | 46 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): SCAN — đọc chữ PDF ảnh (OCR) · đọc lại theo bố cục · c |
@@ -49,8 +49,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/21-ngay-gy.js` | 38 | 3 | /* 3.135 — anh Nhân: mọi ô chọn ngày ghi rõ kiểu ngày/tháng/năm (trình duyệt tiếng Anh hiện tháng/ngày → dễ nh |
 | `js/22-so-lieu.js` | 1225 | 127 | /* 3.235 (R3): file này giữ phần lõi; các khối khác tách sang js/22b…22i (nạp ngay sau theo thứ tự tên) + khuô |
 | `js/22b-ktgs.js` | 674 | 97 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1102–1816 của bản 3.234), không  |
-| `js/22c-ktgs-m06.js` | 470 | 67 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
-| `js/22d-ktgs-04.js` | 673 | 93 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2252–2945 của bản 3.234), không  |
+| `js/22c-ktgs-m06.js` | 480 | 67 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 1817–2251 của bản 3.234), không  |
+| `js/22d-ktgs-04.js` | 686 | 93 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2252–2945 của bản 3.234), không  |
 | `js/22e-ktgs-kh.js` | 542 | 79 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 2946–3477 của bản 3.234), không  |
 | `js/22f-tra-cuu.js` | 353 | 40 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 3486–4545 của bản 3.234), không  |
 | `js/22g-to.js` | 521 | 59 | /* 3.235 (R3 — KE_HOACH_CHUAN_HOA): tách nguyên văn từ js/22-so-lieu.js (dòng 4546–5436 của bản 3.234), không  |
@@ -159,6 +159,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/93-moc-vang.js` | 93 | 0 | /*   3.546 A1 (docs/DANH_GIA_CHUYEN_GIA_1511.md đợt 1 — anh 15/11 "code cả 2"): 🧪 KIỂM MỐC VÀNG   Mốc vàng = f |
 | `js/94-may-that.js` | 83 | 0 | /*   3.548 đợt 2 (docs/DANH_GIA_CHUYEN_GIA_1511.md A2 · A3 · mục 4c E1 · E2 — anh 15/11 "code cả 2 và gộp"): M |
 | `js/95-clt02.js` | 89 | 0 | /*   3.549 C5 (hộp thư TK 1 02/11 — anh 15/11 "code cả 2 và gộp" · "CLT sẽ nạp theo xã và 2 loại tháng và định |
+| `js/96-phieu-phien.js` | 60 | 0 | /*   3.558 C2 (docs/DANH_GIA_CHUYEN_GIA_1511.md mục 4 nhóm C — anh 21/11 "làm C2 … code và gộp"): 📋 PHIẾU CHUẨ |
 | `js/mau/0hst.js` | 149 | 0 | /*   3.452 (anh 02/11 "làm tiếp 10B, 10C theo đúng quy chuẩn 10A") — PHẦN CHUNG mẫu Hồ sơ Tổ làm lại theo QUY_ |
 | `js/mau/10c.js` | 148 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
@@ -256,7 +257,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/11-khung-tab.js:1` · 17. KHUNG CHUẨN CHO MỌI TAB
 - `js/11-khung-tab.js:598` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f11.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/12-scan.js:1` · 18. SCAN HỒ SƠ — máy scan trong app
-- `js/12-scan.js:885` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f12.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/12-scan.js:880` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f12.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/12b-scan-dien-thoai.js:3` · 3.43: SCAN TRÊN ĐIỆN THOẠI THEO KIỂU LENS — Quét → Xong → PDF lưu tạm (tên Scan ngày giờ, sửa ngay) → xem trước → Gửi
 - `js/12b-scan-dien-thoai.js:155` · 3.49: MÁY BÀN — 💾 LƯU NHANH + 📋 COPY thay nút Gửi (điện thoại giữ 📤 Gửi). Drive vẫn là nơi lưu mặc định.
 - `js/12b-scan-dien-thoai.js:279` · 3.44: CHỮ KÝ · ẢNH KHÁCH HÀNG — file ảnh nhỏ (dưới 200 KB, càng nhỏ càng tốt) để nhập lên hệ thống khi tạo hồ sơ.
@@ -309,15 +310,15 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/22b-ktgs.js:357` · 3.114 (anh chốt): HỘP CHỌN KHI IN — mỗi mẫu 1 phần, nhớ lựa chọn lần trước (D.cauHinh.ktIn[mẫu], đồng bộ Drive);
 - `js/22b-ktgs.js:664` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22c-ktgs-m06.js:2` · 3.138 (anh chốt): Mẫu 06 gọn & nhạt
-- `js/22c-ktgs-m06.js:130` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
-- `js/22c-ktgs-m06.js:278` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
-- `js/22c-ktgs-m06.js:319` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
-- `js/22c-ktgs-m06.js:463` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/22c-ktgs-m06.js:131` · 3.93.1: Mẫu 06 KIỂM TRA SAU GIẢI NGÂN (727: kiểm tra sử dụng vốn trong 30 ngày) — anh chốt (làm đơn giản):
+- `js/22c-ktgs-m06.js:281` · 3.98: dòng hộ dùng chung 3 màn chọn hộ (đột xuất · sau giải ngân · định kỳ)
+- `js/22c-ktgs-m06.js:322` · bản In / PDF — cùng bố cục mẫu (A4 ngang Mẫu 06, A4 dọc Mẫu 16); trống = dòng chấm
+- `js/22c-ktgs-m06.js:473` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22c.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22d-ktgs-04.js:21` · 3.98: 📖 BẢNG CHUẨN HÓA HỘI – ĐOÀN (anh chốt: chữ đặc thù dùng chung mọi mẫu, sửa 1 chỗ)
-- `js/22d-ktgs-04.js:289` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
-- `js/22d-ktgs-04.js:330` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó
-- `js/22d-ktgs-04.js:333` · 3.117 (anh gửi mẫu tham khảo + bản Đoàn thật, anh: "làm mẫu luôn"): 📄 THÔNG BÁO PHÂN CÔNG NHIỆM VỤ BAN THƯỜNG VỤ trong c
-- `js/22d-ktgs-04.js:657` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
+- `js/22d-ktgs-04.js:292` · ⚙ Khai báo Hội (mỗi Hội – xã 1 khối)
+- `js/22d-ktgs-04.js:333` · 3.113 (anh chốt): 🏛 KHAI BÁO HỘI ĐOÀN THỂ — 1 nơi khai cho mọi mẫu (06, 16TD, 04, Kế hoạch); tab nhỏ Hội – xã · Chuẩn hó
+- `js/22d-ktgs-04.js:336` · 3.117 (anh gửi mẫu tham khảo + bản Đoàn thật, anh: "làm mẫu luôn"): 📄 THÔNG BÁO PHÂN CÔNG NHIỆM VỤ BAN THƯỜNG VỤ trong c
+- `js/22d-ktgs-04.js:670` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22d.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 
 - `js/22e-ktgs-kh.js:31` · 3.140 (anh chốt): IN THEO THÁNG KIỂM TRA (chip 🗓 Kế hoạch) — bấm tháng → các tổ của tháng (theo ấp):
 - `js/22e-ktgs-kh.js:221` · 3.398 (anh 28/10: "KH năm em đang tự lưu phải ko — anh muốn chốt lưu và chốt ngày lưu luôn, sau này có sửa thì lưu lại t
 - `js/22e-ktgs-kh.js:520` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22e.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng 

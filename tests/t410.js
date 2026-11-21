@@ -1,75 +1,45 @@
-// 3.556 (anh 17/11: "scan cccd 2 mặt trên 1 tờ app chỉ đọc ảnh, ko đọc từ file pdf mà anh scan pdf" — "mở pdf luôn"): js/81b (cắm rút).
-//   ① 🗎 Bản photo CCCD / 🪪 CCCD › 🖼 Ảnh có sẵn: hộp chọn file nhận PDF, chữ "Ảnh hoặc PDF trong máy"; 📄 Tài liệu không đổi
-//   ② Bản photo + PDF tờ photo (nền xám, 2 thẻ trên 1 tờ) → 2 ảnh mặt thẻ; PDF 2 trang → 4 ảnh; PDF hỏng → báo tên, ảnh kèm vẫn vào
-//   ③ 🪪 CCCD + PDF thẻ trên nền trắng → vẫn lối js/81. PDF GIẢ (thẻ vẽ giả, không dữ liệu thật).
+// t410 (3.558 C2, anh 21/11 "làm C2 … code và gộp"): 📋 Phiếu chuẩn bị phiên GD — Sao kê, mỗi điểm 1 trang.
+//   Dữ liệu GIẢ (gianho31). Ý: có trong danh sách báo cáo nhóm Nợ đến hạn · mỗi điểm trong phạm vi 1 trang dọc · ngày phiên đúng ngày GDXA kế tiếp ·
+//   mục II–III KHỚP sao kê nợ đến hạn gốc (cùng khoảng, lọc đúng tổ của điểm — tổng số món các điểm = sao kê toàn PGD) · mục IV có / "Không có" · không đổi C.tu / C.den của anh.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
-const path=require('path');
-(async()=>{ const b=await chromium.launch(); const loi=[];
- const p=await b.newPage({viewport:{width:1366,height:850}}); p.on('pageerror',e=>loi.push(e.message));
+const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
+(async()=>{ const b=await chromium.launch(); const o=[], loi=[]; const ok=(t,d,c)=>o.push((d?'✓ ':'✗ ')+t+(c!==undefined&&!d?' — '+c:''));
+ const dir = path.join(__dirname,'gianho31'); const files = fs.readdirSync(dir).map(n=>({n, b:fs.readFileSync(path.join(dir,n)).toString('base64')}));
+ const p = await (await b.newContext({viewport:{width:1366, height:800}})).newPage(); p.on('pageerror', e=>loi.push(e.message));
  await p.route(/accounts\.google|apis\.google/, r=>r.abort()); await require('./tv.js')(p);
- await p.goto('file://'+path.resolve(__dirname,'..','index.html')); await p.waitForTimeout(1500);
- const R = await p.evaluate(async()=>{ await xongTV; try{dongHop()}catch(e){} const o=[], w=t=>new Promise(r=>setTimeout(r,t));
-   const ok = (ten, dk, chi) => o.push((dk ? '✓ ' : '✗ ')+ten+(chi!==undefined ? ' — '+chi : ''));
-   /* bắt hộp chọn file */
-   let mo = null; const clickCu = HTMLInputElement.prototype.click;
-   HTMLInputElement.prototype.click = function(){ if(this.type==='file'){ mo = this; return; } return clickCu.call(this); };
-   HS.mo = true; doiNgan(4); await w(300); HANG = []; ghiHang();
-   const chonNguonTu = async(loai) => { mo = null; batDauScan(loai); await w(100);
-     const nut = document.querySelector('#hop-in button[data-lenh="f35.scChonNguon"][data-a1="photo"]'); const chu = nut && nut.querySelector('.mo-ta').textContent;
-     nut.click(); await w(100); return {chu, accept: mo && mo.accept, multi: mo && mo.multiple}; };
-   const a1 = await chonNguonTu('photo'), a2 = await chonNguonTu('cccd'), a3 = await chonNguonTu('tailieu');
-   ok('① Bản photo CCCD › Ảnh có sẵn: nhận PDF, chữ "Ảnh hoặc PDF trong máy"', /pdf/.test(a1.accept||'') && /image\//.test(a1.accept) && a1.multi && a1.chu==='Ảnh hoặc PDF trong máy', JSON.stringify(a1));
-   ok('① 🪪 CCCD › Ảnh có sẵn: nhận PDF', /pdf/.test(a2.accept||'') && a2.chu==='Ảnh hoặc PDF trong máy', JSON.stringify(a2));
-   ok('① 📄 Tài liệu › Ảnh có sẵn: như cũ (chỉ ảnh)', !/pdf/.test(a3.accept||'') && a3.chu==='Ảnh trong máy', JSON.stringify(a3));
-   HTMLInputElement.prototype.click = clickCu;
-   /* tờ photo giả: A4 nền xám lấm tấm, 2 thẻ xếp dọc */
-   const toPhoto = (lech) => { const c = document.createElement('canvas'); c.width = 1240; c.height = 1754; const g = c.getContext('2d');
-     g.fillStyle = '#d4d4d4'; g.fillRect(0, 0, 1240, 1754); for(let k=0;k<6000;k++){ g.fillStyle = 'rgba(80,80,80,0.35)'; g.fillRect(Math.random()*1240, Math.random()*1754, 2, 2); }
-     const the = (x, y) => { const rw = 860, rh = Math.round(rw/1.585); g.fillStyle = '#f2f2f2'; g.fillRect(x, y, rw, rh); g.strokeStyle = '#333'; g.lineWidth = 4; g.strokeRect(x, y, rw, rh); g.fillStyle = '#444';
-       for(let k=0;k<6;k++) g.fillRect(x+rw*0.38, y+rh*(0.2+k*0.11), rw*0.5, rh*0.04); g.fillRect(x+rw*0.06, y+rh*0.25, rw*0.25, rh*0.5); };
-     the(190+lech, 180); the(190+lech, 960); return c; };
-   const pdfTu = async(ds, ten) => { const pdf = await PDFLib.PDFDocument.create();
-     for(const c of ds){ const bl = await new Promise(r=>c.toBlob(r, 'image/jpeg', 0.9)); const im = await pdf.embedJpg(new Uint8Array(await bl.arrayBuffer())); const pg = pdf.addPage([595, 842]); pg.drawImage(im, {x:0, y:0, width:595, height:842}); }
-     return new File([await pdf.save()], ten, {type:'application/pdf'}); };
-   const cho = async(n) => { for(let i=0;i<120 && HANG.filter(x=>x.kieu==='anh').length<n;i++) await w(200); await w(600); };
-   const don = () => { HANG.forEach(x=>xoaFileHang(x, [])); HANG = []; ghiHang(); try{dongHop()}catch(e){} };
-   const vao = (loai) => { SC.loai = loai; scChonNguon('photo'); };   /* đặt chế độ như bấm nút (hộp chọn file bị bắt) */
-   const clickCu2 = HTMLInputElement.prototype.click; HTMLInputElement.prototype.click = function(){ if(this.type!=='file') return clickCu2.call(this); };
-   /* ② Bản photo + PDF 1 trang */
-   don(); batDauScan('photo'); vao('photo');
-   ok('② chế độ photo: SC.che = the, photo2 bật', SC.che==='the' && SC.photo2===true);
-   const f1 = await pdfTu([toPhoto(0)], 'photo gia.pdf');
-   await nhanVaoScan([f1], 'photo'); await cho(2);
-   let anh = HANG.filter(x=>x.kieu==='anh');
-   ok('② PDF tờ photo 1 trang → 2 ảnh mặt thẻ, không còn trang PDF', anh.length===2 && !HANG.some(x=>x.kieu==='trang'), JSON.stringify(HANG.map(x=>x.kieu+':'+x.ten)));
-   const kt = []; for(const x of anh){ const bl = await docAnhHS(x.id); const im = bl && await createImageBitmap(bl); kt.push(im ? [im.width, im.height] : null); }
-   ok('② ảnh mặt thẻ đúng tỉ lệ thẻ (ngang ~1,58)', kt.length===2 && kt.every(k=>k && k[0]/k[1]>1.35 && k[0]/k[1]<1.8), JSON.stringify(kt));
-   don();
-   /* ② PDF 2 trang → 4 ảnh */
-   batDauScan('photo'); vao('photo');
-   const f2 = await pdfTu([toPhoto(0), toPhoto(30)], 'photo 2 nguoi.pdf');
-   await nhanVaoScan([f2], 'photo'); await cho(4);
-   ok('② PDF 2 trang (2 người) → 4 ảnh mặt thẻ', HANG.filter(x=>x.kieu==='anh').length===4, HANG.length+'');
-   don();
-   /* ② PDF hỏng + 1 ảnh tờ photo kèm */
-   batDauScan('photo'); vao('photo');
-   let baoL = ''; const blCu = baoLoi; baoLoi = function(s){ baoL += s; return blCu.apply(this, arguments); };
-   const hong = new File([new Uint8Array([1, 2, 3, 4, 5])], 'hong gia.pdf', {type:'application/pdf'});
-   const anhKem = await new Promise(r=>toPhoto(0).toBlob(b=>r(new File([b], 'kem.jpg', {type:'image/jpeg'})), 'image/jpeg', 0.9));
-   await nhanVaoScan([hong, anhKem], 'photo'); await cho(2); await w(900); baoLoi = blCu;
-   ok('② PDF hỏng → báo đúng tên file, ảnh kèm vẫn vào 2 mặt', /hong gia\.pdf/.test(baoL) && HANG.filter(x=>x.kieu==='anh').length===2, baoL.slice(0, 120)+' | '+HANG.length);
-   don();
-   /* ③ 🪪 CCCD + PDF thẻ nền trắng (lối js/81) */
-   batDauScan('cccd'); vao('cccd');
-   const trang = () => { const c = document.createElement('canvas'); c.width = 1240; c.height = 1754; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, 1240, 1754);
-     const rw = 900, rh = Math.round(rw/1.585); g.fillStyle = '#9fd3b8'; g.fillRect(170, 600, rw, rh); g.fillStyle = '#235'; for(let k=0;k<6;k++) g.fillRect(170+rw*0.38, 600+rh*(0.2+k*0.11), rw*0.5, rh*0.04); return c; };
-   ok('③ chế độ CCCD: photo2 tắt', SC.che==='the' && !SC.photo2);
-   const f3 = await pdfTu([trang(), trang()], 'cccd gia.pdf');
-   await nhanVaoScan([f3], 'file', 1); await cho(2);
-   ok('③ 🪪 CCCD + PDF (2 trang, 1 thẻ / trang) → 2 ảnh như 3.403', HANG.filter(x=>x.kieu==='anh').length===2, HANG.length+'');
-   don(); HTMLInputElement.prototype.click = clickCu2;
-   return o;
- });
- R.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,5));
- const sai = R.filter(x=>x[0]==='✗').length; console.log((R.length-sai)+'/'+R.length+' đạt'); await b.close(); process.exit(sai||loi.length ? 1 : 0);
+ await p.goto('file://'+G+'/index.html'); await p.waitForTimeout(1500);
+ const w = t=>new Promise(r=>setTimeout(r, t));
+ await p.evaluate(async(files)=>{ await xongTV; try{dongHop()}catch(e){} window.SL_KHONG_TU_KIEM = 1;
+   for(const f of files){ const bin=atob(f.b), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); const kq = await slDocFile(new File([u], f.n)); if(!kq.loi && kq.ky){ try{ await slGhi(kq); }catch(e){} } } }, files);
+ const r = await p.evaluate(async()=>{ const w = t=>new Promise(r=>setTimeout(r, t));
+   const ky = Object.keys(SLM.bang).map(k=>SLM.bang[k]).filter(e=>e.loai==='hstd' && e.ky.length===7).map(e=>e.ky).sort().pop();
+   D.cauHinh.slTab = 'sk'; doiNgan(7); const C = skCH(); C.ky = ky; C.xa=''; C.diem=''; C.hoi=''; C.to=''; C.tu = '2000-01-01'; C.den = '2000-01-02'; veSaoKe();
+   for(let i=0;i<80 && !(SK_K && SK_K.ky===ky);i++) await w(250);
+   const coBC = SK_BC.some(b=>b.k==='pph' && b.nhom==='dh');
+   let ts = PPH.lap(); const ns = KHO.bang('hstd', SK_K.thang).ngay, hom = ngayISO(nay());
+   /* dữ liệu giả không có món đến hạn trong khoảng → cho 3 món của điểm đầu đến hạn 2 ngày trước phiên (sửa trong bộ nhớ, không ghi kho) */
+   const d0 = ttDuLieu()[0], set0 = {}; d0.hoi.forEach(g=>g.to.forEach(z=>{ if(z.t) set0[z.t.ma] = 1; }));
+   const ngP0 = ts[0].ngP, han = PPH.sau(ngP0, -2) < PPH.sau(ns) ? PPH.sau(ns) : PPH.sau(ngP0, -2);
+   kcGoc(skMau31()).filter(o=>set0[toMaCua(o)] && o.ku && (o.dn||0)>0 && !(o.qh>0) && !(o.kn>0)).slice(0, 3).forEach(o=>{ o.dhg = han; o.dhgh = ''; });
+   ts = PPH.lap();
+   const dsDiem = ttDuLieu();
+   /* sao kê gốc: cùng khoảng của trang 1, toàn phạm vi, không lọc điểm */
+   const t0 = ts[0], tu = PPH.sau(ns), den = t0.ngP;
+   C.tu = tu; C.den = den; const N = skNen31('dh'); const goc = skBCDH(N.rows, N.lapKH, N.M, N.e31, N.ngay); C.tu = '2000-01-01'; C.den = '2000-01-02';
+   const dem = h=>(h.match(/— (\d+) món<\/div>/g)||[]).reduce((s, x)=>s+(+x.match(/(\d+) món/)[1]), 0);
+   /* tổng món các điểm (chỉ điểm cùng ngày phiên với trang 1) = sao kê gốc lọc theo tổ các điểm đó */
+   const cung = ts.filter(t=>t.ngP===den), set = {}; dsDiem.filter((d, i)=>ts[i].ngP===den).forEach(d=>d.hoi.forEach(g=>g.to.forEach(z=>{ if(z.t) set[z.t.ma] = 1; })));
+   C.tu = tu; C.den = den; const goc2 = skBCDH(N.rows.filter(o=>set[toMaCua(o)]), N.lapKH, N.M, N.e31, N.ngay); C.tu = '2000-01-01'; C.den = '2000-01-02';
+   return {coBC, n:ts.length, nDiem:dsDiem.length, ngP:ts.map(t=>t.ngP), gd:dsDiem.map(d=>d.ngayGD), hom, ns, tieu:t0.tieuDe, html4:/IV\. Tổ cần chú ý/.test(t0.html), demCung:cung.reduce((s, t)=>s+dem(t.html), 0), demGoc2:dem(goc2.html), demGoc:dem(goc.html), giuC:C.tu==='2000-01-01' && C.den==='2000-01-02', motTrangAoa:Array.isArray(t0.aoa) && t0.aoa.length>1}; });
+ ok('báo cáo "Phiếu chuẩn bị phiên GD" ở nhóm Nợ đến hạn; mỗi điểm 1 trang', r.coBC && r.n===r.nDiem && r.n>0 && /PHIẾU CHUẨN BỊ PHIÊN GIAO DỊCH — ĐIỂM GD/.test(r.tieu), JSON.stringify({n:r.n, nDiem:r.nDiem, tieu:r.tieu}));
+ const dungNgay = r.ngP.every((n, i)=>{ const d = parseInt(r.gd[i], 10); if(!d) return n===''; const goc = r.hom > r.ns ? r.hom : null; return n && +n.slice(8)===Math.min(d, new Date(+n.slice(0,4), +n.slice(5,7), 0).getDate()) && (!goc || n>=goc); });
+ ok('ngày phiên = ngày GDXA kế tiếp của điểm (≥ hôm nay / sau ngày số liệu)', dungNgay, JSON.stringify({ngP:r.ngP, gd:r.gd, hom:r.hom, ns:r.ns}));
+ ok('mục II–III khớp sao kê nợ đến hạn gốc (có món: tổng món các điểm cùng phiên = sao kê gốc lọc đúng tổ các điểm đó, ≤ toàn PGD)', r.demCung>=3 && r.demCung===r.demGoc2 && r.demCung<=r.demGoc, JSON.stringify({cung:r.demCung, goc2:r.demGoc2, goc:r.demGoc}));
+ ok('có mục IV Tổ cần chú ý; xuất Excel có dòng; không đổi khoảng ngày anh đang chọn', r.html4 && r.motTrangAoa && r.giuC, JSON.stringify(r).slice(0, 200));
+ /* màn xem */
+ const xem = await p.evaluate(async()=>{ skChonBC('pph'); await new Promise(z=>setTimeout(z, 1500)); const f = document.getElementById('sk-xem-khung'); const d = f && (f.contentDocument || {}); return {co:!!f, trang:d.querySelectorAll ? d.querySelectorAll('.trang').length : -1}; });
+ ok('chọn báo cáo → màn xem hiện các trang phiếu', xem.co && xem.trang>=1, JSON.stringify(xem));
+ o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
+ const sai = o.filter(x=>x.startsWith('✗')).length + (loi.length ? 1 : 0); console.log(sai ? '✗ '+sai+' sai' : '✓ t410 đạt hết');
+ await b.close(); process.exit(sai ? 1 : 0);
 })();

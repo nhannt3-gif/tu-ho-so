@@ -358,11 +358,6 @@ function scanAnhGhep(){
     return new Promise(function(ok){ c.toBlob(ok, 'image/png'); });
   });
 }
-function scanCopyAnh(){
-  if(!(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write)) return bao('Máy này không cho chép ảnh — dùng 📤 Gửi.', 5);
-  navigator.clipboard.write([new ClipboardItem({'image/png':scanAnhGhep()})]).then(function(){ scanDa('anh'); bao('Đã chép ảnh — dán (Ctrl+V) vào Zalo.', 5); })
-    .catch(function(){ baoLoi('Không chép được ảnh — dùng 📤 Gửi.'); });
-}
 /* ✓ Xong: đã lưu / gửi → bỏ phiên quét; chưa làm gì → hỏi trước khi bỏ */
 function scanXongBo(){
   var bo = function(){ HANG.forEach(function(x){ xoaFileHang(x, []); }); HANG = []; SX = null; ghiHang(); dongHop(); veScan(); };

@@ -35,6 +35,7 @@ const fs=require('fs'), path=require('path'), crypto=require('crypto'), CHUP = p
    try{ const ds = []; slKTTW('2026-08', TH_K.B, function(){ ds.push([].slice.call(arguments)); }); out['kttw'] = gon(ds); }catch(e){ out['kttw'] = 'LỖI '+e.message; }
    return out; }, files);
  if(process.env.T276_RA) fs.writeFileSync(process.env.T276_RA, JSON.stringify(R));   /* 3.508: ghi nội dung để so khi đổi có chủ đích */
+ Object.keys(R).filter(k=>/\|pph$/.test(k)).forEach(k=>{ delete R[k]; });   /* 3.558: Phiếu chuẩn bị phiên (pph) tính ngày phiên theo HÔM NAY — không chụp cố định; kiểm riêng ở t410 */
  const bam = Object.fromEntries(Object.entries(R).map(([k, v])=>[k, crypto.createHash('sha1').update(String(v)).digest('hex').slice(0, 16)+' '+String(v).length]));
  const loiBC = Object.entries(R).filter(([k, v])=>/^LỖI /.test(v)).map(([k, v])=>k+': '+v);
  if(process.argv.includes('--chup')){ fs.writeFileSync(CHUP, JSON.stringify(bam, null, 1)); console.log('Đã ghi bản chụp', Object.keys(bam).length, 'báo cáo · lỗi:', loiBC.length, loiBC.slice(0, 5)); await b.close(); return; }
