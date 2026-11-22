@@ -648,13 +648,13 @@ function veRacHTML(){
           '<div class="dk-ten"'+(m.khoCu==='soLieu' || m.khoCu==='mucNho' ? '' : ' data-lenh="f10.xemThu" data-a1="rac" data-a2="'+m.id+'" title="Bấm để xem thử"')+'><b>'+coChuHTML(m.tenMoi||m.ten||m.tenCu||'(chưa đặt tên)')+'</b>'+
           '<small>'+coChuHTML(duongThat(m))+'</small>'+
           '<small>Xóa '+ngayVN((m.xoaLuc||'').slice(0,10))+(m.co?' · '+kichCo(m.co):'')+(m.lyDoXoa?' · '+coChuHTML(m.lyDoXoa):'')+'</small></div>'+
-          '<button class="nho" onclick="khoiPhucRac([\''+m.id+'\']);ve();capNhatDemRac();bao(\'Đã khôi phục về '+coChuHTML(n[1].replace(/^\S+ /,''))+'.\',3)">Khôi phục</button></div>';
+          '<button class="nho" data-lenh="f10.khoiPhuc" data-a1="'+m.id+'" data-a2="'+coChuHTML(n[1].replace(/^\S+ /,'')).replace(/"/g, '&quot;')+'">Khôi phục</button></div>';
       }).join('')+
       '<div class="dk-chan-ngan"><button class="nho" data-lenh="f10.chonNganRac" data-a1="'+n[0]+'">Chọn cả ngăn</button>'+
         '<button class="nho xau" data-lenh="f10.lamTrongNgan" data-a1="'+n[0]+'">Làm trống ngăn này</button></div></details>';
   });
   h += '</div><div class="rac-chan"><span id="rac-chon">Chưa chọn mục nào</span>'+
-    '<button class="nho" onclick="var i=idChonRac();if(!i.length)return bao(\'Chưa chọn mục nào.\',3);khoiPhucRac(i);ve();capNhatDemRac();bao(\'Đã khôi phục \'+i.length+\' mục về đúng chỗ cũ.\',4)">Khôi phục đã chọn</button>'+
+    '<button class="nho" data-lenh="f10.khoiPhucChon">Khôi phục đã chọn</button>'+
     '<button class="nho xau" data-lenh="f10.xoaHanRac">Xóa hẳn đã chọn</button></div>';
   return h;
 }
@@ -794,10 +794,10 @@ function dongHTML(m, q){
     if(m.mang) the.push(['ct', m.mang]);
     (m.ctrinh||[]).slice(0,1).forEach(function(t){ the.push(['ct', hienCT(t)]); });
     (m.tag||m.the||[]).slice(0,2).forEach(function(t){ the.push(['', t]); });
-    if(TRUNG_SH[m.id]) the.unshift(['trung', '', '<a onclick="event.stopPropagation();moGopTrung(\''+m.id+'\')" title="Văn bản này có '+(TRUNG_SH[m.id].length-1)+' bản khác cùng số hiệu, cùng năm — bấm để so và gộp">⚠ trùng '+(TRUNG_SH[m.id].length-1)+' bản</a>']);   /* 3.77 */
+    if(TRUNG_SH[m.id]) the.unshift(['trung', '', '<a data-lenh="f10.gopTrung" data-a1="'+m.id+'" title="Văn bản này có '+(TRUNG_SH[m.id].length-1)+' bản khác cùng số hiệu, cùng năm — bấm để so và gộp">⚠ trùng '+(TRUNG_SH[m.id].length-1)+' bản</a>']);   /* 3.77 */
     var dsLQ = lqCua(m).sort(function(a, b){ return (a.ngay||'').localeCompare(b.ngay||''); });   /* 3.70 (AM): hiện số hiệu, bấm đi tới */
     if(dsLQ.length) the.push(['ct lq-tg', '', '🔗 '+dsLQ.slice(0, 2).map(function(v){
-      return '<a class="lq-lk" onclick="event.stopPropagation();diToiVB(\''+v.id+'\')" title="'+coChuHTML(tenNganVB(v)+(v.ngay?' · '+ngayVN(v.ngay):'')+(v.hetHieuLuc?' · hết hiệu lực':'')+' — bấm để đi tới')+'">'+
+      return '<a class="lq-lk" data-lenh="f10.diToi" data-a1="'+v.id+'" title="'+coChuHTML(tenNganVB(v)+(v.ngay?' · '+ngayVN(v.ngay):'')+(v.hetHieuLuc?' · hết hiệu lực':'')+' — bấm để đi tới')+'">'+
         coChuHTML(v.soHieu || (v.tenVB||v.trichYeu||v.tenMoi||'').slice(0, 24))+'</a>'; }).join(' · ')+
       (dsLQ.length>2 ? ' <small title="'+coChuHTML(dsLQ.slice(2).map(tenNganVB).join('\n'))+'">+'+(dsLQ.length-2)+'</small>' : '')]);
     if(m.hetHieuLuc) the.push(['phu','Hết hiệu lực']);
@@ -807,17 +807,16 @@ function dongHTML(m, q){
   if(m.chiMucThoi) the.push(['xam','Chưa tải về máy']);
 
   return '<div class="d2'+(m.hetHieuLuc?' mo':'')+(CON_ID[m.id]?' con':'')+(mucDangXem&&mucDangXem.id===m.id?' chon':'')+
-    '"'+botAt(m.id)+' onclick="chonDong(\'' +m.id+ '\')">'+
+    '"'+botAt(m.id)+' data-lenh="f10.chon" data-a1="'+m.id+'">'+
     '<div class="h1">'+(laBM||m.nhom==='vanBan'?saoHTML(m):'')+'<span class="ico">'+ico+'</span>'+
       '<span class="ten" title="'+coChuHTML(ten)+'">'+toSang(ten, q)+'</span>'+
       (phu?'<span class="ty">'+toSang(phu, q)+'</span>':'')+'</div>'+
     '<div class="h2"><div class="the">'+
       the.map(function(t){ return '<span class="tg '+t[0]+'">'+(t[2] || coChuHTML(t[1]))+'</span>'; }).join('')+
     '</div><div class="nut">'+
-      (coCauNoi() && !laDT() ? '<button onclick="event.stopPropagation();chepMot(\'' +m.id+ '\')" title="Chép file — Ctrl+V vào Zalo / email / thư mục">📋</button>' : '')+   /* 3.106 */
-      '<button onclick="event.stopPropagation();'+
-        (laBM?'suaBieuMau':'suaCho')+'(\'' +m.id+ '\')" title="Sửa">✎</button>'+
-      '<button onclick="moMenu(event,\'' +m.id+ '\')" title="Thêm lệnh">⋯</button>'+
+      (coCauNoi() && !laDT() ? '<button data-lenh="f10.chep" data-a1="'+m.id+'" title="Chép file — Ctrl+V vào Zalo / email / thư mục">📋</button>' : '')+   /* 3.106 */
+      '<button data-lenh="f10.'+(laBM?'suaBM':'suaCho')+'" data-a1="'+m.id+'" title="Sửa">✎</button>'+
+      '<button data-lenh="f10.menu" data-a1="'+m.id+'" title="Thêm lệnh">⋯</button>'+
     '</div></div></div>';
 }
 
@@ -847,16 +846,18 @@ function quayLaiVB(){
   var id; while(XEM_LS.length && !(id && timMuc(id))) id = XEM_LS.pop();
   if(id && timMuc(id)) moVBLienQuan(id);
 }
+/* 3.560: dòng danh sách của 1 mục — văn bản (data-lenh f10.chon) hoặc biểu mẫu (onclick chonDong, js/09) */
+function dongVBChon(id){ var q = String(id).replace(/["\\]/g, '\\$&'); return '.d2[data-lenh="f10.chon"][data-a1="'+q+'"],.d2[onclick^="chonDong(\''+id+'\')"]'; }
 function moVBLienQuan(id){
   chonDong(id);
-  var hang = document.querySelector('.d2[onclick^="chonDong(\''+id+'\')"]');
+  var hang = document.querySelector(dongVBChon(id));
   if(hang && hang.offsetParent){ if(hang.scrollIntoView) hang.scrollIntoView({block:'nearest', behavior:'smooth'}); }
   else if(nganHienTai===1) baoNut('Văn bản này đang bị hàng lọc / ô tìm ẩn khỏi danh sách — vẫn mở ở khung xem.', 'Bỏ lọc', function(){ boLoc('vanBan'); setTimeout(function(){ moVBLienQuan(id); }, 50); });
 }
 /* báo kèm 1 nút tùy ý (giống Hoàn tác) */
 function baoNut(t, nhan, ham){
   var e = document.getElementById('bao'); BAO_HT = ham;
-  e.innerHTML = coChuHTML(t)+' <button class="bao-ht" onclick="event.stopPropagation();var h=BAO_HT;BAO_HT=null;document.getElementById(\'bao\').classList.remove(\'hien\');if(h)h()">'+coChuHTML(nhan)+'</button>';
+  e.innerHTML = coChuHTML(t)+' <button class="bao-ht" data-lenh="f10.baoHT">'+coChuHTML(nhan)+'</button>';
   e.classList.add('hien'); e.classList.toggle('goc', window.innerWidth>=700);
   clearTimeout(tBao); tBao = setTimeout(function(){ e.classList.remove('hien'); BAO_HT = null; }, 6000);
 }
@@ -878,8 +879,8 @@ function xemBenPhai(id){
   document.getElementById('cp-phu').title = m.tenMoi||m.tenCu||m.ten||'';   /* 3.157: khung xem máy tính chỉ 1 dòng nơi lưu — rê chuột thấy tên file */
   veNutCN(m);
   /* chỉ đổi dòng được chọn — trước vẽ lại cả danh sách mỗi lần bấm */
-  Array.prototype.forEach.call(document.querySelectorAll('.d2.chon[onclick^="chonDong("]'), function(e){ e.classList.remove('chon'); });
-  Array.prototype.forEach.call(document.querySelectorAll('.d2[onclick^="chonDong(\''+id+'\')"]'), function(e){ e.classList.add('chon'); });
+  Array.prototype.forEach.call(document.querySelectorAll('.d2.chon[onclick^="chonDong("],.d2.chon[data-lenh="f10.chon"]'), function(e){ e.classList.remove('chon'); });
+  Array.prototype.forEach.call(document.querySelectorAll(dongVBChon(id)), function(e){ e.classList.add('chon'); });
   D.ganDay = [id].concat(D.ganDay.filter(function(x){ return x!==id; })).slice(0,8);
   clearTimeout(xemBenPhai.hen); xemBenPhai.hen = setTimeout(luu, 1500);
 }
@@ -1270,4 +1271,18 @@ gdDangKy('f10', gdLenh({
   moQuetDon:function(el, ev){ moQuetDon(); },
   xemThu:function(el, ev){ xemThu(gdA(el, 1), gdA(el, 2)); },
   xuLyQuetDon:function(el, ev){ xuLyQuetDon(); }
+}));
+/* ---------- 3.560 (chuẩn hóa — QUY_CHUAN mục 10): LỆNH data-lenh="f10.*" thay onclick viết thẳng ở dòng danh sách, thùng rác, nút trên thông báo.
+   Bộ nghe chung GD chỉ chạy lệnh của phần tử TRONG CÙNG có data-lenh → nút trên dòng (📋 ✎ ⋯, ⚠ trùng, 🔗) không làm chọn dòng (như event.stopPropagation cũ). ---------- */
+gdDangKy('f10', gdLenh({
+  chon:function(el){ chonDong(gdA(el, 1)); },
+  gopTrung:function(el){ moGopTrung(gdA(el, 1)); },
+  diToi:function(el){ diToiVB(gdA(el, 1)); },
+  chep:function(el){ chepMot(gdA(el, 1)); },
+  suaBM:function(el){ suaBieuMau(gdA(el, 1)); },
+  suaCho:function(el){ suaCho(gdA(el, 1)); },
+  menu:function(el, ev){ moMenu(ev, gdA(el, 1)); },
+  khoiPhuc:function(el){ khoiPhucRac([gdA(el, 1)]); ve(); capNhatDemRac(); bao('Đã khôi phục về '+gdA(el, 2)+'.', 3); },
+  khoiPhucChon:function(){ var i = idChonRac(); if(!i.length) return bao('Chưa chọn mục nào.', 3); khoiPhucRac(i); ve(); capNhatDemRac(); bao('Đã khôi phục '+i.length+' mục về đúng chỗ cũ.', 4); },
+  baoHT:function(el, ev){ if(ev) ev.stopPropagation(); var h = BAO_HT; BAO_HT = null; document.getElementById('bao').classList.remove('hien'); if(h) h(); }
 }));

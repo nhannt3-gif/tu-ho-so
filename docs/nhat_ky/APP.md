@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 22/11/2026 — TK 2 · PHIÊN (3.560 chuẩn hóa danh sách văn bản)
+- 13 onclick js/10 + 11 → data-lenh f10.* / f11.*; bộ chọn dòng nhận 2 dạng (Biểu mẫu js/09 còn onclick). t412 6/6. Còn 6 onclick động (tên hàm truyền vào).
+- Bẫy: đổi onclick dòng phải đổi CẢ dòng lẫn nút trên dòng cùng lúc (onclick dòng chạy trước bộ nghe GD ở document); grep `[onclick^=` trong js + tests.
+
 ### 22/11/2026 — TK 2 · PHIÊN (3.559 chuẩn hóa tách dòng js/26 + mẫu in)
 - Anh "tiếp tục": `tools/tach_dong.py` cho js/26, js/31, js/mau/* (62 chỗ, kiem.py dòng > 400 −42). Còn: cụm danh sách văn bản js/10 + 11 (bản riêng, chờ anh duyệt vì đụng màn dùng nhiều nhất).
 

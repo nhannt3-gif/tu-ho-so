@@ -747,8 +747,8 @@ function taiTruocMuc(id){
   layNoiDung(m).then(function(b){ if(b && /pdf/.test(b.type||'pdf')) moPDFNho(m.id+'|'+b.size, b).catch(function(){}); }).catch(function(){});
 }
 document.addEventListener('mouseover', function(e){
-  var el = e.target && e.target.closest && e.target.closest('[onclick^="chonDong("]'); if(!el) return;
-  var mm = (el.getAttribute('onclick')||'').match(/chonDong\('([^']+)'/); if(!mm) return;
+  var el = e.target && e.target.closest && e.target.closest('[onclick^="chonDong("],[data-lenh="f10.chon"]'); if(!el) return;   /* 3.560: dòng văn bản dùng data-lenh */
+  var mm = el.getAttribute('data-lenh')==='f10.chon' ? [0, el.getAttribute('data-a1')] : (el.getAttribute('onclick')||'').match(/chonDong\('([^']+)'/); if(!mm || !mm[1]) return;
   clearTimeout(TAI_TRUOC.hen);
   TAI_TRUOC.hen = setTimeout(function(){ taiTruocMuc(mm[1]); }, 150);
 });

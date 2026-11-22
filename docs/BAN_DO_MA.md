@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.559 · 22/11/2026 09:38 · 159 file · 48076 dòng · 3750 hàm cấp ngoài · 657 biến toàn cục.
+Bản 3.560 · 22/11/2026 09:59 · 159 file · 48094 dòng · 3751 hàm cấp ngoài · 657 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -31,8 +31,8 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/07-cccd.js` | 194 | 14 | /*   12. HỒ SƠ CCCD - 3.32: KHÔNG mã hóa nữa (anh Nhân chốt: Drive của anh là nơi lưu bảo mật). |
 | `js/08-dia-ban.js` | 576 | 46 | /*   danh mục địa bàn: Xã/phường → Điểm GD → Ấp/KP → Tổ   */ function dsXa(){ return (D.cauHinh.diaBan//[]).ma |
 | `js/09-bieu-mau.js` | 560 | 45 | /*   13. BIỂU MẪU — kho mẫu đơn trắng để in cho khách điền Xếp theo chương trình vay; có nhóm dùng chung và th |
-| `js/10-danh-sach.js` | 1273 | 92 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
-| `js/11-khung-tab.js` | 624 | 54 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
+| `js/10-danh-sach.js` | 1288 | 93 | /*   14. DANH SÁCH GỌN + MENU + NHÓM + THÙNG RÁC + TRẠNG THÁI   */ |
+| `js/11-khung-tab.js` | 627 | 54 | /*   17. KHUNG CHUẨN CHO MỌI TAB Ba phần giống nhau ở mọi tab: |
 | `js/12-scan.js` | 924 | 73 | /*   18. SCAN HỒ SƠ — máy scan trong app Hai chế độ: |
 | `js/12b-scan-dien-thoai.js` | 540 | 50 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): SCAN — điện thoại kiểu Lens · máy bàn 💾 Lưu nhanh / 📋  |
 | `js/12c-scan-camera-drive.js` | 385 | 36 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): SCAN — camera trong app · đồng bộ Drive (mở app, rời a |
@@ -252,8 +252,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/10-danh-sach.js:217` · QUÉT DỌN RÁC — chỉ trong thư mục Tủ hồ sơ, chỉ đọc cho tới khi anh chọn
 - `js/10-danh-sach.js:544` · 3.50: 🧰 DỌN KHO — một nơi duy nhất (thay Bảo trì kho ở Cài đặt và Thư viện).
 - `js/10-danh-sach.js:683` · 3.77 — VĂN BẢN TRÙNG: cùng số hiệu (bỏ dấu, khoảng trắng, gạch) + cùng năm ban hành
-- `js/10-danh-sach.js:1234` · 3.475 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH MENU CHUỘT PHẢI của danh sách file — data-lenh="menu.*", mục đang 
-- `js/10-danh-sach.js:1245` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f10.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/10-danh-sach.js:1235` · 3.475 (Đ4 kế hoạch dọn — bỏ onclick viết thẳng): LỆNH MENU CHUỘT PHẢI của danh sách file — data-lenh="menu.*", mục đang 
+- `js/10-danh-sach.js:1246` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f10.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/10-danh-sach.js:1275` · 3.560 (chuẩn hóa — QUY_CHUAN mục 10): LỆNH data-lenh="f10.*" thay onclick viết thẳng ở dòng danh sách, thùng rác, nút tr
 - `js/11-khung-tab.js:1` · 17. KHUNG CHUẨN CHO MỌI TAB
 - `js/11-khung-tab.js:598` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f11.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/12-scan.js:1` · 18. SCAN HỒ SƠ — máy scan trong app
