@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.562 — 22/11/2026 — Chuẩn hóa nút: danh mục, KTGS, hộp thoại chung, Hôm nay (TK 2)
+- **Nguồn:** anh 22/11 "tiếp và gộp" (tiếp chuyển onclick 3–4 file / bản).
+- **js/19** (11): bộ sửa danh mục + ⚙ mẫu báo cáo → `f19.*`. **js/22b** (10): bảng ngành, 2 mặt, 🏛 Khai báo → `f22b.*`; `ktInNutXem` nhận HÀM (giữ ở `KT_IN_XEM` theo số, nút `f22b.xem`) — 6 nơi gọi đổi chuỗi → hàm (js/22c, 22d, 22e ×2, 56, 80).
+- **js/06** (12): hộp hỏi Đồng ý (`f06.hoiOK`), chip gọn, ✕ tag, tag gợi ý, ô số hiệu, loại, 📂, Hôm nay, ❓ / ✨ ở Cài đặt → `f06.*`; liên kết biểu mẫu kèm dùng `f10.chon`. Còn 1: nút "Có gì mới" (lệnh do tools/bump.py ghi).
+- **js/04b3** (11): kiểu chữ sổ, ✓ việc lịch, ô dòng sổ, Thêm / Xóa dòng, Dời, tính ngày → `f04b3.*`; "Cần xử lý": `fn` nay là HÀM, chip / thẻ gọi qua `HN_VIEC` (`f04b3.viec`).
+- Không đổi (có lý do): js/27 (lõi bản mini — chép bằng Function.toString ra file HTML riêng, không có bộ lệnh chung), js/26 (chip GDX truyền chuỗi lệnh khắp file — bản riêng).
+- Thước đo onclick 322 → 278. Phép thử mới t414 (7 ý).
+
 ## 3.561 — 22/11/2026 — Chuẩn hóa nút: khung tab, Biểu mẫu, cây địa bàn, khung xem PDF (TK 2)
 - **Nguồn:** đề xuất sau 3.560 (3 mục); anh 22/11 "code và gộp".
 - **6 chỗ bấm động** (js/10 + 11): `+ Thêm` → `f11.them` gọi `TL_OPT[tab].hamThem` (5 nơi gọi đổi chuỗi lệnh → hàm: js/04c ×2, 04e, 09, 12); chip / menu kiểu xem → `f11.kieuXem` (hamXem vẫn là TÊN hàm); chip lọc → `f11.datLoc` (bỏ tham số `ham` không nơi nào truyền); Khác › Drive → `f10.khacDK`, Quét rác Sửa → `f10.suaQD` (chỉ gọi hàm trong danh sách `F10_KHAC` / `F10_SUA`, không eval).

@@ -14,7 +14,7 @@ function ktKH04(){   /* 3.98 ②: Mẫu 04 theo bảng kế hoạch — mỗi th
   return ra;
 }
 function ktKH04Xem(ok){
-  if(!ok) return ktInHop(['m04'], ktInNutXem('ktKH04Xem(1)'), ktHoiCuaTo(ktKHLich().ds));   /* 3.114 */
+  if(!ok) return ktInHop(['m04'], ktInNutXem(function(){ ktKH04Xem(1); }), ktHoiCuaTo(ktKHLich().ds));   /* 3.114 */
   var gts = ktKH04(); if(!gts.length) return bao('Chọn tháng có lịch để lập Mẫu 04.', 3);
   var L0 = ktKHLich(); if(!L0.luu){ ktKHGhi(L0); ktVeThe(); }   /* 3.123 */
   KT_BC_XEM = {tu:'kh', gts:gts, tenFile:'Mau 04 theo ke hoach '+ktKHNam()+' - '+boDauTen(gts[0].ten).slice(0, 50)+' - '+gts.length+' thang'};
@@ -401,7 +401,7 @@ function ktBung01Goc(K, g){
 }
 function ktKHXem(ok){
   if(ktKhuonTruoc(function(){ ktKHXem(ok); })) return;   /* 3.236: khuôn chưa tải */
-  if(!ok) return ktInHop(['kh'], ktInNutXem('ktKHXem(1)'), ktHoiCuaTo(ktKHLich().ds));   /* 3.114: chọn người ký */
+  if(!ok) return ktInHop(['kh'], ktInNutXem(function(){ ktKHXem(1); }), ktHoiCuaTo(ktKHLich().ds));   /* 3.114: chọn người ký */
   var L0 = ktKHLich(); if(!L0.luu){ ktKHGhi(L0); ktVeThe(); }   /* 3.123 (anh chốt): xem / in = lưu kế hoạch để quay lại in báo cáo tổ */
   var g = ktKHGiaTri(ktInV('kh')); KT_KH_XEM = g;
   moHop('<div class="hop-tit">👁 Kế hoạch KTGS năm '+g.nam+' — '+coChuHTML(g.ten)+'</div>'+

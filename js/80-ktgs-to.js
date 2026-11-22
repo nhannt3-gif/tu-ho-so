@@ -109,7 +109,7 @@ var KTTO = {
     var ds = KTTO.dsTo(); if(!ds.length) return bao('Chưa tích tổ nào.', 3);
     if(typeof ktDocKB==='function') ktDocKB();
     if(m==='tt') return ktttInDs(ds);
-    if(!ok) return ktInHop([m], ktInNutXem("KTTO.xem('"+m+"',1)"), ktHoiCuaTo(ds));
+    if(!ok) return ktInHop([m], ktInNutXem(function(){ KTTO.xem(m, 1); }), ktHoiCuaTo(ds));
     var ng = KT_KB.ngay || '', ten = function(ma){ return ma+' '+(ds.length>1 ? ds.length+' to' : 'To '+boDauTen(ds[0].ten || ds[0].ma))+' - '+(ng ? ngayVNsl(ng).replace(/\//g, '-') : kyVN(KTTO.thKT()).replace(/\//g, '-')); };
     if(m==='m04'){ var g4 = ktBC04(ds.map(function(t){ return {t:t, ngay:ng}; })); if(!g4.length) return bao('Chưa tích tổ nào.', 3);
       KT_BC_XEM = {tu:'to', gts:g4, tenFile:ten('Mau 04 Bao cao tong hop KT -')}; return ktBCHop(''); }

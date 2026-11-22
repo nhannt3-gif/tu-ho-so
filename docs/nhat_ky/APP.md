@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 22/11/2026 — TK 2 · PHIÊN (3.562 chuẩn hóa nút danh mục / KTGS / hộp thoại / Hôm nay)
+- Anh "tiếp và gộp": js/19, 22b, 06, 04b3 (44 chỗ) → data-lenh; `ktInNutXem` + "Cần xử lý" `fn` nhận HÀM thay chuỗi lệnh. onclick 322 → 278. t414 7/7.
+- Không đổi: js/27 lõi mini (Function.toString → file HTML riêng, KHÔNG có GD) · js/26 chip GDX truyền chuỗi lệnh (cần bản riêng) · nút Có gì mới (js/06 noiDungCoGiMoi, lệnh từ bump.py).
+
 ### 22/11/2026 — TK 2 · PHIÊN (3.561 chuẩn hóa nút khung tab / Biểu mẫu / cây địa bàn / khung xem PDF)
 - Anh "code và gộp" 3 mục: 6 chỗ bấm động js/10 + 11 (hamThem nay là hàm; Khác / Sửa chỉ gọi hàm trong danh sách) + js/05, 09, 18 chuyển tay. onclick 368 → 322. t413 9/9.
 - Bẫy: js/06b chặn bấm dòng ở pha capture khi đang chọn nhiều (stopPropagation) → data-lenh cũng bị chặn đúng như onclick cũ. ↔ / ⊡ là bật–tắt (bấm lại chế độ đang bật → tắt).

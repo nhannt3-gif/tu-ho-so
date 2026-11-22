@@ -324,7 +324,7 @@ function moDsPhong(){
     '<div class="hop-phu">Mỗi dòng hiện bằng chính kiểu chữ đó. Kiểu vừa chọn sẽ vào nhóm 3 nút nhanh trên sổ.</div>'+
     '<div class="ds-phong">'+Object.keys(PHONG_SO).map(function(k){
       var p = PHONG_SO[k];
-      return '<div class="mot-phong'+(k===ht?' bat':'')+'" onclick="datPhongSo(\''+k+'\');dongHop()" '+
+      return '<div class="mot-phong'+(k===ht?' bat':'')+'" data-lenh="f04b3.phong" data-a1="'+k+'" '+
         'style="font-family:'+p.css+'">'+
         '<div class="mp-ten">'+coChuHTML(p.ten)+(k===ht?' <span class="mp-dang">đang dùng</span>':'')+'</div>'+
         '<div class="mp-mota">'+coChuHTML(p.mota)+'</div>'+
@@ -372,7 +372,7 @@ function veNhatKy(){
       var xg = lcXongNgay(v, c);
       return '<div class="lc-viec'+(v.id===LICH.viecChon?' chon':'')+(xg?' xong':'')+(v.luuY?' luuy':'')+
         '" data-lenh="f04b3.lcChonViec" data-a1="'+v.id+'" ondblclick="LICH.viecChon=\''+v.id+'\';lcSua()">'+
-        '<span class="lc-tick" onclick="event.stopPropagation();lcXong(\''+v.id+'\')" title="Đánh dấu xong">'+(xg?'✓':'')+'</span>'+
+        '<span class="lc-tick" data-lenh="f04b3.lcXong" data-a1="'+v.id+'" title="Đánh dấu xong">'+(xg?'✓':'')+'</span>'+
         '<span class="lc-vten">'+(v.luuY?'⚑ ':'')+coChuHTML(v.ten)+'</span>'+
         (v.lap&&v.lap!=='mot'?'<small>'+LC_LAP[v.lap]+'</small>':'')+'</div>';
     }).join('') : '<div class="sch-gon">Chưa có việc theo lịch — gõ ở ô dưới cùng, cần nhắc lại thì bấm 🕘 đưa lên đây</div>')+'</div>'+
@@ -403,7 +403,7 @@ function veNhatKy(){
         var chon = DONG_CHON.indexOf(m.id)>=0;
         return '<div class="dong-o nt-'+(m.mau||'trang')+(m.xong?' xong':'')+(chon?' dang-chon':'')+'">'+
           '<span class="dong-tick" data-lenh="f04b3.dongXong" data-a1="'+m.id+'" title="'+(m.xong?'Bỏ đánh dấu xong':'Đánh dấu xong')+'">'+(m.xong?'✓':'')+'</span>'+
-          '<textarea rows="1" class="dong-chu" oninput="ntGo(\''+m.id+'\',this);dongCaoTuDong(this)" onfocus="dongCaoTuDong(this)" '+
+          '<textarea rows="1" class="dong-chu" data-lenh="f04b3.ntGo" data-su="input" data-a1="'+m.id+'" onfocus="dongCaoTuDong(this)" '+
             'onblur="ntRoiO(\''+m.id+'\');this.style.height=\'\'" onkeydown="dongPhim(event,\''+m.id+'\',\''+c+'\')">'+coChuHTML(m.nd||'')+'</textarea>'+
           '<span class="dong-gio">'+(m.xong ? 'xong '+m.xong.slice(11,16) : (m.taoLuc||'').slice(11,16))+'</span>'+
           '<span class="dong-thaotac">'+
@@ -425,7 +425,7 @@ function veNhatKy(){
         return '<i class="dcham nt-'+k+'" title="Đổi màu '+NT_MAU[k]+'" data-lenh="f04b3.dongMauNhieu" data-a1="'+k+'"></i>'; }).join('')+'</span>'+
       '<button class="nho" data-lenh="f04b3.dongChonHet" data-a1="'+c+'">Chọn hết</button>'+
       '<button class="nho" data-lenh="f04b3.dongBoChon">Bỏ chọn</button>'+
-      '<button class="nho xau" onclick="dongXoa(DONG_CHON.slice())">Xóa '+DONG_CHON.length+' dòng</button></div>';
+      '<button class="nho xau" data-lenh="f04b3.xoaDong">Xóa '+DONG_CHON.length+' dòng</button></div>';
   }else{
     var ds = ntNgay(c).filter(function(x){ return !x.ghim && (!x.chung || (x.nd||'').trim()); });
     h += '<div class="nt-them-hang">'+Object.keys(NT_MAU).map(function(k){
@@ -438,7 +438,7 @@ function veNhatKy(){
   h += '</div>';   /* đóng .nk-than */
   if(che==='don') h += '<div class="o-go"><button class="og-cam" data-lenh="f04b3.nkChupNhanh" title="Chụp ảnh — tự lưu thành một dòng của ngày này">📷</button>'+
     '<input id="nk-dong-moi" placeholder="Gõ việc rồi bấm Enter…" onkeydown="dongGoThem(this,\''+c+'\',event)">'+
-    '<button class="og-them" onclick="dongGoThem(document.getElementById(\'nk-dong-moi\'),\''+c+'\',{key:\'Enter\'})">Thêm</button></div>';
+    '<button class="og-them" data-lenh="f04b3.themDong" data-a1="'+c+'">Thêm</button></div>';
   h += '</div>';   /* đóng .nk-trang */
   e.innerHTML = h;
   nkNapAnhNho();
@@ -514,7 +514,7 @@ function lcDoi(){
     '<div class="o"><label>Hoặc chọn ngày</label><input id="lc-doi" inputmode="numeric" placeholder="dd/mm/yyyy" '+
       'value="'+lcDMY(lcCong(tu,1))+'" data-lenh="f04b3.gonNgay" data-su="input"></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-      '<button class="nho chinh" onclick="lcDoiDen(ngayISOo(gt(\'lc-doi\')))">Dời</button></div>');
+      '<button class="nho chinh" data-lenh="f04b3.doiDen">Dời</button></div>');
 }
 function lcDoiDen(iso){
   var v = lcTim(LICH.viecChon); if(!v) return;
@@ -585,14 +585,14 @@ function lcTinhNgay(){
   var c = lcDMY(LICH.chon||lcISO(nay()));
   moHop('<div class="hop-tit">Tính ngày</div>'+
     '<div class="nhan-nhom">Cộng / trừ ngày</div>'+
-    '<div class="lc-tn"><input id="tn-tu" inputmode="numeric" value="'+c+'" oninput="gonNgay(this);lcTinh()">'+
+    '<div class="lc-tn"><input id="tn-tu" inputmode="numeric" value="'+c+'" data-lenh="f04b3.tinhNgay" data-su="input">'+
       '<select id="tn-dau" data-lenh="f04b3.lcTinh" data-su="change"><option value="1">cộng</option><option value="-1">trừ</option></select>'+
       '<input id="tn-n" type="number" min="0" value="15" data-lenh="f04b3.lcTinh" data-su="input" style="width:80px">'+
       '<select id="tn-kieu" data-lenh="f04b3.lcTinh" data-su="change"><option value="n">ngày</option><option value="lv">ngày làm việc</option></select></div>'+
     '<div class="lc-kq" id="tn-kq1"></div>'+
     '<div class="nhan-nhom">Khoảng cách giữa 2 ngày</div>'+
-    '<div class="lc-tn"><input id="tn-a" inputmode="numeric" value="'+c+'" oninput="gonNgay(this);lcTinh()">'+
-      '<span>đến</span><input id="tn-b" inputmode="numeric" value="'+lcDMY(lcCong(ngayISOo(c)||lcISO(nay()),30))+'" oninput="gonNgay(this);lcTinh()"></div>'+
+    '<div class="lc-tn"><input id="tn-a" inputmode="numeric" value="'+c+'" data-lenh="f04b3.tinhNgay" data-su="input">'+
+      '<span>đến</span><input id="tn-b" inputmode="numeric" value="'+lcDMY(lcCong(ngayISOo(c)||lcISO(nay()),30))+'" data-lenh="f04b3.tinhNgay" data-su="input"></div>'+
     '<div class="lc-kq" id="tn-kq2"></div>'+
     '<div class="huong-dan">Ngày làm việc = trừ Thứ Bảy, Chủ nhật (chưa trừ ngày lễ).</div>'+
     '<div class="hang-nut" style="margin-top:10px"><button class="nho chinh" data-lenh="hop.dong">Đóng</button></div>');
@@ -732,18 +732,18 @@ function veHomNay(){
     var gCK = dsChoKhai();
     v.push({so:nCK, tit:'File chờ khai thông tin', ngan:'📥 '+nCK+' chờ khai',
       p:Object.keys(gCK).filter(function(k){ return gCK[k].length; }).map(function(k){ return CK_TEN[k].split(' — ')[0]+' '+gCK[k].length; }).join(' · '),
-      gap:true, fn:'moChoKhai()'});
+      gap:true, fn:function(){ moChoKhai(); }});
   }
   var thieu = [];   /* 3.144: bỏ tab Tháng → không nhắc "thiếu báo cáo tháng" nữa (kyThieu() giữ mã cho đợt dọn) */
   var gbCon = ngayToiGiaoBan();
   if(thieu.length && gbCon>=0){
     v.push({so:gbCon, tit:(gbCon===0?'Hôm nay giao ban':'Còn '+gbCon+' ngày tới giao ban')+', thiếu '+thieu.length+' báo cáo',
       ngan:'📊 Thiếu '+thieu.length+' BC · '+(gbCon===0?'giao ban hôm nay':'còn '+gbCon+' ngày GB'),
-      p:chuoiThieu(thieuTheoKy(kyGanNhat())), gap:true, fn:'datKyBang(\''+kyGanNhat()+'\');doiNgan(2)'});
+      p:chuoiThieu(thieuTheoKy(kyGanNhat())), gap:true, fn:(function(k){ return function(){ datKyBang(k); doiNgan(2); }; })(kyGanNhat())});
   }else if(thieu.length){
     var kg = kyGanNhat();
     v.push({so:thieu.length, tit:kyVN(kg)+' còn thiếu báo cáo', ngan:'📊 '+kyVN(kg)+' thiếu '+thieu.length+' BC',
-      p:chuoiThieu(thieuTheoKy(kg)), gap:true, fn:'datKyBang(\''+kg+'\');doiNgan(2)'});
+      p:chuoiThieu(thieuTheoKy(kg)), gap:true, fn:(function(k){ return function(){ datKyBang(k); doiNgan(2); }; })(kg)});
   }
   var canXL = D.ghiChu.filter(function(g){ return (g.the||[]).indexOf('Cần xử lý')>=0; });
   if(canXL.length){
@@ -755,10 +755,10 @@ function veHomNay(){
     /* 3.53 (anh chốt): gom thành MỘT dòng — bấm chip đi thẳng tới việc, bấm ▾ mở thẻ đầy đủ, ▴ thu lại */
     var moCXL = !!D.cauHinh.moCXL;
     h += '<div class="gon-dong'+(moCXL?' mo':'')+'" data-lenh="f04b3.datGon" data-a1="moCXL"><b>⚠ Cần xử lý</b><span class="gon-ds">'+
-      v.map(function(x){ return '<span class="gon-chip'+(x.gap?' gap':'')+'" onclick="event.stopPropagation();'+(x.fn||('doiNgan('+x.di+')'))+'">'+coChuHTML(x.ngan||x.tit)+'</span>'; }).join('')+
+      (HN_VIEC = v).map(function(x, i){ return '<span class="gon-chip'+(x.gap?' gap':'')+'" data-lenh="f04b3.viec" data-a1="'+i+'">'+coChuHTML(x.ngan||x.tit)+'</span>'; }).join('')+
       '</span><span class="gon-mui">'+(moCXL?'▴':'▾')+'</span></div>';
-    if(moCXL) v.forEach(function(x){
-      h += '<div class="viec'+(x.gap?' gap':'')+'" onclick="'+(x.fn||('doiNgan('+x.di+')'))+'">'+
+    if(moCXL) v.forEach(function(x, i){
+      h += '<div class="viec'+(x.gap?' gap':'')+'" data-lenh="f04b3.viec" data-a1="'+i+'">'+
            '<div class="so">'+x.so+'</div><div class="nd"><div class="tit">'+x.tit+
            '</div><div class="p">'+coChuHTML(x.p)+'</div></div><div class="mui">›</div></div>';
     });
@@ -916,7 +916,13 @@ function kyThieu(){
 }
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f04b3.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f04b3', gdLenh({
+var HN_VIEC = [];   /* 3.562: việc "Cần xử lý" đang hiện (fn là hàm, trước là chuỗi lệnh onclick) */
+gdDangKy('f04b3', gdLenh({   /* 3.562: thay onclick / oninput viết thẳng */
+  phong:function(el){ datPhongSo(gdA(el, 1)); dongHop(); }, lcXong:function(el){ lcXong(gdA(el, 1)); },
+  ntGo:function(el){ ntGo(gdA(el, 1), el); dongCaoTuDong(el); }, xoaDong:function(){ dongXoa(DONG_CHON.slice()); },
+  themDong:function(el){ dongGoThem(document.getElementById('nk-dong-moi'), gdA(el, 1), {key:'Enter'}); }, doiDen:function(){ lcDoiDen(ngayISOo(gt('lc-doi'))); },
+  tinhNgay:function(el){ gonNgay(el); lcTinh(); },
+  viec:function(el){ var x = HN_VIEC[+gdA(el, 1)]; if(!x) return; if(typeof x.fn==='function') x.fn(); else doiNgan(x.di); },
   datGon:function(el, ev){ datGon(gdA(el, 1)); },
   datPhongSo:function(el, ev){ datPhongSo(gdA(el, 1)); },
   doiCau:function(el, ev){ doiCau(); },

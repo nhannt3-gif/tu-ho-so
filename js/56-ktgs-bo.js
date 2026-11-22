@@ -87,7 +87,7 @@ function ktBoVe(o, h){   /* màn 🧩 Bộ khai báo mẫu — sửa sẵn 2 b�
 }
 function ktDX04(ok){   /* Mẫu 04 cho tổ đang chọn — kiểm tra đột xuất (số liệu ngày chọn); chưa khai ngày → tháng / năm để chấm */
   var C = ktCH(), t = KT_K && KT_K.to[C.to]; if(!t) return bao('Chọn 1 tổ trước.', 3);
-  if(!ok) return ktInHop(['m04'], ktInNutXem('ktDX04(1)'), ktHoiCuaTo([t]));
+  if(!ok) return ktInHop(['m04'], ktInNutXem(function(){ ktDX04(1); }), ktHoiCuaTo([t]));
   ktDocKB(); var ng = KT_KB.ngay || '', gts = ktBC04([{t:t, ngay:ng}]);
   if(!ng) gts.forEach(function(g){ g.f.TH04 = ''; g.f.NAM04 = ''; g.rows.forEach(function(r){ r.C2 = ''; }); });
   KT_BC_XEM = {tu:'dx', gts:gts, tenFile:ktFTen(t, {to:1, mau:'M04'})}; ktBCHop('kiểm tra đột xuất');

@@ -397,11 +397,11 @@ function ktInVTTen(ops, hoi, gt){   /* 3.127 (anh yêu cầu): ô chọn vai tr�
 function ktInChon(id, nhan, gt, ops){ return '<label class="kt-kb"><span>'+nhan+'</span><select id="'+id+'" data-lenh="f22b.ktInDoc" data-su="change">'+ops.map(function(o){ return '<option value="'+o[0]+'"'+(o[0]===gt ? ' selected' : '')+'>'+coChuHTML(o[1])+'</option>'; }).join('')+'</select></label>'; }
 function ktInThieu(vt, hoi){   /* Hội chưa khai tên cho vai trò đã chọn → nhắc cam */
   if(!vt || vt==='go') return ''; var x = (hoi||[]).filter(function(h){ return !ktNguoi(h.t, vt).cb; }).map(function(h){ return ktHoiKB(h.k).ten || ktHoiTenTD(h.t); });
-  return x.length ? '<div class="sl-phu kt-in-cam">⚠ Chưa khai tên: '+coChuHTML(x.slice(0, 3).join('; ')+(x.length>3 ? ' và '+(x.length-3)+' Hội – xã khác' : ''))+' — in chức vụ, tên để dòng chấm. <a href="#" onclick="event.preventDefault();ktHoiKBHop()">🏛 Khai báo</a></div>' : '';
+  return x.length ? '<div class="sl-phu kt-in-cam">⚠ Chưa khai tên: '+coChuHTML(x.slice(0, 3).join('; ')+(x.length>3 ? ' và '+(x.length-3)+' Hội – xã khác' : ''))+' — in chức vụ, tên để dòng chấm. <a href="#" data-lenh="f22b.hoiKB">🏛 Khai báo</a></div>' : '';
 }
 function ktInPhan(mau, hoi){
   var o = ktInLay(mau), id = function(k){ return 'ki-'+mau+'-'+k; }, h = '<div class="kt-in-phan"><div class="nhan-nhom">'+KT_IN_TEN[mau]+(mau==='m06' || mau==='m16' ? ' <span class="kt-nh'+(ktInKhoa(mau)!==mau ? ' vang' : '')+'">'+KT_BO[ktBoDang()].ten+'</span>' : '')+'</div>';
-  if(mau==='m06') h += ktInChon(id('md'), 'Cột Mục đích', o.md, [['','Để trống (ghi tay theo hồ sơ)'], ['nganh','In sẵn mục đích (theo hệ thống, rút gọn)']])+'<div class="sl-phu">Tên ngành rút gọn: <a href="#" onclick="event.preventDefault();ktNganhHop()">⚙ Bảng ngành kinh tế</a></div>';
+  if(mau==='m06') h += ktInChon(id('md'), 'Cột Mục đích', o.md, [['','Để trống (ghi tay theo hồ sơ)'], ['nganh','In sẵn mục đích (theo hệ thống, rút gọn)']])+'<div class="sl-phu">Tên ngành rút gọn: <a href="#" data-lenh="f22b.nganhHop">⚙ Bảng ngành kinh tế</a></div>';
   if(mau==='m16') h += ktInChon(id('nxud'), 'III.1 Ưu điểm', o.nxud, KT_NX_OP)+ktInChon(id('nxtt'), 'III.2 Tồn tại', o.nxtt, KT_NX_OP)+ktInChon(id('nxkn'), 'III.3 Kiến nghị', o.nxkn, KT_NX_OP)+   /* 3.378 (anh): 3 phần chọn riêng */
     ktInChon(id('b2'), 'Bảng II (kết quả kiểm tra)', o.b2, [['','Để trống (ghi tay)'], ['dien','Điền đầy đủ theo 727 (kèm 2 dòng có số)']])+ktB2TungOHTML(mau, o);
   if(mau==='m04') h += ktInChon(id('nxto'), 'IV.1 Nhận xét (đối với Tổ)', o.nxto, KT_NX_OP)+ktInChon(id('nxkn'), 'IV.2 Kiến nghị (a, b, c)', o.nxkn, KT_NX_OP);
@@ -430,7 +430,9 @@ function ktDXTom(t){
 }
 /* 3.326: nút theo data-lenh — đăng ký khi vẽ dòng (GD nạp sau file này) */
 function ktDXKhai(){ var C = ktCH(), t = KT_K && KT_K.to[C.to], ds = typeof KTTO!=='undefined' && KTTO.dsTo().length ? KTTO.dsTo() : (t ? [t] : []); ktInHop(['m06', 'm16'], '', ktHoiCuaTo(ds), 1); }   /* 3.514: tổ đã tích ở Kiểm tra tổ */
-function ktInNutXem(js){ return '<button class="nho chinh" onclick="'+js+'">👁 Xem trước</button>'; }
+/* 3.562: nơi gọi truyền HÀM (trước: chuỗi lệnh cho onclick) — giữ ở KT_IN_XEM theo số, nút gọi qua data-lenh f22b.xem */
+var KT_IN_XEM = {}, KT_IN_XEM_N = 0;
+function ktInNutXem(f){ var k = ++KT_IN_XEM_N; KT_IN_XEM[k] = f; return '<button class="nho chinh" data-lenh="f22b.xem" data-a1="'+k+'">👁 Xem trước</button>'; }
 function ktInHop(ds, nut, hoi, veThe, ve){   /* ve = vẽ lại hộp đang mở (giữ bộ đang chọn); mở mới → bộ mặc định của khối */
   if(!ve) KT_BO_IN = null;
   KT_IN_X = {ds:ds, nut:nut, hoi:hoi || ktHoiDs(), veThe:veThe || (KT_IN_X && KT_IN_X.veThe && KT_IN_X.ds===ds ? 1 : 0), mo:ve && KT_IN_X ? KT_IN_X.mo : 0, b2mo:ve && KT_IN_X ? KT_IN_X.b2mo : 0};
@@ -440,7 +442,7 @@ function ktInHop(ds, nut, hoi, veThe, ve){   /* ve = vẽ lại hộp đang mở
   moHop('<div class="hop-tit">🖨 Chọn khi in</div><div class="hop-phu">Tên người kiểm tra / người ký lấy theo 🏛 Khai báo Hội đoàn thể của Hội phụ trách từng tổ. App nhớ lựa chọn cho lần sau.</div>'+
     (co0616 ? ktBoChonHTML() : '')+'<div class="kt-in-luoi">'+ds.map(function(m){ return ktInPhan(m, KT_IN_X.hoi); }).join('')+'</div>'+(ds.indexOf('m04')>=0 ? ktKN04HTML() : '')+
     (co0616 && ds.indexOf('m06')>=0 ? '<details class="kt-in-khac"'+mo+' ontoggle="if(KT_IN_X)KT_IN_X.mo=this.open"><summary>Tùy chọn khác</summary>'+o('cb2', 'Mẫu 06 — Ông (bà) 2, gõ tay', 'thường để trống')+o('cv2', 'Chức vụ 2', 'trống = dòng chấm')+'</details>' : '')+
-    '<label class="kt-hai-mat"><input type="checkbox"'+(ktHaiMat() ? ' checked' : '')+' onchange="D.cauHinh.ktHaiMat=this.checked?1:0;luu()"> In 2 mặt — xuất nhiều tổ / nhiều bản: mỗi bản bắt đầu tờ mới (bản lẻ trang tự thêm 1 trang trắng; Word chắc chắn, In từ trình duyệt là ước lượng)</label>'+   /* 3.124 */
+    '<label class="kt-hai-mat"><input type="checkbox"'+(ktHaiMat() ? ' checked' : '')+' data-lenh="f22b.haiMat" data-su="change"> In 2 mặt — xuất nhiều tổ / nhiều bản: mỗi bản bắt đầu tờ mới (bản lẻ trang tự thêm 1 trang trắng; Word chắc chắn, In từ trình duyệt là ước lượng)</label>'+   /* 3.124 */
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+(ds.some(function(m){ return m!=='kh'; }) ? '<button class="nho" data-lenh="f22b.ktInDayDu" title="In sẵn mục đích, gợi ý nhận xét, Bảng II theo 727">✚ Điền đầy đủ</button>' : '')+(nut||'')+'</div>', true);
   if(KT_IN_X.veThe) HOP_KHI_DONG = function(){ if(typeof ktVeThe==='function' && KT_K) ktVeThe(); };   /* 3.324: mở từ dòng Khai báo đột xuất → đóng hộp thì vẽ lại tóm tắt */
 }
@@ -510,9 +512,9 @@ function ktNganhDs(){
 function ktNganhHop(){
   moHop('<div class="hop-tit">⚙ Bảng ngành kinh tế — cột “Mục đích” Mẫu 06</div>'+
     '<div class="hop-phu">Tên gốc lấy từ Mẫu 31 (Tên PNKT51 — chính là cột “Mục đích vay vốn” của danh sách giải ngân hệ thống). Ngành nhiều món đang vay xếp trên. Anh sửa ô <b>Tên in trên phiếu</b> (để trống = dùng đề xuất); lưu ngay trong Cài đặt (máy + Drive). Tên dài vẫn in được — ô tự xuống dòng.</div>'+
-    '<div class="to-dau"><div class="to-tim"><span>🔎</span><input id="kt-ng-tim" value="'+coChuHTML(KT_NG_Q)+'" placeholder="Tìm mã, tên ngành…" oninput="KT_NG_Q=this.value;ktNganhVe()"></div>'+
-    '<button class="to-loc'+(KT_NG_LOC==='sua' ? ' bat' : '')+'" onclick="KT_NG_LOC=KT_NG_LOC===\'sua\'?\'\':\'sua\';ktNganhHop()">Đã sửa</button></div>'+
-    '<div id="kt-ng" class="to-bang-cuon kt-ng"></div><div class="hang-nut"><button class="nho chinh" onclick="dongHop();if(KT_K)ktVeThe()">Xong</button></div>', true);
+    '<div class="to-dau"><div class="to-tim"><span>🔎</span><input id="kt-ng-tim" value="'+coChuHTML(KT_NG_Q)+'" placeholder="Tìm mã, tên ngành…" data-lenh="f22b.ngTim" data-su="input"></div>'+
+    '<button class="to-loc'+(KT_NG_LOC==='sua' ? ' bat' : '')+'" data-lenh="f22b.ngLoc">Đã sửa</button></div>'+
+    '<div id="kt-ng" class="to-bang-cuon kt-ng"></div><div class="hang-nut"><button class="nho chinh" data-lenh="f22b.ngXong">Xong</button></div>', true);
   var hi = document.getElementById('hop-in'); if(hi) hi.classList.add('xem-rong');
   ktNganhVe();
 }
@@ -523,10 +525,10 @@ function ktNganhVe(){
   o.innerHTML = '<table class="to-bang"><thead><tr><th>Mã</th><th>Tên gốc (hệ thống)</th><th>Đề xuất</th><th>Tên in trên phiếu</th><th>Món đang vay</th><th></th></tr></thead><tbody>'+
     ds.map(function(x){ return '<tr><td>'+x.ma+'</td><td class="kt-ng-goc">'+coChuHTML(x.ten || '—')+'</td><td>'+coChuHTML(x.deXuat)+'</td>'+
       '<td><input value="'+coChuHTML(x.sua)+'" placeholder="'+coChuHTML(x.deXuat)+'" data-lenh="f22b.ktNganhSua" data-su="change" data-a1="'+x.ma+'" aria-label="Tên in trên phiếu"></td><td class="s">'+(x.n ? tdnTien(x.n) : '')+'</td>'+
-      '<td>'+(x.sua ? '<button class="nho" onclick="ktNganhSua(\''+x.ma+'\',\'\');ktNganhVe()" title="Trả về đề xuất">↺</button>' : '')+'</td></tr>'; }).join('')+'</tbody></table>'+
+      '<td>'+(x.sua ? '<button class="nho" data-lenh="f22b.ngTra" data-a1="'+x.ma+'" title="Trả về đề xuất">↺</button>' : '')+'</td></tr>'; }).join('')+'</tbody></table>'+
     (ds.length ? '' : '<div class="rong">Không có ngành khớp.</div>')+
-    (an.length ? '<div class="hang-nut"><button class="nho" onclick="KT_NG_HET=true;ktNganhVe()">▾ Hiện thêm '+an.length+' ngành ít / không có món (dưới '+KT_NG_NGUONG+' món)</button></div>'
-      : (KT_NG_HET && !q && KT_NG_LOC!=='sua' ? '<div class="hang-nut"><button class="nho" onclick="KT_NG_HET=false;ktNganhVe()">▴ Thu gọn — chỉ ngành từ '+KT_NG_NGUONG+' món</button></div>' : ''));
+    (an.length ? '<div class="hang-nut"><button class="nho" data-lenh="f22b.ngHet" data-a1="1">▾ Hiện thêm '+an.length+' ngành ít / không có món (dưới '+KT_NG_NGUONG+' món)</button></div>'
+      : (KT_NG_HET && !q && KT_NG_LOC!=='sua' ? '<div class="hang-nut"><button class="nho" data-lenh="f22b.ngHet" data-a1="">▴ Thu gọn — chỉ ngành từ '+KT_NG_NGUONG+' món</button></div>' : ''));
 }
 function ktNganhSua(ma, v){ var s = D.cauHinh.ktPnkt = D.cauHinh.ktPnkt || {}; v = String(v||'').replace(/\s+/g, ' ').trim(); if(v) s[ma] = v; else delete s[ma]; luu(); }
 function ktGiaTri06(t, dc, v){   /* 3.98: hộ theo mã KH; 1 khách nhiều khế ước → Stt, họ tên, ô ký gộp (gop: dau / tiep, n = số dòng của hộ) */
@@ -662,7 +664,13 @@ function ktTab0(){ return Math.round(ktDoRong('Họ và tên cán bộ kiểm tr
 function ktOSz2(x, m){ var k = -1; return x.replace(/<w:tc>[\s\S]*?<\/w:tc>/g, function(tc){ k++; var sz = m[k]; return !sz ? tc : tc.replace(/<w:sz w:val="\d+"\/><w:szCs w:val="\d+"\/>/g, '<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'); }); }   /* 3.111: bề rộng chữ (twip) ô Họ tên / Mục đích Mẫu 06 (ô trừ lề 216) */
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f22b.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f22b', gdLenh({
+gdDangKy('f22b', gdLenh({   /* 3.562: thay onclick viết thẳng (khai báo, bảng ngành, 2 mặt, 👁 Xem trước) */
+  hoiKB:function(el, ev){ if(ev) ev.preventDefault(); ktHoiKBHop(); }, nganhHop:function(el, ev){ if(ev) ev.preventDefault(); ktNganhHop(); },
+  xem:function(el){ var f = KT_IN_XEM[gdA(el, 1)]; if(typeof f==='function') f(); },
+  haiMat:function(el){ D.cauHinh.ktHaiMat = el.checked ? 1 : 0; luu(); },
+  ngTim:function(el){ KT_NG_Q = el.value; ktNganhVe(); }, ngLoc:function(){ KT_NG_LOC = KT_NG_LOC==='sua' ? '' : 'sua'; ktNganhHop(); },
+  ngXong:function(){ dongHop(); if(KT_K) ktVeThe(); }, ngTra:function(el){ ktNganhSua(gdA(el, 1), ''); ktNganhVe(); },
+  ngHet:function(el){ KT_NG_HET = !!gdA(el, 1); ktNganhVe(); },
   ktDocKB:function(el, ev){ ktDocKB(); },
   ktInDayDu:function(el, ev){ ktInDayDu(); },
   ktInDoc:function(el, ev){ ktInDoc(); },
