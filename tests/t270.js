@@ -18,8 +18,9 @@ const path=require('path'), G=path.resolve(__dirname,'..');
        g.save(); g.translate(1200,900); g.rotate(0.1); g.fillStyle='#7fd0c8'; g.fillRect(-700,-440,1400,880); g.fillStyle='#222'; for(let i=0;i<10;i++) g.fillRect(-300,-300+i*60,800,20); g.restore();
        const f = await new Promise(r=>c.toBlob(r,'image/jpeg',0.9)); DTD.ds = [];
        const bg = await thuGoc(f); await luuAnhHS('qt270_goc', bg); await xuLyAnhScan({id:'qt270', kieu:'anh', che:'the', xoay:0}, true);
-       await new Promise(r=>setTimeout(r, 100)); return DTD.ds.map(x=>x.t); });
-     ok('⏱ Đo tốc độ ghi các bước quét: thu ảnh gốc · cắt nắn lọc (trọn) · tìm khung thẻ · nắn phối cảnh · lọc màu', ['Scan · thu ảnh gốc 2000 px', 'Scan · cắt nắn lọc 1 ảnh (trọn)', 'Scan · tìm khung thẻ', 'Scan · nắn phối cảnh', 'Scan · lọc màu'].every(t=>s.indexOf(t)>=0), JSON.stringify(s));
+       await new Promise(r=>setTimeout(r, 100)); return {ds:DTD.ds.map(x=>x.t), boc:['thuGoc', 'xuLyAnhScan', 'timKhungThe', 'nanPhoiCanh', 'apLoc'].filter(n=>!(window[n] && window[n].dtd))}; });
+     /* 3.561: dtdGhi bỏ bước < 30 ms (thiết kế) — máy nhanh (GitHub) nắn / lọc ảnh giả dưới 30 ms → chỉ bắt buộc bước trọn có số; 5 bước đều phải được bọc đo */
+     ok('⏱ Đo tốc độ: 5 bước quét (thu ảnh gốc · cắt nắn lọc trọn · tìm khung thẻ · nắn phối cảnh · lọc màu) đều được bọc đo; bước trọn ghi số', s.boc.length===0 && s.ds.indexOf('Scan · cắt nắn lọc 1 ảnh (trọn)')>=0, JSON.stringify(s));
    }
    await p.close(); }
  o.push((loi.length ? '✗ ' : '✓ ')+'không lỗi trang'+(loi.length ? ' — '+loi.slice(0, 3).join(' | ') : ''));
