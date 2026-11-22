@@ -399,16 +399,16 @@ function veKhacDKHTML(){
   var the = function(ic, ten, lam, canDrive, nut){
     var mo = !canDrive || noi;
     return '<div class="dk-khoi"><h4>'+ic+' '+ten+'</h4><div class="dk-mo-ta">'+lam+(canDrive && !noi ? ' <i>— cần nối Drive trước.</i>' : '')+'</div>'+
-      '<div class="hang-nut">'+nut.map(function(n){ return '<button class="nho'+(n[2]?' chinh':'')+'"'+(mo||n[3]?'':' disabled')+' onclick="'+n[1]+'">'+n[0]+'</button>'; }).join('')+'</div></div>';
+      '<div class="hang-nut">'+nut.map(function(n){ return '<button class="nho'+(n[2]?' chinh':'')+'"'+(mo||n[3]?'':' disabled')+' data-lenh="f10.khacDK" data-a1="'+n[1]+'">'+n[0]+'</button>'; }).join('')+'</div></div>';
   };
   var coKey = (D.cauHinh.apiKey||'').trim();
   return the('📂','Lấy file từ kho Drive cũ (Google Picker)',
       'Chọn thư mục hoặc file ở kho cũ ngoài tủ; app đọc, đề xuất tên và đưa vào khay chờ. Chưa đổi tên, chưa dời gì cho tới khi anh Duyệt.'+(coKey ? '' : ' <i>Cần API key — khai ở Cài đặt › Google Drive.</i>'),
-      true, [['Chọn thư mục / file cũ…','moPicker()',1]].concat(coKey ? [] : [['Khai API key','moCaiDat(\'drive\')',0,1]]))+
-    the('☁','Đẩy chỉ mục lên Drive', 'Ghi ngay danh mục file của máy này lên Drive (bình thường app tự làm) và báo thư mục chuẩn còn thiếu.', true, [['Đẩy chỉ mục','quetLaiChiMucToanBo()']])+
-    the('⬇','Lấy chỉ mục từ Drive về máy này', 'Gộp phần mới hơn từ máy khác vào máy này (mở app thì app cũng tự lấy).', true, [['Lấy chỉ mục','taiChiMucTuDrive()']])+
+      true, [['Chọn thư mục / file cũ…','moPicker',1]].concat(coKey ? [] : [['Khai API key','khaiKey',0,1]]))+
+    the('☁','Đẩy chỉ mục lên Drive', 'Ghi ngay danh mục file của máy này lên Drive (bình thường app tự làm) và báo thư mục chuẩn còn thiếu.', true, [['Đẩy chỉ mục','quetLaiChiMucToanBo']])+
+    the('⬇','Lấy chỉ mục từ Drive về máy này', 'Gộp phần mới hơn từ máy khác vào máy này (mở app thì app cũng tự lấy).', true, [['Lấy chỉ mục','taiChiMucTuDrive']])+
     the('🤖','Nhờ AI chuẩn hóa', 'Xuất danh sách cho AI (Gemini, ChatGPT…) chuẩn lại tên, trích yếu; dán kết quả về để app cập nhật hàng loạt. Ảnh CCCD không bao giờ gửi đi.',
-      false, [['Xuất file cho AI','moNhoAI()'],['Dán kết quả từ AI','moDanAI()']])+
+      false, [['Xuất file cho AI','moNhoAI'],['Dán kết quả từ AI','moDanAI']])+
     '<div class="huong-dan">Reset dữ liệu thử và Xóa sạch máy nằm ở ⚙ Cài đặt › Dữ liệu.</div>';
 }
 function veQuetRacHTML(){
@@ -447,7 +447,7 @@ function veQuetRacHTML(){
   if(k.thieu.length) h += '<div class="nhan-nhom">C. Không đủ thông tin — nên Sửa, không cần bỏ</div>';
   h += nhom('thieu','Không đủ thông tin','bấm tên để xem · Sửa để khai thêm', k.thieu, function(x, i){
     var id = x.m.id, sua = x.loai==='scan' ? (x.m.che==='tailieu'?'scanTaiLieu':'themKhach') : (laBieuMau(x.m)?'suaBieuMau':'suaCho');
-    return dongF('thieu')(x, i)+'<span class="qd-sua"><button class="nho" onclick="'+sua+'(\''+id+'\')">Sửa</button>'+
+    return dongF('thieu')(x, i)+'<span class="qd-sua"><button class="nho" data-lenh="f10.suaQD" data-a1="'+sua+'" data-a2="'+id+'">Sửa</button>'+
       (x.loai==='tu' && coTheDocLai(x.m) ? '<button class="nho" data-lenh="f10.docLaiGoiY" data-a1="'+id+'">🔍 Đọc lại</button>' : '')+'</span>';
   }, mucThieu().length ? '<button class="nho" data-lenh="f10.docLai">🔍 Đọc lại tất cả mục thiếu ('+mucThieu().length+')</button>' : '');
   if(k.trung.length){
@@ -1274,6 +1274,12 @@ gdDangKy('f10', gdLenh({
 }));
 /* ---------- 3.560 (chuẩn hóa — QUY_CHUAN mục 10): LỆNH data-lenh="f10.*" thay onclick viết thẳng ở dòng danh sách, thùng rác, nút trên thông báo.
    Bộ nghe chung GD chỉ chạy lệnh của phần tử TRONG CÙNG có data-lenh → nút trên dòng (📋 ✎ ⋯, ⚠ trùng, 🔗) không làm chọn dòng (như event.stopPropagation cũ). ---------- */
+/* 3.561: Khác › Drive (nút trong veKhacDKHTML) + nút Sửa ở Quét rác — chỉ gọi hàm trong danh sách */
+var F10_KHAC = {moPicker:1, quetLaiChiMucToanBo:1, taiChiMucTuDrive:1, moNhoAI:1, moDanAI:1}, F10_SUA = {scanTaiLieu:1, themKhach:1, suaBieuMau:1, suaCho:1};
+gdDangKy('f10', gdLenh({
+  khacDK:function(el){ var h = gdA(el, 1); if(h==='khaiKey') moCaiDat('drive'); else if(F10_KHAC[h]) window[h](); },
+  suaQD:function(el){ var h = gdA(el, 1); if(F10_SUA[h]) window[h](gdA(el, 2)); }
+}));
 gdDangKy('f10', gdLenh({
   chon:function(el){ chonDong(gdA(el, 1)); },
   gopTrung:function(el){ moGopTrung(gdA(el, 1)); },

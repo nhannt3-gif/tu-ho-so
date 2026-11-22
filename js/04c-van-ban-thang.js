@@ -5,7 +5,7 @@ function veVanBan(){
   document.getElementById('nam-vb').innerHTML =
     veDauTab('vanBan', {kho:D.vanBan, 
       themPhu:'<button data-lenh="f04c.lapChiMuc" title="Lập chỉ mục: đi hết thư mục Tủ hồ sơ, file nào chưa có trong app thì xếp vào đúng tab">🗂 Lập chỉ mục</button>'+(typeof vbnNut==='function' ? vbnNut() : ''),   /* 3.438: 🏷 gắn tag nguồn văn bản cũ (js/91) */
-                        hamThem:"TAB_TRUOC=1;doiNgan(6);THEM_TU=1;document.getElementById('chon-file').click()"});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
+                        hamThem:function(){ TAB_TRUOC = 1; doiNgan(6); THEM_TU = 1; document.getElementById('chon-file').click(); }});   /* 3.40: nhớ đúng tab Văn bản — trước sang khay chờ trước nên giữ tab cũ (vd Tháng) → file vào Dữ liệu tháng */
   document.getElementById('loc-vb').innerHTML = '';
 
   if(kieuXem==='cay') kieuXem = 'ds';   /* kiểu xem cây đã bỏ (3.7) */
@@ -888,7 +888,7 @@ function veThang(){
   var kt = document.getElementById('kieu-th');
   var dt = document.getElementById('dau-th');
   if(dt) dt.innerHTML = veDauTab('duLieu', {kho:D.duLieu, 
-    hamThem:"CHO_O=null;nutChinh()",   /* 3.34: qua nutChinh để nhớ TAB_TRUOC=2 → Excel vào Dữ liệu tháng */
+    hamThem:function(){ CHO_O = null; nutChinh(); },   /* 3.34: qua nutChinh để nhớ TAB_TRUOC=2 → Excel vào Dữ liệu tháng */
     xem:[['ky','Theo kỳ'],['donvi','Theo đơn vị'],['cay','Dạng cây']], hamXem:'datKieuTh',   /* 3.151: kiểu xem vào ☰ ▾ */
     themPhu: D.duLieu.length?'<button data-lenh="f04c.ghepKy">Ghép để xem</button>':''});
   var ds = locTheoThe('duLieu', locChuan('duLieu', loc(D.duLieu, tuKhoa))); BOT_DS.duLieu = ds;

@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.561 — 22/11/2026 — Chuẩn hóa nút: khung tab, Biểu mẫu, cây địa bàn, khung xem PDF (TK 2)
+- **Nguồn:** đề xuất sau 3.560 (3 mục); anh 22/11 "code và gộp".
+- **6 chỗ bấm động** (js/10 + 11): `+ Thêm` → `f11.them` gọi `TL_OPT[tab].hamThem` (5 nơi gọi đổi chuỗi lệnh → hàm: js/04c ×2, 04e, 09, 12); chip / menu kiểu xem → `f11.kieuXem` (hamXem vẫn là TÊN hàm); chip lọc → `f11.datLoc` (bỏ tham số `ham` không nơi nào truyền); Khác › Drive → `f10.khacDK`, Quét rác Sửa → `f10.suaQD` (chỉ gọi hàm trong danh sách `F10_KHAC` / `F10_SUA`, không eval).
+- **js/09** (11): dòng biểu mẫu dùng chung `f10.chon`; W / G / 🖨 / ☐ / Bỏ chọn / bộ mẫu → `f09.*`. **js/18** (13): cây địa bàn → `f18.*` (`data-a1` = "ix,iz,ia", `f18So`). **js/05** (16): thanh khung xem PDF, ô số trang (`data-su=change`), OCR trang ảnh, hộp chép chữ, hộp file trùng → `f05.*` (`f05So`).
+- Thước đo onclick 368 → 322. Không đổi: 🗑 Xóa / 📋 Chép (js/06b), cửa sổ nổi HSSV (js/04b, PiP). Phép thử mới t413 (9 ý).
+
 ## 3.560 — 22/11/2026 — Chuẩn hóa danh sách văn bản js/10 + 11 (TK 2)
 - **Nguồn:** kế hoạch chuẩn hóa (đề xuất 3.557); anh 22/11 "code và gộp".
 - 13 onclick viết thẳng → `data-lenh` (QUY_CHUAN mục 10): dòng văn bản `f10.chon`, ⚠ trùng `f10.gopTrung`, 🔗 `f10.diToi`, 📋 `f10.chep`, ✎ `f10.suaBM` / `f10.suaCho`, ⋯ `f10.menu`, thùng rác `f10.khoiPhuc` / `f10.khoiPhucChon`, nút thông báo `f10.baoHT`; ⭐ `f11.sao`, dòng bảng `f11.moDong`, ✎ khách `f11.themKhach`. Bộ nghe GD chỉ chạy lệnh phần tử trong cùng → nút trên dòng không chọn dòng (như stopPropagation cũ).

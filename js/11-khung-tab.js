@@ -158,7 +158,7 @@ function veDauTab(tab, opt){
   var nhanKX = (dsKX.filter(function(x){ return x[0]===kx; })[0] || dsKX[0] || ['', '☰ Danh sách'])[1];
   TL_OPT[tab] = opt;
   var h = '<div class="dau-tab tl-thanh">'+
-    '<button class="nut-them" id="nut-them-'+tab+'" onclick="'+(opt.hamThem||'nutChinh()')+'" '+
+    '<button class="nut-them" id="nut-them-'+tab+'" data-lenh="f11.them" data-a1="'+tab+'" '+
       'ondragover="event.preventDefault();this.classList.add(\'keo\')" ondragleave="this.classList.remove(\'keo\')" '+
       'ondrop="this.classList.remove(\'keo\')" title="Bấm để chọn file, kéo thả file vào đây, hoặc copy file rồi dán (Ctrl+V)">'+
       '<span class="cong">+</span> '+coChuHTML(opt.nhanThem||'Thêm file')+'</button>'+nutBot(tab)+
@@ -179,9 +179,8 @@ var TL_OPT = {}, TL_LOC_MO = {};
 /* 3.377 (anh 26/10 "nút mở đóng khung xem trước scan làm tương tự bên vb"): Scan cũng có nút ▣ bật / tắt khung xem như Văn bản */
 /* 3.157: kiểu xem thành chip liền nhau (máy tính) — khung xem bên phải đang mở thì chỉ biểu tượng, rê chuột thấy chữ */
 function tlKieuXemHTML(tab, o, ds, kx){
-  var ham = o.hamXem ? function(k){ return o.hamXem+'(\''+k+'\')'; } : function(k){ return 'datKX(\''+tab+'\',\''+k+'\')'; };
   var h = '<span class="tl-kx">'+ds.map(function(x){ var bt = x[1].split(' '), ico = /^[^\wÀ-ỹ]/.test(x[1]) ? bt[0] : '', chu = ico ? bt.slice(1).join(' ') : x[1];
-    return '<button class="'+(kx===x[0] ? 'bat' : '')+'" onclick="'+ham(x[0])+'" title="'+coChuHTML(chu)+'">'+(ico ? ico+' ' : '')+'<span class="tl-chu">'+coChuHTML(chu)+'</span></button>'; }).join('')+'</span>';
+    return '<button class="'+(kx===x[0] ? 'bat' : '')+'" data-lenh="f11.kieuXem" data-a1="'+tab+'" data-a2="'+x[0]+'" title="'+coChuHTML(chu)+'">'+(ico ? ico+' ' : '')+'<span class="tl-chu">'+coChuHTML(chu)+'</span></button>'; }).join('')+'</span>';
   if(tab==='vanBan' && kx==='thang') h += '<button class="phu tl-bung" data-lenh="f11.bungNhom" data-a1="1" title="Bung hết nhóm">⊞ <span class="tl-chu">Bung</span></button><button class="phu tl-bung" data-lenh="f11.bungNhom" data-a1="" title="Thu gọn hết nhóm">⊟ <span class="tl-chu">Gọn</span></button>';
   h += '<button class="phu tl-pv'+(anPVCua(tenTabPV()) ? '' : ' bat')+'" data-lenh="f11.batTatPV" title="'+(anPVCua(tenTabPV()) ? 'Bật' : 'Tắt')+' khung xem bên phải">▣ <span class="tl-chu">Khung xem</span></button>';   /* 3.388 (anh 27/10 "các nút kiểu xem kèm tên luôn, ghi nhỏ gọn") */
   return h;
@@ -213,9 +212,8 @@ function moSapTab(ev, tab){
 function moXemTab(ev, tab){
   var o = TL_OPT[tab] || {}, kx = kxCua(tab);
   var ds = o.xem ? o.xem : (TL_KX[tab]||[]);
-  var ham = o.hamXem ? function(k){ return o.hamXem+'(\''+k+'\')'; } : function(k){ return 'datKX(\''+tab+'\',\''+k+'\')'; };
   var h = '<div class="menu-nhan">Kiểu xem</div>'+ds.filter(function(x){ return !(x[0]==='bang' && laDT()); }).map(function(x){
-    return '<button class="'+(kx===x[0]?'bat':'')+'" onclick="'+ham(x[0])+'">'+(kx===x[0]?'✓ ':'')+x[1]+'</button>'; }).join('');
+    return '<button class="'+(kx===x[0]?'bat':'')+'" data-lenh="f11.kieuXem" data-a1="'+tab+'" data-a2="'+x[0]+'">'+(kx===x[0]?'✓ ':'')+x[1]+'</button>'; }).join('');
   if(tab==='vanBan' && kx==='thang') h += '<button data-lenh="f11.bungNhom" data-a1="1">⊞ Bung hết nhóm</button><button data-lenh="f11.bungNhom" data-a1="">⊟ Thu gọn hết nhóm</button>';
   if(!laDT()) h += '<div class="vach"></div><button data-lenh="f11.batTatPV">'+(anPVCua(tenTabPV())?'▣ Bật':'▣ Tắt')+' khung xem bên phải</button>';
   moMenuTL(ev, h);
@@ -243,9 +241,9 @@ function tlLocLai(tab){ if(laDT()) moBoLoc(tab); }
 function boLocHTML(tab){
   var L = locCua(tab), kn = khoaNgay(tab), kho = window.__khoTab || [];
   var dem = function(khoa, x){ var cu = L[khoa]; L[khoa] = x; var n = locTheoThe(tab, locChuan(tab, kho)).length; L[khoa] = cu; return n; };
-  var the = function(khoa, x, nhan, so, ham){
-    return '<span class="the-loc'+(L[khoa]===x?' bat':'')+(so===0 && L[khoa]!==x?' rong':'')+(x===LOC_TRONG?' loc-trong':'')+'" onclick="'+(ham||'datLocGiu')+'(\''+tab+'\',\''+khoa+'\',\''+
-      String(x).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')">'+coChuHTML(nhan)+(so!=null?' <small>'+so+'</small>':'')+'</span>';
+  var the = function(khoa, x, nhan, so){   /* 3.561: data-lenh f11.datLoc (trước: onclick datLocGiu, tham số ham không nơi nào truyền) */
+    return '<span class="the-loc'+(L[khoa]===x?' bat':'')+(so===0 && L[khoa]!==x?' rong':'')+(x===LOC_TRONG?' loc-trong':'')+'" data-lenh="f11.datLoc" data-a1="'+tab+'" data-a2="'+khoa+'" data-a3="'+
+      String(x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')+'">'+coChuHTML(nhan)+(so!=null?' <small>'+so+'</small>':'')+'</span>';
   };
   var nhom = function(nhan, chips){ return chips ? '<div class="lg"><div class="lg-nhan">'+nhan+'</div><div class="lg-the">'+chips+'</div></div>' : ''; };
   var h = '';
@@ -623,5 +621,9 @@ gdDangKy('f11', gdLenh({
   moThemTab:function(el, ev){ moThemTab(ev, gdA(el, 1)); },
   moXemTab:function(el, ev){ moXemTab(ev, gdA(el, 1)); },
   suaTagTab:function(el, ev){ suaTagTab(gdA(el, 1)); },
-  tagMacDinh:function(el, ev){ tagMacDinh(gdA(el, 1)); }
+  tagMacDinh:function(el, ev){ tagMacDinh(gdA(el, 1)); },
+  /* 3.561: 3 chỗ bấm động cuối (tên hàm do tab truyền vào qua veDauTab) */
+  them:function(el){ var f = (TL_OPT[gdA(el, 1)] || {}).hamThem; if(typeof f==='function') f(); else nutChinh(); },
+  kieuXem:function(el){ var tab = gdA(el, 1), k = gdA(el, 2), h = (TL_OPT[tab] || {}).hamXem; if(h && typeof window[h]==='function') window[h](k); else datKX(tab, k); },
+  datLoc:function(el){ datLocGiu(gdA(el, 1), gdA(el, 2), gdA(el, 3)); }
 }));

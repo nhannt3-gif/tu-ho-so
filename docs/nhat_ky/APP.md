@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 22/11/2026 — TK 2 · PHIÊN (3.561 chuẩn hóa nút khung tab / Biểu mẫu / cây địa bàn / khung xem PDF)
+- Anh "code và gộp" 3 mục: 6 chỗ bấm động js/10 + 11 (hamThem nay là hàm; Khác / Sửa chỉ gọi hàm trong danh sách) + js/05, 09, 18 chuyển tay. onclick 368 → 322. t413 9/9.
+- Bẫy: js/06b chặn bấm dòng ở pha capture khi đang chọn nhiều (stopPropagation) → data-lenh cũng bị chặn đúng như onclick cũ. ↔ / ⊡ là bật–tắt (bấm lại chế độ đang bật → tắt).
+- Còn ~320 onclick ở các file khác — làm dần nếu anh duyệt.
+
 ### 22/11/2026 — TK 2 · PHIÊN (3.560 chuẩn hóa danh sách văn bản)
 - 13 onclick js/10 + 11 → data-lenh f10.* / f11.*; bộ chọn dòng nhận 2 dạng (Biểu mẫu js/09 còn onclick). t412 6/6. Còn 6 onclick động (tên hàm truyền vào).
 - Bẫy: đổi onclick dòng phải đổi CẢ dòng lẫn nút trên dòng cùng lúc (onclick dòng chạy trước bộ nghe GD ở document); grep `[onclick^=` trong js + tests.

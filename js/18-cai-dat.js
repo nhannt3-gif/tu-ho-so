@@ -86,14 +86,14 @@ function veCayDB(){
     var soTo = (x.diem||[]).reduce(function(a,z){
       return a+(z.ap||[]).reduce(function(b,p){ return b+(p.to||[]).length; },0); },0);
     h += '<div class="tm'+(moX?' mo':'')+'" id="db-'+idX+'">'+
-      '<div class="tm-dau" onclick="batDB(\'' +idX+ '\')"><span class="mui">›</span>'+
+      '<div class="tm-dau" data-lenh="f18.batDB" data-a1="'+idX+'"><span class="mui">›</span>'+
       '<span class="ten">'+coChuHTML(x.xa)+'</span>'+
       '<span class="dem">'+(x.diem||[]).length+' điểm · '+soAp+' ấp · '+soTo+' tổ</span></div>'+
       '<div class="tm-than">';
     (x.diem||[]).forEach(function(z, iz){
       var idD = idX+'d'+iz, moD = moNhanh2[idD];
       h += '<div class="tm'+(moD?' mo':'')+'" id="db-'+idD+'" style="margin:6px 0">'+
-        '<div class="tm-dau" onclick="batDB(\'' +idD+ '\')"><span class="mui">›</span>'+
+        '<div class="tm-dau" data-lenh="f18.batDB" data-a1="'+idD+'"><span class="mui">›</span>'+
         '<span class="ten">'+coChuHTML(z.ten)+
         (z.ngay?(' <span style="font-weight:400;color:var(--chu-phu)">· ngày '+z.ngay+'</span>'):'')+
         '</span><span class="dem">'+(z.ap||[]).length+' ấp</span></div>'+
@@ -101,7 +101,7 @@ function veCayDB(){
       (z.ap||[]).forEach(function(a, ia){
         var idA = idD+'a'+ia, moA = moNhanh2[idA];
         h += '<div class="tm'+(moA?' mo':'')+'" id="db-'+idA+'" style="margin:5px 0">'+
-          '<div class="tm-dau" onclick="batDB(\'' +idA+ '\')"><span class="mui">›</span>'+
+          '<div class="tm-dau" data-lenh="f18.batDB" data-a1="'+idA+'"><span class="mui">›</span>'+
           '<span class="ten" style="font-weight:500">'+coChuHTML(a.ten)+'</span>'+
           '<span class="dem">'+(a.to||[]).length+' tổ</span></div>'+
           '<div class="tm-than">'+
@@ -110,21 +110,21 @@ function veCayDB(){
             return '<div class="tm-file">'+coChuHTML(nhan)+'</div>';
           }).join('')+
           '<div class="hang-nut" style="margin:7px 0">'+
-            '<button class="nho" onclick="suaNut(\'' +ix+','+iz+','+ia+ '\',\'ap\')">Sửa tên ấp</button>'+
-            '<button class="nho" onclick="suaTo('+ix+','+iz+','+ia+')">Sửa danh sách tổ</button>'+
-            '<button class="nho xau" onclick="boNut('+ix+','+iz+','+ia+')">Bỏ ấp</button>'+
+            '<button class="nho" data-lenh="f18.suaNut" data-a1="'+ix+','+iz+','+ia+'" data-a2="ap">Sửa tên ấp</button>'+
+            '<button class="nho" data-lenh="f18.suaTo" data-a1="'+ix+','+iz+','+ia+'">Sửa danh sách tổ</button>'+
+            '<button class="nho xau" data-lenh="f18.boNut" data-a1="'+ix+','+iz+','+ia+'">Bỏ ấp</button>'+
           '</div></div></div>';
       });
       h += '<div class="hang-nut" style="margin:7px 0">'+
-        '<button class="nho" onclick="themAp('+ix+','+iz+')">+ Thêm ấp</button>'+
-        '<button class="nho" onclick="suaNut(\'' +ix+','+iz+ '\',\'diem\')">Sửa điểm</button>'+
-        '<button class="nho xau" onclick="boNut('+ix+','+iz+')">Bỏ điểm</button>'+
+        '<button class="nho" data-lenh="f18.themAp" data-a1="'+ix+','+iz+'">+ Thêm ấp</button>'+
+        '<button class="nho" data-lenh="f18.suaNut" data-a1="'+ix+','+iz+'" data-a2="diem">Sửa điểm</button>'+
+        '<button class="nho xau" data-lenh="f18.boNut" data-a1="'+ix+','+iz+'">Bỏ điểm</button>'+
         '</div></div></div>';
     });
     h += '<div class="hang-nut" style="margin:7px 0">'+
-      '<button class="nho" onclick="themDiem('+ix+')">+ Thêm điểm GD</button>'+
-      '<button class="nho" onclick="suaNut(\'' +ix+ '\',\'xa\')">Sửa tên xã</button>'+
-      '<button class="nho xau" onclick="boNut('+ix+')">Bỏ xã</button>'+
+      '<button class="nho" data-lenh="f18.themDiem" data-a1="'+ix+'">+ Thêm điểm GD</button>'+
+      '<button class="nho" data-lenh="f18.suaNut" data-a1="'+ix+'" data-a2="xa">Sửa tên xã</button>'+
+      '<button class="nho xau" data-lenh="f18.boNut" data-a1="'+ix+'">Bỏ xã</button>'+
       '</div></div></div>';
   });
   e.innerHTML = h || '<div class="rong">Chưa khai địa bàn nào.</div>';
@@ -190,7 +190,7 @@ function suaTo(ix, iz, ia){
     'Mã tổ chính là mã tổ trưởng, đổi người thì giữ nguyên mã.</div>'+
     ta('','sto',cu)+
     '<div class="hang-nut"><button class="nho" data-lenh="f18.moCayDB" data-dong="1">Thôi</button>'+
-    '<button class="nho chinh" onclick="luuTo('+ix+','+iz+','+ia+')">Lưu</button></div>', true);
+    '<button class="nho chinh" data-lenh="f18.luuTo" data-a1="'+ix+','+iz+','+ia+'">Lưu</button></div>', true);
 }
 function luuTo(ix, iz, ia){
   var a = nutDB(ix, iz, ia);
@@ -398,7 +398,12 @@ function napExcel(){
 }
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f18.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f18', gdLenh({
+function f18So(el){ return gdA(el, 1).split(',').map(Number); }
+gdDangKy('f18', gdLenh({   /* 3.561: cây địa bàn (data-a1 = "ix,iz,ia") */
+  batDB:function(el){ batDB(gdA(el, 1)); },
+  suaNut:function(el){ suaNut(gdA(el, 1), gdA(el, 2)); },
+  suaTo:function(el){ suaTo.apply(null, f18So(el)); }, boNut:function(el){ boNut.apply(null, f18So(el)); }, themAp:function(el){ themAp.apply(null, f18So(el)); },
+  themDiem:function(el){ themDiem.apply(null, f18So(el)); }, luuTo:function(el){ luuTo.apply(null, f18So(el)); },
   chepCay:function(el, ev){ chepCay(); },
   moCaiDat:function(el, ev){ moCaiDat(gdA(el, 1)); },
   moCayDB:function(el, ev){ moCayDB(); },

@@ -20,7 +20,7 @@ function veBieuMau(){
     return boDau(m.ten+' '+m.nhom+' '+(m.ghi||'')+' '+(m.soHieu||'')).indexOf(tuKhoa)>=0; });
   ds = locTheoThe('bieuMau', locChuan('bieuMau', ds)); BOT_DS.bieuMau = ds;
 
-  var h = veDauTab('bieuMau', {kho:D.bieuMau, hamThem:'themBieuMau()',
+  var h = veDauTab('bieuMau', {kho:D.bieuMau, hamThem:function(){ themBieuMau(); },
     nutThem:'<button data-lenh="f09.moDsBo">📚 Bộ biểu mẫu'+(dsBo().length?' · '+dsBo().length:'')+'</button>'});
   h += veThanhSap('bieuMau', null, null, null, '<b>'+ds.length+'</b> biểu mẫu'+chuDemLoc('bieuMau'));
 
@@ -32,7 +32,7 @@ function veBieuMau(){
       (coChiaSeNhieu() ? '<button class="in-chinh" data-lenh="f09.guiNhieuBM">📤 Gửi '+soChon+' file</button>' : '')+
       '<button class="'+(coChiaSeNhieu()?'':'in-chinh')+'" data-lenh="f09.nenZipBM">🗜 Nén .zip</button>'+
       '<button data-lenh="f09.inBoMau">🖨 In cả bộ</button>'+
-      '<button onclick="BM.chon={};BM.boTen=\'\';veBieuMau()">Bỏ chọn</button></div>';
+      '<button data-lenh="f09.boChon">Bỏ chọn</button></div>';
   }
 
 
@@ -55,9 +55,9 @@ function veBieuMau(){
   }).forEach(function(n){
     h += '<div class="nhan-nhom bm-nhom-dau">'+coChuHTML(n===GHIM?'★ Quan trọng':(/^Dùng chung/.test(n)?'Tất cả CT':n))+' · '+gom[n].length+' mẫu</div>';
     h += gom[n].map(function(m){
-      return '<div class="d2'+(BM.chon[m.id]?' chon':'')+'"'+botAt(m.id)+' onclick="chonDong(\''+m.id+'\')">'+
+      return '<div class="d2'+(BM.chon[m.id]?' chon':'')+'"'+botAt(m.id)+' data-lenh="f10.chon" data-a1="'+m.id+'">'+
         '<div class="h1">'+
-          '<span class="o-chon'+(BM.chon[m.id]?' bat':'')+'" onclick="event.stopPropagation();doiChonBM(\''+m.id+'\')" title="Tích để gửi / nén / in nhiều mẫu một lần">'+(BM.chon[m.id]?'✓':'')+'</span>'+
+          '<span class="o-chon'+(BM.chon[m.id]?' bat':'')+'" data-lenh="f09.doiChon" data-a1="'+m.id+'" title="Tích để gửi / nén / in nhiều mẫu một lần">'+(BM.chon[m.id]?'✓':'')+'</span>'+
           saoHTML(m)+'<span class="ico">'+(m.huongDan?'📝':'📄')+'</span>'+
           '<span class="ten">'+toSang(m.ten, tuKhoa)+'</span>'+
           (m.ghi?'<span class="ty">'+coChuHTML(m.ghi)+'</span>':'')+'</div>'+
@@ -70,9 +70,9 @@ function veBieuMau(){
           (m.vbKem && timMuc(m.vbKem) ? '<span class="tg" title="Văn bản ban hành mẫu này">📎 '+
              coChuHTML((timMuc(m.vbKem).soHieu||'văn bản'))+'</span>' : '')+
         '</div><div class="nut">'+
-          '<button onclick="event.stopPropagation();moBangOffice(\''+m.id+'\')" title="Mở thẳng bằng Word hoặc Excel trên máy tính">W</button>'+
-          '<button onclick="event.stopPropagation();bmMoDocs(\''+m.id+'\')" title="Mở trên Google Docs">G</button>'+
-          '<button onclick="event.stopPropagation();inMotMau(\''+m.id+'\')" title="In">🖨</button>'+
+          '<button data-lenh="f09.office" data-a1="'+m.id+'" title="Mở thẳng bằng Word hoặc Excel trên máy tính">W</button>'+
+          '<button data-lenh="f09.docs" data-a1="'+m.id+'" title="Mở trên Google Docs">G</button>'+
+          '<button data-lenh="f09.inMot" data-a1="'+m.id+'" title="In">🖨</button>'+
           '<button data-lenh="f09.moMenu" data-a1="'+m.id+'" title="Thêm lệnh">⋯</button>'+
         '</div></div>'+
         (m.cachDung?'<div class="bm-cach">💡 '+coChuHTML(m.cachDung)+'</div>':'')+
@@ -101,10 +101,10 @@ function moDsBo(){
       return '<div class="bo-o"><div class="bo-ten">'+coChuHTML(b.ten)+'<small>'+(b.mau||[]).length+' mẫu</small></div>'+
         '<div class="bo-mau">'+(b.mau||[]).map(function(id){ var m = bmTim(id);
           return '<span>'+coChuHTML(m?m.ten:'(mẫu đã xóa)')+'</span>'; }).join('')+'</div>'+
-        '<div class="hang-nut"><button class="nho chinh" onclick="chonBoGui('+i+')" title="Tích sẵn các mẫu của bộ để Gửi / Nén / In">📤 Chọn cả bộ để gửi</button>'+
-        '<button class="nho" onclick="inBo('+i+')">🖨 In cả bộ</button>'+
-        '<button class="nho" onclick="suaBo('+i+')">Sửa bộ</button>'+
-        '<button class="nho xau" onclick="xoaBo('+i+')">Xóa bộ</button></div></div>';
+        '<div class="hang-nut"><button class="nho chinh" data-lenh="f09.chonBoGui" data-a1="'+i+'" title="Tích sẵn các mẫu của bộ để Gửi / Nén / In">📤 Chọn cả bộ để gửi</button>'+
+        '<button class="nho" data-lenh="f09.inBo" data-a1="'+i+'">🖨 In cả bộ</button>'+
+        '<button class="nho" data-lenh="f09.suaBo" data-a1="'+i+'">Sửa bộ</button>'+
+        '<button class="nho xau" data-lenh="f09.xoaBo" data-a1="'+i+'">Xóa bộ</button></div></div>';
     }).join('')+'</div>' : '<div class="rong">Chưa có bộ nào.</div>')+
     '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng</button>'+
     '<button class="nho chinh" data-lenh="f09.suaBo" data-a1="-1">+ Tạo bộ mới</button></div>', true);
@@ -120,7 +120,7 @@ function suaBo(i){
           '<small>'+coChuHTML(m.nhom||'')+'</small></label>';
       }).join('')+'</div></div>'+
     '<div class="hang-nut"><button class="nho" data-lenh="f09.moDsBo">Thôi</button>'+
-    '<button class="nho chinh" onclick="luuBo('+i+')">Lưu bộ</button></div>', true);
+    '<button class="nho chinh" data-lenh="f09.luuBo" data-a1="'+i+'">Lưu bộ</button></div>', true);
 }
 function luuBo(i){
   var ten = (gt('bo-ten')||'').trim();
@@ -539,7 +539,10 @@ function inBoMau(){
 }
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f09.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f09', gdLenh({
+gdDangKy('f09', gdLenh({   /* 3.561: dòng biểu mẫu + bộ mẫu (thay onclick viết thẳng) */
+  boChon:function(){ BM.chon = {}; BM.boTen = ''; veBieuMau(); },
+  doiChon:function(el){ doiChonBM(gdA(el, 1)); }, office:function(el){ moBangOffice(gdA(el, 1)); }, docs:function(el){ bmMoDocs(gdA(el, 1)); }, inMot:function(el){ inMotMau(gdA(el, 1)); },
+  chonBoGui:function(el){ chonBoGui(+gdA(el, 1)); }, inBo:function(el){ inBo(+gdA(el, 1)); }, suaBo:function(el){ suaBo(+gdA(el, 1)); }, xoaBo:function(el){ xoaBo(+gdA(el, 1)); }, luuBo:function(el){ luuBo(+gdA(el, 1)); },
   bmBoThay:function(el, ev){ bmBoThay(gdA(el, 1)); },
   bmLuuGhiChu:function(el, ev){ bmLuuGhiChu(gdA(el, 1)); },
   bmLuuThay:function(el, ev){ bmLuuThay(gdA(el, 1)); },

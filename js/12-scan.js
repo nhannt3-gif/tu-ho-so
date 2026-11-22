@@ -14,7 +14,7 @@ function veScan(){
   D.scan = D.scan || []; HS.ds = D.scan;
 
   var h = laDT() ? dauScanDT() : veDauTab('scan', {kho:D.scan, nhanThem:'Quét bản mới',
-    hamThem:'batDauScan()',
+    hamThem:function(){ batDauScan(); },
     themPhu:''});   /* 3.309 (anh): bỏ "Chế độ quét" (Quét gì? quyết định), "📷 Webcam" (Quét gì? › Camera), "📁 Chữ ký · CCCD" (cột Ck, 💾 Xuất, ✍ Rà chữ ký) */
   /* 3.151: dòng "Ảnh xử lý trong máy…" chuyển vào ❓ */
 
