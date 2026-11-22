@@ -95,19 +95,19 @@ function dmHTML(loai){
   ds.forEach(function(ten, i){
     var so = dmDung(loai, ten);
     h += '<div class="dm-dong">'+
-      '<input class="dm-ten" value="'+coChuHTML(ten)+'" onchange="dmDoiTen('+q+','+i+',this)" title="Sửa tên — file đang dùng đổi theo">'+
-      (mt.phu?'<input class="'+(mt.hep?'dm-hep':'dm-phu')+'" value="'+coChuHTML(mt.layPhu(ten))+'" placeholder="'+mt.phu+'" onchange="dmDoiPhu('+q+','+i+',this.value)">':'')+
-      (tk?'<input class="dm-tk" value="'+coChuHTML((tk[ten]||[]).join(', '))+'" placeholder="cách nhau dấu phẩy" onchange="dmDoiTK('+q+','+i+',this.value)">':'')+
+      '<input class="dm-ten" value="'+coChuHTML(ten)+'" data-lenh="f19.doiTen" data-su="change" data-a1="'+loai+'" data-a2="'+i+'" title="Sửa tên — file đang dùng đổi theo">'+
+      (mt.phu?'<input class="'+(mt.hep?'dm-hep':'dm-phu')+'" value="'+coChuHTML(mt.layPhu(ten))+'" placeholder="'+mt.phu+'" data-lenh="f19.doiPhu" data-su="change" data-a1="'+loai+'" data-a2="'+i+'">':'')+
+      (tk?'<input class="dm-tk" value="'+coChuHTML((tk[ten]||[]).join(', '))+'" placeholder="cách nhau dấu phẩy" data-lenh="f19.doiTK" data-su="change" data-a1="'+loai+'" data-a2="'+i+'">':'')+
       '<span class="dm-cuoi"><span class="dm-so">'+(so?so+' file':'')+'</span>'+
-      '<button class="dm-n" onclick="dmDoiCho('+q+','+i+',-1)"'+(i?'':' disabled')+' title="Lên">↑</button>'+
-      '<button class="dm-n" onclick="dmDoiCho('+q+','+i+',1)"'+(i<ds.length-1?'':' disabled')+' title="Xuống">↓</button>'+
-      '<button class="dm-n xau" onclick="dmXoa('+q+','+i+')" title="Xóa">✕</button></span></div>'+
+      '<button class="dm-n" data-lenh="f19.doiCho" data-a1="'+loai+'" data-a2="'+i+'" data-a3="-1"'+(i?'':' disabled')+' title="Lên">↑</button>'+
+      '<button class="dm-n" data-lenh="f19.doiCho" data-a1="'+loai+'" data-a2="'+i+'" data-a3="1"'+(i<ds.length-1?'':' disabled')+' title="Xuống">↓</button>'+
+      '<button class="dm-n xau" data-lenh="f19.xoa" data-a1="'+loai+'" data-a2="'+i+'" title="Xóa">✕</button></span></div>'+
       '<div class="dm-hoi" id="'+dmId(loai)+'-h'+i+'"></div>';
   });
   h += '<div class="dm-them"><input id="'+dmId(loai)+'-moi" placeholder="Thêm '+mt.ten.toLowerCase()+' mới…" '+
       'onkeydown="if(event.key===\'Enter\'){event.preventDefault();dmThem('+q+');}">'+
-    '<button class="nho" onclick="dmThem('+q+')">+ Thêm</button>'+
-    '<button class="nho" onclick="dmMacDinh('+q+')" title="Đưa danh sách về như lúc mới cài app">Lấy lại mặc định</button></div></div>';
+    '<button class="nho" data-lenh="f19.them" data-a1="'+loai+'">+ Thêm</button>'+
+    '<button class="nho" data-lenh="f19.macDinh" data-a1="'+loai+'" title="Đưa danh sách về như lúc mới cài app">Lấy lại mặc định</button></div></div>';
   return h;
 }
 function dmVe(loai){
@@ -167,8 +167,8 @@ function dmXoa(loai, i){
   e.innerHTML = '<b>'+so+' file</b> đang dùng “'+coChuHTML(ten)+'”. Chuyển các file đó sang: '+
     '<select id="'+dmId(loai)+'-sang'+i+'"><option value="">— để trống —</option>'+
       khac.map(function(x){ return '<option value="'+coChuHTML(x)+'">'+coChuHTML(loai==='ct' ? hienCT(x) : x)+'</option>'; }).join('')+'</select> '+
-    '<button class="nho xau" onclick="dmXoaXong('+q+','+i+')">Xóa</button> '+
-    '<button class="nho" onclick="this.parentNode.innerHTML=\'\'">Thôi</button>';
+    '<button class="nho xau" data-lenh="f19.xoaXong" data-a1="'+loai+'" data-a2="'+i+'">Xóa</button> '+
+    '<button class="nho" data-lenh="f19.thoi">Thôi</button>';
 }
 function dmXoaXong(loai, i){
   var mt = dmMoTa(loai), ds = mt.lay(), ten = ds[i];
@@ -212,7 +212,7 @@ function dsMauCDHTML(){
     return '<div class="dm-dong"><span class="dm-ten-chu">'+coChuHTML(m.ten)+' <small>'+coChuHTML(m.ma)+' · '+mo+
       ' · '+({thang:'hằng tháng',ngay:'theo ngày',quy:'quý',sau:'6 tháng',nam:'năm'}[chuKy(m)]||'')+'</small></span>'+
       '<span class="dm-cuoi"><span class="dm-so">'+(so?so+' file':'')+'</span>'+
-      '<button class="dm-n" onclick="TL_VE_CD=true;dongCaiDat();moThietLapBC(\''+m.ma+'\')" title="Thiết lập báo cáo">⚙</button></span></div>';
+      '<button class="dm-n" data-lenh="f19.thietLap" data-a1="'+m.ma+'" title="Thiết lập báo cáo">⚙</button></span></div>';
   }).join('')+'</div>';
 }
 function veLaiCDNeuCan(){
@@ -220,3 +220,10 @@ function veLaiCDNeuCan(){
   TL_VE_CD = false;
   setTimeout(function(){ moCaiDat('duLieu'); }, 0);
 }
+/* 3.561+1 (3.562 chuẩn hóa): LỆNH data-lenh="f19.*" thay onclick / onchange viết thẳng ở bộ sửa danh mục + nút ⚙ mẫu báo cáo */
+gdDangKy('f19', gdLenh({
+  doiTen:function(el){ dmDoiTen(gdA(el, 1), +gdA(el, 2), el); }, doiPhu:function(el){ dmDoiPhu(gdA(el, 1), +gdA(el, 2), el.value); }, doiTK:function(el){ dmDoiTK(gdA(el, 1), +gdA(el, 2), el.value); },
+  doiCho:function(el){ dmDoiCho(gdA(el, 1), +gdA(el, 2), +gdA(el, 3)); }, xoa:function(el){ dmXoa(gdA(el, 1), +gdA(el, 2)); }, xoaXong:function(el){ dmXoaXong(gdA(el, 1), +gdA(el, 2)); },
+  them:function(el){ dmThem(gdA(el, 1)); }, macDinh:function(el){ dmMacDinh(gdA(el, 1)); }, thoi:function(el){ el.parentNode.innerHTML = ''; },
+  thietLap:function(el){ TL_VE_CD = true; dongCaiDat(); moThietLapBC(gdA(el, 1)); }
+}));

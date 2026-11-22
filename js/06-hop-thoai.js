@@ -98,7 +98,7 @@ function hoi(tit, phu, nhanOK, ham){
   moHop('<div class="hop-tit">'+coChuHTML(tit)+'</div>'+
         '<div class="hop-phu">'+coChuHTML(phu)+'</div>'+
         '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button>'+
-        '<button class="nho chinh" onclick="dongHop();hamDong&&hamDong()">'+
+        '<button class="nho chinh" data-lenh="f06.hoiOK">'+
         coChuHTML(nhanOK)+'</button></div>');
 }
 
@@ -168,7 +168,7 @@ function oChonGon(nhan, idO, ds, dangCo, mot, loaiDem, phuHTML){
       var day = loaiDem==='ct' ? ctTenDay(t) : '';
       return '<span class="the-loc'+(dangCo.indexOf(t)>=0?' bat':'')+'" data-v="'+coChuHTML(t)+'"'+
         (day?' title="'+coChuHTML(day)+'"':'')+
-        ' onclick="bamChipGon(this,'+(mot?1:0)+')">'+coChuHTML(loaiDem==='ct' ? hienCT(t) : t)+
+        ' data-lenh="f06.chipGon" data-a1="'+(mot?1:'')+'">'+coChuHTML(loaiDem==='ct' ? hienCT(t) : t)+
 '</span>';
     }).join('')+
     '<span class="them-n" data-lenh="f06.moChipGon"></span></div>'+
@@ -326,7 +326,7 @@ function sgChon(nhan, id, ds, gtri, trong, laCT){
 /* ---- Tag: chip + ô gõ; gợi ý theo nội dung + gần đây; ↓ xem cả danh sách (dùng nhiều trước, kèm số VB) ---- */
 function tgChipHTML(t){
   return '<span class="the-loc bat sg-chip" data-v="'+coChuHTML(t)+'">'+coChuHTML(t)+
-    '<button type="button" tabindex="-1" title="Gỡ tag" onclick="this.parentNode.remove();tgHd()">✕</button></span>';
+    '<button type="button" tabindex="-1" title="Gỡ tag" data-lenh="f06.goTag">✕</button></span>';
 }
 function tgDem(){ var d = {}; D.vanBan.forEach(function(v){ (v.the||[]).forEach(function(t){ d[t] = (d[t]||0)+1; }); }); return d; }
 function tgGoi(tatCa){
@@ -359,7 +359,7 @@ function tgHangHTML(chon, chu){
 }
 function tgC(t, bat, goi, so){
   return '<span class="the-loc tg-c'+(bat?' bat':'')+(goi && !bat?' goi':'')+'" data-v="'+coChuHTML(t)+'" title="'+(goi?'Gợi ý theo nội dung · ':'')+so+' văn bản đang dùng" '+
-    'onclick="this.classList.toggle(\'bat\');this.classList.remove(\'goi\')">'+coChuHTML(t)+'</span>';
+    'data-lenh="f06.bat" data-a1="goi">'+coChuHTML(t)+'</span>';
 }
 function tgLoc(){
   var go = document.getElementById('s-tag-go'); if(!go) return;
@@ -562,7 +562,7 @@ function lienQuanHTML(m){
   if(mot.length) h += '<div class="lq-mot">'+mot.join('')+'</div>';
   var bm = (D.bieuMau||[]).filter(function(x){ return x.vbKem===m.id; });
   if(bm.length) h += '<div class="lien-quan">Biểu mẫu kèm: '+bm.map(function(b){
-    return '<a class="lk" onclick="chonDong(\''+b.id+'\')">'+coChuHTML((b.soHieu?b.soHieu+' ':'')+(b.ten||''))+'</a>';
+    return '<a class="lk" data-lenh="f10.chon" data-a1="'+b.id+'">'+coChuHTML((b.soHieu?b.soHieu+' ':'')+(b.ten||''))+'</a>';
   }).join(' · ')+'</div>';
   return h;
 }
@@ -625,10 +625,10 @@ function suaCho(id){
     var loaiDS = D.cauHinh.loaiVB||[];
     nd += '<div class="sg-3">'+
       '<div class="o"><label>Số, ký hiệu</label><input id="s-so" autocomplete="off" value="'+coChuHTML(m.soHieu||'')+
-        '" placeholder="4339/NHCS-TDNN" oninput="soHieuGo(this);goiYLoaiTuSo();xemTenTruoc()"></div>'+
+        '" placeholder="4339/NHCS-TDNN" data-lenh="f06.soHieu" data-su="input"></div>'+
       '<div class="o"><label>Ngày ban hành</label><input id="s-ngay" inputmode="numeric" autocomplete="off" '+
         'placeholder="25/09/2026" value="'+ngayVN(m.ngay||'')+'" data-lenh="f06.gonNgay" data-su="input"></div>'+
-      '<div class="o"><label>Loại</label><select id="s-loai" onchange="LOAI_TAY=true;xemTenTruoc()">'+
+      '<div class="o"><label>Loại</label><select id="s-loai" data-lenh="f06.loaiTay" data-su="change">'+
         loaiDS.map(function(x){ return '<option'+(m.loai===x?' selected':'')+'>'+coChuHTML(x)+'</option>'; }).join('')+
       '</select></div></div>';
     nd += '<div id="canh-trung"></div>';
@@ -662,7 +662,7 @@ function suaCho(id){
       'title="Đổi năm, đổi nhóm hoặc sửa dòng này thì bấm Lưu sẽ dời file trên Drive theo">'+
     '<button class="nho sg-ico" type="button" data-lenh="f06.sgSuaDuong" title="Sửa nơi lưu trên Drive">✎</button>'+
     '<button class="nho" type="button" data-lenh="f06.traDuongMacDinh" data-a1="'+id+'" title="Trả về nơi lưu mặc định">Mặc định</button>'+
-    '<button class="nho sg-ico" type="button" onclick="chepDuongMay(gt(\'s-duong\'))" title="Chép đường dẫn ổ G — dán vào Explorer">📂</button>'+
+    '<button class="nho sg-ico" type="button" data-lenh="f06.chepDuong" title="Chép đường dẫn ổ G — dán vào Explorer">📂</button>'+
     '<button class="nho sg-ico" type="button" data-lenh="f06.moThuMucMuc" data-a1="'+id+'" title="Mở thư mục trên Drive web">☁</button>'+
     (m.driveId?'<button class="nho sg-ico" type="button" data-lenh="f06.moTrenDrive" data-a1="'+id+'" title="Mở file trên Drive">↗</button>':'')+
     '</div>';
@@ -781,7 +781,7 @@ function oNgay(nhan, id, gtri){
     '<input id="'+id+'" style="flex:1" inputmode="numeric" placeholder="dd/mm/yyyy" '+
     'value="'+ngayVN(gtri)+'" data-lenh="f06.gonNgay" data-su="input">'+
     '<button class="nho" style="flex:0 0 auto;max-width:90px" '+
-    'onclick="document.getElementById(\''+id+'\').value=ngayVN(ngayISO(nay()))">Hôm nay</button>'+
+    'data-lenh="f06.homNay" data-a1="'+id+'">Hôm nay</button>'+
     '</div><div class="huong-dan">Gõ liền cũng được: 20092026 tự thành 20/09/2026</div></div>';
 }
 function gonNgay(el){
@@ -832,7 +832,7 @@ function theChon(nhan,id,ds,dangCo){
   return '<div class="o"><label>'+coChuHTML(nhan)+' — chọn được nhiều</label>'+
     '<div class="goi-y" id="'+id+'">'+ds.map(function(t){
       return '<span class="the-loc'+(dangCo.indexOf(t)>=0?' bat':'')+
-             '" onclick="this.classList.toggle(\'bat\')">'+coChuHTML(t)+'</span>';
+             '" data-lenh="f06.bat">'+coChuHTML(t)+'</span>';
     }).join('')+'</div></div>';
 }
 function layThe(id){
@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.561', ds:[
+var CO_GI_MOI = {ban:'3.562', ds:[
+  ["Chuẩn hóa nút (không đổi cách dùng): danh mục Cài đặt, KTGS (Xem trước, bảng ngành), hộp hỏi / tag / ô ngày, Hôm nay (lịch việc, Cần xử lý)", ""],
   ["Chuẩn hóa nút (không đổi cách dùng): thanh tab, Biểu mẫu, cây địa bàn, khung xem PDF chạy qua bộ lệnh chung", ""],
   ["Chuẩn hóa danh sách văn bản (không đổi cách dùng): bấm dòng / nút trên dòng chạy qua bộ lệnh chung — bấm ô tích ở dạng bảng không còn mở luôn văn bản", ""],
   ["Chuẩn hóa code (không đổi chức năng): tách dòng quá dài ở Giao dịch xã và các mẫu in — mẫu in ra giữ nguyên", ""],
@@ -1071,9 +1072,12 @@ var CO_GI_MOI = {ban:'3.561', ds:[
   ["Ô tích theo màu app; số tiền trong bảng thẳng cột", ""],
   ["Bảo mật: app chỉ chạy mã của chính app và thư viện đã duyệt (có kiểm dấu vân tay), chỉ kết nối Google + kho thư viện — mã lạ chèn vào bị chặn", ""],
   ["Cài app như phần mềm: Chrome / Edge bấm \"Cài đặt ứng dụng\" (biểu tượng ở thanh địa chỉ), iPhone Safari \"Thêm vào MH chính\" — mở cửa sổ riêng, có biểu tượng TH", ""],
-  ["Điện thoại: thanh địa chỉ không che nút ở đáy các khung cao", ""],
-  ["Hộp 🧪 Kiểm mốc: bảng chỗ lệch + nút Đóng đúng kiểu chung", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Điện thoại: thanh địa chỉ không che nút ở đáy các khung cao", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.562 · ⚙ Cài đặt › danh mục: sửa tên, ↑ ↓, ✕ (có file dùng → chọn chuyển sang → Xóa / Thôi), + Thêm, Lấy lại mặc định; ⚙ mẫu báo cáo",
+    "3.562 · KTGS: 👁 Xem trước ở 06, 04, kế hoạch, Kiểm tra tổ; bảng ngành kinh tế (tìm, Đã sửa, ↺, hiện thêm); In 2 mặt",
+    "3.562 · Hộp hỏi (vd xóa): Đồng ý; tag ✕; Hôm nay ở ô ngày; chip chọn gọn",
+    "3.562 · Hôm nay: Cần xử lý (chip + thẻ), ✓ việc lịch, kiểu chữ sổ, Thêm dòng, Xóa dòng, Dời, tính ngày",
     "3.561 · Thanh tab: + Thêm file / Thêm mẫu / Scan, chip kiểu xem, chip lọc",
     "3.561 · Biểu mẫu: bấm dòng mở; W / G / 🖨 / ô tích không làm nhảy chọn dòng; bộ mẫu (chọn cả bộ, in, sửa, xóa)",
     "3.561 · ⚙ Cài đặt › Cây địa bàn: mở cấp, sửa tên, thêm / bỏ ấp, điểm, sửa tổ",
@@ -1089,11 +1093,7 @@ var CO_GI_MOI = {ban:'3.561', ds:[
     "3.554 · ⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ → danh sách có Sao kê TK 104 / 105 ngày 25/10 → xóa → cột 25/10 biến mất",
     "3.553 · iPhone Safari: mở app → Hôm nay có lịch, không báo lỗi lưu",
     "3.553 · Tab Scan: dán ảnh HEIC chụp từ iPhone → vào hàng quét",
-    "3.552 · Ở 1 form bất kỳ, bấm Tab đi qua các ô → thấy viền xanh ở ô đang đứng",
-    "3.551 · Mở app, nạp file Excel, xem PDF, quét CCCD (OCR), nối Drive — mọi thứ chạy như cũ",
-    "3.551 · Nếu có chức năng không chạy: ⚠ chip lỗi ở chân trang → ✓ Chưa trong Có gì mới (em đọc được)",
-    "3.550 · Laptop Chrome: biểu tượng cài đặt ở cuối thanh địa chỉ → Cài đặt → app mở cửa sổ riêng",
-    "3.550 · iPhone Safari: Chia sẻ › Thêm vào MH chính → biểu tượng TH"],
+    "3.552 · Ở 1 form bất kỳ, bấm Tab đi qua các ô → thấy viền xanh ở ô đang đứng"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
@@ -1130,8 +1130,8 @@ function kiemCoGiMoi(){
 }
 function huongDanNhanh(){
   return '<div class="ban-app">Tủ hồ sơ · <b>Bản '+APP_BAN+'</b> · cập nhật '+APP_LUC+' · <span class="tac-gia">NhanNT</span></div>'+
-  '<div class="hang-nut" style="margin:0 0 10px"><button class="nho chinh" onclick="dongCaiDat();moHuongDan()">❓ Mở hướng dẫn trực quan (theo tab)</button>'+
-    '<button class="nho" onclick="dongCaiDat();moHuongDan(\'moi\')">✨ Có gì mới</button></div>'+
+  '<div class="hang-nut" style="margin:0 0 10px"><button class="nho chinh" data-lenh="f06.moHD">❓ Mở hướng dẫn trực quan (theo tab)</button>'+
+    '<button class="nho" data-lenh="f06.moHD" data-a1="moi">✨ Có gì mới</button></div>'+
   '<h3>Dữ liệu lưu ở đâu</h3>'+soDoLuuTru()+
   '<div class="huong-dan" style="line-height:1.75">'+
   '<b>Cách tìm</b><br>'+
@@ -1338,7 +1338,12 @@ function napDL(){
 }
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f06.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f06', gdLenh({
+gdDangKy('f06', gdLenh({   /* 3.562: thay onclick / oninput / onchange viết thẳng (hỏi OK, chip, tag, ô số hiệu, loại, Hôm nay, hướng dẫn) */
+  hoiOK:function(){ dongHop(); if(hamDong) hamDong(); }, chipGon:function(el){ bamChipGon(el, gdA(el, 1) ? 1 : 0); },
+  goTag:function(el){ el.parentNode.remove(); tgHd(); }, bat:function(el){ el.classList.toggle('bat'); if(gdA(el, 1)) el.classList.remove('goi'); },
+  soHieu:function(el){ soHieuGo(el); goiYLoaiTuSo(); xemTenTruoc(); }, loaiTay:function(){ LOAI_TAY = true; xemTenTruoc(); },
+  chepDuong:function(){ chepDuongMay(gt('s-duong')); }, homNay:function(el){ document.getElementById(gdA(el, 1)).value = ngayVN(ngayISO(nay())); },
+  moHD:function(el){ dongCaiDat(); moHuongDan(gdA(el, 1) || undefined); },
   diToiVB:function(el, ev){ diToiVB(gdA(el, 1)); },
   docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1), !!gdA(el, 2)); },
   doiNhom:function(el, ev){ doiNhom(gdA(el, 1), gdA(el, 2)); },

@@ -300,7 +300,7 @@ function ktGNNk(){ var to = [], kh = [];   /* 3.353: 📜 nhật ký đã lập 
   ((KT_GN_XEM && KT_GN_XEM.gts) || []).forEach(function(g){ var p = g.p || {}, t = p.x && p.x.t; if(t && t.ma && to.indexOf(t.ma)<0) to.push(t.ma); (p.mon||[]).forEach(function(o){ if(o.kh && kh.indexOf(o.kh)<0) kh.push(o.kh); }); });
   return {mau:'Mẫu 06/TD — kiểm tra sau giải ngân', to:to, kh:kh, tab:'ktgs'}; }
 function ktGNXem(ok){   /* 3.114: hỏi lựa chọn in trước */
-  if(!ok){ ktDocKB(); return ktInHop(['m06'], ktInNutXem('ktGNXem(1)'), ktHoiCuaTo(ktGNChon().map(function(p){ return (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; }))); }
+  if(!ok){ ktDocKB(); return ktInHop(['m06'], ktInNutXem(function(){ ktGNXem(1); }), ktHoiCuaTo(ktGNChon().map(function(p){ return (KT_K && KT_K.to[p.x.t.ma]) || p.x.t; }))); }
   var v = ktInV('m06'), gts = ktGNGiaTri(v); KT_GN_XEM = {v:v, gts:gts};
   var html = ktHTML06(gts);
   moHop('<div class="hop-tit">👁 Xem '+gts.length+' phiếu Mẫu 06 — kiểm tra sau giải ngân</div>'+

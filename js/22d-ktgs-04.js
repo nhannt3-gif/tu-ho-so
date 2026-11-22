@@ -177,7 +177,7 @@ function ktNxTo04(t, t0){   /* 3.106: nhận xét chung từng tổ theo số li
 function ktBCGiaTri(){ return ktBC04(ktBCDs().filter(function(r){ return r.chon; })); }   /* 3.513: số liệu kỳ đang chọn (bỏ ktNguonVoi 3.328) */
 function ktBCXem(ok){ return ktBCXemG(ok); }
 function ktBCXemG(ok){
-  if(!ok){ if(!ktBCDs().some(function(r){ return r.chon; })) return bao('Chưa chọn tổ nào.', 3); return ktInHop(['m04'], ktInNutXem('ktBCXem(1)'), ktHoiCuaTo(ktBCDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; }))); }   /* 3.114 */
+  if(!ok){ if(!ktBCDs().some(function(r){ return r.chon; })) return bao('Chưa chọn tổ nào.', 3); return ktInHop(['m04'], ktInNutXem(function(){ ktBCXem(1); }), ktHoiCuaTo(ktBCDs().filter(function(r){ return r.chon; }).map(function(r){ return r.t; }))); }   /* 3.114 */
   var gts = ktBCGiaTri(); if(!gts.length) return bao('Chưa chọn tổ nào.', 3);
   KT_BC_XEM = {gts:gts, tenFile:'Mau 04 Bao cao tong hop KT - '+boDauTen(gts.length>1 ? gts.length+' bao cao' : gts[0].ten).slice(0, 60)};
   ktBCHop('');
