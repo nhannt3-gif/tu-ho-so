@@ -60,7 +60,7 @@ function veGhiChu(){
   }
   document.getElementById('loc-gc').innerHTML = thanhTV() +
     veDauTab('ghiChu', {kho:D.ghiChu, nhanThem:'Chụp / thêm ghi chú',
-                        hamThem:'chonAnh()'});
+                        hamThem:function(){ chonAnh(); }});
   var ds = locTheoThe('ghiChu', locChuan('ghiChu', loc(D.ghiChu, tuKhoa))); BOT_DS.ghiChu = ds;
   ds.sort(function(a,b){ return (b.ngay+b.id).localeCompare(a.ngay+a.id); });
   document.getElementById('loc-gc').innerHTML += veThanhSap('ghiChu', null, null, null, '<b>'+ds.length+'</b> ghi chú'+chuDemLoc('ghiChu'));   /* 3.27: hàng 2 như các tab khác · 3.74: kèm số */

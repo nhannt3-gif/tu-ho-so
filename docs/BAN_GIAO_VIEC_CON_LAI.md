@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.561)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | + Thêm ở Văn bản / Dữ liệu tháng / Biểu mẫu / Scan / Chữ ký·CCCD | như cũ | |
+| 2 | Chip kiểu xem, chip lọc (cả giá trị có dấu) | đúng | |
+| 3 | Biểu mẫu: dòng, W / G / 🖨 / ô tích, bộ mẫu | đúng, nút không nhảy chọn dòng | |
+| 4 | Cài đặt › Cây địa bàn: sửa / thêm / bỏ | đúng | |
+| 5 | Khung xem PDF: lật trang, ô số trang, zoom, ↔ ⊡, 📋, Đọc chữ | đúng | |
+
 ### Danh sách thử trên máy thật (3.560)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

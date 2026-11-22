@@ -139,9 +139,9 @@ function baoTrung(ds){
     h += '<div class="trung-dong"><div class="trung-chu"><b>'+coChuHTML(x.ten)+'</b><br>'+
       '<small>Đã có ở tab <b>'+tenTabMuc(m)+'</b> · '+coChuHTML(m.tenMoi||m.tenCu||'')+
       (dungO?' · <b>đã đúng ô này</b>':'')+'</small></div><div class="hang-nut">'+
-      (x.o && !dungO ? '<button class="nho chinh" onclick="chuyenVaoO('+i+')">Chuyển vào ô '+kyVN(x.o.ky)+' · '+
+      (x.o && !dungO ? '<button class="nho chinh" data-lenh="f05.chuyenVaoO" data-a1="'+i+'">Chuyển vào ô '+kyVN(x.o.ky)+' · '+
         coChuHTML(x.o.ten)+' · '+coChuHTML(x.o.pham)+'</button>' : '')+
-      (D.cho.indexOf(m)>=0 ? '<button class="nho" onclick="dongHop();doiNgan(6)">Mở khay chờ</button>'
+      (D.cho.indexOf(m)>=0 ? '<button class="nho" data-lenh="f05.moKhay" data-dong="1">Mở khay chờ</button>'
                            : '<button class="nho" data-lenh="f05.moXem" data-dong="1" data-a1="'+m.id+'">Mở</button>')+
       '</div></div>';
   });
@@ -875,7 +875,7 @@ function lopChuTrang(S, pdfNay, pg, vp, box, c, i, n){
     var cu = box.querySelector('.lop-chu, .trang-anh'); if(cu) cu.remove();
     if(chu.replace(/\s+/g,'').length < 20){
       var a = document.createElement('div'); a.className = 'trang-anh';
-      a.innerHTML = 'Trang ảnh — không có lớp chữ · <a onclick="event.stopPropagation();ocrTrang(\''+n+'\','+i+')">🔍 Đọc chữ</a>';
+      a.innerHTML = 'Trang ảnh — không có lớp chữ · <a data-lenh="f05.ocr" data-a1="'+n+'" data-a2="'+i+'">🔍 Đọc chữ</a>';
       box.appendChild(a); return;
     }
     if(!pdfjsLib.renderTextLayer) return;
@@ -908,7 +908,7 @@ function chepHoacHien(t, baoXong, tieuDe){
     moHop('<div class="hop-tit">'+coChuHTML(tieuDe||'Chữ đã đọc')+'</div>'+
       '<div class="o"><textarea id="chep-o" rows="14" style="width:100%;font-size:13px">'+coChuHTML(t)+'</textarea></div>'+
       '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Đóng (Esc)</button>'+
-      '<button class="nho chinh" onclick="var o=document.getElementById(\'chep-o\');chepChu(o.value,\'Đã chép \'+o.value.length+\' ký tự\')">📋 Chép</button></div>');
+      '<button class="nho chinh" data-lenh="f05.chepO">📋 Chép</button></div>');
     var o = document.getElementById('chep-o'); if(o){ o.focus(); o.select(); }
   };
   if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function(){ bao(baoXong, 6); }, hien);
@@ -917,7 +917,7 @@ function chepHoacHien(t, baoXong, tieuDe){
 function hoiOCRTrang(n, t){
   moHop('<div class="hop-tit">Trang '+t+' là ảnh</div>'+
     '<div class="hop-phu">Trang này là bản chụp / scan — không có lớp chữ để chép. Bấm <b>🔍 Đọc chữ</b> để app nhận chữ từ ảnh (OCR; lần đầu cần mạng để tải bộ đọc tiếng Việt), đọc xong anh xem lại rồi chép.</div>'+
-    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" onclick="dongHop();ocrTrang(\''+n+'\','+t+')">🔍 Đọc chữ</button></div>');
+    '<div class="hang-nut"><button class="nho" data-lenh="hop.dong">Thôi</button><button class="nho chinh" data-lenh="f05.ocr" data-dong="1" data-a1="'+n+'" data-a2="'+t+'">🔍 Đọc chữ</button></div>');
 }
 /* OCR 1 trang PDF → hộp chữ để xem lại và chép (OCR có thể sai vài chữ) */
 function ocrTrang(n, t){
@@ -930,7 +930,7 @@ function ocrTrang(n, t){
     if(!chu) return bao('Không nhận ra chữ nào trên trang '+t+'.', 4);
     (S.chuTrang = S.chuTrang || {})[t] = chu;
     var a = S.khung && S.khung[t-1] && S.khung[t-1].querySelector('.trang-anh');
-    if(a) a.innerHTML = 'Đã đọc chữ (OCR) · <a onclick="event.stopPropagation();chepChuTrang(\''+n+'\')">📋 Chép</a>';
+    if(a) a.innerHTML = 'Đã đọc chữ (OCR) · <a data-lenh="f05.chepTrang" data-a1="'+n+'">📋 Chép</a>';
     chepHoacHien(chu, 'Đã chép chữ đọc được trang '+t+' (OCR — anh soát lại vài chữ có thể sai)', 'Chữ đọc từ ảnh trang '+t+' (OCR — soát lại trước khi dùng)');
   }).catch(function(e){
     tatChay();
@@ -962,23 +962,23 @@ function veDieuKhien(n){
   if(!S.pdf){ e.innerHTML = ''; return; }
   /* 3.62 (việc U): file 1 trang thì bỏ cụm lật trang cho gọn */
   e.innerHTML = (S.tong>1 ?
-    '<button onclick="diTrang(\'' +n+ '\',\'dau\')" title="Trang đầu">⏮</button>'+
-    '<button onclick="diTrang(\'' +n+ '\',-1)" title="Trang trước">‹</button>'+
+    '<button data-lenh="f05.diTrang" data-a1="'+n+'" data-a2="dau" title="Trang đầu">⏮</button>'+
+    '<button data-lenh="f05.diTrang" data-a1="'+n+'" data-a2="-1" title="Trang trước">‹</button>'+
     '<span class="so-trang">'+
       '<input id="'+S.dk+'-o" value="'+S.trang+'" inputmode="numeric" '+
-      'onchange="nhayTrang(\'' +n+ '\',this.value)"> / '+S.tong+'</span>'+
-    '<button onclick="diTrang(\'' +n+ '\',1)" title="Trang sau">›</button>'+
-    '<button onclick="diTrang(\'' +n+ '\',\'cuoi\')" title="Trang cuối">⏭</button>'+
+      'data-lenh="f05.nhayTrang" data-su="change" data-a1="'+n+'"> / '+S.tong+'</span>'+
+    '<button data-lenh="f05.diTrang" data-a1="'+n+'" data-a2="1" title="Trang sau">›</button>'+
+    '<button data-lenh="f05.diTrang" data-a1="'+n+'" data-a2="cuoi" title="Trang cuối">⏭</button>'+
     '<span class="ngan-cach"></span>' : '<span class="so-trang">1 trang</span>')+
-    '<button onclick="zoomKhung(\'' +n+ '\',-1)" title="Thu nhỏ">−</button>'+
+    '<button data-lenh="f05.zoom" data-a1="'+n+'" data-a2="-1" title="Thu nhỏ">−</button>'+
     '<span class="tl">'+Math.round(S.tyLe*100)+'%</span>'+
-    '<button onclick="zoomKhung(\'' +n+ '\',1)" title="Phóng to">+</button>'+
+    '<button data-lenh="f05.zoom" data-a1="'+n+'" data-a2="1" title="Phóng to">+</button>'+
     '<button'+(S.che==='ngang'?' class="bat"':'')+
-      ' onclick="datChe2(\'' +n+ '\',\'ngang\')" title="Vừa bề ngang">↔</button>'+
+      ' data-lenh="f05.datChe2" data-a1="'+n+'" data-a2="ngang" title="Vừa bề ngang">↔</button>'+
     '<button'+(S.che==='trang'?' class="bat"':'')+
-      ' onclick="datChe2(\'' +n+ '\',\'trang\')" title="Vừa trang">⊡</button>'+
+      ' data-lenh="f05.datChe2" data-a1="'+n+'" data-a2="trang" title="Vừa trang">⊡</button>'+
     '<span class="ngan-cach"></span>'+
-    '<button onclick="chepChuTrang(\'' +n+ '\')" title="Chép chữ cả trang đang xem (bôi đen từng đoạn rồi Ctrl+C cũng được). Trang ảnh thì đọc chữ (OCR)">📋</button>'+
+    '<button data-lenh="f05.chepTrang" data-a1="'+n+'" title="Chép chữ cả trang đang xem (bôi đen từng đoạn rồi Ctrl+C cũng được). Trang ảnh thì đọc chữ (OCR)">📋</button>'+
     '<button data-lenh="f05.moBangMay" title="Mở bằng trình xem của máy">↗</button>';
 }
 function diTrang(n, h){
@@ -1377,7 +1377,13 @@ function inTrangChon(ds){
 }
 
 /* ---------- 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng hàm cũ, tham số ở data-a1…, data-dong="1" = đóng hộp trước ---------- */
-gdDangKy('f05', gdLenh({
+function f05So(x){ return /^-?\d+$/.test(x) ? +x : x; }   /* 3.561 */
+gdDangKy('f05', gdLenh({   /* 3.561: thanh khung xem PDF, OCR trang ảnh, hộp chép chữ, hộp file trùng (thay onclick viết thẳng) */
+  chuyenVaoO:function(el){ chuyenVaoO(+gdA(el, 1)); }, moKhay:function(){ doiNgan(6); },
+  ocr:function(el){ ocrTrang(gdA(el, 1), +gdA(el, 2)); }, chepTrang:function(el){ chepChuTrang(gdA(el, 1)); },
+  chepO:function(){ var o = document.getElementById('chep-o'); chepChu(o.value, 'Đã chép '+o.value.length+' ký tự'); },
+  nhayTrang:function(el){ nhayTrang(gdA(el, 1), el.value); }, diTrang:function(el){ diTrang(gdA(el, 1), f05So(gdA(el, 2))); },
+  zoom:function(el){ zoomKhung(gdA(el, 1), +gdA(el, 2)); }, datChe2:function(el){ datChe2(gdA(el, 1), gdA(el, 2)); },
   boCho:function(el, ev){ boCho(gdA(el, 1)); },
   deKhaiSau:function(el, ev){ deKhaiSau(gdA(el, 1)); },
   docLaiGoiY:function(el, ev){ docLaiGoiY(gdA(el, 1)); },

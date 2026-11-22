@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.560', ds:[
+var CO_GI_MOI = {ban:'3.561', ds:[
+  ["Chuẩn hóa nút (không đổi cách dùng): thanh tab, Biểu mẫu, cây địa bàn, khung xem PDF chạy qua bộ lệnh chung", ""],
   ["Chuẩn hóa danh sách văn bản (không đổi cách dùng): bấm dòng / nút trên dòng chạy qua bộ lệnh chung — bấm ô tích ở dạng bảng không còn mở luôn văn bản", ""],
   ["Chuẩn hóa code (không đổi chức năng): tách dòng quá dài ở Giao dịch xã và các mẫu in — mẫu in ra giữ nguyên", ""],
   ["📑 Sao kê › nhóm Nợ đến hạn: 📋 Phiếu chuẩn bị phiên GD — mỗi điểm 1 trang (tóm tắt · món đến hạn / sắp chuyển quá hạn tới phiên kế tiếp · tổ cần chú ý: lãi tồn cao, CLT02 TB/Yếu, tổ viên cần cho ra)", ""],
@@ -1071,9 +1072,12 @@ var CO_GI_MOI = {ban:'3.560', ds:[
   ["Bảo mật: app chỉ chạy mã của chính app và thư viện đã duyệt (có kiểm dấu vân tay), chỉ kết nối Google + kho thư viện — mã lạ chèn vào bị chặn", ""],
   ["Cài app như phần mềm: Chrome / Edge bấm \"Cài đặt ứng dụng\" (biểu tượng ở thanh địa chỉ), iPhone Safari \"Thêm vào MH chính\" — mở cửa sổ riêng, có biểu tượng TH", ""],
   ["Điện thoại: thanh địa chỉ không che nút ở đáy các khung cao", ""],
-  ["Hộp 🧪 Kiểm mốc: bảng chỗ lệch + nút Đóng đúng kiểu chung", ""],
-  ["Nạp & KT nhận file CLT02 (xếp loại tổ) — theo từng xã, 2 loại tháng và định kỳ; thả file là app tự nhận xã + loại", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Hộp 🧪 Kiểm mốc: bảng chỗ lệch + nút Đóng đúng kiểu chung", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.561 · Thanh tab: + Thêm file / Thêm mẫu / Scan, chip kiểu xem, chip lọc",
+    "3.561 · Biểu mẫu: bấm dòng mở; W / G / 🖨 / ô tích không làm nhảy chọn dòng; bộ mẫu (chọn cả bộ, in, sửa, xóa)",
+    "3.561 · ⚙ Cài đặt › Cây địa bàn: mở cấp, sửa tên, thêm / bỏ ấp, điểm, sửa tổ",
+    "3.561 · Khung xem PDF: lật trang, ô số trang, phóng to / thu nhỏ, ↔ ⊡, 📋, Đọc chữ trang ảnh",
     "3.560 · Danh sách văn bản: bấm dòng mở; bấm ⋯, ⭐, ✎, 🔗 trên dòng không làm nhảy chọn dòng",
     "3.560 · Dạng bảng: bấm ô tích chỉ tích (không mở văn bản)",
     "3.559 · In thử 1 mẫu 01/TD và 1 mẫu 04/TD — giống bản trước",
@@ -1089,11 +1093,7 @@ var CO_GI_MOI = {ban:'3.560', ds:[
     "3.551 · Mở app, nạp file Excel, xem PDF, quét CCCD (OCR), nối Drive — mọi thứ chạy như cũ",
     "3.551 · Nếu có chức năng không chạy: ⚠ chip lỗi ở chân trang → ✓ Chưa trong Có gì mới (em đọc được)",
     "3.550 · Laptop Chrome: biểu tượng cài đặt ở cuối thanh địa chỉ → Cài đặt → app mở cửa sổ riêng",
-    "3.550 · iPhone Safari: Chia sẻ › Thêm vào MH chính → biểu tượng TH",
-    "3.549 · 📥 Nạp file: thả 4 file CLT02 (2 xã × tháng / định kỳ, XLSX) → ma trận Ⓓ Phụ có 4 dòng CLT02",
-    "3.549 · Tab Tổ: chọn 1 tổ → thẻ tổ có \"CLT02 tháng: Tốt …\"",
-    "3.548 · Mở ❓ Có gì mới, bấm ✓ Đạt hoặc ✗ Chưa ở từng việc thử bên dưới",
-    "3.548 · Mở app ở 2 tab cùng lúc → tab sau có dải đỏ \"chỉ xem\""],
+    "3.550 · iPhone Safari: Chia sẻ › Thêm vào MH chính → biểu tượng TH"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
