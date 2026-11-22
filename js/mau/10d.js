@@ -59,13 +59,16 @@
         P('Cuộc họp kết thúc vào'+o('ketThuc', '........', {canh:'c'})+'giờ'+o('ketThuc', '......', {gt:''})+', ngày'+o('ketThuc', '….', {gt:''})+'/'+o('ketThuc', '.......', {gt:''})+'/'+o('ketThuc', '............', {gt:''})+' ./.', J+F+B5+W)+
         '<table class="khung0" style="width:160mm;table-layout:fixed"><colgroup><col style="width:58.9mm"><col style="width:48.9mm"><col style="width:52.2mm"></colgroup><tr>'+
           [['THƯ KÝ', '(Ký, ghi rõ họ tên)', ''], ['TRƯỞNG THÔN', '(Ký, ghi rõ họ tên)', V.truongAp], ['CHỦ TRÌ', '(Ký tên, đóng dấu)', V.cb]].map(function(x){ return '<td style="padding:0 1.9mm;vertical-align:top">'+P('<b>'+x[0]+'</b>', 'text-align:center;font-size:12pt')+P('<i>'+x[1]+'</i>', 'text-align:center;font-size:12pt')+'</td>'; }).join('')+'</tr></table>'+
-        P('&nbsp;', B5)+'<table class="khung0" style="width:160mm;table-layout:fixed;margin-bottom:5pt"><colgroup><col style="width:58.9mm"><col style="width:48.9mm"><col style="width:52.2mm"></colgroup><tr><td></td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.truongAp), rong:45, canh:'c'})+'</b>', 'text-align:center;line-height:15pt')+'</td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.cb), rong:48, canh:'c'})+'</b>', 'text-align:center;line-height:15pt')+'</td></tr></table>'+
+        P('&nbsp;', B5)+'<table class="khung0" style="width:160mm;table-layout:fixed;margin-bottom:5pt"><colgroup><col style="width:58.9mm"><col style="width:48.9mm"><col style="width:52.2mm"></colgroup><tr><td></td><td>'+
+          P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.truongAp), rong:45, canh:'c'})+'</b>', 'text-align:center;line-height:15pt')+'</td><td>'+P('<b>'+o('ky', '&nbsp;', {gt:g('ky', V.cb), rong:48, canh:'c'})+'</b>',
+          'text-align:center;line-height:15pt')+'</td></tr></table>'+
         P('&nbsp;', 'text-align:center;margin:0 0 16pt;line-height:15pt')+
         P('PHÊ DUYỆT CỦA UỶ BAN NHÂN DÂN CẤP XÃ', 'text-align:center;font-size:13pt;'+B5)+
         P('Chấp thuận giải thể Tổ TK&amp;VV tại thôn '+o('ub', '....................................', {gt:g('ub', V.ap)})+', thuộc', J+F+W+TL+'line-height:15pt;margin:0')+   /* ngắt dòng đúng chỗ gốc */
         P((V.hoiLa ? 'Hội'+o('ub', '.................................', {gt:g('ub', V.hoiTen)}) : o('ub', 'Hội.................................', {gt:g('ub', V.hoiTen)}))+'quản lý, do Ông (Bà)'+o('ub', '...........................................', {gt:g('ub', V.tt)})+' làm Tổ', J+W+TL+'line-height:15pt;margin:0')+
         P('trưởng và Ông (Bà) '+o('ub', '..........................................', {gt:g('ub', V.pho)})+' làm Tổ phó.', J+W+B5)+
-        P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm'+un[2]+'</i>', 'text-align:center;margin-left:79.7mm;margin-right:1.9mm')+P('<b>UBND CẤP XÃ</b>', 'text-align:center;font-size:12pt;margin-left:79.7mm;margin-right:1.9mm')+P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center;font-size:12pt;margin-left:79.7mm;margin-right:1.9mm');   /* gốc là bảng 2 cột; dựng bằng đoạn lùi lề để dòng cuối sang trang 2 như gốc */
+        P('<i>Ngày'+un[0]+'tháng'+un[1]+'năm'+un[2]+'</i>', 'text-align:center;margin-left:79.7mm;margin-right:1.9mm')+P('<b>UBND CẤP XÃ</b>', 'text-align:center;font-size:12pt;margin-left:79.7mm;margin-right:1.9mm')+
+          P('<i>(Ký tên, đóng dấu)</i>', 'text-align:center;font-size:12pt;margin-left:79.7mm;margin-right:1.9mm');   /* gốc là bảng 2 cột; dựng bằng đoạn lùi lề để dòng cuối sang trang 2 như gốc */
       return {ma:'10D/TD', h:'<div class="om-goc" style="font-size:14pt;line-height:1.15">'+h+'</div>'};
     }});
   hsoLap10d = function(t){ return omLap(MK, t); };

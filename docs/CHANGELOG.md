@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.559 — 22/11/2026 — Chuẩn hóa: tách dòng dài js/26 + mẫu in (TK 2)
+- **Nguồn:** kế hoạch chuẩn hóa (đề xuất 3.557, anh 21/11 "làm C2 và kết hợp chuẩn hóa theo kế hoạch" · "tiếp tục").
+- `tools/tach_dong.py` (xuống dòng chỉ sau `+` / `,` ngoài chuỗi; so không khoảng trắng + `node --check`): js/26 21 → 10 dòng > 400; js/mau/01td, 01uq, 03td, 07b, 10b, 10d → 0; 01gqvl, 01tgtv, 10a, 11, 11cu giảm. Thước đo `kiem.py` dòng > 400: −42. Phần còn lại là chuỗi mẫu liền khối — để nguyên.
+- Không đổi chức năng, không đổi nội dung mẫu in (hồi quy theo đổi gồm các phép thử mẫu in).
+
 ## 3.558 — 21/11/2026 — C2 Phiếu chuẩn bị phiên GD + chuẩn hóa (TK 2)
 - **Nguồn:** `docs/DANH_GIA_CHUYEN_GIA_1511.md` nhóm C (C2); anh 21/11 "làm C2 và kết hợp chuẩn hóa theo kế hoạch" · "code và gộp".
 - **Gói mới `js/96-phieu-phien.js` (`PPH`, cắm rút):** báo cáo Sao kê `pph` (nhóm Nợ đến hạn, A4 dọc), mỗi điểm GD trong phạm vi 1 trang: I tóm tắt (tổ, hộ, dư nợ, QH, khoanh, lãi tồn) · II–III **gọi lại `skBCDH`** (nhóm ① ② ③ QT-C-12, Còn GH QT-C-20) chỉ món của tổ thuộc điểm, từ ngày sau ngày số liệu đến **phiên kế tiếp** (ngày GDXA của điểm) → khớp Sao kê nợ đến hạn · IV tổ cần chú ý: món lãi tồn ≥ 3 tháng (QT-C-23, HSN.thangLai) · CLT02 TB / Yếu (js/95) · tổ viên đề xuất cho ra (tvChuan) · dòng ghi chú + ký CBTD. Không đổi khoảng ngày anh đang chọn.
