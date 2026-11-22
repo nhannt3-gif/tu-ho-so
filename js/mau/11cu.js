@@ -81,7 +81,8 @@
         [bang([32.9, 8.1, 68.2, 8.1, 41.0], '<tr>'+td(P('Tiền hoa hồng', 'text-align:center;'+L19), '', ' rowspan="2"')+td(P('=', J+L19), '', ' rowspan="2"')+td(P('Tỷ lệ hoa hồng được hưởng ', 'text-align:center;margin-top:6pt;'+L19), 'border-bottom:.5pt solid #000')+
             td(P('x', 'text-align:center;'+L19), '', ' rowspan="2"')+td(P('Số tiền lãi thực thu', 'text-align:center;'+L19), '', ' rowspan="2"')+'</tr><tr>'+td(P('Lãi suất cho vay', 'text-align:center;margin-top:6pt;'+L19))+'</tr>'), null, 6, 0],
         ['Trong đó:', D, 6, 0],
-        ['+ Tỷ lệ hoa hồng: theo quy định của NHCSXH từng thời kỳ. Hiện nay, tại địa bàn cấp xã thuộc vùng khó khăn (tỷ lệ hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu lãi là 0,085% và đối với Tổ TK&amp;VV không được ủy nhiệm thu lãi là 0,075%); tại địa bàn cấp xã không thuộc vùng khó khăn (tỷ lệ hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu lãi là 0,071% và đối với Tổ TK&amp;VV không được ủy nhiệm thu lãi là 0,062%).', D, 6, 0],
+        ['+ Tỷ lệ hoa hồng: theo quy định của NHCSXH từng thời kỳ. Hiện nay, tại địa bàn cấp xã thuộc vùng khó khăn (tỷ lệ hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu lãi là 0,085% và đối với Tổ TK&amp;VV không được ủy nhiệm thu lãi là 0,075%); tại địa bàn cấp xã không thuộc vùng khó khăn (tỷ lệ hoa hồng đối với Tổ TK&amp;VV được ủy nhiệm thu lãi là 0,071% và đối với Tổ TK&amp;VV không được ủy nhiệm thu lãi là 0,062%).',
+          D, 6, 0],
         ['+ Lãi suất cho vay là lãi suất trong hạn ghi trên Sổ vay vốn khi cho vay.', D, 6, 0],
         ['+ Số tiền lãi thực thu là số tiền lãi do tổ viên và Ban quản lý Tổ TK&amp;VV nộp vào NHCSXH.', D, 6, 0],
         ['- Đối với các chương trình được trả hoa hồng theo dư nợ bình quân:', J+F+'line-height:1.32;', 6, 0],
@@ -116,7 +117,8 @@
         ['1. Các bên có trách nhiệm chỉ đạo và thực hiện tốt các nội dung đã thỏa thuận trong Hợp đồng này.', D, 6, 0],
         ['2. Trường hợp thay đổi Tổ trưởng thì Tổ trưởng cũ có trách nhiệm bàn giao hồ sơ pháp lý của Tổ và việc quản lý, điều hành hoạt động của Tổ cho người kế nhiệm. Người kế nhiệm có trách nhiệm tiếp tục chỉ đạo thực hiện hoạt động của Tổ theo Quy chế về tổ chức và hoạt động của Tổ TK&amp;VV và các qui định hiện hàng của NHCSXH.', D, 6, 0],
         ['3. Hợp đồng này hết hiệu lực khi đại diện bên B không còn là Tổ trưởng Tổ TK&amp;VV hoặc khi có Hợp đồng khác thay thế.', D, 6, 0]])
-      .concat(cat('4. Trong quá trình thực hiện, hai bên không được tự ý thay đổi nội dung thỏa thuận trong Hợp đồng. Nếu có vấn đề phát sinh cần bổ sung, sửa đổi thì các', 'bên phải kịp thời thông báo cho nhau biết để bàn bạc giải quyết. Nếu có tranh chấp xảy ra thì hai bên thống nhất giải quyết trên tinh thần hợp tác. Trường hợp không hòa giải được thì yêu cầu cơ quan có thẩm quyền giải quyết hoặc khởi kiện trước pháp luật.', D))
+      .concat(cat('4. Trong quá trình thực hiện, hai bên không được tự ý thay đổi nội dung thỏa thuận trong Hợp đồng. Nếu có vấn đề phát sinh cần bổ sung, sửa đổi thì các', 'bên phải kịp thời thông báo cho nhau biết để bàn bạc giải quyết. Nếu có tranh chấp xảy ra thì hai bên thống nhất giải quyết trên tinh thần hợp tác. Trường hợp không hòa giải được thì yêu cầu cơ quan có thẩm quyền giải quyết hoặc khởi kiện trước pháp luật.',
+        D))
       .concat([
         ['Hợp đồng này có hiệu lực kể từ ngày ký, được lập thành 03 bản có giá trị như nhau, mỗi bên giữ 01 bản để tổ chức thực hiện và gửi Hội cấp xã trực tiếp quản lý 01 bản.', D, 6, 0],
         ['Hợp đồng này thay thế Hợp đồng ủy nhiệm đã ký kết giữa bên A và bên B ngày '+hc.join('/')+'. và các phụ lục kèm theo Hợp đồng (đối với trường hợp ký lại Hợp đồng).', D, 6, 18],

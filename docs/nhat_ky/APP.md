@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 22/11/2026 — TK 2 · PHIÊN (3.559 chuẩn hóa tách dòng js/26 + mẫu in)
+- Anh "tiếp tục": `tools/tach_dong.py` cho js/26, js/31, js/mau/* (62 chỗ, kiem.py dòng > 400 −42). Còn: cụm danh sách văn bản js/10 + 11 (bản riêng, chờ anh duyệt vì đụng màn dùng nhiều nhất).
+
 ### 21/11/2026 — TK 2 · PHIÊN (3.558 C2 Phiếu chuẩn bị phiên + chuẩn hóa)
 - Anh "làm C2 và kết hợp chuẩn hóa theo kế hoạch" → `js/96-phieu-phien.js` (`PPH`, báo cáo Sao kê `pph`, gọi lại `skBCDH` để khớp sao kê gốc). `tools/tach_dong.py` (js/22c, 22d); bỏ `scanCopyAnh`. t410 5/5.
 - Còn chuẩn hóa: tách dòng js/26 + mẫu in (dùng tools/tach_dong.py), cụm danh sách văn bản js/10 + 11 (bản riêng). Đợt 4 còn C1 (cần Giao ban).
