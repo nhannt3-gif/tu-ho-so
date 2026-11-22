@@ -414,7 +414,7 @@ function anLocNhanh(tab){
 /* 3.65 (việc AC, anh chốt): ⭐ đánh dấu văn bản / biểu mẫu quan trọng — không cần quan tâm nữa thì bỏ sao.
    Biểu mẫu dùng chung cờ "ghim" có sẵn (khỏi 2 nút cùng việc) */
 function laSao(m){ return !!(m && (m.huongDan!==undefined ? m.ghim : m.sao)); }
-function saoHTML(m){ var b = laSao(m); return '<span class="sao'+(b?' bat':'')+'" onclick="event.stopPropagation();doiSao(\''+m.id+'\')" title="'+(b?'Bỏ đánh dấu quan trọng':'Đánh dấu quan trọng')+'">'+(b?'★':'☆')+'</span>'; }
+function saoHTML(m){ var b = laSao(m); return '<span class="sao'+(b?' bat':'')+'" data-lenh="f11.sao" data-a1="'+m.id+'" title="'+(b?'Bỏ đánh dấu quan trọng':'Đánh dấu quan trọng')+'">'+(b?'★':'☆')+'</span>'; }
 function doiSao(id){
   var m = timMuc(id) || (typeof bmTim==='function' && bmTim(id)); if(!m) return;
   if(m.huongDan!==undefined) m.ghim = !m.ghim; else m.sao = !m.sao;
@@ -570,12 +570,12 @@ function bangTabHTML(tab, ds){
     '<th class="bt-n"></th></tr></thead><tbody>'+
     ds.map(function(m){
       var chon = bangDaChon(tab, m.id);
-      return '<tr class="bt-d'+(chon?' chon':'')+(dang===m.id?' dang-xem':'')+(m.hetHieuLuc?' mo':'')+'" data-id="'+m.id+'"'+botAt(m.id)+' onclick="'+mo+'(\''+m.id+'\')">'+
+      return '<tr class="bt-d'+(chon?' chon':'')+(dang===m.id?' dang-xem':'')+(m.hetHieuLuc?' mo':'')+'" data-id="'+m.id+'"'+botAt(m.id)+' data-lenh="f11.moDong" data-a1="'+m.id+'" data-a2="'+mo+'">'+
         '<td class="bt-o"><span class="o-chon'+(chon?' bat':'')+'" data-lenh="f11.bangChon" data-a1="'+tab+'" data-a2="'+m.id+'" title="Tích để chọn">'+(chon?'✓':'')+'</span></td>'+
         cot.map(function(c){ var v = c.k(m), o = c.o ? c.o(m) : coChuHTML(String(v));
           return '<td class="'+(c.lop||'')+'"'+(c.lop==='bt-ten' || c.lop==='bt-to' ? ' title="'+coChuHTML(String(v))+'"' : '')+'>'+(c.lop==='bt-ten' ? toSang(String(v), tuKhoa) : o)+'</td>'; }).join('')+
-        '<td class="bt-n">'+(tab==='scan' ? (m.che!=='tailieu' && typeof xkMo==='function' ? '<button data-lenh="xk.mo" data-k="'+m.id+'" title="Xuất file CCCD · Chữ ký của khách này vào thư mục trên máy">💾</button>' : '')+'<button onclick="event.stopPropagation();themKhach(\''+m.id+'\')" title="Sửa / khai">✎</button>'
-          : '<button onclick="event.stopPropagation();moMenu(event,\''+m.id+'\')" title="Thêm lệnh">⋯</button>')+'</td></tr>';
+        '<td class="bt-n">'+(tab==='scan' ? (m.che!=='tailieu' && typeof xkMo==='function' ? '<button data-lenh="xk.mo" data-k="'+m.id+'" title="Xuất file CCCD · Chữ ký của khách này vào thư mục trên máy">💾</button>' : '')+'<button data-lenh="f11.themKhach" data-a1="'+m.id+'" title="Sửa / khai">✎</button>'
+          : '<button data-lenh="f10.menu" data-a1="'+m.id+'" title="Thêm lệnh">⋯</button>')+'</td></tr>';
     }).join('')+'</tbody></table></div>';
 }
 /* ↑ ↓ chuyển dòng trong bảng, khung xem theo */
@@ -605,6 +605,9 @@ gdDangKy('f11', gdLenh({
   chuaDatLoc:function(el, ev){ HS.chuaDat = !HS.chuaDat; veScan(); tlLocLai('scan'); },
   bat:function(el, ev){ el.classList.toggle('bat'); },
   bangChon:function(el, ev){ bangChon(gdA(el, 1), gdA(el, 2), ev); },
+  sao:function(el){ doiSao(gdA(el, 1)); },   /* 3.560 */
+  moDong:function(el){ (gdA(el, 2)==='xemScanCP' ? xemScanCP : chonDong)(gdA(el, 1)); },   /* 3.560: dòng bảng (văn bản → chonDong · scan → xemScanCP) */
+  themKhach:function(el){ themKhach(gdA(el, 1)); },
   bangSap:function(el, ev){ bangSap(gdA(el, 1), gdA(el, 2)); },
   batTatPV:function(el, ev){ batTatPV(); },
   boLoc:function(el, ev){ boLoc(gdA(el, 1)); },

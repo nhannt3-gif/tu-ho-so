@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.560 — 22/11/2026 — Chuẩn hóa danh sách văn bản js/10 + 11 (TK 2)
+- **Nguồn:** kế hoạch chuẩn hóa (đề xuất 3.557); anh 22/11 "code và gộp".
+- 13 onclick viết thẳng → `data-lenh` (QUY_CHUAN mục 10): dòng văn bản `f10.chon`, ⚠ trùng `f10.gopTrung`, 🔗 `f10.diToi`, 📋 `f10.chep`, ✎ `f10.suaBM` / `f10.suaCho`, ⋯ `f10.menu`, thùng rác `f10.khoiPhuc` / `f10.khoiPhucChon`, nút thông báo `f10.baoHT`; ⭐ `f11.sao`, dòng bảng `f11.moDong`, ✎ khách `f11.themKhach`. Bộ nghe GD chỉ chạy lệnh phần tử trong cùng → nút trên dòng không chọn dòng (như stopPropagation cũ).
+- Bộ chọn dòng (`dongVBChon`, js/05 di chuột tải trước) nhận cả dạng mới và dạng onclick còn ở Biểu mẫu (js/09).
+- **Khác nhỏ (sửa luôn):** dạng bảng, bấm ô tích ✓ trước đây vừa tích vừa mở văn bản (onclick dòng chạy trước) → nay chỉ tích.
+- Còn 6 onclick tên hàm / đoạn lệnh động (js/10 402, 450; js/11 161, 184, 218, 247) — cần đổi từ nơi gọi, để bản sau. Thước đo onclick −13. Phép thử mới t412 (6 ý).
+
 ## 3.559 — 22/11/2026 — Chuẩn hóa: tách dòng dài js/26 + mẫu in (TK 2)
 - **Nguồn:** kế hoạch chuẩn hóa (đề xuất 3.557, anh 21/11 "làm C2 và kết hợp chuẩn hóa theo kế hoạch" · "tiếp tục").
 - `tools/tach_dong.py` (xuống dòng chỉ sau `+` / `,` ngoài chuỗi; so không khoảng trắng + `node --check`): js/26 21 → 10 dòng > 400; js/mau/01td, 01uq, 03td, 07b, 10b, 10d → 0; 01gqvl, 01tgtv, 10a, 11, 11cu giảm. Thước đo `kiem.py` dòng > 400: −42. Phần còn lại là chuỗi mẫu liền khối — để nguyên.
