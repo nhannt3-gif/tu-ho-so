@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 22/11/2026 — TK 2 · QUYẾT ĐỊNH (dừng đổi onclick hàng loạt)
+- Anh chưa có thời gian thử máy thật → chọn **A**: dừng ở 278 onclick (sau 3.562). Chỉ đổi khối đang sửa cho nghiệp vụ, kèm phép thử riêng. Ghi ở QUY_CHUAN_KIEN_TRUC.md (dưới "Code mới").
+- Lý do: ~210 chỗ đổi được ở ~40 màn dùng hằng ngày, chỉ 12 tự động; ~65 chỗ phải giữ (js/27 mini, PiP js/04b, js/26, Có gì mới, mẫu in) → dù đổi hết cũng chưa bật được CSP chặt.
+
 ### 22/11/2026 — TK 2 · PHIÊN (3.562 chuẩn hóa nút danh mục / KTGS / hộp thoại / Hôm nay)
 - Anh "tiếp và gộp": js/19, 22b, 06, 04b3 (44 chỗ) → data-lenh; `ktInNutXem` + "Cần xử lý" `fn` nhận HÀM thay chuỗi lệnh. onclick 322 → 278. t414 7/7.
 - Không đổi: js/27 lõi mini (Function.toString → file HTML riêng, KHÔNG có GD) · js/26 chip GDX truyền chuỗi lệnh (cần bản riêng) · nút Có gì mới (js/06 noiDungCoGiMoi, lệnh từ bump.py).
