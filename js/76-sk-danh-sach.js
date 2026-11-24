@@ -5,16 +5,25 @@ function skBCDanhSach(k){   /* quá hạn · khoanh · 3 tháng không hoạt đ
   var K = SK_K, B = K.B, th = K.thang;
   if(k==='qh' || k==='kh' || k==='khd'){
     var L = {qh:'nqh', kh:'nk', khd:'khd'}[k], ten = {qh:'Sao kê nợ quá hạn', kh:'Sao kê nợ khoanh', khd:'Sao kê món vay 3 tháng không hoạt động'}[k];
-    if(!KHO.bang(L, th)) return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(th), html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' tháng '+kyVN(th)+'.</div>', aoa:[['Chưa nạp file']]};
-    var ng = skNgayThang(L), ds = (kcBang(B, L)||[]).filter(skTrongPV), r;
+    var tinh = !!(B && B.tinh);   /* 3.563 (anh 22/11): tính từ Mẫu 31 — file riêng chỉ đối chiếu; tháng không có Mẫu 31 mới cần file */
+    if(!tinh && !KHO.bang(L, th)) return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Tháng '+kyVN(th), html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' tháng '+kyVN(th)+'.</div>', aoa:[['Chưa nạp file']]};
+    var ng = tinh ? skNgayThang('hstd') : skNgayThang(L), ds = slDsNo(B, L).filter(skTrongPV), r;
     if(k==='qh') r = skBang(['STT','Mã KH','Họ tên','Số KU','Chương trình','Dư nợ QH','Ngày chuyển QH','Số ngày QH','Mới trong tháng','Số dư 105'], ds.sort(function(a, b){ return (a.ncqh||'9')<(b.ncqh||'9') ? -1 : 1; }),
       function(o, i){ return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct, o), o.qh||0, ngayVNsl(o.ncqh), o.ncqh ? tdnSoNgay(o.ncqh, ng) : '', o.cqh>0 ? 'Mới' : '', o.t105||0]; }, [5, 9]);
     if(k==='kh') r = skBang(['STT','Mã KH','Họ tên','Số KU','Chương trình','Dư nợ khoanh','Ngày hiệu lực','Ngày hết hạn khoanh','Còn (ngày)','Nguyên nhân'], ds.sort(function(a, b){ return (a.nhh||'9')<(b.nhh||'9') ? -1 : 1; }),
       function(o, i){ return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct, o), o.kn||0, ngayVNsl(o.nhl), ngayVNsl(o.nhh), o.nhh ? tdnSoNgay(ng, o.nhh) : '', o.nn||'']; }, [5]);
     if(k==='khd') r = skBang(['STT','Mã KH','Họ tên','Số KU','Chương trình','Dư nợ','Ngày GD gần nhất','Số ngày không GD','Ngày đến hạn','Lãi tồn'], ds.sort(function(a, b){ return (a.ngdg||'9')<(b.ngdg||'9') ? -1 : 1; }),
       function(o, i){ return [i, o.kh||'', o.ten||'', o.ku||'', ctNgan(o.ct, o), o.dn||0, ngayVNsl(o.ngdg), o.ngdg ? tdnSoNgay(o.ngdg, ng) : '', ngayVNsl(o.dhgh||o.dhg||o.dhgd), laiTon(o)]; }, [5, 9]);
-    return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Số liệu đến ngày '+ngayVNsl(ng), html:r.html, aoa:r.aoa};
+    var ghi = tinh ? skNoGhi(B, L) : '';
+    return {ten:ten, tieuDe:ten.toUpperCase(), ngay:'Số liệu đến ngày '+ngayVNsl(ng)+(tinh ? ' (tính từ Mẫu 31)' : ''), html:r.html+(ghi ? '<div class="bc-ghi">'+ghi+'</div>' : ''), aoa:r.aoa.concat(ghi ? [[''], [ghi]] : [])};
   }
+}
+/* 3.563: dòng ghi cuối sao kê QH / khoanh / KHĐ — so danh sách tính từ Mẫu 31 với file riêng cùng kỳ (nếu có), cả phạm vi PGD */
+function skNoGhi(B, L){
+  var f = B && B.co && B.co[L], tinh = slDsNo(B, L); if(!f) return 'Tính từ Mẫu 31 · chưa nạp file '+slLoai(L).ten+' để đối chiếu.';
+  var a = {}, b = {}; tinh.forEach(function(o){ a[o.ku] = 1; }); f.forEach(function(o){ if(o.ku) b[o.ku] = 1; });
+  var thieu = Object.keys(b).filter(function(k){ return !a[k]; }).length, thua = Object.keys(a).filter(function(k){ return !b[k]; }).length;
+  return 'Tính từ Mẫu 31 · đối chiếu file '+slLoai(L).ten+': '+(thieu || thua ? 'lệch '+(thieu+thua)+' món (file có, Mẫu 31 không: '+thieu+' · Mẫu 31 có, file không: '+thua+') — xem ⋯ Nạp & KT › Kiểm tra.' : 'khớp '+tinh.length+' món.');
 }
 function skBC31(k){   /* báo cáo tính từ Mẫu 31 */
   var th = SK_K.thang, N = skNen31(k); if(N.can) return N.can;

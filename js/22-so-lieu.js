@@ -995,8 +995,8 @@ function slBo0(ky){
     });
   }, Promise.resolve()).then(function(){
     B.hsTen = 'Mẫu 31';   /* 3.120: bỏ Mẫu 10 — không còn dùng tạm Mẫu 10 cuối tháng */
-    if(B.co.hstd){ B.khdTinh = slKHDTinh(B.co.hstd, B.nguon.hstd || ky);   /* 3.145 (anh chốt): KHĐ tự tính từ Mẫu 31; tháng không có file KHĐ thì dùng số tự tính */
-      if(!B.co.khd) B.khdTinh.forEach(function(o){ B.khd[o.ku] = o; }); }
+    if(B.co.hstd){ B.khdTinh = slKHDTinh(B.co.hstd, B.nguon.hstd || ky);   /* 3.145 (anh chốt): KHĐ tự tính từ Mẫu 31 */
+      slNoGan(B); }   /* 3.563 (anh 22/11): QH · khoanh · KHĐ luôn tính từ Mẫu 31 — file riêng chỉ đối chiếu; tháng không có Mẫu 31 vẫn dùng file */
   }).then(function(){
     slXaTenChuan(B);   /* 3.470 */
     SL_BO[ky] = B; slDung(ky); slBot(SL_BO); return B;
@@ -1051,9 +1051,26 @@ function slKHDTinh(hs, ky){
   var da = {};
   return (hs||[]).filter(function(o){
     if(!o.ku || da[o.ku] || slKHDLy(o, ky)) return false;
-    return (da[o.ku] = true); }).map(function(o){ return {ku:o.ku, kh:o.kh, ten:o.ten, dn:o.dn||0, qh:o.qh||0, lt:laiTon(o), ngdg:o.ngdg || o.ngn, to:o.to, xa:o.xa, ct:o.ct, _tinh:true}; });
+    return (da[o.ku] = true); }).map(function(o){ return {ku:o.ku, kh:o.kh, ten:o.ten, dn:o.dn||0, qh:o.qh||0, lt:laiTon(o), ngdg:o.ngdg || o.ngn, to:o.to, xa:o.xa, ct:o.ct, dhg:o.dhg, dhgh:o.dhgh, dhgd:o.dhgd, _tinh:true}; });
 }
-function slKHD(B){ return (B && (B.co.khd || B.khdTinh)) || []; }   /* có file KHĐ thì dùng file, không thì số tự tính */
+function slKHD(B){ return (B && (B.khdTinh || (B.co && B.co.khd))) || []; }   /* 3.563: số tự tính từ Mẫu 31 trước; không có Mẫu 31 mới dùng file KHĐ */
+/* ---------- 3.563 (anh 22/11/2026: "các loại sao kê nợ quá hạn, nợ khoanh, món vay 3 tháng KHĐ em phải tính được từ Mẫu 31, còn các file … chỉ để tham khảo đối chiếu";
+   PHOI_HOP_CHUNG mục 3: Mẫu 31 = nguồn tính duy nhất). Mỗi món 1 dòng (bỏ dòng lặp khế ước), giữ nguyên dòng Mẫu 31 + trường thêm:
+   QH: món dư nợ QH > 0 · ncqh = "Ngày CNQH gần nhất" (anh đồng ý) · Khoanh: món dư nợ khoanh > 0 · nhl / nn (Mẫu 31 không có) lấy từ file Nợ khoanh nếu có.
+   File NQH / NK / mẫu 14 vẫn nạp + lưu ở B.co.* để đối chiếu từng món (js/22i). ---------- */
+function slNoTinh(B){
+  var hs = B && B.co && B.co.hstd; if(!hs) return null;
+  var nk0 = {}; ((B.co && B.co.nk) || []).forEach(function(o){ if(o.ku) nk0[o.ku] = o; });
+  var da = {}, qh = [], nk = [], chep = function(o){ var r = {}; for(var k in o) r[k] = o[k]; r._tinh = 1; return r; };
+  hs.forEach(function(o){ if(!o.ku || da[o.ku]) return; da[o.ku] = 1;
+    if((o.qh||0)>0){ var a = chep(o); a.ncqh = tdnNgay(o.c_ngay_cnqh_gan_nhat) || ''; qh.push(a); }
+    if((o.kn||0)>0){ var b = chep(o), f = nk0[o.ku] || {}; b.nhh = o.nhh || f.nhh || ''; b.nhl = f.nhl || ''; b.nn = f.nn || ''; nk.push(b); } });
+  return {nqh:qh, nk:nk, khd:B.khdTinh || slKHDTinh(hs, B.nguon && B.nguon.hstd || B.ky)};
+}
+function slNoGan(B){ var T = B.tinh = slNoTinh(B); if(!T) return; B.nqh = {}; B.nk = {}; B.khd = {};
+  T.nqh.forEach(function(o){ B.nqh[o.ku] = o; }); T.nk.forEach(function(o){ B.nk[o.ku] = o; }); T.khd.forEach(function(o){ B.khd[o.ku] = o; }); }
+/* danh sách QH / khoanh / KHĐ của bộ (B hoặc kỳ K): tính từ Mẫu 31; bộ không có Mẫu 31 → file riêng (tháng cũ) */
+function slDsNo(x, L){ var B = x && (x.B || x); if(L==='khd') return slKHD(B); return (B && B.tinh && B.tinh[L]) || (B && B.co && B.co[L]) || []; }
 function slKUHuy(o){ return !!o.ku && o.gn!==undefined && String(o.ttMon||'').toUpperCase()==='CLOSE' && !((o.gn||0)>0) && !((o.dn||0)>0) && !(laiTon(o)>0); }
 function slKUChuaGN(o){ return !!o.ku && o.gn!==undefined && !!o.ttMon && String(o.ttMon).toUpperCase()!=='CLOSE' && !((o.gn||0)>0) && !((o.dn||0)>0); }
 /* 3.138.1 (anh chốt, theo Mẫu 31 thật): Mẫu 31 mỗi dòng 1 món vay, "Mã tổ" = tổ lúc vay — món tất toán vẫn mang tổ cũ dù hộ đã ra khỏi tổ.

@@ -285,6 +285,20 @@ function slKTTW(ky, B, them){
       loai.length ? ['anhan','hssv','khoanh','ls0'].filter(function(k){ return dem[k]; }).map(function(k){ return dem[k]+' món '+SL_KHD_LY[k]; }).join(' · ') : 'không có',
       '', ['Số KU', 'Họ tên', 'Chương trình', 'Ngày GN đầu', 'Ngày GD gần nhất', 'Dư nợ', 'Lý do loại'], loai, '');
   }
+  /* 3.563 (anh 22/11): QH / khoanh tính từ Mẫu 31 ↔ file Nợ quá hạn / Nợ khoanh (file chỉ đối chiếu) — từng món: có / không, số tiền, ngày */
+  if(hs){ var Tn = (B && B.tinh) || slNoTinh(B);
+    if(Tn) [['nqh', 'Nợ quá hạn', 'qh', 'ncqh', 'Ngày chuyển QH'], ['nk', 'Nợ khoanh', 'kn', 'nhh', 'Ngày hết hạn khoanh']].forEach(function(x){
+      var f = co[x[0]]; if(!f) return;
+      var tinh = {}, file = {}, lech = []; Tn[x[0]].forEach(function(o){ tinh[o.ku] = o; }); f.forEach(function(o){ if(o.ku) file[o.ku] = o; });
+      Object.keys(file).forEach(function(k){ var a = file[k], b = tinh[k];
+        if(!b) return lech.push([k, a.ten||'', 'chỉ có trong file', a[x[2]]||0, '']);
+        if(Math.abs((a[x[2]]||0)-(b[x[2]]||0))>0.5) lech.push([k, a.ten||'', 'lệch số tiền', a[x[2]]||0, b[x[2]]||0]);
+        else if(a[x[3]] && b[x[3]] && a[x[3]]!==b[x[3]]) lech.push([k, a.ten||'', 'lệch '+x[4].toLowerCase(), ngayVNsl(a[x[3]]), ngayVNsl(b[x[3]])]); });
+      Object.keys(tinh).forEach(function(k){ if(!file[k]) lech.push([k, tinh[k].ten||'', 'Mẫu 31 có, file không', '', tinh[k][x[2]]||0]); });
+      var khop = Object.keys(file).filter(function(k){ return tinh[k]; }).length;
+      them(3, x[1]+' tính từ Mẫu 31 ↔ file '+slLoai(x[0]).ten, !lech.length, 'tính '+Tn[x[0]].length+' · file '+f.length+' · khớp '+khop+' món',
+        lech.length ? 'Số app dùng là số tính từ Mẫu 31; file chỉ để đối chiếu — anh kiểm (ghi nhận, không sửa).' : '', ['Số KU', 'Họ tên', 'Lệch', 'File', 'Mẫu 31'], lech, lech.length ? 'canh' : ''); });
+  }
 }
 
 /* ==========================================================

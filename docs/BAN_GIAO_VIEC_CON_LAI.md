@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.563)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Nợ quá hạn / khoanh / 3 tháng KHĐ | có số từ Mẫu 31; dòng cuối đối chiếu file | |
+| 2 | Sao kê › Nợ chuyển quá hạn trong tháng | đủ món, ngày chuyển, đã thu hết, Mới | |
+| 3 | ⋯ Nạp & KT › Kiểm tra tháng 10 | 2 mục đối chiếu NQH / NK + mục KHĐ | |
+| 4 | 🧪 Kiểm mốc vàng | khớp, hoặc lệch đúng cột KHĐ / ngày chuyển QH (báo em) | |
+
 ### Danh sách thử trên máy thật (3.562)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

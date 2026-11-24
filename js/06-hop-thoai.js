@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.562', ds:[
+var CO_GI_MOI = {ban:'3.563', ds:[
+  ["Nợ quá hạn, nợ khoanh, 3 tháng KHĐ nay TÍNH TỪ MẪU 31 (file riêng chỉ để đối chiếu) — Sao kê luôn có số, cuối báo cáo ghi kết quả đối chiếu file", ""],
+  ["Sao kê › Nợ cần xử lý: báo cáo mới “Nợ chuyển quá hạn trong tháng” — ngày chuyển, đã thu hết / thu bớt, “Mới” so lần nạp trước, tóm tắt Xã › Hội", ""],
   ["Chuẩn hóa nút (không đổi cách dùng): danh mục Cài đặt, KTGS (Xem trước, bảng ngành), hộp hỏi / tag / ô ngày, Hôm nay (lịch việc, Cần xử lý)", ""],
   ["Chuẩn hóa nút (không đổi cách dùng): thanh tab, Biểu mẫu, cây địa bàn, khung xem PDF chạy qua bộ lệnh chung", ""],
   ["Chuẩn hóa danh sách văn bản (không đổi cách dùng): bấm dòng / nút trên dòng chạy qua bộ lệnh chung — bấm ô tích ở dạng bảng không còn mở luôn văn bản", ""],
@@ -1070,10 +1072,12 @@ var CO_GI_MOI = {ban:'3.562', ds:[
   ["Sửa lỗi 3.551: dán ảnh HEIC iPhone ở tab Scan lại đọc được; gỡ lớp chặn mã (CSP) nghi làm trống app trên iPhone", ""],
   ["Nhập liệu bằng phím Tab: ô đang ở có viền xanh rõ (bấm chuột không hiện)", ""],
   ["Ô tích theo màu app; số tiền trong bảng thẳng cột", ""],
-  ["Bảo mật: app chỉ chạy mã của chính app và thư viện đã duyệt (có kiểm dấu vân tay), chỉ kết nối Google + kho thư viện — mã lạ chèn vào bị chặn", ""],
-  ["Cài app như phần mềm: Chrome / Edge bấm \"Cài đặt ứng dụng\" (biểu tượng ở thanh địa chỉ), iPhone Safari \"Thêm vào MH chính\" — mở cửa sổ riêng, có biểu tượng TH", ""],
-  ["Điện thoại: thanh địa chỉ không che nút ở đáy các khung cao", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Bảo mật: app chỉ chạy mã của chính app và thư viện đã duyệt (có kiểm dấu vân tay), chỉ kết nối Google + kho thư viện — mã lạ chèn vào bị chặn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.563 · Sao kê › Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ: có số dù chưa nạp file riêng; dòng cuối “Tính từ Mẫu 31 · đối chiếu file…”",
+    "3.563 · Sao kê › Nợ chuyển quá hạn trong tháng: đủ món, ngày chuyển, đã thu hết; nạp 2 ngày trong tháng → món “Mới” tô nền",
+    "3.563 · ⋯ Nạp & KT › Kiểm tra: mục “Nợ quá hạn / Nợ khoanh tính từ Mẫu 31 ↔ file” (khớp / lệch từng món)",
+    "3.563 · 🧪 Kiểm mốc vàng 31/10: xem có lệch cột KHĐ / ngày chuyển QH không (báo em)",
     "3.562 · ⚙ Cài đặt › danh mục: sửa tên, ↑ ↓, ✕ (có file dùng → chọn chuyển sang → Xóa / Thôi), + Thêm, Lấy lại mặc định; ⚙ mẫu báo cáo",
     "3.562 · KTGS: 👁 Xem trước ở 06, 04, kế hoạch, Kiểm tra tổ; bảng ngành kinh tế (tìm, Đã sửa, ↺, hiện thêm); In 2 mặt",
     "3.562 · Hộp hỏi (vd xóa): Đồng ý; tag ✕; Hôm nay ở ô ngày; chip chọn gọn",
@@ -1089,11 +1093,7 @@ var CO_GI_MOI = {ban:'3.562', ds:[
     "3.558 · In thử 1 phiếu A4 dọc mang đi phiên",
     "3.556 · Scan › Quét gì? 🗎 Bản photo CCCD › 🖼 Ảnh có sẵn → chọn file PDF scan tờ photo → hàng chờ ra 2 mặt thẻ",
     "3.556 · Scan › Quét gì? 🪪 CCCD › 🖼 Ảnh có sẵn → chọn được file PDF",
-    "3.555 · 📥 Nạp & KT: tiêu đề cột 25/10/2026 có 🗑 → bấm → xác nhận → cột 25/10 biến mất",
-    "3.554 · ⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ → danh sách có Sao kê TK 104 / 105 ngày 25/10 → xóa → cột 25/10 biến mất",
-    "3.553 · iPhone Safari: mở app → Hôm nay có lịch, không báo lỗi lưu",
-    "3.553 · Tab Scan: dán ảnh HEIC chụp từ iPhone → vào hàng quét",
-    "3.552 · Ở 1 form bất kỳ, bấm Tab đi qua các ô → thấy viền xanh ở ô đang đứng"],
+    "3.555 · 📥 Nạp & KT: tiêu đề cột 25/10/2026 có 🗑 → bấm → xác nhận → cột 25/10 biến mất"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
