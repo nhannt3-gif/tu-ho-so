@@ -35,8 +35,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    ['mon', 'kh', 'to'].forEach(g=>{ const ds = btDong({gop:g, loc:['conNo'], cot:[]}, ctx); ra[g] = {n:ds.length, cot:BT_COT[g].filter(c=>/^mc_/.test(c.k)).map(c=>c.k), co:ds.length && BT_COT[g].filter(c=>/^mc_/.test(c.k)).every(c=>c.k in ds[0])}; });
    const ds = btDong({gop:'mon', loc:['conNo'], cot:[]}, ctx), khd = ds.filter(x=>x.mc_khd==='Có').length;
    const kh = btDong({gop:'kh', loc:['conNo'], cot:[]}, ctx).filter(x=>x.mc_khd).length;
-   return {ra, khd, kh, nKHD:Object.keys(SK_K.B.khd).length}; });
- ok('🧩 Báo cáo của tôi: thêm cột bổ sung ở cả 3 kiểu gộp (món · khách · tổ), dòng có đủ trường', ['mon', 'kh', 'to'].every(g=>r.ra[g].cot.length>0 && r.ra[g].co) && r.ra.mon.cot.length===11 && r.ra.to.cot.length===3, JSON.stringify(r.ra));
+   return {ra, khd, kh, nKHD:Object.keys(SK_K.B.khd).length, m10:typeof M10C!=='undefined'}; });   /* 3.565: js/99 thêm trường 10C mới (tổ) */
+ ok('🧩 Báo cáo của tôi: thêm cột bổ sung ở cả 3 kiểu gộp (món · khách · tổ), dòng có đủ trường', ['mon', 'kh', 'to'].every(g=>r.ra[g].cot.length>0 && r.ra[g].co) && r.ra.mon.cot.length===(r.m10 ? 12 : 11) && r.ra.to.cot.length===(r.m10 ? 4 : 3), JSON.stringify(r.ra));
  ok('🧩 cột KHĐ: từng món "Có" đúng số món KHĐ; từng khách ghi số món', r.khd===r.nKHD && r.kh>0 && r.kh<=r.khd, JSON.stringify(r));
  /* rút js/98 */
  const q = await mo(true);

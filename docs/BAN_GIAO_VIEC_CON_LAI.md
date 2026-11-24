@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.565)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Nạp Danh_sach_kiem_tra_10C_da_scan.xlsx | nhận “DS kiểm tra 10C đã scan”, ngày = Cập nhật | |
+| 2 | Tra cứu KH › Tổ trưởng | cột 10C mới sau CCCD, Đã scan / Thiếu khớp file giao ban | |
+| 3 | Bấm ô tổ có 2 bản | hộp chọn 2 bản, mở đúng file trên Drive | |
+| 4 | 🖨 In DS tổ | có cột 10C mới | |
+
 ### Danh sách thử trên máy thật (3.564)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

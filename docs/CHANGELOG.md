@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.565 — 25/11/2026 — 10C mới của tổ ở Tra cứu KH (TK 2)
+- **Nguồn:** anh 24/11 "liên kết bên giao ban cập nhật phần mẫu 10C mới scan kế bên cột CCCD trong tab Tra cứu KH" (ảnh: bảng tổ) · "1 tổ có thể lưu nhiều bản 10C mới để lựa chọn khi dùng" · "code và gộp".
+- **Gói mới js/99 (`M10C`, cắm rút):** loại nạp `ds10c` (Ⓓ, mã chuẩn `DS10C`) — nhận theo nội dung (cột Mã tổ + "10C mới đã scan"), ngày = dòng "Cập nhật: dd/mm/yyyy" ở sheet Tổng hợp (bọc `slPhanTich`, chỉ loại này). Dùng BẢN MỚI NHẤT đã nạp (`KHO.docBang`), ghép MÃ TỔ 7 số, cột "File 10C mới" nhiều file cách ";" → nhiều bản.
+- **Tra cứu KH › bảng tổ (js/58):** cột "10C mới" sau CCCD (chỉ khi đã nạp DS 10C): Đã scan (n bản) / Thiếu, rê chuột thấy tên file + sắp xếp QĐ 70, lọc cột (js/77), dòng Cộng = đã scan / tổng; bấm ô → 1 bản mở thẳng, nhiều bản → hộp chọn từng bản (link tìm đúng tên file trên Drive, tab mới; không thêm quyền Drive); bấm ô không chọn dòng tổ.
+- **🖨 In DS tổ (js/58b):** `TCIN.html10` thêm cột 10C mới + tổng khi đã nạp; chưa nạp → bản in như cũ.
+- **Ma trận món chuẩn (js/98):** trường `mc_10c` "10C mới (tổ)" (🧩 Báo cáo của tôi 3 kiểu gộp). docs/TU_DIEN_TRUONG.md, FILE_XUAT_HANG_THANG.md (mã DS10C).
+- Phép thử mới t417 (8 ý, file DS 10C giả đúng khuôn 2 sheet); t416 (12 / 4 cột khi có js/99); t276 chụp lại Bảng món chuẩn.
+
 ## 3.564 — 24/11/2026 — Ma trận món chuẩn (TK 2)
 - **Nguồn:** anh 22/11 "luôn tạo ra 1 ma trận dữ liệu đa chiều lấy Mẫu 31 làm chuẩn, dữ liệu nào Mẫu 31 không có thì thu thập từ các mẫu khác để khi cần có thể có báo cáo được đầy đủ nhất"; anh 24/11 "gộp và tiếp".
 - **Gói mới js/98 (`MCH`, cắm rút):** `MCH.TRUONG` — từ điển 11 trường bổ sung (mã · tên · nguồn · khóa ghép · kiểu gộp · cách lấy): chuyển QH trong tháng, ngày chuyển QH, ngày ĐH theo GDXA, KHĐ ≥ 3 tháng (tự tính), hết hạn / hiệu lực / nguyên nhân khoanh, tiền gửi 105 khách (cộng các sổ, mỗi sổ 1 lần — QT-C-01), ngày GDXA điểm, CLT02 tháng / định kỳ của tổ. Đọc qua cửa kho chuẩn (`kcKU` / `kcKH` / `kcGoc`), không sửa số Mẫu 31.

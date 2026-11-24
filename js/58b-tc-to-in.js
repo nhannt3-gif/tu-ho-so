@@ -13,11 +13,13 @@ var TCIN = {
     ds.forEach(function(t){ var r = KHO.tvChuan(t, K) || {tong:0, coNo:0}, khoa = (t.tenXa || '')+'|'+(t.diem || t.tenDiem || '');
       var g = theo[khoa]; if(!g){ g = theo[khoa] = {xa:String(t.tenXa || '').trim(), diem:String(t.tenDiem || '').trim(), ngay:t.ngayGD || '', dong:[], tv:0, no:0}; nhom.push(g); }
       var d = {ten:t.ten || '', ma:t.ma, ap:String(t.tenThon || '').trim(), hoi:tdnHoi(t.dv), tv:r.tong || 0, no:r.coNo || 0};
+      if(typeof M10C!=='undefined' && M10C.ds){ var x = M10C.cua(t.ma); d.c10 = x && x.co ? 'Đã scan' : 'Thiếu'; }   /* 3.565: cột 10C mới khi đã nạp DS 10C (js/99) */
       g.dong.push(d); g.tv += d.tv; g.no += d.no; tong.to++; tong.tv += d.tv; tong.no += d.no; });
     return {nhom:nhom, tong:tong};
   },
   /* bản in */
   html: function(g){ var e = coChuHTML, stt = 0;
+    if(typeof M10C!=='undefined' && M10C.ds) return TCIN.html10(g);   /* 3.565: thêm cột 10C mới (bản in cũ giữ nguyên khi chưa nạp) */
     var dau = '<tr><td class="c b">STT</td><td class="c b">Tổ trưởng</td><td class="c b">Mã tổ</td><td class="c b">Ấp / Khu phố</td><td class="c b">Hội</td><td class="c b">TV</td><td class="c b">Có DN</td></tr>';
     var than = g.d.nhom.map(function(n){
       return '<tr class="tcin-nhom"><td colspan="7" class="b">'+e(n.xa || 'Chưa rõ xã')+' · Điểm GD '+e(n.diem || '(chưa rõ)')+(n.ngay ? ' · ngày '+e(n.ngay) : '')+' — '+n.dong.length+' tổ</td></tr>'+
@@ -26,6 +28,17 @@ var TCIN = {
     return '<p class="c b s14">DANH SÁCH TỔ TIẾT KIỆM VÀ VAY VỐN</p><p class="c i">'+e(g.pv)+' · số liệu '+e(g.ky)+'</p>'+
       hsoBang('luoi s11', [5, 28, 12, 17, 23, 7, 8], '<thead>'+dau+'</thead><tbody>'+than+'<tr class="tcin-tong"><td></td><td colspan="4" class="b">Tổng cộng: '+g.d.tong.to+' tổ</td><td class="r b">'+g.d.tong.tv+'</td><td class="r b">'+g.d.tong.no+'</td></tr></tbody>')+
       '<p class="i s10">TV: tổng số thành viên · Có DN: thành viên còn dư nợ (cách đếm như Tra cứu KH).</p>';
+  },
+  html10: function(g){ var e = coChuHTML, stt = 0;   /* 3.565: như html + cột "10C mới" */
+    var dau = '<tr><td class="c b">STT</td><td class="c b">Tổ trưởng</td><td class="c b">Mã tổ</td><td class="c b">Ấp / Khu phố</td><td class="c b">Hội</td><td class="c b">TV</td><td class="c b">Có DN</td><td class="c b">10C mới</td></tr>';
+    var than = g.d.nhom.map(function(n){
+      return '<tr class="tcin-nhom"><td colspan="8" class="b">'+e(n.xa || 'Chưa rõ xã')+' · Điểm GD '+e(n.diem || '(chưa rõ)')+(n.ngay ? ' · ngày '+e(n.ngay) : '')+' — '+n.dong.length+' tổ</td></tr>'+
+        n.dong.map(function(d){ return '<tr><td class="c">'+(++stt)+'</td><td>'+e(d.ten)+'</td><td class="c">'+e(d.ma)+'</td><td>'+e(d.ap)+'</td><td class="tcin-hoi">'+e(d.hoi)+'</td><td class="r">'+d.tv+'</td><td class="r">'+d.no+'</td><td class="c">'+e(d.c10 || '')+'</td></tr>'; }).join('')+
+        (g.d.nhom.length>1 ? '<tr class="tcin-cong"><td></td><td colspan="4" class="i">Cộng điểm '+e(n.diem || '')+': '+n.dong.length+' tổ</td><td class="r b">'+n.tv+'</td><td class="r b">'+n.no+'</td><td></td></tr>' : ''); }).join('');
+    var c10 = g.d.nhom.reduce(function(s, n){ return s+n.dong.filter(function(d){ return d.c10==='Đã scan'; }).length; }, 0);
+    return '<p class="c b s14">DANH SÁCH TỔ TIẾT KIỆM VÀ VAY VỐN</p><p class="c i">'+e(g.pv)+' · số liệu '+e(g.ky)+'</p>'+
+      hsoBang('luoi s11', [5, 26, 11, 16, 20, 6, 7, 9], '<thead>'+dau+'</thead><tbody>'+than+'<tr class="tcin-tong"><td></td><td colspan="4" class="b">Tổng cộng: '+g.d.tong.to+' tổ</td><td class="r b">'+g.d.tong.tv+'</td><td class="r b">'+g.d.tong.no+'</td><td class="c b">'+c10+'/'+g.d.tong.to+'</td></tr></tbody>')+
+      '<p class="i s10">TV: tổng số thành viên · Có DN: thành viên còn dư nợ (cách đếm như Tra cứu KH) · 10C mới: theo DS kiểm tra 10C của giao ban, cập nhật '+e(M10C.ngay())+'.</p>';
   },
   mo: function(){
     if(!TC_K) return bao('Chưa có số liệu Mẫu 31.', 3);

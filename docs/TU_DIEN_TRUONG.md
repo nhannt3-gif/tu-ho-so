@@ -29,3 +29,4 @@ Xã · Điểm GD · Ấp · Hội · Tổ · Mã KH · Họ tên · Số KU · 
 | `mc_ngaygd` | Ngày GDXA (điểm) | File Tổ trưởng / Mẫu 31 | Mã tổ | món · khách · tổ |
 | `mc_cltT` | CLT02 tháng (tổ) | CLT02 tháng | Mã tổ (ghép tên tổ trưởng + Hội) | món · khách · tổ |
 | `mc_cltDK` | CLT02 định kỳ (tổ) | CLT02 định kỳ | Mã tổ | món · khách · tổ |
+| `mc_10c` | 10C mới (tổ) | DS kiểm tra 10C đã scan (giao ban, bản mới nhất) — 3.565 js/99 | Mã tổ 7 số | món · khách · tổ |

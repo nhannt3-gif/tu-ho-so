@@ -336,6 +336,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
 | t243 (3.540) | Thanh dưới 5 nút kiểu cũ (GD xã · Số liệu · Hồ sơ) thử ở cỡ máy tính bảng 700 px — 390 px là thanh điện thoại mới (t311 / t401). |
 | t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). 3.536: + VB đã xem giữ trong ngày — dọn đúng bản trong máy (chỉ điện thoại). 3.537: + nạp màn rộng rồi thu về 390 tự khởi động; không JS thì lọc hiện đủ. 3.541: + lọc gọn Tổ / GDX / KTGS, chip GDX 1 dòng, vuốt đổi tab, vuốt đóng hộp. 3.542: + nhóm chip Tổ / KTGS 1 dòng. |
@@ -353,6 +354,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | t414 (3.562) | Bỏ onclick: danh mục (js/19), KTGS 👁 Xem trước nhận hàm + 2 mặt (js/22b), hộp hỏi / tag / Hôm nay / chip / hướng dẫn (js/06), Cần xử lý + lịch việc + kiểu chữ sổ (js/04b3). |
 | t415 (3.563) | QH / khoanh / KHĐ tính từ Mẫu 31 (file chỉ đối chiếu); khoanh lấy ngày hiệu lực + nguyên nhân từ file NK; Sao kê ghi đối chiếu; Kiểm tra từng món NQH / NK; Sao kê Nợ chuyển QH trong tháng (đã thu hết, Mới, tóm tắt Xã › Hội). |
 | t416 (3.564) | Ma trận món chuẩn (js/98): Sao kê Bảng món chuẩn (1 món 1 dòng, dòng nguồn), KHĐ = tự tính, 105 cộng mọi sổ, khoanh từ file NK; 🧩 Báo cáo của tôi thêm cột 3 kiểu gộp; rút js/98 vẫn chạy. |
+| t417 (3.565) | 10C mới (js/99): nạp DS kiểm tra 10C giả (2 sheet, ngày "Cập nhật"), cột 10C mới sau CCCD ở bảng tổ Tra cứu KH (2 bản / 1 / Thiếu, Cộng, lọc), hộp chọn bản, in DS tổ, ma trận, bản mới hơn thay bản cũ. |
 | `tools/kiem_pr.sh` (3.546 B4) | Chạy trên GitHub mỗi PR (`.github/workflows/kiem-pr.yml`): `bash tools/kiem_pr.sh <phần> <số phần> <mốc main>` — chọn phép như hồi quy theo đổi nhưng so mốc của main, trượt chạy lại 1 lần. |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 

@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 25/11/2026 — TK 2 · PHIÊN (3.565 10C mới của tổ ở Tra cứu KH)
+- Anh "code và gộp": js/99 `M10C` — nạp DS kiểm tra 10C đã scan (file giao ban) → cột 10C mới sau CCCD ở bảng tổ Tra cứu KH (nhiều bản / tổ, bấm chọn bản mở Drive), in DS tổ, ma trận `mc_10c`. t417 8/8.
+- Bẫy: ngày của file giao ban nằm ở sheet Tổng hợp (dòng "Cập nhật"), danh sách ở sheet khác → `slTimKy` không thấy → bọc `slPhanTich` chỉ cho loại ds10c. Đọc bảng qua `KHO.docBang` (kiem.py cấm `slDocBang(` ngoài js/22*, 28, 29).
+- Tiếp: 3.566 KQGD / CLT PDF + hộp đến (chỉ chép).
+
 ### 24/11/2026 — TK 2 · PHIÊN (3.564 ma trận món chuẩn)
 - Anh "gộp và tiếp" → js/98 `MCH` (từ điển `MCH.TRUONG` 11 trường bổ sung có nguồn + khóa) → 🧩 Báo cáo của tôi (bọc `btDong`, thêm cột) + Sao kê `mch` Bảng món chuẩn; docs/TU_DIEN_TRUONG.md. t416 7/7.
 - Bẫy: kiem.py cấm đọc thẳng `.co.hstd` / `.theoKH` / `B.mon` ngoài js/22, 22g, 22k, 29, 73 → dùng `kcKU(K, ku)` / `kcKH(K, kh)` / `kcGoc(B)` (KHÔNG dùng `KHO.kcKU` — chỉ nhận ku, luôn đọc kỳ tab Tổ).
