@@ -228,9 +228,9 @@ function ttTHHD(){
 /* ---------- 3 sao kê chia Điểm GD › Hội › Tổ (dòng nhóm mang số cộng) ---------- */
 function ttSaoKe(o){   /* o = {ten, tieuDe, L, cot, dong(x, stt) → mảng ô, so:[cột cộng]} */
   var K = SK_K, T = K.to || {}, ma31 = {};
-  if(!(K.B.nguon && K.B.nguon[o.L]) && !KHO.bang(o.L, K.thang) && o.L!=='khd') return {ten:o.ten, tieuDe:o.tieuDe, ngang:false, ctChu:'', ngay:'Tháng '+kyVN(K.thang), aoa:[['Chưa nạp file']], html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(o.L).ten)+' tháng '+kyVN(K.thang)+'.</div>'};
+  if(!(K.B.tinh) && !(K.B.nguon && K.B.nguon[o.L]) && !KHO.bang(o.L, K.thang) && o.L!=='khd') return {ten:o.ten, tieuDe:o.tieuDe, ngang:false, ctChu:'', ngay:'Tháng '+kyVN(K.thang), aoa:[['Chưa nạp file']], html:'<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(o.L).ten)+' tháng '+kyVN(K.thang)+'.</div>'};
   (K.hs||[]).forEach(function(x){ if(x.ku && !ma31[x.ku]) ma31[x.ku] = x; });
-  var ds = (o.L==='khd' ? slKHD(K.B) : (kcBang(K, o.L)||[])).filter(skTrongPV);
+  var ds = slDsNo(K.B, o.L).filter(skTrongPV);   /* 3.563: tính từ Mẫu 31 (file riêng chỉ đối chiếu) */
   var D0 = {}, thu = [];
   ds.forEach(function(x){ var ma = toMaCua(x), t = T[ma] || {}, kd = t.khoaDiem || ttDiemTen(t), d = D0[kd];
     if(!d){ d = D0[kd] = {ten:ttDiemTen(t), tenXa:t.tenXa||'', ngayGD:t.ngayGD||'', H:{}}; thu.push(d); }

@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 24/11/2026 — TK 2 · PHIÊN (3.563 QH · khoanh · KHĐ tính từ Mẫu 31 + Nợ chuyển QH trong tháng)
+- Anh 22/11: "sao kê nợ quá hạn, nợ khoanh, 3 tháng KHĐ phải tính từ Mẫu 31, các file chỉ tham khảo đối chiếu" → `slNoTinh` / `slNoGan` / `slDsNo` (js/22): B.nqh / B.nk / B.khd + B.tinh từ Mẫu 31; tháng không có Mẫu 31 vẫn dùng file. Đổi chỗ đọc: js/76, 22h (toBCNo), 22j (ttSaoKe), 62. Kiểm tra (22i) thêm đối chiếu từng món NQH / NK. Gói mới js/97 (`CQH`, Sao kê `cqh`). t415 7/7; t276 chụp lại (đã so từng báo cáo: chỉ đổi đúng phần nguồn), t314 23 báo cáo.
+- Bẫy: gianho31 KHĐ file 5 món nhưng Mẫu 31 giả tính 0 (dữ liệu giả sinh ngẫu nhiên) — không phải lỗi. File đối chiếu giao ban (22k) giờ dùng KHĐ / ngày CNQH từ Mẫu 31 → 🧪 Kiểm mốc vàng 31/10 có thể báo lệch đúng các món file ≠ tự tính (nhờ anh bấm 🧪 sau khi cập nhật).
+- Chờ anh: thử máy thật; bấm 🧪 Kiểm mốc. Tiếp: 3.564 ma trận món chuẩn · 3.565 hộp đến (chỉ chép) + KQGD / CLT PDF. Quyết định kho / hộp đến ghi hộp thư PHOI_HOP_CHUNG 24/11.
+
 ### 22/11/2026 — TK 2 · QUYẾT ĐỊNH (dừng đổi onclick hàng loạt)
 - Anh chưa có thời gian thử máy thật → chọn **A**: dừng ở 278 onclick (sau 3.562). Chỉ đổi khối đang sửa cho nghiệp vụ, kèm phép thử riêng. Ghi ở QUY_CHUAN_KIEN_TRUC.md (dưới "Code mới").
 - Lý do: ~210 chỗ đổi được ở ~40 màn dùng hằng ngày, chỉ 12 tự động; ~65 chỗ phải giữ (js/27 mini, PiP js/04b, js/26, Có gì mới, mẫu in) → dù đổi hết cũng chưa bật được CSP chặt.

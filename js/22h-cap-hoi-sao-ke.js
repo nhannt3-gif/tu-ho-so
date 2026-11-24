@@ -214,9 +214,9 @@ function toBCDanhSach(t){
 /* 2. NỢ CẦN XỬ LÝ — 1 mặt A4: phần chung + 3 khung (quá hạn, khoanh, món 3 tháng KHĐ), mỗi khung cột riêng */
 function toBCNo(t){
   var B = KHO.kyDung().B, th = KHO.kyDung().thang, ks = toKhach(t), dn = 0; ks.forEach(function(k){ dn += k.dn; });
-  var cua = function(L){ return (kcBang(B, L)||[]).filter(function(o){ return o.to===t.ma; }); };
+  var cua = function(L){ return slDsNo(B, L).filter(function(o){ return o.to===t.ma; }); };   /* 3.563: tính từ Mẫu 31 */
   var eNgay = function(L){ var e = B.nguon && B.nguon[L] && KHO.bang(L, B.nguon[L]); return e ? e.ngay : ''; };   /* 3.136: kỳ ngày lấy bảng đúng ngày / liền trước */
-  var nqh = cua('nqh'), nk = cua('nk'), khd = cua('khd'), ngay = eNgay('nqh') || eNgay('nk') || eNgay('khd') || tdnCuoiKy(th);
+  var nqh = cua('nqh'), nk = cua('nk'), khd = cua('khd'), ngay = (B.tinh ? eNgay('hstd') : '') || eNgay('nqh') || eNgay('nk') || eNgay('khd') || tdnCuoiKy(th);
   var cong = function(ds, f){ return ds.reduce(function(a, o){ return a+(o[f]||0); }, 0); };
   var aoa = [], h = '';
   var kpi = [['Tổ viên', ks.length], ['Dư nợ', tdnTien(dn)], ['Quá hạn', nqh.length+' món · '+tdnTien(cong(nqh,'qh'))+(dn ? ' · '+(cong(nqh,'qh')/dn*100).toFixed(2).replace('.', ',')+'%' : '')], ['Khoanh', nk.length+' món · '+tdnTien(cong(nk,'kn'))], ['KHĐ ≥ 3 tháng', khd.length+' món · '+tdnTien(cong(khd,'dn'))]];
@@ -226,7 +226,7 @@ function toBCNo(t){
   var khung = function(so, ten, L, ds, cot, dong, tong){
     h += '<div class="bc-khung"><div class="bc-khung-ten">'+so+'. '+ten+' — '+ds.length+' món</div>';
     aoa.push([so+'. '+ten]); aoa.push(cot);
-    if(!(B.nguon && B.nguon[L])){ h += '<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' '+slKyChu(KHO.kyDung().ky)+'.</div></div>'; aoa.push(['Chưa nạp file']); aoa.push([]); return; }
+    if(!B.tinh && !(B.nguon && B.nguon[L])){ h += '<div class="bc-rong">Chưa nạp file '+coChuHTML(slLoai(L).ten)+' '+slKyChu(KHO.kyDung().ky)+'.</div></div>'; aoa.push(['Chưa nạp file']); aoa.push([]); return; }
     if(!ds.length){ h += '<div class="bc-rong">Không có.</div></div>'; aoa.push(['Không có']); aoa.push([]); return; }
     h += '<table class="bc-bang"><thead><tr>'+cot.map(function(c){ return '<th>'+c+'</th>'; }).join('')+'</tr></thead><tbody>';
     ds.forEach(function(o, i){ var r = dong(o, i+1); h += '<tr>'+r.map(function(v, j){ return toO(typeof v==='number' ? tdnTien(v) : coChuHTML(String(v==null ? '' : v)), typeof v==='number' ? 's' : (j===0 ? 'c' : '')); }).join('')+'</tr>'; aoa.push(r); });

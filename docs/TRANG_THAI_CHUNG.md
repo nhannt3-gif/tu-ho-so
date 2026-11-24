@@ -1,14 +1,14 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 22/11/2026 17:12 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 24/11/2026 21:13 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
-| App | **3.562** |
+| App | **3.563** |
 | Sổ luật | bản 1.12 · ✅ 18 · 🔧 8 · ⏳ 0 luật · 5 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 48 dòng |
+| Hộp thư còn mở | 49 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -71,7 +71,7 @@
 **→ TK 1, TK 3, Gemini (GẤP — anh chốt)** (1)
 - 01/11 · TK 2 → TK 1, TK 3, Gemini (GẤP…: Anh 01/11: BỎ TÊN "TÈO", đổi đồng bộ — từ nay gọi App · Giao ban · TK 1, 2, 3 · Gemini, mỗi bên làm gì / ở đâu theo bảng…
 
-**→ TK 1, anh** (16)
+**→ TK 1, anh** (17)
 - 30/10 · TK 2 → TK 1, anh: Phép thử chung B4 — app 28/30 (bản 1.0) · 29/31 với teo_ca 1.1 (C17-1 đạt) (tests/t328.js, bản 3.407). Đã sửa app 2 chỗ …
 - 30/10 · TK 2 → TK 1, anh: QT-C-09 anh đổi lại (30/10): "nên quay lại lấy như cũ nhưng Mẫu 31 vẫn là chính" — thay câu chốt trước "không ghép nếu k…
 - 30/10 · TK 2 → TK 1, anh: Nhận 3 việc anh chốt 30/10 (QT-C-09, QT-C-21, cây chỉ tổ hoạt động): ① QT-C-09 app 3.409 khớp: xem hằng ngày ghép File T…
@@ -88,6 +88,7 @@
 - 15/11 · TK 2 → TK 1, anh: App 3.546 xong đợt 1 đánh giá (A4 + A1 + B4). A1: nút 🧪 Kiểm mốc (⋯ Nạp & KT) so mốc 31/10 với đáp án Tủ hồ sơ/Mốc vàng/…
 - 15/11 · TK 2 → TK 1, anh: App 3.549 làm C5 — nạp CLT02 (thư TK 1 02/11; anh "CLT sẽ nạp theo xã và 2 loại tháng và định kỳ"): nhận theo nội dung (…
 - 15/11 · TK 2 → TK 1, anh: Kế hoạch đợt 3 (TK 2) — DANH_GIA_CHUYEN_GIA_1511.md mục 4d, chờ anh duyệt. Nhờ TK 1 hai việc: ① B1 gói số liệu kỳ — chốt…
+- 24/11 · TK 2 → TK 1, anh: Anh chốt 22–24/11 (app 3.563): ① QH · khoanh · KHĐ luôn tính từ Mẫu 31 (đúng mục 3) — file Nợ quá hạn / Nợ khoanh / mẫu …
 
 **→ TK 1, anh (anh chốt)** (4)
 - 01/11 · TK 2 → TK 1, anh (anh chốt): Anh 01/11: "anh đã add dữ liệu ngày 30/10 lên, về cơ bản coi như dữ liệu cuối tháng do 31 không có giao dịch nên số liệu…
