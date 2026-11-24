@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.564', ds:[
+var CO_GI_MOI = {ban:'3.565', ds:[
+  ["Tra cứu KH › bảng tổ: cột “10C mới” sau CCCD — Đã scan (n bản) / Thiếu theo DS kiểm tra 10C của giao ban; bấm ô chọn bản mở trên Drive", ""],
+  ["⋯ Nạp & KT nhận file “Danh_sach_kiem_tra_10C_da_scan.xlsx” (giao ban cập nhật — nạp lại là dùng bản mới nhất)", ""],
   ["🧩 Báo cáo của tôi: thêm 11 cột ngoài Mẫu 31 (KHĐ, ngày chuyển QH, hiệu lực / nguyên nhân khoanh, tiền gửi 105 khách, CLT02 tổ, ngày GDXA…) — mỗi cột ghi nguồn", ""],
   ["Sao kê › Khách hàng: “Bảng món chuẩn” — mỗi món 1 dòng, đủ chiều + chỉ tiêu Mẫu 31 + trường bổ sung; Excel dòng 2 ghi nguồn từng cột", ""],
   ["Nợ quá hạn, nợ khoanh, 3 tháng KHĐ nay TÍNH TỪ MẪU 31 (file riêng chỉ để đối chiếu) — Sao kê luôn có số, cuối báo cáo ghi kết quả đối chiếu file", ""],
@@ -1070,10 +1072,11 @@ var CO_GI_MOI = {ban:'3.564', ds:[
   ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""],
   ["Scan › 🗎 Bản photo CCCD và 🪪 CCCD › 🖼 Ảnh có sẵn: chọn được cả file PDF (bản photo scan ra PDF) — app tự tách 2 mặt thẻ như ảnh chụp", ""],
   ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
-  ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""],
-  ["Sửa lỗi 3.551: dán ảnh HEIC iPhone ở tab Scan lại đọc được; gỡ lớp chặn mã (CSP) nghi làm trống app trên iPhone", ""],
-  ["Nhập liệu bằng phím Tab: ô đang ở có viền xanh rõ (bấm chuột không hiện)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.565 · ⋯ Nạp & KT: nạp Danh_sach_kiem_tra_10C_da_scan.xlsx → ô “DS kiểm tra 10C đã scan” ngày theo dòng Cập nhật",
+    "3.565 · Tra cứu KH › Tổ trưởng: cột 10C mới sau CCCD, lọc Đã scan / Thiếu, dòng Cộng; bấm ô tổ 2 bản → chọn bản mở",
+    "3.565 · 🖨 In DS tổ: có cột 10C mới",
     "3.564 · Tổng hợp › 🧩 Báo cáo của tôi › ⚙ tạo báo cáo: danh mục cột có thêm KHĐ ≥ 3 tháng, Tiền gửi 105 (khách), CLT02 tháng (tổ)…",
     "3.564 · Sao kê › Khách hàng › Bảng món chuẩn: 📊 Xuất Excel đủ mọi món, dòng 2 ghi nguồn",
     "3.563 · Sao kê › Nợ quá hạn / Nợ khoanh / 3 tháng KHĐ: có số dù chưa nạp file riêng; dòng cuối “Tính từ Mẫu 31 · đối chiếu file…”",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.564', ds:[
     "3.561 · Khung xem PDF: lật trang, ô số trang, phóng to / thu nhỏ, ↔ ⊡, 📋, Đọc chữ trang ảnh",
     "3.560 · Danh sách văn bản: bấm dòng mở; bấm ⋯, ⭐, ✎, 🔗 trên dòng không làm nhảy chọn dòng",
     "3.560 · Dạng bảng: bấm ô tích chỉ tích (không mở văn bản)",
-    "3.559 · In thử 1 mẫu 01/TD và 1 mẫu 04/TD — giống bản trước",
-    "3.558 · 📑 Sao kê › Phiếu chuẩn bị phiên GD, chọn 1 điểm → 1 trang; số món đến hạn khớp Sao kê nợ đến hạn cùng khoảng ngày",
-    "3.558 · In thử 1 phiếu A4 dọc mang đi phiên",
-    "3.556 · Scan › Quét gì? 🗎 Bản photo CCCD › 🖼 Ảnh có sẵn → chọn file PDF scan tờ photo → hàng chờ ra 2 mặt thẻ"],
+    "3.559 · In thử 1 mẫu 01/TD và 1 mẫu 04/TD — giống bản trước"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

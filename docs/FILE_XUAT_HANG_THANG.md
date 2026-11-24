@@ -51,6 +51,7 @@ Anh đặt tên file thế nào cũng được: app **nhận loại theo nội d
 | `BCDHTD011` · `BCDHTD012` | BCDHTD 01.1 / 01.2 | `LEN31XA` · `LEN31HOI` · `LEN31CT` · `LEN31TT` | 4 biểu LEN_31 |
 | `NOKHOANH` · `PHANKY` | Nợ khoanh · Nợ đến hạn phân kỳ | `TK104` · `TK105` | Sao kê tiết kiệm |
 | `BC0437` · `BC0438` | KTGS | `DNCT` · `NQH` · `TDNCT` · `TTTT` | loại thôi dùng (tháng cũ) |
+| `DS10C` | DS kiểm tra 10C đã scan (giao ban; ngày = dòng "Cập nhật") — 3.565 | | |
 
 - Tên anh đặt **không mất**: ghi ở mô tả file trên Drive ("Tên gốc: …") và sổ **`DANH_MUC_NAP.csv`** trong mỗi thư mục tháng (Tên chuẩn · Tên anh đặt · Mã · Loại · Kỳ Cuối tháng / Theo ngày · Ngày số liệu · Ngày lấy từ · Số dòng · Ngày nạp · Kiểm · Lần thay · Tên trước khi thay). Giao ban đọc sổ này.
 - **Mẫu 31 và File Tổ trưởng phải cùng ngày số liệu** — lệch thì app báo (xem trước khi nạp + cột Kiểm của sổ), không tự ghép.
