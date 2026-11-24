@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**178 khóa** trong code · 178 khóa trong sổ.
+**178 khóa** trong code · 179 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -64,7 +64,7 @@
 | `gxSo` | 38-goi-xem.js | 1 | 38-goi-xem.js |  |
 | `hoiDoanThe` | 11-khung-tab.js | 1 | 11-khung-tab.js |  |
 | `hoMoi` | 25c-ho-so-giao-dien.js | 2 | 25c-ho-so-giao-dien.js · 33-so-ho-them.js |  |
-| `hopDenId` | 99b-kqgd-pdf.js | 3 | 99b-kqgd-pdf.js |  |
+| `hopDenId` | 99b-kqgd-pdf.js | 3 | 99b-kqgd-pdf.js | 3.566: thư mục hộp đến trên Drive (📥 Lấy từ hộp đến, js/99b) — nhớ lần chọn trước |
 | `hsApCuoi` | 08-dia-ban.js | 6 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js |  |
 | `hsDiemCuoi` | 08-dia-ban.js | 3 | 08-dia-ban.js · 12-scan.js |  |
 | `hsDS` | 02-nen.js | 2 | 02-nen.js · 07-cccd.js |  |
