@@ -12,6 +12,7 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 - **Gói mới js/97 (`CQH`):** Sao kê "Nợ chuyển quá hạn trong tháng" — món "Chuyển QH trong tháng" > 0 (cả món đã thu hết), ngày chuyển, số ngày QH, dư nợ QH còn, ghi chú, cột Nguyên nhân trống; "Mới" = chuyển sau ngày Mẫu 31 nạp liền trước trong tháng (tô nền); tóm tắt Xã › Hội.
 - **Ghi nhận:** File đối chiếu giao ban giờ dùng KHĐ / ngày CNQH từ Mẫu 31 → 🧪 Kiểm mốc vàng có thể báo lệch đúng các món file ≠ tự tính (đây cũng là câu trả lời "kiểm khả năng tự tính").
 - Phép thử mới t415 (7 ý); t276 chụp lại (so từng báo cáo: chỉ đổi đúng phần nguồn), t314 (23 báo cáo).
+- **Dữ liệu giả (tests/taogia.py):** Mẫu 31 giả nay ghi "Ngày giao dịch gần nhất" 07/05/2026 cho đúng các món có trong file KHĐ giả (trước để 19/06 mọi món → tự tính ra 0 món KHĐ, t259 / t377 trượt). Không thêm lần gọi ngẫu nhiên — dữ liệu giả khác giữ nguyên. KHĐ tự tính 3 món / file 5 món (2 món bị loại theo luật hệ thống) — mục đối chiếu báo đúng.
 
 ## 3.562 — 22/11/2026 — Chuẩn hóa nút: danh mục, KTGS, hộp thoại chung, Hôm nay (TK 2)
 - **Nguồn:** anh 22/11 "tiếp và gộp" (tiếp chuyển onclick 3–4 file / bản).

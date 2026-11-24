@@ -77,6 +77,7 @@ wb=openpyxl.Workbook(); ws=wb.active; ws.title='BCQUERY'; sheet(ws,'13. Danh sá
 C3=['Mã CN','Mã PGD','Mã thôn/ấp','Mã điểm GDX','Tên điểm GDX','ĐVUT','Mã tổ','Tên tổ trưởng','Mã khách hàng','Tên khách hàng','Số khế ước','Mã sản phẩm','Ngày đăng ký khoản vay','Ngày giải ngân đầu tiên','Ngày đến hạn gốc','Ngày đến hạn GH','Ngày đến hạn GDXA','Chương trình','Tổng dư nợ','Dư nợ trong hạn','Dư nợ quá hạn','Dư nợ khoanh','Ngày giao dịch gần nhất','Lãi đã thu','Lãi tồn']
 d3=[]
 for x in random.sample(rows, max(5,N//80)):
+    x['khd']=1   # 3.563: Mẫu 31 giả cùng ngày GD gần nhất với file KHĐ (app tự tính KHĐ từ Mẫu 31)
     k=x['kh']; xa=thon_info[k[8]]; d3.append(['005420','004820',k[8],xa[2],xa[3],k[9],k[7],'TT',k[0],k[1],x['ku'],'031MC1','03/04/2024','07/04/2024','07/04/2029','07/04/2029','07/04/2029',x['ct'][0],x['dn'],x['th'],x['qh'],x['kn'],'07/05/2026',1000000,200000])
 wb=openpyxl.Workbook(); ws=wb.active; ws.title='BCQUERY'; sheet(ws,'14. Sao kê món vay N tháng không hoạt động (DL Tháng)',C3,d3)
 w2=wb.create_sheet('Sheet4'); w2.append(['MACT','TENCT','TENVT']); w2.append(['01','Cho vay ưu đãi hộ nghèo','HONGHEO'])
@@ -115,7 +116,7 @@ def mau31(ten_file, ky_ngay, lui):
              'Lãi suất':8.4,'Ngày GDXA':'19','Tình trạng món vay':'OPEN','Nguồn vốn':x['nguon'],'Mã chương trình':x['ct'][0],'Tên chương trình':x['ct'][2],'Mức vay':float(x['gn']),'Tổng giải ngân':float(x['gn']),
              'Dư nợ trong hạn':float(dn-x['qh']-x['kn']),'Dư nợ quá hạn':float(x['qh']),'Dư nợ khoanh':float(x['kn']),'Tổng dư nợ':float(dn),
              'Giải ngân trong tháng':0.0 if lui else float(gn_t),'Thu nợ TH tháng':0.0 if lui else float(thu),'Đảo khoản GN tháng':0.0,'Thu nợ QH tháng':0.0,'Thu nợ khoanh tháng':0.0,'Gốc xóa trong tháng':0.0,
-             'Lãi tồn TH':0.0,'Lãi tồn QH':0.0,'Ngày giao dịch gần nhất':'19/06/2026','Mã nhà đầu tư':x['ndt'],
+             'Lãi tồn TH':0.0,'Lãi tồn QH':0.0,'Ngày giao dịch gần nhất':('07/05/2026' if x.get('khd') else '19/06/2026'),'Mã nhà đầu tư':x['ndt'],
              'Sổ tiết kiệm 105':'', 'Số dư tiền gửi 105':0.0, 'Ngày số liệu':ky_ngay}
         if k[0] not in so_tk: so_tk[k[0]]=1; v['Sổ tiết kiệm 105']='48%08d'%int(k[0][2:]); v['Số dư tiền gửi 105']=float(x['t105'])
         if x['ct'][0]=='02': v.update({'Tên HSSV':'SINH VIÊN GIẢ','Tên trường':'TRƯỜNG GIẢ','Ngày nhập học':'01/09/2021','Ngày ra trường':'01/06/2025'})
