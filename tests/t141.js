@@ -86,7 +86,7 @@ const path=require('path'); const drive=require('./fakedrive.js')();
    const hs = [m('A'), m('B', {ngdg:'2026-06-30'}), m('C', {kn:1e6}), m('D', {ct:'02'}), m('E', {dn:0}), m('F', {nv:'2026-07-05', ngdg:'', ngn:'2026-07-05'}), m('G', {ngdg:'2026-03-01'}), m('A')];
    const kd = slKHDTinh(hs, '2026-09');
    ok('KHĐ tự tính: còn dư nợ, GD gần nhất trước 30/06 (đúng ngày mốc không tính), bỏ khoanh, HSSV, món vay sau mốc, không trùng', kd.map(x=>x.ku).join()==='A,G', kd.map(x=>x.ku).join());
-   ok('tháng không có file KHĐ → dùng số tự tính; có file → dùng file', slKHD({co:{}, khdTinh:kd}).length===2 && slKHD({co:{khd:[1]}, khdTinh:kd}).length===1);
+   ok('3.563 (anh 22/11): KHĐ luôn dùng số tự tính từ Mẫu 31 (có file mẫu 14 cũng chỉ để đối chiếu); không có Mẫu 31 → file', slKHD({co:{}, khdTinh:kd}).length===2 && slKHD({co:{khd:[1]}, khdTinh:kd}).length===2 && slKHD({co:{khd:[1]}}).length===1);
    /* 9. cây tổ: DSTO trước Thông tin tổ trưởng; tổ dư nợ 0 */
    const r31 = (to, ku, dn) => ({to:to, ku:ku, kh:'KH'+ku, dn:dn, xa:'X1', tenXa:'Xã Giả', thon:'T1', tenThon:'Ấp Giả', dv:'03', toTen:'TỔ TRƯỞNG '+to});
    SL_BO['2026-10'] = {ky:'2026-10', co:{hstd:[r31('0000001', 'K1', 5e6), r31('0000002', 'K2', 0)],
