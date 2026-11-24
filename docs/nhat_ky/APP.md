@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 24/11/2026 — TK 2 · PHIÊN (3.564 ma trận món chuẩn)
+- Anh "gộp và tiếp" → js/98 `MCH` (từ điển `MCH.TRUONG` 11 trường bổ sung có nguồn + khóa) → 🧩 Báo cáo của tôi (bọc `btDong`, thêm cột) + Sao kê `mch` Bảng món chuẩn; docs/TU_DIEN_TRUONG.md. t416 7/7.
+- Bẫy: kiem.py cấm đọc thẳng `.co.hstd` / `.theoKH` / `B.mon` ngoài js/22, 22g, 22k, 29, 73 → dùng `kcKU(K, ku)` / `kcKH(K, kh)` / `kcGoc(B)` (KHÔNG dùng `KHO.kcKU` — chỉ nhận ku, luôn đọc kỳ tab Tổ).
+- Tiếp: 3.565 hộp đến (chỉ chép) + KQGD / CLT PDF.
+
 ### 24/11/2026 — TK 2 · PHIÊN (3.563 QH · khoanh · KHĐ tính từ Mẫu 31 + Nợ chuyển QH trong tháng)
 - Anh 22/11: "sao kê nợ quá hạn, nợ khoanh, 3 tháng KHĐ phải tính từ Mẫu 31, các file chỉ tham khảo đối chiếu" → `slNoTinh` / `slNoGan` / `slDsNo` (js/22): B.nqh / B.nk / B.khd + B.tinh từ Mẫu 31; tháng không có Mẫu 31 vẫn dùng file. Đổi chỗ đọc: js/76, 22h (toBCNo), 22j (ttSaoKe), 62. Kiểm tra (22i) thêm đối chiếu từng món NQH / NK. Gói mới js/97 (`CQH`, Sao kê `cqh`). t415 7/7; t276 chụp lại (đã so từng báo cáo: chỉ đổi đúng phần nguồn), t314 23 báo cáo.
 - Bẫy: gianho31 KHĐ file 5 món nhưng Mẫu 31 giả tính 0 (dữ liệu giả sinh ngẫu nhiên) — không phải lỗi. File đối chiếu giao ban (22k) giờ dùng KHĐ / ngày CNQH từ Mẫu 31 → 🧪 Kiểm mốc vàng 31/10 có thể báo lệch đúng các món file ≠ tự tính (nhờ anh bấm 🧪 sau khi cập nhật).

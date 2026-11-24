@@ -19,6 +19,7 @@
 | `PHOI_HOP_CHUNG.md` · `QUY_TAC_SO_LIEU.md` | Nạp file, kho số liệu, luật số liệu chung (App ↔ Giao ban), hộp thư |
 | `PHOI_HOP_TK2_TK3.md` | Số bản / phân file khi 2 TK cùng làm app |
 | `COT_FILE_MAU.md` (tự sinh) · `DU_LIEU_THANG.md` · `FILE_XUAT_HANG_THANG.md` | Tên cột file hệ thống, bộ file tháng |
+| `TU_DIEN_TRUONG.md` | Ma trận món chuẩn (3.564): trường bổ sung ngoài Mẫu 31 — nguồn, khóa ghép |
 | `BAN_GIAO_KTGS.md` | Trước khi sửa KTGS (mẫu khóa, cửa số liệu, VB 727) |
 | `QUY_TAC_SOAN_MAU.md` · `GOP_Y_MAU.md` | Soạn / sửa mẫu in |
 | `KE_HOACH_PHAN_BO_KH.md` | Tab 🎯 Phân bổ kế hoạch |

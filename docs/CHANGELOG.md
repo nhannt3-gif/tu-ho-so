@@ -4,6 +4,14 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.564 — 24/11/2026 — Ma trận món chuẩn (TK 2)
+- **Nguồn:** anh 22/11 "luôn tạo ra 1 ma trận dữ liệu đa chiều lấy Mẫu 31 làm chuẩn, dữ liệu nào Mẫu 31 không có thì thu thập từ các mẫu khác để khi cần có thể có báo cáo được đầy đủ nhất"; anh 24/11 "gộp và tiếp".
+- **Gói mới js/98 (`MCH`, cắm rút):** `MCH.TRUONG` — từ điển 11 trường bổ sung (mã · tên · nguồn · khóa ghép · kiểu gộp · cách lấy): chuyển QH trong tháng, ngày chuyển QH, ngày ĐH theo GDXA, KHĐ ≥ 3 tháng (tự tính), hết hạn / hiệu lực / nguyên nhân khoanh, tiền gửi 105 khách (cộng các sổ, mỗi sổ 1 lần — QT-C-01), ngày GDXA điểm, CLT02 tháng / định kỳ của tổ. Đọc qua cửa kho chuẩn (`kcKU` / `kcKH` / `kcGoc`), không sửa số Mẫu 31.
+- **🧩 Báo cáo của tôi (js/63):** thêm các trường vào danh mục cột 3 kiểu gộp (món 11 · khách · tổ 3); bọc `btDong` để điền — rút js/98 thì 🧩 chạy như cũ.
+- **Sao kê › Khách hàng › Bảng món chuẩn (`mch`):** mỗi món 1 dòng; màn hình 200 dòng đầu, Excel đủ; dòng 2 Excel ghi nguồn từng cột; tiêu đề cột rê chuột thấy nguồn.
+- **Tài liệu:** `docs/TU_DIEN_TRUONG.md` (thêm nguồn mới = thêm 1 dòng `MCH.TRUONG` + 1 dòng bảng).
+- Phép thử mới t416 (7 ý); t314 (24 báo cáo); t276 chụp thêm báo cáo mới (báo cáo cũ không đổi).
+
 ## 3.563 — 24/11/2026 — QH · khoanh · KHĐ tính từ Mẫu 31 + Nợ chuyển QH trong tháng (TK 2)
 - **Nguồn:** anh 22/11 "các loại sao kê nợ quá hạn, nợ khoanh, món vay 3 tháng KHĐ em phải tính được từ Mẫu 31, còn các file … chỉ để tham khảo đối chiếu" + "làm thêm chức năng nợ quá hạn đã chuyển trong tháng, ngày chuyển" (đồng ý 4 điểm); đúng PHOI_HOP_CHUNG mục 3 (Mẫu 31 = nguồn tính duy nhất).
 - **js/22:** `slNoTinh` (mỗi món 1 dòng Mẫu 31 + `ncqh` = Ngày CNQH gần nhất; khoanh lấy `nhl` / `nn` từ file Nợ khoanh nếu có) · `slNoGan` (B.nqh / B.nk / B.khd + B.tinh, gọi cuối `slBo0` khi có Mẫu 31) · `slDsNo(B, L)` (danh sách dùng chung; không có Mẫu 31 → file riêng như cũ) · `slKHD` ưu tiên số tự tính; `slKHDTinh` thêm hạn (dhg / dhgh / dhgd).
