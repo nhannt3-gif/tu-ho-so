@@ -1057,7 +1057,10 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.565', ds:[
+var CO_GI_MOI = {ban:'3.566', ds:[
+  ["⋯ Nạp & KT nhận PDF hệ thống: KQGD (mẫu 13/GDX và mẫu cũ) + CLT02 — tự đọc chữ, không cần gõ lại", ""],
+  ["📥 Lấy từ hộp đến: chọn file trong thư mục X_GoDau/2. KQGD trên Drive → app CHÉP bản tên chuẩn vào kho, file gốc giữ nguyên", ""],
+  ["Sao kê › Thông tin tổ: Đối chiếu KQGD ↔ Mẫu 31 từng Hội, từng tổ (dư nợ, QH, khoanh, lãi tồn, tiền gửi)", ""],
   ["Tra cứu KH › bảng tổ: cột “10C mới” sau CCCD — Đã scan (n bản) / Thiếu theo DS kiểm tra 10C của giao ban; bấm ô chọn bản mở trên Drive", ""],
   ["⋯ Nạp & KT nhận file “Danh_sach_kiem_tra_10C_da_scan.xlsx” (giao ban cập nhật — nạp lại là dùng bản mới nhất)", ""],
   ["🧩 Báo cáo của tôi: thêm 11 cột ngoài Mẫu 31 (KHĐ, ngày chuyển QH, hiệu lực / nguyên nhân khoanh, tiền gửi 105 khách, CLT02 tổ, ngày GDXA…) — mỗi cột ghi nguồn", ""],
@@ -1069,11 +1072,11 @@ var CO_GI_MOI = {ban:'3.565', ds:[
   ["Chuẩn hóa danh sách văn bản (không đổi cách dùng): bấm dòng / nút trên dòng chạy qua bộ lệnh chung — bấm ô tích ở dạng bảng không còn mở luôn văn bản", ""],
   ["Chuẩn hóa code (không đổi chức năng): tách dòng quá dài ở Giao dịch xã và các mẫu in — mẫu in ra giữ nguyên", ""],
   ["📑 Sao kê › nhóm Nợ đến hạn: 📋 Phiếu chuẩn bị phiên GD — mỗi điểm 1 trang (tóm tắt · món đến hạn / sắp chuyển quá hạn tới phiên kế tiếp · tổ cần chú ý: lãi tồn cao, CLT02 TB/Yếu, tổ viên cần cho ra)", ""],
-  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""],
-  ["Scan › 🗎 Bản photo CCCD và 🪪 CCCD › 🖼 Ảnh có sẵn: chọn được cả file PDF (bản photo scan ra PDF) — app tự tách 2 mặt thẻ như ảnh chụp", ""],
-  ["Nạp & KT: cột ngày cũ có bản thừa → nút 🗑 ngay trên tiêu đề cột (vd 25/10/2026 🗑) — bấm là xóa bản thừa của đúng ngày đó", ""],
-  ["⋯ Nạp & KT › 🗑 Xóa bản theo ngày cũ: xóa cả Sao kê TK 104 / 105 / phân kỳ của ngày giữa tháng khi đã có bản mới hơn (bản cuối tháng giữ) — hết cột ngày cũ còn \"2 file\"", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.566 · ⋯ Nạp & KT › 📥 Nạp file: chọn 1 file KQGD_*.pdf → nhận “KQGD · <điểm>”, đúng ngày giao dịch",
+    "3.566 · 📥 Lấy từ hộp đến: chọn vài file KQGD / CLT02 → xem trước → ghi; file ở hộp đến vẫn còn",
+    "3.566 · Sao kê › Đối chiếu KQGD ↔ Mẫu 31: chọn kỳ Mẫu 31 cùng ngày KQGD → số lệch đỏ",
     "3.565 · ⋯ Nạp & KT: nạp Danh_sach_kiem_tra_10C_da_scan.xlsx → ô “DS kiểm tra 10C đã scan” ngày theo dòng Cập nhật",
     "3.565 · Tra cứu KH › Tổ trưởng: cột 10C mới sau CCCD, lọc Đã scan / Thiếu, dòng Cộng; bấm ô tổ 2 bản → chọn bản mở",
     "3.565 · 🖨 In DS tổ: có cột 10C mới",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.565', ds:[
     "3.561 · Thanh tab: + Thêm file / Thêm mẫu / Scan, chip kiểu xem, chip lọc",
     "3.561 · Biểu mẫu: bấm dòng mở; W / G / 🖨 / ô tích không làm nhảy chọn dòng; bộ mẫu (chọn cả bộ, in, sửa, xóa)",
     "3.561 · ⚙ Cài đặt › Cây địa bàn: mở cấp, sửa tên, thêm / bỏ ấp, điểm, sửa tổ",
-    "3.561 · Khung xem PDF: lật trang, ô số trang, phóng to / thu nhỏ, ↔ ⊡, 📋, Đọc chữ trang ảnh",
-    "3.560 · Danh sách văn bản: bấm dòng mở; bấm ⋯, ⭐, ✎, 🔗 trên dòng không làm nhảy chọn dòng",
-    "3.560 · Dạng bảng: bấm ô tích chỉ tích (không mở văn bản)",
-    "3.559 · In thử 1 mẫu 01/TD và 1 mẫu 04/TD — giống bản trước"],
+    "3.561 · Khung xem PDF: lật trang, ô số trang, phóng to / thu nhỏ, ↔ ⊡, 📋, Đọc chữ trang ảnh"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

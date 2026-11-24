@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**177 khóa** trong code · 178 khóa trong sổ.
+**178 khóa** trong code · 178 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -11,7 +11,7 @@
 | `anLocNhanh` | 11-khung-tab.js | 2 | 11-khung-tab.js |  |
 | `anPV` | 10-danh-sach.js | 6 | 10-danh-sach.js · 20-khoi-dong.js |  |
 | `anPVTab` | 10-danh-sach.js | 5 | 10-danh-sach.js · 20-khoi-dong.js |  |
-| `apiKey` | 06c-drive.js | 2 | 06c-drive.js · 10-danh-sach.js |  |
+| `apiKey` | 06c-drive.js | 3 | 06c-drive.js · 10-danh-sach.js · 99b-kqgd-pdf.js |  |
 | `bangTab` | 11-khung-tab.js | 7 | 11-khung-tab.js |  |
 | `bblvHaiMat` | mau/0hsn.js | 2 | mau/0hsn.js | 3.480: BBLV công tắc riêng |
 | `bcToi` | 63-bao-cao-toi.js | 4 | 63-bao-cao-toi.js |  |
@@ -64,6 +64,7 @@
 | `gxSo` | 38-goi-xem.js | 1 | 38-goi-xem.js |  |
 | `hoiDoanThe` | 11-khung-tab.js | 1 | 11-khung-tab.js |  |
 | `hoMoi` | 25c-ho-so-giao-dien.js | 2 | 25c-ho-so-giao-dien.js · 33-so-ho-them.js |  |
+| `hopDenId` | 99b-kqgd-pdf.js | 3 | 99b-kqgd-pdf.js |  |
 | `hsApCuoi` | 08-dia-ban.js | 6 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js |  |
 | `hsDiemCuoi` | 08-dia-ban.js | 3 | 08-dia-ban.js · 12-scan.js |  |
 | `hsDS` | 02-nen.js | 2 | 02-nen.js · 07-cccd.js |  |

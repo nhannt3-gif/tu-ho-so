@@ -91,7 +91,7 @@ function slNapThanhHTML(kyXem){   /* 3.156: ‹ T7 · T8/2026 ▾ · T9 › · �
   var ngan = function(k){ return 'T'+(+k.slice(5, 7)); }, kieu = function(v, chu, tit){ return '<button class="sl-mt-k'+(mt===v ? ' bat' : '')+'" data-lenh="nkt.datMt" data-a="'+v+'" title="'+tit+'">'+chu+'</button>'; };
   return '<div class="sl-con-nap sl-thanh-nap">'+
     slDaiLich(kyXem)+
-    '<button class="nho chinh" data-lenh="nkt.napBo" title="Chọn nhiều file Excel một lần (Mẫu 31, Danh sách tổ, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+
+    '<button class="nho chinh" data-lenh="nkt.napBo" title="Chọn nhiều file Excel một lần (Mẫu 31, Danh sách tổ, file TW, KHĐ… và BC0437 / BC0438 của KTGS; 1 hay nhiều tháng) — app tự nhận loại và kỳ, xem trước rồi mới ghi nhận">📥 Nạp file</button>'+(typeof KQPDF!=='undefined' ? KQPDF.nut() : '')+
     (slCoFileChinh(kyXem) ? '<button class="nho sl-kt-nut" data-lenh="nkt.kiem" data-a="'+kyXem+'" title="App tự kiểm sau mỗi lần nạp / xóa / thay file — bấm để kiểm lại cho chắc">🔍 Kiểm tra lại</button>' : '')+
     '<button class="nho" data-lenh="nkt.fileXuat" data-a="'+kyXem+'" title="Danh sách file cần xuất hằng tháng, mẫu cần chọn khi xuất, ✓ file tháng đang xem đã có">📋 File cần xuất</button>'+
     '<span class="sl-mt-nhom"><button class="sl-mt-k'+(mt==='tq' ? ' bat' : '')+'" data-lenh="nkt.tongQuan" title="'+(mt==='tq' ? 'Bấm để về kiểu xem theo ngày' : 'Chỉ cột chốt tháng của mọi tháng có số liệu')+'">⇔ Tổng quan</button>'+
@@ -654,7 +654,7 @@ function slDoiNgayGhi(loai, ky){
 /* ---------- 12. NẠP: cả bộ / từng file ---------- */
 var SL_NAP = [];
 function slChonFile(ham){
-  var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls,.xlsm,.csv'; i.multiple = !!ham.nhieu;
+  var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls,.xlsm,.csv'+(typeof KQPDF!=='undefined' ? ',.pdf' : '');   /* 3.566: + PDF hệ thống (KQGD, CLT02 — js/99b) */ i.multiple = !!ham.nhieu;
   i.onchange = function(){ var f = Array.prototype.slice.call(i.files||[]); if(f.length) ham(f); };
   i.click();
 }
