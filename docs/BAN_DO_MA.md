@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.563 · 24/11/2026 21:12 · 160 file · 48236 dòng · 3757 hàm cấp ngoài · 661 biến toàn cục.
+Bản 3.564 · 25/11/2026 04:00 · 161 file · 48301 dòng · 3757 hàm cấp ngoài · 662 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 349 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 350 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4177 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 177 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -161,6 +161,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/95-clt02.js` | 89 | 0 | /*   3.549 C5 (hộp thư TK 1 02/11 — anh 15/11 "code cả 2 và gộp" · "CLT sẽ nạp theo xã và 2 loại tháng và định |
 | `js/96-phieu-phien.js` | 60 | 0 | /*   3.558 C2 (docs/DANH_GIA_CHUYEN_GIA_1511.md mục 4 nhóm C — anh 21/11 "làm C2 … code và gộp"): 📋 PHIẾU CHUẨ |
 | `js/97-chuyen-qh.js` | 53 | 0 | /*   3.563 (anh 22/11/2026: "làm thêm chức năng nợ quá hạn đã chuyển trong tháng, ngày chuyển" — đồng ý 4 điểm |
+| `js/98-mon-chuan.js` | 64 | 0 | /*   3.564 (anh 22/11/2026: "luôn tạo ra 1 ma trận dữ liệu đa chiều lấy Mẫu 31 làm chuẩn, dữ liệu nào Mẫu 31 k |
 | `js/mau/0hst.js` | 149 | 0 | /*   3.452 (anh 02/11 "làm tiếp 10B, 10C theo đúng quy chuẩn 10A") — PHẦN CHUNG mẫu Hồ sơ Tổ làm lại theo QUY_ |
 | `js/mau/10c.js` | 148 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |

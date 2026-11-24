@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.563** — TK 2: QH · khoanh · KHĐ tính từ Mẫu 31 (file chỉ đối chiếu) + Sao kê Nợ chuyển QH trong tháng (js/97). Trước: 3.562.
+- **`main` = 3.564** — TK 2: ma trận món chuẩn (js/98 `MCH`: 11 trường bổ sung có nguồn → 🧩 Báo cáo của tôi + Sao kê Bảng món chuẩn; docs/TU_DIEN_TRUONG.md). Trước: 3.563.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

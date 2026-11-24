@@ -266,6 +266,12 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.564)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🧩 Báo cáo của tôi › tạo báo cáo từng món, chọn KHĐ + Tiền gửi 105 | cột có số, KHĐ ghi “Có” đúng món | |
+| 2 | Sao kê › Bảng món chuẩn › 📊 Xuất Excel | đủ món, dòng 2 ghi nguồn | |
+
 ### Danh sách thử trên máy thật (3.563)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
