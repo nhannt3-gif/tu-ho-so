@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 25/11/2026 — TK 2 · PHIÊN (3.566 nạp PDF hệ thống KQGD / CLT02 + hộp đến + đối chiếu KQGD)
+- Anh "code và gộp": js/99b `KQPDF` — đọc lớp chữ + tọa độ PDF (không OCR): KQGD mẫu 13/GDX + mẫu cũ (loại động `kqgd_<mã điểm>`), CLT02 PDF → bảng giả theo dòng số cột 1…16 → `CLT.doc`; 📥 Lấy từ hộp đến (Picker, chỉ tải + chép, không dời / xóa); Sao kê `kqgd31` đối chiếu KQGD ↔ Mẫu 31. t418 11/11.
+- Đã chạy thử file THẬT trên Drive (chỉ in số đếm, không lưu repo): 3 KQGD + 2 CLT02 đều khớp tự kiểm (cộng tổ = dòng Hội; Tốt/Khá/TB/Yếu từng Hội = dòng Hội).
+- Bẫy: (1) pdf.js tách chữ có dấu thành mảnh sát nhau → `M.ghep` (< 1,5 pt). (2) Tên dài căn giữa ô → phần tên nằm TRÊN và DƯỚI dòng STT → gắn dòng phụ vào dòng STT gần nhất (≤ 12 pt), xếp loại dòng sau khi ghép tên. (3) KQGD mẫu cũ in số / tên 2 hàng so le ~3 pt; số hộ x0 ≈ 144 → vùng số theo mép phải ≥ 150. (4) CLT02: tên căn trái lệch số cột "2" → ranh cột 1|2 = mép số 1 + 6, 2|3 = mép số 3 − 6. (5) Heredoc bash không nháy nuốt `…` trong spec → ghi spec bằng file .py.
+- Chờ anh: thử máy thật (bảng 3.566) — nhất là ghép tên điểm KQGD với điểm GD của app.
+
 ### 25/11/2026 — TK 2 · PHIÊN (3.565 10C mới của tổ ở Tra cứu KH)
 - Anh "code và gộp": js/99 `M10C` — nạp DS kiểm tra 10C đã scan (file giao ban) → cột 10C mới sau CCCD ở bảng tổ Tra cứu KH (nhiều bản / tổ, bấm chọn bản mở Drive), in DS tổ, ma trận `mc_10c`. t417 8/8.
 - Bẫy: ngày của file giao ban nằm ở sheet Tổng hợp (dòng "Cập nhật"), danh sách ở sheet khác → `slTimKy` không thấy → bọc `slPhanTich` chỉ cho loại ds10c. Đọc bảng qua `KHO.docBang` (kiem.py cấm `slDocBang(` ngoài js/22*, 28, 29).

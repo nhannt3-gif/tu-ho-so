@@ -266,6 +266,17 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.566)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 📥 Nạp file: KQGD_<điểm>_<ngày>.pdf mẫu 13/GDX | nhận KQGD · điểm, đúng ngày, “Đọc đúng.” (không cảnh báo lệch Hội) | |
+| 2 | Nạp 1 KQGD mẫu cũ (trước 9/2026) | như trên | |
+| 3 | Nạp CLT02 PDF (tháng + định kỳ) | ra cùng ô với CLT02 Excel | |
+| 4 | 📥 Lấy từ hộp đến, chọn vài file | xem trước đủ; file ở X_GoDau/2. KQGD vẫn còn | |
+| 5 | Sao kê › Đối chiếu KQGD ↔ Mẫu 31 | các tổ ghép được, lệch (nếu có) đúng thực tế | |
+
+Ghi chú kỹ thuật 3.566: js/99b `KQPDF` — `dong` (pdf.js → dòng, ghép mảnh < 1,5 pt), `docKQGD` (mép phải ±12 pt, dòng phụ gắn dòng STT gần nhất ≤ 12 pt, xếp loại sau ghép tên), `sheetCLT` (ranh cột tên = mép số 1 + 6 / mép số 3 − 6), bọc `slDocFile` (.pdf), `slTomRieng`, `slBo0`/`veSoLieu` (loại động), `skXem` (nạp trước bảng KQGD khi chọn kqgd31). Tên điểm chưa ghép → mã từ tên + cảnh báo.
+
 ### Danh sách thử trên máy thật (3.565)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

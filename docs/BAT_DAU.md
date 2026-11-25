@@ -25,7 +25,7 @@
 - Gộp xong: `git fetch -q origin main && git checkout -q -B <nhánh> origin/main && git push -q -f -u origin <nhánh>`.
 
 ## 3. Trạng thái — BẮT ĐẦU Ở ĐÂY (cập nhật 15/10/2026)
-- **`main` = 3.565** — TK 2: 10C mới của tổ (js/99 `M10C`: nạp DS kiểm tra 10C giao ban → cột 10C mới ở bảng tổ Tra cứu KH, in DS tổ, ma trận). Trước: 3.564.
+- **`main` = 3.566** — TK 2: nạp PDF hệ thống KQGD / CLT02 (js/99b `KQPDF`), 📥 Lấy từ hộp đến (chỉ chép), Sao kê › Đối chiếu KQGD ↔ Mẫu 31. Trước: 3.565.
 - **Sổ chung App ↔ Giao ban** (tên cũ "Tèo" bỏ 01/11; vai + nhật ký vai `docs/nhat_ky/`): đọc `docs/PHOI_HOP_CHUNG.md` trước khi đụng nạp file / luật số liệu chung / điểm GD từ 11/2026.
 - **20/10 — 2 tài khoản làm song song:** TK chính làm **🎯 Phân bổ KH** (`docs/KE_HOACH_PHAN_BO_KH.md` — đọc **mục 7 phân công file** trước khi sửa chỗ chung); TK phụ làm tiếp các việc dưới.
 - **Việc tiếp (thứ tự):**

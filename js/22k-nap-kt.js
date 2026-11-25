@@ -142,7 +142,7 @@ function slTuKiem(){
 function slKqMo(){ var d = document.getElementById('sl-kq'); if(d){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'}); } }
 function slNapThem(ky){   /* ⋯ việc phụ của tab Nạp & KT */
   var coFile = Object.keys(SLM.bang).some(function(k){ return slThang(SLM.bang[k].ky)===ky; }), soBang = Object.keys(SLM.bang).length;
-  moHop('<div class="hop-tit">⋯ Nạp &amp; KT · '+kyVN(ky)+'</div><div class="sl-them-ds">'+
+  moHop('<div class="hop-tit">⋯ Nạp &amp; KT · '+kyVN(ky)+'</div><div class="sl-them-ds">'+(typeof KQPDF!=='undefined' ? KQPDF.nut() : '')+   /* 3.566: 📥 Lấy từ hộp đến (js/99b) — trong ⋯ để thanh công cụ giữ 1 hàng (3.524) */
     (coFile ? '<button class="nho" data-lenh="nkt.taiGocThang" data-dong="1" data-a="'+ky+'">⬇ Tải file gốc cả tháng</button><button class="nho" data-lenh="nkt.xoaThang" data-dong="1" data-a="'+ky+'">🗑 Xóa cả bộ tháng '+kyVN(ky)+'</button>' : '')+
     (slDsNgay().length>1 || slDsSkCu().length ? '<button class="nho" data-lenh="nkt.xoaNgayCu" data-dong="1">🗑 Xóa bản theo ngày cũ (giữ ngày mới nhất)</button>' : '')+
     (soBang ? '<button class="nho" data-lenh="nkt.tomTat" data-dong="1" data-a="'+ky+'">📄 Tóm tắt chi tiết các file '+kyVN(ky)+'</button>' : '')+
@@ -654,7 +654,7 @@ function slDoiNgayGhi(loai, ky){
 /* ---------- 12. NẠP: cả bộ / từng file ---------- */
 var SL_NAP = [];
 function slChonFile(ham){
-  var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls,.xlsm,.csv'; i.multiple = !!ham.nhieu;
+  var i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx,.xls,.xlsm,.csv'+(typeof KQPDF!=='undefined' ? ',.pdf' : '');   /* 3.566: + PDF hệ thống (KQGD, CLT02 — js/99b) */ i.multiple = !!ham.nhieu;
   i.onchange = function(){ var f = Array.prototype.slice.call(i.files||[]); if(f.length) ham(f); };
   i.click();
 }
