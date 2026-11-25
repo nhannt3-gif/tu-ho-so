@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.566', ds:[
+var CO_GI_MOI = {ban:'3.567', ds:[
+  ["Sao kê › Nợ cần xử lý: “Diễn biến món vay 3 tháng KHĐ” — theo Xã › Điểm GD › Hội; cột Đầu năm, từng tháng, Hiện tại (Mẫu 31 ngày gần nhất)", ""],
+  ["Mỗi kỳ: số món + dư nợ; thêm Tăng/giảm so đầu năm và Mới / Thoát KHĐ so tháng trước", ""],
   ["⋯ Nạp & KT nhận PDF hệ thống: KQGD (mẫu 13/GDX và mẫu cũ) + CLT02 — tự đọc chữ, không cần gõ lại", ""],
   ["📥 Lấy từ hộp đến: chọn file trong thư mục X_GoDau/2. KQGD trên Drive → app CHÉP bản tên chuẩn vào kho, file gốc giữ nguyên", ""],
   ["Sao kê › Thông tin tổ: Đối chiếu KQGD ↔ Mẫu 31 từng Hội, từng tổ (dư nợ, QH, khoanh, lãi tồn, tiền gửi)", ""],
@@ -1070,10 +1072,11 @@ var CO_GI_MOI = {ban:'3.566', ds:[
   ["Chuẩn hóa nút (không đổi cách dùng): danh mục Cài đặt, KTGS (Xem trước, bảng ngành), hộp hỏi / tag / ô ngày, Hôm nay (lịch việc, Cần xử lý)", ""],
   ["Chuẩn hóa nút (không đổi cách dùng): thanh tab, Biểu mẫu, cây địa bàn, khung xem PDF chạy qua bộ lệnh chung", ""],
   ["Chuẩn hóa danh sách văn bản (không đổi cách dùng): bấm dòng / nút trên dòng chạy qua bộ lệnh chung — bấm ô tích ở dạng bảng không còn mở luôn văn bản", ""],
-  ["Chuẩn hóa code (không đổi chức năng): tách dòng quá dài ở Giao dịch xã và các mẫu in — mẫu in ra giữ nguyên", ""],
-  ["📑 Sao kê › nhóm Nợ đến hạn: 📋 Phiếu chuẩn bị phiên GD — mỗi điểm 1 trang (tóm tắt · món đến hạn / sắp chuyển quá hạn tới phiên kế tiếp · tổ cần chú ý: lãi tồn cao, CLT02 TB/Yếu, tổ viên cần cho ra)", ""],
-  ["Dọn mã cho gọn (không đổi chức năng): bỏ 18 hàm cũ không còn chạy, gom cách đọc PDF về 1 bộ chung, 77 nút chuyển sang cách gọi lệnh chuẩn", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Chuẩn hóa code (không đổi chức năng): tách dòng quá dài ở Giao dịch xã và các mẫu in — mẫu in ra giữ nguyên", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.567 · Sao kê › Nợ cần xử lý › Diễn biến món vay 3 tháng KHĐ: chọn năm (kỳ Sao kê) → bảng đủ tháng đã nạp Mẫu 31",
+    "3.567 · Lọc Xã / Điểm / Hội → bảng chỉ phạm vi đó",
+    "3.567 · 📊 Xuất Excel: 2 dòng tiêu đề, dư nợ đồng",
     "3.566 · ⋯ Nạp & KT › 📥 Nạp file: chọn 1 file KQGD_*.pdf → nhận “KQGD · <điểm>”, đúng ngày giao dịch",
     "3.566 · 📥 Lấy từ hộp đến: chọn vài file KQGD / CLT02 → xem trước → ghi; file ở hộp đến vẫn còn",
     "3.566 · Sao kê › Đối chiếu KQGD ↔ Mẫu 31: chọn kỳ Mẫu 31 cùng ngày KQGD → số lệch đỏ",
@@ -1090,10 +1093,7 @@ var CO_GI_MOI = {ban:'3.566', ds:[
     "3.562 · KTGS: 👁 Xem trước ở 06, 04, kế hoạch, Kiểm tra tổ; bảng ngành kinh tế (tìm, Đã sửa, ↺, hiện thêm); In 2 mặt",
     "3.562 · Hộp hỏi (vd xóa): Đồng ý; tag ✕; Hôm nay ở ô ngày; chip chọn gọn",
     "3.562 · Hôm nay: Cần xử lý (chip + thẻ), ✓ việc lịch, kiểu chữ sổ, Thêm dòng, Xóa dòng, Dời, tính ngày",
-    "3.561 · Thanh tab: + Thêm file / Thêm mẫu / Scan, chip kiểu xem, chip lọc",
-    "3.561 · Biểu mẫu: bấm dòng mở; W / G / 🖨 / ô tích không làm nhảy chọn dòng; bộ mẫu (chọn cả bộ, in, sửa, xóa)",
-    "3.561 · ⚙ Cài đặt › Cây địa bàn: mở cấp, sửa tên, thêm / bỏ ấp, điểm, sửa tổ",
-    "3.561 · Khung xem PDF: lật trang, ô số trang, phóng to / thu nhỏ, ↔ ⊡, 📋, Đọc chữ trang ảnh"],
+    "3.561 · Thanh tab: + Thêm file / Thêm mẫu / Scan, chip kiểu xem, chip lọc"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

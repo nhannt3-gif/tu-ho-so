@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.567)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Diễn biến món vay 3 tháng KHĐ (kỳ năm 2026) | cột Đầu năm · T1… · Hiện tại ngày gần nhất; tháng chưa nạp Mẫu 31 là — | |
+| 2 | So cột Hiện tại với Sao kê KHĐ cùng ngày | số món / dư nợ khớp | |
+| 3 | Mới / Thoát | món mới đúng các món vừa rơi vào KHĐ | |
+| 4 | Mở lại báo cáo lần 2 | nhanh (không đọc lại từng kỳ) | |
+
+Ghi chú kỹ thuật 3.567: js/99c `DBT` — `kyNam(năm)` chọn kỳ, `so(chỉ tiêu, e)` sổ theo dõi (IndexedDB qua luuFile / docFile, khóa có mã băm + `DBT.BAN`), `gop` lọc bằng `pvLoc` trên tổ đã lưu của kỳ, bọc `skXem` để nạp trước các kỳ. Đổi cách tính → tăng `DBT.BAN` để bỏ sổ cũ.
+
 ### Danh sách thử trên máy thật (3.566)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
