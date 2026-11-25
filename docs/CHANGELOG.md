@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.567 — 25/11/2026 — Diễn biến món vay 3 tháng KHĐ theo tháng (TK 2)
+- **Nguồn:** anh 25/11 "tạo 1 báo cáo theo dõi món vay 3 tháng KHĐ theo xã, điểm giao dịch, hội đoàn thể diễn biến theo từng tháng, đầu năm, riêng hiện tại lấy dữ liệu ngày gần nhất" · "đồng ý, coi như đây là 1 chức năng quan trọng có thể theo dõi nhiều sau này" (đồng ý: mỗi ô số món + dư nợ, có cột Mới / Thoát) · "code và gộp".
+- **Gói mới js/99c (`DBT`, cắm rút) — bộ máy diễn biến theo tháng dùng chung:** chỉ tiêu khai trong `DBT.CHI` (k · tên · `lay(B)` → món); bản này chỉ tiêu `khd` = KHĐ TỰ TÍNH từ Mẫu 31 từng kỳ (luật 3.563, không dùng file mẫu 14). Thêm chỉ tiêu sau (QH, khoanh…) = thêm 1 dòng.
+- **Báo cáo `db_khd` (Sao kê › Nợ cần xử lý, ngay sau sao kê KHĐ):** cột Đầu năm (Mẫu 31 chốt 12 năm trước) · T1 … các tháng trước tháng hiện tại · Hiện tại (Mẫu 31 mới nhất trong năm — ngày gần nhất) · Tăng/giảm so đầu năm · Mới KHĐ / Thoát KHĐ (hiện tại so tháng chốt liền trước, theo số KU trên toàn kỳ). Mỗi kỳ: số món + dư nợ (màn hình triệu đồng, Excel đồng). Hàng: Tổng · Xã · Điểm GD · Hội (HND, HPN, HCCB, ĐTN, Vay trực tiếp) theo tổ CỦA KỲ ĐÓ; theo lọc Xã / Điểm / Hội / Tổ của Sao kê. Tháng chưa nạp Mẫu 31 → "—".
+- **Sổ theo dõi trên máy:** mỗi kỳ tính 1 lần → tóm tắt nhỏ (số KU, dư nợ, tổ) lưu IndexedDB khóa `dbt|khd|<kỳ>|<mã băm Mẫu 31>` — mở lại không dựng lại Mẫu 31; thay Mẫu 31 → tự tính lại kỳ đó. Lần đầu hiện "Diễn biến KHĐ: đọc kỳ x/n".
+- **Phép thử:** t419 (mới); t314 (26 báo cáo), t276 chụp thêm db_khd.
+
 ## 3.566 — 24/11/2026 — Nạp PDF hệ thống (KQGD, CLT02) + hộp đến + đối chiếu KQGD (TK 2)
 - **Nguồn:** anh 22–24/11 "thêm 1 chỗ nạp các file KQGD … chấm điểm CLT … tự đọc PDF và nhận diện chính xác" · "PDF này xuất từ hệ thống" · "TM KQGD anh hay chép coi như nguồn chưa xử lý, khi xử lý rồi thì đưa vào kho" · "tạm chưa dời, chỉ chép thêm vào kho" · "code và gộp".
 - **Gói mới js/99b (`KQPDF`, cắm rút):** đọc lớp chữ + tọa độ PDF (pdf.js, không OCR). KQGD: số vào cột theo mép phải (tọa độ của script giao ban kqgd.py / kqgd13.py), mẫu 13/GDX nghìn → đồng, mẫu cũ đồng; dòng Hội / tổ / CT / Cộng / Tổng cộng; ngày "Ngày giao dịch" (13/GDX ghi tháng/ngày/năm); loại động `kqgd_<mã điểm app>` (ghép tên điểm với Mẫu 31 / File Tổ trưởng), tên chuẩn `KQGD_<mã điểm>_<ngày>.pdf`; tự kiểm cộng tổ = dòng Hội. CLT02 PDF: dựng lại bảng theo dòng đánh số cột 1…16 → dùng nguyên bộ đọc CLT02 Excel (js/95).

@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 26/11/2026 — TK 2 · PHIÊN (3.567 diễn biến món vay 3 tháng KHĐ theo tháng)
+- Anh duyệt kế hoạch ("đồng ý, coi như đây là 1 chức năng quan trọng có thể theo dõi nhiều sau này" → "code và gộp"): js/99c `DBT` — bộ máy diễn biến theo tháng (chỉ tiêu khai trong `DBT.CHI`), chỉ tiêu đầu tiên KHĐ; Sao kê `db_khd` (Nợ cần xử lý). t419 10/10.
+- Thiết kế: mỗi kỳ tính KHĐ từ Mẫu 31 kỳ đó (`KHO.bo` + `slDsNo(B,'khd')`), tổ của kỳ (`KHO.nap`) → sổ tóm tắt IndexedDB (khóa có mã băm Mẫu 31 + `DBT.BAN`); lọc phạm vi bằng `pvLoc` trên tổ đã lưu; Mới / Thoát theo KU toàn kỳ.
+- Bẫy: dữ liệu giả T8 và bản ngày giống nhau → t419 tự sửa ngày GD gần nhất 2 món ra / 2 món vào KHĐ. Js/76 rút → `db_khd` nằm cuối danh sách (t314).
+- Tiếp (chờ anh chọn): thêm chỉ tiêu khác vào `DBT.CHI` (QH, khoanh, dư nợ…).
+
 ### 25/11/2026 — TK 2 · PHIÊN (3.566 nạp PDF hệ thống KQGD / CLT02 + hộp đến + đối chiếu KQGD)
 - Anh "code và gộp": js/99b `KQPDF` — đọc lớp chữ + tọa độ PDF (không OCR): KQGD mẫu 13/GDX + mẫu cũ (loại động `kqgd_<mã điểm>`), CLT02 PDF → bảng giả theo dòng số cột 1…16 → `CLT.doc`; 📥 Lấy từ hộp đến (Picker, chỉ tải + chép, không dời / xóa); Sao kê `kqgd31` đối chiếu KQGD ↔ Mẫu 31. t418 11/11.
 - Đã chạy thử file THẬT trên Drive (chỉ in số đếm, không lưu repo): 3 KQGD + 2 CLT02 đều khớp tự kiểm (cộng tổ = dòng Hội; Tốt/Khá/TB/Yếu từng Hội = dòng Hội).
