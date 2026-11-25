@@ -118,7 +118,7 @@ var KQPDF = (function(){
   if(typeof slBo0==='function'){ var cuBo = slBo0; slBo0 = function(){ M.dongBo(); return cuBo.apply(this, arguments); }; }
   if(typeof veSoLieu==='function'){ var cuVe = veSoLieu; veSoLieu = function(){ M.dongBo(); return cuVe.apply(this, arguments); }; }
   /* ---------- 5. 📥 Lấy từ hộp đến (Google Picker — chỉ chép, không dời / xóa) ---------- */
-  M.nut = function(){ return '<button class="nho" data-lenh="kqpdf.hopDen" title="Chọn file trong thư mục hộp đến trên Drive (X_GoDau/2. KQGD — nơi anh chép file chưa xử lý): KQGD, CLT02 (PDF) và file Excel. App đọc, xem trước, chép bản tên chuẩn vào kho — KHÔNG dời / xóa file gốc">📥 Lấy từ hộp đến</button>'; };
+  M.nut = function(){ return '<button class="nho" data-lenh="kqpdf.hopDen" data-dong="1" title="Chọn file trong thư mục hộp đến trên Drive (X_GoDau/2. KQGD — nơi anh chép file chưa xử lý): KQGD, CLT02 (PDF) và file Excel. App đọc, xem trước, chép bản tên chuẩn vào kho — KHÔNG dời / xóa file gốc">📥 Lấy từ hộp đến (Drive · chỉ chép, file gốc giữ nguyên)</button>'; };
   M.hopDen = function(){
     if(typeof coTheNoiDrive!=='function' || !coTheNoiDrive()) return baoLoi(typeof drChuaNoi==='function' ? drChuaNoi() : 'Chưa nối Drive.');
     var key = (D.cauHinh.apiKey||'').trim(); if(!key) return baoLoi('Chưa có API key của Google Picker — khai ở ⚙ Cài đặt › Google Drive.');

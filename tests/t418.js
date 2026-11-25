@@ -83,19 +83,19 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  r = await p.evaluate(async()=>{ const kq = await slDocFile(new File([await taoPDF(595, 842, [{tr:1, s:'VAN BAN GIA', x:60, y:60}])], 'vb.pdf')); return kq.loi||''; });
  ok('PDF không phải KQGD / CLT02 → báo rõ, không nạp', /không phải KQGD/.test(r), r);
  /* 6. hộp đến: nút + chỉ tải (GET) → xem trước; nhớ thư mục */
- r = await p.evaluate(async()=>{ D.cauHinh.slTab = 'nap'; try{ veSoLieu(); }catch(e){} await new Promise(z=>setTimeout(z, 300));
-   const nut = !!document.querySelector('[data-lenh="kqpdf.hopDen"]'), goi = []; const f0 = window.fetch;
+ r = await p.evaluate(async()=>{ slNapThem('2026-08'); await new Promise(z=>setTimeout(z, 200));
+   const nut = !!document.querySelector('#hop [data-lenh="kqpdf.hopDen"]'); try{ dongHop(); }catch(e){} const goi = []; const f0 = window.fetch;
    window.fetch = (u, o)=>{ goi.push({u:String(u), m:(o && o.method) || 'GET'}); return Promise.resolve(new Response(new Blob([PDF13]))); };
    const nd = slDocNhieu; let nhan = null; slDocNhieu = fs=>{ nhan = fs.map(f=>f.name+':'+f.size); }; canToken = ()=>Promise.resolve(true); DR.token = 'gia';
    window.google = {picker:{Response:{ACTION:'action', DOCUMENTS:'docs'}, Action:{PICKED:'picked'}, Document:{ID:'id', NAME:'name', MIME_TYPE:'mimeType', PARENT_ID:'parentId'}}};
    KQPDF.daChon({action:'picked', docs:[{id:'F1', name:'KQGD_GiaLoc_2026_08_31.pdf', mimeType:'application/pdf', parentId:'HOP'}, {id:'TM', name:'con', mimeType:'application/vnd.google-apps.folder', parentId:'HOP'}]});
    for(let i=0;i<40 && !nhan;i++) await new Promise(z=>setTimeout(z, 100)); window.fetch = f0; slDocNhieu = nd;
    return {nut, goi, nhan, hop:D.cauHinh.hopDenId}; });
- ok('⋯ Nạp & KT có 📥 Lấy từ hộp đến; chọn file → chỉ TẢI (GET, bỏ thư mục) rồi đưa vào xem trước; nhớ thư mục hộp đến; không gọi dời / xóa', r.nut && r.goi.length===1 && r.goi[0].m==='GET' && /files\/F1\?alt=media/.test(r.goi[0].u) && r.nhan && r.nhan.length===1 && /^KQGD_GiaLoc/.test(r.nhan[0]) && r.hop==='HOP', JSON.stringify(r));
+ ok('menu ⋯ của Nạp & KT có 📥 Lấy từ hộp đến (thanh công cụ giữ 1 hàng); chọn file → chỉ TẢI (GET, bỏ thư mục) rồi đưa vào xem trước; nhớ thư mục hộp đến; không gọi dời / xóa', r.nut && r.goi.length===1 && r.goi[0].m==='GET' && /files\/F1\?alt=media/.test(r.goi[0].u) && r.nhan && r.nhan.length===1 && /^KQGD_GiaLoc/.test(r.nhan[0]) && r.hop==='HOP', JSON.stringify(r));
  /* 7. rút js/99b */
  const q = await mo(true);
- r = await q.evaluate(async()=>{ D.cauHinh.slTab = 'nap'; try{ veSoLieu(); }catch(e){} await new Promise(z=>setTimeout(z, 300));
-   return {k:typeof KQPDF, nut:!!document.querySelector('[data-lenh="kqpdf.hopDen"]'), bc:SK_BC.some(b=>b.k==='kqgd31')}; });
+ r = await q.evaluate(async()=>{ slNapThem('2026-08'); await new Promise(z=>setTimeout(z, 200));
+   return {k:typeof KQPDF, nut:!!document.querySelector('#hop [data-lenh="kqpdf.hopDen"]'), bc:SK_BC.some(b=>b.k==='kqgd31')}; });
  ok('rút js/99b: không còn nút / báo cáo mới, Sao kê vẫn chạy', r.k==='undefined' && !r.nut && !r.bc, JSON.stringify(r));
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));
  const sai = o.filter(x=>x.startsWith('✗')).length + (loi.length ? 1 : 0); console.log(sai ? '✗ '+sai+' sai' : '✓ t418 đạt hết');
