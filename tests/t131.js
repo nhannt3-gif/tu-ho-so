@@ -67,7 +67,7 @@ const fs=require('fs'), path=require('path');
    TO_LOC_MO = 'tat';
    /* Sao kê: KU đã nhập máy chưa giải ngân */
    const S = skCH(); S.ky = '2026-08'; S.xa = ''; S.diem = ''; S.hoi = ''; S.to = ''; SK_K = null; D.cauHinh.slTab = 'sk'; slDoiTab('sk'); for(let i=0;i<80 && !SK_K;i++) await w(250); await w(300);
-   ok('Sao kê có báo cáo "KU đã nhập máy chưa giải ngân" ở nhóm Nợ cần xử lý', SK_BC.some(x=>x.k==='cgn' && x.nhom==='xl') && /KU đã nhập máy chưa giải ngân/.test(document.getElementById('tr7').textContent));
+   ok('Sao kê có báo cáo "KU đã nhập máy chưa giải ngân" (3.571: ở ô Phát sinh tháng; rút js/99e thì ở Nợ cần xử lý)', SK_BC.some(x=>x.k==='cgn' && x.nhom===(typeof ONO!=='undefined' && ONO.dnNhom ? 'ps' : 'xl')) && /KU đã nhập máy chưa giải ngân/.test(document.getElementById('tr7').textContent));
    const r = skBaoCao('cgn');
    ok('báo cáo: 2 KU, KU vay 15/07 quá 1 tháng xếp đầu "Cần đóng KU", 20/08 chưa', r.aoa.length>=3 && r.aoa[1][6]==='9900000000000003' && /cần đóng KU/.test(r.aoa[1][11]) && r.aoa[2][6]==='9900000000000004' && !r.aoa[2][11], JSON.stringify(r.aoa.slice(0, 3)));
    ok('báo cáo: cột Tổ / Xã / Hội / Mức vay / Ngày vay / Số ngày; dòng quá hạn tô nền', r.aoa[0].join('|')==='STT|Tổ|Xã|Hội|Mã KH|Họ tên|Số KU|Chương trình|Mức vay|Ngày vay (nhập máy)|Số ngày|Ghi chú' && r.aoa[1][8]===30000000 && r.aoa[1][9]==='15/07/2026' && r.aoa[1][10]===47 && /class="nb"/.test(r.html), r.aoa[1].join('|'));
