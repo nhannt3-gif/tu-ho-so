@@ -341,6 +341,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
 | t243 (3.540) | Thanh dưới 5 nút kiểu cũ (GD xã · Số liệu · Hồ sơ) thử ở cỡ máy tính bảng 700 px — 390 px là thanh điện thoại mới (t311 / t401). |
 | t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). 3.536: + VB đã xem giữ trong ngày — dọn đúng bản trong máy (chỉ điện thoại). 3.537: + nạp màn rộng rồi thu về 390 tự khởi động; không JS thì lọc hiện đủ. 3.541: + lọc gọn Tổ / GDX / KTGS, chip GDX 1 dòng, vuốt đổi tab, vuốt đóng hộp. 3.542: + nhóm chip Tổ / KTGS 1 dòng. |
@@ -360,7 +361,8 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | t416 (3.564) | Ma trận món chuẩn (js/98): Sao kê Bảng món chuẩn (1 món 1 dòng, dòng nguồn), KHĐ = tự tính, 105 cộng mọi sổ, khoanh từ file NK; 🧩 Báo cáo của tôi thêm cột 3 kiểu gộp; rút js/98 vẫn chạy. |
 | t417 (3.565) | 10C mới (js/99): nạp DS kiểm tra 10C giả (2 sheet, ngày "Cập nhật"), cột 10C mới sau CCCD ở bảng tổ Tra cứu KH (2 bản / 1 / Thiếu, Cộng, lọc), hộp chọn bản, in DS tổ, ma trận, bản mới hơn thay bản cũ. |
 | t418 (3.566) | Nạp PDF hệ thống: KQGD 13/GDX + mẫu cũ (so le), CLT02 PDF = Excel, PDF lạ, đối chiếu KQGD ↔ Mẫu 31, hộp đến chỉ tải, rút js/99b. |
-| t419 (3.567) | Diễn biến KHĐ theo tháng (js/99c): cột Đầu năm / tháng / Hiện tại (Mẫu 31 theo ngày giả), số = KHĐ tự tính từng kỳ, Mới / Thoát đúng tập KU, cộng dọc, sổ theo dõi (dùng lại, đổi mã băm tính lại), lọc xã, rút js/99c. |
+| t419 (3.567 → 3.570) | Ô Sao kê KHĐ (js/99d): bố cục ô, B1 số món 3 kỳ + chỉ tiêu −30% / quý, đổi %, B2 cột tháng ▲▼, B3 tổng + món thoát / mới, B5 nguy cơ đúng luật KHĐ, sổ theo dõi, lọc xã, rút js/99d. |
+| t420 (3.570) | Ô Nợ quá hạn / Nợ khoanh (js/99e) + thu nợ đến hạn: dư nợ QH + tỷ lệ + chỉ tiêu min(31/12, 0,08%), B2, B3, khoanh −5%, hết hạn khoanh 120 ngày, kết quả thu nợ đến hạn (ước tính), rút js/99e. |
 | `tools/kiem_pr.sh` (3.546 B4) | Chạy trên GitHub mỗi PR (`.github/workflows/kiem-pr.yml`): `bash tools/kiem_pr.sh <phần> <số phần> <mốc main>` — chọn phép như hồi quy theo đổi nhưng so mốc của main, trượt chạy lại 1 lần. |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 

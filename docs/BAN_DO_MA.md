@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.569 · 28/11/2026 00:24 · 164 file · 48665 dòng · 3757 hàm cấp ngoài · 665 biến toàn cục.
+Bản 3.570 · 28/11/2026 01:25 · 166 file · 48911 dòng · 3757 hàm cấp ngoài · 667 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -9,7 +9,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 
 | File | Số dòng | Số hàm | Mở đầu |
 |---|---|---|---|
-| `index.html` | 353 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
+| `index.html` | 355 | 0 | Khung trang (thẻ HTML tĩnh) + thẻ nạp css / js |
 | `css/app.css` | 4178 | 0 | :root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); |
 | `css/dt-may.css` | 177 | 0 | /*   3.361 (docs/KE_HOACH_DIEN_THOAI_MAY.md — đợt Đ1: khung chung) — BẢN MÁY TÍNH TRÊN ĐIỆN THOẠI   Cắm rút: c |
 | `css/dt-may-vbsc.css` | 37 | 0 | /*   3.371 (TK 3 — PHOI_HOP mục 6 G3; anh 25/10 "làm tiếp văn bản và scan", "giao diện tương tự máy tính nhưng |
@@ -117,7 +117,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/56b-ktgs-727.js` | 148 | 13 | /*   js/56b-ktgs-727.js — 3.498 (anh 07/11/2026 "VB 727 còn 2 mẫu này em đưa vào phần kiểm tra giám sát"): 🛡 K |
 | `js/57-cay.js` | 34 | 0 | /*   3.328 (anh chốt 23/10): CÂY ĐỊA BÀN NHÚNG — 1 chỗ lấy danh sách Xã › Điểm GD › Ấp › Hội › Tổ và vẽ ô chọn |
 | `js/58-tc-to.js` | 211 | 22 | /*   3.333 (anh chốt 23–24/10): TRA CỨU KH — KHỐI TỔ + BẢNG TỔ CỦA ĐIỂM GD (kết nạp) - Khi duyệt hồ sơ: tra kh |
-| `js/58b-tc-to-in.js` | 55 | 0 | /*   js/58b-tc-to-in.js — 3.505 (anh 09/11/2026 "cần xuất nhanh ds tổ có xã, điểm theo ds lọc khi cần, A4 dọc, |
+| `js/58b-tc-to-in.js` | 57 | 0 | /*   js/58b-tc-to-in.js — 3.505 (anh 09/11/2026 "cần xuất nhanh ds tổ có xã, điểm theo ds lọc khi cần, A4 dọc, |
 | `js/59-suc-khoe.js` | 34 | 7 | /*   3.338 (RA_SOAT_BO_CUC_2410 mục 8 việc 2 — anh 24/10 "cứ theo KH làm"): 🩺 SỨC KHỎE SAO LƯU Thẻ ở ⚙ Khai bá |
 | `js/60-ve-dt.js` | 12 | 0 | /*   3.342 (TK 3): NÚT 📱 SANG BẢN GỌN dt.html — 3.367 (anh 25/10 "bản chính như máy tính, điện thoại là bản ph |
 | `js/61-nhat-ky-in.js` | 52 | 9 | /*   3.348 (RA_SOAT_BO_CUC_2410 mục 8 việc 6 — góp ý 7.1): NHẬT KÝ ĐÃ LẬP / ĐÃ IN   - Mỗi lần bấm 🖨 In · 📄 PDF |
@@ -164,7 +164,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/98-mon-chuan.js` | 64 | 0 | /*   3.564 (anh 22/11/2026: "luôn tạo ra 1 ma trận dữ liệu đa chiều lấy Mẫu 31 làm chuẩn, dữ liệu nào Mẫu 31 k |
 | `js/99-10c.js` | 58 | 0 | /*   3.565 (anh 24/11/2026: "liên kết bên giao ban cập nhật phần mẫu 10C mới scan kế bên cột CCCD trong tab Tr |
 | `js/99b-kqgd-pdf.js` | 175 | 0 | /*   3.566 (anh 22–24/11/2026: "thêm 1 chỗ nạp các file KQGD … và chấm điểm CLT và có thể tự đọc PDF và nhận d |
-| `js/99c-dien-bien.js` | 110 | 0 | /*   3.567 (anh 25/11/2026: "tạo 1 báo cáo theo dõi món vay 3 tháng KHĐ theo xã, điểm giao dịch, hội đoàn thể  |
+| `js/99c-dien-bien.js` | 60 | 0 | /*   3.567 (anh 25/11/2026: "tạo 1 báo cáo theo dõi món vay 3 tháng KHĐ theo xã, điểm giao dịch, hội đoàn thể  |
+| `js/99d-o-khd.js` | 155 | 0 | /*   3.570 (anh 28/11/2026: "diễn biến món vay 3 tháng anh chưa vừa ý, cần đơn giản theo xã, điểm GD biến động |
+| `js/99e-o-no.js` | 137 | 0 | /*   3.570 (anh 28/11/2026: "tương tự em có ô Nợ quá hạn, nợ khoanh, nợ đến hạn" · "khuôn A4 ngang, cột cơ bản |
 | `js/mau/0hst.js` | 149 | 0 | /*   3.452 (anh 02/11 "làm tiếp 10B, 10C theo đúng quy chuẩn 10A") — PHẦN CHUNG mẫu Hồ sơ Tổ làm lại theo QUY_ |
 | `js/mau/10c.js` | 148 | 0 | /*   3.223 M6 — MẪU 10C/TD MỚI (QĐ 70, từ 01/10/2026) Biên bản họp kết nạp, cho ra khỏi Tổ — trên nền ô, dựng  |
 | `js/mau/10ccu.js` | 84 | 0 | /*   3.223 M6 — MẪU 10C/TD CŨ (vào tổ đến 30/09/2026) Biên bản họp kết nạp bổ sung, cho ra khỏi Tổ — trên nền  |
