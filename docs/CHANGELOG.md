@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.569 — 27/11/2026 — In DS tổ: nhóm theo Hội, STT theo Hội, thêm SĐT tổ trưởng + tổ phó (TK 2)
+- **Nguồn:** anh 27/11 (ảnh bản in DS tổ) "bỏ cột Hội, nhóm theo dòng, có số thứ tự nhìn là biết Hội bao nhiêu tổ, xã điểm bao nhiêu tổ, thêm tên tổ phó, số ĐT tổ trưởng" · chọn "STT theo Hội nhưng có tổng của điểm và xã" · "bỏ cột 10C đi không cần, em code và gộp".
+- **js/58b `TCIN`:** `dl` nhóm Xã → Điểm GD → Hội (HND → HPN → HCCB → ĐTN; trong Hội giữ thứ tự bảng đang sắp), cộng Hội / điểm / xã / tổng có số tổ từng Hội. `html`: 8 cột STT · Tổ trưởng · SĐT tổ trưởng · Tổ phó · Mã tổ · Ấp / Khu phố · TV · Có DN (chữ 10 pt, A4 dọc); dòng nhóm XÃ (khi xã nhiều điểm hoặc in nhiều xã) / Điểm GD / Hội ghi số tổ; STT đánh lại từ 1 mỗi Hội; Cộng điểm, Cộng xã, TỔNG CỘNG "n tổ (HND a · HPN b · …)". SĐT = `t.sdt`, tổ phó = `t.pho` (như Tra cứu KH; trống = chưa có). Bỏ `html10` (cột 10C mới khỏi bản in — cột 10C trên màn hình Tra cứu giữ nguyên).
+- **Phép thử:** t386 (8 cột, nhóm Hội đếm đúng, STT theo Hội, chia Hội ở dòng cộng, in SĐT + tổ phó); t417 (bản in không còn cột 10C).
+
 ## 3.568 — 27/11/2026 — Sửa cột 10C mới bị ẩn ở Tra cứu KH + cân đối cột bảng tổ (TK 2)
 - **Nguồn:** anh 27/11 (ảnh bảng tổ Tra cứu KH) "anh nạp rồi mà vẫn không thấy cột, em 1 độ rộng cho phần đó" · "cân đối lại các cột đã có".
 - **Lỗi (3.565):** bảng tổ `table-layout:fixed`, CSS chỉ chia độ rộng 7 cột (đến CCCD) → cột thứ 8 "10C mới" rộng 0 px (có trong bảng nhưng không thấy); CCCD cũng bị cắt còn "Thi…". Phép thử t417 chỉ kiểm cột có trong bảng, không đo độ rộng → lọt.

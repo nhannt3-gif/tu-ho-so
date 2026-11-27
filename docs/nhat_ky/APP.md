@@ -12,6 +12,9 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 27/11/2026 — TK 2 · PHIÊN (3.569 In DS tổ nhóm theo Hội)
+- Anh (ảnh bản in) + chọn "STT theo Hội nhưng có tổng của điểm và xã" + "bỏ cột 10C, code và gộp": js/58b `TCIN.dl` nhóm Xã → Điểm → Hội, `html` 8 cột (+ SĐT tổ trưởng `t.sdt`, Tổ phó `t.pho`), Cộng điểm / xã chia theo Hội; bỏ `html10`. t386 9/9, t417 cập nhật.
+
 ### 27/11/2026 — TK 2 · PHIÊN (3.568 sửa cột 10C mới bị ẩn ở Tra cứu KH)
 - Anh báo (ảnh) đã nạp DS 10C mà không thấy cột → đo: cột có trong bảng nhưng rộng 0 px (bảng fixed layout, CSS chỉ chia 7 cột). Sửa lớp `co10c` + chia 8 cột; anh "cân đối lại các cột đã có" → đo 3 cỡ màn, không cột nào cắt chữ.
 - Bẫy: phép thử bố cục phải ĐO độ rộng / cắt chữ, không chỉ kiểm có phần tử (t417 thêm ý đo). Máy khởi động lại mất tests/lib + tests/gia* → dựng lại theo .github/workflows/kiem-pr.yml (npm pack + taogia.py; cần `python3 -m pip install openpyxl`).
