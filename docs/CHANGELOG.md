@@ -4,6 +4,15 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.571 — 28/11/2026 — Ô Chỉ tiêu VB 180 + bỏ ô Nợ cần xử lý (TK 2)
+- **Nguồn:** danh sách việc anh duyệt 28/11 (mục 5 dọn ô Nợ cần xử lý, mục 6 bảng đối chiếu toàn bộ chỉ tiêu VB 180) · "em cứ làm theo em thấy tốt nhất".
+- **js/99f `CT180` — ô 🎯 Chỉ tiêu VB 180 (đầu Sao kê, A4 ngang 1 trang):** Toàn PGD › Xã › Điểm GD (mọi điểm có tổ) × 7 chỉ tiêu, mỗi chỉ tiêu Kết quả · Chỉ tiêu · ĐG (✓ / ✗ / trống = chưa đủ số liệu), cột Số chỉ tiêu đạt: tỷ lệ QH ≤ min(31/12, 0,08%) · KHĐ ≤ chỉ tiêu quý (−30%) · khoanh ≤ chỉ tiêu quý (−5%) · thu nợ gốc đến hạn ≥ 99% (ước tính) · tổ TB/Yếu = 0 và điểm CL tổ bình quân ≥ 93 (CLT02 tháng, kỳ Sao kê) · tổ viên còn dư nợ gửi TK 105 ≥ 10.000 đ ≥ 99%. Chưa có nguồn: điểm CL giao dịch xã, lãi tồn so đầu năm (ghi chú cuối bảng).
+- **Dọn ô:** `cgn` (KU đã nhập máy chưa giải ngân) sang ô Phát sinh tháng; ô Nợ cần xử lý hết mục → bỏ (rút js/99e là về như cũ).
+- **Ô sửa chỉ tiêu** (KHĐ %, PGD món; trần QH; khoanh %; thu nợ đến hạn %): chuyển sang hook `SK_BC.tuyChon` ở thanh công cụ báo cáo — khung xem là iframe nên ô nhập trong báo cáo không chạy, và không lọt vào bản in.
+- **Sửa lỗi gọi vòng:** các lớp "nạp trước" bọc `skXem` (js/99b, 99c, 99e) giữ cờ tới khi xem xong (trước: cờ trả về ngay khi lời gọi trả promise → 2 lớp lồng nhau gọi nhau không dứt khi chọn bảng cần cả 2).
+- js/99e dùng chung hàm định dạng + `hangTu` (dựng hàng Toàn PGD › Xã › Điểm) cho js/99f (kiem.py: không hàm trùng).
+- **Phép thử:** t421 (mới); t419, t420, t314 cập nhật; t276 chụp lại (B1 3 ô bỏ khối ô nhập, thêm ct180).
+
 ## 3.570 — 28/11/2026 — Ô Sao kê KHĐ · Quá hạn · Khoanh + thu nợ đến hạn, đối chiếu chỉ tiêu VB 180 (TK 2)
 - **Nguồn:** anh 28/11 "diễn biến món vay 3 tháng chưa vừa ý, cần đơn giản theo xã, điểm GD biến động từ đầu năm qua các tháng" · "mũi tên / màu biết tăng giảm, hiện tại so kỹ, rà VB 180 xem KH của tỉnh và đối chiếu" · "chia 1 ô như vậy là được" · "bỏ luôn bên nợ cần xử lý" · "tương tự em có ô Nợ quá hạn, nợ khoanh, nợ đến hạn" · "khuôn A4 ngang, các cột cơ bản đến chi tiết, cho vừa trang, tham khảo các báo cáo chuẩn hiện có" · "theo VB 180, em cứ làm theo em thấy tốt nhất" · "em gộp các bảng làm 1 lần và gộp".
 - **Căn cứ chỉ tiêu (đã đọc trên Drive):** CV 180/NHCS-KHTD 10/02/2026 (Chi nhánh tỉnh — phụ lục chỉ tiêu theo PGD, mốc quý) + VB chỉ đạo UBND xã Truông Mít / phường Gia Lộc theo VB 180: KHĐ giảm ≥ 30%, tỷ lệ QH không tăng so đầu năm (≤ 0,08%), nợ khoanh giảm ≥ 5%, thu nợ gốc đến hạn ≥ 99%. Khuôn bảng theo "Nội dung họp giao ban" PGD (mục 4 KHĐ, đối chiếu chỉ tiêu KH 1166). Số chỉ tiêu riêng Gò Dầu trong phụ lục (bản quét) không đọc chắc → có ô nhập.

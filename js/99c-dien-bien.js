@@ -50,11 +50,13 @@ var DBT = (function(){
      Báo cáo nào cần nạp trước các kỳ thì đăng ký M.BC[mã] = chỉ tiêu (vd js/99d). Nạp thêm bộ Mẫu 31 + kỳ của cột "Hiện tại" (M.hienB, M.hienK). */
   M.dangKyBC = function(ma, chi){ M.BC[ma] = chi; };
   if(typeof skXem==='function'){ var cuXem = skXem; skXem = function(){ var C = skCH(), self = this, a = arguments;
-      var can = {}; Object.keys(M.BC).forEach(function(k){ if(C.bc && C.bc[k]) can[M.BC[k]] = 1; }); can = Object.keys(can);
+      var can = {}; Object.keys(M.BC).forEach(function(k){ if(C.bc && C.bc[k]) [].concat(M.BC[k]).forEach(function(c){ can[c] = 1; }); }); can = Object.keys(can);   /* 3.571: 1 báo cáo có thể cần nhiều chỉ tiêu */
       if(can.length && !M.daNap && SK_K && SK_K.thang){ var nam = SK_K.thang.slice(0, 4), p = Promise.resolve();
         can.forEach(function(chi){ p = p.then(function(){ var cot = M.kyNam(nam); M.cot = {nam:nam, chi:chi, ds:cot}; return M.napHet(chi, cot).then(function(){
           var h = cot.find(function(k){ return k.hien; }); if(!h) return; return KHO.bo(h.ky).then(function(B){ M.hienB = B; return KHO.nap(h.ky); }).then(function(K){ M.hienK = K; M.hienKy = h.ky; }); }); }); });
-        return p.then(function(){ M.daNap = true; try{ return skXem.apply(self, a); } finally { M.daNap = false; } }, function(er){ if(typeof tatChay==='function') tatChay(); baoLoi('Diễn biến: không đọc được kỳ — '+(er && er.message || er)); }); }
+        return p.then(function(){ M.daNap = true;
+       var kq; try{ kq = skXem.apply(self, a); } catch(er){ M.daNap = false; throw er; }
+       var het = function(){ M.daNap = false; }; return Promise.resolve(kq).then(het, het);   /* 3.571: cờ giữ tới khi xem xong (2 lớp nạp trước lồng nhau không gọi vòng) */ }, function(er){ if(typeof tatChay==='function') tatChay(); baoLoi('Diễn biến: không đọc được kỳ — '+(er && er.message || er)); }); }
       return cuXem.apply(this, arguments); }; }
   return M;
 })();

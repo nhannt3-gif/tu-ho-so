@@ -12,6 +12,11 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 — TK 2 · PHIÊN (3.571 ô Chỉ tiêu VB 180 + bỏ ô Nợ cần xử lý)
+- Mục 5 + 6 danh sách đã duyệt: js/99f CT180 (1 bảng đối chiếu 7 chỉ tiêu VB 180 theo Toàn PGD › Xã › Điểm), cgn sang ô Phát sinh, bỏ ô xl. Hồi quy sau gộp 3.570: 299 đạt, 1 trượt t276 (bản chụp cũ trước khi dời ô nhập) → chụp lại ở 3.571.
+- Bẫy: lớp bọc `skXem` giữ cờ trong try/finally đồng bộ → khi lời gọi trả promise, cờ trả về sớm; 2 lớp (99c DBT + 99e thu nợ ĐH) lồng nhau gọi vòng vô hạn (t421 treo). Sửa: cờ trả về khi promise xong.
+- Còn tồn: nhóm A/B/C KHĐ (cần lãi suất từng CT) · kế hoạch phần KQGD (anh "riêng phần nào KQGD em lên KH làm luôn") · điểm CL giao dịch xã + lãi tồn so đầu năm cho bảng VB 180 (chưa có nguồn).
+
 ### 28/11/2026 — TK 2 · PHIÊN (3.570 ô Sao kê KHĐ · Quá hạn · Khoanh + thu nợ đến hạn, chỉ tiêu VB 180)
 - Anh duyệt danh sách việc + "theo VB 180, em cứ làm theo em thấy tốt nhất" + "em gộp các bảng làm 1 lần và gộp": js/99d OKHD (ô KHĐ 5 bảng), js/99e ONO (ô Quá hạn, Khoanh, thêm "Kết quả thu nợ đến hạn" vào ô Nợ đến hạn), js/99c DBT chỉ tiêu khd/qh/kn (BAN 3), bỏ db_khd. t419 14/14, t420 10/10.
 - Căn cứ đã đọc: CV 180/NHCS-KHTD (phụ lục bản quét — số Gò Dầu không đọc chắc → ô nhập), VB UBND Truông Mít / Gia Lộc theo VB 180 (KHĐ −30%, QH ≤ 0,08% không tăng, khoanh −5%, thu nợ ĐH ≥ 99%), "Nội dung họp giao ban" T11 (khuôn bảng; giao ban ghi KHĐ "Giảm 20%" theo KH 1166 — anh chốt theo VB 180).
