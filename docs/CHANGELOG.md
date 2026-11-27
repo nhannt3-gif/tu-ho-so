@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.568 — 27/11/2026 — Sửa cột 10C mới bị ẩn ở Tra cứu KH + cân đối cột bảng tổ (TK 2)
+- **Nguồn:** anh 27/11 (ảnh bảng tổ Tra cứu KH) "anh nạp rồi mà vẫn không thấy cột, em 1 độ rộng cho phần đó" · "cân đối lại các cột đã có".
+- **Lỗi (3.565):** bảng tổ `table-layout:fixed`, CSS chỉ chia độ rộng 7 cột (đến CCCD) → cột thứ 8 "10C mới" rộng 0 px (có trong bảng nhưng không thấy); CCCD cũng bị cắt còn "Thi…". Phép thử t417 chỉ kiểm cột có trong bảng, không đo độ rộng → lọt.
+- **Sửa:** js/58 thêm lớp `co10c` khi có cả CCCD + 10C mới; css/app.css chia 8 cột: Tổ trưởng 24 · Mã tổ 14 · TV 7 · Có DN 7 · Ấp 14 · Hội 9 · CCCD 11 · 10C mới 14 (%); ô 10C mới xuống dòng khi "(n bản)". Đo ở 1536 / 1366 / 1100 px: không cột nào cắt chữ. Bảng chưa nạp DS 10C (7 cột) giữ như cũ.
+- **Phép thử:** t417 thêm ý đo độ rộng (mỗi cột ≥ 28 px, 10C mới ≥ 50 px, không cắt chữ, không tràn khung) — chạy trên bản cũ ra ✗ (10C mới 0 px), bản mới ✓.
+
 ## 3.567 — 25/11/2026 — Diễn biến món vay 3 tháng KHĐ theo tháng (TK 2)
 - **Nguồn:** anh 25/11 "tạo 1 báo cáo theo dõi món vay 3 tháng KHĐ theo xã, điểm giao dịch, hội đoàn thể diễn biến theo từng tháng, đầu năm, riêng hiện tại lấy dữ liệu ngày gần nhất" · "đồng ý, coi như đây là 1 chức năng quan trọng có thể theo dõi nhiều sau này" (đồng ý: mỗi ô số món + dư nợ, có cột Mới / Thoát) · "code và gộp".
 - **Gói mới js/99c (`DBT`, cắm rút) — bộ máy diễn biến theo tháng dùng chung:** chỉ tiêu khai trong `DBT.CHI` (k · tên · `lay(B)` → món); bản này chỉ tiêu `khd` = KHĐ TỰ TÍNH từ Mẫu 31 từng kỳ (luật 3.563, không dùng file mẫu 14). Thêm chỉ tiêu sau (QH, khoanh…) = thêm 1 dòng.

@@ -33,6 +33,10 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  const v = m=>(r.dong.find(x=>x.ma===m)||{}).v;
  ok('cột "10C mới" ngay sau CCCD: 2 bản / 1 bản / Thiếu; tổ không có trong DS → Thiếu', r.j>=0 && r.th[r.j-1]==='CCCD' && /^Đã scan \(2 bản\)$/.test(v(ma[0])) && v(ma[1])==='Đã scan' && v(ma[2])==='Thiếu' && v(ma[3])==='Thiếu', JSON.stringify({th:r.th, a:v(ma[0]), b:v(ma[1]), c:v(ma[2]), d:v(ma[3])}));
  ok('dòng Cộng = số tổ đã scan / tổng', r.cong==='2/'+r.dong.length, r.cong);
+ /* 3.568 (anh 27/11 "nạp rồi mà vẫn không thấy cột"): cột phải THẤY ĐƯỢC — trước CSS chỉ chia 7 cột, cột 10C mới rộng 0 px */
+ r = await p.evaluate(()=>{ const t = document.querySelector('table.tc-to-ds'), th = [...t.querySelectorAll('thead tr:first-child th')], rows = [...t.querySelectorAll('tbody tr[data-to]')].slice(0, 8);
+   return {lop:t.classList.contains('co10c'), w:th.map(h=>Math.round(h.getBoundingClientRect().width)), cat:th.map((h, j)=>rows.filter(x=>x.cells[j] && x.cells[j].scrollWidth>x.cells[j].clientWidth+1).length), tong:Math.round(t.getBoundingClientRect().width), khung:Math.round(t.parentElement.clientWidth)}; });
+ ok('cột 10C mới THẤY ĐƯỢC: 8 cột chia đủ khung (mỗi cột ≥ 28 px, 10C mới ≥ 50 px), không cột nào bị cắt chữ, bảng không tràn khung', r.lop && r.w.length===8 && r.w.every(x=>x>=28) && r.w[7]>=50 && r.cat.every(x=>x===0) && r.tong<=r.khung+1, JSON.stringify(r));
  /* bấm ô 2 bản */
  r = await p.evaluate(async(m)=>{ const tr = document.querySelector('table.tc-to-ds tbody tr[data-to="'+m+'"]'), j = [...document.querySelectorAll('table.tc-to-ds thead tr:first-child th')].findIndex(x=>x.textContent.trim()==='10C mới');
    const chon = typeof TC_BANG!=='undefined' ? TC_BANG.chon : null; tr.cells[j].querySelector('[data-lenh="m10c.mo"]').click(); await new Promise(z=>setTimeout(z, 300));

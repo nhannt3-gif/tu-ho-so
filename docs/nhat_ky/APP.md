@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 27/11/2026 — TK 2 · PHIÊN (3.568 sửa cột 10C mới bị ẩn ở Tra cứu KH)
+- Anh báo (ảnh) đã nạp DS 10C mà không thấy cột → đo: cột có trong bảng nhưng rộng 0 px (bảng fixed layout, CSS chỉ chia 7 cột). Sửa lớp `co10c` + chia 8 cột; anh "cân đối lại các cột đã có" → đo 3 cỡ màn, không cột nào cắt chữ.
+- Bẫy: phép thử bố cục phải ĐO độ rộng / cắt chữ, không chỉ kiểm có phần tử (t417 thêm ý đo). Máy khởi động lại mất tests/lib + tests/gia* → dựng lại theo .github/workflows/kiem-pr.yml (npm pack + taogia.py; cần `python3 -m pip install openpyxl`).
+
 ### 26/11/2026 — TK 2 · PHIÊN (3.567 diễn biến món vay 3 tháng KHĐ theo tháng)
 - Anh duyệt kế hoạch ("đồng ý, coi như đây là 1 chức năng quan trọng có thể theo dõi nhiều sau này" → "code và gộp"): js/99c `DBT` — bộ máy diễn biến theo tháng (chỉ tiêu khai trong `DBT.CHI`), chỉ tiêu đầu tiên KHĐ; Sao kê `db_khd` (Nợ cần xử lý). t419 10/10.
 - Thiết kế: mỗi kỳ tính KHĐ từ Mẫu 31 kỳ đó (`KHO.bo` + `slDsNo(B,'khd')`), tổ của kỳ (`KHO.nap`) → sổ tóm tắt IndexedDB (khóa có mã băm Mẫu 31 + `DBT.BAN`); lọc phạm vi bằng `pvLoc` trên tổ đã lưu; Mới / Thoát theo KU toàn kỳ.

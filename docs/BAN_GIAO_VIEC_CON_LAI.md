@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.568)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Tra cứu KH › Tổ trưởng (đã nạp DS 10C) | cột 10C mới sau CCCD, Đã scan / Thiếu | |
+| 2 | Cột CCCD, Mã tổ, Hội | đọc đủ chữ, không “…” | |
+
+Ghi chú kỹ thuật 3.568: bảng tổ fixed layout — thêm cột mới phải thêm độ rộng cho đủ số cột (lớp theo số cột, vd `co10c`), không thì cột cuối 0 px.
+
 ### Danh sách thử trên máy thật (3.567)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
