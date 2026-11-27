@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.572 — 28/11/2026 — Phân nhóm xử lý A/B/C món vay 3 tháng KHĐ (TK 2)
+- **Nguồn:** danh sách việc anh duyệt 28/11, mục 7 (khuôn Phụ lục mục 3 "Nội dung họp giao ban": nhóm A mới phát sinh lãi tồn dưới 6 tháng lãi, nhóm C lãi tồn từ 12 tháng lãi trở lên, nhóm B còn lại).
+- **js/99d:** bảng `khd_abc` trong ô KHĐ — mỗi món KHĐ (Mẫu 31 hiện tại, theo lọc Sao kê): Hội · Tổ trưởng · Khách hàng (đánh dấu mới) · Ấp · Chương trình · Dư nợ · GD gần nhất · Lãi tồn · Số tháng lãi · Nhóm; nhóm theo Điểm GD (đếm A/B/C từng điểm), tóm tắt đầu bảng. Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng theo Mẫu 31; lãi suất > 2 hiểu là %/năm). "Mới" = không có trong KHĐ tháng chốt trước (sổ theo dõi DBT). Thiếu lãi suất → nhóm "?".
+- **Phép thử:** t419 thêm ý A/B/C; t314 (39 báo cáo); t276 chụp thêm khd_abc.
+
 ## 3.571 — 28/11/2026 — Ô Chỉ tiêu VB 180 + bỏ ô Nợ cần xử lý (TK 2)
 - **Nguồn:** danh sách việc anh duyệt 28/11 (mục 5 dọn ô Nợ cần xử lý, mục 6 bảng đối chiếu toàn bộ chỉ tiêu VB 180) · "em cứ làm theo em thấy tốt nhất".
 - **js/99f `CT180` — ô 🎯 Chỉ tiêu VB 180 (đầu Sao kê, A4 ngang 1 trang):** Toàn PGD › Xã › Điểm GD (mọi điểm có tổ) × 7 chỉ tiêu, mỗi chỉ tiêu Kết quả · Chỉ tiêu · ĐG (✓ / ✗ / trống = chưa đủ số liệu), cột Số chỉ tiêu đạt: tỷ lệ QH ≤ min(31/12, 0,08%) · KHĐ ≤ chỉ tiêu quý (−30%) · khoanh ≤ chỉ tiêu quý (−5%) · thu nợ gốc đến hạn ≥ 99% (ước tính) · tổ TB/Yếu = 0 và điểm CL tổ bình quân ≥ 93 (CLT02 tháng, kỳ Sao kê) · tổ viên còn dư nợ gửi TK 105 ≥ 10.000 đ ≥ 99%. Chưa có nguồn: điểm CL giao dịch xã, lãi tồn so đầu năm (ghi chú cuối bảng).

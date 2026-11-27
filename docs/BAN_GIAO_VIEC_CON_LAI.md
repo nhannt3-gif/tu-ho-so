@@ -266,6 +266,14 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.572)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Ô KHĐ › Phân nhóm A/B/C | khớp nhóm từng món ở Phụ lục mục 3 giao ban | |
+| 2 | Số tháng lãi | hợp lý với lãi suất chương trình (kiểm vài món) | |
+
+Ghi chú kỹ thuật 3.572: OKHD.thangLai(o, ls) — đơn vị lãi suất Mẫu 31 chưa đối chiếu file thật (giả định > 2 là %/năm); sai thì sửa 1 chỗ.
+
 ### Danh sách thử trên máy thật (3.571)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

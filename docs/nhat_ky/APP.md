@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 — TK 2 · PHIÊN (3.572 phân nhóm A/B/C món KHĐ)
+- Mục 7 danh sách đã duyệt: bảng khd_abc trong ô KHĐ (khuôn Phụ lục mục 3 giao ban). Bẫy: đơn vị lãi suất Mẫu 31 chưa đối chiếu file thật — giả định > 2 là %/năm (OKHD.thangLai), cần anh kiểm vài món.
+- Hết danh sách việc đã duyệt (trừ phần KQGD — lên kế hoạch chờ anh duyệt).
+
 ### 28/11/2026 — TK 2 · PHIÊN (3.571 ô Chỉ tiêu VB 180 + bỏ ô Nợ cần xử lý)
 - Mục 5 + 6 danh sách đã duyệt: js/99f CT180 (1 bảng đối chiếu 7 chỉ tiêu VB 180 theo Toàn PGD › Xã › Điểm), cgn sang ô Phát sinh, bỏ ô xl. Hồi quy sau gộp 3.570: 299 đạt, 1 trượt t276 (bản chụp cũ trước khi dời ô nhập) → chụp lại ở 3.571.
 - Bẫy: lớp bọc `skXem` giữ cờ trong try/finally đồng bộ → khi lời gọi trả promise, cờ trả về sớm; 2 lớp (99c DBT + 99e thu nợ ĐH) lồng nhau gọi vòng vô hạn (t421 treo). Sửa: cờ trả về khi promise xong.

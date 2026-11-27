@@ -28,7 +28,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    try{ await skXem(); } finally { KHO.bo = bo; } await new Promise(z=>setTimeout(z, 300)); const x = [].concat(SK_XEM||[])[0] || {}; return {goi, tieu:x.tieuDe, aoa:x.aoa, html:x.html||'', loiNgay:window.LOI_NGAY||''}; }, [k, cfg]);
  /* 1. bố cục danh mục */
  let r = await p.evaluate(()=>({nhom:SK_NHOM.map(n=>n.k).join(), xl:SK_BC.filter(b=>b.nhom==='xl').map(b=>b.k).join(), o:SK_BC.filter(b=>b.nhom==='khd3').map(b=>b.k+':'+b.kho).join(), ten:(SK_NHOM.find(n=>n.k==='khd3')||{}).ten}));
- ok('Sao kê: ô "📉 Món vay 3 tháng KHĐ" đầu nhóm nợ (sau Nợ cần xử lý; 3.571 bỏ ô đó); 5 bảng (4 khổ ngang + sao kê dọc giữ nguyên); ô Nợ cần xử lý không còn mục KHĐ', /^(ct180,)?(xl,)?khd3,/.test(r.nhom) && r.o==='khd_tq:ngang,khd_db:ngang,khd_ss:ngang,khd:doc,khd_ng:ngang' && !/khd/.test(r.xl||'') && /Món vay 3 tháng KHĐ/.test(r.ten), JSON.stringify(r));
+ ok('Sao kê: ô "📉 Món vay 3 tháng KHĐ" đầu nhóm nợ (sau Nợ cần xử lý; 3.571 bỏ ô đó); 6 bảng (3.571 + phân nhóm A/B/C; sao kê dọc giữ nguyên); ô Nợ cần xử lý không còn mục KHĐ', /^(ct180,)?(xl,)?khd3,/.test(r.nhom) && r.o==='khd_tq:ngang,khd_db:ngang,khd_ss:ngang,khd:doc,khd_abc:ngang,khd_ng:ngang' && !/khd/.test(r.xl||'') && /Món vay 3 tháng KHĐ/.test(r.ten), JSON.stringify(r));
  /* 2. B1 tổng quan + chỉ tiêu */
  r = await xem('khd_tq'); const H = r.aoa[0], T = r.aoa[1], c = t=>H.indexOf(t), n0 = mong['2025-12'].n, nh = mong['2026-09-10'].n, n8 = mong['2026-08'].n;
  const quy = Math.floor(n0*(1-0.30*3/4)), nam = Math.floor(n0*0.7);
@@ -57,6 +57,10 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    return {n:ds.length}; });
  const nNg = r.aoa.length-1-(r.aoa.some(d=>/^Tổng cộng/.test(d[1])) ? 1 : 0);
  ok('B5 món chậm nộp lãi sẽ thành KHĐ trong 2 tháng: đúng luật KHĐ ngày tương lai, không gồm món đã KHĐ / quá hạn / khoanh', nNg===kt.n && /nguy cơ|NGUY CƠ/.test(r.tieu), JSON.stringify({bc:nNg, mong:kt.n}));
+ /* 5b. phân nhóm A/B/C */
+ r = await xem('khd_abc'); const ab = r.aoa.filter(d=>typeof d[0]==='number');
+ ok('phân nhóm A/B/C: đủ mọi món KHĐ hiện tại; nhóm A chỉ món mới (không có ở T8) lãi tồn < 6 tháng lãi, C ≥ 12 tháng lãi', ab.length===nh && ab.every(d=>['A', 'B', 'C', '?'].indexOf(d[10])>=0) &&
+   ab.every(d=>d[10]!=='C' || d[9]>=12) && ab.every(d=>d[10]!=='A' || d[9]<6) && /PHÂN NHÓM/.test(r.tieu), JSON.stringify({n:ab.length, nh, nhom:ab.map(d=>d[10]+':'+d[9]).join(' ')}).slice(0, 300));
  /* 6. sổ theo dõi */
  await p.evaluate(()=>{ DBT.S = {}; }); r = await xem('khd_tq');
  ok('mở lại (bộ nhớ trống) → đọc sổ theo dõi trên máy: chỉ dựng lại bộ Mẫu 31 hiện tại (cho B5)', r.goi===1 && r.aoa[1][c('Món hiện tại')]===nh, JSON.stringify({goi:r.goi}));
