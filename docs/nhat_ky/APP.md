@@ -13,6 +13,7 @@
 > ```
 
 ### 27/11/2026 — TK 2 · PHIÊN (3.569 In DS tổ nhóm theo Hội)
+- QUY TẮC MỚI (anh 28/11 "ok gộp đi, làm xong gộp liền rồi chạy sau"): code xong + kiem.py sạch + phép thử khối đó đạt → gộp ngay; hồi quy / 5 kiểm tra GitHub chạy sau, trượt thì vá bản kế. 3.569 gộp theo cách này, hồi quy sau gộp 13/13 đạt.
 - Anh (ảnh bản in) + chọn "STT theo Hội nhưng có tổng của điểm và xã" + "bỏ cột 10C, code và gộp": js/58b `TCIN.dl` nhóm Xã → Điểm → Hội, `html` 8 cột (+ SĐT tổ trưởng `t.sdt`, Tổ phó `t.pho`), Cộng điểm / xã chia theo Hội; bỏ `html10`. t386 9/9, t417 cập nhật.
 
 ### 27/11/2026 — TK 2 · PHIÊN (3.568 sửa cột 10C mới bị ẩn ở Tra cứu KH)

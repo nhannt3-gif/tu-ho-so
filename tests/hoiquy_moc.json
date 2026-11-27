@@ -28,7 +28,7 @@
 }
 },
 "hoiquy2": {
-"ban": "3.568",
+"ban": "3.569",
 "ngay": "2026-11-27",
 "kq": "✓ [iPhone] không lỗi đỏ trong Console",
 "dau": {
@@ -52,7 +52,7 @@
 "js/36-dong-bo-khoi.js": "8d85249fa8aa",
 "js/39-gd.js": "89398f5cf42b",
 "js/69-bo-cuc-a.js": "c908dabd7872",
-"tests/hoiquy2.js": "1403f5ada454",
+"tests/hoiquy2.js": "bb8ff52cb7e9",
 "tests/tv.js": "7ec41f0a7bfa"
 }
 },
@@ -8663,9 +8663,9 @@
 }
 },
 "t386": {
-"ban": "3.568",
+"ban": "3.569",
 "ngay": "2026-11-27",
-"kq": "7/7 đạt",
+"kq": "9/9 đạt",
 "dau": {
 "css/app.css": "236c57fba639",
 "index.html": "52ea2e8cce81",
@@ -8691,7 +8691,7 @@
 "js/58-tc-to.js": "4d2827ad0853",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
-"tests/t386.js": "36df9a51083e",
+"tests/t386.js": "9180bfa25cca",
 "tests/taogia.py": "1158f2034dc7",
 "tests/tv.js": "7ec41f0a7bfa"
 }
@@ -9640,7 +9640,7 @@
 }
 },
 "t417": {
-"ban": "3.568",
+"ban": "3.569",
 "ngay": "2026-11-27",
 "kq": "✓ t417 đạt hết",
 "dau": {
@@ -9665,13 +9665,13 @@
 "js/36-dong-bo-khoi.js": "8d85249fa8aa",
 "js/39-gd.js": "89398f5cf42b",
 "js/58-tc-to.js": "4d2827ad0853",
-"js/58b-tc-to-in.js": "474731ef512f",
+"js/58b-tc-to-in.js": "1737ad86b339",
 "js/63-bao-cao-toi.js": "44aa655364a5",
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
 "js/98-mon-chuan.js": "a0485611aa59",
 "js/99-10c.js": "72b6dbcdcf0d",
-"tests/t417.js": "74922a1b1822",
+"tests/t417.js": "dba277fdec42",
 "tests/taogia.py": "1158f2034dc7",
 "tests/tv.js": "7ec41f0a7bfa"
 }
