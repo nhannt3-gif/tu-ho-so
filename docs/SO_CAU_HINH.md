@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**178 khóa** trong code · 179 khóa trong sổ.
+**182 khóa** trong code · 183 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -45,6 +45,7 @@
 | `dbRoiApp` | 12c-scan-camera-drive.js | 1 | 12c-scan-camera-drive.js |  |
 | `dbSauLuu` | 12b-scan-dien-thoai.js | 3 | 12b-scan-dien-thoai.js · 41-scan-sap-xep.js · 44-quet-cccd-form.js | 3.46: lưu tạm xong đưa lên Drive liền (có mạng) |
 | `demDung` | 06-hop-thoai.js | 3 | 06-hop-thoai.js |  |
+| `dhCT` | 99e-o-no.js | 2 | 99e-o-no.js | 3.570: chỉ tiêu thu nợ gốc đến hạn ô Nợ đến hạn (js/99e) — {tl: %, mặc định 99 theo CV 180} |
 | `diaBan` | 04b-hom-nay.js | 41 | 04b-hom-nay.js · 04b3-hom-nay-lich-viec.js · 04c-van-ban-thang.js · 04d-bo-ho-so.js · 08-dia-ban.js · 11-khung-tab.js …+6 | số liệu hệ thống trước, danh mục Cài đặt sau (QT-C-10) |
 | `diaBanCu` | 82-dia-ban-so-lieu.js | 5 | 82-dia-ban-so-lieu.js |  |
 | `dkChon` | 62-dang-ky.js | 6 | 62-dang-ky.js · 63-bao-cao-toi.js | đổi khai báo → nhóm theo lấy lại mặc định mới |
@@ -80,9 +81,11 @@
 | `kaMuc` | 12b-scan-dien-thoai.js | 2 | 12b-scan-dien-thoai.js |  |
 | `kaTM` | — | 0 |  |  |
 | `kdBoCu` | 36-dong-bo-khoi.js | 6 | 36-dong-bo-khoi.js |  |
+| `khdCT` | 99d-o-khd.js | 5 | 99d-o-khd.js | 3.570: chỉ tiêu KHĐ ô Sao kê (js/99d) — {pt: % giảm so 31/12, mặc định 30 theo CV 180; pgd: số món PGD theo phụ lục tỉnh} |
 | `khoiMo` | 04b3-hom-nay-lich-viec.js | 4 | 04b3-hom-nay-lich-viec.js |  |
 | `kieuTen` | 03-doc-pdf.js | 5 | 03-doc-pdf.js · 06-hop-thoai.js |  |
 | `kieuTenThang` | 03-doc-pdf.js | 1 | 03-doc-pdf.js |  |
+| `knCT` | 99e-o-no.js | 2 | 99e-o-no.js | 3.570: chỉ tiêu nợ khoanh ô Sao kê (js/99e) — {pt: % giảm so 31/12, mặc định 5 theo CV 180} |
 | `ktApThu` | 22e-ktgs-kh.js | 5 | 22e-ktgs-kh.js |  |
 | `ktBang16` | 22b-ktgs.js | 3 | 22b-ktgs.js | 3.111: nhớ lựa chọn Bảng II Mẫu 16 |
 | `ktChonHo` | 80-ktgs-to.js | 5 | 80-ktgs-to.js | KTGS: khai báo chọn hộ kiểm tra — số hộ theo số tổ viên, Trung hòa % cần quan tâm, kiểu / món xét mặc định (3.514, js/80) |
@@ -132,6 +135,7 @@
 | `pvGhimO` | 22g-to.js | 2 | 22g-to.js · 22ga-pham-vi.js | ---------- 3.383.7 (anh 27/10): 📌 GHIM TỪNG Ô LỌC — D.cauHinh.pvGhimO {cap: giá trị}; mở app ô ghim luôn về gi… |
 | `pvGon` | 22ga-pham-vi.js | 1 | 22ga-pham-vi.js | 3.206 (anh chốt 14/10): mọi tab — đã chọn địa bàn thì có nút ▾ Mở rộng / ▴ Thu gọn (nhớ theo tab: D.cauHinh.pv… |
 | `pvKieu` | 22ga-pham-vi.js | 3 | 22ga-pham-vi.js | 3.383.7: kiểu gọn / chip luôn nhớ cho lần mở sau (D.cauHinh.pvKieu) — trước 3.328 chỉ nhớ khi ghim |
+| `qhCT` | 99e-o-no.js | 2 | 99e-o-no.js | 3.570: chỉ tiêu nợ quá hạn ô Sao kê (js/99e) — {tran: trần tỷ lệ %, mặc định 0,08 theo CV 180} |
 | `racTuXoa` | 10-danh-sach.js | 3 | 10-danh-sach.js | 3.153 (anh chốt): mặc định giữ 30 ngày rồi tự xóa hẳn |
 | `rong3304` | 10-danh-sach.js | 2 | 10-danh-sach.js | 3.304: bỏ độ rộng Scan đã kéo 1 lần → mặc định gọn mới |
 | `rong339` | 10-danh-sach.js | 2 | 10-danh-sach.js |  |

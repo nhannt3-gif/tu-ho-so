@@ -266,6 +266,18 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.570)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › ô KHĐ › Tổng quan | số món hiện tại khớp sao kê KHĐ; đầu năm có Mẫu 31 chốt 12/2025 | |
+| 2 | Ô KHĐ › So sánh theo tổ | khớp bảng mục 4 giao ban tháng | |
+| 3 | Ô KHĐ › Nguy cơ | khớp phụ lục mục 6 giao ban (món chậm nộp lãi) | |
+| 4 | Ô Nợ quá hạn › Tổng quan | tỷ lệ QH khớp hệ thống | |
+| 5 | Ô Nợ đến hạn › Kết quả thu nợ | so báo cáo thu nợ hệ thống (ước tính) | |
+| 6 | In / PDF các bảng | A4 ngang vừa trang | |
+
+Ghi chú kỹ thuật 3.570: js/99d OKHD (helper chung cot / gop / loc / hang / moc / b2(f) / b3(f)), js/99e ONO dùng lại; DBT.BAN 3 — đổi cách tính phải tăng BAN để bỏ sổ cũ. Thu nợ đến hạn: so Mẫu 31 chốt T−1 và T, kyLui(m, −1) = tháng trước.
+
 ### Danh sách thử trên máy thật (3.569)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

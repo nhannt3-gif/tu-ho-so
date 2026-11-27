@@ -41,9 +41,9 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    c.cqh = 2000000; c.qh = 1000000; c.c_ngay_cnqh_gan_nhat = th+'-25';
    const g = KHO.dsBang; KHO.dsBang = function(l){ const d = g.apply(this, arguments); return l==='hstd' ? d.concat([{loai:'hstd', ky:th+'-15', ngay:th+'-15'}]) : d; };
    let t; try{ t = CQH.lap(); } finally { KHO.dsBang = g; }
-   const R = CQH.ds(M, ng); return {coBC:SK_BC.some(x=>x.k==='cqh' && x.nhom==='xl'), n:R.ds.length, truoc:R.truoc, ku:R.ds.map(d=>d.ku), ngay:R.ds.map(d=>d.ncqh), ghi:R.ds.map(d=>d.ghi),
+   const R = CQH.ds(M, ng); return {coBC:SK_BC.some(x=>x.k==='cqh' && x.nhom===(typeof ONO!=='undefined' && SK_NHOM.some(n=>n.k==='qh3') ? 'qh3' : 'xl'))   /* 3.570: chuyển hẳn sang ô Nợ quá hạn (js/99e) */, n:R.ds.length, truoc:R.truoc, ku:R.ds.map(d=>d.ku), ngay:R.ds.map(d=>d.ncqh), ghi:R.ds.map(d=>d.ghi),
      abc:[a.ku, b2.ku, c.ku], html:t.html, tieu:t.tieuDe, aoa:t.aoa.length}; });
- ok('báo cáo "Nợ chuyển quá hạn trong tháng" ở nhóm Nợ cần xử lý, chỉ món chuyển QH > 0, xếp theo ngày chuyển', r.coBC && r.ku.join()===r.abc.join() && r.ngay[0]<r.ngay[1] && /NỢ CHUYỂN QUÁ HẠN TRONG THÁNG/.test(r.tieu), JSON.stringify(r).slice(0, 300));
+ ok('báo cáo "Nợ chuyển quá hạn trong tháng" ở ô Nợ quá hạn (3.570; rút js/99e thì ở Nợ cần xử lý), chỉ món chuyển QH > 0, xếp theo ngày chuyển', r.coBC && r.ku.join()===r.abc.join() && r.ngay[0]<r.ngay[1] && /NỢ CHUYỂN QUÁ HẠN TRONG THÁNG/.test(r.tieu), JSON.stringify(r).slice(0, 300));
  ok('món thu hết vẫn hiện "Đã thu hết"; thu bớt ghi số đã thu; cột Nguyên nhân + tóm tắt Xã › Hội', r.ghi[1]==='Đã thu hết' && /Đã thu 1\.000\.000/.test(r.ghi[2]) && /Nguyên nhân/.test(r.html) && /Xã \/ Hội/.test(r.html) && r.aoa>5, JSON.stringify(r.ghi));
  ok('"Mới" = chuyển QH sau ngày Mẫu 31 nạp liền trước trong tháng (2 món sau ngày 15 · tô nền)', /<b>2 món mới<\/b>/.test(r.html) && /Mới · Đã thu hết/.test(r.html) && (r.html.match(/class="nb"/g)||[]).length===2, (r.html.match(/\d+ món mới[^<]*/)||[''])[0]);
  o.forEach(x=>console.log(x)); if(loi.length) console.log('LỖI TRANG:', loi.slice(0,3).join(' | '));

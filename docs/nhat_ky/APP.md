@@ -12,6 +12,12 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 — TK 2 · PHIÊN (3.570 ô Sao kê KHĐ · Quá hạn · Khoanh + thu nợ đến hạn, chỉ tiêu VB 180)
+- Anh duyệt danh sách việc + "theo VB 180, em cứ làm theo em thấy tốt nhất" + "em gộp các bảng làm 1 lần và gộp": js/99d OKHD (ô KHĐ 5 bảng), js/99e ONO (ô Quá hạn, Khoanh, thêm "Kết quả thu nợ đến hạn" vào ô Nợ đến hạn), js/99c DBT chỉ tiêu khd/qh/kn (BAN 3), bỏ db_khd. t419 14/14, t420 10/10.
+- Căn cứ đã đọc: CV 180/NHCS-KHTD (phụ lục bản quét — số Gò Dầu không đọc chắc → ô nhập), VB UBND Truông Mít / Gia Lộc theo VB 180 (KHĐ −30%, QH ≤ 0,08% không tăng, khoanh −5%, thu nợ ĐH ≥ 99%), "Nội dung họp giao ban" T11 (khuôn bảng; giao ban ghi KHĐ "Giảm 20%" theo KH 1166 — anh chốt theo VB 180).
+- Bẫy: (1) khung xem Sao kê là iframe srcdoc → ô nhập trong báo cáo không chạy GD; dùng hook `SK_BC.tuyChon()` (thanh công cụ). (2) `kyLui(k, 1)` = tháng SAU; tháng trước = `kyLui(k, −1)`. (3) Dữ liệu giả nhỏ không có QH / KHĐ đầu năm → phép thử tự gán ngày GD cũ / qh cho vài món.
+- Còn tồn (đã duyệt, làm tiếp): dời KU chưa GN + bỏ ô Nợ cần xử lý · bảng đối chiếu toàn bộ chỉ tiêu VB 180 · nhóm A/B/C KHĐ · kế hoạch phần KQGD (anh 28/11 "riêng phần nào KQGD em lên KH làm luôn").
+
 ### 27/11/2026 — TK 2 · PHIÊN (3.569 In DS tổ nhóm theo Hội)
 - QUY TẮC MỚI (anh 28/11 "ok gộp đi, làm xong gộp liền rồi chạy sau"): code xong + kiem.py sạch + phép thử khối đó đạt → gộp ngay; hồi quy / 5 kiểm tra GitHub chạy sau, trượt thì vá bản kế. 3.569 gộp theo cách này, hồi quy sau gộp 13/13 đạt.
 - Anh (ảnh bản in) + chọn "STT theo Hội nhưng có tổng của điểm và xã" + "bỏ cột 10C, code và gộp": js/58b `TCIN.dl` nhóm Xã → Điểm → Hội, `html` 8 cột (+ SĐT tổ trưởng `t.sdt`, Tổ phó `t.pho`), Cộng điểm / xã chia theo Hội; bỏ `html10`. t386 9/9, t417 cập nhật.
