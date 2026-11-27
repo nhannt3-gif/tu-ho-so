@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.569)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | 🖨 In DS tổ — chọn 1 điểm | Điểm → Hội, STT lại từ 1 mỗi Hội, Cộng điểm chia theo Hội | |
+| 2 | 🖨 In DS tổ — chọn 1 xã nhiều điểm | thêm dòng XÃ + Cộng xã chia theo Hội | |
+| 3 | Cột SĐT tổ trưởng, Tổ phó | đúng như Tra cứu KH; trống nếu chưa có | |
+
+Ghi chú kỹ thuật 3.569: `TCIN.dl` trả {xa:[{xa, c, diem:[{diem, ngay, c, dsHoi:[{dv, ten, c, dong}]}]}], tong}; `c` = {to, tv, no, hoi:{dv: số tổ}}.
+
 ### Danh sách thử trên máy thật (3.568)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

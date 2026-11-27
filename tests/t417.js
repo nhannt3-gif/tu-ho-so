@@ -49,8 +49,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  ok('lọc cột 10C mới = Thiếu → chỉ còn tổ thiếu', r.n>0 && r.het, JSON.stringify(r));
  /* bản in + ma trận */
  r = await p.evaluate(()=>{ const ds = TCIN.dsHien(), g = {d:TCIN.dl(ds, TC_K), pv:'giả', ky:'08/2026'}, h = TCIN.html(g);
-   const c = MCH.ctx(TC_K), y = MCH.TRUONG.find(f=>f.k==='mc_10c'); return {in:/<td class="c b">10C mới<\/td>/.test(h) && /2\/\d+<\/td>/.test(h), mch:!!y && y.lay(c, {mato:ds[0].ma})!=null && BT_COT.to.some(x=>x.k==='mc_10c')}; });
- ok('🖨 In DS tổ có cột 10C mới + tổng; ma trận món chuẩn / 🧩 có trường "10C mới (tổ)"', r.in && r.mch, JSON.stringify(r));
+   const c = MCH.ctx(TC_K), y = MCH.TRUONG.find(f=>f.k==='mc_10c'); return {in:h.indexOf('10C mới')<0 && /DANH SÁCH TỔ/.test(h), mch:!!y && y.lay(c, {mato:ds[0].ma})!=null && BT_COT.to.some(x=>x.k==='mc_10c')}; });
+ ok('🖨 In DS tổ KHÔNG có cột 10C mới (anh 27/11 "bỏ cột 10C đi"); ma trận món chuẩn / 🧩 có trường "10C mới (tổ)"', r.in && r.mch, JSON.stringify(r));
  /* nạp bản mới hơn → dùng bản mới */
  r = await nap('24/11/2026', [dong(1, ma[0], 'Có', '10C_GL_Ap_HND_'+ma[0]+'-ToGia.pdf', 'Nhận bàn giao'), dong(2, ma[1], 'Có', '10C_GL_Ap_HND_'+ma[1]+'-ToGia.pdf', 'Giữ nguyên'), dong(3, ma[2], 'Có', '10C_GL_Ap_HND_'+ma[2]+'-ToGia.pdf', 'Giải thể')]);
  r = await bang();
