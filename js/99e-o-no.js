@@ -13,9 +13,16 @@ var ONO = (function(){
   var O = OKHD, tr = function(v){ return v==null ? '—' : (Math.round((v||0)/1e5)/10).toLocaleString('vi-VN', {minimumFractionDigits:1, maximumFractionDigits:1}); };
   var so = function(v){ return v==null ? '—' : (+v).toLocaleString('vi-VN'); }, pt = function(v){ return v==null ? '—' : v.toLocaleString('vi-VN', {minimumFractionDigits:2, maximumFractionDigits:2})+'%'; };
   var mau = function(v){ return v>0 ? ' style="color:#b42318"' : (v<0 ? ' style="color:#067647"' : ''); }, dtr = function(v){ return v==null ? '—' : (v>0 ? '+' : '')+tr(v); };
+  var khoaD = function(t){ return t.xa+'|'+t.khoaDiem; };
+  /* hàng Toàn PGD › Xã › Điểm từ {khóa: {xa, tenXa, diem, tenDiem}} (dùng chung js/99e, 99f) */
+  M.hangTu = function(H){ var keys = Object.keys(H).sort(function(a, b){ return H[a].tenXa.localeCompare(H[b].tenXa, 'vi') || H[a].tenDiem.localeCompare(H[b].tenDiem, 'vi'); }), hang = [{cap:'tong', nhan:'TOÀN PGD', f:function(){ return true; }}], xa = [];
+    keys.forEach(function(k){ if(xa.indexOf(H[k].xa)<0) xa.push(H[k].xa); });
+    xa.forEach(function(X){ var kd = keys.filter(function(k){ return H[k].xa===X; }); hang.push({cap:'xa', nhan:'Xã '+H[kd[0]].tenXa.replace(/^(Xã|Phường|Thị trấn)\s+/i, ''), f:function(t){ return t.xa===X; }});
+      kd.forEach(function(k){ var Dm = H[k].diem; hang.push({cap:'diem', nhan:'Điểm GD '+(H[k].tenDiem || '(chưa rõ)'), f:function(t){ return t.xa===X && t.khoaDiem===Dm; }}); }); });
+    return hang; };
+  M.tr = tr; M.so = so; M.khoaD = khoaD;   /* 3.571: js/99f dùng chung (không viết trùng hàm định dạng) */
   M.ctQH = function(){ var c = D.cauHinh.qhCT || {}; return {tran:+c.tran>0 ? +c.tran : 0.08}; };
   M.ctKN = function(){ var c = D.cauHinh.knCT || {}; return {pt:(+c.pt>0 && +c.pt<100) ? +c.pt : 5}; };
-  var khoaD = function(t){ return t.xa+'|'+t.khoaDiem; };
   /* tổng dư nợ (mẫu số tỷ lệ QH) của nhóm tổ trong 1 kỳ */
   M.dnNhom = function(k, f){ if(!O.coSo(k) || !k.s.dnTo) return null; var S = skCH(), r = 0;
     Object.keys(k.s.dnTo).forEach(function(m){ var t = k.s.to[m]; if(t && pvLoc(S, t) && f(t)) r += k.s.dnTo[m]; }); return r; };
@@ -93,10 +100,7 @@ var ONO = (function(){
     if(!r) return {ten:'DH ket qua', tieuDe:'KẾT QUẢ THU NỢ ĐẾN HẠN', ngay:N.ngay, aoa:[['Cần Mẫu 31 chốt 2 tháng liên tiếp']], html:'<div class="bc-rong">Cần Mẫu 31 chốt 2 tháng liên tiếp (tháng trước và tháng đang xem) để tính kết quả thu nợ đến hạn.</div>'};
     var ds = M.dhTinh(r), ct = M.dhCT(), H = {};
     ds.forEach(function(z){ var t = z.t; H[t.xa+'|'+t.khoaDiem] = {xa:t.xa, tenXa:t.tenXa||'', diem:t.khoaDiem, tenDiem:String(t.tenDiemDu || t.tenDiem || '').replace(/\s*·?\s*ngày\s*\d+.*$/i, '')}; });
-    var keys = Object.keys(H).sort(function(a, b){ return (H[a].tenXa).localeCompare(H[b].tenXa, 'vi') || (H[a].tenDiem).localeCompare(H[b].tenDiem, 'vi'); }), hang = [{cap:'tong', nhan:'TOÀN PGD', f:function(){ return true; }}], xa = [];
-    keys.forEach(function(k){ if(xa.indexOf(H[k].xa)<0) xa.push(H[k].xa); });
-    xa.forEach(function(X){ var kd = keys.filter(function(k){ return H[k].xa===X; }); hang.push({cap:'xa', nhan:'Xã '+H[kd[0]].tenXa.replace(/^(Xã|Phường|Thị trấn)\s+/i, ''), f:function(t){ return t.xa===X; }});
-      kd.forEach(function(k){ var Dm = H[k].diem; hang.push({cap:'diem', nhan:'Điểm GD '+(H[k].tenDiem || '(chưa rõ)'), f:function(t){ return t.xa===X && t.khoaDiem===Dm; }}); }); });
+    var hang = M.hangTu(H);
     var th = '<tr><th rowspan="2">Stt</th><th rowspan="2">Đơn vị</th><th colspan="2">Đến hạn '+kyVN(r.m)+'</th><th colspan="2">Đã thu</th><th colspan="2">Gia hạn</th><th colspan="2">Chuyển quá hạn</th><th colspan="2">Chưa thu hết</th><th rowspan="2">Tỷ lệ thu</th><th rowspan="2">Chỉ tiêu</th><th rowspan="2">Đánh giá</th></tr>'+
       '<tr><th>Món</th><th>Số tiền</th><th>Món</th><th>Số tiền</th><th>Món</th><th>Số tiền</th><th>Món</th><th>Số tiền</th><th>Món</th><th>Số tiền</th></tr>';
     var aoa = [['Stt', 'Đơn vị', 'Món đến hạn', 'Số tiền đến hạn', 'Món đã thu', 'Số tiền đã thu', 'Món gia hạn', 'Số tiền gia hạn', 'Món chuyển QH', 'Số tiền chuyển QH', 'Món chưa thu hết', 'Số tiền chưa thu', 'Tỷ lệ thu (%)', 'Chỉ tiêu (%)', 'Đánh giá']], stt = 0;
@@ -111,7 +115,8 @@ var ONO = (function(){
         'tỷ lệ thu = đã thu / (đến hạn − gia hạn) · chỉ tiêu CV 180: thu nợ gốc đến hạn ≥ '+ct.tl+'% · đơn vị: món, triệu đồng — đối chiếu báo cáo hệ thống trước khi dùng chính thức.</div>'+
         '<table class="bc-bang"><thead>'+th+'</thead><tbody>'+body+'</tbody></table>', aoa:aoa}; };
   if(typeof skXem==='function'){ var cuXem = skXem; skXem = function(){ var C = skCH(), self = this, a = arguments;
-      if(C.bc && C.bc.dh_kq && !M.dhDang && SK_K && SK_K.thang) return M.dhNap().then(function(){ M.dhDang = true; try{ return skXem.apply(self, a); } finally { M.dhDang = false; } }, function(er){ baoLoi('Thu nợ đến hạn: không đọc được Mẫu 31 — '+(er && er.message || er)); });
+      if(C.bc && (C.bc.dh_kq || C.bc.ct180) && !M.dhDang && SK_K && SK_K.thang) return M.dhNap().then(function(){ M.dhDang = true;
+       var kq; try{ kq = skXem.apply(self, a); } catch(er){ M.dhDang = false; throw er; } var het = function(){ M.dhDang = false; }; return Promise.resolve(kq).then(het, het);   /* 3.571: cờ giữ tới khi xem xong (2 lớp nạp trước lồng nhau không gọi vòng) */ }, function(er){ baoLoi('Thu nợ đến hạn: không đọc được Mẫu 31 — '+(er && er.message || er)); });
       return cuXem.apply(this, arguments); }; }
   /* ---------- gắn vào Sao kê ---------- */
   var QH = {ma2:'qh_db', ma3:'qh_ss', chi:'qh', ten:'NỢ QUÁ HẠN', ma:'QH', tien:1, ra:'đã thu hết nợ quá hạn (hoặc xử lý)', moi:'mới chuyển quá hạn', don:'Dư nợ quá hạn'};
@@ -131,6 +136,9 @@ var ONO = (function(){
   M.suaQH = function(){ return '<span class="sk-ngay" title="CV 180: tỷ lệ QH không tăng so 31/12, ≤ 0,08%">Trần tỷ lệ QH <input type="number" step="0.01" min="0.01" value="'+M.ctQH().tran+'" style="width:58px" data-lenh="ono.tran" data-su="change">%</span>'; };
   M.suaKN = function(){ return '<span class="sk-ngay" title="CV 180: nợ khoanh giảm ít nhất 5%">Chỉ tiêu giảm <input type="number" min="1" max="99" value="'+M.ctKN().pt+'" style="width:48px" data-lenh="ono.pt" data-su="change">%</span>'; };
   M.suaDH = function(){ return '<span class="sk-ngay" title="CV 180: thu nợ gốc đến hạn ≥ 99%">Chỉ tiêu thu ≥ <input type="number" min="1" max="100" value="'+M.dhCT().tl+'" style="width:48px" data-lenh="ono.tl" data-su="change">%</span>'; };
+  /* 3.571 (danh sách anh duyệt 28/11, mục 5): "KU đã nhập máy chưa giải ngân" dời sang ô Phát sinh tháng; ô Nợ cần xử lý hết mục → bỏ ô (rút js/99e là về như cũ) */
+  SK_BC.forEach(function(b){ if(b.k==='cgn' && b.nhom==='xl') b.nhom = 'ps'; });
+  if(!SK_BC.some(function(b){ return b.nhom==='xl'; })){ var ixl = SK_NHOM.findIndex(function(n){ return n.k==='xl'; }); if(ixl>=0) SK_NHOM.splice(ixl, 1); }
   M.doi = function(k, f, v){ var c = D.cauHinh[k] = D.cauHinh[k] || {}; c[f] = v==='' ? '' : +v; luu(); if(typeof skXemHen==='function') skXemHen(); };
   if(typeof gdDangKy==='function') gdDangKy('ono', {tran:function(el){ M.doi('qhCT', 'tran', el.value); }, pt:function(el){ M.doi('knCT', 'pt', el.value); }, tl:function(el){ M.doi('dhCT', 'tl', el.value); }});
   return M;

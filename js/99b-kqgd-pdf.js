@@ -169,7 +169,7 @@ var KQPDF = (function(){
     x = ds.filter(function(b){ var a = slChuan(b.t.ten); return n.length>=8 && (a.indexOf(n)===0 || n.indexOf(a)===0); }); return x.length===1 ? x[0] : null; };
   if(typeof SK_BC!=='undefined') SK_BC.push({k:'kqgd31', ten:'Đối chiếu KQGD (PDF phiên) ↔ Mẫu 31 — từng Hội, từng tổ của điểm', nhom:'tt', kho:'ngang', lap:function(){ return M.lap(); }});
   if(typeof skXem==='function'){ var cuXem = skXem; skXem = function(){ var C = skCH();
-      if(C.bc && C.bc.kqgd31 && !M.daNap && SK_K){ var e = KHO.bang('hstd', SK_K.thang); if(e) return M.napHet(e.ngay).then(function(){ M.daNap = true; try{ skXem(); } finally { M.daNap = false; } }); }
+      if(C.bc && C.bc.kqgd31 && !M.daNap && SK_K){ var e = KHO.bang('hstd', SK_K.thang); if(e) return M.napHet(e.ngay).then(function(){ M.daNap = true; var kq; try{ kq = skXem(); } catch(er){ M.daNap = false; throw er; } var het = function(){ M.daNap = false; }; return Promise.resolve(kq).then(het, het); }); }
       return cuXem.apply(this, arguments); }; }
   return M;
 })();

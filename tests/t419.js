@@ -28,7 +28,7 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
    try{ await skXem(); } finally { KHO.bo = bo; } await new Promise(z=>setTimeout(z, 300)); const x = [].concat(SK_XEM||[])[0] || {}; return {goi, tieu:x.tieuDe, aoa:x.aoa, html:x.html||'', loiNgay:window.LOI_NGAY||''}; }, [k, cfg]);
  /* 1. bố cục danh mục */
  let r = await p.evaluate(()=>({nhom:SK_NHOM.map(n=>n.k).join(), xl:SK_BC.filter(b=>b.nhom==='xl').map(b=>b.k).join(), o:SK_BC.filter(b=>b.nhom==='khd3').map(b=>b.k+':'+b.kho).join(), ten:(SK_NHOM.find(n=>n.k==='khd3')||{}).ten}));
- ok('Sao kê: ô "📉 Món vay 3 tháng KHĐ" ngay sau Nợ cần xử lý; 5 bảng (4 khổ ngang + sao kê dọc giữ nguyên); ô Nợ cần xử lý không còn mục KHĐ', /^xl,khd3,/.test(r.nhom) && r.o==='khd_tq:ngang,khd_db:ngang,khd_ss:ngang,khd:doc,khd_ng:ngang' && !/khd/.test(r.xl) && /Món vay 3 tháng KHĐ/.test(r.ten), JSON.stringify(r));
+ ok('Sao kê: ô "📉 Món vay 3 tháng KHĐ" đầu nhóm nợ (sau Nợ cần xử lý; 3.571 bỏ ô đó); 5 bảng (4 khổ ngang + sao kê dọc giữ nguyên); ô Nợ cần xử lý không còn mục KHĐ', /^(ct180,)?(xl,)?khd3,/.test(r.nhom) && r.o==='khd_tq:ngang,khd_db:ngang,khd_ss:ngang,khd:doc,khd_ng:ngang' && !/khd/.test(r.xl||'') && /Món vay 3 tháng KHĐ/.test(r.ten), JSON.stringify(r));
  /* 2. B1 tổng quan + chỉ tiêu */
  r = await xem('khd_tq'); const H = r.aoa[0], T = r.aoa[1], c = t=>H.indexOf(t), n0 = mong['2025-12'].n, nh = mong['2026-09-10'].n, n8 = mong['2026-08'].n;
  const quy = Math.floor(n0*(1-0.30*3/4)), nam = Math.floor(n0*0.7);
