@@ -140,15 +140,44 @@ var OKHD = (function(){
     return {ten:'KHD nguy co', tieuDe:'MÓN VAY CHẬM NỘP LÃI — NGUY CƠ THÀNH MÓN VAY 3 THÁNG KHÔNG HOẠT ĐỘNG', ngay:'Theo Mẫu 31 ngày '+m.hien.phu,
       html:'<div class="bc-tom">'+ds.length+' món / '+tr(tong)+' triệu đồng sẽ thành món vay 3 tháng KHĐ đến '+ngayVNsl(slCongThang(ngay, 2))+' nếu không giao dịch (nộp lãi) — Tổ trưởng thông báo từng hộ nộp lãi trước ngày ở cột cuối. '+
         'Không tính món quá hạn, nợ khoanh và các món luật KHĐ loại trừ (HSSV, đang ân hạn, lãi suất 0…).</div><table class="bc-bang"><thead>'+th+'</thead><tbody>'+body+'</tbody></table>', aoa:aoa}; };
+  /* ---------- B6 Phân nhóm xử lý A/B/C (danh sách anh duyệt 28/11 mục 7; khuôn Phụ lục mục 3 "Nội dung họp giao ban") ----------
+     Nhóm A: mới phát sinh (chưa là KHĐ ở tháng chốt trước) và lãi tồn dưới 6 tháng lãi — xử lý ngay trong tháng · Nhóm C: lãi tồn từ 12 tháng lãi trở lên — phân tích từng món,
+     đề xuất xử lý rủi ro / biện pháp thu hồi · Nhóm B: còn lại. Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng); lãi suất Mẫu 31 > 2 hiểu là %/năm (÷ 12), ngược lại %/tháng. */
+  M.thangLai = function(o, ls){ var r = +ls; if(!(r>0) || !(o.dn>0)) return null; var th = r>2 ? r/12/100 : r/100; return (laiTon(o)||0)/(o.dn*th); };
+  M.b6 = function(){ var x = M.can('khd_abc'); if(x.N.can) return x.N.can; var m = x.m, B = DBT.hienB, K = DBT.hienK;
+    if(!m.hien || !B || !K || B.hsTen!=='Mẫu 31') return {ten:'KHD nhom ABC', tieuDe:'MÓN VAY 3 THÁNG KHÔNG HOẠT ĐỘNG — PHÂN NHÓM XỬ LÝ A / B / C', ngay:x.N.ngay, aoa:[['Cần Mẫu 31 hiện tại']], html:'<div class="bc-rong">Cần Mẫu 31 hiện tại.</div>'};
+    var goc = {}; (kcGoc(B) || []).forEach(function(o){ if(o.ku && !goc[o.ku]) goc[o.ku] = o; }); var cu = M.coSo(m.truoc) ? m.truoc.s.ku : null, S = skCH(), ds = [], dem = {A:0, B:0, C:0, '?':0};
+    slDsNo(B, 'khd').forEach(function(o){ if(!o.ku) return; var g = goc[o.ku] || o, t = KHO.toKy(K, toMaCua(g)) || {}; if(!pvLoc(S, t)) return;
+      var tl = M.thangLai(g, g.ls), moi = cu ? !(o.ku in cu) : false, nh = tl==null ? '?' : (tl>=12 ? 'C' : ((moi && tl<6) ? 'A' : 'B')); dem[nh]++;
+      ds.push({o:g, t:t, tl:tl, nh:nh, moi:moi}); });
+    ds.sort(function(a, b){ return (a.t.tenXa||'').localeCompare(b.t.tenXa||'', 'vi') || (a.t.khoaDiem||'').localeCompare(b.t.khoaDiem||'', 'vi') || a.nh.localeCompare(b.nh) || (a.t.ten||'').localeCompare(b.t.ten||'', 'vi'); });
+    var th = '<tr><th>Stt</th><th>Hội</th><th>Tổ trưởng</th><th>Khách hàng</th><th>Ấp</th><th>Chương trình</th><th>Dư nợ</th><th>GD gần nhất</th><th>Lãi tồn</th><th>Số tháng lãi</th><th>Nhóm</th></tr>';
+    var aoa = [['Stt', 'Hội', 'Tổ trưởng', 'Khách hàng', 'Ấp', 'Chương trình', 'Dư nợ (đồng)', 'GD gần nhất', 'Lãi tồn (đồng)', 'Số tháng lãi', 'Nhóm']], body = '', diem = null, stt = 0, tdn = 0, tlt = 0;
+    ds.forEach(function(z){ var t = z.t, o = z.o, kd = (t.tenXa||'')+'|'+(t.khoaDiem||'');
+      if(kd!==diem){ diem = kd; stt = 0; var nd = ds.filter(function(w){ return (w.t.tenXa||'')+'|'+(w.t.khoaDiem||'')===kd; });
+        body += '<tr class="nhom"><td colspan="11">'+coChuHTML((t.tenXa||'')+' · Điểm GD '+String(t.tenDiemDu || t.tenDiem || '').replace(/\s*·?\s*ngày\s*\d+.*$/i, ''))+' — '+nd.length+' món (A '+nd.filter(function(w){ return w.nh==='A'; }).length+' · B '+nd.filter(function(w){ return w.nh==='B'; }).length+' · C '+nd.filter(function(w){ return w.nh==='C'; }).length+')</td></tr>'; }
+      tdn += o.dn||0; tlt += laiTon(o)||0;
+      var r = [++stt, ten3(t.trucTiep ? '99' : String(t.dv||'')), t.ten||'', o.ten||'', o.tenThon || t.tenThon || '', ctNgan(o.ct, o), o.dn||0, o.ngdg ? ngayVNsl(o.ngdg) : '', laiTon(o)||0, z.tl==null ? '' : Math.round(z.tl*10)/10, z.nh]; aoa.push(r);
+      body += '<tr><td class="c">'+stt+'</td><td class="c">'+r[1]+'</td><td>'+coChuHTML(r[2])+'</td><td>'+coChuHTML(r[3])+(z.moi ? ' <small>(mới)</small>' : '')+'</td><td>'+coChuHTML(r[4])+'</td><td class="c">'+coChuHTML(r[5])+'</td>'+
+        '<td class="s">'+tr(r[6])+'</td><td class="c">'+r[7]+'</td><td class="s">'+tr(r[8])+'</td><td class="s">'+(z.tl==null ? '—' : String(r[9]).replace('.', ','))+'</td><td class="c"'+(z.nh==='C' ? ' style="color:#b42318;font-weight:600"' : (z.nh==='A' ? ' style="color:#067647;font-weight:600"' : ''))+'>'+z.nh+'</td></tr>'; });
+    if(!ds.length) body = '<tr><td colspan="11" class="c">Không có món vay 3 tháng KHĐ.</td></tr>';
+    else { body += '<tr class="tong"><td></td><td colspan="5">Tổng cộng: '+ds.length+' món</td><td class="s">'+tr(tdn)+'</td><td></td><td class="s">'+tr(tlt)+'</td><td colspan="2"></td></tr>'; aoa.push(['', 'Tổng cộng: '+ds.length+' món', '', '', '', '', tdn, '', tlt]); }
+    var tom = ds.length+' món / '+tr(tdn)+' triệu đồng, lãi tồn '+tr(tlt)+' triệu đồng'+
+      ' — <b>nhóm A '+dem.A+'</b> (mới phát sinh, lãi tồn dưới 6 tháng lãi — xử lý ngay trong tháng) · <b>nhóm B '+dem.B+'</b> · <b>nhóm C '+dem.C+'</b> (lãi tồn từ 12 tháng lãi trở lên — phân tích từng món, đề xuất xử lý rủi ro hoặc biện pháp thu hồi)'+
+      (dem['?'] ? ' · '+dem['?']+' món chưa xếp được (thiếu lãi suất trên Mẫu 31)' : '')+(cu ? '' : ' · <i>chưa có Mẫu 31 chốt tháng trước — không xác định được món mới (nhóm A)</i>');
+    return {ten:'KHD nhom ABC', tieuDe:'MÓN VAY 3 THÁNG KHÔNG HOẠT ĐỘNG — PHÂN NHÓM XỬ LÝ A / B / C', ngay:'Theo Mẫu 31 ngày '+m.hien.phu,
+      html:'<div class="bc-tom">'+tom+'</div><table class="bc-bang"><thead>'+th+'</thead><tbody>'+body+'</tbody></table><div class="bc-ghi">Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng theo Mẫu 31) — ước tính để phân nhóm.</div>', aoa:aoa}; };
   /* ---------- gắn vào Sao kê: ô riêng, chuyển sao kê KHĐ sang, bỏ khỏi ô Nợ cần xử lý ---------- */
   if(typeof SK_NHOM!=='undefined' && !SK_NHOM.some(function(n){ return n.k===M.NHOM; })){ var ix = SK_NHOM.findIndex(function(n){ return n.k==='xl'; }); SK_NHOM.splice(ix+1, 0, {k:M.NHOM, ten:'📉 Món vay 3 tháng KHĐ'}); }
   for(var i = SK_BC.length-1; i>=0; i--){ if(SK_BC[i].k==='db_khd') SK_BC.splice(i, 1); }
   var bc4 = null; SK_BC.forEach(function(b, j){ if(b.k==='khd'){ bc4 = b; SK_BC.splice(j, 1); } });
   if(bc4){ bc4.nhom = M.NHOM; bc4.ten = 'Sao kê danh sách món vay 3 tháng không hoạt động'; }
   [{k:'khd_tq', ten:'Tổng quan — đối chiếu chỉ tiêu VB 180 (Toàn PGD, xã, điểm GD)', lap:M.b1, tuyChon:function(){ return M.suaCT(); }}, {k:'khd_db', ten:'Diễn biến từng tháng từ đầu năm (▲▼)', lap:function(){ return M.b2(); }},
-   {k:'khd_ss', ten:'So sánh tháng trước theo Hội, tổ trưởng', lap:function(){ return M.b3(); }}].concat(bc4 ? [bc4] : []).concat([{k:'khd_ng', ten:'Món chậm nộp lãi — nguy cơ thành KHĐ (2 tháng tới)', lap:M.b5}])
+   {k:'khd_ss', ten:'So sánh tháng trước theo Hội, tổ trưởng', lap:function(){ return M.b3(); }}].concat(bc4 ? [bc4] : []).concat([{k:'khd_abc', ten:'Phân nhóm xử lý A / B / C (theo số tháng lãi tồn)', lap:M.b6}, {k:'khd_ng', ten:'Món chậm nộp lãi — nguy cơ thành KHĐ (2 tháng tới)', lap:M.b5}])
     .forEach(function(b){ SK_BC.push(b.lap && !b.nhom ? {k:b.k, ten:b.ten, nhom:M.NHOM, kho:'ngang', lap:function(){ return b.lap(); }, tuyChon:b.tuyChon} : b); if(b.k!=='khd') DBT.dangKyBC(b.k, 'khd'); });
-  M.suaCT = function(){ var ct = M.ct(); return '<span class="sk-ngay" title="Chỉ tiêu theo CV 180/NHCS-KHTD — sửa nếu tỉnh giao khác">Chỉ tiêu giảm <input type="number" min="1" max="99" value="'+ct.pt+'" style="width:48px" data-lenh="okhd.pt" data-su="change">% · PGD (phụ lục tỉnh) <input type="number" min="0" value="'+(ct.pgd||'')+'" placeholder="theo %" style="width:64px" data-lenh="okhd.pgd" data-su="change"> món</span>'; };
+  M.suaCT = function(){ var ct = M.ct(); 
+    return '<span class="sk-ngay" title="Chỉ tiêu theo CV 180/NHCS-KHTD — sửa nếu tỉnh giao khác">Chỉ tiêu giảm <input type="number" min="1" max="99" value="'+ct.pt+'" style="width:48px" data-lenh="okhd.pt" data-su="change">%'+
+      ' · PGD (phụ lục tỉnh) <input type="number" min="0" value="'+(ct.pgd||'')+'" placeholder="theo %" style="width:64px" data-lenh="okhd.pgd" data-su="change"> món</span>'; };
   M.doiCT = function(k, v){ var c = D.cauHinh.khdCT = D.cauHinh.khdCT || {}; c[k] = v==='' ? '' : +v; luu(); if(typeof skXemHen==='function') skXemHen(); };
   if(typeof gdDangKy==='function') gdDangKy('okhd', {pt:function(el){ M.doiCT('pt', el.value); }, pgd:function(el){ M.doiCT('pgd', el.value); }});
   return M;
