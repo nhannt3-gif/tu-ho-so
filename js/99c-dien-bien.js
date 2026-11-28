@@ -9,7 +9,7 @@
    - SỔ THEO DÕI: mỗi kỳ tính 1 lần → bản tóm tắt nhỏ lưu trên máy (IndexedDB: dbt|<chỉ tiêu>|<kỳ>|<mã băm Mẫu 31>) — mở lại không phải dựng 13 bộ Mẫu 31;
      thay / nạp lại Mẫu 31 kỳ nào → mã băm đổi → tự tính lại. Chỉ đọc số liệu (qua KHO). Cắm rút: bỏ dòng <script> là mất báo cáo, phần khác không đổi. ES5. */
 var DBT = (function(){
-  var M = {BAN:3, S:{}, daNap:false, BC:{}};   /* 3.570: BAN 2 — sổ lưu thêm lãi tồn + tên tổ trưởng; BC = {mã báo cáo Sao kê: chỉ tiêu} cần nạp trước */
+  var M = {BAN:4, S:{}, daNap:false, BC:{}};   /* 3.575: BAN 4 — chỉ tiêu tyLe lưu thêm lãi tồn theo tổ (ltTo, VB 180 lãi tồn so đầu năm) · 3.570: BAN 2 — sổ lưu thêm lãi tồn + tên tổ trưởng; BC = {mã báo cáo Sao kê: chỉ tiêu} cần nạp trước */
   M.CHI = [{k:'khd', ten:'món vay 3 tháng KHĐ', nhan:'Diễn biến món vay 3 tháng không hoạt động (KHĐ) — theo tháng, đầu năm, hiện tại; Xã › Điểm GD › Hội',
     lay:function(B){ return slDsNo(B, 'khd'); }},
     /* 3.570 (anh 28/11 "tương tự em có ô Nợ quá hạn, nợ khoanh"): số tiền = dư nợ QH / khoanh của món; tyLe = lưu thêm tổng dư nợ theo tổ (tỷ lệ QH / tổng dư nợ) */
@@ -31,12 +31,12 @@ var DBT = (function(){
   M.khoa = function(chi, e){ return 'dbt|'+chi+'|'+e.ky+'|'+(e.hash || e.luc || '')+'|'+M.BAN; };
   M.tinh = function(chi, e){ var c = M.chi(chi);
     return KHO.bo(e.ky).then(function(B){ if(!B || B.hsTen!=='Mẫu 31') return {ky:e.ky, ngay:e.ngay, khong:1};
-      return KHO.nap(e.ky).then(function(K){ var ku = {}, to = {}, dnTo = null;
+      return KHO.nap(e.ky).then(function(K){ var ku = {}, to = {}, dnTo = null, ltTo = null;
         var anh = function(m, t){ if(t && !to[m]) to[m] = {ma:t.ma, ten:t.ten||'', xa:t.xa, tenXa:t.tenXa||'', khoaDiem:t.khoaDiem||'', tenDiem:String(t.tenDiemDu || t.tenDiem || '').replace(/\s*·?\s*ngày\s*\d+.*$/i, ''), dv:String(t.dv||''), thon:t.thon||'', tenThon:t.tenThon||'', trucTiep:!!t.trucTiep}; };
         (c.lay(B) || []).forEach(function(o){ if(!o || !o.ku || ku[o.ku]) return; var m = toMaCua(o), t = KHO.toKy(K, m);
           ku[o.ku] = [m, Math.round(c.so ? c.so(o) : (o.dn||0)), Math.round(laiTon(o)||0)]; anh(m, t); });
-        if(c.tyLe){ dnTo = {}; var da = {}; (kcGoc(B) || []).forEach(function(o){ if(!o.ku || da[o.ku]) return; da[o.ku] = 1; var m = toMaCua(o); dnTo[m] = (dnTo[m]||0)+Math.round(o.dn||0); anh(m, KHO.toKy(K, m)); }); }
-        return {ky:e.ky, ngay:e.ngay || tdnCuoiKy(e.ky), ku:ku, to:to, dnTo:dnTo}; }); }); };
+        if(c.tyLe){ dnTo = {}; ltTo = {}; var da = {}; (kcGoc(B) || []).forEach(function(o){ if(!o.ku || da[o.ku]) return; da[o.ku] = 1; var m = toMaCua(o); dnTo[m] = (dnTo[m]||0)+Math.round(o.dn||0); ltTo[m] = (ltTo[m]||0)+Math.round(laiTon(o)||0); anh(m, KHO.toKy(K, m)); }); }
+        return {ky:e.ky, ngay:e.ngay || tdnCuoiKy(e.ky), ku:ku, to:to, dnTo:dnTo, ltTo:ltTo}; }); }); };
   M.so = function(chi, e){ var k = M.khoa(chi, e); if(M.S[k]) return Promise.resolve(M.S[k]);
     return docFile(k).then(function(x){ if(x && x.ku){ return M.S[k] = x; }
       return M.tinh(chi, e).then(function(y){ M.S[k] = y; if(!y.khong) luuFile(k, y); return y; }); }); };
