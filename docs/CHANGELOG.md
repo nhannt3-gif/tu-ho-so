@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.577 — 28/11/2026 — Sao kê toàn PGD nhanh lại (TK 2, A1 bảng chia việc)
+- **Nguồn:** `docs/VIEC_CHUNG.md` A1 (đo `docs/TOI_UU_2811.md`: `ct` 26,7 s, `b105` 19,5 s, `sdt` 8,4 s, `ddn` 4 s); anh 28/11 "em xem bàn giao và làm theo kế hoạch giữa 2 TK".
+- **js/05 khung xem chung (`trDan`, `inChuan`):** khung xem báo cáo khối `.trang` chỉ dựng **20 trang đầu**; báo "Xem nhanh 20 trang đầu / khoảng N trang" + nút **Xem đủ**. Bản dài (> 400 KB) cắt còn 1.200 dòng thân bảng trước khi nạp khung (`trRut`, DOMParser). 🖨 In / 💾 PDF trong khung: bản đã cắt → nạp lại bản đủ rồi in; bản chưa cắt → dựng đủ ngay rồi in; Ctrl+P bản đã cắt → trang in báo bấm 🖨 In. Khung in ẩn (In / Word / PDF ngoài khung), Excel không đổi — luôn đủ.
+- **Số đo (bộ giả 25.057 món, máy chủ):** `ct` 24,9 → 3,6 s · `b105` 18,1 → 2,8 s · `sdt` 8,2 → 1,3 s · `ddn` 4,0 → 2,2 s (phần còn lại chủ yếu là lập báo cáo 1,5–2 s).
+- **Phép thử:** t424 mới.
+
 ## 3.576 — 28/11/2026 — Số tháng lãi nhóm A/B/C theo QT-C-23 (TK 2)
 - **Nguồn:** chia việc chốt anh 28/11 (TK 2 mục ③).
 - **js/99d `OKHD.thangLai`:** bỏ đoán "lãi suất ≤ 2 là %/tháng"; luôn 1 tháng lãi = dư nợ × lãi suất ÷ 100 ÷ 12 (cột Lãi suất Mẫu 31 là %/năm, QT-C-23 — giống HSN.thangLai của Biên bản 06A).

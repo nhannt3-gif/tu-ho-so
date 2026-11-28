@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 12:10 — TK 2 · PHIÊN
+- Đã làm: đọc bảng chia việc chốt `docs/VIEC_CHUNG.md` (TK 1); 3.577 A1 Sao kê toàn PGD nhanh lại (js/05 khung xem 20 trang đầu + cắt dòng > 400 KB; In / PDF nạp lại bản đủ) — t424; A2 ✓ 3.576.
+- Đang dở: hồi quy đủ (tat) sau gộp 3.577 (đụng khung xem / in chung).
+- Bước tiếp: A5 C11 đề xuất khuôn (chờ anh 3 câu hỏi); A3 chờ K7 TK 1; A4 sửa lỗi TK 1 báo (K5).
+- Chờ ai: anh — C11 (mục đích, mẫu biểu, mốc so); TK 1 — K7 số chỉ tiêu Gò Dầu.
+- Lưu ý / bẫy: khung xem `.trang` chỉ có 20 trang — phép thử đếm trang ở khung xem phải dùng `inChuan` không xem hoặc bấm "Xem đủ"; TR_CAT / TR_UOC mới.
+
 ### 28/11/2026 11:00 — TK 2 · PHIÊN
 - Đã làm: chốt chia việc đều TK 1 (Kho) / TK 2 (App) vào PHOI_HOP_CHUNG mục 14 (PR 601); t276 bản chụp ct180 + mốc hồi quy 3.575 (302/303 → sửa); 3.576 số tháng lãi A/B/C theo QT-C-23.
 - Đang dở: —

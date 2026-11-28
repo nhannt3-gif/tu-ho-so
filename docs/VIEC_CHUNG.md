@@ -36,8 +36,8 @@
 | **K6** (T3) | **Dọn rác**: tài liệu cũ sang `docs/luu_tru/`; cắt `BAN_GIAO_VIEC_CON_LAI.md` (580 KB); hộp thư (V11); rà phép thử trùng / phép thử của chức năng đã gỡ; 6 hàm chỉ phép thử gọi (hàm ở file TK 2 thì báo TK 2) | TK 1 | — | mở |
 | **K7** | Soát số thật các ô Sao kê 3.570–3.575 trên Drive (chỉ số đếm) + số chỉ tiêu Gò Dầu ở phụ lục CV 180 → hộp thư | TK 1 | — | mở |
 | **K8** (V2, V7) | Làm lại đáp án Kiểm mốc nếu đỏ; tìm nguyên nhân lỗi lưu iPhone | TK 1 | V1 | chờ |
-| **A1** (T1) | **Sao kê toàn PGD nhanh lại**: hiện `ct` 26,7 s, `b105` 19,5 s, `sdt` 8,4 s, `ddn` 4 s; mục tiêu < 3 s. Khung xem chỉ dựng vài trang đầu, chia trang theo số dòng; Excel / In vẫn đủ | TK 2 | — | mở |
-| **A2** | Số tháng lãi nhóm A/B/C theo QT-C-23 (lãi suất %/năm) | TK 2 | — | mở |
+| **A1** (T1) | **Sao kê toàn PGD nhanh lại**: hiện `ct` 26,7 s, `b105` 19,5 s, `sdt` 8,4 s, `ddn` 4 s; mục tiêu < 3 s. Khung xem chỉ dựng vài trang đầu, chia trang theo số dòng; Excel / In vẫn đủ | TK 2 | — | ✓ 3.577 (ct 24,9 → 3,6 s · b105 18,1 → 2,8 s · sdt 8,2 → 1,3 s · ddn 4,0 → 2,2 s; còn lại là lập báo cáo) |
+| **A2** | Số tháng lãi nhóm A/B/C theo QT-C-23 (lãi suất %/năm) | TK 2 | — | ✓ 3.576 |
 | **A3** | Đặt mặc định chỉ tiêu VB 180 | TK 2 | K7 | chờ |
 | **A4** | Soát CI + hồi quy, sửa ngay lỗi TK 1 báo (gồm lỗi từ K5) | TK 2 | — | thường trực |
 | **A5** | C11 Biến động tổ làm lại đơn giản: đề xuất khuôn → anh duyệt | TK 2 | anh | mở |

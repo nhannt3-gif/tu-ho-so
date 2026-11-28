@@ -348,6 +348,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 
 
 
+
 | t382 (3.511) | Tổ giao dịch: ô chọn từ danh sách khai báo cán bộ, loại trừ. |
 | t243 (3.540) | Thanh dưới 5 nút kiểu cũ (GD xã · Số liệu · Hồ sơ) thử ở cỡ máy tính bảng 700 px — 390 px là thanh điện thoại mới (t311 / t401). |
 | t401 (3.535) | Điện thoại 360 / 390 / 430: Tra cứu KH (1 ô tìm ở đầu, lọc gọn bấm mở, 📞 Gọi), Văn bản thẻ gọn, xem VB "📤 Gửi trang này" tách đúng 1 trang + "📤 Gửi cả VB"; máy tính 1366 không đổi. t193 / t262 / t266: vào bản gọn qua ☰ Thêm › 📱 (nút 📱 nổi ẩn). 3.536: + VB đã xem giữ trong ngày — dọn đúng bản trong máy (chỉ điện thoại). 3.537: + nạp màn rộng rồi thu về 390 tự khởi động; không JS thì lọc hiện đủ. 3.541: + lọc gọn Tổ / GDX / KTGS, chip GDX 1 dòng, vuốt đổi tab, vuốt đóng hộp. 3.542: + nhóm chip Tổ / KTGS 1 dòng. |
@@ -372,6 +373,7 @@ python3 tests/taogia.py 25000 tests/gia31 m31   # bộ có Mẫu 31 (2 tháng) t
 | t421 (3.571, 3.575) | Ô Chỉ tiêu VB 180 (js/99f): đứng đầu, KHĐ / tỷ lệ QH / tiết kiệm / lãi tồn so 31/12 / món GN mới có lãi tồn Toàn PGD đúng, đủ hàng mọi điểm, cột Số chỉ tiêu đạt, rút js/99f. |
 | t422 (3.573) | Ô Kết quả giao dịch (js/99g): bố cục ô, theo Hội = tổng dư nợ Mẫu 31 chốt + tỷ trọng 100% + số tổ, biến động tháng trước = Mẫu 31 T7, KQGD chi tiết vẫn lập, rút js/99g. |
 | t423 (3.574) | Tự quét hộp đến (js/99h, Drive giả): nút bật, thiếu quyền không bật, quét chỉ PDF/Excel, dòng báo dưới thanh 1 hàng, Nạp chỉ GET → xem trước, đã thấy / md5 đổi, thư mục thêm, rút js/99h. |
+| t424 (3.577) | Khung xem báo cáo dài (bộ giả lớn gia31): 20 trang đầu + báo khoảng N trang, cắt dòng > 400 KB, 🖨 In nạp lại bản đủ rồi in, ước số trang ± 5%, Xem đủ, khung in ẩn không cắt, báo cáo ngắn không báo, bản < 400 KB > 20 trang In dựng đủ. |
 | `tools/kiem_pr.sh` (3.546 B4) | Chạy trên GitHub mỗi PR (`.github/workflows/kiem-pr.yml`): `bash tools/kiem_pr.sh <phần> <số phần> <mốc main>` — chọn phép như hồi quy theo đổi nhưng so mốc của main, trượt chạy lại 1 lần. |
 | t382 (3.510) | Tổ giao dịch khung cố định: thứ tự ô vai, gõ tên vào ô, kiêm, × bỏ, bàn phím. |
 

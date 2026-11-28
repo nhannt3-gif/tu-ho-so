@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.576 · 28/11/2026 10:58 · 169 file · 49165 dòng · 3757 hàm cấp ngoài · 670 biến toàn cục.
+Bản 3.577 · 28/11/2026 11:50 · 169 file · 49185 dòng · 3758 hàm cấp ngoài · 670 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -23,7 +23,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/04c-van-ban-thang.js` | 1005 | 81 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 2634–3608 của bản 3.3 |
 | `js/04d-bo-ho-so.js` | 275 | 23 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/04-giao-dien.js (dòng 3609–3880 của bản 3.3 |
 | `js/04e-chung.js` | 290 | 26 | /*   3.399 (anh 28/10: "theo dõi nợ tạm thời bỏ, xóa code rác, sẽ phát triển sau cho gọn" · "gỡ luôn cho gọn c |
-| `js/05-them-file.js` | 1396 | 73 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
+| `js/05-them-file.js` | 1416 | 74 | /*   7. THÊM FILE & DUYỆT TÊN   */ var dangDoc = false; |
 | `js/06-hop-thoai.js` | 1367 | 109 | /*   HỘP THOẠI CHUNG   */ var hamDong = null, khoaHop = false; function moHop(html, rong){ |
 | `js/06a-dong-bo-cai-dat.js` | 975 | 53 | /*   3.411 (A2 — tách file lớn, anh duyệt hướng 27/10): đồng bộ mục lên file thật trên Drive · xóa / thùng rác |
 | `js/06b-xoa-nhieu.js` | 226 | 25 | /* 3.339 (RA_SOAT_BO_CUC_2410 mục 8 việc 7): tách nguyên văn từ js/06-hop-thoai.js (dòng 2218–2421 của bản 3.3 |
@@ -228,7 +228,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `js/05-them-file.js:546` · 8. XEM TRƯỚC / IN / GỬI
 - `js/05-them-file.js:632` · TRÌNH XEM DÙNG CHUNG cho khung lớn (#x-than) và cột phải (#cp-than)
 - `js/05-them-file.js:1180` · 3.128 — BỘ IN CHUẨN (anh chốt): app tự chia trang A4 → xem trước = bản in
-- `js/05-them-file.js:1379` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
+- `js/05-them-file.js:1399` · 3.476 (Đ4 kế hoạch dọn): LỆNH data-lenh="f05.*" — tools/doi_onclick.py chuyển từ onclick viết thẳng; mỗi lệnh gọi đúng h
 - `js/06-hop-thoai.js:1` · HỘP THOẠI CHUNG
 - `js/06-hop-thoai.js:105` · SỬA MỘT MỤC
 - `js/06-hop-thoai.js:121` · PHÂN LOẠI 3 CẤP (bản 3.4): Mảng (1) · CT vay (1 hoặc Dùng chung) · Tag (nhiều)
@@ -585,7 +585,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `ch` Đồng bộ cài đặt | 28 | `17-dong-bo-cai-dat.js` 13, `36-dong-bo-khoi.js` 9, `17b-so-cai-dat.js` 6 | chRieng, chBamChu, chKhoa, chBamKhoa |
 | `th` Tổng hợp | 27 | `22i-tong-hop.js` 27 | thSau, thChon, thChonBC, thCH |
 | `tg` Tìm / gợi ý | 26 | `54-tgtv-khai.js` 15, `06-hop-thoai.js` 10, `07-cccd.js` 1 | tgChipHTML, tgDem, tgGoi, tgThem |
-| `tr` Bộ in chuẩn | 19 | `45-tra-mau31.js` 17, `05-them-file.js` 1, `84-cccd-to-truong.js` 1 | trLe, trNoi, trTim, trNut |
+| `tr` Bộ in chuẩn | 20 | `45-tra-mau31.js` 17, `05-them-file.js` 2, `84-cccd-to-truong.js` 1 | trLe, trRut, trNoi, trTim |
 | `bm` Biểu mẫu | 12 | `09-bieu-mau.js` 12 | bmTim, bmDungThem, bmSapXep, bmGhiChu |
 | `ln` Lưu nhanh | 11 | `12b-scan-dien-thoai.js` 8, `34-luu-ngan.js` 3 | lnCai, lnGhi, lnThuMuc, lnDoi |
 | `ka` Chữ ký · CCCD (khay ảnh) | 11 | `12b-scan-dien-thoai.js` 7, `35-scan.js` 3, `12c-scan-camera-drive.js` 1 | kaTuTimKhung, kaXuLy, kaXoay, kaThang |
@@ -621,9 +621,9 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 - `veKTGS` `js/22b-ktgs.js:108`
 - `veSaoKe` `js/22h-cap-hoi-sao-ke.js:404`
 - `veTongHop` `js/22i-tong-hop.js:347`
-- `inChuan` `js/05-them-file.js:1357`
+- `inChuan` `js/05-them-file.js:1376`
 - `inBlob` `js/05-them-file.js:1151`
-- `xemChuan` `js/05-them-file.js:1365`
+- `xemChuan` `js/05-them-file.js:1385`
 - `pvLuaChon` `js/22ga-pham-vi.js:10`
 - `chTheoDoi` `js/17-dong-bo-cai-dat.js:49`
 - `slDay` `js/22-so-lieu.js:798`

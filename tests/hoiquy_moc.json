@@ -28,7 +28,7 @@
 }
 },
 "hoiquy2": {
-"ban": "3.575",
+"ban": "3.576",
 "ngay": "2026-11-28",
 "kq": "✓ [iPhone] không lỗi đỏ trong Console",
 "dau": {
@@ -52,7 +52,7 @@
 "js/36-dong-bo-khoi.js": "8d85249fa8aa",
 "js/39-gd.js": "89398f5cf42b",
 "js/69-bo-cuc-a.js": "c908dabd7872",
-"tests/hoiquy2.js": "df73ab2e4a17",
+"tests/hoiquy2.js": "c0bbb9f7f5a3",
 "tests/tv.js": "7ec41f0a7bfa"
 }
 },
@@ -5823,6 +5823,40 @@
 "tests/tv.js": "7ec41f0a7bfa"
 }
 },
+"t276": {
+"ban": "3.576",
+"ngay": "2026-11-28",
+"kq": "4/4 đạt",
+"dau": {
+"index.html": "60cb3b6f52bc",
+"js/01-thu-vien.js": "7b868105ed4c",
+"js/02-nen.js": "d909d1592099",
+"js/04-giao-dien.js": "9e14a7455042",
+"js/06-hop-thoai.js": "f9d2dbc77bff",
+"js/06a-dong-bo-cai-dat.js": "f45f340002f9",
+"js/08-dia-ban.js": "8121973c3c4c",
+"js/11-khung-tab.js": "75d66f9a1deb",
+"js/17-dong-bo-cai-dat.js": "529af78c167b",
+"js/20-khoi-dong.js": "5ab1d3e1af9e",
+"js/22-so-lieu.js": "85f4637d945d",
+"js/22f-tra-cuu.js": "100e8b3e5687",
+"js/22g-to.js": "c7cd1b8ced90",
+"js/22ga-pham-vi.js": "f4b3a20f7b45",
+"js/22h-cap-hoi-sao-ke.js": "955f1d939485",
+"js/22i-tong-hop.js": "d545f4de4d43",
+"js/23-dieu-huong.js": "cd3896629e17",
+"js/29-kho.js": "e8ef777e85b3",
+"js/34-luu-ngan.js": "f89bc1a098e1",
+"js/36-dong-bo-khoi.js": "8d85249fa8aa",
+"js/39-gd.js": "89398f5cf42b",
+"js/69-bo-cuc-a.js": "c908dabd7872",
+"js/73-kho-chuan.js": "8e0c13f7f303",
+"js/87-bo-chuan.js": "5296a66e5769",
+"tests/t276.js": "2ad5f1c6230f",
+"tests/taogia.py": "1158f2034dc7",
+"tests/tv.js": "7ec41f0a7bfa"
+}
+},
 "t277": {
 "ban": "3.575",
 "ngay": "2026-11-28",
@@ -9683,7 +9717,7 @@
 }
 },
 "t419": {
-"ban": "3.575",
+"ban": "3.576",
 "ngay": "2026-11-28",
 "kq": "✓ t419 đạt hết",
 "dau": {
@@ -9708,8 +9742,8 @@
 "js/69-bo-cuc-a.js": "c908dabd7872",
 "js/73-kho-chuan.js": "8e0c13f7f303",
 "js/99c-dien-bien.js": "37d1279a8519",
-"js/99d-o-khd.js": "5b4f9374e279",
-"tests/t419.js": "46deeb69935d",
+"js/99d-o-khd.js": "412d18457da2",
+"tests/t419.js": "82216837252f",
 "tests/taogia.py": "1158f2034dc7",
 "tests/tv.js": "7ec41f0a7bfa"
 }
