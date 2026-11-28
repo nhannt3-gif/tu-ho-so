@@ -4,7 +4,7 @@
 > Soạn 28/11/2026, phiên TK chính làm thay phần TK 1. **Chưa sửa code.** Anh nhắn "code" thì mới làm.
 
 ## 1. Mục đích
-Sau mỗi cuộc họp / phiên giao dịch, anh ghi việc giao có cấu trúc: **đối tượng · chỉ tiêu · mức cần đạt · hạn**. Kỳ sau, khi đã nạp Mẫu 31, app tự chấm "Đạt / Chưa đạt". Phần "Kết quả thực hiện kết luận kỳ trước" trong nháp TB kết luận sẽ có sẵn số, anh không phải theo dõi tay.
+Sau mỗi cuộc họp / phiên giao dịch, anh ghi việc giao có cấu trúc: **đối tượng · chỉ tiêu · mức cần đạt · hạn**. Kỳ sau, khi đã nạp Mẫu 31, app tự chấm "Đạt / Chưa đạt". Anh xem 1 bảng kết quả, không phải theo dõi tay; Giao ban (khi mở lại) lấy bảng này làm số cho TB kết luận.
 
 ## 2. Phạm vi bản đầu (đề xuất)
 
@@ -22,18 +22,15 @@ Trạng thái khi chấm: **Đạt · Chưa đạt (kèm số hiện tại / m�
 ## 3. Thiết kế
 - **Gói mới `js/9x-giao-viec.js`, không gian tên `GVC`** (QUY_CHUAN mục 13). Cắm rút: bỏ dòng `<script>` là chức năng mất, phần khác không đổi.
 - **Chỗ dùng:**
-  - nút **📌 Việc giao** trong 📐 Bộ số chuẩn (cạnh 📝 Nội dung họp và 📄 TB kết luận);
+  - nút **📌 Việc giao** trong 📐 Bộ số chuẩn (cạnh các nút sẵn có);
   - danh sách lọc theo điểm / xã, có các nút Thêm · Sửa · Xong · Xóa;
   - thêm từ phiếu: chọn tổ hoặc món từ cây địa bàn sẵn có, không gõ mã tay.
 - **Lưu:** 1 khóa cài đặt `giaoViec` (mảng nhỏ, vài trăm dòng/năm). Khóa này đồng bộ Drive theo khối cài đặt đang có, nên không tạo khối mới và không sửa `36-dong-bo-khoi.js`. Khóa được ghi vào sổ cấu hình (`tools/so_cau_hinh.py`).
 - **Đọc số:** chỉ đọc qua cửa kho và các hàm có sẵn (`laiTon`, `toMaCua`, `HSN.thangLai`, số TK 105 của tổ `slT105To`). Không đọc thẳng bảng gốc.
-- **Nối vào nháp TB kết luận (`js/89-tb-kl.js`):**
-  - thêm 1 đoạn "Kết quả thực hiện kết luận kỳ trước" lấy từ `GVC.cham(điểm, kỳ)`;
-  - chỉ thêm khi có gói `GVC`, nên không có gói thì nháp vẫn như cũ;
-  - `89` không thuộc danh sách file TK 2 giữ, nhưng em vẫn ghi 1 dòng hộp thư báo TK 2 trước khi sửa.
+- **Không nối vào nháp TB kết luận** (anh 28/11: *"Thông báo KL chủ yếu bên giao ban, bên app chưa cần"*) — không sửa `js/89-tb-kl.js`. App chỉ có danh sách việc + bảng kết quả chấm, xuất Excel / in.
 - **Phép thử:**
   - `tests/t424.js`, dữ liệu giả: 6 loại × Đạt / Chưa đạt / Chưa đến hạn / Không đủ số;
-  - kiểm thêm, bớt, đồng bộ khóa, và nháp TB KL có hoặc không có gói.
+  - kiểm thêm, bớt, đồng bộ khóa, bảng kết quả chấm.
   - Chạy `kiem.py` + `hoiquy.sh … doi 2`.
 
 ## 4. Không làm ở bản đầu
@@ -45,6 +42,6 @@ Trạng thái khi chấm: **Đạt · Chưa đạt (kèm số hiện tại / m�
 1. **6 loại chỉ tiêu ở mục 2** có đủ cho bản đầu không, cần thêm hay bớt loại nào?
 2. **Chỗ nút:** đặt trong 📐 Bộ số chuẩn có được không, hay anh muốn để ở 📑 Sao kê?
 3. **Kỳ để chấm:** lấy Mẫu 31 mới nhất có ngày ≥ hạn (đề xuất), hay cố định cuối tháng chứa hạn?
-4. Cho phép em sửa `js/89-tb-kl.js` để chèn đoạn "Kết quả thực hiện kết luận kỳ trước" không?
+4. ~~Sửa `js/89-tb-kl.js`~~ — anh 28/11: không, TB KL để bên giao ban.
 
 Ước tính: 1 bản (≈ 300–400 dòng JS + 1 phép thử).
