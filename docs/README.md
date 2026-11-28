@@ -37,6 +37,9 @@
 | `KE_HOACH_NANG_CAP_0111.md` · `KE_HOACH_KY_DOI_CHIEU.md` | Nâng cấp kỹ thuật 01/11 · kỳ đối chiếu app ↔ giao ban |
 | `KE_HOACH_MOC_THU_3009_3110.md` | **14/11 — thử 2 mốc 30/09 + 31/10 App ↔ Giao ban, chia việc TK 1 / TK 2 song song** |
 | `DANH_GIA_CHUYEN_GIA_1511.md` | **15/11 — đánh giá chuyên gia: điểm nghẽn hiệu suất / công nghệ / quy trình + ý tưởng mới (A1–D4), chờ anh chọn** |
+| `VIEC_CHUNG.md` | **28/11: bảng chia việc theo vai (App chính TK 2 · Kho dữ liệu chung TK 1 · đánh giá), Giao ban hoãn. Chờ anh duyệt** |
+| `KE_HOACH_C1_GIAO_VIEC.md` | **28/11: kế hoạch C1 giao việc tự chấm — HOÃN, để bên Giao ban (anh 28/11)** |
+| `TOI_UU_2811.md` | **28/11: đo tốc độ 3.574 (Sao kê toàn PGD 8–27 s), rác, kiểm logic + chia việc T1–T5 — chờ TK 2 / anh** |
 | `KE_HOACH_CHUAN_HOA.md` · `KE_HOACH_BAN_LON.md` · `KE_HOACH_GON_GIAO_DIEN.md` | Chuẩn hóa code / mẫu / giao diện (nhiều mục đã xong — code còn trỏ tới) |
 | `TU_VAN_KY_THUAT.md` · `RA_SOAT_HOI_QUY.md` · `THIET_KE_HO_VAY.md` | Tư vấn kỹ thuật, rà phép thử, thiết kế dữ liệu hộ vay |
 | `DAC_TA_APP_SCAN_EXE.md` · `KE_HOACH_DIEN_THOAI_2.md` · `KE_HOACH_DIEN_THOAI_MAY.md` | Scan .exe, bản điện thoại (vai App phụ) |
