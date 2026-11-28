@@ -1057,7 +1057,8 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.575', ds:[
+var CO_GI_MOI = {ban:'3.576', ds:[
+  ["Ô KHĐ › Phân nhóm A/B/C: số tháng lãi luôn tính lãi suất Mẫu 31 là %/năm (luật QT-C-23), không còn đoán lãi suất nhỏ là %/tháng", ""],
   ["Ô 🎯 Chỉ tiêu VB 180 có thêm 2 chỉ tiêu: Lãi tồn giảm so đầu năm, Món giải ngân từ 01/01 có lãi tồn = 0", ""],
   ["Theo Toàn PGD › Xã › Điểm GD, lấy từ Mẫu 31 hiện tại so 31/12", ""],
   ["⋯ Nạp & KT › 🔄 Bật tự quét hộp đến: app tự báo file KQGD / CLT02 / Excel mới trong thư mục hộp đến (và thư mục anh thêm) — bấm “Nạp n file” là ra xem trước", ""],
@@ -1071,9 +1072,9 @@ var CO_GI_MOI = {ban:'3.575', ds:[
   ["Ô Nợ đến hạn thêm “Kết quả thu nợ đến hạn tháng trước” (ước tính, chỉ tiêu ≥ 99%); ô KHĐ thêm “Món chậm nộp lãi — nguy cơ thành KHĐ”; ô Khoanh thêm “Món hết hạn khoanh 120 ngày tới”", ""],
   ["🖨 In DS tổ (Tra cứu KH): nhóm Xã › Điểm GD › Hội (bỏ cột Hội), STT theo từng Hội; Cộng điểm / Cộng xã ghi số tổ từng Hội", ""],
   ["Bản in thêm cột SĐT tổ trưởng và Tổ phó; bỏ cột 10C mới", ""],
-  ["Tra cứu KH › bảng tổ: cột “10C mới” đã hiện đúng (trước bị co về 0 khi có cột CCCD); 8 cột chia lại cân đối, không cột nào bị cắt chữ", ""],
-  ["Sao kê › Nợ cần xử lý: “Diễn biến món vay 3 tháng KHĐ” — theo Xã › Điểm GD › Hội; cột Đầu năm, từng tháng, Hiện tại (Mẫu 31 ngày gần nhất)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Tra cứu KH › bảng tổ: cột “10C mới” đã hiện đúng (trước bị co về 0 khi có cột CCCD); 8 cột chia lại cân đối, không cột nào bị cắt chữ", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.576 · Sao kê › 📉 KHĐ › Phân nhóm xử lý A/B/C → đối chiếu số tháng lãi 1–2 món: lãi tồn ÷ (dư nợ × lãi suất ÷ 100 ÷ 12)",
     "3.575 · Sao kê › 🎯 Chỉ tiêu VB 180 → 2 cột mới Lãi tồn / Món GN từ 01/01 có lãi tồn",
     "3.575 · Đối chiếu tổng lãi tồn Toàn PGD với Mẫu 31 (lãi tồn TH + QH)",
     "3.574 · ⋯ Nạp & KT › 🔄 Bật tự quét hộp đến → đồng ý quyền đọc Drive → có dòng “Hộp đến có n file mới”",
@@ -1092,8 +1093,7 @@ var CO_GI_MOI = {ban:'3.575', ds:[
     "3.567 · Lọc Xã / Điểm / Hội → bảng chỉ phạm vi đó",
     "3.567 · 📊 Xuất Excel: 2 dòng tiêu đề, dư nợ đồng",
     "3.566 · ⋯ Nạp & KT › 📥 Nạp file: chọn 1 file KQGD_*.pdf → nhận “KQGD · <điểm>”, đúng ngày giao dịch",
-    "3.566 · 📥 Lấy từ hộp đến: chọn vài file KQGD / CLT02 → xem trước → ghi; file ở hộp đến vẫn còn",
-    "3.566 · Sao kê › Đối chiếu KQGD ↔ Mẫu 31: chọn kỳ Mẫu 31 cùng ngày KQGD → số lệch đỏ"],
+    "3.566 · 📥 Lấy từ hộp đến: chọn vài file KQGD / CLT02 → xem trước → ghi; file ở hộp đến vẫn còn"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",

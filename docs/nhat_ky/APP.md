@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 11:00 — TK 2 · PHIÊN
+- Đã làm: chốt chia việc đều TK 1 (Kho) / TK 2 (App) vào PHOI_HOP_CHUNG mục 14 (PR 601); t276 bản chụp ct180 + mốc hồi quy 3.575 (302/303 → sửa); 3.576 số tháng lãi A/B/C theo QT-C-23.
+- Đang dở: —
+- Bước tiếp: kế hoạch C1 giao việc + khuôn C11 Biến động tổ → anh duyệt.
+- Chờ ai: anh — duyệt kế hoạch C1, C11; TK 1 cập nhật VIEC_CHUNG.md theo dòng chia việc chốt.
+- Lưu ý / bẫy: `js/99h-tu-quet.js` đã bàn giao TK 1 — TK 2 không sửa nữa.
+
 ### 28/11/2026 10:35 — TK 2 · PHIÊN
 - Đã làm: 3.575 — VB 180 thêm chỉ tiêu Lãi tồn so 31/12 + Món GN từ 01/01 có lãi tồn (js/99f; DBT lưu ltTo, BAN 4). Đọc đề xuất `docs/VIEC_CHUNG.md` của TK 1 (nhánh TK 1, chưa gộp).
 - Đang dở: B1 gói số liệu kỳ và QT-C-09 (phép thử C09-1 đo ở file đối chiếu) — trùng V5 / vai Kho của TK 1, đề xuất chuyển TK 1, chờ anh chọn.

@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.576 — 28/11/2026 — Số tháng lãi nhóm A/B/C theo QT-C-23 (TK 2)
+- **Nguồn:** chia việc chốt anh 28/11 (TK 2 mục ③).
+- **js/99d `OKHD.thangLai`:** bỏ đoán "lãi suất ≤ 2 là %/tháng"; luôn 1 tháng lãi = dư nợ × lãi suất ÷ 100 ÷ 12 (cột Lãi suất Mẫu 31 là %/năm, QT-C-23 — giống HSN.thangLai của Biên bản 06A).
+- **Phép thử:** t419 thêm 1 phép (lãi suất 1,2 %/năm).
+
 ## 3.575 — 28/11/2026 — VB 180: chỉ tiêu lãi tồn (TK 2)
 - **Nguồn:** danh sách việc TK 2 anh duyệt 28/11 "Ok code và gộp" (V8 bảng chia việc).
 - **js/99f `CT180`:** thêm chỉ tiêu 8 *Lãi tồn* (tổng lãi tồn TH + QH mọi món, Mẫu 31 hiện tại; đạt khi giảm so 31/12 hoặc bằng 0) và 9 *Món GN từ 01/01 có lãi tồn* (ngày GN đầu tiên / ngày vay ≥ 01/01 năm Sao kê, còn dư nợ; kết quả số món có lãi tồn / số món GN mới; chỉ tiêu 0). Ghi chú cuối bảng chỉ còn *điểm CL giao dịch xã* chưa có nguồn.
