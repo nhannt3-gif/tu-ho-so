@@ -1,6 +1,7 @@
 # VIỆC CHUNG — bảng chia việc (phiên đánh giá soạn 28/11/2026, **chờ anh duyệt**)
 
 > Anh 28/11: *"Phối hợp và chia việc tối ưu"* → *"Hiện nay cứ tối ưu phát triển app và kho dữ liệu chung, giao ban sẽ làm sau"*.
+> **Lưu ý 28/11 (sau khi soạn):** TK 2 đã ghi chia việc anh chốt *"Hôm nay 2 TK tập trung làm APP… giao ban sẽ làm sau"* (`PHOI_HOP_CHUNG.md` mục 14, dòng 28/11 TK 2). **Bảng đó là bản đang dùng.** Bảng này chỉ là đề xuất bổ sung (vai Kho dữ liệu chung, V3–V7, V11), anh chọn thì mới áp.
 > Bảng này thay cho việc dò hộp thư (`PHOI_HOP_CHUNG.md` mục 14 có 92 dòng, 58 dòng "mở", phần lớn đã cũ). Mỗi việc có **1 chủ**; bên nhận sửa ô trạng thái. Mỗi dòng tối đa 2 câu, chi tiết để ở file kế hoạch.
 
 ## 1. Vai trong giai đoạn này (Giao ban tạm hoãn)
