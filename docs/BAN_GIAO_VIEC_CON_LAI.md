@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.575)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › 🎯 Chỉ tiêu VB 180 | thêm cột Lãi tồn, Món GN từ 01/01 có lãi tồn | |
+| 2 | Đối chiếu tổng lãi tồn Toàn PGD với Mẫu 31 | khớp (tr.đ) | |
+| 3 | Món GN mới có lãi tồn | đúng số món giải ngân trong năm có lãi tồn | |
+
+Ghi chú kỹ thuật: DBT.BAN 4 → lần mở đầu sau bản này tính lại sổ theo dõi các kỳ (chậm hơn 1 lần).
+
 ### Danh sách thử trên máy thật (3.574)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

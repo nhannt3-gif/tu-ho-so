@@ -12,6 +12,13 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 10:35 — TK 2 · PHIÊN
+- Đã làm: 3.575 — VB 180 thêm chỉ tiêu Lãi tồn so 31/12 + Món GN từ 01/01 có lãi tồn (js/99f; DBT lưu ltTo, BAN 4). Đọc đề xuất `docs/VIEC_CHUNG.md` của TK 1 (nhánh TK 1, chưa gộp).
+- Đang dở: B1 gói số liệu kỳ và QT-C-09 (phép thử C09-1 đo ở file đối chiếu) — trùng V5 / vai Kho của TK 1, đề xuất chuyển TK 1, chờ anh chọn.
+- Bước tiếp: hồi quy sau gộp 3.575; xem 5 kiểm tra GitHub 3.574–3.575.
+- Chờ ai: anh — duyệt bảng VIEC_CHUNG (B1, QT-C-09 cho ai); V1 thử máy thật.
+- Lưu ý / bẫy: cột "chỉ tiêu" ở aoa ct180 không duy nhất tên — phép thử lấy theo vị trí (kết quả + 1).
+
 ### 28/11/2026 — TK 2 · PHIÊN (3.574 tự quét hộp đến)
 - Anh "duyệt tự quét": js/99h TUQ — xin thêm drive.readonly (DRIVE_SCOPE + tokeninfo kiểm), quét hopDenId + tqThuMuc, dòng báo file mới dưới thanh Nạp & KT, Nạp = GET + slDocNhieu, đã thấy theo id + md5. t423 8/8.
 - Chờ anh: bật trên máy thật; nếu Google không hỏi quyền đọc → khai scope drive.readonly ở OAuth consent screen (+ Test users).

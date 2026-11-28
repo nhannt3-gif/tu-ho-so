@@ -1057,7 +1057,9 @@ function moHuongDan(p){
   var t = document.querySelector('#hop-in .hd-than'); if(t) t.scrollTop = 0;
 }
 /* ✨ CÓ GÌ MỚI — hiện 1 lần khi mở bản mới; bấm dòng nào thì app dẫn tới đúng chỗ đó */
-var CO_GI_MOI = {ban:'3.574', ds:[
+var CO_GI_MOI = {ban:'3.575', ds:[
+  ["Ô 🎯 Chỉ tiêu VB 180 có thêm 2 chỉ tiêu: Lãi tồn giảm so đầu năm, Món giải ngân từ 01/01 có lãi tồn = 0", ""],
+  ["Theo Toàn PGD › Xã › Điểm GD, lấy từ Mẫu 31 hiện tại so 31/12", ""],
   ["⋯ Nạp & KT › 🔄 Bật tự quét hộp đến: app tự báo file KQGD / CLT02 / Excel mới trong thư mục hộp đến (và thư mục anh thêm) — bấm “Nạp n file” là ra xem trước", ""],
   ["Chỉ chép vào kho, không dời / xóa file gốc; cần đồng ý quyền chỉ đọc Drive 1 lần", ""],
   ["Sao kê: ô mới “📋 Kết quả giao dịch” — kết quả theo Hội đoàn thể (điểm GD + toàn xã) và biến động so tháng trước (khách hàng, dư nợ, tiền gửi, lãi tồn), khuôn giao ban", ""],
@@ -1070,10 +1072,10 @@ var CO_GI_MOI = {ban:'3.574', ds:[
   ["🖨 In DS tổ (Tra cứu KH): nhóm Xã › Điểm GD › Hội (bỏ cột Hội), STT theo từng Hội; Cộng điểm / Cộng xã ghi số tổ từng Hội", ""],
   ["Bản in thêm cột SĐT tổ trưởng và Tổ phó; bỏ cột 10C mới", ""],
   ["Tra cứu KH › bảng tổ: cột “10C mới” đã hiện đúng (trước bị co về 0 khi có cột CCCD); 8 cột chia lại cân đối, không cột nào bị cắt chữ", ""],
-  ["Sao kê › Nợ cần xử lý: “Diễn biến món vay 3 tháng KHĐ” — theo Xã › Điểm GD › Hội; cột Đầu năm, từng tháng, Hiện tại (Mẫu 31 ngày gần nhất)", ""],
-  ["Mỗi kỳ: số món + dư nợ; thêm Tăng/giảm so đầu năm và Mới / Thoát KHĐ so tháng trước", ""],
-  ["⋯ Nạp & KT nhận PDF hệ thống: KQGD (mẫu 13/GDX và mẫu cũ) + CLT02 — tự đọc chữ, không cần gõ lại", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
+  ["Sao kê › Nợ cần xử lý: “Diễn biến món vay 3 tháng KHĐ” — theo Xã › Điểm GD › Hội; cột Đầu năm, từng tháng, Hiện tại (Mẫu 31 ngày gần nhất)", ""]],   /* 3.230: chỉ giữ 15 dòng gần nhất — đủ lịch sử ở docs/CHANGELOG.md (tools/bump.py tự cắt) */
   thu:[   /* 3.432 (anh 01/11): HƯỚNG DẪN THỬ — nút mới ở đâu, mới nhất trên cùng (tools/bump.py thêm theo spec 'thu', giữ 20 dòng) */
+    "3.575 · Sao kê › 🎯 Chỉ tiêu VB 180 → 2 cột mới Lãi tồn / Món GN từ 01/01 có lãi tồn",
+    "3.575 · Đối chiếu tổng lãi tồn Toàn PGD với Mẫu 31 (lãi tồn TH + QH)",
     "3.574 · ⋯ Nạp & KT › 🔄 Bật tự quét hộp đến → đồng ý quyền đọc Drive → có dòng “Hộp đến có n file mới”",
     "3.574 · 📁 Thêm thư mục tự quét: chọn 03_DU_LIEU_GOC/KQGD → báo đủ file cũ chưa nạp → Nạp → ghi",
     "3.573 · Sao kê › 📋 Kết quả giao dịch › theo Hội: so mục 1 giao ban tháng",
@@ -1091,9 +1093,7 @@ var CO_GI_MOI = {ban:'3.574', ds:[
     "3.567 · 📊 Xuất Excel: 2 dòng tiêu đề, dư nợ đồng",
     "3.566 · ⋯ Nạp & KT › 📥 Nạp file: chọn 1 file KQGD_*.pdf → nhận “KQGD · <điểm>”, đúng ngày giao dịch",
     "3.566 · 📥 Lấy từ hộp đến: chọn vài file KQGD / CLT02 → xem trước → ghi; file ở hộp đến vẫn còn",
-    "3.566 · Sao kê › Đối chiếu KQGD ↔ Mẫu 31: chọn kỳ Mẫu 31 cùng ngày KQGD → số lệch đỏ",
-    "3.565 · ⋯ Nạp & KT: nạp Danh_sach_kiem_tra_10C_da_scan.xlsx → ô “DS kiểm tra 10C đã scan” ngày theo dòng Cập nhật",
-    "3.565 · Tra cứu KH › Tổ trưởng: cột 10C mới sau CCCD, lọc Đã scan / Thiếu, dòng Cộng; bấm ô tổ 2 bản → chọn bản mở"],
+    "3.566 · Sao kê › Đối chiếu KQGD ↔ Mẫu 31: chọn kỳ Mẫu 31 cùng ngày KQGD → số lệch đỏ"],
   bo:[   /* 3.432 (anh 01/11): CHỨC NĂNG ĐÃ BỎ / THAY THẾ — mới nhất trên cùng (spec 'bo', giữ 20 dòng) */
     "3.514 · 🛡 KTGS: bỏ thanh Bắt buộc / Đột xuất và 4 thẻ con — thay bằng 5 nút",
     "3.514 · 🛡 KTGS: màn Định kỳ 06+16 và màn Báo cáo tổng hợp Mẫu 04 gộp vào 🎯 Kiểm tra tổ (tích nhiều tổ)",
