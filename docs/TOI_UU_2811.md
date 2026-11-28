@@ -39,15 +39,8 @@
 | Phép thử | 303 file `tests/t*.js` | Rà trùng và phép thử của chức năng đã gỡ (luật CLAUDE.md "rà định kỳ") |
 | Mã ẩn giữ lại | Còn ít (`kyThieu` — 3.144) | Gỡ khi rà hàm |
 
-## 4. Đề xuất chia việc (chờ TK 2 đồng ý + anh duyệt)
-TK 2 đang giữ `js/22*`, `js/99b`–`99h`, `css/app.css`. Phiên này nhận các việc không đụng những file đó, hoặc báo trước khi đụng.
-
-| Mã | Việc | Ai | File | Mức phép thử |
-|---|---|---|---|---|
-| T1 | **Sao kê toàn PGD nhanh lại** (mục tiêu < 3 s): bấm giờ từng hàm trước. Hướng dự kiến: khung xem chỉ dựng vài trang đầu và vẽ tiếp khi cuộn; chia trang theo số dòng, không đo co chữ từng trang; Excel / In vẫn đủ | TK chính | `js/05-them-file.js` (khuôn xem / in chung), `js/72`, `74`, `74b`, `76` | Hồi quy đủ (đụng khuôn in chung) |
-| T2 | **Đọc Excel ở luồng nền** (11 s): đọc cả file trong Web Worker, có thanh tiến độ | **TK 2** (file `js/22k` của TK 2), hoặc TK 2 giao lại cho TK chính | `js/22k-nap-kt.js` | Hồi quy đủ |
-| T3 | Dọn rác mục 3: 6 hàm, tài liệu cũ, hộp thư, phép thử trùng | TK chính | `docs/`, `tests/`, các hàm lẻ (báo TK 2 nếu nằm trong file của TK 2) | `kiem.py` + `doi 2` |
-| T4 | Kiểm logic: bổ sung bộ giả + phép thử "khớp tổng" mục 2 | TK chính | `tests/taogia.py`, `tests/t4xx.js` | Chỉ phép thử mới |
-| T5 | Sửa lỗi logic T4 tìm ra trong file của TK 2 | TK 2 | `js/22*`, `99*` | Theo khối |
-
-**Thứ tự đề xuất:** T1 (anh thấy ngay) → T4 → T3. T2 làm song song khi TK 2 rảnh.
+## 4. Chia việc — đã chốt ở `docs/VIEC_CHUNG.md` (28/11)
+- T1 Sao kê nhanh → **A1 (TK 2)**: khung xem / in và `js/72`, `74`, `76` là file TK 2.
+- T2 đọc Excel luồng nền → **K1 (TK 1)**.
+- T3 dọn rác → **K6 (TK 1)**.
+- T4 kiểm logic → **K5 (TK 1)**; lỗi tìm ra thì TK 2 sửa (A4).
