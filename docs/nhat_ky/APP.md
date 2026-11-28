@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 — TK 2 · PHIÊN (3.573 ô Kết quả giao dịch)
+- Anh "Code và gộp" kế hoạch KQGD: js/99g OKQ (theo Hội + biến động, gom KQGD chi tiết + đối chiếu PDF), js/22h SK_TT_CAN. t422 6/6. Hồi quy sau gộp 3.571: 300 đạt, t131 trượt do dời cgn → sửa phép thử (PR #594).
+- Bẫy: báo cáo nhóm Thông tin tổ lập qua `b.lap = ttBaoCao(b.k)` gán theo mã (không theo nhóm) → dời nhóm an toàn; cần nạp ttChuanBi thì push mã vào SK_TT_CAN.
+
 ### 28/11/2026 — TK 2 · PHIÊN (3.572 phân nhóm A/B/C món KHĐ)
 - Mục 7 danh sách đã duyệt: bảng khd_abc trong ô KHĐ (khuôn Phụ lục mục 3 giao ban). Bẫy: đơn vị lãi suất Mẫu 31 chưa đối chiếu file thật — giả định > 2 là %/năm (OKHD.thangLai), cần anh kiểm vài món.
 - Hết danh sách việc đã duyệt (trừ phần KQGD — lên kế hoạch chờ anh duyệt).

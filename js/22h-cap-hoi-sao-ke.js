@@ -398,7 +398,7 @@ var SK_XEM_HEN = null;
 function skXemHen(){ clearTimeout(SK_XEM_HEN); SK_XEM_HEN = setTimeout(function(){ if(document.getElementById('sk-xem-khung')) skXem(); }, 120); }
 function skDoiKho(v){ var C = skCH(), k = skChon(); C.kho = C.kho || {}; C.kho[k] = v; luu();
   ['ngang','doc'].forEach(function(x){ var b = document.getElementById('sk-kho-'+x); if(b) b.classList.toggle('bat', x===v); }); skXemHen(); }
-var SK_K = null, SK_XEM = [];
+var SK_K = null, SK_XEM = [], SK_TT_CAN = [];   /* 3.573: báo cáo cắm rút cần nạp như nhóm Thông tin tổ (ttChuanBi — chốt cuối tháng) thì push mã vào SK_TT_CAN */
 function skCH(){ var C = D.cauHinh.skTK = D.cauHinh.skTK || {ky:'', xa:'', diem:'', hoi:'', to:'', bc:{qh:true}, tu:'', den:''}; C.bc = C.bc || {}; return pvGan(C); }
 PV_DUNG.sk = {S:function(){ return skCH(); }, K:function(){ return SK_K; }, sau:function(){ if(skCH().man==='xem') skXemHen(); }};   /* 3.386: đổi lọc → vẽ lại khung xem */
 function veSaoKe(){
@@ -635,7 +635,7 @@ function skXem(){
   if(SK_K.thieuBang) return bao('Bảng số liệu chưa có trên máy này — bấm ☁ Nối Drive và tải trước.', 5);
   var ds = SK_BC.filter(function(b){ return C.bc[b.k]; }); if(!ds.length) return bao('Chọn 1 báo cáo.', 3);
   if(C.bc.dh && (!C.tu || !C.den || C.tu > C.den)) return bao('Chọn khoảng ngày đến hạn (từ ngày ≤ đến ngày).', 4);
-  if((C.bc.kqgd || C.bc.thhd || C.bc.tqh || C.bc.tkn || C.bc.tkhd) && !skXem.ttNap) return ttChuanBi().then(function(){   /* 3.261: chốt cuối tháng + BC0437 + file phân kỳ, xong mới lập (1 lần) */
+  if((C.bc.kqgd || C.bc.thhd || C.bc.tqh || C.bc.tkn || C.bc.tkhd || SK_TT_CAN.some(function(k){ return C.bc[k]; })) && !skXem.ttNap) return ttChuanBi().then(function(){   /* 3.261: chốt cuối tháng + BC0437 + file phân kỳ, xong mới lập (1 lần) */
     var K = TT_K || SK_K, e = K.B && K.B.hsTen==='Mẫu 31' && KHO.bang('hstd', K.thang); return e ? skPKNap(e.ngay) : null; }).then(function(){
     var K0 = SK_K; SK_K = TT_K || K0; skXem.ttNap = true; skXem.daNap = true; try{ skXem(); } finally { skXem.ttNap = false; skXem.daNap = false; SK_K = K0; } });
   if((C.bc.noxh || C.bc.pkto) && !skXem.daNap){ var M = skMau31(), e = M && KHO.bang('hstd', SK_K.thang);   /* 3.91: nạp trước file phân kỳ */

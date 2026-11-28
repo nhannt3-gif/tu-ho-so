@@ -4,6 +4,12 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.573 — 28/11/2026 — Ô Sao kê Kết quả giao dịch (theo Hội, biến động) (TK 2)
+- **Nguồn:** anh 28/11 "riêng phần nào KQGD em lên KH làm luôn" → kế hoạch 3.573 → "Code và gộp".
+- **js/99g `OKQ` — ô 📋 Kết quả giao dịch (trước nhóm Thông tin tổ, A4 ngang):** B1 Kết quả theo Hội đoàn thể nhận ủy thác (khuôn mục 1 + 6 giao ban): mỗi điểm GD (Hội + Cộng điểm) rồi Toàn xã (Hội + Cộng xã) — số tổ, số khách hàng còn dư nợ, doanh số cho vay / thu nợ tháng, tổng dư nợ, tỷ trọng, nợ quá hạn + tỷ lệ, nợ khoanh, hộ KHĐ, tiết kiệm · B2 Biến động so tháng trước theo Hội: khách hàng, dư nợ, tiền gửi, lãi tồn — kỳ này / tháng trước / ± (lãi tồn tăng tô đỏ). Chuyển hẳn vào ô: "Kết quả giao dịch tại điểm GD" (chi tiết từng tổ) và "Đối chiếu KQGD ↔ Mẫu 31".
+- **Số liệu:** dùng lại `ttDuLieu` (js/22j — cùng cách đếm KQGD chi tiết), kỳ Mẫu 31 chốt tháng như nhóm Thông tin tổ; tháng trước = `KHO.nap(tháng trước)`. js/22h thêm `SK_TT_CAN` (báo cáo cắm rút cần nạp như Thông tin tổ).
+- **Phép thử:** t422 (mới); t205, t314, t418 cập nhật; t276 chụp thêm 2 bảng (KQGD chi tiết, đối chiếu PDF không đổi kết quả).
+
 ## 3.572 — 28/11/2026 — Phân nhóm xử lý A/B/C món vay 3 tháng KHĐ (TK 2)
 - **Nguồn:** danh sách việc anh duyệt 28/11, mục 7 (khuôn Phụ lục mục 3 "Nội dung họp giao ban": nhóm A mới phát sinh lãi tồn dưới 6 tháng lãi, nhóm C lãi tồn từ 12 tháng lãi trở lên, nhóm B còn lại).
 - **js/99d:** bảng `khd_abc` trong ô KHĐ — mỗi món KHĐ (Mẫu 31 hiện tại, theo lọc Sao kê): Hội · Tổ trưởng · Khách hàng (đánh dấu mới) · Ấp · Chương trình · Dư nợ · GD gần nhất · Lãi tồn · Số tháng lãi · Nhóm; nhóm theo Điểm GD (đếm A/B/C từng điểm), tóm tắt đầu bảng. Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng theo Mẫu 31; lãi suất > 2 hiểu là %/năm). "Mới" = không có trong KHĐ tháng chốt trước (sổ theo dõi DBT). Thiếu lãi suất → nhóm "?".
