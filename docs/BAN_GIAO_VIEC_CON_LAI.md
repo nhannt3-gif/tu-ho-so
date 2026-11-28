@@ -266,6 +266,15 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.573)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › Kết quả giao dịch › theo Hội (1 điểm) | khớp bảng mục 1 giao ban (số tổ, KH, dư nợ, tỷ trọng, QH, KHĐ) | |
+| 2 | Theo Hội (cả xã) | có Toàn xã như mục 6 giao ban | |
+| 3 | Biến động so tháng trước | dư nợ / tiền gửi / lãi tồn ± khớp bảng 2 mục 1 giao ban | |
+
+Ghi chú kỹ thuật 3.573: OKQ.b2 tạm đổi SK_K sang kỳ tháng trước để gọi ttDuLieu (try/finally khôi phục). Ghép điểm giữa 2 kỳ theo tên điểm + tên xã.
+
 ### Danh sách thử trên máy thật (3.572)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

@@ -54,8 +54,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  /* 2. đối chiếu KQGD ↔ Mẫu 31 */
  r = await p.evaluate(async()=>{ const C = skCH(); C.bc = {kqgd31:1}; C.man = 'xem'; await skXem(); await new Promise(z=>setTimeout(z, 300));
    const x = [].concat(SK_XEM||[]).find(y=>/ĐỐI CHIẾU KQGD/.test(y.tieuDe||'')) || {}, h = x.html || '';
-   return {co:SK_BC.some(b=>b.k==='kqgd31' && b.nhom==='tt'), tieu:x.tieuDe, lech:(/(\d+) ô lệch/.exec(h)||[])[1], chua:/chưa ghép tổ app/.test(h), n:(x.aoa||[]).length, do:(h.match(/class="s do"/g)||[]).length}; });
- ok('Sao kê › Thông tin tổ: Đối chiếu KQGD ↔ Mẫu 31 — đúng 2 ô lệch (dòng Hội + tổ bị sửa, dư nợ), tổ đều ghép được', r.co && /GIA LOC|GIA LỘC/i.test(r.tieu||'') && r.lech==='2' && r.do===2 && !r.chua && r.n>3, JSON.stringify(r));
+   return {co:SK_BC.some(b=>b.k==='kqgd31' && b.nhom===(typeof OKQ!=='undefined' && OKQ.b1 ? 'kq3' : 'tt'))   /* 3.573: sang ô Kết quả giao dịch */, tieu:x.tieuDe, lech:(/(\d+) ô lệch/.exec(h)||[])[1], chua:/chưa ghép tổ app/.test(h), n:(x.aoa||[]).length, do:(h.match(/class="s do"/g)||[]).length}; });
+ ok('Sao kê › Kết quả giao dịch (3.573; trước: Thông tin tổ): Đối chiếu KQGD ↔ Mẫu 31 — đúng 2 ô lệch (dòng Hội + tổ bị sửa, dư nợ), tổ đều ghép được', r.co && /GIA LOC|GIA LỘC/i.test(r.tieu||'') && r.lech==='2' && r.do===2 && !r.chua && r.n>3, JSON.stringify(r));
  /* 3. KQGD mẫu cũ (đơn vị đồng, "Ngày dd/mm/yyyy", "ĐIỂM GIAO DỊCH: …") */
  r = await p.evaluate(async()=>{ const C = {so_ho:159, dn:383, qh:452, lt:612, tg:914}, d = [{tr:1, s:'KET QUA GIAO DICH', x:300, y:30, sz:11}, {tr:1, s:'DIEM GIAO DICH: GIA BINH', x:300, y:45}, {tr:1, s:'Ngay 15/09/2026', x:350, y:60},
      /* mẫu cũ thật: tên và số in 2 hàng so le lệch ~3 pt (file 21/08/2026) */
