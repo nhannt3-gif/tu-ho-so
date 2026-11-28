@@ -12,6 +12,10 @@
 > - Lưu ý / bẫy: …
 > ```
 
+### 28/11/2026 — TK 2 · PHIÊN (3.574 tự quét hộp đến)
+- Anh "duyệt tự quét": js/99h TUQ — xin thêm drive.readonly (DRIVE_SCOPE + tokeninfo kiểm), quét hopDenId + tqThuMuc, dòng báo file mới dưới thanh Nạp & KT, Nạp = GET + slDocNhieu, đã thấy theo id + md5. t423 8/8.
+- Chờ anh: bật trên máy thật; nếu Google không hỏi quyền đọc → khai scope drive.readonly ở OAuth consent screen (+ Test users).
+
 ### 28/11/2026 — TK 2 · PHIÊN (3.573 ô Kết quả giao dịch)
 - Anh "Code và gộp" kế hoạch KQGD: js/99g OKQ (theo Hội + biến động, gom KQGD chi tiết + đối chiếu PDF), js/22h SK_TT_CAN. t422 6/6. Hồi quy sau gộp 3.571: 300 đạt, t131 trượt do dời cgn → sửa phép thử (PR #594).
 - Bẫy: báo cáo nhóm Thông tin tổ lập qua `b.lap = ttBaoCao(b.k)` gán theo mã (không theo nhóm) → dời nhóm an toàn; cần nạp ttChuanBi thì push mã vào SK_TT_CAN.

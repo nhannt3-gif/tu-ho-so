@@ -266,6 +266,16 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.574)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | ⋯ Nạp & KT › 🔄 Bật tự quét hộp đến | màn Google hỏi thêm quyền xem Drive → đồng ý → báo đã bật | |
+| 2 | 📁 Thêm thư mục tự quét: 03_DU_LIEU_GOC/KQGD | dòng báo đủ số file KQGD cũ | |
+| 3 | 📥 Nạp n file → xem trước → ghi | file KQGD vào kho, tên chuẩn; file gốc còn nguyên | |
+| 4 | Mở lại Nạp & KT | không báo lại file đã nạp | |
+
+Ghi chú kỹ thuật 3.574: nếu màn Google không hỏi quyền đọc — dự án OAuth chưa khai `.../auth/drive.readonly` (scope nhạy cảm; app chưa xác minh thì thêm tài khoản vào Test users). Quyền đã cấp gỡ ở myaccount.google.com.
+
 ### Danh sách thử trên máy thật (3.573)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|
