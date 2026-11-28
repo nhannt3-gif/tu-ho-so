@@ -266,6 +266,11 @@ Mục 1 → 11 của bàn giao v1.1 và toàn bộ đợt 0 (lỗi nền). Chi t
 
 _Ghi chú kỹ thuật 3.411.3:_ chỉ `tests/`; danh sách phép giữ `gia31` + lý do ở `docs/RA_SOAT_HOI_QUY.md` dòng ✅ D2.
 
+### Danh sách thử trên máy thật (3.576)
+| # | Việc thử | Kết quả mong đợi | Đạt? |
+|---|---|---|---|
+| 1 | Sao kê › KHĐ › Phân nhóm A/B/C | số tháng lãi = lãi tồn ÷ (dư nợ × lãi suất %/năm ÷ 12), khớp Biên bản 06A | |
+
 ### Danh sách thử trên máy thật (3.575)
 | # | Việc thử | Kết quả mong đợi | Đạt? |
 |---|---|---|---|

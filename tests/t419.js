@@ -68,6 +68,8 @@ const fs=require('fs'), path=require('path'), G=path.resolve(__dirname,'..');
  const xa1 = await p.evaluate(()=>KHO.dsToKy(SK_K).find(x=>!x.trucTiep).xa); r = await xem('khd_tq', {xa:xa1}); const x2 = r.aoa.slice(2).filter(d=>/^Xã /.test(d[1]));
  ok('lọc Xã của Sao kê → 1 xã, Toàn PGD = xã đó', x2.length===1 && r.aoa[1][c('Món hiện tại')]===x2[0][c('Món hiện tại')], JSON.stringify(x2.length));
  await p.evaluate(()=>{ skCH().xa = ''; });
+ r = await p.evaluate(()=>OKHD.thangLai({dn:12e6, ltTH:2e5}, 1.2));
+ ok('3.576 QT-C-23: số tháng lãi = lãi tồn ÷ (dư nợ × lãi suất %/năm ÷ 100 ÷ 12), kể cả lãi suất ≤ 2', Math.abs(r-200000/12000)<1e-9, String(r));
  /* 8. rút js/99d */
  const q = await mo(true); r = await q.evaluate(()=>({k:typeof OKHD, nhom:SK_NHOM.some(n=>n.k==='khd3'), xl:SK_BC.filter(b=>b.nhom==='xl').map(b=>b.k).join()}));
  ok('rút js/99d: không còn ô KHĐ, sao kê KHĐ về lại ô Nợ cần xử lý', r.k==='undefined' && !r.nhom && /(^|,)khd(,|$)/.test(r.xl), JSON.stringify(r));
