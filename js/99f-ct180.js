@@ -4,7 +4,9 @@
    1 Tỷ lệ nợ quá hạn ≤ min(31/12, 0,08%) · 2 Món vay 3 tháng KHĐ ≤ chỉ tiêu đến quý (−30%/năm) · 3 Nợ khoanh ≤ chỉ tiêu đến quý (−5%/năm) — bộ máy DBT (js/99c) như các ô js/99d, 99e;
    4 Thu nợ gốc đến hạn ≥ 99% — ƯỚC TÍNH (js/99e, 2 Mẫu 31 chốt) · 5 Tổ xếp loại TB, Yếu = 0 · 6 Điểm CL tổ bình quân ≥ 93 — CLT02 tháng (js/95) của kỳ Sao kê đang chọn ·
    7 Tổ viên còn dư nợ gửi TK 105 ≥ 10.000 đ ≥ 99% — Mẫu 31 kỳ Sao kê (tổng TK 105 các sổ của khách, QT-C-01).
-   Chưa có nguồn trong app (ghi chú cuối bảng): điểm CL hoạt động giao dịch xã ≥ 97; lãi tồn giảm so đầu năm / món giải ngân mới có lãi tồn.
+   3.575 (V8, anh duyệt 28/11): 8 Lãi tồn giảm so đầu năm — tổng lãi tồn mọi món (Mẫu 31 hiện tại so 31/12, sổ DBT ltTo) · 9 Món giải ngân từ 01/01 có lãi tồn = 0
+     (Mẫu 31 hiện tại: ngày GN đầu tiên / ngày vay ≥ 01/01 năm Sao kê, lãi tồn > 0; kết quả "số món có lãi tồn / số món GN mới").
+   Chưa có nguồn trong app (ghi chú cuối bảng): điểm CL hoạt động giao dịch xã ≥ 97.
    Chỉ đọc. Cắm rút: bỏ dòng <script> là mất ô. Cần js/99c, 99d, 99e. ES5. */
 var CT180 = (function(){
   var M = {};
@@ -27,6 +29,10 @@ var CT180 = (function(){
     /* hàng: mọi xã / điểm có tổ trong kỳ Sao kê (không chỉ nơi có KHĐ) */
     var H = {}; dsTo.forEach(function(t){ var k = t.xa+'|'+t.khoaDiem; if(!H[k]) H[k] = {xa:t.xa, tenXa:t.tenXa||'', diem:t.khoaDiem, tenDiem:String(t.tenDiemDu || t.tenDiem || '').replace(/\s*·?\s*ngày\s*\d+.*$/i, '')}; });
     var hang = ONO.hangTu(H);
+    /* 3.575: món giải ngân từ 01/01 năm Sao kê (Mẫu 31 hiện tại của bộ máy DBT) */
+    var gn = [], gnCo = !!(DBT.hienB && DBT.hienK), d01 = SK_K.thang.slice(0, 4)+'-01-01', daG = {};
+    if(gnCo) (kcGoc(DBT.hienB) || []).forEach(function(o){ var nv = String(o.ngn || o.nv || ''); if(!o.ku || daG[o.ku] || !(nv>=d01) || !((o.dn||0)>0)) return; daG[o.ku] = 1;
+      var t = KHO.toKy(DBT.hienK, toMaCua(o)); if(t && !t.trucTiep && pvLoc(S, t)) gn.push({t:t, lt:Math.round(laiTon(o)||0)}); });
     var CT = [
       {ten:'Tỷ lệ nợ quá hạn', dv:'%', tinh:function(d){ var h = O.loc(gQ, d.f), td = ONO.dnNhom(mQ.hien, d.f); if(!O.coSo(mQ.hien)) return null; var tl = td ? (h ? h.dn : 0)/td*100 : 0;
           var a = O.coSo(mQ.dau) ? (function(){ var x = O.loc(gQ0, d.f), t0 = ONO.dnNhom(mQ.dau, d.f); return t0 ? (x ? x.dn : 0)/t0*100 : 0; })() : null, c = a==null ? ctQ.tran : Math.min(a, ctQ.tran);
@@ -43,7 +49,11 @@ var CT180 = (function(){
       {ten:'Điểm CL tổ bình quân', dv:'điểm', tinh:function(d){ var ds = dsTo.filter(function(t){ return d.f(t) && clt[t.ma] && clt[t.ma].diem!=null; }); if(!ds.length) return null;
           var bq = ds.reduce(function(s, t){ return s+(+clt[t.ma].diem||0); }, 0)/ds.length; return {kq:bq.toLocaleString('vi-VN', {minimumFractionDigits:2, maximumFractionDigits:2}), ct:'≥ 93', dat:bq>=93-1e-9, so:bq}; }},
       {ten:'Tổ viên gửi TK ≥ 10.000 đ', dv:'%', tinh:function(d){ var n = 0, du = 0; dsTo.forEach(function(t){ if(d.f(t) && tk[t.ma]){ n += tk[t.ma].n; du += tk[t.ma].du; } }); if(!n) return null;
-          var tl = du/n*100; return {kq:pt(tl, 1), ct:'≥ 99%', dat:tl>=99-1e-9, so:tl}; }}];
+          var tl = du/n*100; return {kq:pt(tl, 1), ct:'≥ 99%', dat:tl>=99-1e-9, so:tl}; }},
+      {ten:'Lãi tồn', dv:'tr.đ', tinh:function(d){ var v = ONO.dnNhom(mQ.hien, d.f, 'ltTo'); if(v==null) return null; var a = ONO.dnNhom(mQ.dau, d.f, 'ltTo');
+          return {kq:tr(v), ct:a==null ? 'giảm so 31/12' : '< '+tr(a), dat:a==null ? null : (v<a || v===0), so:v}; }},
+      {ten:'Món GN từ 01/01 có lãi tồn', dv:'món', tinh:function(d){ var z = gn.filter(function(w){ return d.f(w.t); }); if(!z.length) return gnCo ? {kq:'0/0', ct:'0', dat:true, so:0} : null;
+          var n = z.filter(function(w){ return w.lt>0; }).length; return {kq:so(n)+'/'+so(z.length), ct:'0', dat:n===0, so:n}; }}];
     var th = '<tr><th rowspan="2">Stt</th><th rowspan="2">Đơn vị</th>'+CT.map(function(c){ return '<th colspan="3">'+c.ten+' <small>('+c.dv+')</small></th>'; }).join('')+'<th rowspan="2">Số chỉ tiêu đạt</th></tr><tr>'+
       CT.map(function(){ return '<th>Kết quả</th><th>Chỉ tiêu</th><th>ĐG</th>'; }).join('')+'</tr>';
     var aoa = [['Stt', 'Đơn vị'].concat([].concat.apply([], CT.map(function(c){ return [c.ten+' — kết quả', 'chỉ tiêu', 'đánh giá']; }))).concat(['Số chỉ tiêu đạt'])], stt = 0;
@@ -57,7 +67,7 @@ var CT180 = (function(){
       (dh ? ' · *thu nợ đến hạn: ước tính tháng '+kyVN(ONO.dh.m)+' (2 Mẫu 31 chốt)' : ' · *thu nợ đến hạn: cần Mẫu 31 chốt 2 tháng liên tiếp');
     return {ten:'Chi tieu VB 180', tieuDe:'ĐỐI CHIẾU CHỈ TIÊU CỦNG CỐ, NÂNG CAO CHẤT LƯỢNG TÍN DỤNG (CV 180/NHCS-KHTD)', ngay:mK.hien ? 'Đến ngày '+mK.hien.phu : N.ngay,
       html:'<div class="bc-tom">'+tom+'</div><table class="bc-bang"><thead>'+th+'</thead><tbody>'+body+'</tbody></table>'+
-        '<div class="bc-ghi">ĐG: ✓ đạt · ✗ chưa đạt · trống = chưa đủ số liệu. Chưa có nguồn trong app: điểm chất lượng hoạt động giao dịch xã (≥ 97); lãi tồn giảm so đầu năm / món giải ngân mới từ 01/01 có lãi tồn.</div>', aoa:aoa}; };
+        '<div class="bc-ghi">ĐG: ✓ đạt · ✗ chưa đạt · trống = chưa đủ số liệu. Lãi tồn: tổng lãi tồn trong hạn + quá hạn mọi món (Mẫu 31). Món GN từ 01/01: ngày giải ngân đầu tiên trong năm, đang còn dư nợ. Chưa có nguồn trong app: điểm chất lượng hoạt động giao dịch xã (≥ 97).</div>', aoa:aoa}; };
   if(typeof SK_NHOM!=='undefined' && !SK_NHOM.some(function(n){ return n.k==='ct180'; })) SK_NHOM.unshift({k:'ct180', ten:'🎯 Chỉ tiêu VB 180'});
   SK_BC.push({k:'ct180', ten:'Đối chiếu toàn bộ chỉ tiêu VB 180 — Toàn PGD, xã, điểm GD (1 trang)', nhom:'ct180', kho:'ngang', lap:function(){ return M.lap(); }});
   DBT.dangKyBC('ct180', ['khd', 'qh', 'kn']);

@@ -24,8 +24,8 @@ var ONO = (function(){
   M.ctQH = function(){ var c = D.cauHinh.qhCT || {}; return {tran:+c.tran>0 ? +c.tran : 0.08}; };
   M.ctKN = function(){ var c = D.cauHinh.knCT || {}; return {pt:(+c.pt>0 && +c.pt<100) ? +c.pt : 5}; };
   /* tổng dư nợ (mẫu số tỷ lệ QH) của nhóm tổ trong 1 kỳ */
-  M.dnNhom = function(k, f){ if(!O.coSo(k) || !k.s.dnTo) return null; var S = skCH(), r = 0;
-    Object.keys(k.s.dnTo).forEach(function(m){ var t = k.s.to[m]; if(t && pvLoc(S, t) && f(t)) r += k.s.dnTo[m]; }); return r; };
+  M.dnNhom = function(k, f, tr){ var T = O.coSo(k) && k.s[tr || 'dnTo']; if(!T) return null; var S = skCH(), r = 0;   /* 3.575: tr = 'ltTo' → tổng lãi tồn (VB 180) */
+    Object.keys(T).forEach(function(m){ var t = k.s.to[m]; if(t && pvLoc(S, t) && f(t)) r += T[m]; }); return r; };
   /* ---------- B1 ô Quá hạn ---------- */
   M.b1QH = function(){ var x = O.can('qh_tq', 'qh'); if(x.N.can) return x.N.can; var c = x.c, m = x.m, hang = O.hang(c), ct = M.ctQH();
     var g = [m.dau, m.truoc, m.hien].map(function(k){ return O.gop(k, khoaD); });

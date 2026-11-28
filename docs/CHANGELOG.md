@@ -4,6 +4,13 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.575 — 28/11/2026 — VB 180: chỉ tiêu lãi tồn (TK 2)
+- **Nguồn:** danh sách việc TK 2 anh duyệt 28/11 "Ok code và gộp" (V8 bảng chia việc).
+- **js/99f `CT180`:** thêm chỉ tiêu 8 *Lãi tồn* (tổng lãi tồn TH + QH mọi món, Mẫu 31 hiện tại; đạt khi giảm so 31/12 hoặc bằng 0) và 9 *Món GN từ 01/01 có lãi tồn* (ngày GN đầu tiên / ngày vay ≥ 01/01 năm Sao kê, còn dư nợ; kết quả số món có lãi tồn / số món GN mới; chỉ tiêu 0). Ghi chú cuối bảng chỉ còn *điểm CL giao dịch xã* chưa có nguồn.
+- **js/99c `DBT`:** chỉ tiêu tỷ lệ (qh) lưu thêm `ltTo` (lãi tồn theo tổ); `BAN` 3 → 4 (sổ theo dõi tự tính lại 1 lần).
+- **js/99e:** `ONO.dnNhom(k, f, tr)` thêm tham số trường (mặc định `dnTo`).
+- **Phép thử:** t421 thêm 2 phép (lãi tồn hiện tại / 31/12, món GN mới có lãi tồn).
+
 ## 3.574 — 28/11/2026 — Tự quét hộp đến (TK 2)
 - **Nguồn:** anh 28/11 "em làm phần tự nạp file PDF KQGD có sẵn vào kho chưa" → đề xuất tự quét (cần quyền chỉ đọc Drive) → "duyệt tự quét".
 - **js/99h `TUQ`:** ⋯ Nạp & KT › 🔄 Bật tự quét hộp đến → xin thêm quyền `drive.readonly` (DRIVE_SCOPE thêm, đồng ý 1 lần), kiểm quyền thật bằng tokeninfo; chưa có (dự án Google Cloud chưa khai scope) → không bật, báo cách khai (OAuth consent screen › Scopes, Test users). Thư mục quét: hộp đến đã nhớ (`hopDenId`) + thư mục thêm bằng Picker (`tqThuMuc`); chỉ PDF / Excel trực tiếp trong thư mục. Mở Nạp & KT → quét (≤ 1 lần / 10 phút) → dòng "🔄 Hộp đến có n file mới — 📥 Nạp n file" ngay dưới thanh công cụ (thanh vẫn 1 hàng) → tải GET → xem trước (slDocNhieu) → anh ghi. CHỈ CHÉP vào kho, không dời / xóa. "Đã thấy" lưu trên máy theo mã file + md5 (file đổi nội dung báo lại); có Quét lại từ đầu · Thêm thư mục · Tắt.

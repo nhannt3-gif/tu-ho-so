@@ -1,6 +1,6 @@
 # BẢN ĐỒ MÃ (tự sinh bởi `tests/bando.py`, đừng sửa tay)
 
-Bản 3.574 · 28/11/2026 10:18 · 169 file · 49155 dòng · 3757 hàm cấp ngoài · 670 biến toàn cục.
+Bản 3.575 · 28/11/2026 10:34 · 169 file · 49165 dòng · 3757 hàm cấp ngoài · 670 biến toàn cục.
 
 Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" js/*.js` hoặc đọc đúng khoảng dòng (Read offset/limit). Thứ tự nạp = thứ tự bảng 1 (đúng như các khối <script> trước khi tách). `python3 tests/ghep.py ra.html` ghép lại 1 file. Số dòng đổi theo bản — chạy lại script khi cần.
 
@@ -167,7 +167,7 @@ Cách dùng: tìm file / mục dưới đây rồi `grep -n "function tênHàm" 
 | `js/99c-dien-bien.js` | 62 | 0 | /*   3.567 (anh 25/11/2026: "tạo 1 báo cáo theo dõi món vay 3 tháng KHĐ theo xã, điểm giao dịch, hội đoàn thể  |
 | `js/99d-o-khd.js` | 184 | 0 | /*   3.570 (anh 28/11/2026: "diễn biến món vay 3 tháng anh chưa vừa ý, cần đơn giản theo xã, điểm GD biến động |
 | `js/99e-o-no.js` | 145 | 0 | /*   3.570 (anh 28/11/2026: "tương tự em có ô Nợ quá hạn, nợ khoanh, nợ đến hạn" · "khuôn A4 ngang, cột cơ bản |
-| `js/99f-ct180.js` | 65 | 0 | /*   3.571 (danh sách việc anh duyệt 28/11/2026, mục 6 "bảng đối chiếu toàn bộ chỉ tiêu VB 180 theo xã / điểm  |
+| `js/99f-ct180.js` | 75 | 0 | /*   3.571 (danh sách việc anh duyệt 28/11/2026, mục 6 "bảng đối chiếu toàn bộ chỉ tiêu VB 180 theo xã / điểm  |
 | `js/99g-o-kqgd.js` | 72 | 0 | /*   3.573 (anh 28/11/2026 duyệt kế hoạch "phần nào KQGD em lên KH làm luôn" · "Code và gộp"): 📋 Ô Sao kê "KẾT |
 | `js/99h-tu-quet.js` | 65 | 0 | /*   3.574 (anh 28/11/2026 "em làm phần tự nạp file PDF KQGD có sẵn vào kho chưa" → đề xuất tự quét → "duyệt t |
 | `js/mau/0hst.js` | 149 | 0 | /*   3.452 (anh 02/11 "làm tiếp 10B, 10C theo đúng quy chuẩn 10A") — PHẦN CHUNG mẫu Hồ sơ Tổ làm lại theo QUY_ |
