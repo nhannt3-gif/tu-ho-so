@@ -1,4 +1,4 @@
-# KẾ HOẠCH C1 — Giao việc có cấu trúc, kỳ sau tự chấm từ Mẫu 31 (chờ anh duyệt)
+# KẾ HOẠCH C1 — Giao việc có cấu trúc, tự chấm từ Mẫu 31 — **HOÃN, để bên Giao ban** (anh 28/11 "Để bên giao ban")
 
 > Nguồn: `DANH_GIA_CHUYEN_GIA_1511.md` mục C1 · bàn giao TK 2 ngày 28/11 (`PHOI_HOP_CHUNG.md` mục 14): TK 1 làm C1 bằng gói mới `js/9x-giao-viec.js`, lên kế hoạch ngắn rồi chờ anh duyệt.
 > Soạn 28/11/2026, phiên TK chính làm thay phần TK 1. **Chưa sửa code.** Anh nhắn "code" thì mới làm.
