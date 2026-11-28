@@ -44,3 +44,13 @@
 - T2 đọc Excel luồng nền → **K1 (TK 1)**.
 - T3 dọn rác → **K6 (TK 1)**.
 - T4 kiểm logic → **K5 (TK 1)**; lỗi tìm ra thì TK 2 sửa (A4).
+
+## 5. Kết quả A1 (TK 2, 3.577)
+| Báo cáo toàn PGD | 3.574 | 3.577 |
+|---|---|---|
+| `ct` | 24,9 s | 3,6 s |
+| `b105` | 18,1 s | 2,8 s |
+| `sdt` | 8,2 s | 1,3 s |
+| `ddn` | 4,0 s | 2,2 s |
+
+Cách làm: khung xem chỉ dựng 20 trang đầu; HTML > 400 KB cắt còn 1.200 dòng trước khi nạp khung; In / PDF nạp lại bản đủ. Phần còn lại (1,5–2 s) là lập báo cáo (`skBaoCao`) + cắt dòng (DOMParser ≈ 0,5 s).
