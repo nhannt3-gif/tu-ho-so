@@ -3,7 +3,7 @@
 > Mỗi khóa: **chủ** = file khai đầu tiên theo thứ tự nạp · số chỗ dùng · các file dùng · mô tả (ghi ở `tests/cau_hinh.json`). Luật: `docs/QUY_CHUAN_KIEN_TRUC.md` mục 13 (08/11/2026).
 > Khóa động (`D.cauHinh[k]`) không quét được. Khóa có trong sổ mà code không còn dùng → cột "dùng" = 0 (xem có bỏ được không — dữ liệu cũ vẫn phải đọc được).
 
-**182 khóa** trong code · 183 khóa trong sổ.
+**184 khóa** trong code · 185 khóa trong sổ.
 
 | Khóa | Chủ | Dùng | File | Mô tả |
 |---|---|---|---|---|
@@ -11,7 +11,7 @@
 | `anLocNhanh` | 11-khung-tab.js | 2 | 11-khung-tab.js |  |
 | `anPV` | 10-danh-sach.js | 6 | 10-danh-sach.js · 20-khoi-dong.js |  |
 | `anPVTab` | 10-danh-sach.js | 5 | 10-danh-sach.js · 20-khoi-dong.js |  |
-| `apiKey` | 06c-drive.js | 3 | 06c-drive.js · 10-danh-sach.js · 99b-kqgd-pdf.js |  |
+| `apiKey` | 06c-drive.js | 4 | 06c-drive.js · 10-danh-sach.js · 99b-kqgd-pdf.js · 99h-tu-quet.js |  |
 | `bangTab` | 11-khung-tab.js | 7 | 11-khung-tab.js |  |
 | `bblvHaiMat` | mau/0hsn.js | 2 | mau/0hsn.js | 3.480: BBLV công tắc riêng |
 | `bcToi` | 63-bao-cao-toi.js | 4 | 63-bao-cao-toi.js |  |
@@ -65,7 +65,7 @@
 | `gxSo` | 38-goi-xem.js | 1 | 38-goi-xem.js |  |
 | `hoiDoanThe` | 11-khung-tab.js | 1 | 11-khung-tab.js |  |
 | `hoMoi` | 25c-ho-so-giao-dien.js | 2 | 25c-ho-so-giao-dien.js · 33-so-ho-them.js |  |
-| `hopDenId` | 99b-kqgd-pdf.js | 3 | 99b-kqgd-pdf.js | 3.566: thư mục hộp đến trên Drive (📥 Lấy từ hộp đến, js/99b) — nhớ lần chọn trước |
+| `hopDenId` | 99b-kqgd-pdf.js | 7 | 99b-kqgd-pdf.js · 99h-tu-quet.js | 3.566: thư mục hộp đến trên Drive (📥 Lấy từ hộp đến, js/99b) — nhớ lần chọn trước |
 | `hsApCuoi` | 08-dia-ban.js | 6 | 08-dia-ban.js · 12-scan.js · 12d-scan-ocr-cau-noi.js |  |
 | `hsDiemCuoi` | 08-dia-ban.js | 3 | 08-dia-ban.js · 12-scan.js |  |
 | `hsDS` | 02-nen.js | 2 | 02-nen.js · 07-cccd.js |  |
@@ -180,6 +180,8 @@
 | `toCot` | 22gb-to-giao-dien.js | 1 | 22gb-to-giao-dien.js |  |
 | `toNguong` | 22gb-to-giao-dien.js | 3 | 22gb-to-giao-dien.js · 58-tc-to.js | QĐ 70: tổ 20–100 thành viên; ô ⚙ Ngưỡng của tab Tổ khai thì theo ô đó |
 | `toTK` | 22g-to.js | 2 | 22g-to.js |  |
+| `tqBat` | 99h-tu-quet.js | 6 | 99h-tu-quet.js | 3.574: bật tự quét hộp đến (js/99h) — xin thêm quyền drive.readonly |
+| `tqThuMuc` | 99h-tu-quet.js | 4 | 99h-tu-quet.js | 3.574: danh sách mã thư mục Drive tự quét thêm (ngoài hopDenId) |
 | `tuKhoa` | 19-danh-muc.js | 6 | 19-danh-muc.js | từ khóa = bộ gói sẵn trong app, anh sửa dòng nào thì dòng đó theo anh (D.cauHinh.tuKhoa) |
 | `tuLenDrive` | 05-them-file.js | 4 | 05-them-file.js · 09-bieu-mau.js · 18-cai-dat.js |  |
 | `tuTai` | 05-them-file.js | 2 | 05-them-file.js |  |

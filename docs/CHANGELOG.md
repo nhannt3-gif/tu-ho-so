@@ -4,6 +4,11 @@ Ghi theo từng bản. Chi tiết lỗi/rủi ro và mã số (L1, R1, N1…) xe
 
 ---
 
+## 3.574 — 28/11/2026 — Tự quét hộp đến (TK 2)
+- **Nguồn:** anh 28/11 "em làm phần tự nạp file PDF KQGD có sẵn vào kho chưa" → đề xuất tự quét (cần quyền chỉ đọc Drive) → "duyệt tự quét".
+- **js/99h `TUQ`:** ⋯ Nạp & KT › 🔄 Bật tự quét hộp đến → xin thêm quyền `drive.readonly` (DRIVE_SCOPE thêm, đồng ý 1 lần), kiểm quyền thật bằng tokeninfo; chưa có (dự án Google Cloud chưa khai scope) → không bật, báo cách khai (OAuth consent screen › Scopes, Test users). Thư mục quét: hộp đến đã nhớ (`hopDenId`) + thư mục thêm bằng Picker (`tqThuMuc`); chỉ PDF / Excel trực tiếp trong thư mục. Mở Nạp & KT → quét (≤ 1 lần / 10 phút) → dòng "🔄 Hộp đến có n file mới — 📥 Nạp n file" ngay dưới thanh công cụ (thanh vẫn 1 hàng) → tải GET → xem trước (slDocNhieu) → anh ghi. CHỈ CHÉP vào kho, không dời / xóa. "Đã thấy" lưu trên máy theo mã file + md5 (file đổi nội dung báo lại); có Quét lại từ đầu · Thêm thư mục · Tắt.
+- **Phép thử:** t423 (mới, Drive giả).
+
 ## 3.573 — 28/11/2026 — Ô Sao kê Kết quả giao dịch (theo Hội, biến động) (TK 2)
 - **Nguồn:** anh 28/11 "riêng phần nào KQGD em lên KH làm luôn" → kế hoạch 3.573 → "Code và gộp".
 - **js/99g `OKQ` — ô 📋 Kết quả giao dịch (trước nhóm Thông tin tổ, A4 ngang):** B1 Kết quả theo Hội đoàn thể nhận ủy thác (khuôn mục 1 + 6 giao ban): mỗi điểm GD (Hội + Cộng điểm) rồi Toàn xã (Hội + Cộng xã) — số tổ, số khách hàng còn dư nợ, doanh số cho vay / thu nợ tháng, tổng dư nợ, tỷ trọng, nợ quá hạn + tỷ lệ, nợ khoanh, hộ KHĐ, tiết kiệm · B2 Biến động so tháng trước theo Hội: khách hàng, dư nợ, tiền gửi, lãi tồn — kỳ này / tháng trước / ± (lãi tồn tăng tô đỏ). Chuyển hẳn vào ô: "Kết quả giao dịch tại điểm GD" (chi tiết từng tổ) và "Đối chiếu KQGD ↔ Mẫu 31".
