@@ -142,8 +142,8 @@ var OKHD = (function(){
         'Không tính món quá hạn, nợ khoanh và các món luật KHĐ loại trừ (HSSV, đang ân hạn, lãi suất 0…).</div><table class="bc-bang"><thead>'+th+'</thead><tbody>'+body+'</tbody></table>', aoa:aoa}; };
   /* ---------- B6 Phân nhóm xử lý A/B/C (danh sách anh duyệt 28/11 mục 7; khuôn Phụ lục mục 3 "Nội dung họp giao ban") ----------
      Nhóm A: mới phát sinh (chưa là KHĐ ở tháng chốt trước) và lãi tồn dưới 6 tháng lãi — xử lý ngay trong tháng · Nhóm C: lãi tồn từ 12 tháng lãi trở lên — phân tích từng món,
-     đề xuất xử lý rủi ro / biện pháp thu hồi · Nhóm B: còn lại. Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng); lãi suất Mẫu 31 > 2 hiểu là %/năm (÷ 12), ngược lại %/tháng. */
-  M.thangLai = function(o, ls){ var r = +ls; if(!(r>0) || !(o.dn>0)) return null; var th = r>2 ? r/12/100 : r/100; return (laiTon(o)||0)/(o.dn*th); };
+     đề xuất xử lý rủi ro / biện pháp thu hồi · Nhóm B: còn lại. Số tháng lãi = lãi tồn / (dư nợ × lãi suất tháng); lãi suất tháng = lãi suất Mẫu 31 (%/năm, QT-C-23) ÷ 12. */
+  M.thangLai = function(o, ls){ var r = +ls; if(!(r>0) || !(o.dn>0)) return null; return (laiTon(o)||0)/(o.dn*r/100/12); };   /* 3.576: QT-C-23 — lãi suất Mẫu 31 luôn %/năm (bỏ đoán ≤ 2 là %/tháng) */
   M.b6 = function(){ var x = M.can('khd_abc'); if(x.N.can) return x.N.can; var m = x.m, B = DBT.hienB, K = DBT.hienK;
     if(!m.hien || !B || !K || B.hsTen!=='Mẫu 31') return {ten:'KHD nhom ABC', tieuDe:'MÓN VAY 3 THÁNG KHÔNG HOẠT ĐỘNG — PHÂN NHÓM XỬ LÝ A / B / C', ngay:x.N.ngay, aoa:[['Cần Mẫu 31 hiện tại']], html:'<div class="bc-rong">Cần Mẫu 31 hiện tại.</div>'};
     var goc = {}; (kcGoc(B) || []).forEach(function(o){ if(o.ku && !goc[o.ku]) goc[o.ku] = o; }); var cu = M.coSo(m.truoc) ? m.truoc.s.ku : null, S = skCH(), ds = [], dem = {A:0, B:0, C:0, '?':0};
