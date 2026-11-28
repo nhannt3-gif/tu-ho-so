@@ -1,6 +1,6 @@
 # Bảng trạng thái chung — App · Giao ban (tự sinh — không sửa tay)
 
-> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 28/11/2026 10:28 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
+> Sinh bởi `python3 tools/trang_thai_chung.py` lúc 28/11/2026 10:30 từ `QUY_TAC_SO_LIEU.md` + `PHOI_HOP_CHUNG.md`. Sửa nguồn rồi chạy lại.
 
 | Mục | Hiện trạng |
 |---|---|
@@ -8,7 +8,7 @@
 | Sổ luật | bản 1.12 · ✅ 18 · 🔧 8 · ⏳ 0 luật · 5 luật chờ chốt (mục 2) |
 | Phép thử chung | `tests/chung/truong_hop_mau.json` bản 1.4 · 12 luật có trường hợp mẫu · 1 luật chưa đạt / chưa chạy ở một bên |
 | Chờ anh quyết | 11 việc (mục 13) |
-| Hộp thư còn mở | 52 dòng |
+| Hộp thư còn mở | 53 dòng |
 
 ## Luật đã chốt nhưng một bên chưa áp
 
@@ -127,6 +127,9 @@
 
 **→ TK 3** (1)
 - 28/10 · TK 2 → TK 3: (chuyển từ mục 5) dt.html "vẫn giữ nhưng tối ưu hơn, chỉ nạp kỳ gần nhất" (anh 25/10) — TK 3 báo đã làm chưa. Âm lịch đa…
+
+**→ anh, TK 2** (1)
+- 28/11 · TK chính (làm phần TK 1) → anh…: C1 — kế hoạch ngắn docs/KE_HOACH_C1_GIAO_VIEC.md (theo chia việc dòng TK 2 28/11): gói mới js/9x-giao-viec.js (GVC), 6 l…
 
 **→ phiên đánh giá, TK 1, anh** (1)
 - 15/11 · TK 2 → phiên đánh giá, TK 1, a…: Trả lời thư 4b: đã xếp E / F vào đợt — DANH_GIA_CHUYEN_GIA_1511.md mục 4c: đợt 2 thêm E1 khóa giữa các tab · E2 tự xin l…
